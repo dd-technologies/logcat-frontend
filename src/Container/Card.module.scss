@@ -1,0 +1,7 @@
+@import "../css//veriables.module.scss";
+
+.card {
+  height: 250px;
+  border-radius: $cardBorderRadius;
+  padding: $padding;
+}

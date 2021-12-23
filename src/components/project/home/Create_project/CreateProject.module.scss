@@ -1,0 +1,48 @@
+@import "../../../../css/veriables.module.scss";
+
+.backgroundSection {
+  width: 100%;
+  height: 400px;
+  top: 0%;
+  position: absolute;
+  background-image: url("../../../../../public/assets/images/backgroundImage.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover; 
+  opacity: 0.8;
+  z-index: -3;
+}
+
+.MainContantainer {
+  margin-top: 50px;
+  .para {
+    font-weight: $activeLinkTextFontWeight;
+    font-size: 2rem;
+    color: $defaultTextColor;
+  }
+  .addProject {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .InfoColumn {
+    height: 130%;
+    width: 100%;
+  }
+
+  .InfoDetails {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & p {
+      padding: $padding;
+
+      & span {
+        margin-right: $margin;
+      }
+    }
+  }
+}

@@ -7,15 +7,33 @@
   background-color: $SideNavBackgroundColor !important;
   color: $defaultTextColor;
 
-  .SideNavMain {
+  .componysec {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: $borderBottom;
+
     & p {
-      font-size: 2rem;
+      margin-top: $padding;
+      font-weight: $ActiveParaTextFontWeight;
     }
 
-    & section {
-      & p {
-        font-size: 1rem;
-      }
+    & img {
+      height: 60px;
+    }
+  }
+
+  // project section
+  .projectSection {
+    .projectSectionCardOuter {
+      display: flex;
+      justify-content: space-between;
+    }
+    .projectSectionCard {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      background-color: $inerOptionBackgroundColor;
     }
   }
 }
