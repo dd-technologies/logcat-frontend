@@ -3,6 +3,7 @@ import { Dropdown, Row, Col } from "react-bootstrap";
 import Style from "./MainNav.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faQuestion } from "@fortawesome/free-solid-svg-icons";
+import "../../../css/theme.scss";
 
 export default function MainNav() {
   return (

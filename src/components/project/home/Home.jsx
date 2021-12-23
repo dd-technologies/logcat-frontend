@@ -11,6 +11,7 @@ import {
   faCalendar,
   faRocket,
 } from "@fortawesome/free-solid-svg-icons";
+import "../../../css/theme.scss";
 
 export default function Home() {
   return (
@@ -35,7 +36,7 @@ export default function Home() {
                 </section>
                 <section className={Style.filterwithDate}>
                   <FontAwesomeIcon icon={faCalendar} />
-                  <input type="date" />
+                  <input className="dateinput" type="date" />
                 </section>
               </Col>
             </Row>
