@@ -1,0 +1,64 @@
+@import "../../../css/veriables.module.scss";
+
+.MainNav {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+
+  .OuterInfoSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 20% !important;
+
+    & section {
+      display: flex !important;
+      justify-content: space-between !important;
+    }
+
+    & p {
+      color: $pColor;
+      font-weight: bold !important;
+      height: 100%;
+    }
+
+    .Avtar {
+      width: 40px;
+      height: 40px;
+      border-radius: 100%;
+      background-color: $avtarcolor;
+
+      & p {
+        width: 100%;
+        height: 100%;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        color: $defaultTextColor;
+      }
+    }
+  }
+}
+
+.projectDetails {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center !important;
+
+  .projectDetailsInner {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between;
+  }
+
+  .questionSection {
+    background-color: $filterButtonBackgroundColor;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+    border-radius: 100%;
+  }
+}
