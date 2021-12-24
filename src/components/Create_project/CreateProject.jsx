@@ -7,7 +7,7 @@ import {
   faCity,
 } from "@fortawesome/free-solid-svg-icons";
 import Style from "./CreateProject.module.scss";
-import CardMain from "../../Container/CardMain";
+import CreateCard from "../../Container/CreateCard";
 
 export default function CreateProject() {
   return (
@@ -17,7 +17,7 @@ export default function CreateProject() {
         <p className={Style.para}>Your Projects</p>
         <Row>
           <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
-            <CardMain>
+            <CreateCard>
               <section className={Style.addProject}>
                 <section>
                   <p>
@@ -26,13 +26,13 @@ export default function CreateProject() {
                   <p>Add Project</p>
                 </section>
               </section>
-            </CardMain>
+            </CreateCard>
           </Col>
 
           {/* dynamic projects */}
 
           <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
-            <CardMain>
+            <CreateCard>
               <Row>
                 <Col xl={12} className={Style.InfoColumn}>
                   <h4>Agva Advanced</h4>
@@ -50,7 +50,7 @@ export default function CreateProject() {
                   </p>
                 </Col>
               </Row>
-            </CardMain>
+            </CreateCard>
           </Col>
         </Row>
       </Container>

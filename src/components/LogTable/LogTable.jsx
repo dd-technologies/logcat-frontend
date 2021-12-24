@@ -10,6 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import Style from "./LogTable.module.scss";
+import NavSideBar from "../../utils/NavSideBar";
 const products = [];
 
 function addProducts(quantity) {
@@ -29,6 +30,7 @@ addProducts(5);
 export default function LogTable() {
   return (
     <>
+      <NavSideBar />
       <Row>
         <Col>
           <Container>

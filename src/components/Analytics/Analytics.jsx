@@ -10,11 +10,9 @@ import Style from "./Analytics.module.scss";
 export default function Analytics() {
   return (
     <>
-      {/* sideBar */}
       <Row>
-        {/* withNavbarRow */}
+      
         <Col>
-          {/* page Data */}
           <Container>
             {/* data from api */}
             <Col className="my-4">

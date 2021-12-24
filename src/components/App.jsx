@@ -9,9 +9,9 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/Analytics" component={Analytics} />
+        <Route exact path="/analytics" component={Analytics} />
+        <Route exact exact path="/logtable" component={LogTable} />
         <Route exact exact path="/" component={CreateProject} />
-        <Route exact exact path="/home" component={LogTable} />
       </Switch>
     </Router>
   );
