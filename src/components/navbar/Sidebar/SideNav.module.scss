@@ -6,12 +6,12 @@
   height: 100vh;
   background-color: $SideNavBackgroundColor !important;
   color: $defaultTextColor;
+  overflow: hidden;
 
   .componysec {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    border-bottom: $borderBottom;
 
     & p {
       margin-top: $padding;
@@ -23,17 +23,5 @@
     }
   }
 
-  // project section
-  .projectSection {
-    .projectSectionCardOuter {
-      display: flex;
-      justify-content: space-between;
-    }
-    .projectSectionCard {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      background-color: $inerOptionBackgroundColor;
-    }
-  }
+ 
 }

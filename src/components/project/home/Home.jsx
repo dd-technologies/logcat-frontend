@@ -21,14 +21,13 @@ export default function Home() {
         <Col xl={2} lg={2} sm={2}>
           <SideNav />
         </Col>
+
+        {/* withNavbarRow */}
         <Col xl={10} lg={10} sm={10}>
+          <MainNav />
+
+          {/* homecomponents */}
           <Container>
-            <Row className="mt-4">
-              <Col xl={12}>
-                <MainNav />
-              </Col>
-              <hr className="mt-3" />
-            </Row>
             <Row className="mt-4">
               <Col xl={12} className={Style.filterWithDate}>
                 <section className={Style.filterGraphFirstSction}>

@@ -1,0 +1,13 @@
+.MainDiv {
+  & setcion {
+    display: flex;
+    justify-content: space-around;
+    width: 60% !important;
+
+    & p {
+      & span {
+        padding: 7px;
+      }
+    }
+  }
+}

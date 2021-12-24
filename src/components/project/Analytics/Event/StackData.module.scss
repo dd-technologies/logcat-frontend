@@ -1,0 +1,37 @@
+@import "../../../../css/veriables.module.scss";
+
+.outerDiv {
+  border-radius: $cardBorderRadius;
+
+  .StackInfoDive {
+    background-color: $filterButtonBackgroundColor;
+    border-top-left-radius: $cardBorderRadius;
+    border-top-right-radius: $cardBorderRadius;
+    margin: 0px;
+    border: $borderNormal;
+
+    .ParaWithArrowDown {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    & h3 {
+      font-size: 1.3rem;
+    }
+  }
+
+  .detailSection {
+    border: $borderNormal;
+    border-bottom-left-radius: $cardBorderRadius;
+    border-bottom-right-radius: $cardBorderRadius;
+    display: flex;
+    align-items: center;
+    background-color: $defaultTextColor;
+    .lineBrack {
+      & p {
+        width: 100%;
+        border-bottom: 1px dotted;
+      }
+    }
+  }
+}
