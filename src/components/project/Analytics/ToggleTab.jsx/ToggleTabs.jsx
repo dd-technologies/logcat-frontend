@@ -12,18 +12,18 @@ export default function ToggleTabs() {
 
         <Row className={`${Style.ToggleTabs}`}>
           <Col className={Style.ToggleTabs_active}>
-            <p>Devices</p>
+            <p className="p-2">Devices</p>
             <h4></h4>
           </Col>
           <Col>
-            <p>Operating System</p>
+            <p className="p-2">Operating System</p>
             <h4></h4>
           </Col>
         </Row>
 
         {/* data from toggle */}
         <Row>
-          <Col>
+          <Col className="p-4">
             <section>
               <ToggleTabChart />
             </section>

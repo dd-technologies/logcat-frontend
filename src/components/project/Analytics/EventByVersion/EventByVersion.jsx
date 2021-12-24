@@ -7,7 +7,7 @@ export default function EventByVersion() {
   return (
     <>
       <CardMain>
-        <Row>
+        <Row className="p-4">
           <Col xl={4}>
             <p>Total events by version</p>
             <p>2.35.4.55</p>

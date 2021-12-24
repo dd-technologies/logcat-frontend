@@ -1,11 +1,22 @@
 import React from "react";
-import CardMain from "../../../../Container/CardMain";
+import EventCard from "../../../../Container/EventCard";
+
+import EventDataWithDate from "./EventDataWithDate";
+import StackData from "./StackData";
+import Stack_keys from "./Stack_keys";
+
 
 export default function EventData() {
   return (
     <>
-      <CardMain>
-      </CardMain>
+      <EventCard>
+        <EventDataWithDate />
+        <Stack_keys />
+
+        {/* pending toggle button */}
+
+        <StackData />
+      </EventCard>
     </>
   );
 }

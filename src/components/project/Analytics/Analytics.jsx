@@ -42,9 +42,13 @@ export default function Analytics() {
 
             <Col className={`${Style.AnalyticsEvents} my-4`}>
               <p>Events</p>
-              <section>
-                <FontAwesomeIcon icon={faLessThan} />
-                <FontAwesomeIcon icon={faGreaterThan} />
+              <section className={Style.PrevNext}>
+                <section>
+                  <FontAwesomeIcon icon={faLessThan} />
+                </section>
+                <section>
+                  <FontAwesomeIcon icon={faGreaterThan} />
+                </section>
               </section>
             </Col>
 
