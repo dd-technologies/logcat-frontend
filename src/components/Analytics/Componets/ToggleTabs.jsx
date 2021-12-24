@@ -1,8 +1,7 @@
 import React from "react";
-import CardMain from "../../../../Container/CardMain";
 import { Row, Col } from "react-bootstrap";
 import Style from "./ToggleTabs.module.scss";
-import ToggleTabChart from "./ToggleTabsChart";
+import CardMain from "../../../Container/CardMain";
 
 export default function ToggleTabs() {
   return (
@@ -24,9 +23,7 @@ export default function ToggleTabs() {
         {/* data from toggle */}
         <Row>
           <Col className="p-4">
-            <section>
-              <ToggleTabChart />
-            </section>
+            <section></section>
           </Col>
         </Row>
       </CardMain>

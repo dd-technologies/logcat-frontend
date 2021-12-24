@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, Row, Col, Card, Button, Image } from "react-bootstrap";
-import Style from "./LogTable.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEllipsisV,
@@ -9,9 +8,8 @@ import {
   faCalendar,
   faRocket,
 } from "@fortawesome/free-solid-svg-icons";
-import "../../css/theme.scss";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
-
+import Style from "./LogTable.module.scss";
 const products = [];
 
 function addProducts(quantity) {

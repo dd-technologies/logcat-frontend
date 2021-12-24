@@ -1,19 +1,17 @@
 import "./App.scss";
-// import LogTable from "./LogTable/LogTable.jsx";
-// import CreateProject from "./Create_project/CreateProject";
-// import Analytics from "./Analytics/Analytics";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import NavSideBar from "../utils/NavSideBar";
+import Analytics from "./Analytics/Analytics";
+import CreateProject from "./Create_project/CreateProject";
+import LogTable from "./LogTable/LogTable";
 
 function App() {
   return (
     <Router>
       <Switch>
-        {/* <Route exact path="/Analytics" component={Analytics} />
+        <Route exact path="/Analytics" component={Analytics} />
         <Route exact exact path="/" component={CreateProject} />
-        <Route exact exact path="/home" component={LogTable} /> */}
-        <Route exact exact path="/" component={NavSideBar} />
+        <Route exact exact path="/home" component={LogTable} />
       </Switch>
     </Router>
   );

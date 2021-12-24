@@ -1,13 +1,14 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import CardMain from "../../../Container/CardMain";
-import Style from "./CreateProject.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCodeBranch,
   faPlus,
   faCity,
 } from "@fortawesome/free-solid-svg-icons";
+import Style from "./CreateProject.module.scss";
+import CardMain from "../../Container/CardMain";
+
 export default function CreateProject() {
   return (
     <>

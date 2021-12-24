@@ -1,10 +1,10 @@
 import React from "react";
 import { Row, Col, Container } from "react-bootstrap";
-import EventData from "./Event/EventData";
-import EventByVersion from "./EventByVersion/EventByVersion";
-import ToggleTabs from "./ToggleTab.jsx/ToggleTabs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGreaterThan, faLessThan } from "@fortawesome/free-solid-svg-icons";
+import EventByVersion from "./Componets/EventDataWithDate";
+import ToggleTabs from "./Componets/ToggleTabs";
+import EventData from "./charts/EventData";
 import Style from "./Analytics.module.scss";
 
 export default function Analytics() {
