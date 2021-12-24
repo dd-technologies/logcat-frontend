@@ -8,11 +8,12 @@ import Analytics from "./components/project/Analytics/Analytics";
 function App() {
   return (
     <>
-      <Analytics />
+      {/* <Analytics /> */}
       <Router>
         <Switch>
-          <Route path='/createProject' components={CreateProject} />
-          <Route exact path="/" Component={Home} />
+          <Route exact path="/" component={CreateProject} />
+          <Route  path='/home' components={Home} />
+          <Route  path='/analytics' components={Analytics} />
         </Switch>
       </Router>
     </>
