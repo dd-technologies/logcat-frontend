@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import CardMain from "../../../../Container/CardMain";
+import CardMain from "../../../Container/CardMain";
 import Style from "./CreateProject.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

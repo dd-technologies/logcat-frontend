@@ -1,7 +1,5 @@
 import React from "react";
 import { Row, Col, Container } from "react-bootstrap";
-import MainNav from "../../navbar/Nav/MainNav";
-import SideNav from "../../navbar/Sidebar/SideNav";
 import EventData from "./Event/EventData";
 import EventByVersion from "./EventByVersion/EventByVersion";
 import ToggleTabs from "./ToggleTab.jsx/ToggleTabs";
@@ -14,14 +12,8 @@ export default function Analytics() {
     <>
       {/* sideBar */}
       <Row>
-        <Col xl={2} lg={2} sm={2}>
-          <SideNav />
-        </Col>
-
         {/* withNavbarRow */}
-        <Col xl={10} lg={10} sm={10}>
-          <MainNav />
-
+        <Col>
           {/* page Data */}
           <Container>
             {/* data from api */}

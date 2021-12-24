@@ -1,8 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Card, Button, Image } from "react-bootstrap";
-import MainNav from "../../navbar/Nav/MainNav";
-import SideNav from "../../navbar/Sidebar/SideNav";
-import Style from "./Home.module.scss";
+import Style from "./LogTable.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEllipsisV,
@@ -11,22 +9,30 @@ import {
   faCalendar,
   faRocket,
 } from "@fortawesome/free-solid-svg-icons";
-import "../../../css/theme.scss";
+import "../../css/theme.scss";
+import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 
-export default function Home() {
+const products = [];
+
+function addProducts(quantity) {
+  const startId = products.length;
+  for (let i = 0; i < quantity; i++) {
+    const id = startId + i;
+    products.push({
+      id: id,
+      name: "Item name " + id,
+      price: 2100 + i,
+    });
+  }
+}
+
+addProducts(5);
+
+export default function LogTable() {
   return (
     <>
-      {/*navbar  */}
       <Row>
-        <Col xl={2} lg={2} sm={2}>
-          <SideNav />
-        </Col>
-
-        {/* withNavbarRow */}
-        <Col xl={10} lg={10} sm={10}>
-          <MainNav />
-
-          {/* homecomponents */}
+        <Col>
           <Container>
             <Row className="mt-4">
               <Col xl={12} className={Style.filterWithDate}>
@@ -128,6 +134,7 @@ export default function Home() {
             </Row>
 
             {/* data table */}
+
             <Row className="p-3">
               <Card className={Style.DeviceGraphOuter}>
                 {/* search and filter functionallty */}
@@ -139,7 +146,7 @@ export default function Home() {
                   <section>
                     <input
                       type="text"
-                      className="m-3"
+                      className="m-3 p-3"
                       placeholder="Search issues titles, subtitles or keys"
                     />
                     <FontAwesomeIcon icon={faEllipsisV} />
@@ -147,7 +154,19 @@ export default function Home() {
                 </Col>
 
                 {/* table data */}
-                <Col></Col>
+                <Col>
+                  <BootstrapTable data={products} pagination>
+                    <TableHeaderColumn dataField="id" isKey={true}>
+                      Product ID
+                    </TableHeaderColumn>
+                    <TableHeaderColumn dataField="name">
+                      Product Name
+                    </TableHeaderColumn>
+                    <TableHeaderColumn dataField="price">
+                      Product Price
+                    </TableHeaderColumn>
+                  </BootstrapTable>
+                </Col>
               </Card>
             </Row>
           </Container>

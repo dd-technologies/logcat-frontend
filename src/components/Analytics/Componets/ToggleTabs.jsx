@@ -2,7 +2,7 @@ import React from "react";
 import CardMain from "../../../../Container/CardMain";
 import { Row, Col } from "react-bootstrap";
 import Style from "./ToggleTabs.module.scss";
-import ToggleTabChart from "./charts/ToggleTabsChart";
+import ToggleTabChart from "./ToggleTabsChart";
 
 export default function ToggleTabs() {
   return (
