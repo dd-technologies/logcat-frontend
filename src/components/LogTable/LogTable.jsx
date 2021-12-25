@@ -24,7 +24,7 @@ export default function LogTable() {
           <Navbar />
 
           {/* data inhere */}
-          <Container style={{ marginTop: "80px", marginBottom: "20px" }}>
+          <Container style={{ marginTop: "8%", marginBottom: "5%" }}>
             <Row className="mt-4">
               <Col xl={12} className={Style.filterWithDate}>
                 <section className={Style.filterGraphFirstSction}>
