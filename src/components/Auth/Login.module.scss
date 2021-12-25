@@ -1,0 +1,27 @@
+@import "../../css/veriables.module.scss";
+.Login {
+  padding: 30px;
+  width: 500px;
+
+  .headerText {
+    font-size: 3rem;
+    font-weight: 500;
+    color: $activehrefText;
+  }
+
+  .imputFields {
+    display: flex;
+    align-items: center;
+    border: $border;
+    border-radius: $cardBorderRadius;
+    padding: 5px;
+    & input {
+      border: none !important;
+      background: none !important;
+    }
+
+    & svg {
+      color: $activehrefText;
+    }
+  }
+}
