@@ -1,12 +1,12 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import CardMain from "../../../Container/CardMain";
+import CustomCard from "../../../Container/CustomCard";
 import EventChart from "../charts/EventChart";
 
 export default function EventByVersion() {
   return (
     <>
-      <CardMain>
+      <CustomCard>
         <Row className="p-4">
           <Col xl={4}>
             <p>Total events by version</p>
@@ -20,7 +20,7 @@ export default function EventByVersion() {
             </section>
           </Col>
         </Row>
-      </CardMain>
+      </CustomCard>
     </>
   );
 }

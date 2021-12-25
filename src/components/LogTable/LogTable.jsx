@@ -11,7 +11,7 @@ import { Navbar, SideBar } from "../../utils/NavSideBar";
 import "../../css/theme.scss";
 import CrashFreeStatics from "./components/CrashFreeStatics";
 import TrandData from "./components/TrandData";
-import EventCard from "../../Container/EventCard";
+import CustomCard from "../../Container/CustomCard";
 
 export default function LogTable() {
   return (
@@ -60,7 +60,7 @@ export default function LogTable() {
             {/* data table */}
 
             <Row className="mt-3">
-              <EventCard>
+              <CustomCard>
                 {/* search and filter functionallty */}
                 <Col className={`${Style.filterFunctionalty} p-3`}>
                   <p>
@@ -79,7 +79,7 @@ export default function LogTable() {
 
                 {/* table data */}
                 <Col></Col>
-              </EventCard>
+              </CustomCard>
             </Row>
           </Container>
         </Col>

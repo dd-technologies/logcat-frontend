@@ -4,12 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import Style from "./TrandData.module.scss";
 import CarshFreeStaticsGraph from "../charts/CarshFreeStaticsGraph";
-import CardMain from "../../../Container/CardMain";
+import CustomCard from "../../../Container/CustomCard";
 
 export default function TrandData() {
   return (
     <>
-      <CardMain>
+      <CustomCard>
         <Row className="p-3">
           <Col xl={12} className={Style.Trand}>
             <h5> Trands</h5>
@@ -60,7 +60,7 @@ export default function TrandData() {
             <CarshFreeStaticsGraph />
           </Col>
         </Row>
-      </CardMain>
+      </CustomCard>
     </>
   );
 }

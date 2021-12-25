@@ -1,12 +1,12 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import Style from "./ToggleTabs.module.scss";
-import CardMain from "../../../Container/CardMain";
+import CustomCard from "../../../Container/CustomCard";
 
 export default function ToggleTabs() {
   return (
     <>
-      <CardMain>
+      <CustomCard>
         {/* {toggle menu} */}
 
         <Row className={`${Style.ToggleTabs}`}>
@@ -26,7 +26,7 @@ export default function ToggleTabs() {
             <section></section>
           </Col>
         </Row>
-      </CardMain>
+      </CustomCard>
     </>
   );
 }

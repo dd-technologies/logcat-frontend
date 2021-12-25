@@ -6,10 +6,10 @@ export default function CreateCard(props) {
     <>
       <Card
         style={{
-          height: "100%",
+          height: props.height ? props.height : "100%",
           borderRadius: "10px",
           overflow: "hidden",
-          padding: "10px",
+          padding: props.padding ? props.padding : "0px",
         }}
       >
         {props.children}

@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CreateProject from "./Create_project/CreateProject";
 import LogTable from "./LogTable/LogTable";
 import Analytics from "./Analytics/Analytics";
+import NotFound from "./NotFound";
+import Login from "./Auth/Login";
 
 function App() {
   return (
@@ -11,7 +13,9 @@ function App() {
       <Switch>
         <Route exact path="/analytics" component={Analytics} />
         <Route exact path="/logtable" component={LogTable} />
-        <Route exact path="/" component={CreateProject} />
+        <Route path="/project" component={CreateProject} />
+        <Route exact path="/" component={Login} />
+        <Route exact path="*" component={NotFound} />
       </Switch>
     </Router>
   );

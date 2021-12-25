@@ -1,5 +1,5 @@
 import React from "react";
-import EventCard from "../../../Container/EventCard";
+import CustomCard from "../../../Container/CustomCard";
 import EventDataWithDate from "./EventDataWithDate";
 import Stackkeys from "./Stackkeys";
 import StackData from "./StackData";
@@ -7,12 +7,12 @@ import StackData from "./StackData";
 export default function AnalyticsEventDataComp() {
   return (
     <>
-      <EventCard>
+      <CustomCard>
         <EventDataWithDate />
         <Stackkeys />
         {/* pending toggle button */}
         <StackData />
-      </EventCard>
+      </CustomCard>
     </>
   );
 }

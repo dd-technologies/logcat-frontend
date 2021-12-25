@@ -4,11 +4,11 @@ import { Row, Col, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CarshFreeStaticsGraph from "../charts/CarshFreeStaticsGraph";
 import { faQuestion } from "@fortawesome/free-solid-svg-icons";
-import CardMain from "../../../Container/CardMain";
+import CustomCard from "../../../Container/CustomCard";
 export default function CrashFreeStatics() {
   return (
     <>
-      <CardMain>
+      <CustomCard>
         <Row className="p-3">
           <Col xl={12} className={Style.Statics}>
             <h5>Crash free Statics</h5>
@@ -24,7 +24,7 @@ export default function CrashFreeStatics() {
             <CarshFreeStaticsGraph />
           </Col>
         </Row>
-      </CardMain>
+      </CustomCard>
     </>
   );
 }
