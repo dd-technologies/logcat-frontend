@@ -1,3 +1,78 @@
-.MainNavBarSide {
-  position: absolute;
+@import "../css/veriables.module.scss";
+
+// navbar
+.navbar {
+  background-color: $backgroundColor;
+  height: 9%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  position: fixed;
+  z-index: 9;
+  width: 85%;
+  .userInfo {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & section {
+      color: $filterButtonBackgroundColor;
+      margin-left: 10px;
+    }
+    .Avtar {
+      background-color: $filterButtonBackgroundColor;
+      border-radius: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      color: $activehrefText;
+      font-weight: 700;
+    }
+  }
+}
+
+// siderbar
+.sideBar {
+  background-image: url("../../public//assets/images/Mask\ Group\ 1.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size:100%;
+  background-color: $sideBarBackgroundColor;
+  height: 100vh;
+  position: fixed;
+  width: 17.2%;
+  z-index: 10;
+
+  .componyDetails {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10%;
+    & img {
+      width: 45px;
+    }
+
+    & section {
+      color: $defaultTextColor;
+    }
+  }
+
+  .options {
+    .optionItems {
+      display: flex;
+      align-items: center;
+      color: $defaultTextColor;
+      padding-left: 20%;
+      & section {
+        padding: 10px;
+      }
+    }
+
+    .option_active {
+      background-color: $backgroundColor;
+      border-bottom: $borderBottom;
+    }
+  }
 }

@@ -9,7 +9,6 @@ export default function CardMain(props) {
           height: "350px",
           borderRadius: "10px",
           overflow: "hidden",
-          padding: "10px",
         }}
       >
         {props.children}

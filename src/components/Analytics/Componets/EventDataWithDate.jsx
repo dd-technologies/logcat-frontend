@@ -1,8 +1,9 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGreaterThan, faLessThan } from "@fortawesome/free-solid-svg-icons";
+import { faLessThan } from "@fortawesome/free-solid-svg-icons";
 import Style from "./EventDatWithTable.module.scss";
+import CardMain from "../../../Container/CardMain";
 
 export default function EventDataWithDate() {
   return (

@@ -21,3 +21,9 @@
 p {
   margin-bottom: 0 !important;
 }
+
+// erasing padding and margin from col and nav
+.row > * {
+  margin: 0%;
+  padding: 0%;
+}

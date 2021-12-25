@@ -1,7 +1,7 @@
 import React from "react";
-import CardMain from "../../../../Container/CardMain";
 import { Row, Col } from "react-bootstrap";
-import EventChart from "./EventChart";
+import CardMain from "../../../Container/CardMain";
+import EventChart from "../charts/EventChart";
 
 export default function EventByVersion() {
   return (

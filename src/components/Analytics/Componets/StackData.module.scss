@@ -8,7 +8,7 @@
     border-top-left-radius: $cardBorderRadius;
     border-top-right-radius: $cardBorderRadius;
     margin: 0px;
-    border: $borderNormal;
+    border: $borderBottom;
 
     .ParaWithArrowDown {
       display: flex;
@@ -21,7 +21,7 @@
   }
 
   .detailSection {
-    border: $borderNormal;
+    border: $borderBottom;
     border-bottom-left-radius: $cardBorderRadius;
     border-bottom-right-radius: $cardBorderRadius;
     display: flex;

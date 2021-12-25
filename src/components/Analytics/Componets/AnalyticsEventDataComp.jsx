@@ -1,18 +1,16 @@
 import React from "react";
 import EventCard from "../../../Container/EventCard";
-import EventDataWithDate from "../charts/EventData";
-import StackData from "../Componets/StackData";
-import Stack_keys from "../Componets/Stack_keys";
+import EventDataWithDate from "./EventDataWithDate";
+import Stackkeys from "./Stackkeys";
+import StackData from "./StackData";
 
-export default function EventData() {
+export default function AnalyticsEventDataComp() {
   return (
     <>
       <EventCard>
         <EventDataWithDate />
-        <Stack_keys />
-
+        <Stackkeys />
         {/* pending toggle button */}
-
         <StackData />
       </EventCard>
     </>

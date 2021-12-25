@@ -1,8 +1,9 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
+import EventCard from "../../../Container/EventCard";
 import Style from "./Stack_keys.module.scss";
 
-export default function Stack_keys() {
+export default function Stackkeys() {
   return (
     <>
       <Row className="p-4">

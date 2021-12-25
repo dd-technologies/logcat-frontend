@@ -2,18 +2,22 @@ import React from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGreaterThan, faLessThan } from "@fortawesome/free-solid-svg-icons";
-import EventByVersion from "./Componets/EventDataWithDate";
 import ToggleTabs from "./Componets/ToggleTabs";
-import EventData from "./charts/EventData";
 import Style from "./Analytics.module.scss";
+import { Navbar, SideBar } from "../../utils/NavSideBar";
+import AnalyticsEventDataComp from "./Componets/AnalyticsEventDataComp";
+import EventByVersion from "./Componets/EventByVersion";
 
 export default function Analytics() {
   return (
     <>
       <Row>
-      
-        <Col>
-          <Container>
+        <Col xl={2} lg={2} md={2} sm={2}>
+          <SideBar />
+        </Col>
+        <Col xl={10} lg={10} md={10} sm={10}>
+          <Navbar />
+          <Container style={{ marginTop: "80px", marginBottom: "20px" }}>
             {/* data from api */}
             <Col className="my-4">
               This issue has *5 crash events* affecting 2 users
@@ -42,9 +46,9 @@ export default function Analytics() {
               </section>
             </Col>
 
-            {/*data tables  */}
+            {/* data tables   */}
             <Col xl={12} className="mt-4">
-              <EventData />
+              <AnalyticsEventDataComp />
             </Col>
           </Container>
         </Col>
