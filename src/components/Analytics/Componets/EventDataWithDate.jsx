@@ -1,41 +1,42 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLessThan } from "@fortawesome/free-solid-svg-icons";
-import Style from "./EventDatWithTable.module.scss";
+import { faBarcode } from "@fortawesome/free-solid-svg-icons";
+import Style from "./EventDataWithDate.module.scss";
 
 export default function EventDataWithDate() {
   return (
     <>
-      <Row className="p-4">
+      <Row className="pt-4">
         <Col className={Style.MainDiv}>
           <setcion>
             <p>Event Summery</p>
             <p>
               <span>
-                <FontAwesomeIcon icon={faLessThan} />
+                <FontAwesomeIcon icon={faBarcode} />
               </span>
-              250c.50800
+              23.4334.556
             </p>
             <p>
               <span>
-                <FontAwesomeIcon icon={faLessThan} />
+                <FontAwesomeIcon icon={faBarcode} />
               </span>
               80.080
             </p>
             <p>
               <span>
-                <FontAwesomeIcon icon={faLessThan} />
+                <FontAwesomeIcon icon={faBarcode} />
               </span>
               Lenovo
             </p>
             <p>
               <span>
-                <FontAwesomeIcon icon={faLessThan} />
+                <FontAwesomeIcon icon={faBarcode} />
               </span>
               Dec 23-08-2021
             </p>
           </setcion>
+          <hr />
         </Col>
       </Row>
     </>

@@ -3,6 +3,11 @@
 .ToggleTabs {
   display: flex;
   justify-content: space-around;
+  & p {
+    display: flex;
+    justify-content: center;
+    height: 40px;
+  }
 }
 
 .ToggleTabs_active {
@@ -17,4 +22,10 @@
     height: 40px;
     color: $defaultTextColor;
   }
+}
+
+.DataTogleSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

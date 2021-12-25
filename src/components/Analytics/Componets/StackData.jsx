@@ -8,7 +8,6 @@ export default function StackData() {
   return (
     <>
       <Row className="p-4">
-      
         <Col xl={12} className={`${Style.outerDiv} mt-4`}>
           <section className={`${Style.StackInfoDive} p-3`}>
             <section className={Style.ParaWithArrowDown}>
@@ -32,7 +31,9 @@ export default function StackData() {
                 sit amet, consectetur adiplorem ipsum dolor sit amet,
                 consectetur adiplorem ipsum dolor sit amet, consectetur adip
               </p>
+              <hr />
               <p>lorem ipsum dolor sit amet, consectetur adip</p>
+              <hr />
             </section>
           </section>
         </Col>

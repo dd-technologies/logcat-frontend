@@ -7,16 +7,6 @@
   border-radius: $buttonBorderRaduous !important;
 }
 
-.dateinput {
-  border: none !important;
-  padding: 10 !important;
-  background: none !important;
-  color: $pColor !important;
-  &:focus {
-    outline: none !important; /* oranges! yey */
-  }
-}
-
 // paragraph
 p {
   margin-bottom: 0 !important;

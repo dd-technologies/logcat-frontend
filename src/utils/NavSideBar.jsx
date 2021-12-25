@@ -3,6 +3,8 @@ import { Image } from "react-bootstrap";
 import Style from "./NavSideBar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faCog } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+
 
 export function Navbar() {
   return (
@@ -22,8 +24,17 @@ export function SideBar() {
     <>
       <section className={Style.sideBar}>
         <section className={`${Style.componyDetails} p-2`}>
-          <Image src="/assets/images/DD.png" />
-          <section>D&D Technology</section>
+          <Link
+            to="/"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              textDecoration: "none",
+            }}
+          >
+            <Image src="/assets/images/DD.png" />
+            <section>D&D Technology</section>
+          </Link>
         </section>
 
         <section className={Style.options}>

@@ -1,19 +1,28 @@
 import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEllipsisV,
-  faFilter,
-  faCalendar,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisV, faFilter } from "@fortawesome/free-solid-svg-icons";
 import Style from "./LogTable.module.scss";
 import { Navbar, SideBar } from "../../utils/NavSideBar";
 import "../../css/theme.scss";
 import CrashFreeStatics from "./components/CrashFreeStatics";
 import TrandData from "./components/TrandData";
 import CustomCard from "../../Container/CustomCard";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function LogTable() {
+  const dispatch = useDispatch();
+  const getAllLogByCodeReducer = useSelector(
+    (state) => state.getAllLogByCodeReducer
+  );
+
+  const {
+    data: {
+      data: { logs },
+    },
+  } = getAllLogByCodeReducer;
+  console.log("getAllLogByCodeReducer", logs);
+
   return (
     <>
       <Row>
@@ -24,16 +33,13 @@ export default function LogTable() {
           <Navbar />
 
           {/* data inhere */}
-          <Container style={{ marginTop: "8%", marginBottom: "5%" }}>
+          <Container style={{ marginTop: "9%", marginBottom: "5%" }}>
             <Row className="mt-4">
               <Col xl={12} className={Style.filterWithDate}>
                 <section className={Style.filterGraphFirstSction}>
                   <FontAwesomeIcon icon={faFilter} />
                 </section>
-                <section className={Style.filterwithDate}>
-                  <FontAwesomeIcon icon={faCalendar} />
-                  <input className="dateinput" type="date" />
-                </section>
+                <section className={Style.filterwithDate}></section>
               </Col>
             </Row>
 

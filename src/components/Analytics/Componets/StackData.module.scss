@@ -14,12 +14,16 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      color: $activehrefText;
+    }
+    & p {
+      color: $activehrefText;
     }
     & h3 {
       font-size: 1.3rem;
     }
   }
-
+  
   .detailSection {
     border: $borderBottom;
     border-bottom-left-radius: $cardBorderRadius;
@@ -30,7 +34,7 @@
     .lineBrack {
       & p {
         width: 100%;
-        border-bottom: 1px dotted;
+        color: $activehrefText;
       }
     }
   }

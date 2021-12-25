@@ -17,10 +17,11 @@ export default function Analytics() {
         </Col>
         <Col xl={10} lg={10} md={10} sm={10}>
           <Navbar />
-          <Container style={{ marginTop: "8%", marginBottom: "3%" }}>
+          <Container style={{ marginTop: "9%", marginBottom: "3%" }}>
             {/* data from api */}
             <Col className="my-4">
-              This issue has *5 crash events* affecting 2 users
+              This issue has <strong>5</strong> crash events affecting
+              <strong> 2 </strong> users
             </Col>
 
             <Col>
