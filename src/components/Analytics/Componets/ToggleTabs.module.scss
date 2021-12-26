@@ -1,6 +1,7 @@
 @import "../../../css/veriables.module.scss";
 
 .ToggleTabs {
+  cursor: pointer;
   display: flex;
   justify-content: space-around;
   & p {
@@ -11,6 +12,7 @@
 }
 
 .ToggleTabs_active {
+  cursor: pointer;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -25,6 +27,7 @@
 }
 
 .DataTogleSection {
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
