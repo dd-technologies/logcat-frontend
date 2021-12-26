@@ -1,11 +1,11 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCodeBranch,
   faPlus,
   faCity,
   faHome,
-  faUserAlt
+  faUserAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import Style from "./CreateProject.module.scss";
 import CustomCard from "../../Container/CustomCard";
@@ -13,12 +13,15 @@ import { Button, Card, Row, Col, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ProjectCard from "./ProjectCard";
-import { clearProjectData, getAllProject } from "../../redux/action/ProjectAction";
+import {
+  clearProjectData,
+  getAllProject,
+} from "../../redux/action/ProjectAction";
 // import AddProjectModal from "../utils/AddProjectModal";
 // import SpinLoader from "../utils/SpinLoader";
 // import ProjectCard from "../utils/ProjectCard";
 import { useHistory } from "react-router-dom";
-import { toast,Toaster } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 
 function CreateProject() {
   const [modal, setModal] = useState(false);
@@ -31,11 +34,13 @@ function CreateProject() {
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { adminInfo } = adminLoginReducer;
 
-  const createNewProjectReducer = useSelector((state) => state.createNewProjectReducer);
+  const createNewProjectReducer = useSelector(
+    (state) => state.createNewProjectReducer
+  );
   const { data } = createNewProjectReducer;
   if (data && data.data) {
-    toast.success('Project Created Successfully');
-    Dispatch(clearProjectData())
+    toast.success("Project Created Successfully");
+    Dispatch(clearProjectData());
   }
 
   const navbardetail = {
@@ -58,8 +63,7 @@ function CreateProject() {
     if (!localStorage.getItem("ddAdminToken")) {
       history.push("/");
     }
-    Dispatch(
-      getAllProject());
+    Dispatch(getAllProject());
   }, []);
 
   const closeModal = () => {
@@ -108,10 +112,10 @@ function CreateProject() {
             </CustomCard>
           </Col> */}
           {allProjectData &&
-              allProjectData.data.data.length &&
-              allProjectData.data.data.map((datas) => (
-                <ProjectCard data={datas} />
-              ))}
+            allProjectData.data.data.length &&
+            allProjectData.data.data.map((datas) => (
+              <ProjectCard data={datas} />
+            ))}
         </Row>
       </Container>
     </>

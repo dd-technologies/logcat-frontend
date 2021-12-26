@@ -3,6 +3,7 @@ import { Row, Col } from "react-bootstrap";
 import Style from "./ToggleTabs.module.scss";
 import CustomCard from "../../../Container/CustomCard";
 import EventChart from "../charts/EventChart";
+import DeviceChart from "../charts/DeviceChart";
 
 export default function ToggleTabs() {
   // toogling window
@@ -48,9 +49,8 @@ export default function ToggleTabs() {
         <Row>
           {devieWindow ? (
             <Col className="p-4">
-              <section className={Style.DataTogleSection}>
-                Device Window
-              </section>
+              <section className={Style.DataTogleSection}></section>
+              <DeviceChart />
             </Col>
           ) : opratingSystemWindow ? (
             <Col className="p-4">
