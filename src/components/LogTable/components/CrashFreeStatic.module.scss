@@ -1,0 +1,28 @@
+@import "../../../css/veriables.module.scss";
+// statics
+.Statics {
+  & h5 {
+    font-weight: 600;
+  }
+
+  & h4 {
+    color: $activehrefText;
+    font-size: 2rem;
+  }
+
+  .StaticsSection {
+    display: flex !important;
+    justify-content: space-between;
+
+    .Tooltip {
+      background-color: $filterButtonBackgroundColor;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-content: center !important;
+      align-items: center !important;
+      border-radius: 100%;
+      cursor: pointer;
+    }
+  }
+}

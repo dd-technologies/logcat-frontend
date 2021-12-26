@@ -1,0 +1,29 @@
+@import "./veriables.module.scss";
+
+.dropdown-toggle {
+  background-color: $filterButtonBackgroundColor !important;
+  color: $pColor !important;
+  border: none !important;
+  border-radius: $buttonBorderRaduous !important;
+}
+
+// paragraph
+p {
+  margin-bottom: 0 !important;
+}
+
+// erasing padding and margin from col and nav
+.row > * {
+  margin: 0%;
+  padding: 0%;
+}
+
+.btn {
+  background-color: $activehrefText !important;
+  border: none !important;
+}
+
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
