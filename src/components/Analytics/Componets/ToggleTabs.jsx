@@ -28,10 +28,9 @@ export default function ToggleTabs() {
             className={
               devieWindow ? `${Style.ToggleTabs_active}` : `${Style.ToggleTabs}`
             }
+            onClick={DeviceShowFun}
           >
-            <p className="p-2" onClick={DeviceShowFun}>
-              Devices
-            </p>
+            <p className="p-2">Devices</p>
           </Col>
           <Col
             className={
@@ -39,11 +38,9 @@ export default function ToggleTabs() {
                 ? `${Style.ToggleTabs_active}`
                 : `${Style.ToggleTabs}`
             }
+            onClick={opratingSystemFun}
           >
-            <p className="p-2" onClick={opratingSystemFun}>
-              Operating System
-            </p>
-            <h3></h3>
+            <p className="p-2">Operating System</p>
           </Col>
         </Row>
 
