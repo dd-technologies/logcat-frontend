@@ -72,7 +72,7 @@ function CreateProject() {
         <p className={Style.para}>Your Projects</p>
         <Row>
           <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
-            <CustomCard padding="10px">
+            <CustomCard padding="10px" height="200px">
               <section className={Style.addProject}>
                 <section>
                   <p>

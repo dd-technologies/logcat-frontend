@@ -1,21 +1,15 @@
 import React from "react";
 import CustomCard from "../../Container/CustomCard";
-import { Button, Card, Row, Col, Container } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCodeBranch,
-  faPlus,
-  faCity,
-  faHome,
-  faUserAlt,
-} from "@fortawesome/free-solid-svg-icons";
-import Style from "./CreateProject.module.scss";
+import { faCodeBranch, faCity } from "@fortawesome/free-solid-svg-icons";
+import Style from "./ProductCard.module.scss";
 import { Link } from "react-router-dom";
 
 const ProjectCard = (props) => {
   return (
     <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
-      <CustomCard padding="10px">
+      <CustomCard padding="15px" height="200px">
         <Link
           to={`/logtable?code=${props.data.code}&name=${props.data.name} `}
           style={{ textDecoration: "none" }}
