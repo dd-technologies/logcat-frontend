@@ -16,12 +16,12 @@ export default function LogTable() {
     (state) => state.getAllLogByCodeReducer
   );
 
-  const {
-    data: {
-      data: { logs },
-    },
-  } = getAllLogByCodeReducer;
-  console.log("getAllLogByCodeReducer", logs);
+  // const {
+  //   data: {
+  //     data: { logs },
+  //   },
+  // } = getAllLogByCodeReducer;
+  // console.log("getAllLogByCodeReducer", logs);
 
   return (
     <>

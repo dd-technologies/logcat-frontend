@@ -12,7 +12,7 @@ import ResetPassword from "./Auth/ResetPassword";
 function App() {
   return (
     <Router>
-      <Switch>
+      {/* <Switch>
         <Route exact path="/analytics" component={Analytics} />
         <Route exact path="/logtable" component={LogTable} />
         <Route exact path="/project" component={CreateProject} />
@@ -20,7 +20,7 @@ function App() {
         <Route exact path="/resetpassword" component={ResetPassword} />
         <Route exact path="/forgetPassword" component={ForgetPassword} />
         <Route exact path="*" component={NotFound} />
-      </Switch>
+      </Switch> */}
     </Router>
   );
 }
