@@ -13,10 +13,9 @@ import CrashFreeStatics from "./components/CrashFreeStatics";
 import TrandData from "./components/TrandData";
 import CustomeDropDown from "../../Container/DropDown";
 import TableData from "./components/TableData";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function LogTable() {
- 
-
   // filter with crash free statics and trands
   const [dropDownShow, setDropDownShow] = useState(false);
   const [dateDropDwon, setDateDropDwon] = useState(false);
@@ -35,9 +34,17 @@ export default function LogTable() {
       setDateDropDwon(false);
     }
   };
+  const dispatch = useDispatch();
+  const getAllLogByCodeReducer = useSelector(
+    (state) => state.getAllLogByCodeReducer
+  );
 
-
-
+  // const {
+  //   data: {
+  //     data: { logs },
+  //   },
+  // } = getAllLogByCodeReducer;
+  // console.log("getAllLogByCodeReducer", logs);
 
   return (
     <>
