@@ -17,9 +17,6 @@ import {
   clearProjectData,
   getAllProject,
 } from "../../redux/action/ProjectAction";
-// import AddProjectModal from "../utils/AddProjectModal";
-// import SpinLoader from "../utils/SpinLoader";
-// import ProjectCard from "../utils/ProjectCard";
 import { useHistory } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 
@@ -71,6 +68,8 @@ function CreateProject() {
   };
   return (
     <>
+      {/* user name with logout functionalty */}
+
       <section className={Style.backgroundSection}></section>
       <Container className={Style.MainContantainer}>
         <p className={Style.para}>Your Projects</p>
