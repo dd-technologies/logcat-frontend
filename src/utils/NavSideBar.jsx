@@ -1,19 +1,34 @@
 import React from "react";
-import { Image } from "react-bootstrap";
+import { Button, Image } from "react-bootstrap";
 import Style from "./NavSideBar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faCog } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-
-
+import CustomeDropDown from "../Container/DropDown";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { adminLogout } from "../redux/action/AdminAction";
 
 export function Navbar() {
+  let history = useHistory();
+  const dispatch = useDispatch();
+  const handlelogout = (e) => {
+    e.preventDefault();
+    dispatch(adminLogout(history));
+  };
   return (
     <>
       <nav className={Style.navbar}>
         <section className={Style.userInfo}>
           <section className={Style.Avtar}>AS</section>
-          <section>UserName</section>
+          <section className="m-2">UserName</section>
+          <Button
+            onClick={(e) => {
+              handlelogout(e);
+            }}
+          >
+            LogOut
+          </Button>
         </section>
       </nav>
     </>
