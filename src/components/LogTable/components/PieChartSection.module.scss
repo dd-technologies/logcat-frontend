@@ -1,0 +1,35 @@
+@import "../../../css/veriables.module.scss";
+
+.Infosection {
+  display: flex;
+  justify-content: space-between;
+  .Outsection {
+    display: flex;
+    justify-content: space-between;
+
+    & h4 {
+      color: $activehrefText;
+    }
+    & p {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.PieChartData {
+    display: flex;
+    justify-content: space-between;
+    & h5 {
+      font-weight: 600;
+    }
+  
+    & p {
+      color: $activehrefText;
+      font-size: .8rem;
+    }
+  
+    & section {
+      display: flex;
+    }
+  }
+  

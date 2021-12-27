@@ -16,6 +16,7 @@ import CustomeDropDown from "../../Container/DropDown";
 import { useDispatch, useSelector } from "react-redux";
 import AgTable from "./components/Table/AgTable";
 import TableData from "./components/Table/TableData";
+import PieChartSection from "./components/PieChartSection";
 
 export default function LogTable() {
   // filter with crash free statics and trands
@@ -140,6 +141,10 @@ export default function LogTable() {
 
               <Col xl={4}>
                 <TrandData />
+              </Col>
+
+              <Col xl={4}>
+                <PieChartSection />
               </Col>
             </Row>
 

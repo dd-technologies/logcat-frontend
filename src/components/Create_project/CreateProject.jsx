@@ -20,9 +20,14 @@ import {
 import { useHistory } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import AddProjectModal from "./components/AddProjectModal";
+import Spinner from "../../Container/Spinner";
 
 function CreateProject() {
   const [show, setShow] = useState(false);
+
+  // project data load or not
+  const [dataLoad, setdataLoad] = useState(false);
+
   const Dispatch = useDispatch();
   const getAllProjectReducer = useSelector(
     (state) => state.getAllProjectReducer
@@ -36,6 +41,7 @@ function CreateProject() {
     (state) => state.createNewProjectReducer
   );
   const { data } = createNewProjectReducer;
+  console.log("data", allProjectData);
   if (data && data.data) {
     toast.success("Project Created Successfully");
     Dispatch(clearProjectData());
@@ -62,6 +68,9 @@ function CreateProject() {
       history.push("/");
     }
     Dispatch(getAllProject());
+    if (allProjectData && allProjectData.data && allProjectData.data.data) {
+      setdataLoad(true);
+    }
   }, []);
 
   const handleClose = () => {
@@ -75,27 +84,29 @@ function CreateProject() {
     <>
       {/* user name with logout functionalty */}
 
-      <section className={Style.backgroundSection}></section>
-      <Container className={Style.MainContantainer}>
-        <p className={Style.para}>Your Projects</p>
-        <Row>
-          <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
-            <CustomCard padding="10px" height="200px">
-              <section className={Style.addProject} onClick={handleShow}>
-                <section>
-                  <p>
-                    <FontAwesomeIcon icon={faPlus} />
-                  </p>
-                  <p>Add Project</p>
-                  <AddProjectModal show={show} handleClose={handleClose} />
-                </section>
-              </section>
-            </CustomCard>
-          </Col>
+      {dataLoad ? (
+        <>
+          <section className={Style.backgroundSection}></section>
+          <Container className={Style.MainContantainer}>
+            <p className={Style.para}>Your Projects</p>
+            <Row>
+              <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
+                <CustomCard padding="10px" height="200px">
+                  <section className={Style.addProject} onClick={handleShow}>
+                    <section>
+                      <p>
+                        <FontAwesomeIcon icon={faPlus} />
+                      </p>
+                      <p>Add Project</p>
+                      <AddProjectModal show={show} handleClose={handleClose} />
+                    </section>
+                  </section>
+                </CustomCard>
+              </Col>
 
-          {/* dynamic projects */}
+              {/* dynamic projects */}
 
-          {/* <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
+              {/* <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
             <CustomCard padding="10px">
               <Row>
                 <Col xl={12} className={Style.InfoColumn}>
@@ -116,13 +127,17 @@ function CreateProject() {
               </Row>
             </CustomCard>
           </Col> */}
-          {allProjectData &&
-            allProjectData.data.data.length &&
-            allProjectData.data.data.map((datas) => (
-              <ProjectCard data={datas} />
-            ))}
-        </Row>
-      </Container>
+              {allProjectData &&
+                allProjectData.data.data.length &&
+                allProjectData.data.data.map((datas) => (
+                  <ProjectCard data={datas} />
+                ))}
+            </Row>
+          </Container>
+        </>
+      ) : (
+        <Spinner />
+      )}
     </>
   );
 }
