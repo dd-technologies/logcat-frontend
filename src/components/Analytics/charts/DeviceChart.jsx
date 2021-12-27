@@ -19,7 +19,7 @@ const data = [
   },
 ];
 
-export default function DeviceChart() {
+export default function DeviceChart(props) {
   return (
     <ComposedChart
       layout="vertical"
