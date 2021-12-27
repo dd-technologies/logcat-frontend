@@ -26,7 +26,6 @@ function CreateProject() {
   const [show, setShow] = useState(false);
 
   // project data load or not
-  const [dataLoad, setdataLoad] = useState(false);
 
   const Dispatch = useDispatch();
   const getAllProjectReducer = useSelector(
@@ -68,9 +67,6 @@ function CreateProject() {
       history.push("/");
     }
     Dispatch(getAllProject());
-    if (allProjectData && allProjectData.data && allProjectData.data.data) {
-      setdataLoad(true);
-    }
   }, []);
 
   const handleClose = () => {
@@ -83,30 +79,28 @@ function CreateProject() {
   return (
     <>
       {/* user name with logout functionalty */}
-
-      {dataLoad ? (
-        <>
-          <section className={Style.backgroundSection}></section>
-          <Container className={Style.MainContantainer}>
-            <p className={Style.para}>Your Projects</p>
-            <Row>
-              <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
-                <CustomCard padding="10px" height="200px">
-                  <section className={Style.addProject} onClick={handleShow}>
-                    <section>
-                      <p>
-                        <FontAwesomeIcon icon={faPlus} />
-                      </p>
-                      <p>Add Project</p>
-                      <AddProjectModal show={show} handleClose={handleClose} />
-                    </section>
+      <>
+        <section className={Style.backgroundSection}></section>
+        <Container className={Style.MainContantainer}>
+          <p className={Style.para}>Your Projects</p>
+          <Row>
+            <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
+              <CustomCard padding="10px" height="200px">
+                <section className={Style.addProject} onClick={handleShow}>
+                  <section>
+                    <p>
+                      <FontAwesomeIcon icon={faPlus} />
+                    </p>
+                    <p>Add Project</p>
+                    <AddProjectModal show={show} handleClose={handleClose} />
                   </section>
-                </CustomCard>
-              </Col>
+                </section>
+              </CustomCard>
+            </Col>
 
-              {/* dynamic projects */}
+            {/* dynamic projects */}
 
-              {/* <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
+            {/* <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
             <CustomCard padding="10px">
               <Row>
                 <Col xl={12} className={Style.InfoColumn}>
@@ -127,17 +121,15 @@ function CreateProject() {
               </Row>
             </CustomCard>
           </Col> */}
-              {allProjectData &&
-                allProjectData.data.data.length &&
-                allProjectData.data.data.map((datas) => (
-                  <ProjectCard data={datas} />
-                ))}
-            </Row>
-          </Container>
-        </>
-      ) : (
-        <Spinner />
-      )}
+            {allProjectData &&
+              allProjectData.data.data.length &&
+              allProjectData.data.data.map((datas) => (
+                <ProjectCard data={datas} />
+              ))}
+          </Row>
+        </Container>
+      </>
+      )
     </>
   );
 }
