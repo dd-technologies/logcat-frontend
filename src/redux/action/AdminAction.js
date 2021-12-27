@@ -1,6 +1,6 @@
 import axios from 'axios';
 import cookie from 'react-cookies';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 
 
 import { 
@@ -23,7 +23,7 @@ import { persistor } from '../Store';
 
 
 export const loginWithEmail = (email, password, isRemeberMe) => async (dispatch)=>{
-    console.log(email, password)
+    // console.log(email, password)
     try {
         dispatch({type:ADMIN_LOGIN_REQUEST});
         const config = {
@@ -32,7 +32,7 @@ export const loginWithEmail = (email, password, isRemeberMe) => async (dispatch)
             },
         }
 
-        console.log(email, password, isRemeberMe)
+        // console.log(email, password, isRemeberMe)
         // const {data} = await axios.post('https://agvalogger.herokuapp.com/api/logger/login',{
         //     email,
         //     password
@@ -40,7 +40,7 @@ export const loginWithEmail = (email, password, isRemeberMe) => async (dispatch)
         // config
         // )
         // https://logger-server.herokuapp.com
-        console.log(process.env.BASE_URL)
+        // console.log(process.env.BASE_URL)
 
         const {data} = await axios.post(`https://logger-server.herokuapp.com/api/logger/login`,{
             email,
@@ -48,7 +48,7 @@ export const loginWithEmail = (email, password, isRemeberMe) => async (dispatch)
         },
         config
         )
-        console.log(data)
+        // console.log(data)
         dispatch({
             type: ADMIN_LOGIN_SUCCESS, 
             payload:data
@@ -58,12 +58,12 @@ export const loginWithEmail = (email, password, isRemeberMe) => async (dispatch)
         if (isRemeberMe) {
             
         }
-        console.log(data)
+        // console.log(data)
         localStorage.setItem("ddAdminToken", data.data.token)
         cookie.save('token',data.data.token)
 
     } catch (error) {
-        console.log(error.response)
+        // console.log(error.response)
         dispatch({
             type: ADMIN_LOGIN_FAIL,
             payload:
@@ -144,7 +144,7 @@ export const adminRegister = (email,password,name,history) => async (dispatch)=>
 
 
     } catch (error) {
-        console.log(error.response)
+        // console.log(error.response)
         dispatch({
             type: ADMIN_REGISTER_FAIL,
             payload:

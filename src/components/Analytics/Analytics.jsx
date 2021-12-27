@@ -1,7 +1,12 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGreaterThan, faLessThan,faDatabase,faChartPie } from "@fortawesome/free-solid-svg-icons";
+import {
+  faGreaterThan,
+  faLessThan,
+  faDatabase,
+  faChartPie,
+} from "@fortawesome/free-solid-svg-icons";
 import ToggleTabs from "./Componets/ToggleTabs";
 import Style from "./Analytics.module.scss";
 import { Navbar, SideBar } from "../../utils/NavSideBar";

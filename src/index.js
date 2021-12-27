@@ -8,7 +8,6 @@ import "./index.css";
 import store, { persistor } from "./redux/Store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

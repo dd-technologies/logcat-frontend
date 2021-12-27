@@ -5,6 +5,7 @@ import {
   faFilter,
   faCalendar,
   faCaretDown,
+  faDatabase,
 } from "@fortawesome/free-solid-svg-icons";
 import Style from "./LogTable.module.scss";
 import { Navbar, SideBar } from "../../utils/NavSideBar";
@@ -12,13 +13,34 @@ import "../../css/theme.scss";
 import CrashFreeStatics from "./components/CrashFreeStatics";
 import TrandData from "./components/TrandData";
 import CustomeDropDown from "../../Container/DropDown";
-import TableData from "./components/TableData";
 import { useDispatch, useSelector } from "react-redux";
+import AgTable from "./components/Table/AgTable";
+import TableData from "./components/Table/TableData";
 
 export default function LogTable() {
   // filter with crash free statics and trands
   const [dropDownShow, setDropDownShow] = useState(false);
   const [dateDropDwon, setDateDropDwon] = useState(false);
+
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const code = urlParams.get("code");
+  const projectName = urlParams.get("name");
+
+  // navigation
+
+  const sidebarDetails = {
+    name: projectName,
+    dashName: projectName,
+    link1: {
+      iconName: faDatabase,
+      linkName: "Home",
+    },
+    link2: {
+      iconName: faDatabase,
+      linkName: "Profile",
+    },
+  };
 
   const dropDownShowFun = () => {
     setDropDownShow(true);
@@ -133,7 +155,11 @@ export default function LogTable() {
 
             <Row className="mt-3">
               <Col>
+                {/* table with toolkit provider */}
                 <TableData />
+
+                {/*Ag table  */}
+                {/* <AgTable /> */}
               </Col>
             </Row>
           </Container>
