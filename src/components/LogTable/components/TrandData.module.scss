@@ -4,18 +4,22 @@
   display: flex;
   justify-content: space-between;
 
-  & h3 {
+  & h4 {
     color: $h3colorText;
-    font-size: 2rem;
+  }
+  & p {
+    font-size: .8rem;
   }
 
   .Outsection {
     display: flex;
     justify-content: space-between;
 
-    & h3 {
+    & h4 {
       color: $activehrefText;
-      font-size: 2rem;
+    }
+    & p {
+      font-size: .8rem;
     }
   }
 }
@@ -29,6 +33,7 @@
 
   & p {
     color: $activehrefText;
+    font-size: .8rem;
   }
 
   & section {

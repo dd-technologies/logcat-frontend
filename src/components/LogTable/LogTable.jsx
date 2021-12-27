@@ -134,11 +134,11 @@ export default function LogTable() {
             {/* data chart and informantions */}
             <Row className="mt-3">
               {/*toggle menus  */}
-              <Col xl={5}>
+              <Col xl={4}>
                 <CrashFreeStatics />
               </Col>
 
-              <Col xl={7}>
+              <Col xl={4}>
                 <TrandData />
               </Col>
             </Row>

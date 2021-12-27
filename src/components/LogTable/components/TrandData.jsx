@@ -24,33 +24,33 @@ export default function TrandData() {
             <section className={Style.Outsection}>
               <section>
                 <p>Crashes</p>
-                <h3>3</h3>
+                <h4>3</h4>
                 <p>-40%</p>
               </section>
               <section>
                 <p className="ps-3">Users</p>
-                <h3 className="ps-3">0</h3>
+                <h4 className="ps-3">0</h4>
                 <p className="ps-3">0%</p>
               </section>
             </section>
             <section className={Style.Outsection}>
               <section>
                 <p className="ps-3">Non-fatals</p>
-                <h3 className="ps-3">0</h3>
+                <h4 className="ps-3">0</h4>
               </section>
               <section>
                 <p className="ps-3">Users</p>
-                <h3 className="h3s-1">0</h3>
+                <h4 className="h3s-1">0</h4>
               </section>
             </section>
             <section className={Style.Outsection}>
               <section>
                 <p className="ps-3">Arns</p>
-                <h3 className="ps-3">0</h3>
+                <h4 className="ps-3">0</h4>
               </section>
               <section>
                 <p className="ps-3">Users</p>
-                <h3 className="ps-3">0</h3>
+                <h4 className="ps-3">0</h4>
               </section>
             </section>
           </Col>

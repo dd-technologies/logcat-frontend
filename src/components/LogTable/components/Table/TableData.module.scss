@@ -1,0 +1,15 @@
+@import "../../../../css/veriables.module.scss";
+
+.OuterTable {
+  padding: 10px;
+  .BootstrapTable {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+
+    & button {
+      color: $defaultTextColor !important;
+      font-weight: 500;
+    }
+  }
+}

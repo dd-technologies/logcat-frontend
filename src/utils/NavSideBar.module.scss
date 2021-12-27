@@ -5,11 +5,16 @@
   background-color: $backgroundColor;
   height: 9%;
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
   position: fixed;
   z-index: 9;
   width: 85%;
+
+  & h3 {
+    color: $defaultTextColor;
+  }
+
   .userInfo {
     width: 25%;
     display: flex;
@@ -38,7 +43,7 @@
   background-image: url("../../public//assets/images/Mask\ Group\ 1.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size:100%;
+  background-size: 100%;
   background-color: $sideBarBackgroundColor;
   height: 100vh;
   position: fixed;

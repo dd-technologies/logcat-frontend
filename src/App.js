@@ -19,7 +19,6 @@ function App() {
         <Route exact path="/home" component={CreateProject} />
         <Route exact path="/logtable" component={LogTable} />
         <Route exact path="/analytics" component={Analytics} />
-
         <Route exact path="*" component={NotFound} />
       </Switch>
     </Router>

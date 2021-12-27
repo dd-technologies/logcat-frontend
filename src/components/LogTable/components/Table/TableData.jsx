@@ -9,7 +9,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import ToolkitProvider, {
   Search,
+  CSVExport,
 } from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit";
+import Style from "./TableData.module.scss";
 
 export default function TableData() {
   const queryString = window.location.search;
@@ -28,9 +30,10 @@ export default function TableData() {
 
   console.log("getAllLogByCodeReducer", getAllLogByCodeReducer);
   const { SearchBar } = Search;
+  const { ExportCSVButton } = CSVExport;
   const products = [
     {
-      did: "111",
+      dataField: "111",
       logMsg:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
       logType: "111",
@@ -39,7 +42,7 @@ export default function TableData() {
       device_types: "111",
     },
     {
-      did: "222",
+      dataField: "222",
       logMsg:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
       logType: "222",
@@ -48,7 +51,7 @@ export default function TableData() {
       device_types: "222",
     },
     {
-      did: "333",
+      dataField: "333",
       logMsg: "333",
       logType: "333",
       logGeneratedDate: "333",
@@ -58,12 +61,11 @@ export default function TableData() {
   ];
   const columns = [
     {
-      dataField: "did",
+      dataField: "dataField",
       text: "Mac address",
       sort: true,
       headerStyle: () => {
         return {
-          width: "10%",
           backgroundColor: "#257d7c",
           color: "#fff",
         };
@@ -88,7 +90,7 @@ export default function TableData() {
               {col}
             </ReactReadMoreReadLess>
             <Link
-              to={`/stackError?code=${codeUrl}&name=Stack Trace&id=${row._id}&allStacks=${row.logMsg}&macAddress=${row.did}&loggenrateddate=${row.logGeneratedDate}&modeltype=${row.device_types}&logtype=${row.logType}&version=${row.updatedAt}`}
+              to={`/stackError?code=${codeUrl}&name=Stack Trace&id=${row._id}&allStacks=${row.logMsg}&macAddress=${row.dataField}&loggenrateddate=${row.logGeneratedDate}&modeltype=${row.device_types}&logtype=${row.logType}&version=${row.updatedAt}`}
             >
               <Button
                 style={{
@@ -106,7 +108,6 @@ export default function TableData() {
       },
       headerStyle: () => {
         return {
-          width: "10%",
           backgroundColor: "#257d7c",
           color: "#fff",
         };
@@ -118,7 +119,6 @@ export default function TableData() {
       sort: true,
       headerStyle: () => {
         return {
-          width: "10%",
           backgroundColor: "#257d7c",
           color: "#fff",
         };
@@ -130,7 +130,6 @@ export default function TableData() {
       sort: true,
       headerStyle: () => {
         return {
-          width: "10%",
           backgroundColor: "#257d7c",
           color: "#fff",
         };
@@ -142,7 +141,6 @@ export default function TableData() {
       sort: true,
       headerStyle: () => {
         return {
-          width: "10%",
           backgroundColor: "#257d7c",
           color: "#fff",
         };
@@ -154,7 +152,6 @@ export default function TableData() {
       sort: true,
       headerStyle: () => {
         return {
-          width: "10%",
           backgroundColor: "#257d7c",
           color: "#fff",
         };
@@ -162,22 +159,33 @@ export default function TableData() {
     },
   ];
 
+  const selectRow = {
+    mode: "checkbox",
+    clickToSelect: true,
+    
+  };
+
   return (
     <>
       <CustomCard>
-        <section className="p-4">
+        <section className={Style.OuterTable}>
           <ToolkitProvider
             keyField="id"
             data={products}
             columns={columns}
             search
+            exportCSV={{ onlyExportSelection: true, exportAll: true }}
           >
             {(props) => (
-              <div>
-                <SearchBar {...props.searchProps} />
-                <hr />
-                <BootstrapTable {...props.baseProps} />
-              </div>
+              <>
+                <div className={Style.BootstrapTable}>
+                  <SearchBar {...props.searchProps} />
+                  <ExportCSVButton {...props.csvProps}>
+                    Export Table
+                  </ExportCSVButton>
+                </div>
+                <BootstrapTable {...props.baseProps} selectRow={selectRow} />
+              </>
             )}
           </ToolkitProvider>
         </section>

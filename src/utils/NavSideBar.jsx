@@ -19,6 +19,7 @@ export function Navbar() {
   return (
     <>
       <nav className={Style.navbar}>
+        <h3 className="px-5">Vantilator</h3>
         <section className={Style.userInfo}>
           <section className={Style.Avtar}>AS</section>
           <section className="m-2">UserName</section>
