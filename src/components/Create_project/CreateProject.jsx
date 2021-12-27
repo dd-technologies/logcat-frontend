@@ -19,9 +19,10 @@ import {
 } from "../../redux/action/ProjectAction";
 import { useHistory } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
+import AddProjectModal from "./components/AddProjectModal";
 
 function CreateProject() {
-  const [modal, setModal] = useState(false);
+  const [show, setShow] = useState(false);
   const Dispatch = useDispatch();
   const getAllProjectReducer = useSelector(
     (state) => state.getAllProjectReducer
@@ -63,9 +64,13 @@ function CreateProject() {
     Dispatch(getAllProject());
   }, []);
 
-  const closeModal = () => {
-    setModal(false);
+  const handleClose = () => {
+    setShow(false);
+    console.log("show", show);
   };
+
+  const handleShow = () => setShow(true);
+
   return (
     <>
       {/* user name with logout functionalty */}
@@ -76,12 +81,13 @@ function CreateProject() {
         <Row>
           <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
             <CustomCard padding="10px" height="200px">
-              <section className={Style.addProject}>
+              <section className={Style.addProject} onClick={handleShow}>
                 <section>
                   <p>
                     <FontAwesomeIcon icon={faPlus} />
                   </p>
                   <p>Add Project</p>
+                  <AddProjectModal show={show} handleClose={handleClose} />
                 </section>
               </section>
             </CustomCard>

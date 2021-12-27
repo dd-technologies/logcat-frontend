@@ -3,8 +3,8 @@ import { Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRocket, faDatabase } from "@fortawesome/free-solid-svg-icons";
 import Style from "./TrandData.module.scss";
-import CarshFreeStaticsGraph from "../charts/CarshFreeStaticsGraph";
 import CustomCard from "../../../Container/CustomCard";
+import TrandDataGraph from "../charts/TrandDataGraph";
 
 export default function TrandData() {
   return (
@@ -55,7 +55,7 @@ export default function TrandData() {
             </section>
           </Col>
           <Col>
-            <CarshFreeStaticsGraph />
+            <TrandDataGraph />
           </Col>
         </Row>
       </CustomCard>
