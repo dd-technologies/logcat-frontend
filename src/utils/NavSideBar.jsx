@@ -50,7 +50,8 @@ export function Navbar(props) {
     <>
       <nav className={Style.navbar}>
         <h3 className="px-5">
-          {navdetails.dashName.charAt(0).toUpperCase() + navdetails.dashName.slice(1)}
+          {navdetails.dashName.charAt(0).toUpperCase() +
+            navdetails.dashName.slice(1)}
         </h3>
         <section className={Style.userInfo}>
           <section className={Style.Avtar}>
@@ -121,20 +122,20 @@ export function SideBar(props) {
               textDecoration: "none",
             }}
           >
-            <Image src="/assets/images/DD.png" />
-            <section>D&D Technology</section>
+            <section className={Style.DashBoardTitle}>LogCat</section>
           </Link>
         </section>
 
         <section className={Style.options}>
           <section className={`${Style.optionItems} ${Style.option_active}`}>
             <Link
+              className={`${Style.optionItems} ${Style.option_active}`}
               to={
                 navdetails.link1 &&
                 navdetails.link1.link &&
                 navdetails.link1.link.length === 0
                   ? ""
-                  :navdetails.link1.link
+                  : navdetails.link1.link
               }
             >
               <FontAwesomeIcon icon={faHome} />
@@ -143,17 +144,22 @@ export function SideBar(props) {
           </section>
           <section className={Style.optionItems}>
             <Link
+              className={Style.optionItems}
               to={
                 navdetails.link1 &&
                 navdetails.link1.link &&
                 navdetails.link1.link.length === 0
                   ? ""
-                  :navdetails.link1.link
+                  : navdetails.link1.link
               }
             >
               <FontAwesomeIcon icon={faCog} />
               <section>{navdetails.link2.linkName}</section>
             </Link>
+          </section>
+          <section className={Style.BrnadName}>
+            <Image src="/assets/images/DD.png" />
+            <section>D&D Technology</section>
           </section>
         </section>
       </section>

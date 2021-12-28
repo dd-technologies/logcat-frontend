@@ -98,8 +98,11 @@ const columns = [
           <Link
             to={`/analytics?code=${code}&name=Stack Trace&id=${row._id}&allStacks=${row.logMsg}&macAddress=${row.did}&loggenrateddate=${row.logGeneratedDate}&modeltype=${row.device_types}&logtype=${row.logType}`}
           >
-            <Button style={{ float: "right" }} onClick={() => {}}>
+            <Button className={Style.ViewButton}>
               View
+              <span className="p-2">
+                <FontAwesomeIcon icon={faCaretRight} />
+              </span>
             </Button>
           </Link>
         </div>
@@ -238,50 +241,63 @@ export default function TableData() {
   return (
     <>
       <CustomCard>
-        <section className={Style.OuterTable}>
-          {data && data.data && data.data.logs ? (
-            <ToolkitProvider
-              keyField="_id"
-              data={data.data.logs}
-              columns={columns}
-              search
-              exportCSV={{ onlyExportSelection: true, exportAll: true }}
-            >
-              {(props) => (
-                <>
-                  <div className={Style.BootstrapTable}>
-                    <SearchBar {...props.searchProps} />
-                    <ExportCSVButton {...props.csvProps}>
-                      Export Table
-                    </ExportCSVButton>
-                  </div>
-                  <BootstrapTable {...props.baseProps} selectRow={selectRow} />
-                </>
-              )}
-            </ToolkitProvider>
-          ) : loading ? <Spinner/> :(
-            <h2 style={{ color: "#212925", alignItems: "center" }}>
-              No Log Available
-            </h2>
-          )}
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="Next >"
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={4}
-            pageCount={data && data.data && data.data.count / record}
-            // previousLabel="< Previous"
-            // initialPage={1}
-            renderOnZeroPageCount={null}
-            containerClassName={"pagination"}
-            pageClassName={"page-item"}
-            pageLinkClassName={"page-link"}
-            previousClassName={"page-item"}
-            nextClassName={"page-item"}
-            previousLinkClassName={"page-link"}
-            nextLinkClassName={"page-link"}
-          />
-        </section>
+        {data && data.data && data.data.logs ? (
+          <section className={Style.OuterTable}>
+            {data && data.data && data.data.logs ? (
+              <ToolkitProvider
+                keyField="_id"
+                data={data.data.logs}
+                columns={columns}
+                search
+                exportCSV={{ onlyExportSelection: true, exportAll: true }}
+              >
+                {(props) => (
+                  <>
+                    <div className={Style.BootstrapTable}>
+                      <SearchBar {...props.searchProps} />
+                      <ExportCSVButton {...props.csvProps}>
+                        Export Table
+                      </ExportCSVButton>
+                    </div>
+                    <BootstrapTable
+                      {...props.baseProps}
+                      selectRow={selectRow}
+                    />
+                  </>
+                )}
+              </ToolkitProvider>
+            ) : loading ? (
+              <Spinner />
+            ) : (
+              <h2 style={{ color: "#212925", alignItems: "center" }}>
+                No Log Available
+              </h2>
+            )}
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel="Next >"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={4}
+              pageCount={data && data.data && data.data.count / record}
+              // previousLabel="< Previous"
+              // initialPage={1}
+              renderOnZeroPageCount={null}
+              containerClassName={"pagination"}
+              pageClassName={"page-item"}
+              pageLinkClassName={"page-link"}
+              previousClassName={"page-item"}
+              nextClassName={"page-item"}
+              previousLinkClassName={"page-link"}
+              nextLinkClassName={"page-link"}
+            />
+          </section>
+        ) : loading ? (
+          <Spinner height="400px" />
+        ) : (
+          <h2 style={{ color: "#212925", alignItems: "center" }}>
+            No Log Available
+          </h2>
+        )}
       </CustomCard>
     </>
   );
