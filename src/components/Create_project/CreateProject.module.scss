@@ -23,6 +23,14 @@
   .logout {
     cursor: pointer;
     float: right;
+    color: $defaultTextColor;
+    transition-duration: 0.2s;
+    &:hover {
+      background-color: $activehrefText !important;
+      color: $defaultTextColor;
+      border-radius: 10px;
+      padding: 10px;
+    }
   }
 
   .addProject {

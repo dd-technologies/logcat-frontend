@@ -157,10 +157,10 @@ export function SideBar(props) {
               <section>{navdetails.link2.linkName}</section>
             </Link>
           </section>
-          <section className={Style.BrnadName}>
-            <Image src="/assets/images/DD.png" />
-            <section>D&D Technology</section>
-          </section>
+        </section>
+        <section className={Style.brandName}>
+          <Image src="/assets/images/DDTECH.png" />
+          <p>D&D Technology</p>
         </section>
       </section>
     </>

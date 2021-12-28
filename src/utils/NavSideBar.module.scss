@@ -58,7 +58,9 @@
   position: fixed;
   width: 17.2%;
   z-index: 10;
-
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
   .componyDetails {
     display: flex;
     justify-content: center;
@@ -91,46 +93,21 @@
       }
     }
 
-    .BrnadName {
-      height: 75%;
-      display: flex;
-      justify-content: end;
-      align-items: center;
-      flex-direction: column;
-      padding: 10px; // border: red solid 1px;
-      & img {
-        width: 30%;
-      }
-      & section {
-        color: $defaultTextColor;
-      }
-      .BrnadNameFlex {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        // border: red solid 1px;
-        margin-top: 100%;
-      }
-
-      @media screen and (min-width: 300px) and (max-width: 900px) {
-        margin-top: 50%;
-        & img {
-          width: 20%;
-        }
-        & section {
-          color: $defaultTextColor;
-          font-size: 0.6rem;
-        }
-      }
-
-      @media screen and (min-width: 900px) and (max-width: 1600px) {
-        margin-top: 30%;
-      }
-    }
-
     .option_active {
       background-color: $backgroundColor;
       border-bottom: $borderBottom;
+    }
+  }
+
+  .brandName {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & img {
+      width: 30%;
+    }
+    & p {
+      color: $defaultTextColor;
     }
   }
 }
