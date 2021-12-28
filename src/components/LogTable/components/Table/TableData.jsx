@@ -272,7 +272,7 @@ export default function TableData() {
                         <ExportCSVButton {...props.csvProps}>
                           Export Table
                         </ExportCSVButton>
-                        <section className="p-2">
+                        <section className="p-4">
                           <FontAwesomeIcon
                             icon={faEllipsisV}
                             onClick={showTableFieldFunc}
