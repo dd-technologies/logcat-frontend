@@ -5,8 +5,15 @@ import { faRocket, faDatabase } from "@fortawesome/free-solid-svg-icons";
 import Style from "./TrandData.module.scss";
 import CustomCard from "../../../Container/CustomCard";
 import TrandDataGraph from "../charts/TrandDataGraph";
+import { useDispatch,useSelector } from "react-redux";
 
 export default function TrandData() {
+
+  const getAllLogByCodeReducer = useSelector(
+    (state) => state.getAllLogByCodeReducer
+  );
+  const { loading, data } = getAllLogByCodeReducer;
+
   return (
     <>
       <CustomCard>

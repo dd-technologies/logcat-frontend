@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AgTable from "./components/Table/AgTable";
 import TableData from "./components/Table/TableData";
 import PieChartSection from "./components/PieChartSection";
+import { getProjectByCode } from "../../redux/action/ProjectAction";
 
 export default function LogTable() {
   // filter with crash free statics and trands
@@ -62,6 +63,11 @@ export default function LogTable() {
     (state) => state.getAllLogByCodeReducer
   );
 
+  useEffect(() => {
+    console.log("useEffect first " + code);
+    dispatch(getProjectByCode(code));
+  }, []);
+
   // const {
   //   data: {
   //     data: { logs },
@@ -73,10 +79,10 @@ export default function LogTable() {
     <>
       <Row>
         <Col xl={2} lg={2} md={2} sm={2}>
-          <SideBar />
+          <SideBar navdetails = {sidebarDetails} />
         </Col>
         <Col xl={10} lg={10} md={10} sm={10}>
-          <Navbar />
+          <Navbar navdetails = {sidebarDetails} />
 
           {/* data inhere */}
           <Container style={{ marginTop: "9%", marginBottom: "5%" }}>
