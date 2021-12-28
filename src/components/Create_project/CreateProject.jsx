@@ -21,9 +21,10 @@ import { useHistory } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import AddProjectModal from "./components/AddProjectModal";
 import Spinner from "../../Container/Spinner";
+import { adminLogout } from "../../redux/action/AdminAction";
 
 function CreateProject() {
-  const [show, setShow] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
 
   // project data load or not
 
@@ -40,7 +41,7 @@ function CreateProject() {
     (state) => state.createNewProjectReducer
   );
   const { data } = createNewProjectReducer;
-  console.log("data", allProjectData);
+  // console.log("data", allProjectData);
   if (data && data.data) {
     toast.success("Project Created Successfully");
     Dispatch(clearProjectData());
@@ -69,12 +70,10 @@ function CreateProject() {
     Dispatch(getAllProject());
   }, []);
 
-  const handleClose = () => {
-    setShow(false);
-    console.log("show", show);
+  const handlelogout = (e) => {
+    e.preventDefault();
+    Dispatch(adminLogout(history));
   };
-
-  const handleShow = () => setShow(true);
 
   return (
     <>
@@ -82,20 +81,34 @@ function CreateProject() {
       <>
         <section className={Style.backgroundSection}></section>
         <Container className={Style.MainContantainer}>
+          <p
+            className={Style.logout}
+            onClick={(e) => {
+              handlelogout(e);
+            }}
+          >
+            Logout
+          </p>
           <p className={Style.para}>Your Projects</p>
           <Row>
             <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
               <CustomCard padding="10px" height="200px">
-                <section className={Style.addProject} onClick={handleShow}>
+                <section
+                  className={Style.addProject}
+                  onClick={() => setModalShow(true)}
+                >
                   <section>
                     <p>
                       <FontAwesomeIcon icon={faPlus} />
                     </p>
                     <p>Add Project</p>
-                    <AddProjectModal show={show} handleClose={handleClose} />
                   </section>
                 </section>
               </CustomCard>
+              <AddProjectModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+              />
             </Col>
 
             {/* dynamic projects */}

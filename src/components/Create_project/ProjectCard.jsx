@@ -7,7 +7,7 @@ import Style from "./ProductCard.module.scss";
 import { Link } from "react-router-dom";
 
 const ProjectCard = (props) => {
-  console.log("props project", props);
+  // console.log("props project", props);
 
   let newDate = props.data.createdAt.split("T")[0];
   let year = newDate.split("-")[0];

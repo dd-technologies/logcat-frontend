@@ -19,6 +19,12 @@
     font-size: 2rem;
     color: $defaultTextColor;
   }
+
+  .logout {
+    cursor: pointer;
+    float: right;
+  }
+
   .addProject {
     cursor: pointer;
     height: 100%;
