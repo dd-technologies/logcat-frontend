@@ -634,11 +634,7 @@ export default function TableData() {
             </ToolkitProvider>
           ) : loading ? (
             <Spinner height="400px" />
-          ) : (
-            <h2 style={{ color: "#212925", alignItems: "center" }}>
-              No Log Available
-            </h2>
-          )}
+          ) : null}
           <ReactPaginate
             breakLabel="..."
             nextLabel="Next >"
