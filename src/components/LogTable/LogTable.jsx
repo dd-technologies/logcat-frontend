@@ -111,35 +111,6 @@ export default function LogTable() {
           <Container style={{ marginTop: "9%", marginBottom: "5%" }}>
             <Row className="mt-4">
               <Col xl={12} className={Style.filterWithDate}>
-                <section>
-                  <section
-                    className={Style.filterGraphFirstSction}
-                    onClick={dropDownShowFun}
-                  >
-                    <FontAwesomeIcon icon={faFilter} />
-                  </section>
-                  {dropDownShow ? (
-                    <CustomeDropDown
-                      width="auto"
-                      height="auto"
-                      className="mt-2"
-                    >
-                      <input type="text" placeholder="please enter you key" />
-                      <input
-                        type="text"
-                        placeholder="please enter you key"
-                        className="mt-2"
-                      />
-                      <input
-                        type="text"
-                        placeholder="please enter you key"
-                        className="mt-2"
-                      />
-                      <Button className="mt-2">Apply</Button>
-                    </CustomeDropDown>
-                  ) : null}
-                </section>
-
                 <section className={Style.filterwithDate}>
                   <section className={Style.datafilter} onClick={DateFilter}>
                     <FontAwesomeIcon icon={faCalendar} />

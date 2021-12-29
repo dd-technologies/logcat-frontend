@@ -30,25 +30,15 @@
 
 .filterWithDate {
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   height: 40px;
 
-  .filterGraphFirstSction {
-    cursor: pointer;
-    background-color: $filterButtonBackgroundColor;
-    padding: 10px;
-    border-radius: $buttonBorderRaduous;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
   .filterwithDate {
     cursor: pointer;
     .datafilter {
       display: flex;
       align-items: center;
-      justify-content: space-around;
+      justify-content: space-between;
     }
     & input {
       margin-left: 10px;
