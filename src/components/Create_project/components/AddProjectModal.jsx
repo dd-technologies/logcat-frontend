@@ -5,6 +5,8 @@ import { uploadNewProject } from "../../../redux/action/ProjectAction";
 import Style from "./AddProjectModal.module.scss";
 
 const AddProjectModal = (props) => {
+  // console.log("projectmodal", props);
+
   const [createProject, setCreateProject] = useState({
     name: "",
     description: "",
@@ -29,12 +31,12 @@ const AddProjectModal = (props) => {
   };
 
   const addChips = (e) => {
-    console.log(e.key);
+    // console.log(e.key);
     if (["Enter", "Tab", ","].includes(e.key)) {
       e.preventDefault();
 
       let inputChips = chips.trim();
-      console.log(inputChips);
+      // console.log(inputChips);
       if (inputChips) {
         if (!modelType.includes(inputChips.toLowerCase())) {
           setModelType([...modelType, inputChips]);
@@ -42,7 +44,7 @@ const AddProjectModal = (props) => {
         setchips("");
       }
     }
-    console.log(modelType);
+    // console.log(modelType);
   };
   const dispatch = useDispatch();
 
@@ -72,7 +74,7 @@ const AddProjectModal = (props) => {
           createProject.description
         )
       );
-      props.handleClose();
+      // props.handleClose();
     }
   };
   return (
@@ -186,8 +188,13 @@ const AddProjectModal = (props) => {
     // </Modal>
 
     <>
-      <Modal {...props} onHide={props.handleClose}>
-        {console.log("porps", props)}
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        {/* {console.log("add project", props)} */}
 
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -278,7 +285,7 @@ const AddProjectModal = (props) => {
               >
                 &times;
               </button>
-              {console.log(type)}
+              {/* {console.log(type)} */}
             </div>
           ))}
         </Modal.Body>

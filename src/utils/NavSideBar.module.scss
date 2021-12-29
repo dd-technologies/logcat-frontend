@@ -35,6 +35,15 @@
       color: $activehrefText;
       font-weight: 700;
     }
+
+    // media query for
+    @media screen and (min-width: 300px) and (max-width: 900px) {
+      width: 55%;
+    }
+
+    @media screen and (min-width: 900px) and (max-width: 1600px) {
+      width: 35%;
+    }
   }
 }
 
@@ -49,12 +58,19 @@
   position: fixed;
   width: 17.2%;
   z-index: 10;
-
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
   .componyDetails {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 10%;
+
+    .DashBoardTitle {
+      font-size: 2rem;
+    }
+
     & img {
       width: 45px;
     }
@@ -65,7 +81,9 @@
   }
 
   .options {
+    height: 100%;
     .optionItems {
+      text-decoration: none;
       display: flex;
       align-items: center;
       color: $defaultTextColor;
@@ -78,6 +96,18 @@
     .option_active {
       background-color: $backgroundColor;
       border-bottom: $borderBottom;
+    }
+  }
+
+  .brandName {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & img {
+      width: 30%;
+    }
+    & p {
+      color: $defaultTextColor;
     }
   }
 }

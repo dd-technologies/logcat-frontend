@@ -5,7 +5,7 @@ import ReactReadMoreReadLess from "react-read-more-read-less";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
+import { faCaretRight, faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import ToolkitProvider, {
   Search,
   CSVExport,
@@ -15,6 +15,7 @@ import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
 import { getProjectByCode } from "../../../../redux/action/ProjectAction";
 import Spinner from "../../../../Container/Spinner";
+import CustomeFilterTable from "./CustomeFilterTable";
 
 const { SearchBar } = Search;
 const queryString = window.location.search;
@@ -81,10 +82,11 @@ const columns = [
     },
     formatter: (col, row) => {
       // console.log("row id mil", row);
-      const code = urlParams.get("code");
+      const newCode = urlParams.get("code");
+      const projectName = urlParams.get("name");
       // const version = urlParams.get('version')
       // const osArchitecture = urlParams.get('osArchitecture')
-      // console.log("now_code", code);
+      console.log("now_code", newCode);
 
       return (
         <div style={{ width: "250px", height: "auto", overflow: "hidden" }}>
@@ -95,16 +97,19 @@ const columns = [
           >
             {col}
           </ReactReadMoreReadLess>
-          <Link
-            to={`/analytics?code=${code}&name=Stack Trace&id=${row._id}&allStacks=${row.logMsg}&macAddress=${row.did}&loggenrateddate=${row.logGeneratedDate}&modeltype=${row.device_types}&logtype=${row.logType}`}
-          >
-            <Button style={{ float: "right" }} onClick={() => {}}>
+          <Link to={`/analytics?code=${newCode}&name=${projectName}`}>
+            <Button className={Style.ViewButton}>
               View
+              <span className="p-2">
+                <FontAwesomeIcon icon={faCaretRight} />
+              </span>
             </Button>
           </Link>
         </div>
       );
     },
+
+    //  to={`/analytics?code=${code}&name=Stack Trace&id=${row._id}&allStacks=${row.logMsg}&macAddress=${row.did}&loggenrateddate=${row.logGeneratedDate}&modeltype=${row.device_types}&logtype=${row.logType}`}
 
     // style: { backgroundColor: 'green' }
   },
@@ -181,6 +186,9 @@ export default function TableData() {
   const [record, setRecords] = useState(25);
   const [showStackView, setShowStackView] = useState(false);
 
+  // filter data fields with table
+  const [showTableField, setShowTableField] = useState(false);
+
   const [logType, setLogType] = useState({
     error: localStorage.getItem("selected_log")
       ? JSON.parse(localStorage.getItem("selected_log")).error
@@ -235,6 +243,15 @@ export default function TableData() {
     }
   }, [pageNo, record]);
 
+  const showTableFieldFunc = () => {
+    if (showTableField) {
+      setShowTableField(false);
+    }
+    if (!showTableField) {
+      setShowTableField(true);
+    }
+  };
+
   return (
     <>
       <CustomCard>
@@ -251,15 +268,26 @@ export default function TableData() {
                 <>
                   <div className={Style.BootstrapTable}>
                     <SearchBar {...props.searchProps} />
-                    <ExportCSVButton {...props.csvProps}>
-                      Export Table
-                    </ExportCSVButton>
+                    <section className={Style.filterOptions}>
+                      <ExportCSVButton {...props.csvProps}>
+                        Export Table
+                      </ExportCSVButton>
+                      <section className="p-4">
+                        <FontAwesomeIcon
+                          icon={faEllipsisV}
+                          onClick={showTableFieldFunc}
+                        />
+                        {showTableField ? <CustomeFilterTable /> : null}
+                      </section>
+                    </section>
                   </div>
                   <BootstrapTable {...props.baseProps} selectRow={selectRow} />
                 </>
               )}
             </ToolkitProvider>
-          ) : loading ? <Spinner/> :(
+          ) : loading ? (
+            <Spinner height="400px" />
+          ) : (
             <h2 style={{ color: "#212925", alignItems: "center" }}>
               No Log Available
             </h2>

@@ -7,9 +7,13 @@ export default function CreateCard(props) {
       <Card
         style={{
           height: props.height ? props.height : "100%",
+          width: props.width ? props.width : "100%",
           borderRadius: "10px",
           overflow: "hidden",
           padding: props.padding ? props.padding : "0px",
+          position: props.position ? props.position : "relative",
+          right: props.right ? props.right : "",
+          boxShadow: props.boxShadow ? props.boxShadow : "",
         }}
       >
         {props.children}

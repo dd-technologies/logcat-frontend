@@ -29,16 +29,16 @@ export default function Analytics() {
   });
 
   const filterOnDate = ({ startDate = null, endDate = null, diff = 15 }) => {
-    console.log(diff);
+    // console.log(diff);
     if (diff != null) {
       var dt = new Date();
       const endd = dt.toISOString().slice(0, 10);
-      console.log(date);
+      // console.log(date);
       dt.setDate(dt.getDate() - diff);
       setdate({ start: dt.toISOString().slice(0, 10), end: endd });
-      console.log(date);
+      // console.log(date);
     } else {
-      console.log("Does not execute");
+      // console.log("Does not execute");
     }
   };
   const queryString = window.location.search;
@@ -61,6 +61,19 @@ export default function Analytics() {
     },
   };
 
+  const sidebarDetails = {
+    name: projectName,
+    dashName: projectName,
+    link1: {
+      iconName: faDatabase,
+      linkName: "Home",
+    },
+    link2: {
+      iconName: faDatabase,
+      linkName: "Profile",
+    },
+  };
+
   const dispatch = useDispatch();
 
   const dispatchmultiple = () => {
@@ -77,10 +90,10 @@ export default function Analytics() {
     <>
       <Row>
         <Col xl={2} lg={2} md={2} sm={2}>
-          <SideBar />
+          <SideBar navdetails={sidebarDetails} />
         </Col>
         <Col xl={10} lg={10} md={10} sm={10}>
-          <Navbar />
+          <Navbar navdetails={sidebarDetails} />
           <Container style={{ marginTop: "9%", marginBottom: "3%" }}>
             {/* data from api */}
             <Col className="my-4">

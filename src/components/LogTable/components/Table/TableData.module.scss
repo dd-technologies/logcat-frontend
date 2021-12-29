@@ -11,5 +11,17 @@
       color: $defaultTextColor !important;
       font-weight: 500;
     }
+
+    .filterOptions {
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
+}
+
+.ViewButton {
+  border-radius: 50px !important;
+  float: right;
 }

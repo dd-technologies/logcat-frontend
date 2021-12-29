@@ -69,11 +69,15 @@ const TrandDataGraph = () => {
 //       : null;
 //   console.log("LineCount", LineCount);
 
+const getLogCountsByDateReducer = useSelector(state => state.getLogCountsByDateReducer)
+  const {loading,data} = getLogCountsByDateReducer
+  const LineCount = data && data.data && data.data.response  ? data.data.response : null
+
   return (
     <div style={{ width: "100%", height: 130 }}>
       <ResponsiveContainer>
         <AreaChart
-          data={data}
+          data={LineCount}
           margin={{
             top: 10,
             right: 30,
@@ -82,10 +86,10 @@ const TrandDataGraph = () => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="date" />
           <YAxis />
           <Tooltip />
-          <Area type="monotone" dataKey="uv" stroke="#257d7c" fill="#257d7c" />
+          <Area type="monotone" dataKey="countLog" stroke="#257d7c" fill="#257d7c" />
         </AreaChart>
       </ResponsiveContainer>
     </div>

@@ -23,7 +23,7 @@ export default function ResetPassword() {
       toast.error('Please provide all the required field!')
     }
     else if (state.otp && state.otp.length === 6) {
-      console.log('hello dispatch')
+      // console.log('hello dispatch')
       if (state.newPass === state.confirmPass) {
         setStateErr({err:null,inputErr:null})
         dispatch()

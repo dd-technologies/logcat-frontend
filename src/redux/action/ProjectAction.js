@@ -276,15 +276,24 @@ export const getLogByDate =
         } else {
           // console.log("hello else");
           var dt = new Date();
-          const start = dt.toISOString().slice(0, 10);
-          dt.setDate(dt.getDate() - 10);
           const end = dt.toISOString().slice(0, 10);
+          dt.setDate(dt.getDate() - 10);
+          const start = dt.toISOString().slice(0, 10);
           response = await axios.get(
-            `https://logger-server.herokuapp.com/api/logger/projects/datewiselogcount/${code}?startDate=${start}&endDate=${end}`,
+            `https://logger-server.herokuapp.com/api/logger/projects/datewiselogcount/${code}?startDate=2021-09-19&endDate=${end}`,
             config
           );
-          // console.log(response);
+          console.log(`start ${start} and ${end}`);
         }
+
+        // console.log(response);
+        dispatch({
+          type: GET_LOG_COUNT_BY_DATE_SUCCESS,
+          payload: response.data,
+        });
+
+
+
       } catch (error) {
         console.log(error)
       }

@@ -1,0 +1,42 @@
+@import "../../../../css/veriables.module.scss";
+
+.StatusInnerSecion {
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.ActiveOption {
+  background-color: $backgroundColor;
+  color: $defaultTextColor;
+  border-radius: 10px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.DefaultOption {
+  color: $activehrefText;
+  padding: 5px;
+}
+
+.DateSection {
+  & input {
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.6);
+  }
+}
+
+.perPageOuter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .perPagesectionInner {
+    margin-top: 5px;
+  }
+}
