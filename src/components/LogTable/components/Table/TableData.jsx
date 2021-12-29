@@ -97,7 +97,9 @@ const columns = [
           >
             {col}
           </ReactReadMoreReadLess>
-          <Link to={`/analytics?code=${newCode}&name=${projectName}`}>
+          <Link
+            to={`/analytics?code=${newCode}&name=${projectName}&col=${col}`}
+          >
             <Button className={Style.ViewButton}>
               View
               <span className="p-2">

@@ -20,10 +20,11 @@
       color: $activehrefText;
     }
     & h3 {
+      cursor: pointer;
       font-size: 1.3rem;
     }
   }
-  
+
   .detailSection {
     border: $borderBottom;
     border-bottom-left-radius: $cardBorderRadius;

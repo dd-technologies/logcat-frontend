@@ -44,6 +44,7 @@ export default function Analytics() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get("code");
+
   const projectName = urlParams.get("name");
 
   const navbardetail = {
@@ -71,6 +72,7 @@ export default function Analytics() {
     link2: {
       iconName: faDatabase,
       linkName: "Profile",
+      link: "",
     },
   };
 
