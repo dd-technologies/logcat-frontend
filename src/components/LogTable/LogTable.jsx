@@ -88,15 +88,14 @@ export default function LogTable() {
     dispatchmultiple();
   }, [date]);
 
-  const multipleDispatchGraph = ()=>{
-    dispatch(getLogTypeCounts({code, diffDate}));
-    dispatch(getLogByDate({code, diffDate}));
-    dispatch(getCrashFreeUsers({code,diffDate}))
-  }
+  const multipleDispatchGraph = () => {
+    dispatch(getLogTypeCounts({ code, diffDate }));
+    dispatch(getLogByDate({ code, diffDate }));
+    dispatch(getCrashFreeUsers({ code, diffDate }));
+  };
   useEffect(() => {
-    multipleDispatchGraph()
+    multipleDispatchGraph();
   }, [diffDate]);
-
 
   return (
     <>
@@ -114,17 +113,52 @@ export default function LogTable() {
                 <section className={Style.filterwithDate}>
                   <section className={Style.datafilter} onClick={DateFilter}>
                     <FontAwesomeIcon icon={faCalendar} />
-                    <p className="ms-2 p-1" onClick={()=>{setDiffDate(10)}}>Last 10 Days</p>
+                    <p
+                      className="ms-2 p-1"
+                      onClick={() => {
+                        setDiffDate(10);
+                      }}
+                    >
+                      Last 10 Days
+                    </p>
                     <FontAwesomeIcon icon={faCaretDown} />
                   </section>
                   <section>
                     {dateDropDown ? (
                       <CustomeDropDown>
                         {/* <p className="mt-1">10 days</p> */}
-                        <p className="mt-1" onClick={()=>{setDiffDate(15)}} >15 days</p>
-                        <p className="mt-1" onClick={()=>{setDiffDate(30)}} >30 days</p>
-                        <p className="mt-1" onClick={()=>{setDiffDate(45)}} >45 days</p>
-                        <p className="mt-1" onClick={()=>{setDiffDate(60)}} >60 days</p>
+                        <p
+                          className="mt-1"
+                          onClick={() => {
+                            setDiffDate(15);
+                          }}
+                        >
+                          15 days
+                        </p>
+                        <p
+                          className="mt-1"
+                          onClick={() => {
+                            setDiffDate(30);
+                          }}
+                        >
+                          30 days
+                        </p>
+                        <p
+                          className="mt-1"
+                          onClick={() => {
+                            setDiffDate(45);
+                          }}
+                        >
+                          45 days
+                        </p>
+                        <p
+                          className="mt-1"
+                          onClick={() => {
+                            setDiffDate(60);
+                          }}
+                        >
+                          60 days
+                        </p>
                       </CustomeDropDown>
                     ) : null}
                   </section>
