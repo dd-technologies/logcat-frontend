@@ -30,7 +30,12 @@ import {
   GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST_SUCCESS,
   GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST_FAIL,
 
-  UPLOAD_NEW_PROJECT_REQUEST_RESET
+  UPLOAD_NEW_PROJECT_REQUEST_RESET,
+
+  GET_CRASH_FREE_USERS_REQUEST,
+  GET_CRASH_FREE_USERS_REQUEST_SUCCESS,
+  GET_CRASH_FREE_USERS_REQUEST_FAIL,
+  
 } from "../types/ProjectConstants";
 
 export const getAllProjectReducer = (state = {}, action) => {
@@ -212,6 +217,26 @@ export const getLogMsgOccurenceWRTDateReducer = (state={},action)=>{
         data: action.payload,
       };
     case   GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+}
+};
+
+export const getCrashFreeUsersReducer = (state={},action)=>{
+  switch (action.type) {
+    case   GET_CRASH_FREE_USERS_REQUEST:
+      return { loading: true };
+
+    case   GET_CRASH_FREE_USERS_REQUEST_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+      };
+    case   GET_CRASH_FREE_USERS_REQUEST_FAIL:
       return {
         loading: false,
         error: action.payload,

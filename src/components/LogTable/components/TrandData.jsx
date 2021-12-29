@@ -18,28 +18,28 @@ export default function TrandData() {
       <CustomCard >
         <Row className="p-3">
           <Col xl={12} className={Style.Trand}>
-            <h5> Trands</h5>
-            <p>
+            <h5> Trends</h5>
+            {/* <p>
               <span className="p-2">
                 <FontAwesomeIcon icon={faRocket} />
               </span>
               Letest Release
-            </p>
+            </p> */}
           </Col>
           <Col xl={12} className={Style.TrandsDataTable}>
             <section className={Style.Outsection}>
               <section>
                 <p>Crashes</p>
-                <h4>3</h4>
-                <p>-40%</p>
+                <h4></h4>
+                {/* <p>-40%</p> */}
               </section>
-              <section>
+              {/* <section>
                 <p className="ps-3">Users</p>
                 <h4 className="ps-3">0</h4>
                 <p className="ps-3">0%</p>
-              </section>
+              </section> */}
             </section>
-            <section className={Style.Outsection}>
+            {/* <section className={Style.Outsection}>
               <section>
                 <p className="ps-3">Non-fatals</p>
                 <h4 className="ps-3">0</h4>
@@ -48,8 +48,8 @@ export default function TrandData() {
                 <p className="ps-3">Users</p>
                 <h4 className="h3s-1">0</h4>
               </section>
-            </section>
-            <section className={Style.Outsection}>
+            </section> */}
+            {/* <section className={Style.Outsection}>
               <section>
                 <p className="ps-3">Arns</p>
                 <h4 className="ps-3">0</h4>
@@ -58,7 +58,7 @@ export default function TrandData() {
                 <p className="ps-3">Users</p>
                 <h4 className="ps-3">0</h4>
               </section>
-            </section>
+            </section> */}
           </Col>
           <Col>
             <TrandDataGraph />
