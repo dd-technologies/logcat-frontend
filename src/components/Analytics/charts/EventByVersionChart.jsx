@@ -11,7 +11,7 @@ import {
 } from "recharts";
 import { getLogMsgOccurenceWRTDate } from "../../../redux/action/ProjectAction";
 
-const data = [
+const dataAll = [
   {
     name: "Page A",
     uv: 4000,
@@ -56,38 +56,23 @@ const data = [
   },
 ];
 
-const EventChart = () => {
-  const getLogCountsByDateReducer = useSelector(
-    (state) => state.getLogCountsByDateReducer
+const EventByVersionChart = (props) => {
+  const getLogMsgOccurenceWRTDateReducer = useSelector(
+    (state) => state.getLogMsgOccurenceWRTDateReducer
   );
-  console.log("getLogCountsByDateReducer", getLogCountsByDateReducer);
 
-  //   const queryString = window.location.search;
-  //   const urlParams = new URLSearchParams(queryString);
-  //   const code = urlParams.get("code");
-  //   let logMsg = urlParams.get("col").split("at")[0];
+  console.log(
+    "getLogMsgOccurenceWRTDateReducer",
+    getLogMsgOccurenceWRTDateReducer
+  );
 
-  //   console.log("logMsg", logMsg);
-  //   const projectName = urlParams.get("name");
-
-  //   var dt = new Date();
-  //   const endDate = dt.toISOString().slice(0, 10);
-  //   dt.setDate(dt.getDate() - 10);
-  //   const startDate = dt.toISOString().slice(0, 10);
-
-  //   useEffect(() => {
-  //     dispatch(getLogMsgOccurenceWRTDate(code, startDate, endDate, logMsg));
-  //   }, []);
-
-
-
-  
+ 
 
   return (
     <div style={{ width: "100%", height: 300 }}>
       <ResponsiveContainer>
         <AreaChart
-          data={data}
+          data={dataAll}
           margin={{
             top: 10,
             right: 30,
@@ -106,4 +91,4 @@ const EventChart = () => {
   );
 };
 
-export default EventChart;
+export default EventByVersionChart;

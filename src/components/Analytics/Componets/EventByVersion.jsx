@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import CustomCard from "../../../Container/CustomCard";
-import EventChart from "../charts/EventChart";
+import { getLogMsgOccurenceWRTDate } from "../../../redux/action/ProjectAction";
+import EventByVersionChart from "../charts/EventByVersionChart";
 
 export default function EventByVersion() {
+  const dispatch = useDispatch();
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  let code = urlParams.get("code");
+
+  console.log("code", code);
+  let logMsg = urlParams.get("col").split("at")[0].trim();
+
+  useEffect(() => {
+    dispatch(getLogMsgOccurenceWRTDate(code, null, null, logMsg));
+  }, []);
+
   return (
     <>
       <CustomCard>
@@ -16,7 +30,7 @@ export default function EventByVersion() {
           <Col xl={8}>
             <section>
               <p>from the last 7 days</p>
-              <EventChart />
+              <EventByVersionChart code={code} logMsg={logMsg} />
             </section>
           </Col>
         </Row>

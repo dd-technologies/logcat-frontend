@@ -420,11 +420,6 @@ export const getLogMsgOccurenceWRTDate = ({ code, startDate, endDate, logMsg }) 
     // console.log("hello from action from get project details");
 
 
-
-
-
-
-
     if (startDate == null && endDate == null) {
       var dt = new Date();
       const endDate = dt.toISOString().slice(0, 10);

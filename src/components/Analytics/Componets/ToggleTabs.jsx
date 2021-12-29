@@ -9,21 +9,13 @@ export default function ToggleTabs() {
   // toogling window
   const [devieWindow, setdevieWindow] = useState(true);
   const [opratingSystemWindow, setOpratingSystemWindow] = useState(null);
-  const [deviceStatus, setDeviceStatus] = useState(null);
 
   const DeviceShowFun = () => {
     setdevieWindow(!devieWindow);
     setOpratingSystemWindow(null);
-    setDeviceStatus(null);
   };
   const opratingSystemFun = () => {
     setOpratingSystemWindow(!opratingSystemWindow);
-    setdevieWindow(null);
-    setDeviceStatus(null);
-  };
-  const deviceStatusFun = () => {
-    setDeviceStatus(!deviceStatus);
-    setOpratingSystemWindow(null);
     setdevieWindow(null);
   };
 
@@ -51,16 +43,6 @@ export default function ToggleTabs() {
           >
             <p className="p-2">Operating System</p>
           </Col>
-          <Col
-            className={
-              deviceStatus
-                ? `${Style.ToggleTabs_active}`
-                : `${Style.ToggleTabs}`
-            }
-            onClick={deviceStatusFun}
-          >
-            <p className="p-2">Device Status</p>
-          </Col>
         </Row>
 
         {/* data from toggle */}
@@ -74,12 +56,6 @@ export default function ToggleTabs() {
             <Col className="p-4">
               <section className={Style.DataTogleSection}>
                 <EventChart />
-              </section>
-            </Col>
-          ) : deviceStatus ? (
-            <Col className="p-4">
-              <section className={Style.DataTogleSection}>
-                <p>need to add some data </p>
               </section>
             </Col>
           ) : null}
