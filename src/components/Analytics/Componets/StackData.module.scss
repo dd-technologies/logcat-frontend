@@ -30,13 +30,30 @@
     border-bottom-left-radius: $cardBorderRadius;
     border-bottom-right-radius: $cardBorderRadius;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     background-color: $defaultTextColor;
-    .lineBrack {
-      & p {
-        width: 100%;
-        color: $activehrefText;
-      }
+
+    .stackDetails {
+      font-weight: 700;
     }
+
+    & p {
+      width: 100%;
+      color: $activehrefText;
+    }
+  }
+}
+
+.filterToggle {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  .filterGraphFirstSction {
+    cursor: pointer;
+    background-color: $filterButtonBackgroundColor;
+    padding: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: $buttonBorderRaduous;
   }
 }
