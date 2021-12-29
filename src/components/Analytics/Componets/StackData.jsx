@@ -13,13 +13,13 @@ export default function StackData() {
   const urlParams = new URLSearchParams(queryString);
   const colData = urlParams.get("col");
 
-  console.log("Col", colData);
+  // console.log("Col", colData);
 
   // HEADING DATA ANALYTIC
   const pattern = /(at).*/gm;
   const DataINRow = colData.split(" at");
 
-  console.log("DataINRow", DataINRow);
+  // console.log("DataINRow", DataINRow);
 
   // INNER PARA SHOW FUNCTION
   const innerParaShowFun = () => {

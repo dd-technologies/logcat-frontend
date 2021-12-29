@@ -47,7 +47,7 @@ export default function Analytics() {
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get("code");
   const logMsg = urlParams.get("col").split("at")[0];
-  console.log("logMsg", logMsg);
+  // console.log("logMsg", logMsg);
 
   const projectName = urlParams.get("name");
 
@@ -80,7 +80,7 @@ export default function Analytics() {
     },
   };
 
-  console.log("data", date);
+  // console.log("data", date);
 
   const dispatch = useDispatch();
 

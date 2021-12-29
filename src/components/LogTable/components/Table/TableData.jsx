@@ -91,7 +91,7 @@ const columns = [
       const projectName = urlParams.get("name");
       // const version = urlParams.get('version')
       // const osArchitecture = urlParams.get('osArchitecture')
-      console.log("now_code", newCode);
+      // console.log("now_code", newCode);
 
       return (
         <div
@@ -269,7 +269,7 @@ export default function TableData() {
   const dispatch = useDispatch();
 
   const saveSearch = () => {
-    console.log("save searches");
+    // console.log("save searches");
     // localStorage.removeItem("name of localStorage variable you want to remove");
     localStorage.setItem("selected_log", JSON.stringify(logType));
     if (date.start.length > 0 || date.end.length > 0) {
@@ -323,7 +323,7 @@ export default function TableData() {
   };
 
   const handlePageClick = (data) => {
-    console.log(data);
+    // console.log(data);
     // const newPageNo = data.selected+1
     if (pageNo !== data.selected + 1) {
       setPageNo(data.selected + 1);
@@ -366,7 +366,7 @@ export default function TableData() {
   };
 
   useEffect(() => {
-    console.log("hello second useEffect");
+    // console.log("hello second useEffect");
     if (
       logType.error ||
       logType.info ||
@@ -634,7 +634,9 @@ export default function TableData() {
             </ToolkitProvider>
           ) : loading ? (
             <Spinner height="400px" />
-          ) : null}
+          ) : (
+            <h3>No Logs Found</h3>
+          )}
           <ReactPaginate
             breakLabel="..."
             nextLabel="Next >"

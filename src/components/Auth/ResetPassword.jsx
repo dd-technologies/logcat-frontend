@@ -19,7 +19,7 @@ export default function ResetPassword() {
   const dispatch = useDispatch()
   const handleSubmit = ()=>{
     if (state.otp == null || state.newPass == null || !state.confirmPass == null) {
-      console.log("first if")
+      // console.log("first if")
       toast.error('Please provide all the required field!')
     }
     else if (state.otp && state.otp.length === 6) {

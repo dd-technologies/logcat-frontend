@@ -5,7 +5,7 @@ import { Route, useHistory, Redirect } from "react-router-dom";
 const Protected = ({ Component, ...rest }) => {
   const history = useHistory();
   const [isLoggedIn, setisLoggedIn] = useState(false);
-  console.log(localStorage.getItem("ddAdminToken"));
+  // console.log(localStorage.getItem("ddAdminToken"));
 
   // useEffect(() => {
   //   console.log("inside the useEffect");

@@ -61,10 +61,10 @@ const EventByVersionChart = (props) => {
     (state) => state.getLogMsgOccurenceWRTDateReducer
   );
 
-  console.log(
-    "getLogMsgOccurenceWRTDateReducer",
-    getLogMsgOccurenceWRTDateReducer
-  );
+  // console.log(
+  //   "getLogMsgOccurenceWRTDateReducer",
+  //   getLogMsgOccurenceWRTDateReducer
+  // );
 
  
 

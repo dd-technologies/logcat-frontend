@@ -85,11 +85,11 @@ export default function LogTable() {
     dispatchmultiple();
   }, [date]);
 
-  // useEffect(() => {
-  //   console.log("useEffect first " + code);
-  //   dispatch(getProjectByCode(code));
-  //   dispatchmultiple();
-  // }, []);
+  useEffect(() => {
+    // console.log("useEffect first " + code);
+    dispatch(getProjectByCode(code));
+    dispatchmultiple();
+  }, []);
 
   // const {
   //   data: {

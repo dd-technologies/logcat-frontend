@@ -10,7 +10,12 @@ import ForgetPassword from "./components/Auth/ForgetPassword";
 import Protected from "./utils/Protected";
 
 
+
+
+
 function App() {
+
+
   return (
     <Router>
       <Switch>

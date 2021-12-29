@@ -15,7 +15,7 @@ export function Navbar(props) {
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const [navToggle, setNavToggle] = useState(true);
   const { loading, adminInfo } = adminLoginReducer;
-  console.log(adminInfo.data.name);
+  // console.log(adminInfo.data.name);
 
   // checking if navlink 2 is not avilables
 
@@ -28,7 +28,7 @@ export function Navbar(props) {
   };
 
   const currentRoute = useHistory().location.pathname.toLowerCase();
-  console.log("currentRoute", currentRoute);
+  // console.log("currentRoute", currentRoute);
 
   // navigation toogle
   const navToggleFun = () => {
@@ -101,7 +101,7 @@ export function SideBar(props) {
   };
 
   const currentRoute = useHistory().location.pathname.toLowerCase();
-  console.log("currentRoute", currentRoute);
+  // console.log("currentRoute", currentRoute);
 
   // navigation toogle
   const navToggleFun = () => {

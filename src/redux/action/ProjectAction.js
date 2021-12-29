@@ -283,7 +283,7 @@ export const getLogByDate =
             `https://logger-server.herokuapp.com/api/logger/projects/datewiselogcount/${code}?startDate=${start}&endDate=${end}`,
             config
           );
-          console.log(`start ${start} and ${end}`);
+          // console.log(`start ${start} and ${end}`);
         }
 
         // console.log(response);

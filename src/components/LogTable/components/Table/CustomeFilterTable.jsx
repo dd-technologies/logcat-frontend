@@ -46,14 +46,14 @@ export default function CustomeFilterTable(props) {
   });
 
   const filterOnDate = ({ startDate = null, endDate = null, diff = 15 }) => {
-    console.log(diff);
+    // console.log(diff);
     if (diff != null) {
       var dt = new Date();
       const endd = dt.toISOString().slice(0, 10);
-      console.log(date);
+      // console.log(date);
       dt.setDate(dt.getDate() - diff);
       setdate({ start: dt.toISOString().slice(0, 10), end: endd });
-      console.log(date);
+      // console.log(date);
     } else {
       console.log("Does not execute");
     }

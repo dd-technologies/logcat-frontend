@@ -36,13 +36,13 @@ function CreateProject() {
     loading,
     allProjectData,
   } = getAllProjectReducer;
-  console.log("PorjectData", PorjectData);
+  // console.log("PorjectData", PorjectData);
 
   // GETTGIN THE USER NAME TO PUT IN DOCUMENT
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { adminInfo } = adminLoginReducer;
 
-  console.log("adminInfo", adminInfo);
+  // console.log("adminInfo", adminInfo);
 
   const createNewProjectReducer = useSelector(
     (state) => state.createNewProjectReducer
