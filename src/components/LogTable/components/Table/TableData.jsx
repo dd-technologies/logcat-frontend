@@ -5,7 +5,11 @@ import ReactReadMoreReadLess from "react-read-more-read-less";
 import { Link } from "react-router-dom";
 import { Button, Col, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretRight, faEllipsisV , faFilter} from "@fortawesome/free-solid-svg-icons";
+import {
+  faCaretRight,
+  faEllipsisV,
+  faFilter,
+} from "@fortawesome/free-solid-svg-icons";
 import ToolkitProvider, {
   Search,
   CSVExport,
@@ -403,14 +407,11 @@ export default function TableData() {
                       </ExportCSVButton>
                       <section
                         className={Style.filterGraphFirstSction}
+                        onClick={showTableFieldFunc}
                       >
                         <FontAwesomeIcon icon={faFilter} />
                       </section>
                       <section className="p-4">
-                        <FontAwesomeIcon
-                          icon={faEllipsisV}
-                          onClick={showTableFieldFunc}
-                        />
                         {showTableField ? (
                           <CustomCard
                             position="absolute"
