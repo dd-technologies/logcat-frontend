@@ -74,8 +74,11 @@ export default function StackData() {
         {stackErrorFilter ? (
           <Col xl={12} className={`${Style.outerDiv} mt-4`}>
             <section className={`${Style.StackInfoDive} p-3`}>
-              <section className={Style.ParaWithArrowDown}>
-                <h3 onClick={innerParaShowFun}>Stack Error</h3>
+              <section
+                className={Style.ParaWithArrowDown}
+                onClick={innerParaShowFun}
+              >
+                <h3>Stack Error</h3>
                 <FontAwesomeIcon icon={faCaretDown} />
               </section>
             </section>
@@ -91,15 +94,35 @@ export default function StackData() {
         {stackErrorFilterTextFormate ? (
           <Col xl={12} className={`${Style.outerDiv} mt-4`}>
             <section className={`${Style.StackInfoDive} p-3`}>
-              <section className={Style.ParaWithArrowDown}>
-                <h3 onClick={innerParaShowFun}>Stack Error in text formate</h3>
+              <section
+                className={Style.ParaWithArrowDown}
+                onClick={innerParaShowFun}
+              >
+                <h3>Stack Error in text formate</h3>
                 <FontAwesomeIcon icon={faCaretDown} />
               </section>
             </section>
 
             <section className={`${Style.detailSection} p-3`}>
               <p className={Style.stackDetails}>Stack Error</p>
-              {InnerParaShow ? <p>{colData}</p> : null}
+              {InnerParaShow ? (
+                <section>
+                  {DataINRow.map((itmes, index) => {
+                    return (
+                      <>
+                        <p className={Style.pText}>
+                          {index == 0 ? (
+                            <span style={{ fontWeight: "bold" }}></span>
+                          ) : (
+                            <span style={{ fontWeight: "bold" }}>at : </span>
+                          )}
+                          {itmes}
+                        </p>
+                      </>
+                    );
+                  })}
+                </section>
+              ) : null}
             </section>
           </Col>
         ) : null}
