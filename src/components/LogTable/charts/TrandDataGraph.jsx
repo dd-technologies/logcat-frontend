@@ -74,7 +74,7 @@ const getLogCountsByDateReducer = useSelector(state => state.getLogCountsByDateR
   const LineCount = data && data.data && data.data.response  ? data.data.response : null
 
   return (
-    <div style={{ width: "100%", height: 130 }}>
+    <div style={{ width: "100%", height: 150 }}>
       <ResponsiveContainer>
         <AreaChart
           data={LineCount}

@@ -1,68 +1,53 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Pie } from "react-chartjs-2";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
-import { PieChart, Pie, Cell } from "recharts";
-import { getProjectByCode } from "../../../redux/action/ProjectAction";
-
-const data = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 },
-];
-
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
-
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({
-  cx,
-  cy,
-  midAngle,
-  innerRadius,
-  outerRadius,
-  percent,
-  index,
-}) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-  return (
-    <text
-      x={x}
-      y={y}
-      fill="white"
-      textAnchor={x > cx ? "start" : "end"}
-      dominantBaseline="central"
-    >
-      {`${(percent * 100).toFixed(0)}%`}
-    </text>
-  );
-};
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function PieChartDataGraph() {
+  const [chartData, setChartData] = useState([]);
+  const [chartDataLabel, setChartDataLabel] = useState([]);
 
-  // const getLogCountsReducer = useSelector((state) => state.getLogCountsReducer);
+  const getLogCountsReducer = useSelector((state) => state.getLogCountsReducer);
 
-  // const { data } = getLogCountsReducer;
-  // console.log(data.data.typeWiseCount)
+  const fetchDate = async () => {
+    try {
+      const { data } = getLogCountsReducer;
+      const piCount =
+        data && data.data && data.data.typeWiseCount
+          ? data.data.typeWiseCount
+          : null;
 
-  return (
-    <PieChart width={300} height={165}>
-      <Pie
-        data={data}
-        cx={180}
-        cy={80}
-        labelLine={false}
-        label={renderCustomizedLabel}
-        outerRadius={80}
-        fill="#8884d8"
-        dataKey="value"
-      >
-        {data.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-        ))}
-      </Pie>
-    </PieChart>
-  );
+      setChartData(piCount.map((itmes) => itmes.count));
+      setChartDataLabel(piCount.map((itmes) => itmes.logType));
+    } catch (error) {
+      // console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchDate();
+  }, []);
+
+  const data = {
+    labels: chartDataLabel,
+    datasets: [
+      {
+        data: chartData,
+        backgroundColor: [
+          "rgba(54, 162, 235)",
+          "rgba(255, 159, 64)",
+          "rgba(153, 102, 255)",
+          "rgba(255, 99, 132)",
+          "rgba(255, 206, 86)",
+        ],
+
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  return <Pie data={data}  />;
 }

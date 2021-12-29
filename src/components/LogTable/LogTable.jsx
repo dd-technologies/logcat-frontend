@@ -164,15 +164,15 @@ export default function LogTable() {
             {/* data chart and informantions */}
             <Row className="mt-3">
               {/*toggle menus  */}
-              <Col xl={4}>
+              <Col xl={4} md={4} sm={6}>
                 <CrashFreeStatics />
               </Col>
 
-              <Col xl={4}>
+              <Col xl={4} md={4} sm={6}>
                 <TrandData />
               </Col>
 
-              <Col xl={4}>
+              <Col xl={4} md={4} sm={6}>
                 <PieChartSection />
               </Col>
             </Row>

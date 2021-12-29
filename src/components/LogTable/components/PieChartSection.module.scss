@@ -1,35 +1,19 @@
 @import "../../../css/veriables.module.scss";
 
-.Infosection {
+.PieChartData {
   display: flex;
   justify-content: space-between;
-  .Outsection {
-    display: flex;
-    justify-content: space-between;
+  & h5 {
+    font-weight: 600;
+  }
 
-    & h4 {
-      color: $activehrefText;
-    }
-    & p {
-      font-size: 0.8rem;
-    }
+  & p {
+    color: $activehrefText;
+    font-size: 0.8rem;
+  }
+
+  & section {
+    display: flex;
   }
 }
 
-.PieChartData {
-    display: flex;
-    justify-content: space-between;
-    & h5 {
-      font-weight: 600;
-    }
-  
-    & p {
-      color: $activehrefText;
-      font-size: .8rem;
-    }
-  
-    & section {
-      display: flex;
-    }
-  }
-  
