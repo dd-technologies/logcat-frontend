@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
-
 import { PieChart, Pie, Cell } from "recharts";
+import {useSelector} from 'react-redux'
 
 const data = [
   { name: "Group A", value: 400 },
@@ -39,6 +39,12 @@ const renderCustomizedLabel = ({
 };
 
 export default function PieChartDataGraph() {
+
+  // const getLogCountsReducer = useSelector((state) => state.getLogCountsReducer);
+
+  // const { data } = getLogCountsReducer;
+  // console.log(data.data.typeWiseCount)
+
   return (
     <PieChart width={300} height={165}>
       <Pie

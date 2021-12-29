@@ -18,11 +18,16 @@ import AgTable from "./components/Table/AgTable";
 import TableData from "./components/Table/TableData";
 import PieChartSection from "./components/PieChartSection";
 import { getProjectByCode } from "../../redux/action/ProjectAction";
+import { getLogTypeCounts } from "../../redux/action/ProjectAction";
 
 export default function LogTable() {
   // filter with crash free statics and trands
   const [dropDownShow, setDropDownShow] = useState(false);
   const [dateDropDwon, setDateDropDwon] = useState(false);
+  const [date, setdate] = useState({
+    start: null,
+    end: null,
+  });
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -63,9 +68,22 @@ export default function LogTable() {
     (state) => state.getAllLogByCodeReducer
   );
 
+
+  const dispatchmultiple = () => {
+    dispatch(getLogTypeCounts(code));
+    // dispatch(getErrorWRTOS(code));
+    // dispatch(getProjectDetails(code));
+    // dispatch(getErrorWRTVersion(code));
+    // dispatch(getLogByDate(code, date));
+  };
+  // useEffect(() => {
+  //   dispatchmultiple();
+  // }, [date]);
+
   useEffect(() => {
     console.log("useEffect first " + code);
     dispatch(getProjectByCode(code));
+    dispatchmultiple()
   }, []);
 
   // const {
