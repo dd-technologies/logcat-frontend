@@ -14,6 +14,7 @@ export default function CreateCard(props) {
           position: props.position ? props.position : "relative",
           right: props.right ? props.right : "",
           boxShadow: props.boxShadow ? props.boxShadow : "",
+          top: props.top ? props.top : "",
         }}
       >
         {props.children}

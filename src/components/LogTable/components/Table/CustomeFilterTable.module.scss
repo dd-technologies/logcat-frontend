@@ -8,15 +8,6 @@
   margin-top: 5px;
 }
 
-.ActiveOption {
-  background-color: $backgroundColor;
-  color: $defaultTextColor;
-  border-radius: 10px;
-  padding: 5px;
-  display: flex;
-  align-items: center;
-}
-
 .DefaultOption {
   color: $activehrefText;
   padding: 5px;

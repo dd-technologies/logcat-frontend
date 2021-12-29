@@ -5,7 +5,7 @@ import ReactReadMoreReadLess from "react-read-more-read-less";
 import { Link } from "react-router-dom";
 import { Button, Col, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretRight, faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import { faCaretRight, faEllipsisV , faFilter} from "@fortawesome/free-solid-svg-icons";
 import ToolkitProvider, {
   Search,
   CSVExport,
@@ -90,7 +90,13 @@ const columns = [
       console.log("now_code", newCode);
 
       return (
-        <div style={{ width: "250px", height: "auto", overflow: "hidden" }}>
+        <div
+          style={{
+            width: "250px",
+            height: "auto",
+            overflow: "hidden",
+          }}
+        >
           <ReactReadMoreReadLess
             charLimit={40}
             readMoreText={"Read more ▼"}
@@ -101,12 +107,9 @@ const columns = [
           <Link
             to={`/analytics?code=${newCode}&name=${projectName}&col=${col}`}
           >
-            <Button className={Style.ViewButton}>
-              View
-              <span className="p-2">
-                <FontAwesomeIcon icon={faCaretRight} />
-              </span>
-            </Button>
+            <span className={Style.ViewButton}>
+              <FontAwesomeIcon icon={faCaretRight} />
+            </span>
           </Link>
         </div>
       );
@@ -271,17 +274,14 @@ export default function TableData() {
     if (record !== 25) {
       localStorage.setItem("selected_record", JSON.stringify(record));
     }
-    toast.success(
-      "Filter saved",
-      {
-      icon: '👏',
+    toast.success("Filter saved", {
+      icon: "👏",
       // style: {
       //   borderRadius: '10px',
       //   background: '#333',
       //   color: '#fff',
       // }
-    }
-    );
+    });
   };
 
   const resetFilter = () => {
@@ -347,14 +347,14 @@ export default function TableData() {
       return dispatch(getProjectByCode(code, date, logType));
     }
     if (
-          logType.error ||
-          logType.info ||
-          logType.warn ||
-          logType.debug ||
-          logType.verbose
-        ) {
-          dispatch(getProjectByCode(code, null, logType, pageNo, record));
-        }
+      logType.error ||
+      logType.info ||
+      logType.warn ||
+      logType.debug ||
+      logType.verbose
+    ) {
+      dispatch(getProjectByCode(code, null, logType, pageNo, record));
+    }
     if (record && (!date.start || !data.end)) {
       return dispatch(getProjectByCode(code, null, null, null, record));
     }
@@ -401,6 +401,11 @@ export default function TableData() {
                       <ExportCSVButton {...props.csvProps}>
                         Export Table
                       </ExportCSVButton>
+                      <section
+                        className={Style.filterGraphFirstSction}
+                      >
+                        <FontAwesomeIcon icon={faFilter} />
+                      </section>
                       <section className="p-4">
                         <FontAwesomeIcon
                           icon={faEllipsisV}
