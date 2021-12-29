@@ -41,6 +41,12 @@ const renderCustomizedLabel = ({
 };
 
 export default function PieChartDataGraph() {
+
+  // const getLogCountsReducer = useSelector((state) => state.getLogCountsReducer);
+
+  // const { data } = getLogCountsReducer;
+  // console.log(data.data.typeWiseCount)
+
   return (
     <PieChart width={300} height={165}>
       <Pie

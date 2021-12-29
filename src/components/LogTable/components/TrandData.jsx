@@ -9,10 +9,9 @@ import { useDispatch,useSelector } from "react-redux";
 
 export default function TrandData() {
 
-  const getAllLogByCodeReducer = useSelector(
-    (state) => state.getAllLogByCodeReducer
-  );
-  const { loading, data } = getAllLogByCodeReducer;
+  // const getLogCountsByDateReducer = useSelector(state => state.getLogCountsByDateReducer)
+  // const {loading,data} = getLogCountsByDateReducer
+  // const LineCount = data && data.data && data.data.response  ? data.data.response : null
 
   return (
     <>
