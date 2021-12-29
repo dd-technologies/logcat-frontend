@@ -1,12 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import CustomCard from "../../../../Container/CustomCard";
 import Style from "./CustomeFilterTable.module.scss";
+import {useDispatch,useSelector} from 'react-redux'
+import getProjectByCode from '../../redux/action/ProjectAction'
+import { useHistory } from "react-router-dom";
 
-export default function CustomeFilterTable() {
+export default function CustomeFilterTable(props) {
   const [dateSectionSelect, setDateSectionSelect] = useState(true);
   const [StatusSectionSeclect, setStatusSectionSeclect] = useState(false);
   const [countPerPageSection, setCountPerPageSection] = useState(false);
+
+  // const [date, setdate] = useState({
+  //   start: null,
+  //   end: null,
+  // });
+
+  const [record, setRecords] = useState(25);
+
+  let history = useHistory();
+  const [date, setdate] = useState({
+    start: localStorage.getItem("selected_date")
+      ? JSON.parse(localStorage.getItem("selected_date")).start
+      : "",
+    end: localStorage.getItem("selected_date")
+      ? JSON.parse(localStorage.getItem("selected_date")).end
+      : "",
+  });
+  const [logType, setLogType] = useState({
+    error: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).error
+      : false,
+    info: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).info
+      : false,
+    warn: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).warn
+      : false,
+    debug: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).debug
+      : false,
+    verbose: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).verbose
+      : false,
+  });
+
+  const filterOnDate = ({ startDate = null, endDate = null, diff = 15 }) => {
+    console.log(diff);
+    if (diff != null) {
+      var dt = new Date();
+      const endd = dt.toISOString().slice(0, 10);
+      console.log(date);
+      dt.setDate(dt.getDate() - diff);
+      setdate({ start: dt.toISOString().slice(0, 10), end: endd });
+      console.log(date);
+    } else {
+      console.log("Does not execute");
+    }
+  };
+
+  
+
+  const dispatch = useDispatch();
 
   // SHOW DATE SECTION FUNCTION
   const handleShowDate = () => {
@@ -27,6 +82,23 @@ export default function CustomeFilterTable() {
     setStatusSectionSeclect(false);
     setCountPerPageSection(true);
   };
+
+
+  useEffect(() => {
+    if (
+      logType.error ||
+      logType.info ||
+      logType.warn ||
+      logType.debug ||
+      logType.verbose
+    ) {
+      dispatch(getProjectByCode(props.code, null, logType, props.page, record));
+    } else {
+      // setPageNo(0);
+      // dispatch(getProjectByCode(code, null, null, pageNo, record));
+    }
+  }, []);
+  // logType, pageNo, record
 
   return (
     <>
@@ -75,7 +147,7 @@ export default function CustomeFilterTable() {
                   }
                   onClick={handleShowPerPage}
                 >
-                  Date per page
+                  Record per page
                 </p>
               </section>
             </Col>
@@ -84,8 +156,14 @@ export default function CustomeFilterTable() {
             {dateSectionSelect ? (
               <Col xl={6}>
                 <section className={Style.DateSection}>
-                  <input type="date" />
-                  <input type="date" />
+                  <input type="date" value={date.start}
+                    onChange={(e) =>
+                      setdate({ ...date, start: e.target.value })
+                    }/>
+                  <input type="date" value={date.start}
+                    onChange={(e) =>
+                      setdate({ ...date, end: e.target.value })
+                    } />
                 </section>
               </Col>
             ) : null}
@@ -118,10 +196,10 @@ export default function CustomeFilterTable() {
             {countPerPageSection ? (
               <Col xl={6}>
                 <section className={Style.perPageOuter}>
-                  <p className={Style.perPagesectionInner}>10</p>
-                  <p className={Style.perPagesectionInner}>25</p>
-                  <p className={Style.perPagesectionInner}>45</p>
-                  <p className={Style.perPagesectionInner}>50</p>
+                  <p className={Style.perPagesectionInner} onClick={() => setRecords(10)}>10</p>
+                  <p className={Style.perPagesectionInner} onClick={() => setRecords(25)}>25</p>
+                  <p className={Style.perPagesectionInner} onClick={() => setRecords(45)}>45</p>
+                  <p className={Style.perPagesectionInner} onClick={() => setRecords(50)}>50</p>
                 </section>
               </Col>
             ) : null}

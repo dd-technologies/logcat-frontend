@@ -3,7 +3,7 @@ import CustomCard from "../../../../Container/CustomCard";
 import BootstrapTable from "react-bootstrap-table-next";
 import ReactReadMoreReadLess from "react-read-more-read-less";
 import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretRight, faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import ToolkitProvider, {
@@ -15,7 +15,8 @@ import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
 import { getProjectByCode } from "../../../../redux/action/ProjectAction";
 import Spinner from "../../../../Container/Spinner";
-import CustomeFilterTable from "./CustomeFilterTable";
+import toast, { Toaster } from "react-hot-toast";
+// import CustomeFilterTable from "./CustomeFilterTable";
 
 const { SearchBar } = Search;
 const queryString = window.location.search;
@@ -178,14 +179,53 @@ const columns = [
     sort: true,
   },
 ];
-
+// ************************************************************************************************************************
 export default function TableData() {
   // const queryString = window.location.search;
   // const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get("code");
 
+  const [dateSectionSelect, setDateSectionSelect] = useState(true);
+  const [StatusSectionSeclect, setStatusSectionSeclect] = useState(false);
+  const [countPerPageSection, setCountPerPageSection] = useState(false);
+
   const [pageNo, setPageNo] = useState(0);
-  const [record, setRecords] = useState(25);
+
+  // SHOW DATE SECTION FUNCTION
+  const handleShowDate = () => {
+    setDateSectionSelect(true);
+    setStatusSectionSeclect(false);
+    setCountPerPageSection(false);
+  };
+  // SHOW STATUS CODE SECTION FUNCTION
+  const handleShowStatus = () => {
+    setDateSectionSelect(false);
+    setStatusSectionSeclect(true);
+    setCountPerPageSection(false);
+  };
+
+  // SHOW PAGE PER COUNT SECTION FUNCTION
+  const handleShowPerPage = () => {
+    setDateSectionSelect(false);
+    setStatusSectionSeclect(false);
+    setCountPerPageSection(true);
+  };
+
+  const [date, setdate] = useState({
+    start: localStorage.getItem("selected_date")
+      ? JSON.parse(localStorage.getItem("selected_date")).start
+      : "",
+    end: localStorage.getItem("selected_date")
+      ? JSON.parse(localStorage.getItem("selected_date")).end
+      : "",
+  });
+
+  // const [pageNo, setPageNo] = useState(0);
+  const [record, setRecords] = useState(
+    localStorage.getItem("selected_record")
+      ? JSON.parse(localStorage.getItem("selected_record")).warn
+      : 25
+  );
   const [showStackView, setShowStackView] = useState(false);
 
   // filter data fields with table
@@ -221,6 +261,63 @@ export default function TableData() {
 
   const dispatch = useDispatch();
 
+  const saveSearch = () => {
+    console.log("save searches");
+    // localStorage.removeItem("name of localStorage variable you want to remove");
+    localStorage.setItem("selected_log", JSON.stringify(logType));
+    if (date.start.length > 0 || date.end.length > 0) {
+      localStorage.setItem("selected_date", JSON.stringify(date));
+    }
+    if (record !== 25) {
+      localStorage.setItem("selected_record", JSON.stringify(record));
+    }
+    toast.success(
+      "Filter saved",
+      {
+      icon: '👏',
+      // style: {
+      //   borderRadius: '10px',
+      //   background: '#333',
+      //   color: '#fff',
+      // }
+    }
+    );
+  };
+
+  const resetFilter = () => {
+    // startDateRef.current.value = "";
+    // endDatRef.current.value = "";
+    setdate({
+      start: "",
+      end: "",
+    });
+    setRecords(25);
+    setPageNo(1);
+    setLogType({
+      error: false,
+      info: false,
+      warn: false,
+      debug: false,
+      verbose: false,
+    });
+
+    localStorage.removeItem("selected_log");
+    localStorage.removeItem("selected_date");
+    localStorage.removeItem("selected_record");
+    // setLogType({...logType})
+    dispatch(getProjectByCode(code, record));
+    toast.success(
+      "Saved filter cleared!"
+      // {
+      // icon: '👏',
+      // style: {
+      //   borderRadius: '10px',
+      //   background: '#333',
+      //   color: '#fff',
+      // }}
+    );
+  };
+
   const handlePageClick = (data) => {
     console.log(data);
     // const newPageNo = data.selected+1
@@ -228,6 +325,40 @@ export default function TableData() {
       setPageNo(data.selected + 1);
     }
     dispatch(getProjectByCode(code, null, null, pageNo, record));
+  };
+
+  const applyFilter = () => {
+    if (
+      logType.error ||
+      logType.info ||
+      logType.warn ||
+      logType.debug ||
+      logType.verbose
+    ) {
+      return dispatch(getProjectByCode(code, date, logType, pageNo, record));
+    }
+    if (!date.start && !date.end) {
+      setdate({
+        start: "",
+        end: "",
+      });
+    }
+    if (date.start || data.end) {
+      return dispatch(getProjectByCode(code, date, logType));
+    }
+    if (
+          logType.error ||
+          logType.info ||
+          logType.warn ||
+          logType.debug ||
+          logType.verbose
+        ) {
+          dispatch(getProjectByCode(code, null, logType, pageNo, record));
+        }
+    if (record && (!date.start || !data.end)) {
+      return dispatch(getProjectByCode(code, null, null, null, record));
+    }
+    dispatch(getProjectByCode(code, date, logType));
   };
 
   useEffect(() => {
@@ -239,24 +370,20 @@ export default function TableData() {
       logType.debug ||
       logType.verbose
     ) {
-      dispatch(getProjectByCode(code, null, logType, pageNo, record));
+      // dispatch(getProjectByCode(code, null, logType, pageNo, record));
     } else {
       dispatch(getProjectByCode(code, null, null, pageNo, record));
     }
   }, [pageNo, record]);
 
   const showTableFieldFunc = () => {
-    if (showTableField) {
-      setShowTableField(false);
-    }
-    if (!showTableField) {
-      setShowTableField(true);
-    }
+    setShowTableField(!showTableField);
   };
 
   return (
     <>
       <CustomCard>
+        <Toaster />
         <section className={Style.OuterTable}>
           {data && data.data && data.data.logs ? (
             <ToolkitProvider
@@ -279,7 +406,219 @@ export default function TableData() {
                           icon={faEllipsisV}
                           onClick={showTableFieldFunc}
                         />
-                        {showTableField ? <CustomeFilterTable /> : null}
+                        {showTableField ? (
+                          <CustomCard
+                            position="absolute"
+                            height="auto"
+                            width="450px"
+                            right="2%"
+                            padding="10px"
+                            boxShadow="0px 0px 4px -2px rgba(0,0,0,0.75)"
+                          >
+                            <section className={Style.TopButton}>
+                              <Button className="m-2" onClick={resetFilter}>
+                                Reset Filter
+                              </Button>
+                              <Button className="m-2" onClick={saveSearch}>
+                                Save Filter
+                              </Button>
+                              <Button className="m-2" onClick={applyFilter}>
+                                Apply Filter
+                              </Button>
+                            </section>
+                            <section>
+                              <Row>
+                                <Col xl={6}>
+                                  <section className="m-2">
+                                    <p
+                                      className={
+                                        dateSectionSelect
+                                          ? `${Style.ActiveOption} mt-2`
+                                          : `${Style.DefaultOption} mt-2`
+                                      }
+                                      onClick={handleShowDate}
+                                    >
+                                      Date
+                                    </p>
+                                    <p
+                                      className={
+                                        StatusSectionSeclect
+                                          ? `${Style.ActiveOption} mt-2`
+                                          : `${Style.DefaultOption} mt-2`
+                                      }
+                                      onClick={handleShowStatus}
+                                    >
+                                      Select Log Type
+                                    </p>
+                                    <p
+                                      className={
+                                        countPerPageSection
+                                          ? `${Style.ActiveOption} mt-2`
+                                          : `${Style.DefaultOption} mt-2`
+                                      }
+                                      onClick={handleShowPerPage}
+                                    >
+                                      Record per page
+                                    </p>
+                                  </section>
+                                </Col>
+
+                                {/* DATA CHANGE SECTION START FROM HERE */}
+                                {dateSectionSelect ? (
+                                  <Col xl={6}>
+                                    <section className={Style.DateSection}>
+                                      <input
+                                        type="date"
+                                        value={date.start}
+                                        onChange={(e) =>
+                                          setdate({
+                                            ...date,
+                                            start: e.target.value,
+                                          })
+                                        }
+                                      />
+                                      <input
+                                        type="date"
+                                        value={date.end}
+                                        onChange={(e) =>
+                                          setdate({
+                                            ...date,
+                                            end: e.target.value,
+                                          })
+                                        }
+                                      />
+                                    </section>
+                                  </Col>
+                                ) : null}
+
+                                {/* STATUS CODE SECTION START HERE */}
+                                {StatusSectionSeclect ? (
+                                  <Col xl={6}>
+                                    <section className={Style.StatusSection}>
+                                      <section
+                                        className={Style.StatusInnerSecion}
+                                      >
+                                        <label for="exampleFormControlFile1">
+                                          Info
+                                        </label>
+                                        <input
+                                          type="checkbox"
+                                          checked={logType.info}
+                                          onClick={(e) => {
+                                            setLogType({
+                                              ...logType,
+                                              info: !logType.info,
+                                            });
+                                          }}
+                                        />
+                                      </section>
+                                      <section
+                                        className={Style.StatusInnerSecion}
+                                      >
+                                        <label for="exampleFormControlFile1">
+                                          Warn
+                                        </label>
+                                        <input
+                                          type="checkbox"
+                                          checked={logType.warn}
+                                          onClick={(e) => {
+                                            setLogType({
+                                              ...logType,
+                                              warn: !logType.warn,
+                                            });
+                                          }}
+                                        />
+                                      </section>
+                                      <section
+                                        className={Style.StatusInnerSecion}
+                                      >
+                                        <label for="exampleFormControlFile1">
+                                          Error
+                                        </label>
+                                        <input
+                                          type="checkbox"
+                                          checked={logType.error}
+                                          onClick={(e) => {
+                                            setLogType({
+                                              ...logType,
+                                              error: !logType.error,
+                                            });
+                                          }}
+                                        />
+                                      </section>
+                                      <section
+                                        className={Style.StatusInnerSecion}
+                                      >
+                                        <label for="exampleFormControlFile1">
+                                          Debug
+                                        </label>
+                                        <input
+                                          type="checkbox"
+                                          checked={logType.debug}
+                                          onClick={(e) => {
+                                            setLogType({
+                                              ...logType,
+                                              debug: !logType.debug,
+                                            });
+                                          }}
+                                        />
+                                      </section>
+                                      <section
+                                        className={Style.StatusInnerSecion}
+                                      >
+                                        <label for="exampleFormControlFile1">
+                                          Verbose
+                                        </label>
+                                        <input
+                                          type="checkbox"
+                                          checked={logType.verbose}
+                                          onClick={(e) => {
+                                            setLogType({
+                                              ...logType,
+                                              verbose: !logType.verbose,
+                                            });
+                                          }}
+                                        />
+                                      </section>
+                                    </section>
+                                  </Col>
+                                ) : null}
+
+                                {/* COUNT PER PAGE SECTION START FOM HERE   */}
+                                {countPerPageSection ? (
+                                  <Col xl={6}>
+                                    <section className={Style.perPageOuter}>
+                                      <p
+                                        className={Style.perPagesectionInner}
+                                        onClick={() => setRecords(10)}
+                                      >
+                                        10
+                                      </p>
+                                      <p
+                                        className={Style.perPagesectionInner}
+                                        onClick={() => setRecords(25)}
+                                      >
+                                        25
+                                      </p>
+                                      <p
+                                        className={Style.perPagesectionInner}
+                                        onClick={() => setRecords(45)}
+                                      >
+                                        45
+                                      </p>
+                                      <p
+                                        className={Style.perPagesectionInner}
+                                        onClick={() => setRecords(50)}
+                                      >
+                                        50
+                                      </p>
+                                    </section>
+                                  </Col>
+                                ) : null}
+                              </Row>
+                            </section>
+                          </CustomCard>
+                        ) : null}
                       </section>
                     </section>
                   </div>

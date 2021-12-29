@@ -280,7 +280,7 @@ export const getLogByDate =
           dt.setDate(dt.getDate() - 10);
           const start = dt.toISOString().slice(0, 10);
           response = await axios.get(
-            `https://logger-server.herokuapp.com/api/logger/projects/datewiselogcount/${code}?startDate=2021-09-19&endDate=${end}`,
+            `https://logger-server.herokuapp.com/api/logger/projects/datewiselogcount/${code}?startDate=${start}&endDate=${end}`,
             config
           );
           console.log(`start ${start} and ${end}`);
