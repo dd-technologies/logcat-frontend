@@ -82,10 +82,11 @@ const columns = [
     },
     formatter: (col, row) => {
       // console.log("row id mil", row);
-      const code = urlParams.get("code");
+      const newCode = urlParams.get("code");
+      const projectName = urlParams.get("name");
       // const version = urlParams.get('version')
       // const osArchitecture = urlParams.get('osArchitecture')
-      // console.log("now_code", code);
+      console.log("now_code", newCode);
 
       return (
         <div style={{ width: "250px", height: "auto", overflow: "hidden" }}>
@@ -96,7 +97,7 @@ const columns = [
           >
             {col}
           </ReactReadMoreReadLess>
-          <Link to={`/analytics?code=${code}`}>
+          <Link to={`/analytics?code=${newCode}&name=${projectName}`}>
             <Button className={Style.ViewButton}>
               View
               <span className="p-2">
@@ -254,72 +255,61 @@ export default function TableData() {
   return (
     <>
       <CustomCard>
-        {data && data.data && data.data.logs ? (
-          <section className={Style.OuterTable}>
-            {data && data.data && data.data.logs ? (
-              <ToolkitProvider
-                keyField="_id"
-                data={data.data.logs}
-                columns={columns}
-                search
-                exportCSV={{ onlyExportSelection: true, exportAll: true }}
-              >
-                {(props) => (
-                  <>
-                    <div className={Style.BootstrapTable}>
-                      <SearchBar {...props.searchProps} />
-                      <section className={Style.filterOptions}>
-                        <ExportCSVButton {...props.csvProps}>
-                          Export Table
-                        </ExportCSVButton>
-                        <section className="p-4">
-                          <FontAwesomeIcon
-                            icon={faEllipsisV}
-                            onClick={showTableFieldFunc}
-                          />
-                          {showTableField ? <CustomeFilterTable /> : null}
-                        </section>
+        <section className={Style.OuterTable}>
+          {data && data.data && data.data.logs ? (
+            <ToolkitProvider
+              keyField="_id"
+              data={data.data.logs}
+              columns={columns}
+              search
+              exportCSV={{ onlyExportSelection: true, exportAll: true }}
+            >
+              {(props) => (
+                <>
+                  <div className={Style.BootstrapTable}>
+                    <SearchBar {...props.searchProps} />
+                    <section className={Style.filterOptions}>
+                      <ExportCSVButton {...props.csvProps}>
+                        Export Table
+                      </ExportCSVButton>
+                      <section className="p-4">
+                        <FontAwesomeIcon
+                          icon={faEllipsisV}
+                          onClick={showTableFieldFunc}
+                        />
+                        {showTableField ? <CustomeFilterTable /> : null}
                       </section>
-                    </div>
-                    <BootstrapTable
-                      {...props.baseProps}
-                      selectRow={selectRow}
-                    />
-                  </>
-                )}
-              </ToolkitProvider>
-            ) : loading ? (
-              <Spinner />
-            ) : (
-              <h2 style={{ color: "#212925", alignItems: "center" }}>
-                No Log Available
-              </h2>
-            )}
-            <ReactPaginate
-              breakLabel="..."
-              nextLabel="Next >"
-              onPageChange={handlePageClick}
-              pageRangeDisplayed={4}
-              pageCount={data && data.data && data.data.count / record}
-              // previousLabel="< Previous"
-              // initialPage={1}
-              renderOnZeroPageCount={null}
-              containerClassName={"pagination"}
-              pageClassName={"page-item"}
-              pageLinkClassName={"page-link"}
-              previousClassName={"page-item"}
-              nextClassName={"page-item"}
-              previousLinkClassName={"page-link"}
-              nextLinkClassName={"page-link"}
-            />
-          </section>
-        ) : loading ? (
-          <Spinner height="400px" />
-        ) : (
-          <h2 style={{ color: "#212925", alignItems: "center" }}>
-            No Log Available
-          </h2>
-        )}
+                    </section>
+                  </div>
+                  <BootstrapTable {...props.baseProps} selectRow={selectRow} />
+                </>
+              )}
+            </ToolkitProvider>
+          ) : loading ? (
+            <Spinner height="400px" />
+          ) : (
+            <h2 style={{ color: "#212925", alignItems: "center" }}>
+              No Log Available
+            </h2>
+          )}
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel="Next >"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={4}
+            pageCount={data && data.data && data.data.count / record}
+            // previousLabel="< Previous"
+            // initialPage={1}
+            renderOnZeroPageCount={null}
+            containerClassName={"pagination"}
+            pageClassName={"page-item"}
+            pageLinkClassName={"page-link"}
+            previousClassName={"page-item"}
+            nextClassName={"page-item"}
+            previousLinkClassName={"page-link"}
+            nextLinkClassName={"page-link"}
+          />
+        </section>
       </CustomCard>
     </>
   );
