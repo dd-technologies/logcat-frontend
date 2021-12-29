@@ -7,6 +7,7 @@ import NotFound from './components/NotFound';
 import Login from './components/Auth/Login';
 import ResetPassword from "./components/Auth/ResetPassword";
 import ForgetPassword from "./components/Auth/ForgetPassword";
+import Protected from "./utils/Protected";
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
         <Route exact path="/" component={Login} />
         <Route exact path="/resetpassword" component={ResetPassword} />
         <Route exact path="/forgetPassword" component={ForgetPassword} />
-        <Route exact path="/home" component={CreateProject} />
+        <Protected exact path="/home" component={CreateProject} />
         <Route exact path="/logtable" component={LogTable} />
         <Route exact path="/analytics" component={Analytics} />
         <Route exact path="*" component={NotFound} />

@@ -18,9 +18,11 @@ import {
   getErrorWRTOS,
   getErrorWRTVersion,
   getProjectDetails,
+  getLogMsgOccurenceWRTDate,
 } from "../../redux/action/ProjectAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { DateFilter } from "ag-grid-community";
 
 export default function Analytics() {
   const [date, setdate] = useState({
@@ -44,6 +46,8 @@ export default function Analytics() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get("code");
+  const logMsg = urlParams.get("col").split("at")[0];
+  console.log("logMsg", logMsg);
 
   const projectName = urlParams.get("name");
 
@@ -67,7 +71,7 @@ export default function Analytics() {
     dashName: projectName,
     link1: {
       iconName: faDatabase,
-      linkName: "Home",
+      linkName: "Analytics",
     },
     link2: {
       iconName: faDatabase,
@@ -75,6 +79,8 @@ export default function Analytics() {
       link: "",
     },
   };
+
+  console.log("data", date);
 
   const dispatch = useDispatch();
 
@@ -84,6 +90,7 @@ export default function Analytics() {
     dispatch(getProjectDetails(code));
     dispatch(getErrorWRTVersion(code));
     dispatch(getLogByDate(code, date));
+    getLogMsgOccurenceWRTDate(code, date.start, date.end, logMsg);
   };
   useEffect(() => {
     dispatchmultiple();

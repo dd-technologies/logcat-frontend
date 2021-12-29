@@ -47,7 +47,7 @@ export default function ResetPassword() {
         }}
       >
         <Toaster />
-        <CustomCard height="500px">
+        <CustomCard height="500px"  width="500px">
           <section className={Style.Reset}>
             <section className="Login-title">
               <p className={Style.headerText}>Reset Password</p>

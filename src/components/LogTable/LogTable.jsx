@@ -47,7 +47,7 @@ export default function LogTable() {
     dashName: projectName,
     link1: {
       iconName: faDatabase,
-      linkName: "Home",
+      linkName: "Logs",
     },
     link2: {
       iconName: faDatabase,

@@ -13,8 +13,11 @@ export default function StackData() {
   const urlParams = new URLSearchParams(queryString);
   const colData = urlParams.get("col");
 
+  console.log("Col", colData);
+
   // HEADING DATA ANALYTIC
-  const DataINRow = colData.split("at");
+  const pattern = /(at).*/gm;
+  const DataINRow = colData.split(" at");
 
   console.log("DataINRow", DataINRow);
 
@@ -30,12 +33,7 @@ export default function StackData() {
 
   // INNER PARA DETAIL SECTION FUNCTION
   const innerParaShowDetailsFun = () => {
-    if (!innerParaShowDetails) {
-      setInnerParaShowDetails(true);
-    }
-    if (innerParaShowDetails) {
-      setInnerParaShowDetails(false);
-    }
+    setInnerParaShowDetails(!innerParaShowDetails);
   };
 
   return (
@@ -44,29 +42,21 @@ export default function StackData() {
         <Col xl={12} className={`${Style.outerDiv} mt-4`}>
           <section className={`${Style.StackInfoDive} p-3`}>
             <section className={Style.ParaWithArrowDown}>
-              <h3 onClick={innerParaShowFun}>
-                lorem ipsum dolor sit amet, consectetur adip
-              </h3>
+              <h3 onClick={innerParaShowFun}>Stack Error</h3>
               <FontAwesomeIcon icon={faCaretDown} />
             </section>
             {InnerParaShow ? <p>{colData}</p> : null}
           </section>
           <section className={`${Style.detailSection} p-3`}>
             <FontAwesomeIcon icon={faCaretDown} />
-            <section
-              className={`${Style.lineBrack} ps-4`}
-              onClick={innerParaShowDetailsFun}
-            >
-              <p>Heading Row</p>
+            <section className={`${Style.lineBrack} ps-4`}>
+              <p onClick={innerParaShowDetailsFun}>Errors Row</p>
 
-              <section>
-                {DataINRow.map((stackData) => {
-                  {
-                    console.log("stackData", stackData);
-                  }
-                  <p>{stackData}</p>;
-                })}
-              </section>
+              {innerParaShowDetails ? (
+                <section>
+                  <p>{DataINRow}</p>
+                </section>
+              ) : null}
             </section>
           </section>
         </Col>

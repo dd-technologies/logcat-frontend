@@ -18,7 +18,7 @@ export default function ForgetPassword() {
           height: "100vh",
         }}
       >
-        <CustomCard height="300px">
+        <CustomCard height="300px" width="500px">
           <section className={Style.forget}>
             <div className="Login-title">
               <p className={Style.headerText}>Forgot Password</p>

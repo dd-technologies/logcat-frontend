@@ -25,7 +25,6 @@ import { adminLogout } from "../../redux/action/AdminAction";
 
 function CreateProject() {
   const [modalShow, setModalShow] = useState(false);
-
   // project data load or not
 
   const Dispatch = useDispatch();

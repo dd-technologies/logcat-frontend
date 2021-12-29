@@ -7,7 +7,7 @@ import StackData from "./StackData";
 export default function AnalyticsEventDataComp() {
   return (
     <>
-      <CustomCard>
+      <CustomCard height="100%">
         <EventDataWithDate />
         <Stackkeys />
         {/* pending toggle button */}

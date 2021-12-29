@@ -133,7 +133,7 @@ export default function Login() {
           height: "100vh",
         }}
       >
-        <CustomCard height="400px">
+        <CustomCard height="400px" width="500px">
           <section className={Style.Login}>
             <div className="Login-title">
               <p className={Style.headerText}>Login</p>

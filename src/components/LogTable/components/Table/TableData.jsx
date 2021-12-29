@@ -417,7 +417,7 @@ export default function TableData() {
                             position="absolute"
                             height="auto"
                             width="450px"
-                            right="2%"
+                            right="3%"
                             padding="10px"
                             boxShadow="0px 0px 4px -2px rgba(0,0,0,0.75)"
                           >
