@@ -24,12 +24,14 @@ import {
   getErrorWRTVersion,
   getLogByDate,
   getProjectByCode,
+  getCrashFreeUsers,
 } from "../../redux/action/ProjectAction";
 
 export default function LogTable() {
   // filter with crash free statics and trands
   const [dropDownShow, setDropDownShow] = useState(false);
-  const [dateDropDwon, setDateDropDwon] = useState(false);
+  const [dateDropDown, setDateDropDown] = useState(false);
+  const [diffDate, setDiffDate] = useState(10);
   const [date, setdate] = useState({
     start: null,
     end: null,
@@ -64,9 +66,9 @@ export default function LogTable() {
 
   // filter crashfree statcis and trands with data filter
   const DateFilter = () => {
-    setDateDropDwon(true);
-    if (dateDropDwon) {
-      setDateDropDwon(false);
+    setDateDropDown(true);
+    if (dateDropDown) {
+      setDateDropDown(false);
     }
   };
   const dispatch = useDispatch();
@@ -75,28 +77,26 @@ export default function LogTable() {
   );
 
   const dispatchmultiple = () => {
-    dispatch(getLogTypeCounts(code));
+    // dispatch(getLogTypeCounts(code));
     dispatch(getErrorWRTOS(code));
     dispatch(getProjectDetails(code));
     dispatch(getErrorWRTVersion(code));
-    dispatch(getLogByDate(code, date));
+    // dispatch(getLogByDate(code, date));
+    // dispatch(getCrashFreeUsers({code,diffDate}));
   };
   useEffect(() => {
     dispatchmultiple();
   }, [date]);
 
+  const multipleDispatchGraph = ()=>{
+    dispatch(getLogTypeCounts({code, diffDate}));
+    dispatch(getLogByDate({code, diffDate}));
+    dispatch(getCrashFreeUsers({code,diffDate}))
+  }
   useEffect(() => {
-    // console.log("useEffect first " + code);
-    dispatch(getProjectByCode(code));
-    dispatchmultiple();
-  }, []);
+    multipleDispatchGraph()
+  }, [diffDate]);
 
-  // const {
-  //   data: {
-  //     data: { logs },
-  //   },
-  // } = getAllLogByCodeReducer;
-  // console.log("getAllLogByCodeReducer", logs);
 
   return (
     <>
@@ -114,17 +114,17 @@ export default function LogTable() {
                 <section className={Style.filterwithDate}>
                   <section className={Style.datafilter} onClick={DateFilter}>
                     <FontAwesomeIcon icon={faCalendar} />
-                    <p className="ms-2 p-1">Last 7 Days</p>
+                    <p className="ms-2 p-1" onClick={()=>{setDiffDate(10)}}>Last 10 Days</p>
                     <FontAwesomeIcon icon={faCaretDown} />
                   </section>
                   <section>
-                    {dateDropDwon ? (
+                    {dateDropDown ? (
                       <CustomeDropDown>
-                        <p className="mt-1">10 days</p>
-                        <p className="mt-1">15 days</p>
-                        <p className="mt-1">30 days</p>
-                        <p className="mt-1">45 days</p>
-                        <p className="mt-1">60 days</p>
+                        {/* <p className="mt-1">10 days</p> */}
+                        <p className="mt-1" onClick={()=>{setDiffDate(15)}} >15 days</p>
+                        <p className="mt-1" onClick={()=>{setDiffDate(30)}} >30 days</p>
+                        <p className="mt-1" onClick={()=>{setDiffDate(45)}} >45 days</p>
+                        <p className="mt-1" onClick={()=>{setDiffDate(60)}} >60 days</p>
                       </CustomeDropDown>
                     ) : null}
                   </section>

@@ -21,6 +21,7 @@ import {
   getErrorWRTVersionReducer,
   getDeviceInfoReducer,
   getLogMsgOccurenceWRTDateReducer,
+  getCrashFreeUsersReducer,
 } from "./reducer/ProjectReducer";
 
 // const rootReducer = combineReducers({
@@ -46,7 +47,8 @@ const appReducer = combineReducers({
   getErrorWRTVersionReducer,
   getDeviceInfoReducer,
 
-  getLogMsgOccurenceWRTDateReducer
+  getLogMsgOccurenceWRTDateReducer,
+  getCrashFreeUsersReducer
 });
 
 const persistConf = {

@@ -5,20 +5,19 @@ import { faRocket, faDatabase } from "@fortawesome/free-solid-svg-icons";
 import Style from "./TrandData.module.scss";
 import CustomCard from "../../../Container/CustomCard";
 import TrandDataGraph from "../charts/TrandDataGraph";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function TrandData() {
-
   // const getLogCountsByDateReducer = useSelector(state => state.getLogCountsByDateReducer)
   // const {loading,data} = getLogCountsByDateReducer
   // const LineCount = data && data.data && data.data.response  ? data.data.response : null
 
   return (
     <>
-      <CustomCard >
+      <CustomCard>
         <Row className="p-3">
           <Col xl={12} className={Style.Trand}>
-            <h5> Trands</h5>
+            <h5> Trends</h5>
             <p>
               <span className="p-2">
                 <FontAwesomeIcon icon={faRocket} />
@@ -30,7 +29,7 @@ export default function TrandData() {
             <section className={Style.Outsection}>
               <section>
                 <p>Crashes</p>
-                <h4>3</h4>
+                <h4></h4>
                 <p>-40%</p>
               </section>
               <section>

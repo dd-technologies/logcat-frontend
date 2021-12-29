@@ -11,7 +11,7 @@ export default function PieChartDataGraph() {
   const [chartDataLabel, setChartDataLabel] = useState([]);
 
   const getLogCountsReducer = useSelector((state) => state.getLogCountsReducer);
-
+  // const { loading, data } = getLogCountsReducer;
   const fetchDate = async () => {
     try {
       const { data } = getLogCountsReducer;
