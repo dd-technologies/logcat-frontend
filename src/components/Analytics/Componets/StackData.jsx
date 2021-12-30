@@ -11,6 +11,12 @@ export default function StackData() {
   const [stackErrorFilterTextFormate, setStackErrorFilterTextFormate] =
     useState(false);
 
+  // ACTIVE CLASS FOR TOGGLE TEXT AND STACK BUTTON
+  const [activeClassToggle, setactiveClassToggle] = useState({
+    text: true,
+    stack: false,
+  });
+
   // GETTGIN DATA FROM URL
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -42,11 +48,13 @@ export default function StackData() {
   const stackErrorFilterFun = () => {
     setStackErrorFilter(true);
     setStackErrorFilterTextFormate(false);
+    setactiveClassToggle({ text: true, stack: false });
   };
-
+  
   const stackErrorFilterTextFormateFun = () => {
     setStackErrorFilterTextFormate(true);
     setStackErrorFilter(false);
+    setactiveClassToggle({ text: false, stack: true });
   };
 
   return (
@@ -56,13 +64,21 @@ export default function StackData() {
           {/* TEXT AND COE TOGGLE SECTION */}
           <section className={Style.filterToggle}>
             <section
-              className={Style.filterGraphFirstSction}
+              className={
+                activeClassToggle.text
+                  ? `${Style.filterGraphFirstSctionActive} `
+                  : `${Style.filterGraphFirstSction} `
+              }
               onClick={stackErrorFilterFun}
             >
               <p>Text</p>
             </section>
             <section
-              className={Style.filterGraphFirstSction}
+              className={
+                activeClassToggle.stack
+                  ? `${Style.filterGraphFirstSctionActive} `
+                  : `${Style.filterGraphFirstSction} `
+              }
               onClick={stackErrorFilterTextFormateFun}
             >
               <FontAwesomeIcon icon={faFilter} />

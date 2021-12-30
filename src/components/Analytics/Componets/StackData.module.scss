@@ -66,4 +66,19 @@
     margin-right: 5px;
     border-radius: $buttonBorderRaduous;
   }
+
+  .filterGraphFirstSctionActive {
+    & p {
+      color: $defaultTextColor;
+    }
+    & svg {
+      color: $defaultTextColor;
+    }
+    cursor: pointer;
+    background-color: $backgroundColor;
+    padding: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: $buttonBorderRaduous;
+  }
 }
