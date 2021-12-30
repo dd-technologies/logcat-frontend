@@ -6,6 +6,7 @@ import EventChart from "../charts/EventChart";
 import DeviceChart from "../charts/DeviceChart";
 import { Line } from "rc-progress";
 import { useSelector } from "react-redux";
+import Spinner from "../../../Container/Spinner";
 
 export default function ToggleTabs() {
   // toogling window
@@ -21,25 +22,27 @@ export default function ToggleTabs() {
     setdevieWindow(false);
   };
 
-  const getCrashAnalyticsDataReducer = useSelector(state => state.getCrashAnalyticsDataReducer)
-  const {loading:ld,data :alldata} = getCrashAnalyticsDataReducer;
-  const cnt = alldata && alldata.modelNameResponse ? alldata.modelNameResponse : null;
-  let adds=0;
+  const getCrashAnalyticsDataReducer = useSelector(
+    (state) => state.getCrashAnalyticsDataReducer
+  );
+  const { loading: ld, data: alldata } = getCrashAnalyticsDataReducer;
+  const cnt =
+    alldata && alldata.modelNameResponse ? alldata.modelNameResponse : null;
+  let adds = 0;
   if (cnt) {
-    cnt.map(e=>adds+=e.countLog);
+    cnt.map((e) => (adds += e.countLog));
   }
-  console.log(alldata)
+  console.log(alldata);
 
-  const getErrorWRTOSReducer = useSelector(state => state.getErrorWRTOSReducer)
-  const { loading, data } = getErrorWRTOSReducer
+  const getErrorWRTOSReducer = useSelector(
+    (state) => state.getErrorWRTOSReducer
+  );
+  const { loading, data } = getErrorWRTOSReducer;
 
-  const piCount =
-    data && data.typeWiseCount
-      ? data.typeWiseCount
-      : null;
-  let add=0;
+  const piCount = data && data.typeWiseCount ? data.typeWiseCount : null;
+  let add = 0;
   if (piCount) {
-    piCount.map(e=>add+=e.count);
+    piCount.map((e) => (add += e.count));
   }
 
   return (
@@ -74,30 +77,50 @@ export default function ToggleTabs() {
           {devieWindow ? (
             <Col className="p-4">
               <section className={Style.DataTogleSection}>
-
-                {
-                  !ld ? cnt.map(e=>(<>
-                  <p className="mt-4">
-                  <span className="p-2">{parseFloat((e.countLog/adds)*100).toFixed(2)}</span>{e._id ? e._id:'Other'}
-                  </p>
-                  <Line percent={(e.countLog/adds)*100} strokeWidth="4" strokeColor="#257d7c" />
-                  </>)) :'Loading'
-                }
+                {!ld ? (
+                  cnt.map((e) => (
+                    <>
+                      <p className="mt-4">
+                        <span className="p-2">
+                          {parseFloat((e.countLog / adds) * 100).toFixed(2)}
+                        </span>
+                        {e._id ? e._id : "Other"}
+                      </p>
+                      <Line
+                        percent={(e.countLog / adds) * 100}
+                        strokeWidth="4"
+                        strokeColor="#257d7c"
+                      />
+                    </>
+                  ))
+                ) : (
+                  <Spinner height="200px" />
+                )}
               </section>
             </Col>
           ) : opratingSystemWindow ? (
             // OS MENUS
             <Col className="p-4">
               <section className={Style.DataTogleSection}>
-                {
-                  !loading ? piCount.map(e=>(<>
-                        <p className="mt-4">
-                      <span className="p-2">{parseFloat((e.count/add)*100).toFixed(2)}</span>{e._id? e._id:"Other"}
-                    </p>
-                    <Line percent={(e.count/add)*100} strokeWidth="4" strokeColor="#257d7c" />
-                </>
-                  )) : 'Loading'
-                }
+                {!loading ? (
+                  piCount.map((e) => (
+                    <>
+                      <p className="mt-4">
+                        <span className="p-2">
+                          {parseFloat((e.count / add) * 100).toFixed(2)}
+                        </span>
+                        {e._id ? e._id : "Other"}
+                      </p>
+                      <Line
+                        percent={(e.count / add) * 100}
+                        strokeWidth="4"
+                        strokeColor="#257d7c"
+                      />
+                    </>
+                  ))
+                ) : (
+                  <Spinner height="200px" />
+                )}
               </section>
             </Col>
           ) : null}
