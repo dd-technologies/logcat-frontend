@@ -132,8 +132,8 @@ export function SideBar(props) {
               className={`${Style.optionItems} ${Style.option_active}`}
               to={
                 navdetails.link1 &&
-                navdetails.link1.link &&
-                navdetails.link1.link.length === 0
+                  navdetails.link1.link &&
+                  navdetails.link1.link.length === 0
                   ? ""
                   : navdetails.link1.link
               }
@@ -147,8 +147,8 @@ export function SideBar(props) {
               className={Style.optionItems}
               to={
                 navdetails.link1 &&
-                navdetails.link1.link &&
-                navdetails.link1.link.length === 0
+                  navdetails.link1.link &&
+                  navdetails.link1.link.length === 0
                   ? ""
                   : navdetails.link1.link
               }
@@ -160,7 +160,7 @@ export function SideBar(props) {
         </section>
         <section className={Style.brandName}>
           <Image src="/assets/images/DDTECH.png" />
-          <p>D&D Technology</p>
+          <p>Technology</p>
         </section>
       </section>
     </>

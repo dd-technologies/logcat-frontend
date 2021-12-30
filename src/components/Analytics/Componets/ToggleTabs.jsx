@@ -7,6 +7,7 @@ import DeviceChart from "../charts/DeviceChart";
 import { Line } from "rc-progress";
 import { useSelector } from "react-redux";
 import Spinner from "../../../Container/Spinner";
+import { SetLeftFeature } from "ag-grid-community";
 
 export default function ToggleTabs() {
   // toogling window
@@ -26,12 +27,11 @@ export default function ToggleTabs() {
     (state) => state.getCrashAnalyticsDataReducer
   );
   const { loading: ld, data: alldata } = getCrashAnalyticsDataReducer;
-  const cnt =
+  let cnt =
     alldata && alldata.modelNameResponse ? alldata.modelNameResponse : null;
   let adds = 0;
-  if (cnt) {
-    cnt.map((e) => (adds += e.countLog));
-  }
+  if (cnt) { cnt.map((e) => (adds += e.countLog)); }
+  if (cnt == null) { cnt = [] }
   // console.log(alldata);
 
   const getErrorWRTOSReducer = useSelector(
@@ -39,11 +39,12 @@ export default function ToggleTabs() {
   );
   const { loading, data } = getErrorWRTOSReducer;
 
-  const piCount = data && data.typeWiseCount ? data.typeWiseCount : null;
+  let piCount = data && data.typeWiseCount ? data.typeWiseCount : null;
+
+  console.log("pieCount", piCount)
+
   let add = 0;
-  if (piCount) {
-    piCount.map((e) => (add += e.count));
-  }
+  if (piCount) { piCount.map((e) => (add += e.count)); }
 
   return (
     <>
@@ -77,6 +78,9 @@ export default function ToggleTabs() {
           {devieWindow ? (
             <Col className="p-4">
               <section className={Style.DataTogleSection}>
+
+                {/*CHECKING FOR NOW IF NOT HAVING THE VALUE OF MAP */}
+
                 {!ld ? (
                   cnt.map((e) => (
                     <>
@@ -96,6 +100,9 @@ export default function ToggleTabs() {
                 ) : (
                   <Spinner height="200px" />
                 )}
+
+
+
               </section>
             </Col>
           ) : opratingSystemWindow ? (

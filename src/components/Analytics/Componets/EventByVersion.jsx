@@ -10,23 +10,28 @@ export default function EventByVersion() {
     (state) => state.getCrashAnalyticsDataReducer
   );
   const { loading: ld, data: alldata } = getCrashAnalyticsDataReducer;
-  const cnt =
-    alldata && alldata.versionResponse ? alldata.versionResponse : null;
+  let cnt = alldata && alldata.versionResponse ? alldata.versionResponse : null;
+
+  console.log("cnt", cnt)
+
   let adds = 0;
-  if (cnt) {
-    cnt.map((e) => (adds += e.countLog));
-  }
-  console.log(alldata);
+  if (cnt) { cnt.map((e) => (adds += e.countLog)); }
+  if (cnt == null) { cnt = [] }
+  // console.log("alldata", alldata);
   return (
     <>
       <CustomCard>
         <Row className="p-4">
           <Col xl={4}>
             <p>Total events by version</p>
+
+
+            {/*CHECKING FOR NOW IF NOT HAVING THE VALUE OF MAP */}
+
             {!ld ? (
               cnt.map((e) => (
                 <>
-                  <p>{e._id}</p>
+                  <p>{e._id ? e._id : null}</p>
                   <h4>{e.countLog}</h4>
                 </>
               ))

@@ -92,28 +92,32 @@ export default function Analytics() {
 
   // console.log("data", date);
   const getCrashFreeUsersDataReducer = useSelector(state => state.getCrashFreeUsersDataReducer)
-  const {loading,data} = getCrashFreeUsersDataReducer
-  let users = data && data.response ? data.response.length:0;
+  const { loading, data } = getCrashFreeUsersDataReducer
+  let users = data && data.response ? data.response.length : 0;
   let totalCount = 0;
-  if (data && data.response.length !==0) {
-    data.response.map(e=>totalCount += e.count)
+  if (data && data.response.length !== 0) {
+    data.response.map(e => totalCount += e.count)
   }
-  
+
+
+
+  console.log("startDate", date.start, date.end, logMsg)
+
   const dispatch = useDispatch();
 
   const dispatchmultiple = () => {
     // console.log('dispatch multiple executed!!')
-    dispatch(getCrashFreeUsersData(code,logMsg))
-    dispatch(getCrashAnalyticsData(code,logMsg))
+    dispatch(getCrashFreeUsersData(code, logMsg))
+    dispatch(getCrashAnalyticsData(code, logMsg))
     dispatch(getErrorWRTOS(code));
     dispatch(getErrorWRTVersion(code));
-    getLogMsgOccurenceWRTDate({code, startDate:date.start, endDate:date.end, logMsg});
+    dispatch(getLogMsgOccurenceWRTDate({ code, startDate: date.start, endDate: date.end, logMsg }));
   };
   useEffect(() => {
     dispatchmultiple();
     // console.log('hello useEffect')
     // dispatch(getLogMsgOccurenceWRTDate({code, startDate:date.start, endDate:date.end, logMsg}));
-    
+
   }, []);
   return (
     <>
@@ -127,7 +131,7 @@ export default function Analytics() {
             {/* data from api */}
             <Col className="my-4">
               {
-                loading? 'Loading' : <>
+                loading ? 'Loading' : <>
                   This issue has <strong>{totalCount}</strong> crash events affecting
                   <strong> {users} </strong> users
                 </>
