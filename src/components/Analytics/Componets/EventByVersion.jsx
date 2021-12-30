@@ -3,30 +3,36 @@ import { Row, Col } from "react-bootstrap";
 import CustomCard from "../../../Container/CustomCard";
 import EventByVersionChart from "../charts/EventByVersionChart";
 import { useSelector } from "react-redux";
+import Spinner from "../../../Container/Spinner";
 
 export default function EventByVersion() {
-  const getCrashAnalyticsDataReducer = useSelector(state => state.getCrashAnalyticsDataReducer)
-  const {loading:ld,data :alldata} = getCrashAnalyticsDataReducer;
-  const cnt = alldata && alldata.versionResponse ? alldata.versionResponse : null;
-  let adds=0;
+  const getCrashAnalyticsDataReducer = useSelector(
+    (state) => state.getCrashAnalyticsDataReducer
+  );
+  const { loading: ld, data: alldata } = getCrashAnalyticsDataReducer;
+  const cnt =
+    alldata && alldata.versionResponse ? alldata.versionResponse : null;
+  let adds = 0;
   if (cnt) {
-    cnt.map(e=>adds+=e.countLog);
+    cnt.map((e) => (adds += e.countLog));
   }
-  console.log(alldata)
+  console.log(alldata);
   return (
     <>
       <CustomCard>
         <Row className="p-4">
           <Col xl={4}>
             <p>Total events by version</p>
-            {
-              !ld ? cnt.map(e=>(<>
-                <p>{e._id}</p>
-              <h4>{e.countLog}</h4>
-              </>
-              )):'Loading'
-            }
-            
+            {!ld ? (
+              cnt.map((e) => (
+                <>
+                  <p>{e._id}</p>
+                  <h4>{e.countLog}</h4>
+                </>
+              ))
+            ) : (
+              <Spinner height="280px" />
+            )}
           </Col>
           <Col xl={8}>
             <section>
