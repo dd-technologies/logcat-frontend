@@ -12,6 +12,15 @@ export default function PieChartDataGraph() {
 
   const getLogCountsReducer = useSelector((state) => state.getLogCountsReducer);
 
+  // console.log("piCount verbose", piCount.map(items => items.count));
+  // const chartDataCount = await piCount.map(items => items.count);
+  // setChartDatApi(chartDataCount);
+  // console.log("verboser chart", piCount)
+  // console.log("piCountData verbose", piCountData)
+  // console.log("piCount verbose chart", piCount.map(logtype => logtype.logType))
+  // const logtypelabel = piCount.map(logtype => logtype.logType)
+  // setLogtypelabel(piCount.map(logtype => logtype.logType))
+
   const fetchDate = async () => {
     try {
       const { data } = getLogCountsReducer;
@@ -20,10 +29,11 @@ export default function PieChartDataGraph() {
           ? data.data.typeWiseCount
           : null;
 
+      console.log("pieCount vs", piCount);
       setChartData(piCount.map((itmes) => itmes.count));
       setChartDataLabel(piCount.map((itmes) => itmes.logType));
     } catch (error) {
-      // console.log(error.message);
+      console.log(error.message);
     }
   };
 

@@ -26,6 +26,7 @@ import {
   getProjectByCode,
   getCrashFreeUsers,
 } from "../../redux/action/ProjectAction";
+import { getLogCountsReducer } from "../../redux/reducer/ProjectReducer";
 
 export default function LogTable() {
   // filter with crash free statics and trands
@@ -81,6 +82,7 @@ export default function LogTable() {
     dispatch(getErrorWRTOS(code));
     dispatch(getProjectDetails(code));
     dispatch(getErrorWRTVersion(code));
+
     // dispatch(getLogByDate(code, date));
     // dispatch(getCrashFreeUsers({code,diffDate}));
   };
@@ -115,12 +117,7 @@ export default function LogTable() {
                 <section className={Style.filterwithDate}>
                   <section className={Style.datafilter} onClick={DateFilter}>
                     <FontAwesomeIcon icon={faCalendar} />
-                    <p
-                      className="ms-2 p-1"
-                      onClick={() => {
-                        setDiffDate(10);
-                      }}
-                    >
+                    <p className="ms-2 p-1">
                       {diffDate == 10
                         ? `last 10 days`
                         : diffDate == 15
@@ -145,7 +142,7 @@ export default function LogTable() {
                             setDiffDate(15);
                             setDateDropDown(false);
                           }}
-                          >
+                        >
                           15 days
                         </p>
                         <p
@@ -154,7 +151,7 @@ export default function LogTable() {
                             setDiffDate(30);
                             setDateDropDown(false);
                           }}
-                          >
+                        >
                           30 days
                         </p>
                         <p
@@ -163,7 +160,7 @@ export default function LogTable() {
                             setDiffDate(45);
                             setDateDropDown(false);
                           }}
-                          >
+                        >
                           45 days
                         </p>
                         <p
