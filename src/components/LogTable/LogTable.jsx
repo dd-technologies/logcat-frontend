@@ -120,6 +120,8 @@ export default function LogTable() {
                     <p className="ms-2 p-1">
                       {diffDate == 10
                         ? `last 10 days`
+                        : diffDate == 7
+                        ? `last 7 days`
                         : diffDate == 15
                         ? `last 15 days`
                         : diffDate == 30
@@ -139,12 +141,22 @@ export default function LogTable() {
                         <p
                           className="mt-1"
                           onClick={() => {
+                            setDiffDate(7);
+                            setDateDropDown(false);
+                          }}
+                        >
+                          7 days
+                        </p>
+                        <p
+                          className="mt-1"
+                          onClick={() => {
                             setDiffDate(15);
                             setDateDropDown(false);
                           }}
                         >
                           15 days
                         </p>
+
                         <p
                           className="mt-1"
                           onClick={() => {
