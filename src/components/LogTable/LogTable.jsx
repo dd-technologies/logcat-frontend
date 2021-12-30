@@ -97,6 +97,8 @@ export default function LogTable() {
     multipleDispatchGraph();
   }, [diffDate]);
 
+  // console.log("diffDate", diffDate);
+
   return (
     <>
       <Row>
@@ -119,42 +121,56 @@ export default function LogTable() {
                         setDiffDate(10);
                       }}
                     >
-                      Last 10 Days
+                      {diffDate == 10
+                        ? `last 10 days`
+                        : diffDate == 15
+                        ? `last 15 days`
+                        : diffDate == 30
+                        ? `last 30 days`
+                        : diffDate == 45
+                        ? `last 45 days`
+                        : diffDate == 60
+                        ? `last 60 days`
+                        : null}
                     </p>
                     <FontAwesomeIcon icon={faCaretDown} />
                   </section>
                   <section>
                     {dateDropDown ? (
-                      <CustomeDropDown>
+                      <CustomeDropDown width="100%">
                         {/* <p className="mt-1">10 days</p> */}
                         <p
                           className="mt-1"
                           onClick={() => {
                             setDiffDate(15);
+                            setDateDropDown(false);
                           }}
-                        >
+                          >
                           15 days
                         </p>
                         <p
                           className="mt-1"
                           onClick={() => {
                             setDiffDate(30);
+                            setDateDropDown(false);
                           }}
-                        >
+                          >
                           30 days
                         </p>
                         <p
                           className="mt-1"
                           onClick={() => {
                             setDiffDate(45);
+                            setDateDropDown(false);
                           }}
-                        >
+                          >
                           45 days
                         </p>
                         <p
                           className="mt-1"
                           onClick={() => {
                             setDiffDate(60);
+                            setDateDropDown(false);
                           }}
                         >
                           60 days
