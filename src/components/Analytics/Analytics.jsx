@@ -91,7 +91,14 @@ export default function Analytics() {
   };
 
   // console.log("data", date);
-
+  const getCrashFreeUsersDataReducer = useSelector(state => state.getCrashFreeUsersDataReducer)
+  const {loading,data} = getCrashFreeUsersDataReducer
+  let users = data && data.response ? data.response.length:0;
+  let totalCount = 0;
+  if (data && data.response.length !==0) {
+    data.response.map(e=>totalCount += e.count)
+  }
+  
   const dispatch = useDispatch();
 
   const dispatchmultiple = () => {
@@ -119,8 +126,12 @@ export default function Analytics() {
           <Container style={{ marginTop: "12%", marginBottom: "3%" }}>
             {/* data from api */}
             <Col className="my-4">
-              This issue has <strong>5</strong> crash events affecting
-              <strong> 2 </strong> users
+              {
+                loading? 'Loading' : <>
+                  This issue has <strong>{totalCount}</strong> crash events affecting
+                  <strong> {users} </strong> users
+                </>
+              }
             </Col>
 
             <Col>
