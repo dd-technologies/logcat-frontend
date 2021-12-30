@@ -29,12 +29,12 @@ export default function EventDataWithDate() {
   const urlParams = new URLSearchParams(queryString);
 
   // GETTIN ROW DATA
-  const rowcreatedAt = urlParams.get("rowcreatedAt");
   const rowdevice_types = urlParams.get("rowdevice_types");
   const rowdid = urlParams.get("rowdid");
   const rowlogGeneratedDate = urlParams.get("rowlogGeneratedDate");
-  const rowlogType = urlParams.get("rowlogType");
-  const rowupdatedAt = urlParams.get("rowupdatedAt");
+  const version = urlParams.get("version");
+  const osArchitecture = urlParams.get("osArchitecture");
+  const modelName = urlParams.get("modelName");
 
   return (
     <>
@@ -47,7 +47,7 @@ export default function EventDataWithDate() {
                 <span>
                   <FontAwesomeIcon icon={faLocationArrow} />
                 </span>
-                {rowcreatedAt.split("T")[1]}
+                {version}
               </p>
             </section>
 
@@ -56,7 +56,7 @@ export default function EventDataWithDate() {
                 <span>
                   <FontAwesomeIcon icon={faAndroid} />
                 </span>
-                {rowdid}
+                {osArchitecture}
               </p>
             </section>
 
@@ -65,8 +65,7 @@ export default function EventDataWithDate() {
                 <span>
                   <FontAwesomeIcon icon={faMobile} />
                 </span>
-
-                {rowdevice_types.split("|")[1]}
+                {modelName}
               </p>
             </section>
 

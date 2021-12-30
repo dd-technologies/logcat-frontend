@@ -79,9 +79,10 @@ export default function LogTable() {
 
   const dispatchmultiple = () => {
     // dispatch(getLogTypeCounts(code));
-    dispatch(getErrorWRTOS(code));
+    // dispatch(getErrorWRTOS(code));
     dispatch(getProjectDetails(code));
-    dispatch(getErrorWRTVersion(code));
+    // dispatch(getErrorWRTVersion(code));
+    // getProjectByCode()
 
     // dispatch(getLogByDate(code, date));
     // dispatch(getCrashFreeUsers({code,diffDate}));
@@ -94,6 +95,7 @@ export default function LogTable() {
     dispatch(getLogTypeCounts({ code, diffDate }));
     dispatch(getLogByDate({ code, diffDate }));
     dispatch(getCrashFreeUsers({ code, diffDate }));
+    // dispatch(getLogByDate(code, date));
   };
   useEffect(() => {
     multipleDispatchGraph();
@@ -189,7 +191,7 @@ export default function LogTable() {
                         <p
                           className="mt-1"
                           onClick={() => {
-                            setDiffDate(60);
+                            setDiffDate(90);
                             setDateDropDown(false);
                           }}
                         >
@@ -231,7 +233,7 @@ export default function LogTable() {
             <Row className="mt-3">
               <Col>
                 {/* table with toolkit provider */}
-                <TableData />
+                <TableData code = {code}/>
 
                 {/*Ag table  */}
                 {/* <AgTable /> */}

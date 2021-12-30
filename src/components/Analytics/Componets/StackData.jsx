@@ -50,7 +50,7 @@ export default function StackData() {
     setStackErrorFilterTextFormate(false);
     setactiveClassToggle({ text: true, stack: false });
   };
-  
+
   const stackErrorFilterTextFormateFun = () => {
     setStackErrorFilterTextFormate(true);
     setStackErrorFilter(false);
@@ -94,7 +94,7 @@ export default function StackData() {
                 className={Style.ParaWithArrowDown}
                 onClick={innerParaShowFun}
               >
-                <h5>Stack Error</h5>
+                <h5>Stack error in text format</h5>
                 <FontAwesomeIcon icon={faCaretDown} />
               </section>
             </section>
@@ -114,7 +114,7 @@ export default function StackData() {
                 className={Style.ParaWithArrowDown}
                 onClick={innerParaShowFun}
               >
-                <h5>Stack error in text formate</h5>
+                <h5>Stack error </h5>
                 <FontAwesomeIcon icon={faCaretDown} />
               </section>
             </section>

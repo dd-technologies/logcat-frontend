@@ -31,6 +31,15 @@ import {
   GET_CRASH_FREE_USERS_REQUEST,
   GET_CRASH_FREE_USERS_REQUEST_SUCCESS,
   GET_CRASH_FREE_USERS_REQUEST_FAIL,
+
+  GET_CRASH_ANALYTICS_DATA_REQUEST,
+  GET_CRASH_ANALYTICS_DATA_REQUEST_SUCCESS,
+  GET_CRASH_ANALYTICS_DATA_REQUEST_FAIL,
+
+  GET_CRASH_FREE_USERS_DATA_REQUEST,
+  GET_CRASH_FREE_USERS_DATA_REQUEST_SUCCESS,
+  GET_CRASH_FREE_USERS_DATA_REQUEST_FAIL,
+
 } from "../types/ProjectConstants";
 
 export const getAllProject = () => async (dispatch) => {
@@ -76,7 +85,7 @@ export const getProjectByCode =
   (code, date = null, filters = null, page = null, record = 25) =>
     async (dispatch) => {
       try {
-        // console.log(`pageno from action project ${page}`);
+        console.log(`pageno from action project code ${code}`);
         dispatch({ type: GET_ALL_LOG_BY_CODE_REQUEST });
         const token = localStorage.getItem("ddAdminToken");
         const config = {
@@ -130,7 +139,7 @@ export const getProjectByCode =
             config
           );
         }
-        // console.log(response.data);
+        console.log(response.data);
         dispatch({
           type: GET_ALL_LOG_BY_CODE_SUCCESS,
           payload: response.data,
@@ -508,3 +517,89 @@ export const getCrashFreeUsers =
         });
       }
     };
+
+    export const getCrashAnalyticsData =
+    ( code,logMsg ) =>
+      async (dispatch) => {
+        try {
+          console.log(code);
+          var dt = new Date();
+          const endDate = dt.toISOString().slice(0, 10);
+          dt.setDate(dt.getDate() -90);
+          const startDate = dt.toISOString().slice(0, 10);
+          console.log(`${startDate} and ${endDate}`);
+  
+          dispatch({ type: GET_CRASH_ANALYTICS_DATA_REQUEST });
+          const token = localStorage.getItem("ddAdminToken");
+          console.log(token);
+          const config = {
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          };
+  
+          const { data } = await axios.get(
+            `https://logger-server.herokuapp.com/api/logger/projects/get-crashlytics-data/${code}?&startDate=${startDate}&endDate=${endDate}&logMsg=${logMsg}`,
+            config
+          );
+          console.log(data);
+          dispatch({
+            type: GET_CRASH_ANALYTICS_DATA_REQUEST_SUCCESS,
+            payload: data.data,
+          });
+  
+          // }
+        } catch (error) {
+          dispatch({
+            type: GET_CRASH_ANALYTICS_DATA_REQUEST_FAIL,
+            payload:
+              error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message,
+          });
+        }
+      };
+
+      export const getCrashFreeUsersData =
+      ( code,logMsg ) =>
+        async (dispatch) => {
+          try {
+            console.log(code);
+            var dt = new Date();
+            const endDate = dt.toISOString().slice(0, 10);
+            dt.setDate(dt.getDate() -90);
+            const startDate = dt.toISOString().slice(0, 10);
+            console.log(`${startDate} and ${endDate}`);
+    
+            dispatch({ type: GET_CRASH_FREE_USERS_DATA_REQUEST });
+            const token = localStorage.getItem("ddAdminToken");
+            console.log(token);
+            const config = {
+              headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            };
+    
+            const { data } = await axios.get(
+              `https://logger-server.herokuapp.com/api/logger/projects/logMsgOccurence/${code}?msg=${logMsg}`,
+              config
+            );
+            console.log(data);
+            dispatch({
+              type: GET_CRASH_FREE_USERS_DATA_REQUEST_SUCCESS,
+              payload: data.data,
+            });
+    
+            // }
+          } catch (error) {
+            dispatch({
+              type: GET_CRASH_FREE_USERS_DATA_REQUEST_FAIL,
+              payload:
+                error.response && error.response.data.message
+                  ? error.response.data.message
+                  : error.message,
+            });
+          }
+        };
