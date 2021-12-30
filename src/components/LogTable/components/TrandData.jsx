@@ -8,11 +8,13 @@ import TrandDataGraph from "../charts/TrandDataGraph";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function TrandData() {
-  // const getLogCountsByDateReducer = useSelector(state => state.getLogCountsByDateReducer)
-  // const {loading,data} = getLogCountsByDateReducer
-  // const LineCount = data && data.data && data.data.response  ? data.data.response : null
-  // let add=0;
-  // LineCount.map(sum=>add +=sum.countLog)
+  const getLogCountsByDateReducer = useSelector(state => state.getLogCountsByDateReducer)
+  const {loading,data} = getLogCountsByDateReducer
+  const LineCount = data && data.data && data.data.response  ? data.data.response : null
+  let add=0;
+  if(data && data.data && data.data.response) {
+    LineCount.map(sum=>add +=sum.countLog) 
+  }
   return (
     <>
       <CustomCard>
@@ -30,12 +32,12 @@ export default function TrandData() {
             <section className={Style.Outsection}>
               <section>
                 <p>Crashes</p>
-                {/* <h4>{add}</h4> */}
+                <h4>{add}</h4>
               </section>
               <section>
-                <p className="ps-3">Users</p>
+                {/* <p className="ps-3">Users</p>
                 <h4 className="ps-3">0</h4>
-                <p className="ps-3">0%</p>
+                <p className="ps-3">0%</p> */}
               </section>
             </section>
             {/* <section className={Style.Outsection}>
