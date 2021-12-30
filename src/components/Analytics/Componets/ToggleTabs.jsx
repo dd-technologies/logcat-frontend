@@ -5,20 +5,38 @@ import CustomCard from "../../../Container/CustomCard";
 import EventChart from "../charts/EventChart";
 import DeviceChart from "../charts/DeviceChart";
 import { Line } from "rc-progress";
+import { useSelector } from "react-redux";
 
 export default function ToggleTabs() {
   // toogling window
   const [devieWindow, setdevieWindow] = useState(true);
-  const [opratingSystemWindow, setOpratingSystemWindow] = useState(null);
+  const [opratingSystemWindow, setOpratingSystemWindow] = useState(false);
 
   const DeviceShowFun = () => {
-    setdevieWindow(!devieWindow);
-    setOpratingSystemWindow(null);
+    setdevieWindow(true);
+    setOpratingSystemWindow(false);
   };
   const opratingSystemFun = () => {
-    setOpratingSystemWindow(!opratingSystemWindow);
-    setdevieWindow(null);
+    setOpratingSystemWindow(true);
+    setdevieWindow(false);
   };
+
+  // const getErrorWRTVersionReducer = useSelector(state => state.getErrorWRTVersionReducer)
+  // const {loading:ld,data :alldata} = getErrorWRTVersionReducer;
+  // const cnt = alldata && alldata.typeWiseCount ? alldata.typeWiseCount : null;
+
+  const getErrorWRTOSReducer = useSelector(state => state.getErrorWRTOSReducer)
+  const { loading, data } = getErrorWRTOSReducer
+
+  const piCount =
+    data && data.typeWiseCount
+      ? data.typeWiseCount
+      : null;
+  let add=0;
+  if (piCount) {
+    piCount.map(e=>add+=e.count);
+    piCount.map(e=>console.log((e.count/add)*100))
+  }
 
   return (
     <>
@@ -52,8 +70,18 @@ export default function ToggleTabs() {
           {devieWindow ? (
             <Col className="p-4">
               <section className={Style.DataTogleSection}>
+
+                {/* {
+                  cnt.map(e=>(<>
+                  <p className="mt-4">
+                  <span className="p-2"></span>{e._id ? e._id:'Other'}
+                  </p>
+                  <Line percent={e.count} strokeWidth="4" strokeColor="#257d7c" />
+                  </>))
+                } */}
+
                 <p className="mt-4">
-                  <span className="p-2">60%</span>Andorid
+                  <span className="p-2"></span>Andorid
                 </p>
                 <Line percent="10" strokeWidth="4" strokeColor="#257d7c" />
               </section>
@@ -62,18 +90,15 @@ export default function ToggleTabs() {
             // OS MENUS
             <Col className="p-4">
               <section className={Style.DataTogleSection}>
-                <p className="mt-4">
-                  <span className="p-2">60%</span>Andorid
-                </p>
-                <Line percent="10" strokeWidth="4" strokeColor="#257d7c" />
-                <p className="mt-4">
-                  <span className="p-2">60%</span>Andorid
-                </p>
-                <Line percent="30" strokeWidth="4" strokeColor="#257d7c" />
-                <p className="mt-4">
-                  <span className="p-2">60%</span>Andorid
-                </p>
-                <Line percent="90" strokeWidth="4" strokeColor="#257d7c" />
+                {
+                  !loading ? piCount.map(e=>(<>
+                        <p className="mt-4">
+                      <span className="p-2">{parseFloat((e.count/add)*100).toFixed(2)}</span>{e._id? e._id:"Other"}
+                    </p>
+                    <Line percent={(e.count/add)*100} strokeWidth="4" strokeColor="#257d7c" />
+                </>
+                  )) : 'Loading'
+                }
               </section>
             </Col>
           ) : null}

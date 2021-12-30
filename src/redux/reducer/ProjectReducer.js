@@ -36,6 +36,13 @@ import {
   GET_CRASH_FREE_USERS_REQUEST_SUCCESS,
   GET_CRASH_FREE_USERS_REQUEST_FAIL,
   
+  GET_CRASH_ANALYTICS_DATA_REQUEST,
+  GET_CRASH_ANALYTICS_DATA_REQUEST_SUCCESS,
+  GET_CRASH_ANALYTICS_DATA_REQUEST_FAIL,
+
+  GET_CRASH_FREE_USERS_DATA_REQUEST,
+  GET_CRASH_FREE_USERS_DATA_REQUEST_SUCCESS,
+  GET_CRASH_FREE_USERS_DATA_REQUEST_FAIL,
 } from "../types/ProjectConstants";
 
 export const getAllProjectReducer = (state = {}, action) => {
@@ -245,3 +252,44 @@ export const getCrashFreeUsersReducer = (state={},action)=>{
       return state;
 }
 };
+
+export const getCrashAnalyticsDataReducer= (state={},action)=>{
+  switch (action.type) {
+    case   GET_CRASH_ANALYTICS_DATA_REQUEST:
+      return { loading: true };
+
+    case   GET_CRASH_ANALYTICS_DATA_REQUEST_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+      };
+    case   GET_CRASH_ANALYTICS_DATA_REQUEST_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+}
+};
+
+export const getCrashFreeUsersDataReducer= (state={},action)=>{
+  switch (action.type) {
+    case   GET_CRASH_FREE_USERS_DATA_REQUEST:
+      return { loading: true };
+
+    case   GET_CRASH_FREE_USERS_DATA_REQUEST_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+      };
+    case   GET_CRASH_FREE_USERS_DATA_REQUEST_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+}
+};
+

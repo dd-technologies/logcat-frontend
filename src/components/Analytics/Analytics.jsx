@@ -19,6 +19,8 @@ import {
   getErrorWRTVersion,
   getProjectDetails,
   getLogMsgOccurenceWRTDate,
+  getCrashAnalyticsData,
+  getCrashFreeUsersData,
 } from "../../redux/action/ProjectAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -94,6 +96,8 @@ export default function Analytics() {
 
   const dispatchmultiple = () => {
     console.log('dispatch multiple executed!!')
+    dispatch(getCrashFreeUsersData(code,logMsg))
+    dispatch(getCrashAnalyticsData(code,logMsg))
     dispatch(getErrorWRTOS(code));
     dispatch(getErrorWRTVersion(code));
     getLogMsgOccurenceWRTDate({code, startDate:date.start, endDate:date.end, logMsg});
