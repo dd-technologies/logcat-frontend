@@ -26,7 +26,7 @@ const { SearchBar } = Search;
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const { ExportCSVButton } = CSVExport;
-var dt={};
+var dt = {};
 
 function errorFormatter(cell, row) {
   if (row.logType) {
@@ -367,7 +367,7 @@ export default function TableData() {
   };
 
   useEffect(() => {
-    dt.start=date.start;
+    dt.start = date.start;
     dt.end = date.end;
     if (
       logType.error ||
@@ -385,6 +385,10 @@ export default function TableData() {
   const showTableFieldFunc = () => {
     setShowTableField(!showTableField);
   };
+
+
+
+
 
   return (
     <>

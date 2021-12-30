@@ -99,7 +99,11 @@ export default function LogTable() {
     multipleDispatchGraph();
   }, [diffDate]);
 
+
+
   // console.log("diffDate", diffDate);
+
+
 
   return (
     <>
@@ -121,16 +125,18 @@ export default function LogTable() {
                       {diffDate == 10
                         ? `last 10 days`
                         : diffDate == 7
-                        ? `last 7 days`
-                        : diffDate == 15
-                        ? `last 15 days`
-                        : diffDate == 30
-                        ? `last 30 days`
-                        : diffDate == 45
-                        ? `last 45 days`
-                        : diffDate == 60
-                        ? `last 60 days`
-                        : null}
+                          ? `last 7 days`
+                          : diffDate == 15
+                            ? `last 15 days`
+                            : diffDate == 30
+                              ? `last 30 days`
+                              : diffDate == 45
+                                ? `last 45 days`
+                                : diffDate == 60
+                                  ? `last 60 days`
+                                  : diffDate == 90
+                                    ? `last 90 days`
+                                    : null}
                     </p>
                     <FontAwesomeIcon icon={faCaretDown} />
                   </section>
@@ -184,6 +190,15 @@ export default function LogTable() {
                         >
                           60 days
                         </p>
+                        <p
+                          className="mt-1"
+                          onClick={() => {
+                            setDiffDate(60);
+                            setDateDropDown(false);
+                          }}
+                        >
+                          90 days
+                        </p>
                       </CustomeDropDown>
                     ) : null}
                   </section>
@@ -211,7 +226,7 @@ export default function LogTable() {
             <Row className="mt-5">
               <Col xl={12} className={Style.issuesTable}>
                 <p>Issues</p>
-                <p className={Style.LinkActiveText}>Search By userId</p>
+                {/* <p className={Style.LinkActiveText}>Search By userId</p> */}
               </Col>
             </Row>
 

@@ -19,12 +19,12 @@ export default function TrandData() {
         <Row className="p-3">
           <Col xl={12} className={Style.Trand}>
             <h5> Trends</h5>
-            <p>
+            {/* <p>
               <span className="p-2">
                 <FontAwesomeIcon icon={faRocket} />
               </span>
               Letest Release
-            </p>
+            </p> */}
           </Col>
           <Col xl={12} className={Style.TrandsDataTable}>
             <section className={Style.Outsection}>

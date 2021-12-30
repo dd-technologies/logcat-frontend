@@ -22,7 +22,7 @@ export default function CrashFreeStatics() {
       <CustomCard >
         <Row className="p-3">
           <Col xl={12} className={Style.Statics}>
-            <h5>Crash free Statics</h5>
+            <h5>Crash free Statistics </h5>
             <section className={Style.StaticsSection}>
               <p>Crash free users</p>
               <section className={Style.Tooltip}>
