@@ -112,7 +112,7 @@ export default function Analytics() {
         </Col>
         <Col xl={10} lg={10} md={10} sm={10}>
           <Navbar navdetails={sidebarDetails} />
-          <Container style={{ marginTop: "12%", marginBottom: "3%" }}>
+          <Container style={{ marginTop: "10%", marginBottom: "3%" }}>
             {/* data from api */}
             <Col className="my-4">
               This issue has <strong>5</strong> crash events affecting

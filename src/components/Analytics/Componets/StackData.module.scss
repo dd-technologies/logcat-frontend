@@ -56,6 +56,9 @@
   justify-content: start;
   align-items: center;
   .filterGraphFirstSction {
+    & p {
+      color: $activehrefText;
+    }
     cursor: pointer;
     background-color: $filterButtonBackgroundColor;
     padding: 10px;

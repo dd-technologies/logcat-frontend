@@ -87,7 +87,7 @@ const columns = [
       };
     },
     formatter: (col, row) => {
-      // console.log("row id mil", row);
+      console.log("row id mil", row);
       const newCode = urlParams.get("code");
       const projectName = urlParams.get("name");
       // const version = urlParams.get('version')
@@ -110,13 +110,13 @@ const columns = [
             {col}
           </ReactReadMoreReadLess>
           <Link
-            to={`/analytics?code=${newCode}&name=${projectName}&col=${col}`}
+            to={`/analytics?code=${newCode}&name=${projectName}&col=${col}&rowcreatedAt=${row.createdAt}&rowdevice_types=${row.device_types}&rowdid=${row.did}&rowlogGeneratedDate=${row.logGeneratedDate}&rowlogType=${row.loglogType}&rowupdatedAt=${row.updatedAt}`}
           >
             <span className={Style.ViewButton}>
               <FontAwesomeIcon icon={faCaretRight} />
             </span>
           </Link>
-        </div>
+        </div >
       );
     },
 
@@ -385,10 +385,6 @@ export default function TableData() {
   const showTableFieldFunc = () => {
     setShowTableField(!showTableField);
   };
-
-
-
-
 
   return (
     <>

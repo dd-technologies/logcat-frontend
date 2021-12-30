@@ -1,16 +1,21 @@
 @import "../../../css/veriables.module.scss";
 .MainDiv {
-  & setcion {
+  .outerSec {
     display: flex;
-    justify-content: space-around;
-    width: 70% !important;
+    justify-content: space-between;
+    width: 80%;
+  }
 
-    & p {
-      cursor: pointer;
-      color: $activehrefText;
-      & span {
-        padding: 7px;
-      }
+  & h3 {
+    color: $activehrefText;
+    font-size: 1.3rem;
+  }
+
+  & p {
+    cursor: pointer;
+    color: $activehrefText;
+    & span {
+      padding: 7px;
     }
   }
 }

@@ -59,13 +59,13 @@ export default function StackData() {
               className={Style.filterGraphFirstSction}
               onClick={stackErrorFilterFun}
             >
-              <FontAwesomeIcon icon={faFilter} />
+              <p>Text</p>
             </section>
             <section
               className={Style.filterGraphFirstSction}
               onClick={stackErrorFilterTextFormateFun}
             >
-              <p>Text</p>
+              <FontAwesomeIcon icon={faFilter} />
             </section>
           </section>
         </Col>
@@ -78,7 +78,7 @@ export default function StackData() {
                 className={Style.ParaWithArrowDown}
                 onClick={innerParaShowFun}
               >
-                <h3>Stack Error</h3>
+                <h5>Stack Error</h5>
                 <FontAwesomeIcon icon={faCaretDown} />
               </section>
             </section>
@@ -98,7 +98,7 @@ export default function StackData() {
                 className={Style.ParaWithArrowDown}
                 onClick={innerParaShowFun}
               >
-                <h3>Stack Error in text formate</h3>
+                <h5>Stack error in text formate</h5>
                 <FontAwesomeIcon icon={faCaretDown} />
               </section>
             </section>

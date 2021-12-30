@@ -9,7 +9,7 @@ export default function AnalyticsEventDataComp() {
     <>
       <CustomCard height="100%">
         <EventDataWithDate />
-        <Stackkeys />
+        {/* <Stackkeys /> */}
         {/* pending toggle button */}
         <StackData />
       </CustomCard>
