@@ -36,40 +36,48 @@ export default function EventDataWithDate() {
   const osArchitecture = urlParams.get("osArchitecture");
   const modelName = urlParams.get("modelName");
 
+  console.log("version", version);
+
   return (
     <>
       <Row className="pt-4">
         <Col className={`${Style.MainDiv} m-2`}>
           <setcion className={`${Style.outerSec} p-2`}>
             <p>Event Summery</p>
-            <section>
-              <p>
-                <span>
-                  <FontAwesomeIcon icon={faLocationArrow} />
-                </span>
-                {version}
-              </p>
-            </section>
+            {version !== "undefined" ? (
+              <section className="px-4">
+                <p>
+                  <span>
+                    <FontAwesomeIcon icon={faLocationArrow} />
+                  </span>
+                  {version}
+                </p>
+              </section>
+            ) : null}
 
-            <section>
-              <p>
-                <span>
-                  <FontAwesomeIcon icon={faAndroid} />
-                </span>
-                {osArchitecture}
-              </p>
-            </section>
+            {osArchitecture !== "undefined" ? (
+              <section className="px-4">
+                <p>
+                  <span>
+                    <FontAwesomeIcon icon={faAndroid} />
+                  </span>
+                  {osArchitecture}
+                </p>
+              </section>
+            ) : null}
 
-            <section>
-              <p>
-                <span>
-                  <FontAwesomeIcon icon={faMobile} />
-                </span>
-                {modelName}
-              </p>
-            </section>
+            {modelName !== "undefined" ? (
+              <section className="px-4">
+                <p>
+                  <span>
+                    <FontAwesomeIcon icon={faMobile} />
+                  </span>
+                  {modelName}
+                </p>
+              </section>
+            ) : null}
 
-            <section>
+            <section className="px-4">
               <p>
                 <span>
                   <FontAwesomeIcon icon={faClock} />
