@@ -30,6 +30,13 @@ export default function Analytics() {
     end: null,
   });
 
+  var dt = new Date();
+  date.end = dt.toISOString().slice(0, 10);
+  dt.setDate(dt.getDate() - 90);
+  date.start = dt.toISOString().slice(0, 10);
+
+  console.log(date)
+
   const filterOnDate = ({ startDate = null, endDate = null, diff = 15 }) => {
     // console.log(diff);
     if (diff != null) {
@@ -47,7 +54,8 @@ export default function Analytics() {
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get("code");
   const logMsg = urlParams.get("col").split("at")[0];
-  // console.log("logMsg", logMsg);
+
+  console.log(logMsg)
 
   const projectName = urlParams.get("name");
 
@@ -57,7 +65,7 @@ export default function Analytics() {
     link1: {
       iconName: faDatabase,
       linkName: "Logs",
-      link: `/newlogTable?code=${code}&name=${projectName}`,
+      link: `/logTable?code=${code}&name=${projectName}`,
     },
     link2: {
       iconName: faChartPie,
@@ -85,16 +93,17 @@ export default function Analytics() {
   const dispatch = useDispatch();
 
   const dispatchmultiple = () => {
-    dispatch(getLogTypeCounts(code));
+    console.log('dispatch multiple executed!!')
     dispatch(getErrorWRTOS(code));
-    dispatch(getProjectDetails(code));
     dispatch(getErrorWRTVersion(code));
-    dispatch(getLogByDate(code, date));
-    getLogMsgOccurenceWRTDate(code, date.start, date.end, logMsg);
+    getLogMsgOccurenceWRTDate({code, startDate:date.start, endDate:date.end, logMsg});
   };
   useEffect(() => {
     dispatchmultiple();
-  }, [date]);
+    console.log('hello useEffect')
+    // dispatch(getLogMsgOccurenceWRTDate({code, startDate:date.start, endDate:date.end, logMsg}));
+    
+  }, []);
   return (
     <>
       <Row>

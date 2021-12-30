@@ -26,6 +26,7 @@ const { SearchBar } = Search;
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const { ExportCSVButton } = CSVExport;
+var dt={};
 
 function errorFormatter(cell, row) {
   if (row.logType) {
@@ -92,7 +93,7 @@ const columns = [
       // const version = urlParams.get('version')
       // const osArchitecture = urlParams.get('osArchitecture')
       // console.log("now_code", newCode);
-
+      // console.log(`start ${dt.start} and end ${dt.end}`)
       return (
         <div
           style={{
@@ -366,7 +367,8 @@ export default function TableData() {
   };
 
   useEffect(() => {
-    // console.log("hello second useEffect");
+    dt.start=date.start;
+    dt.end = date.end;
     if (
       logType.error ||
       logType.info ||

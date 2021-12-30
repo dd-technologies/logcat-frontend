@@ -61,6 +61,9 @@ const EventByVersionChart = (props) => {
     (state) => state.getLogMsgOccurenceWRTDateReducer
   );
 
+  const {loading, data} = getLogMsgOccurenceWRTDateReducer;
+  console.log(data)
+
   // console.log(
   //   "getLogMsgOccurenceWRTDateReducer",
   //   getLogMsgOccurenceWRTDateReducer
@@ -72,7 +75,7 @@ const EventByVersionChart = (props) => {
     <div style={{ width: "100%", height: 300 }}>
       <ResponsiveContainer>
         <AreaChart
-          data={dataAll}
+          data={data && data.response}
           margin={{
             top: 10,
             right: 30,
@@ -81,10 +84,10 @@ const EventByVersionChart = (props) => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="date" />
           <YAxis />
           <Tooltip />
-          <Area type="monotone" dataKey="uv" stroke="#257d7c" fill="#257d7c" />
+          <Area type="monotone" dataKey="countLog" stroke="#257d7c" fill="#257d7c" />
         </AreaChart>
       </ResponsiveContainer>
     </div>

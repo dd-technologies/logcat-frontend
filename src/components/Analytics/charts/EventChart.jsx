@@ -79,6 +79,23 @@ const EventChart = () => {
   //     dispatch(getLogMsgOccurenceWRTDate(code, startDate, endDate, logMsg));
   //   }, []);
 
+  const getErrorWRTOSReducer = useSelector(
+    (state) => state.getErrorWRTOSReducer
+  );
+
+  // useEffect(() => {
+  //   (async () => {
+      const { data } =  getErrorWRTOSReducer;
+      const piCount = data && data.typeWiseCount ? data.typeWiseCount : null;
+
+      console.log("piCount", piCount);
+
+      const piCountData =  piCount.map((items) => items.count);
+      console.log("piCountData", piCountData);
+
+      // setChartDatApi(piCountData);
+  //   })();
+  // }, []);
 
 
   
@@ -87,7 +104,7 @@ const EventChart = () => {
     <div style={{ width: "100%", height: 300 }}>
       <ResponsiveContainer>
         <AreaChart
-          data={data}
+          data={data&&data.typeWiseCount}
           margin={{
             top: 10,
             right: 30,
@@ -96,10 +113,10 @@ const EventChart = () => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="_id" />
           <YAxis />
           <Tooltip />
-          <Area type="monotone" dataKey="uv" stroke="#257d7c" fill="#257d7c" />
+          <Area type="monotone" dataKey="count" stroke="#257d7c" fill="#257d7c" />
         </AreaChart>
       </ResponsiveContainer>
     </div>
