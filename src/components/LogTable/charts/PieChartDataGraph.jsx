@@ -3,49 +3,44 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import Spinner from "../../../Container/Spinner";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function PieChartDataGraph() {
-  const [chartData, setChartData] = useState([]);
-  const [chartDataLabel, setChartDataLabel] = useState([]);
+  const [countData, setCountData] = useState([]);
+
+  // LABELS
+  const [lableData, setLableData] = useState([]);
 
   const getLogCountsReducer = useSelector((state) => state.getLogCountsReducer);
 
-  // console.log("piCount verbose", piCount.map(items => items.count));
-  // const chartDataCount = await piCount.map(items => items.count);
-  // setChartDatApi(chartDataCount);
-  // console.log("verboser chart", piCount)
-  // console.log("piCountData verbose", piCountData)
-  // console.log("piCount verbose chart", piCount.map(logtype => logtype.logType))
-  // const logtypelabel = piCount.map(logtype => logtype.logType)
-  // setLogtypelabel(piCount.map(logtype => logtype.logType))
+  const { data } = getLogCountsReducer;
 
-  const fetchDate = async () => {
-    try {
-      const { data } = getLogCountsReducer;
-      const piCount =
-        data && data.data && data.data.typeWiseCount
-          ? data.data.typeWiseCount
-          : null;
+  console.log("getLogCountsReducer", getLogCountsReducer);
 
-      console.log("pieCount vs", piCount);
-      setChartData(piCount.map((itmes) => itmes.count));
-      setChartDataLabel(piCount.map((itmes) => itmes.logType));
-    } catch (error) {
-      console.log(error.message);
+  const fetchDetails = () => {
+    if (data && data.data && data.data.typeWiseCount) {
+      let logType = data.data.typeWiseCount.map((type) => type.logType);
+      let countData = data.data.typeWiseCount.map((type) => type.count);
+      setCountData(getLogCountsReducer.data.data.typeWiseCount);
+      setLableData(logType);
+      setCountData(countData);
+      console.log("logType", countData);
     }
+
+    // setting up labels
   };
 
   useEffect(() => {
-    fetchDate();
-  }, []);
+    fetchDetails();
+  }, [data]);
 
-  const data = {
-    labels: chartDataLabel,
+  const allData = {
+    labels: lableData ? lableData : null,
     datasets: [
       {
-        data: chartData,
+        data: countData ? countData : null,
         backgroundColor: [
           "rgba(54, 162, 235)",
           "rgba(255, 159, 64)",
@@ -59,5 +54,13 @@ export default function PieChartDataGraph() {
     ],
   };
 
-  return <Pie data={data} />;
+  return (
+    <>
+      {data && data.data && data.data.typeWiseCount ? (
+        <Pie data={allData} />
+      ) : (
+        <Spinner height="350px" />
+      )}
+    </>
+  );
 }
