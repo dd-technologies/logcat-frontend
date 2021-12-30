@@ -63,7 +63,7 @@ export default function CarshFreeStaticsGraph() {
   );
 
   const { loading, data } = getCrashFreeUsersReducer;
-  console.log(data);
+  // console.log(data);
 
   return (
     <>

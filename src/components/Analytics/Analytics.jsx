@@ -37,7 +37,7 @@ export default function Analytics() {
   dt.setDate(dt.getDate() - 90);
   date.start = dt.toISOString().slice(0, 10);
 
-  console.log(date)
+  // console.log(date)
 
   const filterOnDate = ({ startDate = null, endDate = null, diff = 15 }) => {
     // console.log(diff);
@@ -57,7 +57,7 @@ export default function Analytics() {
   const code = urlParams.get("code");
   const logMsg = urlParams.get("col").split("at")[0];
 
-  console.log(logMsg)
+  // console.log(logMsg)
 
   const projectName = urlParams.get("name");
 
@@ -102,7 +102,7 @@ export default function Analytics() {
   const dispatch = useDispatch();
 
   const dispatchmultiple = () => {
-    console.log('dispatch multiple executed!!')
+    // console.log('dispatch multiple executed!!')
     dispatch(getCrashFreeUsersData(code,logMsg))
     dispatch(getCrashAnalyticsData(code,logMsg))
     dispatch(getErrorWRTOS(code));
@@ -111,7 +111,7 @@ export default function Analytics() {
   };
   useEffect(() => {
     dispatchmultiple();
-    console.log('hello useEffect')
+    // console.log('hello useEffect')
     // dispatch(getLogMsgOccurenceWRTDate({code, startDate:date.start, endDate:date.end, logMsg}));
     
   }, []);

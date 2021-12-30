@@ -371,7 +371,7 @@ export default function TableData(props) {
   useEffect(() => {
     dt.start = date.start;
     dt.end = date.end;
-    console.log("logtable useEffect executed");
+    // console.log("logtable useEffect executed");
     if (
       logType.error ||
       logType.info ||
@@ -379,7 +379,7 @@ export default function TableData(props) {
       logType.debug ||
       logType.verbose
     ) {
-      console.log("if useEffect executed");
+      // console.log("if useEffect executed");
       dispatch(getProjectByCode(code, null, logType, pageNo, record));
     }
     dispatch(getProjectByCode(code, null, null, pageNo, record));
@@ -449,9 +449,12 @@ export default function TableData(props) {
         };
       },
       formatter: (col, row) => {
-        console.log("row id mil", row);
-        const newCode = urlParams.get("code");
+        // console.log("row id mil", row);
+        // const newCode = urlParams.get("code");
         const projectName = urlParams.get("name");
+        let version = row.version ? row.version : null;
+        let osArchitecture = row.osArchitecture ? row.osArchitecture : null;
+        let modelName = row.modelName ? row.modelName : null;
         // const version = urlParams.get('version')
         // const osArchitecture = urlParams.get('osArchitecture')
         // console.log("now_code", newCode);
@@ -472,7 +475,7 @@ export default function TableData(props) {
               {col}
             </ReactReadMoreReadLess>
             <Link
-              to={`/analytics?code=${newCode}&name=${projectName}&col=${col}&rowlogGeneratedDate=${row.logGeneratedDate}&version=${row.version}&osArchitecture=${row.osArchitecture}&modelName=${row.modelName}`}
+              to={`/analytics?code=${props.code}&name=${props.projectName}&col=${col}&rowlogGeneratedDate=${row.logGeneratedDate}&version=${version}&osArchitecture=${osArchitecture}&modelName=${modelName}`}
             >
               <span className={Style.ViewButton}>
                 <FontAwesomeIcon icon={faCaretRight} />

@@ -55,7 +55,7 @@ export default function CustomeFilterTable(props) {
       setdate({ start: dt.toISOString().slice(0, 10), end: endd });
       // console.log(date);
     } else {
-      console.log("Does not execute");
+      // console.log("Does not execute");
     }
   };
 

@@ -16,13 +16,13 @@ export default function EventDataWithDate() {
     (state) => state.getAllLogByCodeReducer
   );
 
-  console.log("getAllLogByCodeReducer", getAllLogByCodeReducer);
+  // console.log("getAllLogByCodeReducer", getAllLogByCodeReducer);
   const {
     data: {
       data: { logs },
     },
   } = getAllLogByCodeReducer;
-  console.log("getAllLogByCodeReducer logs", logs);
+  // console.log("getAllLogByCodeReducer logs", logs);
 
   // GETTGIN DATA FROM URL
   const queryString = window.location.search;
@@ -36,7 +36,7 @@ export default function EventDataWithDate() {
   const osArchitecture = urlParams.get("osArchitecture");
   const modelName = urlParams.get("modelName");
 
-  console.log("version", version);
+  // console.log("version", version);
 
   return (
     <>
@@ -44,7 +44,7 @@ export default function EventDataWithDate() {
         <Col className={`${Style.MainDiv} m-2`}>
           <setcion className={`${Style.outerSec} p-2`}>
             <p>Event Summery</p>
-            {version !== "undefined" ? (
+            {version !== null ? (
               <section className="px-4">
                 <p>
                   <span>
@@ -55,7 +55,7 @@ export default function EventDataWithDate() {
               </section>
             ) : null}
 
-            {osArchitecture !== "undefined" ? (
+            {osArchitecture !== null ? (
               <section className="px-4">
                 <p>
                   <span>
@@ -66,7 +66,7 @@ export default function EventDataWithDate() {
               </section>
             ) : null}
 
-            {modelName !== "undefined" ? (
+            {modelName !== null ? (
               <section className="px-4">
                 <p>
                   <span>

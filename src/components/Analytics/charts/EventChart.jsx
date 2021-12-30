@@ -60,7 +60,7 @@ const EventChart = () => {
   const getLogCountsByDateReducer = useSelector(
     (state) => state.getLogCountsByDateReducer
   );
-  console.log("getLogCountsByDateReducer", getLogCountsByDateReducer);
+  // console.log("getLogCountsByDateReducer", getLogCountsByDateReducer);
 
   //   const queryString = window.location.search;
   //   const urlParams = new URLSearchParams(queryString);
@@ -88,10 +88,10 @@ const EventChart = () => {
       const { data } =  getErrorWRTOSReducer;
       const piCount = data && data.typeWiseCount ? data.typeWiseCount : null;
 
-      console.log("piCount", piCount);
+      // console.log("piCount", piCount);
 
       const piCountData =  piCount.map((items) => items.count);
-      console.log("piCountData", piCountData);
+      // console.log("piCountData", piCountData);
 
       // setChartDatApi(piCountData);
   //   })();

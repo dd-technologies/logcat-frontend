@@ -85,7 +85,7 @@ export const getProjectByCode =
   (code, date = null, filters = null, page = null, record = 25) =>
     async (dispatch) => {
       try {
-        console.log(`pageno from action project code ${code}`);
+        // console.log(`pageno from action project code ${code}`);
         dispatch({ type: GET_ALL_LOG_BY_CODE_REQUEST });
         const token = localStorage.getItem("ddAdminToken");
         const config = {
@@ -139,7 +139,7 @@ export const getProjectByCode =
             config
           );
         }
-        console.log(response.data);
+        // console.log(response.data);
         dispatch({
           type: GET_ALL_LOG_BY_CODE_SUCCESS,
           payload: response.data,
@@ -232,7 +232,7 @@ export const getLogTypeCounts =
           `https://logger-server.herokuapp.com/api/logger/projects/getLogsCount/${code}?startDate=${start}&endDate=${end}`,
           config
         );
-        console.log(data);
+        // console.log(data);
         dispatch({
           type: GET_LOG_COUNT_SUCCESS,
           payload: data,
@@ -297,7 +297,7 @@ export const getLogByDate =
           `https://logger-server.herokuapp.com/api/logger/projects/datewiselogcount/${code}?startDate=${start}&endDate=${end}`,
           config
         );
-        console.log(`start ${start} and ${end}`);
+        // console.log(`start ${start} and ${end}`);
         // }
 
         // console.log(response);
@@ -415,12 +415,12 @@ export const getProjectDetails = (code) => async (dispatch) => {
 export const getLogMsgOccurenceWRTDate =
   ({ code, startDate, endDate, logMsg }) =>
     async (dispatch) => {
-      console.log("request comming to log")
+      // console.log("request comming to log")
       try {
-        console.log(logMsg)
-        console.log(code)
-        console.log(startDate)
-        console.log(endDate)
+        // console.log(logMsg)
+        // console.log(code)
+        // console.log(startDate)
+        // console.log(endDate)
         dispatch({ type: GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST });
         const token = localStorage.getItem("ddAdminToken");
         const config = {
@@ -477,18 +477,18 @@ export const getCrashFreeUsers =
   ({ code, diffDate }) =>
     async (dispatch) => {
       try {
-        console.log(code);
-        console.log("difference date" + diffDate);
+        // console.log(code);
+        // console.log("difference date" + diffDate);
 
         var dt = new Date();
         const endDate = dt.toISOString().slice(0, 10);
         dt.setDate(dt.getDate() - diffDate);
         const startDate = dt.toISOString().slice(0, 10);
-        console.log(`${startDate} and ${endDate}`);
+        // console.log(`${startDate} and ${endDate}`);
 
         dispatch({ type: GET_CRASH_FREE_USERS_REQUEST });
         const token = localStorage.getItem("ddAdminToken");
-        console.log(token);
+        // console.log(token);
         const config = {
           headers: {
             "Content-type": "application/json",
@@ -500,7 +500,7 @@ export const getCrashFreeUsers =
           `https://logger-server.herokuapp.com/api/logger/projects/crashfree-users-datewise/${code}?startDate=${startDate}&endDate=${endDate}`,
           config
         );
-        console.log(data);
+        // console.log(data);
         dispatch({
           type: GET_CRASH_FREE_USERS_REQUEST_SUCCESS,
           payload: data.data,
@@ -522,16 +522,16 @@ export const getCrashFreeUsers =
     ( code,logMsg ) =>
       async (dispatch) => {
         try {
-          console.log(code);
+          // console.log(code);
           var dt = new Date();
           const endDate = dt.toISOString().slice(0, 10);
           dt.setDate(dt.getDate() -90);
           const startDate = dt.toISOString().slice(0, 10);
-          console.log(`${startDate} and ${endDate}`);
+          // console.log(`${startDate} and ${endDate}`);
   
           dispatch({ type: GET_CRASH_ANALYTICS_DATA_REQUEST });
           const token = localStorage.getItem("ddAdminToken");
-          console.log(token);
+          // console.log(token);
           const config = {
             headers: {
               "Content-type": "application/json",
@@ -543,7 +543,7 @@ export const getCrashFreeUsers =
             `https://logger-server.herokuapp.com/api/logger/projects/get-crashlytics-data/${code}?&startDate=${startDate}&endDate=${endDate}&logMsg=${logMsg}`,
             config
           );
-          console.log(data);
+          // console.log(data);
           dispatch({
             type: GET_CRASH_ANALYTICS_DATA_REQUEST_SUCCESS,
             payload: data.data,
@@ -565,16 +565,16 @@ export const getCrashFreeUsers =
       ( code,logMsg ) =>
         async (dispatch) => {
           try {
-            console.log(code);
+            // console.log(code);
             var dt = new Date();
             const endDate = dt.toISOString().slice(0, 10);
             dt.setDate(dt.getDate() -90);
             const startDate = dt.toISOString().slice(0, 10);
-            console.log(`${startDate} and ${endDate}`);
+            // console.log(`${startDate} and ${endDate}`);
     
             dispatch({ type: GET_CRASH_FREE_USERS_DATA_REQUEST });
             const token = localStorage.getItem("ddAdminToken");
-            console.log(token);
+            // console.log(token);
             const config = {
               headers: {
                 "Content-type": "application/json",
@@ -586,7 +586,7 @@ export const getCrashFreeUsers =
               `https://logger-server.herokuapp.com/api/logger/projects/logMsgOccurence/${code}?msg=${logMsg}`,
               config
             );
-            console.log(data);
+            // console.log(data);
             dispatch({
               type: GET_CRASH_FREE_USERS_DATA_REQUEST_SUCCESS,
               payload: data.data,

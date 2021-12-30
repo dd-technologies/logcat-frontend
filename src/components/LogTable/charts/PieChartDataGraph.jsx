@@ -17,7 +17,7 @@ export default function PieChartDataGraph() {
 
   const { data } = getLogCountsReducer;
 
-  console.log("getLogCountsReducer", getLogCountsReducer);
+  // console.log("getLogCountsReducer", getLogCountsReducer);
 
   const fetchDetails = () => {
     if (data && data.data && data.data.typeWiseCount) {
@@ -26,7 +26,7 @@ export default function PieChartDataGraph() {
       setCountData(getLogCountsReducer.data.data.typeWiseCount);
       setLableData(logType);
       setCountData(countData);
-      console.log("logType", countData);
+      // console.log("logType", countData);
     }
 
     // setting up labels
