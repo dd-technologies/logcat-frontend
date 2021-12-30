@@ -2,11 +2,12 @@ import React from "react";
 import { Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faFileCode,
+  faLocationArrow,
   faBuilding,
-  faProjectDiagram,
-  faCalendar,
+  faMobile,
+  faClock,
 } from "@fortawesome/free-solid-svg-icons";
+import { faAndroid } from "@fortawesome/free-brands-svg-icons";
 import Style from "./EventDataWithDate.module.scss";
 import { useSelector } from "react-redux";
 
@@ -39,33 +40,30 @@ export default function EventDataWithDate() {
     <>
       <Row className="pt-4">
         <Col className={`${Style.MainDiv} m-2`}>
-          <p>Event Summery</p>
           <setcion className={`${Style.outerSec} p-2`}>
+            <p>Event Summery</p>
             <section>
-              <p>Version</p>
               <p>
                 <span>
-                  <FontAwesomeIcon icon={faFileCode} />
+                  <FontAwesomeIcon icon={faLocationArrow} />
                 </span>
                 {rowcreatedAt.split("T")[1]}
               </p>
             </section>
 
             <section>
-              <p>OS architecture</p>
               <p>
                 <span>
-                  <FontAwesomeIcon icon={faBuilding} />
+                  <FontAwesomeIcon icon={faAndroid} />
                 </span>
                 {rowdid}
               </p>
             </section>
 
             <section>
-              <p>Model name</p>
               <p>
                 <span>
-                  <FontAwesomeIcon icon={faProjectDiagram} />
+                  <FontAwesomeIcon icon={faMobile} />
                 </span>
 
                 {rowdevice_types.split("|")[1]}
@@ -73,10 +71,9 @@ export default function EventDataWithDate() {
             </section>
 
             <section>
-              <p>Date</p>
               <p>
                 <span>
-                  <FontAwesomeIcon icon={faCalendar} />
+                  <FontAwesomeIcon icon={faClock} />
                 </span>
                 {rowlogGeneratedDate.split("T")[0]}
               </p>
