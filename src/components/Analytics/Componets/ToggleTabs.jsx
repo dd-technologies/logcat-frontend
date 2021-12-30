@@ -21,9 +21,14 @@ export default function ToggleTabs() {
     setdevieWindow(false);
   };
 
-  // const getErrorWRTVersionReducer = useSelector(state => state.getErrorWRTVersionReducer)
-  // const {loading:ld,data :alldata} = getErrorWRTVersionReducer;
-  // const cnt = alldata && alldata.typeWiseCount ? alldata.typeWiseCount : null;
+  const getCrashAnalyticsDataReducer = useSelector(state => state.getCrashAnalyticsDataReducer)
+  const {loading:ld,data :alldata} = getCrashAnalyticsDataReducer;
+  const cnt = alldata && alldata.modelNameResponse ? alldata.modelNameResponse : null;
+  let adds=0;
+  if (cnt) {
+    cnt.map(e=>adds+=e.countLog);
+  }
+  console.log(alldata)
 
   const getErrorWRTOSReducer = useSelector(state => state.getErrorWRTOSReducer)
   const { loading, data } = getErrorWRTOSReducer
@@ -35,7 +40,6 @@ export default function ToggleTabs() {
   let add=0;
   if (piCount) {
     piCount.map(e=>add+=e.count);
-    piCount.map(e=>console.log((e.count/add)*100))
   }
 
   return (
@@ -71,19 +75,14 @@ export default function ToggleTabs() {
             <Col className="p-4">
               <section className={Style.DataTogleSection}>
 
-                {/* {
-                  cnt.map(e=>(<>
+                {
+                  !ld ? cnt.map(e=>(<>
                   <p className="mt-4">
-                  <span className="p-2"></span>{e._id ? e._id:'Other'}
+                  <span className="p-2">{parseFloat((e.countLog/adds)*100).toFixed(2)}</span>{e._id ? e._id:'Other'}
                   </p>
-                  <Line percent={e.count} strokeWidth="4" strokeColor="#257d7c" />
-                  </>))
-                } */}
-
-                <p className="mt-4">
-                  <span className="p-2"></span>Andorid
-                </p>
-                <Line percent="10" strokeWidth="4" strokeColor="#257d7c" />
+                  <Line percent={(e.countLog/adds)*100} strokeWidth="4" strokeColor="#257d7c" />
+                  </>)) :'Loading'
+                }
               </section>
             </Col>
           ) : opratingSystemWindow ? (
