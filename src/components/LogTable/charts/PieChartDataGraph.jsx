@@ -56,11 +56,14 @@ export default function PieChartDataGraph() {
 
   return (
     <>
-      {data && data.data && data.data.typeWiseCount ? (
-        <Pie data={allData} />
-      ) : (
-        <Spinner height="350px" />
-      )}
+      {/* CHECKING IF DATA NOT FOUND */}
+      {/* {data && data.data && data.data.typeWiseCount ? (<Pie data={allData} />) : (<Spinner height="350px" />)} */}
+      {
+        data && data.data && data.data.typeWiseCount ?
+          countData.length == 0 ? (<p>No log found</p>) : (data && data.data && data.data.typeWiseCount ? <Pie data={allData} /> : <Spinner height="350px" />)
+          : <Spinner height="350px" />
+      }
+
     </>
   );
 }

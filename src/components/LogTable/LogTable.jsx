@@ -111,7 +111,7 @@ export default function LogTable() {
           <Navbar navdetails={sidebarDetails} />
 
           {/* data inhere */}
-          <Container style={{ marginTop: "9%", marginBottom: "5%" }}>
+          <Container style={{ marginTop: "12%", marginBottom: "5%" }}>
             <Row className="mt-4">
               <Col xl={12} className={Style.filterWithDate}>
                 <section className={Style.filterwithDate}>
