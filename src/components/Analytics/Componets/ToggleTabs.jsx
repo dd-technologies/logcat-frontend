@@ -32,7 +32,7 @@ export default function ToggleTabs() {
   if (cnt) {
     cnt.map((e) => (adds += e.countLog));
   }
-  console.log(alldata);
+  // console.log(alldata);
 
   const getErrorWRTOSReducer = useSelector(
     (state) => state.getErrorWRTOSReducer
