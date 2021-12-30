@@ -11,7 +11,8 @@ export default function TrandData() {
   // const getLogCountsByDateReducer = useSelector(state => state.getLogCountsByDateReducer)
   // const {loading,data} = getLogCountsByDateReducer
   // const LineCount = data && data.data && data.data.response  ? data.data.response : null
-
+  // let add=0;
+  // LineCount.map(sum=>add +=sum.countLog)
   return (
     <>
       <CustomCard>
@@ -29,8 +30,7 @@ export default function TrandData() {
             <section className={Style.Outsection}>
               <section>
                 <p>Crashes</p>
-                <h4></h4>
-                <p>-40%</p>
+                {/* <h4>{add}</h4> */}
               </section>
               <section>
                 <p className="ps-3">Users</p>
@@ -38,7 +38,7 @@ export default function TrandData() {
                 <p className="ps-3">0%</p>
               </section>
             </section>
-            <section className={Style.Outsection}>
+            {/* <section className={Style.Outsection}>
               <section>
                 <p className="ps-3">Non-fatals</p>
                 <h4 className="ps-3">0</h4>
@@ -47,8 +47,8 @@ export default function TrandData() {
                 <p className="ps-3">Users</p>
                 <h4 className="h3s-1">0</h4>
               </section>
-            </section>
-            <section className={Style.Outsection}>
+            </section> */}
+            {/* <section className={Style.Outsection}>
               <section>
                 <p className="ps-3">Arns</p>
                 <h4 className="ps-3">0</h4>
@@ -57,7 +57,7 @@ export default function TrandData() {
                 <p className="ps-3">Users</p>
                 <h4 className="ps-3">0</h4>
               </section>
-            </section>
+            </section> */}
           </Col>
           <Col>
             <TrandDataGraph />

@@ -223,7 +223,7 @@ export const getLogTypeCounts =
           `https://logger-server.herokuapp.com/api/logger/projects/getLogsCount/${code}?startDate=${start}&endDate=${end}`,
           config
         );
-        console.log("data log by count", data);
+        console.log(data);
         dispatch({
           type: GET_LOG_COUNT_SUCCESS,
           payload: data,
@@ -284,10 +284,6 @@ export const getLogByDate =
         const end = dt.toISOString().slice(0, 10);
         dt.setDate(dt.getDate() - diffDate);
         const start = dt.toISOString().slice(0, 10);
-
-        console.log("get log date", start, end)
-
-
         response = await axios.get(
           `https://logger-server.herokuapp.com/api/logger/projects/datewiselogcount/${code}?startDate=${start}&endDate=${end}`,
           config
@@ -410,11 +406,12 @@ export const getProjectDetails = (code) => async (dispatch) => {
 export const getLogMsgOccurenceWRTDate =
   ({ code, startDate, endDate, logMsg }) =>
     async (dispatch) => {
+      console.log("request comming to log")
       try {
-        // console.log(logMsg)
-        // console.log(code)
-        // console.log(startDate)
-        // console.log(endDate)
+        console.log(logMsg)
+        console.log(code)
+        console.log(startDate)
+        console.log(endDate)
         dispatch({ type: GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST });
         const token = localStorage.getItem("ddAdminToken");
         const config = {
@@ -426,13 +423,13 @@ export const getLogMsgOccurenceWRTDate =
 
         // console.log("hello from action from get project details");
 
+        // console.log(`https://logger-server.herokuapp.com/api/logger/projects/log-occurrences-datewise/${code}?startDate=${startDate}&endDate=${endDate}&logMsg=${logMsg}`)
         if (startDate == null && endDate == null) {
           var dt = new Date();
           const endDate = dt.toISOString().slice(0, 10);
           dt.setDate(dt.getDate() - 10);
           const startDate = dt.toISOString().slice(0, 10);
           // console.log("date", startDate, endDate, logMsg, code)
-
           const { data } = await axios.get(
             // `https://logger-server.herokuapp.com/api/logger/projects/log-occurrences-datewise/${code}?startDate=${startDate}&endDate=${endDate}&logMsg=${logMsg}`
             `https://logger-server.herokuapp.com/api/logger/projects/log-occurrences-datewise/${code}?startDate=${startDate}&endDate=${endDate}&logMsg=${logMsg}`,

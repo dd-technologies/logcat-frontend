@@ -15,7 +15,7 @@ export default function EventByVersion() {
           </Col>
           <Col xl={8}>
             <section>
-              <p>from the last 7 days</p>
+              <p>from the last 90 days</p>
               <EventByVersionChart />
             </section>
           </Col>

@@ -4,6 +4,7 @@ import Style from "./ToggleTabs.module.scss";
 import CustomCard from "../../../Container/CustomCard";
 import EventChart from "../charts/EventChart";
 import DeviceChart from "../charts/DeviceChart";
+import { Line } from "rc-progress";
 
 export default function ToggleTabs() {
   // toogling window
@@ -47,15 +48,32 @@ export default function ToggleTabs() {
 
         {/* data from toggle */}
         <Row>
+          {/* DEVICE MENUS */}
           {devieWindow ? (
             <Col className="p-4">
-              <section className={Style.DataTogleSection}></section>
-              <DeviceChart />
+              <section className={Style.DataTogleSection}>
+                <p className="mt-4">
+                  <span className="p-2">60%</span>Andorid
+                </p>
+                <Line percent="10" strokeWidth="4" strokeColor="#257d7c" />
+              </section>
             </Col>
           ) : opratingSystemWindow ? (
+            // OS MENUS
             <Col className="p-4">
               <section className={Style.DataTogleSection}>
-                <EventChart />
+                <p className="mt-4">
+                  <span className="p-2">60%</span>Andorid
+                </p>
+                <Line percent="10" strokeWidth="4" strokeColor="#257d7c" />
+                <p className="mt-4">
+                  <span className="p-2">60%</span>Andorid
+                </p>
+                <Line percent="30" strokeWidth="4" strokeColor="#257d7c" />
+                <p className="mt-4">
+                  <span className="p-2">60%</span>Andorid
+                </p>
+                <Line percent="90" strokeWidth="4" strokeColor="#257d7c" />
               </section>
             </Col>
           ) : null}
