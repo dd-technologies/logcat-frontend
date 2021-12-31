@@ -160,7 +160,7 @@ export function SideBar(props) {
         </section>
         <section className={Style.brandName}>
           <Image src="/assets/images/DDTECH.png" />
-          <p>Technology</p>
+          <p>Technologies</p>
         </section>
       </section>
     </>

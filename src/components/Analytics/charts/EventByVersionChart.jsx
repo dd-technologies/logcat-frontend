@@ -62,7 +62,7 @@ const EventByVersionChart = (props) => {
   );
 
   const { loading, data } = getLogMsgOccurenceWRTDateReducer;
-  console.log(data)
+  // console.log(data)
 
   // console.log(
   //   "getLogMsgOccurenceWRTDateReducer",

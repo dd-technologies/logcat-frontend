@@ -101,7 +101,7 @@ export default function Analytics() {
 
 
 
-  console.log("startDate", date.start, date.end, logMsg)
+  // console.log("startDate", date.start, date.end, logMsg)
 
   const dispatch = useDispatch();
 

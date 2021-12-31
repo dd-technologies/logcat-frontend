@@ -16,13 +16,13 @@ export default function EventDataWithDate() {
     (state) => state.getAllLogByCodeReducer
   );
 
-  console.log("getAllLogByCodeReducer", getAllLogByCodeReducer);
+  // console.log("getAllLogByCodeReducer", getAllLogByCodeReducer);
   const {
     data: {
       data: { logs },
     },
   } = getAllLogByCodeReducer;
-  console.log("getAllLogByCodeReducer logs", logs);
+  // console.log("getAllLogByCodeReducer logs", logs);
 
   // GETTGIN DATA FROM URL
   const queryString = window.location.search;
@@ -36,7 +36,7 @@ export default function EventDataWithDate() {
   const osArchitecture = urlParams.get("osArchitecture");
   const modelName = urlParams.get("modelName");
 
-  console.log("version", version);
+  // console.log("version", version);
 
   return (
     <>

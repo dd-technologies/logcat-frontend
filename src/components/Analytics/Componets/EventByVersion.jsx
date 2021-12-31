@@ -12,7 +12,7 @@ export default function EventByVersion() {
   const { loading: ld, data: alldata } = getCrashAnalyticsDataReducer;
   let cnt = alldata && alldata.versionResponse ? alldata.versionResponse : null;
 
-  console.log("cnt", cnt)
+  // console.log("cnt", cnt)
 
   let adds = 0;
   if (cnt) { cnt.map((e) => (adds += e.countLog)); }

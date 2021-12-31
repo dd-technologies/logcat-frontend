@@ -41,7 +41,7 @@ export default function ToggleTabs() {
 
   let piCount = data && data.typeWiseCount ? data.typeWiseCount : null;
 
-  console.log("pieCount", piCount)
+  // console.log("pieCount", piCount)
 
   let add = 0;
   if (piCount) { piCount.map((e) => (add += e.count)); }

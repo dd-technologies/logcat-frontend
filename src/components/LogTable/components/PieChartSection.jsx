@@ -11,9 +11,9 @@ export default function PieChartSection(props) {
         <Row className="p-3">
           <Col xl={12} md={12} className={Style.PieChartData}>
             <h5>Chart Data</h5>
-            <p>Data Info</p>
+            {/* <p>Data Info</p> */}
           </Col>
-          <Col xl={12} md={12} className="d-flex justify-content-center">
+          <Col xl={12} md={12}>
             <PieChartDataGraph />
           </Col>
         </Row>
