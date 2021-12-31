@@ -80,6 +80,41 @@ const TrandDataGraph = () => {
   return (
     <>
       {data && data.data && data.data.response ? (
+        data.data.response.length == 0 ? (
+          <p>No data found</p>
+        ) : data && data.data && data.data.response ? (
+          <div style={{ width: "100%", height: 150 }}>
+            <ResponsiveContainer>
+              <AreaChart
+                data={LineCount}
+                margin={{
+                  top: 10,
+                  right: 30,
+                  left: 0,
+                  bottom: 0,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="date" />
+                <YAxis />
+                <Tooltip />
+                <Area
+                  type="monotone"
+                  dataKey="countLog"
+                  stroke="#257d7c"
+                  fill="#257d7c"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        ) : (
+          <Spinner height="250px" />
+        )
+      ) : (
+        <Spinner height="250px" />
+      )}
+
+      {/* {data && data.data && data.data.response ? (
         <div style={{ width: "100%", height: 150 }}>
           <ResponsiveContainer>
             <AreaChart
@@ -105,8 +140,8 @@ const TrandDataGraph = () => {
           </ResponsiveContainer>
         </div>
       ) : (
-        <Spinner height="200px" />
-      )}
+        <Spinner height="250px" />
+      )} */}
     </>
   );
 };

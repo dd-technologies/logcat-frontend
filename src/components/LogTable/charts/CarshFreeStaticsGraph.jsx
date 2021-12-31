@@ -67,7 +67,42 @@ export default function CarshFreeStaticsGraph() {
 
   return (
     <>
-      {data ? (
+      {data && data.response ? (
+        data.response == 0 ? (
+          <p>No data found</p>
+        ) : data && data.response ? (
+          <div style={{ width: "100%", height: 160 }}>
+            <ResponsiveContainer>
+              <AreaChart
+                data={data && data.response}
+                margin={{
+                  top: 10,
+                  right: 30,
+                  left: 0,
+                  bottom: 0,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="date" />
+                <YAxis />
+                <Tooltip />
+                <Area
+                  type="monotone"
+                  dataKey="countLog"
+                  stroke="#257d7c"
+                  fill="#257d7c"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        ) : (
+          <Spinner height="250px" />
+        )
+      ) : (
+        <Spinner height="250px" />
+      )}
+
+      {/* {data ? (
         <div style={{ width: "100%", height: 160 }}>
           <ResponsiveContainer>
             <AreaChart
@@ -94,7 +129,7 @@ export default function CarshFreeStaticsGraph() {
         </div>
       ) : (
         <Spinner height="200px" />
-      )}
+      )} */}
     </>
   );
 }

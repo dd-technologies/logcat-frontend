@@ -6,6 +6,7 @@ import CarshFreeStaticsGraph from "../charts/CarshFreeStaticsGraph";
 import { faQuestion } from "@fortawesome/free-solid-svg-icons";
 import CustomCard from "../../../Container/CustomCard";
 import CustomeDropDown from "../../../Container/DropDown";
+import { useSelector } from "react-redux";
 export default function CrashFreeStatics() {
   const [showTooltipCrash, setShowTooltipCrash] = useState(false);
   // tooltip in onFocus
@@ -17,9 +18,23 @@ export default function CrashFreeStatics() {
     setShowTooltipCrash(false);
   };
 
+  // static demoUrl = 'https://codesandbox.io/s/area-chart-in-responsive-container-e6dx0';
+  const getCrashFreeUsersReducer = useSelector(
+    (state) => state.getCrashFreeUsersReducer
+  );
+
+  const { loading, data } = getCrashFreeUsersReducer;
+  let totalCount = 0;
+  if (data && data.response) {
+    data.response.map((items) => (totalCount += items.countLog));
+  }
+  if (data && data.response == []) {
+    totalCount = null;
+  }
+
   return (
     <>
-      <CustomCard >
+      <CustomCard>
         <Row className="p-3">
           <Col xl={12} className={Style.Statics}>
             <h5>Crash free Statistics </h5>
@@ -38,7 +53,7 @@ export default function CrashFreeStatics() {
                 <p>this is the tooltip example with no plugin used</p>
               </CustomeDropDown>
             ) : null}
-            <h4>86.21%</h4>
+            <h4>{totalCount}</h4>
           </Col>
           <Col xl={12}>
             <CarshFreeStaticsGraph />

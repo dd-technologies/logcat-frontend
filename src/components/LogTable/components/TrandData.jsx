@@ -11,6 +11,7 @@ export default function TrandData() {
   const getLogCountsByDateReducer = useSelector(state => state.getLogCountsByDateReducer)
   const {loading,data} = getLogCountsByDateReducer
   const LineCount = data && data.data && data.data.response  ? data.data.response : null
+
   let add=0;
   if(data && data.data && data.data.response) {
     LineCount.map(sum=>add +=sum.countLog) 
