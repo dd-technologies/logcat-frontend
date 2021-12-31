@@ -12,8 +12,16 @@
   .container {
     width: 40%;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     .contant_box_404 {
       margin-top: -50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
     }
   }
   .four_zero_four_bg {
