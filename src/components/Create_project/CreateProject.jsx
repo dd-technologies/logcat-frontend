@@ -55,7 +55,7 @@ function CreateProject() {
 
   // CHEKING IF USER IN NOT PRIME ADMIN
 
-  console.log("adminLoginReducer", adminInfo.data.isSuperAdmin);
+  // console.log("adminLoginReducer", adminInfo.data.isSuperAdmin);
 
   const navbardetail = {
     name: adminInfo.data.name,

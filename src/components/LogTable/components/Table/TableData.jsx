@@ -262,7 +262,7 @@ export default function TableData(props) {
   );
   const { loading, data } = getAllLogByCodeReducer;
 
-    console.log("getAllLogByCodeReducer", data);
+    // console.log("getAllLogByCodeReducer", data);
 
 
   const selectRow = {
