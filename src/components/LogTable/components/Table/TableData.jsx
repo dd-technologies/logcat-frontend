@@ -262,6 +262,9 @@ export default function TableData(props) {
   );
   const { loading, data } = getAllLogByCodeReducer;
 
+    console.log("getAllLogByCodeReducer", data);
+
+
   const selectRow = {
     mode: "checkbox",
     clickToSelect: true,

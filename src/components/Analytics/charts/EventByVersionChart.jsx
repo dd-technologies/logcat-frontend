@@ -62,14 +62,14 @@ const EventByVersionChart = (props) => {
   );
 
   const { loading, data } = getLogMsgOccurenceWRTDateReducer;
-  // console.log(data)
+
 
   // console.log(
   //   "getLogMsgOccurenceWRTDateReducer",
   //   getLogMsgOccurenceWRTDateReducer
   // );
 
-
+  // CHANGING DATE FORMATE
 
   return (
     <div style={{ width: "100%", height: 300 }}>
@@ -87,7 +87,12 @@ const EventByVersionChart = (props) => {
           <XAxis dataKey="date" />
           <YAxis />
           <Tooltip />
-          <Area type="monotone" dataKey="countLog" stroke="#257d7c" fill="#257d7c" />
+          <Area
+            type="monotone"
+            dataKey="countLog"
+            stroke="#257d7c"
+            fill="#257d7c"
+          />
         </AreaChart>
       </ResponsiveContainer>
     </div>

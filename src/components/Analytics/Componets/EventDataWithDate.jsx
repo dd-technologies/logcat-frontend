@@ -31,12 +31,18 @@ export default function EventDataWithDate() {
   // GETTIN ROW DATA
   const rowdevice_types = urlParams.get("rowdevice_types");
   const rowdid = urlParams.get("rowdid");
-  const rowlogGeneratedDate = urlParams.get("rowlogGeneratedDate");
+  let rowlogGeneratedDate = urlParams.get("rowlogGeneratedDate");
   const version = urlParams.get("version");
   const osArchitecture = urlParams.get("osArchitecture");
   const modelName = urlParams.get("modelName");
 
   // console.log("version", version);
+  // LOG DATE INVERT
+  rowlogGeneratedDate = rowlogGeneratedDate.split("T")[0];
+  let day = rowlogGeneratedDate.split("-")[2];
+  let month = rowlogGeneratedDate.split("-")[1];
+  let year = rowlogGeneratedDate.split("-")[0];
+  rowlogGeneratedDate = `${day}-${month}-${year}`;
 
   return (
     <>
@@ -82,7 +88,7 @@ export default function EventDataWithDate() {
                 <span>
                   <FontAwesomeIcon icon={faClock} />
                 </span>
-                {rowlogGeneratedDate.split("T")[0]}
+                {rowlogGeneratedDate}
               </p>
             </section>
           </setcion>

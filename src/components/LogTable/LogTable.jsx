@@ -233,7 +233,7 @@ export default function LogTable() {
             <Row className="mt-3">
               <Col>
                 {/* table with toolkit provider */}
-                <TableData code={code}  projectName={projectName}/>
+                <TableData code={code} projectName={projectName} />
 
                 {/*Ag table  */}
                 {/* <AgTable /> */}

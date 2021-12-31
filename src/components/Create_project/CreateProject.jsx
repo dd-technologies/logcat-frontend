@@ -53,6 +53,10 @@ function CreateProject() {
     Dispatch(clearProjectData());
   }
 
+  // CHEKING IF USER IN NOT PRIME ADMIN
+
+  console.log("adminLoginReducer", adminInfo.data.isSuperAdmin);
+
   const navbardetail = {
     name: adminInfo.data.name,
     dashName: "Welcome",
@@ -107,25 +111,28 @@ function CreateProject() {
               <Col xl={12}>
                 <p className={Style.para}>Your Projects</p>
               </Col>
-              <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
-                <CustomCard padding="10px" height="200px">
-                  <section
-                    className={Style.addProject}
-                    onClick={() => setModalShow(true)}
-                  >
-                    <section>
-                      <p>
-                        <FontAwesomeIcon icon={faPlus} />
-                      </p>
-                      <p>Add Project</p>
+
+              {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin ? (
+                <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
+                  <CustomCard padding="10px" height="200px">
+                    <section
+                      className={Style.addProject}
+                      onClick={() => setModalShow(true)}
+                    >
+                      <section>
+                        <p>
+                          <FontAwesomeIcon icon={faPlus} />
+                        </p>
+                        <p>Add Project</p>
+                      </section>
                     </section>
-                  </section>
-                </CustomCard>
-                <AddProjectModal
-                  show={modalShow}
-                  onHide={() => setModalShow(false)}
-                />
-              </Col>
+                  </CustomCard>
+                  <AddProjectModal
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                  />
+                </Col>
+              ) : null}
 
               {/* dynamic projects */}
 

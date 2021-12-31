@@ -25,6 +25,8 @@ export default function Login() {
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { loading, error, adminInfo } = adminLoginReducer;
 
+  // console.log("adminLoginReducer", adminLoginReducer)
+
   const history = useHistory();
   useEffect(() => {
     if (localStorage.getItem("ddAdminToken")) {
@@ -197,12 +199,12 @@ export default function Login() {
                     />
                   </Col>
                   <Col /* style={{paddingRight:'0px'}} */>
-                    <Link
+                    {/* <Link
                       to="/forgetPassword"
                       style={{ textDecoration: "none", color: "#257d7c" }}
                     >
                       Forget Password?
-                    </Link>
+                    </Link> */}
                   </Col>
                 </Row>
 

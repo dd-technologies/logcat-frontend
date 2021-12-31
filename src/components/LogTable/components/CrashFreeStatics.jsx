@@ -40,13 +40,13 @@ export default function CrashFreeStatics() {
             <h5>Crash free Statistics </h5>
             <section className={Style.StaticsSection}>
               <p>Crash free users</p>
-              <section className={Style.Tooltip}>
+              {/* <section className={Style.Tooltip}>
                 <FontAwesomeIcon
                   icon={faQuestion}
                   onMouseEnter={showToolTips}
                   onMouseLeave={hidToolTips}
                 />
-              </section>
+              </section> */}
             </section>
             {showTooltipCrash ? (
               <CustomeDropDown width="auto">
