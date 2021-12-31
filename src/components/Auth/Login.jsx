@@ -209,13 +209,13 @@ export default function Login() {
                       }
                     />
                   </Col>
-                  <Col /* style={{paddingRight:'0px'}} */>
-                    {/* <Link
+                  <Col >
+                    <Link
                       to="/forgetPassword"
                       style={{ textDecoration: "none", color: "#257d7c" }}
                     >
                       Forget Password?
-                    </Link> */}
+                    </Link>
                   </Col>
                 </Row>
 
