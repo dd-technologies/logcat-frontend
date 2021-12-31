@@ -24,4 +24,22 @@
       color: $activehrefText;
     }
   }
+
+  // input field error
+
+  .imputFieldsError {
+    display: flex;
+    align-items: center;
+    border: 2px solid red;
+    border-radius: $cardBorderRadius;
+    padding: 5px;
+    & input {
+      border: none !important;
+      background: none !important;
+    }
+
+    & svg {
+      color: $activehrefText;
+    }
+  }
 }

@@ -20,10 +20,13 @@ export default function Login() {
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
   const [ispasswordHide, setIspasswordHide] = useState(true);
+  const [setErrorPassword, setSetErrorPassword] = useState(null)
 
   const dispatch = useDispatch();
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { loading, error, adminInfo } = adminLoginReducer;
+
+  console.log("error", error)
 
   // console.log("adminLoginReducer", adminLoginReducer)
 
@@ -113,6 +116,8 @@ export default function Login() {
     // }
     const email = validateEmail(loginForm.email);
     const password = validatePassword(loginForm.password);
+
+
     if (email && password) {
       dispatch(
         loginWithEmail(
@@ -122,8 +127,14 @@ export default function Login() {
         )
       );
     }
-    // console.log("dispatch action working");
   };
+
+
+  useEffect(() => {
+    setSetErrorPassword(error)
+  }, [error])
+
+  console.log("setErrorPassword", setErrorPassword)
 
   return (
     <>
@@ -142,7 +153,7 @@ export default function Login() {
             </div>
             <div className="Form-card">
               <form>
-                <div className={`${Style.imputFields} mt-4`}>
+                <div className={emailError ? `${Style.imputFieldsError}` : `${Style.imputFields} mt-4`}>
                   <span>
                     <FontAwesomeIcon icon={faMailBulk} />
                   </span>
@@ -157,14 +168,14 @@ export default function Login() {
                     }
                     value={loginForm.email}
                   />
-                  {emailError && emailError.length ? (
-                    <small style={{ color: "red" }}>{emailError}</small>
-                  ) : (
-                    ""
-                  )}
                 </div>
+                {emailError != null ? (
+                  <small style={{ color: "red" }}>{emailError}</small>
+                ) : (
+                  ""
+                )}
 
-                <div className={`${Style.imputFields} mt-4`}>
+                <div className={emailError ? `${Style.imputFieldsError}` : `${Style.imputFields} mt-4`}>
                   <span>
                     <FontAwesomeIcon icon={faLock} />
                   </span>
@@ -179,12 +190,12 @@ export default function Login() {
                     }
                     value={loginForm.password}
                   />
-                  {passwordError != null ? (
-                    <small style={{ color: "red" }}>{passwordError}</small>
-                  ) : (
-                    ""
-                  )}
                 </div>
+                {passwordError != null ? (
+                  <small style={{ color: "red" }}>{passwordError}</small>
+                ) : setErrorPassword ? <small style={{ color: "red" }}>{setErrorPassword}</small>: (
+                ""
+                )}
                 <Row className="mt-3">
                   <Col>
                     <Form.Check

@@ -27,8 +27,11 @@ import {
   getCrashFreeUsers,
 } from "../../redux/action/ProjectAction";
 import { getLogCountsReducer } from "../../redux/reducer/ProjectReducer";
+import { useHistory } from "react-router-dom";
+import Spinner from "../../Container/Spinner";
 
 export default function LogTable() {
+  const history = useHistory();
   // filter with crash free statics and trands
   const [dropDownShow, setDropDownShow] = useState(false);
   const [dateDropDown, setDateDropDown] = useState(false);
@@ -103,6 +106,22 @@ export default function LogTable() {
 
   // console.log("diffDate", diffDate);
 
+
+  // CHECKING IF USER IS NOT LOGIN AND REDIRECTION USER OT LOGIN PAGE
+  useEffect(() => {
+    if (!localStorage.getItem("ddAdminToken")) {
+      history.push("/");
+    }
+    return () => {
+      <Spinner />
+    }
+
+  }, [history]);
+
+
+
+
+
   return (
     <>
       <Row>
@@ -123,18 +142,18 @@ export default function LogTable() {
                       {diffDate == 10
                         ? `last 10 days`
                         : diffDate == 7
-                        ? `last 7 days`
-                        : diffDate == 15
-                        ? `last 15 days`
-                        : diffDate == 30
-                        ? `last 30 days`
-                        : diffDate == 45
-                        ? `last 45 days`
-                        : diffDate == 60
-                        ? `last 60 days`
-                        : diffDate == 90
-                        ? `last 90 days`
-                        : null}
+                          ? `last 7 days`
+                          : diffDate == 15
+                            ? `last 15 days`
+                            : diffDate == 30
+                              ? `last 30 days`
+                              : diffDate == 45
+                                ? `last 45 days`
+                                : diffDate == 60
+                                  ? `last 60 days`
+                                  : diffDate == 90
+                                    ? `last 90 days`
+                                    : null}
                     </p>
                     <FontAwesomeIcon icon={faCaretDown} />
                   </section>

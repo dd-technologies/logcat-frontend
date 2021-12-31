@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Style from "./NotFound.module.scss";
+import { useHistory } from "react-router-dom";
+
 
 export default function NotFound() {
+
+  const history = useHistory();
+  useEffect(() => {
+    if (!localStorage.getItem("ddAdminToken")) {
+      history.push("/");
+    }
+  }, [history]);
+
   return (
     <>
       <section className={Style.page_404}>

@@ -25,12 +25,15 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { DateFilter } from "ag-grid-community";
+import Spinner from "../../Container/Spinner";
 
 export default function Analytics() {
   const [date, setdate] = useState({
     start: null,
     end: null,
   });
+
+
 
   var dt = new Date();
   date.end = dt.toISOString().slice(0, 10);
@@ -119,6 +122,9 @@ export default function Analytics() {
     // dispatch(getLogMsgOccurenceWRTDate({code, startDate:date.start, endDate:date.end, logMsg}));
 
   }, []);
+
+
+
   return (
     <>
       <Row>
