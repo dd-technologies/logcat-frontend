@@ -175,7 +175,7 @@ export default function Login() {
                   ""
                 )}
 
-                <div className={emailError ? `${Style.imputFieldsError}` : `${Style.imputFields} mt-4`}>
+                <div className={passwordError ? `${Style.imputFieldsError} mt-4` : `${Style.imputFields} mt-4`}>
                   <span>
                     <FontAwesomeIcon icon={faLock} />
                   </span>
@@ -193,8 +193,8 @@ export default function Login() {
                 </div>
                 {passwordError != null ? (
                   <small style={{ color: "red" }}>{passwordError}</small>
-                ) : setErrorPassword ? <small style={{ color: "red" }}>{setErrorPassword}</small>: (
-                ""
+                ) : setErrorPassword ? <small style={{ color: "red" }}>{setErrorPassword}</small> : (
+                  ""
                 )}
                 <Row className="mt-3">
                   <Col>

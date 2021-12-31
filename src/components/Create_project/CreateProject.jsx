@@ -160,8 +160,11 @@ function CreateProject() {
               {allProjectData &&
                 allProjectData.data.data.length &&
                 allProjectData.data.data.map((datas) => (
-                  <ProjectCard data={datas} />
-                ))}
+                  <>
+                    < ProjectCard data={datas} />
+                  </>
+                )
+                )}
             </Row>
           </Container>
         </>
