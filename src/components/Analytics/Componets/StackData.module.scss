@@ -33,6 +33,7 @@
     display: flex;
     flex-direction: column;
     background-color: $defaultTextColor;
+    font-size: 0.9rem;
 
     .stackDetails {
       font-weight: 700;
@@ -42,6 +43,7 @@
       border-bottom: $border;
       width: 100%;
       padding-bottom: 10px;
+      font-size: 0.9rem;
     }
 
     & p {

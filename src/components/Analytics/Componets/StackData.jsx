@@ -94,7 +94,7 @@ export default function StackData() {
                 className={Style.ParaWithArrowDown}
                 onClick={innerParaShowFun}
               >
-                <h5>Stack error in text format</h5>
+                <p>Stack error in text format</p>
                 <FontAwesomeIcon icon={faCaretDown} />
               </section>
             </section>
@@ -114,7 +114,7 @@ export default function StackData() {
                 className={Style.ParaWithArrowDown}
                 onClick={innerParaShowFun}
               >
-                <h5>Stack error </h5>
+                <p>Stack error </p>
                 <FontAwesomeIcon icon={faCaretDown} />
               </section>
             </section>

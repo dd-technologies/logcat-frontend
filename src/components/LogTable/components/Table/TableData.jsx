@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import CustomCard from "../../../../Container/CustomCard";
 import BootstrapTable from "react-bootstrap-table-next";
 import ReactReadMoreReadLess from "react-read-more-read-less";
@@ -554,6 +554,17 @@ export default function TableData(props) {
       sort: true,
     },
   ];
+
+  // // CHANGING STATE WITH CLICKING IN BODY
+  // useEffect(() => {
+  //   document.body.addEventListener("click", closeSidemenu);
+  // }, []);
+
+  // // event function
+  // let closeSidemenu = () => {
+  //   alert("close");
+  // };
+
   return (
     <>
       <CustomCard>
@@ -587,7 +598,7 @@ export default function TableData(props) {
                             position="absolute"
                             height="auto"
                             width="450px"
-                            top="4%"
+                            top="6%"
                             right="3%"
                             padding="10px"
                             boxShadow="0px 0px 4px -2px rgba(0,0,0,0.75)"
