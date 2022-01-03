@@ -10,6 +10,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { getLogMsgOccurenceWRTDate } from "../../../redux/action/ProjectAction";
+import moment from "moment";
 
 const dataAll = [
   {
@@ -73,6 +74,10 @@ const EventByVersionChart = (props) => {
   // changing formation of date
 
   // CHANGING DATE FORMATE
+  const dateFormatter = (date) => {
+    // return moment(date).unix();
+    return moment(date).format("DD-MM-YYYY");
+  };
 
   return (
     <div style={{ width: "100%", height: 300 }}>
@@ -87,7 +92,7 @@ const EventByVersionChart = (props) => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
+          <XAxis dataKey="date" tickFormatter={dateFormatter} />
           <YAxis />
           <Tooltip />
           <Area

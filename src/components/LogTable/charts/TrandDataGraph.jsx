@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { PureComponent } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -77,6 +78,12 @@ const TrandDataGraph = () => {
   const LineCount =
     data && data.data && data.data.response ? data.data.response : null;
 
+  // CHANGING DATE FORMATE
+  const dateFormatter = (date) => {
+    // return moment(date).unix();
+    return moment(date).format("DD-MM-YYYY");
+  };
+
   return (
     <>
       {data && data.data && data.data.response ? (
@@ -95,7 +102,7 @@ const TrandDataGraph = () => {
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
+                <XAxis dataKey="date" tickFormatter={dateFormatter} />
                 <YAxis />
                 <Tooltip />
                 <Area

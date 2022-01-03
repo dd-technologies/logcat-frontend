@@ -10,6 +10,7 @@ import {
 } from "recharts";
 import { useSelector } from "react-redux";
 import Spinner from "../../../Container/Spinner";
+import moment from "moment";
 
 const data = [
   {
@@ -56,6 +57,13 @@ const data = [
   },
 ];
 
+ // CHANGING DATE FORMATE
+ const dateFormatter = (date) => {
+  // return moment(date).unix();
+  return moment(date).format("DD-MM-YYYY");
+};
+
+
 export default function CarshFreeStaticsGraph() {
   // static demoUrl = 'https://codesandbox.io/s/area-chart-in-responsive-container-e6dx0';
   const getCrashFreeUsersReducer = useSelector(
@@ -83,7 +91,7 @@ export default function CarshFreeStaticsGraph() {
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
+                <XAxis dataKey="date" tickFormatter={dateFormatter} />
                 <YAxis />
                 <Tooltip />
                 <Area
