@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -36,6 +36,9 @@ export default function LogTable() {
   const [dropDownShow, setDropDownShow] = useState(false);
   const [dateDropDown, setDateDropDown] = useState(false);
   const [diffDate, setDiffDate] = useState(90);
+
+  const ref = useRef();
+
   const [date, setdate] = useState({
     start: null,
     end: null,
@@ -116,6 +119,23 @@ export default function LogTable() {
     };
   }, [history]);
 
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and the clicked target is not within the menu,
+      // then close the menu
+      if (dateDropDown && ref.current && !ref.current.contains(e.target)) {
+        setDateDropDown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [dateDropDown]);
+
   return (
     <>
       <Row>
@@ -129,7 +149,7 @@ export default function LogTable() {
           <Container style={{ marginTop: "10%", marginBottom: "5%" }}>
             <Row className="mt-4">
               <Col xl={12} className={Style.filterWithDate}>
-                <section className={Style.filterwithDate}>
+                <section className={Style.filterwithDate} ref={ref}>
                   <section className={Style.datafilter} onClick={DateFilter}>
                     <FontAwesomeIcon icon={faCalendar} />
                     <p className="ms-2 p-1">

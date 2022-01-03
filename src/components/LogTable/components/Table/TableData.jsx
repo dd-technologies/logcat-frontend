@@ -188,7 +188,7 @@ var dt = {};
 //   },
 // ];
 // ************************************************************************************************************************
-export default function TableData(props) {
+function TableData(props) {
   // const queryString = window.location.search;
   // const urlParams = new URLSearchParams(queryString);
   const code = props.code;
@@ -235,6 +235,8 @@ export default function TableData(props) {
       : 25
   );
   const [showStackView, setShowStackView] = useState(false);
+
+  const ref = useRef();
 
   // filter data fields with table
   const [showTableField, setShowTableField] = useState(false);
@@ -560,21 +562,28 @@ export default function TableData(props) {
     },
   ];
 
-  // // CHANGING STATE WITH CLICKING IN BODY
-  // useEffect(() => {
-  //   document.body.addEventListener("click", closeSidemenu);
-  // }, []);
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and the clicked target is not within the menu,
+      // then close the menu
+      if (showTableField && ref.current && !ref.current.contains(e.target)) {
+        setShowTableField(false);
+      }
+    };
 
-  // // event function
-  // let closeSidemenu = () => {
-  //   alert("close");
-  // };
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [showTableField]);
 
   return (
     <>
       <CustomCard>
         <Toaster />
-        <section className={Style.OuterTable}>
+        <section className={Style.OuterTable} ref={ref}>
           {data && data.data && data.data.logs ? (
             <ToolkitProvider
               keyField="_id"
@@ -846,3 +855,5 @@ export default function TableData(props) {
     </>
   );
 }
+
+export default TableData;
