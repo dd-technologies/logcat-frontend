@@ -312,7 +312,6 @@ export default function TableData(props) {
     localStorage.removeItem("selected_date");
     localStorage.removeItem("selected_record");
     // setLogType({...logType})
-    dispatch(getProjectByCode(code, record));
     toast.success(
       "Saved filter cleared!"
       // {
@@ -323,6 +322,8 @@ export default function TableData(props) {
       //   color: '#fff',
       // }}
     );
+    setShowTableField(false);
+    return dispatch(getProjectByCode(code, record));
   };
 
   const handlePageClick = (data) => {
@@ -351,6 +352,7 @@ export default function TableData(props) {
       });
     }
     if (date.start || data.end) {
+      setShowTableField(false);
       return dispatch(getProjectByCode(code, date, logType));
     }
     if (
@@ -360,11 +362,14 @@ export default function TableData(props) {
       logType.debug ||
       logType.verbose
     ) {
-      dispatch(getProjectByCode(code, null, logType, pageNo, record));
+      setShowTableField(false);
+      return dispatch(getProjectByCode(code, null, logType, pageNo, record));
     }
     if (record && (!date.start || !data.end)) {
+      setShowTableField(false);
       return dispatch(getProjectByCode(code, null, null, null, record));
     }
+    setShowTableField(false);
     dispatch(getProjectByCode(code, date, logType));
   };
 
