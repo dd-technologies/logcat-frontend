@@ -13,8 +13,8 @@ export default function StackData() {
 
   // ACTIVE CLASS FOR TOGGLE TEXT AND STACK BUTTON
   const [activeClassToggle, setactiveClassToggle] = useState({
-    text: true,
-    stack: false,
+    text: false,
+    stack: true,
   });
 
   // GETTGIN DATA FROM URL

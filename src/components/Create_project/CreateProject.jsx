@@ -119,7 +119,7 @@ function CreateProject() {
                       className={Style.addProject}
                       onClick={() => setModalShow(true)}
                     >
-                      <section>
+                      <section >
                         <p>
                           <FontAwesomeIcon icon={faPlus} />
                         </p>

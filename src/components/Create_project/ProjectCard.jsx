@@ -25,7 +25,7 @@ const ProjectCard = (props) => {
         >
           <Row>
             <Col xl={12} className={Style.InfoColumn}>
-              <h4>{props.data.name}</h4>
+              <h5>{props.data.name}</h5>
               <p>{props.data.description && props.data.description}</p>
             </Col>
             <Col xl={12} className={Style.InfoDetails}>

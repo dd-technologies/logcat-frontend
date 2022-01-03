@@ -146,10 +146,10 @@ export default function Analytics() {
 
             <Col>
               <Row>
-                <Col xl={8}>
+                <Col xl={8} md={8}>
                   <EventByVersion />
                 </Col>
-                <Col xl={4}>
+                <Col xl={4} md={4}>
                   <ToggleTabs />
                 </Col>
               </Row>

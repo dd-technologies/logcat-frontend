@@ -48,7 +48,7 @@ export default function ToggleTabs() {
 
   return (
     <>
-      <CustomCard>
+      <CustomCard height="350px">
         {/* {toggle menu} */}
 
         <Row className={`${Style.ToggleTabs}`}>

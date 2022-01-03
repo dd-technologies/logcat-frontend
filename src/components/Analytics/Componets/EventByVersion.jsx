@@ -15,16 +15,19 @@ export default function EventByVersion() {
   // console.log("cnt", cnt)
 
   let adds = 0;
-  if (cnt) { cnt.map((e) => (adds += e.countLog)); }
-  if (cnt == null) { cnt = [] }
+  if (cnt) {
+    cnt.map((e) => (adds += e.countLog));
+  }
+  if (cnt == null) {
+    cnt = [];
+  }
   // console.log("alldata", alldata);
   return (
     <>
-      <CustomCard>
+      <CustomCard height="350px">
         <Row className="p-4">
           <Col xl={4}>
             <p>Total events by version</p>
-
 
             {/*CHECKING FOR NOW IF NOT HAVING THE VALUE OF MAP */}
 
@@ -42,7 +45,7 @@ export default function EventByVersion() {
           <Col xl={8}>
             <section>
               <p>from the last 90 days</p>
-              <EventByVersionChart />
+              <EventByVersionChart height="200px" />
             </section>
           </Col>
         </Row>

@@ -55,7 +55,7 @@
   background-attachment: fixed;
   background-size: 100%;
   background-color: $sideBarBackgroundColor;
-  height: 100vh;
+  height: 100%;
   position: fixed;
   width: 17.2%;
   z-index: 10;
@@ -88,7 +88,7 @@
       display: flex;
       align-items: center;
       color: $defaultTextColor;
-      padding-left: 20%;
+      padding-left: 5%;
       & section {
         padding: 10px;
       }
@@ -104,11 +104,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    // width: 80%;
     & img {
       width: 30%;
     }
     & p {
       color: $defaultTextColor;
+      font-size: 0.8rem;
     }
   }
 }

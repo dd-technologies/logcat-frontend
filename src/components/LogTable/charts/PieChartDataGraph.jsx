@@ -62,7 +62,7 @@ export default function PieChartDataGraph() {
         countData.length == 0 ? (
           <p>No data found</p>
         ) : data && data.data && data.data.typeWiseCount ? (
-          <Pie data={allData} />
+          <Pie data={allData}   />
         ) : (
           <Spinner height="350px" />
         )

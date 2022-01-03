@@ -436,7 +436,7 @@ export default function TableData(props) {
         };
       },
       dataField: "did",
-      text: "Mac address",
+      text: "MAC Address",
       sort: true,
     },
 
@@ -444,6 +444,7 @@ export default function TableData(props) {
       dataField: "logMsg",
       text: "Log Message",
       headerAlign: "center",
+      width: "10",
       headerStyle: () => {
         return {
           backgroundColor: "#257d7c",
@@ -451,7 +452,7 @@ export default function TableData(props) {
         };
       },
       formatter: (col, row) => {
-        // console.log("row id mil", row);
+        console.log("row id mil", col);
         // const newCode = urlParams.get("code");
         const projectName = urlParams.get("name");
         let version = row.version ? row.version : null;
@@ -462,26 +463,17 @@ export default function TableData(props) {
         // console.log("now_code", newCode);
         // console.log(`start ${dt.start} and end ${dt.end}`)
         return (
-          <div
-            style={{
-              width: "250px",
-              height: "auto",
-              overflow: "hidden",
-            }}
-          >
-            <ReactReadMoreReadLess
-              charLimit={40}
-              readMoreText={"Read more ▼"}
-              readLessText={"Read less ▲"}
-            >
-              {col}
-            </ReactReadMoreReadLess>
+          <div className={Style.expandedRow}>
             <Link
+              style={{
+                textDecoration: "none",
+                color: "#000",
+              }}
               to={`/analytics?code=${props.code}&name=${props.projectName}&col=${col}&rowlogGeneratedDate=${row.logGeneratedDate}&version=${version}&osArchitecture=${osArchitecture}&modelName=${modelName}`}
             >
-              <span className={Style.ViewButton}>
-                <FontAwesomeIcon icon={faCaretRight} />
-              </span>
+              {col.split(" at").map((items) => items)[0]
+                ? col.split(" at").map((items) => items)[0]
+                : col}
             </Link>
           </div>
         );
