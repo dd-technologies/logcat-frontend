@@ -63,11 +63,14 @@ const EventByVersionChart = (props) => {
 
   const { loading, data } = getLogMsgOccurenceWRTDateReducer;
 
+  // console.log("getLogMsgOccurenceWRTDateReducer", data.response);
+  let dataarray = data && data.response;
 
-  // console.log(
-  //   "getLogMsgOccurenceWRTDateReducer",
-  //   getLogMsgOccurenceWRTDateReducer
-  // );
+  // let alldate = data && data.response && dataarray.map((items) => items.date);
+  // let day = alldate.map((day) => day[0]);
+  // console.log("day", day);
+
+  // changing formation of date
 
   // CHANGING DATE FORMATE
 

@@ -262,8 +262,7 @@ export default function TableData(props) {
   );
   const { loading, data } = getAllLogByCodeReducer;
 
-    // console.log("getAllLogByCodeReducer", data);
-
+  // console.log("getAllLogByCodeReducer", data);
 
   const selectRow = {
     mode: "checkbox",
@@ -514,7 +513,15 @@ export default function TableData(props) {
           color: "#fff",
         };
       },
-      formatter: (cell) => cell.split("T")[0],
+
+      formatter: (cell) => {
+        cell = cell.split("T")[0];
+        let day = cell.split("-")[2];
+        let month = cell.split("-")[1];
+        let year = cell.split("-")[0];
+        cell = `${day}-${month}-${year}`;
+        return cell.split("T")[0];
+      },
       sort: true,
     },
 

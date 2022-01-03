@@ -49,7 +49,7 @@ export default function EventDataWithDate() {
       <Row className="pt-4">
         <Col className={`${Style.MainDiv} m-2`}>
           <setcion className={`${Style.outerSec} p-2`}>
-            <p>Event Summery</p>
+            <p>Event Summary</p>
             {version !== "null" ? (
               <section className="px-4">
                 <p>
