@@ -17,24 +17,23 @@
   }
 }
 
-.InfoColumn {
-  width: 100%;
-  color: $activehrefText;
-}
-
-.InfoDetails {
-  margin-top: 12% !important;
+.Outer_InfoRow {
   display: flex;
-  justify-content: end;
-  align-items: center;
-
-  & p {
+  justify-content: space-between;
+  flex-direction: column;
+  height: 170px;
+  .InfoColumn {
+    width: 100%;
     color: $activehrefText;
-    padding: $padding;
-    padding-top: 30px;
+  }
 
-    & span {
-      margin-right: $margin;
+  .InfoDetails {
+    & p {
+      float: right;
+      color: $activehrefText;
+      & span {
+        margin-right: $margin;
+      }
     }
   }
 }

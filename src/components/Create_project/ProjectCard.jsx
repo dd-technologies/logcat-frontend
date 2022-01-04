@@ -23,20 +23,20 @@ const ProjectCard = (props) => {
           to={`/logtable?code=${props.data.code}&name=${props.data.name} `}
           style={{ textDecoration: "none" }}
         >
-          <Row>
-            <Col xl={12} className={Style.InfoColumn}>
+          <section className={Style.Outer_InfoRow}>
+            <section className={Style.InfoColumn}>
               <h5>{props.data.name}</h5>
               <p>{props.data.description && props.data.description}</p>
-            </Col>
-            <Col xl={12} className={Style.InfoDetails}>
+            </section>
+            <section className={Style.InfoDetails}>
               <p>
                 <span>
                   <FontAwesomeIcon icon={faCalendar} />
                 </span>
                 {newDate}
               </p>
-            </Col>
-          </Row>
+            </section>
+          </section>
         </Link>
       </CustomCard>
     </Col>
