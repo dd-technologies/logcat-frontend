@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import CustomCard from "../../../../Container/CustomCard";
 import BootstrapTable from "react-bootstrap-table-next";
-import ReactReadMoreReadLess from "react-read-more-read-less";
 import { Link } from "react-router-dom";
 import { Button, Col, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -831,25 +830,27 @@ function TableData(props) {
           ) : loading ? (
             <Spinner height="400px" />
           ) : (
-            <h3>No Logs Found</h3>
+            <h3 className="p-2">No Logs Found</h3>
           )}
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="Next >"
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={4}
-            pageCount={data && data.data && data.data.count / record}
-            // previousLabel="< Previous"
-            // initialPage={1}
-            renderOnZeroPageCount={null}
-            containerClassName={"pagination"}
-            pageClassName={"page-item"}
-            pageLinkClassName={"page-link"}
-            previousClassName={"page-item"}
-            nextClassName={"page-item"}
-            previousLinkClassName={"page-link"}
-            nextLinkClassName={"page-link"}
-          />
+          <section className="p-2">
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel="Next >"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={4}
+              pageCount={data && data.data && data.data.count / record}
+              // previousLabel="< Previous"
+              // initialPage={1}
+              renderOnZeroPageCount={null}
+              containerClassName={"pagination"}
+              pageClassName={"page-item"}
+              pageLinkClassName={"page-link"}
+              previousClassName={"page-item"}
+              nextClassName={"page-item"}
+              previousLinkClassName={"page-link"}
+              nextLinkClassName={"page-link"}
+            />
+          </section>
         </section>
       </CustomCard>
     </>

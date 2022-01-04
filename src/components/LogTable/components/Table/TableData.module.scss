@@ -1,11 +1,12 @@
 @import "../../../../css/veriables.module.scss";
 
 .OuterTable {
-  padding: 10px;
   .BootstrapTable {
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 
     & button {
       color: $defaultTextColor !important;
@@ -16,7 +17,8 @@
       cursor: pointer;
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      height: 50px;
+      padding-bottom: 10px;
     }
     .filterGraphFirstSction {
       cursor: pointer;

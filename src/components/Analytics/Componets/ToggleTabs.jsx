@@ -30,8 +30,12 @@ export default function ToggleTabs() {
   let cnt =
     alldata && alldata.modelNameResponse ? alldata.modelNameResponse : null;
   let adds = 0;
-  if (cnt) { cnt.map((e) => (adds += e.countLog)); }
-  if (cnt == null) { cnt = [] }
+  if (cnt) {
+    cnt.map((e) => (adds += e.countLog));
+  }
+  if (cnt == null) {
+    cnt = [];
+  }
   // console.log(alldata);
 
   const getErrorWRTOSReducer = useSelector(
@@ -44,7 +48,9 @@ export default function ToggleTabs() {
   // console.log("pieCount", piCount)
 
   let add = 0;
-  if (piCount) { piCount.map((e) => (add += e.count)); }
+  if (piCount) {
+    piCount.map((e) => (add += e.count));
+  }
 
   return (
     <>
@@ -53,6 +59,9 @@ export default function ToggleTabs() {
 
         <Row className={`${Style.ToggleTabs}`}>
           <Col
+            xl={6}
+            md={6}
+            sm={6}
             className={
               devieWindow ? `${Style.ToggleTabs_active}` : `${Style.ToggleTabs}`
             }
@@ -61,6 +70,9 @@ export default function ToggleTabs() {
             <p className="p-2">Devices</p>
           </Col>
           <Col
+            xl={6}
+            md={6}
+            sm={6}
             className={
               opratingSystemWindow
                 ? `${Style.ToggleTabs_active}`
@@ -78,7 +90,6 @@ export default function ToggleTabs() {
           {devieWindow ? (
             <Col className="p-4">
               <section className={Style.DataTogleSection}>
-
                 {/*CHECKING FOR NOW IF NOT HAVING THE VALUE OF MAP */}
 
                 {!ld ? (
@@ -100,9 +111,6 @@ export default function ToggleTabs() {
                 ) : (
                   <Spinner height="200px" />
                 )}
-
-
-
               </section>
             </Col>
           ) : opratingSystemWindow ? (

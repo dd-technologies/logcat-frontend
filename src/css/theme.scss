@@ -30,10 +30,23 @@ p {
 
 thead,
 th {
-  font-size: .9rem;
+  font-size: 0.9rem;
+  @media screen and (min-width: 600px) and (max-width: 1200px) {
+    font-size: 0.7rem;
+  }
 }
 
 tbody,
 td {
   font-size: 0.8rem;
+}
+
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+  border-width: none !important;
+  border-style: none !important;
 }

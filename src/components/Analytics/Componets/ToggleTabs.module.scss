@@ -9,6 +9,9 @@
     justify-content: center;
     align-items: center;
     height: 100%;
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      font-size: 0.7rem;
+    }
   }
 }
 
@@ -19,11 +22,15 @@
   justify-content: center;
   align-items: center;
   background-color: $backgroundColor;
+
   & p {
     display: flex;
     justify-content: center;
     height: 100%;
     color: $defaultTextColor;
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      font-size: 0.7rem;
+    }
   }
 }
 

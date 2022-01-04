@@ -90,7 +90,7 @@ const TrandDataGraph = () => {
         data.data.response.length == 0 ? (
           <p>No data found</p>
         ) : data && data.data && data.data.response ? (
-          <div style={{ width: "100%", height: 150 }}>
+          <div style={{ width: "100%", height: 250 }}>
             <ResponsiveContainer>
               <AreaChart
                 data={LineCount}

@@ -1,63 +1,28 @@
-import React, { PureComponent, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import "./styles.css";
+import moment from "moment";
+import React from "react";
+import { useSelector } from "react-redux";
 import {
-  AreaChart,
-  Area,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { getLogMsgOccurenceWRTDate } from "../../../redux/action/ProjectAction";
-import moment from "moment";
 
-const dataAll = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
+const data = [
+  { name: "Page A", uv: 4000 },
+  { name: "Page B", uv: 3000 },
+  { name: "Page C", uv: 2000 },
+  { name: "Page D" },
+  { name: "Page E", uv: 1890 },
+  { name: "Page F", uv: 2390 },
+  { name: "Page G", uv: 3490 },
 ];
 
-const EventByVersionChart = (props) => {
+export default function EventByVersionChart() {
   const getLogMsgOccurenceWRTDateReducer = useSelector(
     (state) => state.getLogMsgOccurenceWRTDateReducer
   );
@@ -65,7 +30,7 @@ const EventByVersionChart = (props) => {
   const { loading, data } = getLogMsgOccurenceWRTDateReducer;
 
   // console.log("getLogMsgOccurenceWRTDateReducer", data.response);
-  let dataarray = data && data.response;
+  let dataarray = data && data.response ? data.response : [];
 
   // let alldate = data && data.response && dataarray.map((items) => items.date);
   // let day = alldate.map((day) => day[0]);
@@ -78,35 +43,33 @@ const EventByVersionChart = (props) => {
     // return moment(date).unix();
     return moment(date).format("DD-MM-YYYY");
   };
-
   return (
-    <div
-      style={{ width: "100%", height: props.height ? props.height : "200px" }}
-    >
+    <div style={{ width: "100%", height: 250 }}>
       <ResponsiveContainer>
-        <AreaChart
+        <LineChart
           data={data && data.response}
           margin={{
             top: 10,
             right: 30,
             left: 0,
-            bottom: 0,
+            bottom: 20,
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" tickFormatter={dateFormatter} />
-          <YAxis />
+          <YAxis dataKey="countLog" />
           <Tooltip />
-          <Area
+          <Line
+            isAnimationActive={false}
+            connectNulls
             type="monotone"
             dataKey="countLog"
+            dot={false}
             stroke="#257d7c"
             fill="#257d7c"
           />
-        </AreaChart>
+        </LineChart>
       </ResponsiveContainer>
     </div>
   );
-};
-
-export default EventByVersionChart;
+}

@@ -83,6 +83,7 @@
 
   .options {
     height: 100%;
+    border-bottom: $borderBottom;
     .optionItems {
       text-decoration: none;
       display: flex;
@@ -113,4 +114,18 @@
       font-size: 0.8rem;
     }
   }
+
+  // SWIPE WINDOW START
+  .SwipeNavbar {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+    cursor: pointer;
+    color: $defaultTextColor;
+  }
+}
+
+// SWIPE WINDOW SIDE BAR
+.sideBarSwipe {
+  width: 2% !important;
 }

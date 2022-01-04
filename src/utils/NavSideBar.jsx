@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Image } from "react-bootstrap";
 import Style from "./NavSideBar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faCog } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faCog, faLessThan } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import CustomeDropDown from "../Container/DropDown";
 import { useDispatch, useSelector } from "react-redux";
@@ -90,6 +90,11 @@ export function SideBar(props) {
   const [navToggle, setNavToggle] = useState(true);
   const { loading, adminInfo } = adminLoginReducer;
 
+  // SWIPE NAVBAR STATE
+  const [Swipe, setSwipe] = useState({
+    show: false,
+  });
+
   // checking if navlink 2 is not avilables
 
   const showSidebar = () => setSidebar(!sidebar);
@@ -110,9 +115,19 @@ export function SideBar(props) {
     }
     return setNavToggle(true);
   };
+
+  // SWIPE SIDEBAR SECTION START HERE
+  const siwpeSideBarFun = () => {
+    setSwipe({
+      show: true,
+    });
+  };
+
   return (
     <>
-      <section className={Style.sideBar}>
+      <section
+        className={Swipe.show ? `${Style.sideBarSwipe}` : `${Style.sideBar}`}
+      >
         <section className={`${Style.componyDetails} p-2`}>
           <Link
             to="/"
@@ -132,8 +147,8 @@ export function SideBar(props) {
               className={`${Style.optionItems} ${Style.option_active}`}
               to={
                 navdetails.link1 &&
-                  navdetails.link1.link &&
-                  navdetails.link1.link.length === 0
+                navdetails.link1.link &&
+                navdetails.link1.link.length === 0
                   ? ""
                   : navdetails.link1.link
               }
@@ -147,8 +162,8 @@ export function SideBar(props) {
               className={Style.optionItems}
               to={
                 navdetails.link1 &&
-                  navdetails.link1.link &&
-                  navdetails.link1.link.length === 0
+                navdetails.link1.link &&
+                navdetails.link1.link.length === 0
                   ? ""
                   : navdetails.link1.link
               }
@@ -157,6 +172,10 @@ export function SideBar(props) {
               <section>{navdetails.link2.linkName}</section>
             </Link>
           </section>
+        </section>
+
+        <section className={`${Style.SwipeNavbar} pt-2`}>
+          <FontAwesomeIcon icon={faLessThan} onClick={siwpeSideBarFun} />
         </section>
         <section className={Style.brandName}>
           <Image src="/assets/images/DDTECH.png" />

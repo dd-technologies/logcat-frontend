@@ -293,6 +293,10 @@ export const getLogByDate =
         const end = dt.toISOString().slice(0, 10);
         dt.setDate(dt.getDate() - diffDate);
         const start = dt.toISOString().slice(0, 10);
+
+        console.log("object", start, end)
+
+
         response = await axios.get(
           `https://logger-server.herokuapp.com/api/logger/projects/datewiselogcount/${code}?startDate=${start}&endDate=${end}`,
           config
@@ -518,88 +522,88 @@ export const getCrashFreeUsers =
       }
     };
 
-    export const getCrashAnalyticsData =
-    ( code,logMsg ) =>
-      async (dispatch) => {
-        try {
-          // console.log(code);
-          var dt = new Date();
-          const endDate = dt.toISOString().slice(0, 10);
-          dt.setDate(dt.getDate() -90);
-          const startDate = dt.toISOString().slice(0, 10);
-          // console.log(`${startDate} and ${endDate}`);
-  
-          dispatch({ type: GET_CRASH_ANALYTICS_DATA_REQUEST });
-          const token = localStorage.getItem("ddAdminToken");
-          // console.log(token);
-          const config = {
-            headers: {
-              "Content-type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          };
-  
-          const { data } = await axios.get(
-            `https://logger-server.herokuapp.com/api/logger/projects/get-crashlytics-data/${code}?&startDate=${startDate}&endDate=${endDate}&logMsg=${logMsg}`,
-            config
-          );
-          // console.log(data);
-          dispatch({
-            type: GET_CRASH_ANALYTICS_DATA_REQUEST_SUCCESS,
-            payload: data.data,
-          });
-  
-          // }
-        } catch (error) {
-          dispatch({
-            type: GET_CRASH_ANALYTICS_DATA_REQUEST_FAIL,
-            payload:
-              error.response && error.response.data.message
-                ? error.response.data.message
-                : error.message,
-          });
-        }
-      };
+export const getCrashAnalyticsData =
+  (code, logMsg) =>
+    async (dispatch) => {
+      try {
+        // console.log(code);
+        var dt = new Date();
+        const endDate = dt.toISOString().slice(0, 10);
+        dt.setDate(dt.getDate() - 90);
+        const startDate = dt.toISOString().slice(0, 10);
+        // console.log(`${startDate} and ${endDate}`);
 
-      export const getCrashFreeUsersData =
-      ( code,logMsg ) =>
-        async (dispatch) => {
-          try {
-            // console.log(code);
-            var dt = new Date();
-            const endDate = dt.toISOString().slice(0, 10);
-            dt.setDate(dt.getDate() -90);
-            const startDate = dt.toISOString().slice(0, 10);
-            // console.log(`${startDate} and ${endDate}`);
-    
-            dispatch({ type: GET_CRASH_FREE_USERS_DATA_REQUEST });
-            const token = localStorage.getItem("ddAdminToken");
-            // console.log(token);
-            const config = {
-              headers: {
-                "Content-type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            };
-    
-            const { data } = await axios.get(
-              `https://logger-server.herokuapp.com/api/logger/projects/logMsgOccurence/${code}?msg=${logMsg}`,
-              config
-            );
-            // console.log(data);
-            dispatch({
-              type: GET_CRASH_FREE_USERS_DATA_REQUEST_SUCCESS,
-              payload: data.data,
-            });
-    
-            // }
-          } catch (error) {
-            dispatch({
-              type: GET_CRASH_FREE_USERS_DATA_REQUEST_FAIL,
-              payload:
-                error.response && error.response.data.message
-                  ? error.response.data.message
-                  : error.message,
-            });
-          }
+        dispatch({ type: GET_CRASH_ANALYTICS_DATA_REQUEST });
+        const token = localStorage.getItem("ddAdminToken");
+        // console.log(token);
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         };
+
+        const { data } = await axios.get(
+          `https://logger-server.herokuapp.com/api/logger/projects/get-crashlytics-data/${code}?&startDate=${startDate}&endDate=${endDate}&logMsg=${logMsg}`,
+          config
+        );
+        // console.log(data);
+        dispatch({
+          type: GET_CRASH_ANALYTICS_DATA_REQUEST_SUCCESS,
+          payload: data.data,
+        });
+
+        // }
+      } catch (error) {
+        dispatch({
+          type: GET_CRASH_ANALYTICS_DATA_REQUEST_FAIL,
+          payload:
+            error.response && error.response.data.message
+              ? error.response.data.message
+              : error.message,
+        });
+      }
+    };
+
+export const getCrashFreeUsersData =
+  (code, logMsg) =>
+    async (dispatch) => {
+      try {
+        // console.log(code);
+        var dt = new Date();
+        const endDate = dt.toISOString().slice(0, 10);
+        dt.setDate(dt.getDate() - 90);
+        const startDate = dt.toISOString().slice(0, 10);
+        // console.log(`${startDate} and ${endDate}`);
+
+        dispatch({ type: GET_CRASH_FREE_USERS_DATA_REQUEST });
+        const token = localStorage.getItem("ddAdminToken");
+        // console.log(token);
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        const { data } = await axios.get(
+          `https://logger-server.herokuapp.com/api/logger/projects/logMsgOccurence/${code}?msg=${logMsg}`,
+          config
+        );
+        // console.log(data);
+        dispatch({
+          type: GET_CRASH_FREE_USERS_DATA_REQUEST_SUCCESS,
+          payload: data.data,
+        });
+
+        // }
+      } catch (error) {
+        dispatch({
+          type: GET_CRASH_FREE_USERS_DATA_REQUEST_FAIL,
+          payload:
+            error.response && error.response.data.message
+              ? error.response.data.message
+              : error.message,
+        });
+      }
+    };
