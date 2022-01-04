@@ -651,7 +651,7 @@ function TableData(props) {
                             </section>
                             <section>
                               <Row>
-                                <Col xl={6}>
+                                <Col xl={6} md={6} sm={6}>
                                   <section className="m-2">
                                     <p
                                       className={
@@ -688,7 +688,7 @@ function TableData(props) {
 
                                 {/* DATA CHANGE SECTION START FROM HERE */}
                                 {dateSectionSelect ? (
-                                  <Col xl={6}>
+                                  <Col xl={6} md={6} sm={6}>
                                     <section className={Style.DateSection}>
                                       <input
                                         type="date"
@@ -716,7 +716,7 @@ function TableData(props) {
 
                                 {/* STATUS CODE SECTION START HERE */}
                                 {StatusSectionSeclect ? (
-                                  <Col xl={6}>
+                                  <Col xl={6} md={6} sm={6}>
                                     <section className={Style.StatusSection}>
                                       <section
                                         className={Style.StatusInnerSecion}
@@ -809,7 +809,7 @@ function TableData(props) {
 
                                 {/* COUNT PER PAGE SECTION START FOM HERE   */}
                                 {countPerPageSection ? (
-                                  <Col xl={6}>
+                                  <Col xl={6} md={6} sm={6}>
                                     <section className={Style.perPageOuter}>
                                       <p
                                         className={
@@ -831,7 +831,7 @@ function TableData(props) {
                                       </p>
                                       <p
                                         className={
-                                          activeRecord.record25
+                                          activeRecord.record25 || record == 25
                                             ? `${Style.perPagesectionInnerActive}`
                                             : `${Style.perPagesectionInner}`
                                         }
