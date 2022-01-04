@@ -95,7 +95,7 @@ export const getProjectByCode =
           },
         };
 
-        // console.log(filters);
+        console.log('filters');
 
         // const {data} = await axios.get('https://agvalogger.herokuapp.com/api/logger/projects/',
         // config
@@ -104,18 +104,36 @@ export const getProjectByCode =
         // /api/logger/projects/getDetail/MF7OW?startDate=2021-09-20&endDate=2021-10-04
         let response;
         if (date != null && date.start && date.end) {
+          let logString = "";
+          for (const [key, value] of Object.entries(filters)) {
+            if (value) {
+              logString += `${key}-`;
+            }
+          }
           response = await axios.get(
-            `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?startDate=${date.start}&endDate=${date.end}&limit=${record}`,
+            `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?startDate=${date.start}&endDate=${date.end}&limit=${record}&page=${page}&logType=${logString}`,
             config
           );
         } else if (date != null && date.start) {
+          let logString = "";
+          for (const [key, value] of Object.entries(filters)) {
+            if (value) {
+              logString += `${key}-`;
+            }
+          }
           response = await axios.get(
-            `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?startDate=${date.start}&limit=${record}`,
+            `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?startDate=${date.start}&limit=${record}&page=${page}&logType=${logString}`,
             config
           );
         } else if (date != null && date.end) {
+          let logString = "";
+          for (const [key, value] of Object.entries(filters)) {
+            if (value) {
+              logString += `${key}-`;
+            }
+          }
           response = await axios.get(
-            `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?endDate=${date.end}&limit=${record}`,
+            `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?endDate=${date.end}&limit=${record}&page=${page}&logType=${logString}`,
             config
           );
         } else if (filters != null) {
@@ -133,13 +151,21 @@ export const getProjectByCode =
           );
           // console.log(response);
         } else {
-          // console.log(`pageno from action project ${page}`);
+          console.log(`pageno from action project ${filters}`);
+          let logString = "";
+          if (filters !=null) {
+            for (const [key, value] of Object.entries(filters)) {
+              if (value) {
+                logString += `${key}-`;
+              }
+            }
+          }
           response = await axios.get(
-            `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?page=${page}&limit=${record}`,
+            `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?page=${page}&limit=${record}logType=${logString}`,
             config
           );
         }
-        // console.log(response.data);
+        console.log(response.data);
         dispatch({
           type: GET_ALL_LOG_BY_CODE_SUCCESS,
           payload: response.data,
