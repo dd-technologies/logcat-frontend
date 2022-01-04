@@ -36,7 +36,7 @@ export default function CarshFreeStaticsGraph() {
         data.response == 0 ? (
           <p>No data found</p>
         ) : data && data.response ? (
-          <div style={{ width: "100%", height: 250 }}>
+          <div style={{ width: "100%", height: 180 }}>
             <ResponsiveContainer>
               <LineChart data={countLog}>
                 <CartesianGrid strokeDasharray="3 3" />
