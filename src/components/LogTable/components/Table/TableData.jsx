@@ -195,6 +195,12 @@ function TableData(props) {
   const [dateSectionSelect, setDateSectionSelect] = useState(true);
   const [StatusSectionSeclect, setStatusSectionSeclect] = useState(false);
   const [countPerPageSection, setCountPerPageSection] = useState(false);
+  const [activeRecord, setActiveRecord] = useState({
+    record10: false,
+    record25: false,
+    record45: false,
+    record50: false,
+  });
 
   const [pageNo, setPageNo] = useState(0);
 
@@ -328,34 +334,7 @@ function TableData(props) {
   };
 
   const handlePageClick = (data) => {
-    // console.log(data);
-    // const newPageNo = data.selected+1
-    if (pageNo !== data.selected + 1) {
-      setPageNo(data.selected + 1);
-    }
-    dispatch(getProjectByCode(code, null, null, pageNo, record));
-  };
-
-  const applyFilter = () => {
-    if (
-      logType.error ||
-      logType.info ||
-      logType.warn ||
-      logType.debug ||
-      logType.verbose
-    ) {
-      return dispatch(getProjectByCode(code, date, logType, pageNo, record));
-    }
-    if (!date.start && !date.end) {
-      setdate({
-        start: "",
-        end: "",
-      });
-    }
-    if (date.start || data.end) {
-      setShowTableField(false);
-      return dispatch(getProjectByCode(code, date, logType));
-    }
+    console.log(logType);
     if (
       logType.error ||
       logType.info ||
@@ -366,12 +345,52 @@ function TableData(props) {
       setShowTableField(false);
       return dispatch(getProjectByCode(code, null, logType, pageNo, record));
     }
-    if (record && (!date.start || !data.end)) {
-      setShowTableField(false);
-      return dispatch(getProjectByCode(code, null, null, null, record));
+
+    if (pageNo !== data.selected + 1) {
+      setPageNo(data.selected + 1);
     }
+    console.log("hndle page click");
+    dispatch(getProjectByCode(code, null, null, pageNo, record));
+  };
+
+  const applyFilter = () => {
+    // if (
+    //   logType.error ||
+    //   logType.info ||
+    //   logType.warn ||
+    //   logType.debug ||
+    //   logType.verbose
+    // ) {
+    //   console.log("Logtype applied")
+    //   return dispatch(getProjectByCode(code, date, logType, pageNo, record));
+    // }
+    // if (!date.start && !date.end) {
+    //   setdate({
+    //     start: "",
+    //     end: "",
+    //   });
+    // }
+    // if (date.start || data.end) {
+    //   console.log("date applied")
+    //   return dispatch(getProjectByCode(code, date, logType));
+    // }
+    // if (
+    //   logType.error ||
+    //   logType.info ||
+    //   logType.warn ||
+    //   logType.debug ||
+    //   logType.verbose
+    // ) {
+    //   dispatch(getProjectByCode(code, null, logType, pageNo, record));
+    // }
+    // if (record && (!date.start || !data.end)) {
+    //   return dispatch(getProjectByCode(code, null, null, null, record));
+    // }
+    console.log(date);
+    console.log(record);
+    console.log(logType);
+    dispatch(getProjectByCode(code, date, logType, pageNo, record));
     setShowTableField(false);
-    dispatch(getProjectByCode(code, date, logType));
   };
 
   // code, date = null, filters = null, page = null, record = 25
@@ -379,7 +398,7 @@ function TableData(props) {
   useEffect(() => {
     dt.start = date.start;
     dt.end = date.end;
-    // console.log("logtable useEffect executed");
+    console.log(logType);
     if (
       logType.error ||
       logType.info ||
@@ -387,11 +406,14 @@ function TableData(props) {
       logType.debug ||
       logType.verbose
     ) {
-      // console.log("if useEffect executed");
-      dispatch(getProjectByCode(code, null, logType, pageNo, record));
+      console.log("if useEffect executed");
+      dispatch(getProjectByCode(code, date, logType, pageNo, record));
+    } else {
+      console.log("else useEffect click");
+      console.log(`${date.start} ${date.end} ${pageNo} ${record}`);
+      dispatch(getProjectByCode(code, date, null, pageNo, record));
     }
-    dispatch(getProjectByCode(code, null, null, pageNo, record));
-  }, [pageNo, record]);
+  }, [pageNo]);
 
   const showTableFieldFunc = () => {
     setShowTableField(!showTableField);
@@ -458,7 +480,7 @@ function TableData(props) {
         };
       },
       formatter: (col, row) => {
-        console.log("row id mil", col);
+        // console.log("row id mil", col);
         // const newCode = urlParams.get("code");
         const projectName = urlParams.get("name");
         let version = row.version ? row.version : null;
@@ -611,7 +633,7 @@ function TableData(props) {
                             position="absolute"
                             height="auto"
                             width="450px"
-                            top="6%"
+                            top="3%"
                             right="3%"
                             padding="10px"
                             boxShadow="0px 0px 4px -2px rgba(0,0,0,0.75)"
@@ -790,26 +812,74 @@ function TableData(props) {
                                   <Col xl={6}>
                                     <section className={Style.perPageOuter}>
                                       <p
-                                        className={Style.perPagesectionInner}
-                                        onClick={() => setRecords(10)}
+                                        className={
+                                          activeRecord.record10
+                                            ? `${Style.perPagesectionInnerActive}`
+                                            : `${Style.perPagesectionInner}`
+                                        }
+                                        onClick={() => {
+                                          setRecords(10);
+                                          setActiveRecord({ record10: true });
+                                        }}
+                                        // style={
+                                        //   record === 10 && {
+                                        //     background: "#257D7C",
+                                        //   }
+                                        // }
                                       >
                                         10
                                       </p>
                                       <p
-                                        className={Style.perPagesectionInner}
-                                        onClick={() => setRecords(25)}
+                                        className={
+                                          activeRecord.record25
+                                            ? `${Style.perPagesectionInnerActive}`
+                                            : `${Style.perPagesectionInner}`
+                                        }
+                                        onClick={() => {
+                                          setRecords(25);
+                                          setActiveRecord({ record25: true });
+                                        }}
+                                        // style={
+                                        //   record === 25 && {
+                                        //     background: "#257D7C",
+                                        //   }
+                                        // }
                                       >
                                         25
                                       </p>
                                       <p
-                                        className={Style.perPagesectionInner}
-                                        onClick={() => setRecords(45)}
+                                        className={
+                                          activeRecord.record45
+                                            ? `${Style.perPagesectionInnerActive}`
+                                            : `${Style.perPagesectionInner}`
+                                        }
+                                        onClick={() => {
+                                          setRecords(45);
+                                          setActiveRecord({ record45: true });
+                                        }}
+                                        // style={
+                                        //   record === 45 && {
+                                        //     background: "#257D7C",
+                                        //   }
+                                        // }
                                       >
                                         45
                                       </p>
                                       <p
-                                        className={Style.perPagesectionInner}
-                                        onClick={() => setRecords(50)}
+                                        className={
+                                          activeRecord.record50
+                                            ? `${Style.perPagesectionInnerActive}`
+                                            : `${Style.perPagesectionInner}`
+                                        }
+                                        onClick={() => {
+                                          setRecords(50);
+                                          setActiveRecord({ record50: true });
+                                        }}
+                                        // style={
+                                        //   record === 50 && {
+                                        //     background: "#257D7C",
+                                        //   }
+                                        // }
                                       >
                                         50
                                       </p>
@@ -838,7 +908,9 @@ function TableData(props) {
               nextLabel="Next >"
               onPageChange={handlePageClick}
               pageRangeDisplayed={4}
-              pageCount={data && data.data && data.data.count / record}
+              pageCount={
+                data && data.data && Math.ceil(data.data.count / record)
+              }
               // previousLabel="< Previous"
               // initialPage={1}
               renderOnZeroPageCount={null}
