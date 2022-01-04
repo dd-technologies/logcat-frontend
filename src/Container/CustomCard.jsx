@@ -1,10 +1,12 @@
 import React from "react";
 import { Card } from "react-bootstrap";
+import Style from "./CustomeCard.module.scss";
 
-export default function CreateCard(props) {
+export default function CustomCard(props) {
   return (
     <>
       <Card
+        className={Style.CardCustomeOuter}
         style={{
           height: props.height ? props.height : "100%",
           width: props.width ? props.width : "100%",
