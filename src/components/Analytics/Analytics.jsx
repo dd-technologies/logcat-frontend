@@ -25,7 +25,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { DateFilter } from "ag-grid-community";
-import Spinner from "../../Container/Spinner";
 
 export default function Analytics() {
   const [date, setdate] = useState({
@@ -33,14 +32,12 @@ export default function Analytics() {
     end: null,
   });
 
-
-
   var dt = new Date();
   date.end = dt.toISOString().slice(0, 10);
   dt.setDate(dt.getDate() - 90);
   date.start = dt.toISOString().slice(0, 10);
 
-  // console.log(date)
+  console.log(date)
 
   const filterOnDate = ({ startDate = null, endDate = null, diff = 15 }) => {
     // console.log(diff);
@@ -60,7 +57,7 @@ export default function Analytics() {
   const code = urlParams.get("code");
   const logMsg = urlParams.get("col").split("at")[0];
 
-  // console.log(logMsg)
+  console.log(logMsg)
 
   const projectName = urlParams.get("name");
 
@@ -95,36 +92,29 @@ export default function Analytics() {
 
   // console.log("data", date);
   const getCrashFreeUsersDataReducer = useSelector(state => state.getCrashFreeUsersDataReducer)
-  const { loading, data } = getCrashFreeUsersDataReducer
-  let users = data && data.response ? data.response.length : 0;
+  const {loading,data} = getCrashFreeUsersDataReducer
+  let users = data && data.response ? data.response.length:0;
   let totalCount = 0;
-  if (data && data.response.length !== 0) {
-    data.response.map(e => totalCount += e.count)
+  if (data && data.response.length !==0) {
+    data.response.map(e=>totalCount += e.count)
   }
-
-
-
-  // console.log("startDate", date.start, date.end, logMsg)
-
+  
   const dispatch = useDispatch();
 
   const dispatchmultiple = () => {
-    // console.log('dispatch multiple executed!!')
-    dispatch(getCrashFreeUsersData(code, logMsg))
-    dispatch(getCrashAnalyticsData(code, logMsg))
+    console.log('dispatch multiple executed!!')
+    dispatch(getCrashFreeUsersData(code,logMsg))
+    dispatch(getCrashAnalyticsData(code,logMsg))
     dispatch(getErrorWRTOS(code));
     dispatch(getErrorWRTVersion(code));
-    dispatch(getLogMsgOccurenceWRTDate({ code, startDate: date.start, endDate: date.end, logMsg }));
+    getLogMsgOccurenceWRTDate({code, startDate:date.start, endDate:date.end, logMsg});
   };
   useEffect(() => {
     dispatchmultiple();
-    // console.log('hello useEffect')
+    console.log('hello useEffect')
     // dispatch(getLogMsgOccurenceWRTDate({code, startDate:date.start, endDate:date.end, logMsg}));
-
+    
   }, []);
-
-
-
   return (
     <>
       <Row>
@@ -133,23 +123,22 @@ export default function Analytics() {
         </Col>
         <Col xl={10} lg={10} md={10} sm={10}>
           <Navbar navdetails={sidebarDetails} />
-          <Container style={{ marginTop: "10%", marginBottom: "3%" }}>
+          <Container style={{ marginTop: "12%", marginBottom: "3%" }}>
             {/* data from api */}
             <Col className="my-4">
               {
-                loading ? 'Loading' : <>
+                loading? 'Loading' : <>
                   This issue has <strong>{totalCount}</strong> crash events affecting
                   <strong> {users} </strong> users
                 </>
               }
             </Col>
-
             <Col>
               <Row>
-                <Col xl={8} md={8}>
+                <Col xl={8}>
                   <EventByVersion />
                 </Col>
-                <Col xl={4} md={4}>
+                <Col xl={4}>
                   <ToggleTabs />
                 </Col>
               </Row>
