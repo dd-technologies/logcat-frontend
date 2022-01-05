@@ -7,9 +7,9 @@ import { faCaretDown, faFilter } from "@fortawesome/free-solid-svg-icons";
 export default function StackData() {
   const [InnerParaShow, setInnerParaShow] = useState(false);
   const [innerParaShowDetails, setInnerParaShowDetails] = useState(true);
-  const [stackErrorFilter, setStackErrorFilter] = useState(true);
+  const [stackErrorFilter, setStackErrorFilter] = useState(false);
   const [stackErrorFilterTextFormate, setStackErrorFilterTextFormate] =
-    useState(false);
+    useState(true);
 
   // ACTIVE CLASS FOR TOGGLE TEXT AND STACK BUTTON
   const [activeClassToggle, setactiveClassToggle] = useState({

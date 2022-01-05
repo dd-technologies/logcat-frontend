@@ -157,14 +157,14 @@ export default function Analytics() {
 
             <Col className={`${Style.AnalyticsEvents} my-4`}>
               <p>Events</p>
-              <section className={Style.PrevNext}>
+              {/* <section className={Style.PrevNext}>
                 <section>
                   <FontAwesomeIcon icon={faLessThan} />
                 </section>
                 <section>
                   <FontAwesomeIcon icon={faGreaterThan} />
                 </section>
-              </section>
+              </section> */}
             </Col>
 
             {/* data tables   */}

@@ -202,7 +202,7 @@ function TableData(props) {
     record50: false,
   });
 
-  const [pageNo, setPageNo] = useState(0);
+  const [pageNo, setPageNo] = useState(1);
 
   // SHOW DATE SECTION FUNCTION
   const handleShowDate = () => {
@@ -346,11 +346,11 @@ function TableData(props) {
       return dispatch(getProjectByCode(code, null, logType, pageNo, record));
     }
 
-    if (pageNo !== data.selected + 1) {
-      setPageNo(data.selected + 1);
-    }
-    console.log("hndle page click");
+    // if (pageNo !== data.selected + 1) {
+    //   setPageNo(data.selected + 1);
+    // }
     dispatch(getProjectByCode(code, null, null, pageNo, record));
+    console.log("data selected", data.selected);
   };
 
   const applyFilter = () => {
@@ -525,7 +525,7 @@ function TableData(props) {
     },
     {
       dataField: "logGeneratedDate",
-      text: "Log Generated At",
+      text: "Date",
       width: "20",
       headerStyle: () => {
         return {
@@ -908,9 +908,10 @@ function TableData(props) {
               nextLabel="Next >"
               onPageChange={handlePageClick}
               pageRangeDisplayed={4}
-              pageCount={
-                data && data.data && Math.ceil(data.data.count / record)
-              }
+              // pageCount={
+              //   data && data.data && Math.ceil(data.data.count / record)
+              // }
+              pageCount={data && data.data && data.data.count / record}
               // previousLabel="< Previous"
               // initialPage={1}
               renderOnZeroPageCount={null}
