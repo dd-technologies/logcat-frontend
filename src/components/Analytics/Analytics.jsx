@@ -107,7 +107,7 @@ export default function Analytics() {
     dispatch(getCrashAnalyticsData(code,logMsg))
     dispatch(getErrorWRTOS(code));
     dispatch(getErrorWRTVersion(code));
-    getLogMsgOccurenceWRTDate({code, startDate:date.start, endDate:date.end, logMsg});
+    dispatch(getLogMsgOccurenceWRTDate({code, startDate:date.start, endDate:date.end, logMsg}));
   };
   useEffect(() => {
     dispatchmultiple();

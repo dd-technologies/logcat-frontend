@@ -16,7 +16,7 @@ export default function EventByVersion() {
 
   let adds = 0;
   if (cnt) {
-    cnt.map((e) => (adds += e.countLog));
+    cnt.map((e) => (adds += e.data));
   }
   if (cnt == null) {
     cnt = [];
@@ -35,7 +35,7 @@ export default function EventByVersion() {
               cnt.map((e) => (
                 <>
                   <p>{e._id ? e._id : null}</p>
-                  <h4>{e.countLog}</h4>
+                  <h4>{e.data}</h4>
                 </>
               ))
             ) : (

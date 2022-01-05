@@ -14,7 +14,7 @@ export default function TrandData() {
 
   let add=0;
   if(data && data.data && data.data.response) {
-    LineCount.map(sum=>add +=sum.countLog) 
+    LineCount.map(sum=>add +=sum.data) 
   }
   return (
     <>
