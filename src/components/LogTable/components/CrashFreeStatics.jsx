@@ -25,11 +25,16 @@ export default function CrashFreeStatics() {
 
   const { loading, data } = getCrashFreeUsersReducer;
   let totalCount = 0;
-  var counts = {};
+  var counts = [];
   if (data && data.response) {
     // data.response.map((items) => (totalCount += items.countLog));
-    totalCount = [...new Set(data.response.reduce((a, c) => [...a, c.did], []))];
+    // data.response.map((items) => (counts.length !==0 && counts.find(items.did) ? '' :counts.push(items.did)));
+
+    console.log(counts)
+    // totalCount = [...new Set(data.response.reduce((a, c) => [...a, c.did], []))];
+    // totalCount = [...new Set(data.response.reduce((a, c) =>  ))];
   }
+  console.log(totalCount)
   console.log('count length',counts.length)
   if (data && data.response == []) {
     totalCount = null;
@@ -56,7 +61,7 @@ export default function CrashFreeStatics() {
                 <p>this is the tooltip example with no plugin used</p>
               </CustomeDropDown>
             ) : null}
-            <h4>{totalCount.length}</h4>
+            <h4>{data&&data.count}</h4>
           </Col>
           <Col xl={12}>
             <CarshFreeStaticsGraph />

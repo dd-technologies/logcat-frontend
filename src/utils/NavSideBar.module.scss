@@ -29,14 +29,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    @media screen and (min-width: 300px) and (max-width: 1024px) {
-      width: 65% !important;
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      width: 60%;
     }
     @media screen and (min-width: 1024px) and (max-width: 1400px) {
-      width: 55% !important;
+      width: 55%;
     }
     @media screen and (min-width: 1400px) and (max-width: 1600px) {
-      width: 55% !important;
+      width: 50%;
+    }
+    @media screen and (min-width: 1600px) and (max-width: 1920px) {
+      width: 50%;
     }
 
     & section {
@@ -58,21 +61,88 @@
         height: 28px;
       }
     }
+  }
+}
 
-    // media query for
-    @media screen and (min-width: 300px) and (max-width: 900px) {
-      width: 55%;
+// NAVBAR WITH SLIDE
+.navbarWihoutSlide {
+  background-color: $backgroundColor;
+  height: 7% !important;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px !important;
+  align-items: center;
+  position: fixed;
+  z-index: 9;
+  width: 100%;
+  box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+  // width
+  @media screen and (min-width: 300px) and (max-width: 1024px) {
+    height: 6% !important;
+  }
+  @media screen and (min-width: 1024px) and (max-width: 1400px) {
+    height: 8% !important;
+  }
+
+  & h3 {
+    color: $defaultTextColor;
+
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      margin-left: 40px;
+    }
+    @media screen and (min-width: 1024px) and (max-width: 1400px) {
+      margin-left: 50px;
+    }
+    @media screen and (min-width: 1400px) and (max-width: 1600px) {
+      margin-left: 80px;
+    }
+    @media screen and (min-width: 1600px) and (max-width: 1920px) {
+      margin-left: 120px;
+    }
+  }
+
+  .userInfo {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      width: 40%;
+    }
+    @media screen and (min-width: 1024px) and (max-width: 1400px) {
+      width: 30%;
+    }
+    @media screen and (min-width: 1400px) and (max-width: 1600px) {
+      width: 30%;
+    }
+    @media screen and (min-width: 1600px) and (max-width: 1920px) {
+      width: 20%;
     }
 
-    @media screen and (min-width: 900px) and (max-width: 1600px) {
-      width: 35%;
+    & section {
+      color: $filterButtonBackgroundColor;
+    }
+    .Avtar {
+      background-color: $filterButtonBackgroundColor;
+      border-radius: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      color: $activehrefText;
+      font-weight: 700;
+      // media query
+      @media screen and (min-width: 300px) and (max-width: 1024px) {
+        width: 28px;
+        height: 28px;
+      }
     }
   }
 }
 
 // siderbar
 .sideBar {
-  transition-duration: 0.2s;
   background-image: url("../../public//assets/images/Mask\ Group\ 1.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -88,8 +158,9 @@
 
   .componyDetails {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    flex-direction: column;
     height: 10%;
 
     .DashBoardTitle {
@@ -121,7 +192,6 @@
 
     .option_active {
       background-color: $backgroundColor;
-      border-bottom: $borderBottom;
     }
   }
 
@@ -141,8 +211,6 @@
 
   // SWIPE WINDOW START
   .SwipeNavbar {
-    display: flex;
-    justify-content: flex-end;
     padding-right: 20px;
     cursor: pointer;
     color: $defaultTextColor;
@@ -151,6 +219,7 @@
 
 // SWIPE WINDOW SIDE BAR
 .sideBarSwipe {
+  transition-duration: 0.5s !important;
   overflow: hidden;
   background-image: url("../../public//assets/images/Mask\ Group\ 1.png");
   background-repeat: no-repeat;
@@ -164,11 +233,25 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  transition-duration: 0.2s;
 
-  .DashBoardTitle {
-    font-size: 1.2rem;
-    color: $defaultTextColor;
+  .componyDetails {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    height: 10%;
+
+    .DashBoardTitle {
+      font-size: 2rem;
+    }
+
+    & img {
+      width: 45px;
+    }
+
+    & section {
+      color: $defaultTextColor;
+    }
   }
 
   .SwipeOption {
@@ -176,8 +259,7 @@
     border-bottom: $borderBottom;
     .optionItems {
       text-decoration: none;
-      display: flex;
-      align-items: center;
+
       color: $defaultTextColor;
       padding: 5px;
       .optionName {
@@ -207,9 +289,6 @@
     }
   }
   .SwipeNavbar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     cursor: pointer;
     color: $defaultTextColor;
   }

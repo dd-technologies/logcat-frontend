@@ -21,9 +21,9 @@ export default function CarshFreeStaticsGraph() {
 
   const { loading, data } = getCrashFreeUsersReducer;
 
-  let countLog = data && data.response;
+  let dt = data && data.response;
   // let date = data && data.response.map((date) => date.date);
-  console.log("data", countLog);
+  // console.log("data", countLog);
 
   // CHANGING DATE FORMATE
   const dateFormatter = (date) => {
@@ -38,15 +38,15 @@ export default function CarshFreeStaticsGraph() {
         ) : data && data.response ? (
           <div style={{ width: "100%", height: 180 }}>
             <ResponsiveContainer>
-              <LineChart data={countLog}>
+              <LineChart data={dt}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" tickFormatter={dateFormatter} />
-                <YAxis dataKey="countLog" />
+                <YAxis dataKey="data" />
                 <Tooltip />
                 <Line
                   connectNulls
                   type="date"
-                  dataKey="countLog"
+                  dataKey="data"
                   stroke="#257d7c"
                   dot={false}
                   // strokeWidth={1}

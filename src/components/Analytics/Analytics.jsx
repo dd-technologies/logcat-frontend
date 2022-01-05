@@ -114,12 +114,14 @@ export default function Analytics() {
     dispatch(getCrashAnalyticsData(code, logMsg));
     dispatch(getErrorWRTOS(code));
     dispatch(getErrorWRTVersion(code));
-    getLogMsgOccurenceWRTDate({
-      code,
-      startDate: date.start,
-      endDate: date.end,
-      logMsg,
-    });
+    dispatch(
+      getLogMsgOccurenceWRTDate({
+        code,
+        startDate: date.start,
+        endDate: date.end,
+        logMsg,
+      })
+    );
   };
   useEffect(() => {
     dispatchmultiple();
@@ -141,7 +143,13 @@ export default function Analytics() {
           className={slideView.show && `${Style.AnalyticsNavigation}`}
         >
           <Navbar navdetails={sidebarDetails} />
-          <Container style={{ marginTop: "12%", marginBottom: "3%" }}>
+          <Container
+            className={
+              slideView.show
+                ? Style.AnalyticsContainer
+                : Style.AnalyticsContainerWithputSlide
+            }
+          >
             {/* data from api */}
             <Col className="my-4">
               {loading ? (

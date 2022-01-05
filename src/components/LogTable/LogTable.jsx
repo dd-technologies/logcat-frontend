@@ -166,7 +166,13 @@ export default function LogTable() {
           <Navbar navdetails={sidebarDetails} />
 
           {/* data inhere */}
-          <Container style={{ marginTop: "12%", marginBottom: "3%" }}>
+          <Container
+            className={
+              data.show
+                ? Style.LogtableContaininer
+                : Style.LogtableContaininerWithoutSlide
+            }
+          >
             <Row className="mt-4">
               <Col xl={12} className={Style.filterWithDate}>
                 <section className={Style.filterwithDate} ref={ref}>

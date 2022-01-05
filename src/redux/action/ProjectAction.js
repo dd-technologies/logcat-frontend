@@ -445,7 +445,7 @@ export const getProjectDetails = (code) => async (dispatch) => {
 export const getLogMsgOccurenceWRTDate =
   ({ code, startDate, endDate, logMsg }) =>
     async (dispatch) => {
-      // console.log("request comming to log")
+      console.log("request comming to log")
       try {
         // console.log(logMsg)
         // console.log(code)

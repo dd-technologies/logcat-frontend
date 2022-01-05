@@ -63,7 +63,7 @@ const TrandDataGraph = () => {
                 <Tooltip />
                 <Area
                   type="monotone"
-                  dataKey="countLog"
+                  dataKey="data"
                   stroke="#257d7c"
                   fill="#257d7c"
                 />

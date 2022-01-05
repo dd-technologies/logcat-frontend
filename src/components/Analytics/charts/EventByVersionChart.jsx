@@ -57,13 +57,13 @@ export default function EventByVersionChart() {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" tickFormatter={dateFormatter} />
-          <YAxis dataKey="countLog" />
+          <YAxis dataKey="data" />
           <Tooltip />
           <Line
             isAnimationActive={false}
             connectNulls
             type="monotone"
-            dataKey="countLog"
+            dataKey="data"
             dot={false}
             stroke="#257d7c"
             fill="#257d7c"

@@ -22,6 +22,10 @@ export function Navbar(props) {
   const [navToggle, setNavToggle] = useState(true);
   const { loading, adminInfo } = adminLoginReducer;
 
+  // SLIDEWINDOW STATE
+  const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
+  const { data } = slideWindowReducer;
+  console.log("slideWindowReducer", data);
 
   // console.log(adminInfo.data.name);
 
@@ -56,8 +60,8 @@ export function Navbar(props) {
   // props.navbardetails.dashName.slice(1)
   return (
     <>
-      <nav className={Style.navbar}>
-        <h3 >
+      <nav className={data.show ? Style.navbarWihoutSlide : Style.navbar}>
+        <h3>
           {navdetails.dashName.charAt(0).toUpperCase() +
             navdetails.dashName.slice(1)}
         </h3>
@@ -148,6 +152,7 @@ export function SideBar(props) {
       <section
         className={swipe.show ? `${Style.sideBarSwipe}` : `${Style.sideBar}`}
       >
+        {/* SWIPE WITH LOGCAT NAME */}
         <section className={`${Style.componyDetails} p-2`}>
           <Link
             to="/"
@@ -158,9 +163,16 @@ export function SideBar(props) {
             }}
           >
             <section className={Style.DashBoardTitle}>
-              {swipe.show ? "LG" : "LogCate"}
+              {swipe.show ? "LG" : "LogCat"}
             </section>
           </Link>
+          {/* swipe button */}
+          <section className={`${Style.SwipeNavbar}`}>
+            <FontAwesomeIcon
+              icon={swipe.show ? faGreaterThan : faLessThan}
+              onClick={siwpeSideBarFun}
+            />
+          </section>
         </section>
 
         <section
@@ -202,12 +214,6 @@ export function SideBar(props) {
           </section>
         </section>
 
-        <section className={`${Style.SwipeNavbar} pt-2`}>
-          <FontAwesomeIcon
-            icon={swipe.show ? faGreaterThan : faLessThan}
-            onClick={siwpeSideBarFun}
-          />
-        </section>
         <section className={Style.brandName}>
           <img src="/assets/images/DDTECH.png" />
           <p>Technologies</p>

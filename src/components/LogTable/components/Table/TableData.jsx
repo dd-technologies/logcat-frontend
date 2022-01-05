@@ -436,15 +436,15 @@ function TableData(props) {
       return (
         <span>
           {cell === "error" ? (
-            <strong style={{ color: "red" }}>{cell.toUpperCase()}</strong>
+            <p style={{ color: "red" }}>{cell.toUpperCase()}</p>
           ) : cell === "warn" ? (
-            <strong style={{ color: "violet" }}>{cell.toUpperCase()}</strong>
+            <p style={{ color: "violet" }}>{cell.toUpperCase()}</p>
           ) : cell === "info" ? (
-            <strong style={{ color: "blue" }}>{cell.toUpperCase()}</strong>
+            <p style={{ color: "blue" }}>{cell.toUpperCase()}</p>
           ) : cell === "verbose" ? (
-            <strong style={{ color: "green" }}>{cell.toUpperCase()}</strong>
+            <p style={{ color: "green" }}>{cell.toUpperCase()}</p>
           ) : (
-            <strong style={{ color: "orange" }}>{cell.toUpperCase()}</strong>
+            <p style={{ color: "orange" }}>{cell.toUpperCase()}</p>
           )}
         </span>
       );
