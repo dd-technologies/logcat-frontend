@@ -333,8 +333,9 @@ function TableData(props) {
     return dispatch(getProjectByCode(code, record));
   };
 
-  const handlePageClick = (data) => {
-    console.log(logType);
+  const handlePageClick =(data) => {
+    // console.log(`data selected ${data.selected}`);
+    // console.log(`data selected page number ${pageNo}`);
     if (
       logType.error ||
       logType.info ||
@@ -343,14 +344,27 @@ function TableData(props) {
       logType.verbose
     ) {
       setShowTableField(false);
-      return dispatch(getProjectByCode(code, null, logType, pageNo, record));
+      // console.log(`data selected ${pageNo} and ${data.selected}`)
+      setPageNo(data.selected+1);
+      return dispatch(getProjectByCode(code, null, logType, data.selected+1, record));
     }
 
+    // console.log(`data selected ${data.selected+1} and page ${pageNo}`)
     // if (pageNo !== data.selected + 1) {
-    //   setPageNo(data.selected + 1);
+    //   console.log('data selected first if body')
+    //   if (data.selected + 1 < pageNo) {
+    //     console.log('data selected second if body')
+    //     const diff = pageNo-(data.selected+1)
+    //     setPageNo(pageNo - diff);  
+    //     console.log(`data selected down ${data.selected} and page ${pageNo}`)
+    //   }else{
+    //     console.log('data selected second else body')
+    //     setPageNo(data.selected + 1);
+    //   }
     // }
-    dispatch(getProjectByCode(code, null, null, pageNo, record));
-    console.log("data selected", data.selected);
+    setPageNo(data.selected+1);
+    // console.log(`data selected down ${data.selected} and page ${pageNo}`)
+    dispatch(getProjectByCode(code, null, null, data.selected+1, record));
   };
 
   const applyFilter = () => {
@@ -386,9 +400,6 @@ function TableData(props) {
     // if (record && (!date.start || !data.end)) {
     //   return dispatch(getProjectByCode(code, null, null, null, record));
     // }
-    console.log(date);
-    console.log(record);
-    console.log(logType);
     dispatch(getProjectByCode(code, date, logType, pageNo, record));
     setShowTableField(false);
   };
@@ -913,7 +924,7 @@ function TableData(props) {
               // }
               pageCount={data && data.data && data.data.count / record}
               // previousLabel="< Previous"
-              // initialPage={1}
+              initialPage={1}
               renderOnZeroPageCount={null}
               containerClassName={"pagination"}
               pageClassName={"page-item"}

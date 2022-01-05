@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import Style from "./NavSideBar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faCog, faLessThan } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHome,
+  faCog,
+  faLessThan,
+  faGreaterThan,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import CustomeDropDown from "../Container/DropDown";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +24,7 @@ export function Navbar(props) {
 
   // checking if navlink 2 is not avilables
 
-  const showSidebar = () => setSidebar(!sidebar); 
+  const showSidebar = () => setSidebar(!sidebar);
   const dispatch = useDispatch();
   let history = useHistory();
   const handlelogout = (e) => {
@@ -91,7 +96,7 @@ export function SideBar(props) {
   const { loading, adminInfo } = adminLoginReducer;
 
   // SWIPE NAVBAR STATE
-  const [Swipe, setSwipe] = useState({
+  const [swipe, setSwipe] = useState({
     show: false,
   });
 
@@ -118,15 +123,21 @@ export function SideBar(props) {
 
   // SWIPE SIDEBAR SECTION START HERE
   const siwpeSideBarFun = () => {
-    setSwipe({
-      show: true,
-    });
+    if (!swipe.show)
+      setSwipe({
+        show: true,
+      });
+    if (swipe.show) {
+      setSwipe({
+        show: false,
+      });
+    }
   };
 
   return (
     <>
       <section
-        className={Swipe.show ? `${Style.sideBarSwipe}` : `${Style.sideBar}`}
+        className={swipe.show ? `${Style.sideBarSwipe}` : `${Style.sideBar}`}
       >
         <section className={`${Style.componyDetails} p-2`}>
           <Link
@@ -137,11 +148,15 @@ export function SideBar(props) {
               textDecoration: "none",
             }}
           >
-            <section className={Style.DashBoardTitle}>LogCat</section>
+            <section className={Style.DashBoardTitle}>
+              {swipe.show ? "LG" : "LogCate"}
+            </section>
           </Link>
         </section>
 
-        <section className={Style.options}>
+        <section
+          className={swipe.show ? `${Style.SwipeOption}` : `${Style.options}`}
+        >
           <section className={`${Style.optionItems} ${Style.option_active}`}>
             <Link
               className={`${Style.optionItems} ${Style.option_active}`}
@@ -154,7 +169,9 @@ export function SideBar(props) {
               }
             >
               <FontAwesomeIcon icon={faHome} />
-              <section>{navdetails.link1.linkName}</section>
+              <section className={Style.optionName}>
+                {navdetails.link1.linkName}
+              </section>
             </Link>
           </section>
           <section className={Style.optionItems}>
@@ -169,16 +186,21 @@ export function SideBar(props) {
               }
             >
               <FontAwesomeIcon icon={faCog} />
-              <section>{navdetails.link2.linkName}</section>
+              <section className={Style.optionName}>
+                {navdetails.link2.linkName}
+              </section>
             </Link>
           </section>
         </section>
 
         <section className={`${Style.SwipeNavbar} pt-2`}>
-          <FontAwesomeIcon icon={faLessThan} onClick={siwpeSideBarFun} />
+          <FontAwesomeIcon
+            icon={swipe.show ? faGreaterThan : faLessThan}
+            onClick={siwpeSideBarFun}
+          />
         </section>
         <section className={Style.brandName}>
-          <img src="/assets/images/logo.png" />
+          <img src="/assets/images/DDTECH.png" />
           <p>Technologies</p>
         </section>
       </section>
