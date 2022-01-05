@@ -29,6 +29,7 @@ import {
 import { getLogCountsReducer } from "../../redux/reducer/ProjectReducer";
 import { useHistory } from "react-router-dom";
 import Spinner from "../../Container/Spinner";
+import { slideShow } from "../../redux/action/SlideAction";
 
 export default function LogTable() {
   const history = useHistory();
@@ -36,6 +37,11 @@ export default function LogTable() {
   const [dropDownShow, setDropDownShow] = useState(false);
   const [dateDropDown, setDateDropDown] = useState(false);
   const [diffDate, setDiffDate] = useState(90);
+
+  // SLIDEWINDOW STATE
+  const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
+  const { data } = slideWindowReducer;
+  console.log("slideWindowReducer", data);
 
   const ref = useRef();
 
@@ -139,14 +145,28 @@ export default function LogTable() {
   return (
     <>
       <Row>
-        <Col xl={2} lg={2} md={2} sm={2} style={{ padding: "0px" }}>
+        <Col
+          xl={2}
+          lg={2}
+          md={2}
+          sm={2}
+          className={data.show && `${Style.SidebarLogTable}`}
+          style={{ padding: "0px" }}
+        >
           <SideBar navdetails={sidebarDetails} />
         </Col>
-        <Col xl={10} lg={10} md={10} sm={10} style={{ padding: "0px" }}>
+        <Col
+          xl={10}
+          lg={10}
+          md={10}
+          sm={10}
+          className={data.show && `${Style.NavbarLogTable}`}
+          style={{ padding: "0px" }}
+        >
           <Navbar navdetails={sidebarDetails} />
 
           {/* data inhere */}
-          <Container style={{ marginTop: "10%", marginBottom: "5%" }}>
+          <Container style={{ marginTop: "12%", marginBottom: "3%" }}>
             <Row className="mt-4">
               <Col xl={12} className={Style.filterWithDate}>
                 <section className={Style.filterwithDate} ref={ref}>

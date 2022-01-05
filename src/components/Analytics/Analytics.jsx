@@ -32,6 +32,10 @@ export default function Analytics() {
     end: null,
   });
 
+  // SLIDEWINDOW STATE
+  const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
+  const { data: slideView } = slideWindowReducer;
+
   var dt = new Date();
   date.end = dt.toISOString().slice(0, 10);
   dt.setDate(dt.getDate() - 90);
@@ -94,6 +98,7 @@ export default function Analytics() {
   const getCrashFreeUsersDataReducer = useSelector(
     (state) => state.getCrashFreeUsersDataReducer
   );
+
   const { loading, data } = getCrashFreeUsersDataReducer;
   let users = data && data.response ? data.response.length : 0;
   let totalCount = 0;
@@ -127,7 +132,14 @@ export default function Analytics() {
         <Col xl={2} lg={2} md={2} sm={2} style={{ padding: "0px" }}>
           <SideBar navdetails={sidebarDetails} />
         </Col>
-        <Col xl={10} lg={10} md={10} sm={10} style={{ padding: "0px" }}>
+        <Col
+          xl={10}
+          lg={10}
+          md={10}
+          sm={10}
+          style={{ padding: "0px" }}
+          className={slideView.show && `${Style.AnalyticsNavigation}`}
+        >
           <Navbar navdetails={sidebarDetails} />
           <Container style={{ marginTop: "12%", marginBottom: "3%" }}>
             {/* data from api */}

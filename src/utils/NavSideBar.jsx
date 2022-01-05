@@ -13,6 +13,7 @@ import CustomeDropDown from "../Container/DropDown";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { adminLogout } from "../redux/action/AdminAction";
+import { slideShow } from "../redux/action/SlideAction";
 
 export function Navbar(props) {
   const { navdetails } = props;
@@ -20,6 +21,8 @@ export function Navbar(props) {
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const [navToggle, setNavToggle] = useState(true);
   const { loading, adminInfo } = adminLoginReducer;
+
+
   // console.log(adminInfo.data.name);
 
   // checking if navlink 2 is not avilables
@@ -54,7 +57,7 @@ export function Navbar(props) {
   return (
     <>
       <nav className={Style.navbar}>
-        <h3 className="px-5">
+        <h3 >
           {navdetails.dashName.charAt(0).toUpperCase() +
             navdetails.dashName.slice(1)}
         </h3>
@@ -122,6 +125,7 @@ export function SideBar(props) {
   };
 
   // SWIPE SIDEBAR SECTION START HERE
+  // DISPATCHING ACTION OF SLIDEMENU
   const siwpeSideBarFun = () => {
     if (!swipe.show)
       setSwipe({
@@ -133,6 +137,11 @@ export function SideBar(props) {
       });
     }
   };
+
+  useEffect(() => {
+    console.log("slideWindowReducer", "useEffect Run");
+    dispatch(slideShow(swipe));
+  }, [swipe]);
 
   return (
     <>

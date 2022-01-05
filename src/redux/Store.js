@@ -25,6 +25,7 @@ import {
   getCrashAnalyticsDataReducer,
   getCrashFreeUsersDataReducer
 } from "./reducer/ProjectReducer";
+import slideWindowReducer from "./reducer/SliderReducer";
 
 // const rootReducer = combineReducers({
 //     adminLoginReducer,
@@ -36,6 +37,7 @@ import {
 // })
 
 const appReducer = combineReducers({
+
   adminLoginReducer,
   adminRegisterReducer,
 
@@ -52,7 +54,8 @@ const appReducer = combineReducers({
   getLogMsgOccurenceWRTDateReducer,
   getCrashFreeUsersReducer,
   getCrashAnalyticsDataReducer,
-  getCrashFreeUsersDataReducer
+  getCrashFreeUsersDataReducer,
+  slideWindowReducer,
 });
 
 const persistConf = {
