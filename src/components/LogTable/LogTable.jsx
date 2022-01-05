@@ -139,10 +139,10 @@ export default function LogTable() {
   return (
     <>
       <Row>
-        <Col xl={2} lg={2} md={2} sm={2}>
+        <Col xl={2} lg={2} md={2} sm={2} style={{ padding: "0px" }}>
           <SideBar navdetails={sidebarDetails} />
         </Col>
-        <Col xl={10} lg={10} md={10} sm={10}>
+        <Col xl={10} lg={10} md={10} sm={10} style={{ padding: "0px" }}>
           <Navbar navdetails={sidebarDetails} />
 
           {/* data inhere */}

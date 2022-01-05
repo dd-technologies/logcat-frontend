@@ -31,6 +31,7 @@ p {
 thead,
 th {
   font-size: 0.9rem;
+  font-weight: 500 !important;
   @media screen and (min-width: 600px) and (max-width: 1200px) {
     font-size: 0.7rem;
   }
@@ -49,4 +50,12 @@ thead,
 tr {
   border-width: none !important;
   border-style: none !important;
+}
+
+// thememing start bootstrap --------
+.row {
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 }

@@ -33,8 +33,6 @@ export default function Analytics() {
     end: null,
   });
 
-
-
   var dt = new Date();
   date.end = dt.toISOString().slice(0, 10);
   dt.setDate(dt.getDate() - 90);
@@ -94,15 +92,15 @@ export default function Analytics() {
   };
 
   // console.log("data", date);
-  const getCrashFreeUsersDataReducer = useSelector(state => state.getCrashFreeUsersDataReducer)
-  const { loading, data } = getCrashFreeUsersDataReducer
+  const getCrashFreeUsersDataReducer = useSelector(
+    (state) => state.getCrashFreeUsersDataReducer
+  );
+  const { loading, data } = getCrashFreeUsersDataReducer;
   let users = data && data.response ? data.response.length : 0;
   let totalCount = 0;
   if (data && data.response.length !== 0) {
-    data.response.map(e => totalCount += e.count)
+    data.response.map((e) => (totalCount += e.count));
   }
-
-
 
   // console.log("startDate", date.start, date.end, logMsg)
 
@@ -110,38 +108,45 @@ export default function Analytics() {
 
   const dispatchmultiple = () => {
     // console.log('dispatch multiple executed!!')
-    dispatch(getCrashFreeUsersData(code, logMsg))
-    dispatch(getCrashAnalyticsData(code, logMsg))
+    dispatch(getCrashFreeUsersData(code, logMsg));
+    dispatch(getCrashAnalyticsData(code, logMsg));
     dispatch(getErrorWRTOS(code));
     dispatch(getErrorWRTVersion(code));
-    dispatch(getLogMsgOccurenceWRTDate({ code, startDate: date.start, endDate: date.end, logMsg }));
+    dispatch(
+      getLogMsgOccurenceWRTDate({
+        code,
+        startDate: date.start,
+        endDate: date.end,
+        logMsg,
+      })
+    );
   };
   useEffect(() => {
     dispatchmultiple();
     // console.log('hello useEffect')
     // dispatch(getLogMsgOccurenceWRTDate({code, startDate:date.start, endDate:date.end, logMsg}));
-
   }, []);
-
-
 
   return (
     <>
       <Row>
-        <Col xl={2} lg={2} md={2} sm={2}>
+        <Col xl={2} lg={2} md={2} sm={2} style={{ padding: "0px" }}>
           <SideBar navdetails={sidebarDetails} />
         </Col>
-        <Col xl={10} lg={10} md={10} sm={10}>
+        <Col xl={10} lg={10} md={10} sm={10} style={{ padding: "0px" }}>
           <Navbar navdetails={sidebarDetails} />
           <Container style={{ marginTop: "10%", marginBottom: "3%" }}>
             {/* data from api */}
             <Col className="my-4">
-              {
-                loading ? 'Loading' : <>
-                  This issue has <strong>{totalCount}</strong> crash events affecting
+              {loading ? (
+                "Loading"
+              ) : (
+                <>
+                  This issue has <strong>{totalCount}</strong> crash events
+                  affecting
                   <strong> {users} </strong> users
                 </>
-              }
+              )}
             </Col>
 
             <Col>

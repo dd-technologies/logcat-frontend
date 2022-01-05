@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Image } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import Style from "./NavSideBar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faCog, faLessThan } from "@fortawesome/free-solid-svg-icons";
@@ -19,7 +19,7 @@ export function Navbar(props) {
 
   // checking if navlink 2 is not avilables
 
-  const showSidebar = () => setSidebar(!sidebar);
+  const showSidebar = () => setSidebar(!sidebar); 
   const dispatch = useDispatch();
   let history = useHistory();
   const handlelogout = (e) => {
@@ -178,7 +178,7 @@ export function SideBar(props) {
           <FontAwesomeIcon icon={faLessThan} onClick={siwpeSideBarFun} />
         </section>
         <section className={Style.brandName}>
-          <Image src="/assets/images/DDTECH.png" />
+          <img src="/assets/images/logo.png" />
           <p>Technologies</p>
         </section>
       </section>

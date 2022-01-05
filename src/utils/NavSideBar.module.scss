@@ -3,7 +3,7 @@
 // navbar
 .navbar {
   background-color: $backgroundColor;
-  height: 9%;
+  height: 7% !important;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,9 +11,19 @@
   z-index: 9;
   width: 85%;
   box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+  // width
+  @media screen and (min-width: 300px) and (max-width: 1024px) {
+    height: 6% !important;
+  }
+  @media screen and (min-width: 1024px) and (max-width: 1400px) {
+    height: 6% !important;
+  }
 
   & h3 {
     color: $defaultTextColor;
+    @media screen and (min-width: 300px) and (max-width: 1024px) {
+      font-size: 1.2rem;
+    }
   }
 
   .userInfo {
@@ -21,9 +31,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    @media screen and (min-width: 300px) and (max-width: 1024px) {
+      width: 45% !important;
+    }
+
     & section {
       color: $filterButtonBackgroundColor;
-      margin-left: 10px;
     }
     .Avtar {
       background-color: $filterButtonBackgroundColor;
@@ -35,6 +48,11 @@
       height: 40px;
       color: $activehrefText;
       font-weight: 700;
+      // media query
+      @media screen and (min-width: 300px) and (max-width: 1024px) {
+        width: 28px;
+        height: 28px;
+      }
     }
 
     // media query for
@@ -62,6 +80,7 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+
   .componyDetails {
     display: flex;
     justify-content: center;
@@ -129,3 +148,5 @@
 .sideBarSwipe {
   width: 2% !important;
 }
+
+// NAVBAR AND SIDEBAR THEMEMING
