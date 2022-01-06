@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import Style from "./NavSideBar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBars,
   faHome,
   faCog,
   faLessThan,
@@ -20,6 +21,11 @@ export function Navbar(props) {
   const [sidebar, setSidebar] = useState(false);
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const [navToggle, setNavToggle] = useState(true);
+  // SWIPE NAVBAR STATE
+  const [swipe, setSwipe] = useState({
+    show: false,
+  });
+
   const { loading, adminInfo } = adminLoginReducer;
 
   // SLIDEWINDOW STATE
@@ -58,13 +64,37 @@ export function Navbar(props) {
   // };
   // props.navbardetails.dashName.charAt(0).toUpperCase() +
   // props.navbardetails.dashName.slice(1)
+
+  // SWIPE SIDEBAR SECTION START HERE
+  // DISPATCHING ACTION OF SLIDEMENU
+  const siwpeSideBarFun = () => {
+    if (!swipe.show)
+      setSwipe({
+        show: true,
+      });
+    if (swipe.show) {
+      setSwipe({
+        show: false,
+      });
+    }
+  };
+  useEffect(() => {
+    console.log("slideWindowReducer", "useEffect Run");
+    dispatch(slideShow(swipe));
+  }, [swipe]);
+
   return (
     <>
       <nav className={data.show ? Style.navbarWihoutSlide : Style.navbar}>
-        <h3>
-          {navdetails.dashName.charAt(0).toUpperCase() +
-            navdetails.dashName.slice(1)}
-        </h3>
+        <section className={Style.NavbarSectionWithMenu}>
+          <section className={Style.Icon}>
+            <FontAwesomeIcon icon={faBars} onClick={siwpeSideBarFun} />
+          </section>
+          <h3 className="p-3">
+            {navdetails.dashName.charAt(0).toUpperCase() +
+              navdetails.dashName.slice(1)}
+          </h3>
+        </section>
         <section className={Style.userInfo}>
           <section className={Style.Avtar}>
             {adminInfo &&
@@ -102,20 +132,14 @@ export function SideBar(props) {
   const [navToggle, setNavToggle] = useState(true);
   const { loading, adminInfo } = adminLoginReducer;
 
-  // SWIPE NAVBAR STATE
-  const [swipe, setSwipe] = useState({
-    show: false,
-  });
+  // SLIDEWINDOW STATE
+  const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
+  const { data } = slideWindowReducer;
+  console.log("slideWindowReducer", data);
 
   // checking if navlink 2 is not avilables
 
-  const showSidebar = () => setSidebar(!sidebar);
   const dispatch = useDispatch();
-  let history = useHistory();
-  const handlelogout = (e) => {
-    e.preventDefault();
-    dispatch(adminLogout(history));
-  };
 
   const currentRoute = useHistory().location.pathname.toLowerCase();
   // console.log("currentRoute", currentRoute);
@@ -128,29 +152,10 @@ export function SideBar(props) {
     return setNavToggle(true);
   };
 
-  // SWIPE SIDEBAR SECTION START HERE
-  // DISPATCHING ACTION OF SLIDEMENU
-  const siwpeSideBarFun = () => {
-    if (!swipe.show)
-      setSwipe({
-        show: true,
-      });
-    if (swipe.show) {
-      setSwipe({
-        show: false,
-      });
-    }
-  };
-
-  useEffect(() => {
-    console.log("slideWindowReducer", "useEffect Run");
-    dispatch(slideShow(swipe));
-  }, [swipe]);
-
   return (
     <>
       <section
-        className={swipe.show ? `${Style.sideBarSwipe}` : `${Style.sideBar}`}
+        className={data.show ? `${Style.sideBarSwipe}` : `${Style.sideBar}`}
       >
         {/* SWIPE WITH LOGCAT NAME */}
         <section className={`${Style.componyDetails} p-2`}>
@@ -163,20 +168,13 @@ export function SideBar(props) {
             }}
           >
             <section className={Style.DashBoardTitle}>
-              {swipe.show ? "LG" : "LogCat"}
+              {data.show ? "LG" : "LogCat"}
             </section>
           </Link>
-          {/* swipe button */}
-          <section className={`${Style.SwipeNavbar}`}>
-            <FontAwesomeIcon
-              icon={swipe.show ? faGreaterThan : faLessThan}
-              onClick={siwpeSideBarFun}
-            />
-          </section>
         </section>
 
         <section
-          className={swipe.show ? `${Style.SwipeOption}` : `${Style.options}`}
+          className={data.show ? `${Style.SwipeOption}` : `${Style.options}`}
         >
           <section className={`${Style.optionItems} ${Style.option_active}`}>
             <Link

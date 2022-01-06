@@ -6,6 +6,7 @@ import {
   faCalendar,
   faCaretDown,
   faDatabase,
+  faRecycle,
 } from "@fortawesome/free-solid-svg-icons";
 import Style from "./LogTable.module.scss";
 import { Navbar, SideBar } from "../../utils/NavSideBar";
@@ -30,6 +31,7 @@ import { getLogCountsReducer } from "../../redux/reducer/ProjectReducer";
 import { useHistory } from "react-router-dom";
 import Spinner from "../../Container/Spinner";
 import { slideShow } from "../../redux/action/SlideAction";
+import toast from "react-hot-toast";
 
 export default function LogTable() {
   const history = useHistory();
@@ -89,6 +91,8 @@ export default function LogTable() {
     (state) => state.getAllLogByCodeReducer
   );
 
+  console.log("getAllLogByCodeReducer", getAllLogByCodeReducer);
+
   const dispatchmultiple = () => {
     // dispatch(getLogTypeCounts(code));
     // dispatch(getErrorWRTOS(code));
@@ -142,6 +146,51 @@ export default function LogTable() {
     };
   }, [dateDropDown]);
 
+  // REFRESH ONLY TABLE
+  const RefreshTableOnlyFun = () => {
+    let logType = JSON.parse(localStorage.getItem("selected_log"));
+    let date = JSON.parse(localStorage.getItem("selected_date"));
+    let record = JSON.parse(localStorage.getItem("selected_record"));
+
+    // 1) code, logtype , start date, end date, records, page==null
+    if (code && logType && date && record) {
+      console.log("object 1", code, logType, record);
+      return dispatch(getProjectByCode(code, logType, date, record));
+    }
+
+    // 2) code, logtype , start date, end date,
+    if (code && logType && date) {
+      console.log("object 1", code, logType, record);
+      return dispatch(getProjectByCode(code, logType, date));
+    }
+    // 3) code, logtype
+    if (code && logType) {
+      console.log("object 3", code, logType, record);
+      return dispatch(getProjectByCode(code, logType));
+    }
+
+    // --1) only logType
+    if (code && logType) {
+      console.log("object 4", code, logType, record);
+      return dispatch(getProjectByCode(code, logType, null, null));
+    }
+
+    // --2) only date
+    if (code && date) {
+      console.log("object 5", code, logType, record);
+      return dispatch(getProjectByCode(code, null, date, null));
+    }
+    // --3) only records
+    if (code && record) {
+      console.log("object 6", code, logType, record);
+      return dispatch(getProjectByCode(code, null, null, record));
+    }
+
+    // *) code
+    console.log("object 7", code, logType, record);
+    dispatch(getProjectByCode(code));
+  };
+
   return (
     <>
       <Row>
@@ -174,7 +223,15 @@ export default function LogTable() {
             }
           >
             <Row className="mt-4">
-              <Col xl={12} className={Style.filterWithDate}>
+              <Col xl={6} md={6} sm={6}>
+                <section
+                  className={Style.filterGraphFirstSction}
+                  onClick={RefreshTableOnlyFun}
+                >
+                  <FontAwesomeIcon icon={faRecycle} />
+                </section>
+              </Col>
+              <Col xl={6} md={6} sm={6} className={Style.filterWithDate}>
                 <section className={Style.filterwithDate} ref={ref}>
                   <section className={Style.datafilter} onClick={DateFilter}>
                     <FontAwesomeIcon icon={faCalendar} />
@@ -197,6 +254,7 @@ export default function LogTable() {
                     </p>
                     <FontAwesomeIcon icon={faCaretDown} />
                   </section>
+
                   <section>
                     {dateDropDown ? (
                       <CustomeDropDown width="100%">

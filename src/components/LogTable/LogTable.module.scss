@@ -96,3 +96,15 @@
     margin-top: 8% !important;
   }
 }
+
+.filterGraphFirstSction {
+  cursor: pointer;
+  background-color: $filterButtonBackgroundColor;
+  padding: 10px;
+  border-radius: $buttonBorderRaduous;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: auto !important;
+}

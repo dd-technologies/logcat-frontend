@@ -109,6 +109,7 @@ export const getProjectByCode =
             if (value) {
               logString += `${key}-`;
             }
+            console.log("logType", logString, record)
           }
           response = await axios.get(
             `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?startDate=${date.start}&endDate=${date.end}&limit=${record}&page=${page}&logType=${logString}`,
@@ -120,6 +121,7 @@ export const getProjectByCode =
             if (value) {
               logString += `${key}-`;
             }
+            console.log("logType", logString)
           }
           response = await axios.get(
             `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?startDate=${date.start}&limit=${record}&page=${page}&logType=${logString}`,
@@ -131,6 +133,7 @@ export const getProjectByCode =
             if (value) {
               logString += `${key}-`;
             }
+            console.log("logType", logString)
           }
           response = await axios.get(
             `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?endDate=${date.end}&limit=${record}&page=${page}&logType=${logString}`,
@@ -142,6 +145,7 @@ export const getProjectByCode =
             if (value) {
               logString += `${key}-`;
             }
+            console.log("logType", logString)
           }
           // console.log(logString);
 
@@ -153,11 +157,12 @@ export const getProjectByCode =
         } else {
           console.log(`pageno from action project ${filters}`);
           let logString = "";
-          if (filters !=null) {
+          if (filters != null) {
             for (const [key, value] of Object.entries(filters)) {
               if (value) {
                 logString += `${key}-`;
               }
+              console.log("logType", logString, record)
             }
           }
           response = await axios.get(

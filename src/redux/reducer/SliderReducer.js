@@ -9,9 +9,6 @@ const slideWindowReducer = (state = initialState, action) => {
         case SWIPE_SLIDER_SHOW: return {
             data: action.payload
         };
-        case SWIPE_SLIDER_HIDE: return {
-            data: action.payload
-        }
         default: return state
     }
 }

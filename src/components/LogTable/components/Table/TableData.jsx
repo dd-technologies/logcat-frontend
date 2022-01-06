@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProjectByCode } from "../../../../redux/action/ProjectAction";
 import Spinner from "../../../../Container/Spinner";
 import toast, { Toaster } from "react-hot-toast";
+import TableCard from "../../../../Container/TableCard";
 // import CustomeFilterTable from "./CustomeFilterTable";
 
 const { SearchBar } = Search;
@@ -288,14 +289,7 @@ function TableData(props) {
     if (record !== 25) {
       localStorage.setItem("selected_record", JSON.stringify(record));
     }
-    toast.success("Filter saved", {
-      icon: "👏",
-      // style: {
-      //   borderRadius: '10px',
-      //   background: '#333',
-      //   color: '#fff',
-      // }
-    });
+    toast.success("Filter saved");
   };
 
   const resetFilter = () => {
@@ -319,21 +313,12 @@ function TableData(props) {
     localStorage.removeItem("selected_date");
     localStorage.removeItem("selected_record");
     // setLogType({...logType})
-    toast.success(
-      "Saved filter cleared!"
-      // {
-      // icon: '👏',
-      // style: {
-      //   borderRadius: '10px',
-      //   background: '#333',
-      //   color: '#fff',
-      // }}
-    );
+    toast.success("Filter has been reset");
     setShowTableField(false);
     return dispatch(getProjectByCode(code, record));
   };
 
-  const handlePageClick =(data) => {
+  const handlePageClick = (data) => {
     // console.log(`data selected ${data.selected}`);
     // console.log(`data selected page number ${pageNo}`);
     if (
@@ -345,8 +330,10 @@ function TableData(props) {
     ) {
       setShowTableField(false);
       // console.log(`data selected ${pageNo} and ${data.selected}`)
-      setPageNo(data.selected+1);
-      return dispatch(getProjectByCode(code, null, logType, data.selected+1, record));
+      setPageNo(data.selected + 1);
+      return dispatch(
+        getProjectByCode(code, null, logType, data.selected + 1, record)
+      );
     }
 
     // console.log(`data selected ${data.selected+1} and page ${pageNo}`)
@@ -355,16 +342,16 @@ function TableData(props) {
     //   if (data.selected + 1 < pageNo) {
     //     console.log('data selected second if body')
     //     const diff = pageNo-(data.selected+1)
-    //     setPageNo(pageNo - diff);  
+    //     setPageNo(pageNo - diff);
     //     console.log(`data selected down ${data.selected} and page ${pageNo}`)
     //   }else{
     //     console.log('data selected second else body')
     //     setPageNo(data.selected + 1);
     //   }
     // }
-    setPageNo(data.selected+1);
+    setPageNo(data.selected + 1);
     // console.log(`data selected down ${data.selected} and page ${pageNo}`)
-    dispatch(getProjectByCode(code, null, null, data.selected+1, record));
+    dispatch(getProjectByCode(code, null, null, data.selected + 1, record));
   };
 
   const applyFilter = () => {
@@ -613,7 +600,9 @@ function TableData(props) {
 
   return (
     <>
-      <CustomCard>
+      <TableCard
+        height={data && data.data && data.data.logs ? "100%" : "400px"}
+      >
         <Toaster />
         <section className={Style.OuterTable} ref={ref}>
           {data && data.data && data.data.logs ? (
@@ -936,7 +925,7 @@ function TableData(props) {
             />
           </section>
         </section>
-      </CustomCard>
+      </TableCard>
     </>
   );
 }

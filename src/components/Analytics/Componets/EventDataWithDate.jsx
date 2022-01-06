@@ -46,7 +46,10 @@ export default function EventDataWithDate() {
 
   return (
     <>
-      <Row className="pt-4">
+      <Row
+        className="pt-4"
+        style={{ borderBottom: "1px solid rgba(90, 90, 90, 0.234)" }}
+      >
         <Col className={`${Style.MainDiv} m-2`}>
           <setcion className={`${Style.outerSec} p-2`}>
             <p>Event Summary</p>
@@ -93,7 +96,6 @@ export default function EventDataWithDate() {
             </section>
           </setcion>
         </Col>
-        <hr />
       </Row>
     </>
   );
