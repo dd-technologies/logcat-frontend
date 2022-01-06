@@ -6,7 +6,7 @@ import {
   faCalendar,
   faCaretDown,
   faDatabase,
-  faRecycle,
+  faSync,
 } from "@fortawesome/free-solid-svg-icons";
 import Style from "./LogTable.module.scss";
 import { Navbar, SideBar } from "../../utils/NavSideBar";
@@ -230,7 +230,7 @@ export default function LogTable() {
                   className={Style.filterGraphFirstSction}
                   onClick={RefreshTableOnlyFun}
                 >
-                  <FontAwesomeIcon icon={faRecycle} />
+                  <FontAwesomeIcon icon={faSync} />
                 </section>
               </Col>
               <Col xl={6} md={6} sm={6} className={Style.filterWithDate}>

@@ -39,10 +39,18 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      & p:hover {
+        color: $activehrefText;
+        transition-duration: 0.5s;
+      }
     }
     & input {
       margin-left: 10px;
     }
+  }
+  &:hover {
+    color: $activehrefText;
+    transition-duration: 0.5s;
   }
 }
 
@@ -111,4 +119,12 @@
   align-items: center;
   width: 40px;
   height: auto !important;
+
+  & svg {
+    &:hover {
+      transform: rotate(180deg) !important;
+      transition-duration: 0.5s;
+      color: $backgroundColor;
+    }
+  }
 }
