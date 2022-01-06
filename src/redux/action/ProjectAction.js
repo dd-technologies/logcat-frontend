@@ -44,7 +44,9 @@ import {
 
 export const getAllProject = () => async (dispatch) => {
   try {
-    dispatch({ type: GET_PROJECT_REQUEST });
+    dispatch({
+      type: GET_PROJECT_REQUEST
+    });
     const token = localStorage.getItem("ddAdminToken");
     // console.log(token);
     const config = {
@@ -60,7 +62,9 @@ export const getAllProject = () => async (dispatch) => {
     // config
     // )
 
-    const { data } = await axios.get(
+    const {
+      data
+    } = await axios.get(
       `https://logger-server.herokuapp.com/api/logger/projects/`,
       config
     );
@@ -73,10 +77,9 @@ export const getAllProject = () => async (dispatch) => {
     // console.log(error.response);
     dispatch({
       type: GET_PROJECT_REQUEST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response && error.response.data.message ?
+        error.response.data.message :
+        error.message,
     });
   }
 };
@@ -86,7 +89,9 @@ export const getProjectByCode =
     async (dispatch) => {
       try {
         // console.log(`pageno from action project code ${code}`);
-        dispatch({ type: GET_ALL_LOG_BY_CODE_REQUEST });
+        dispatch({
+          type: GET_ALL_LOG_BY_CODE_REQUEST
+        });
         const token = localStorage.getItem("ddAdminToken");
         const config = {
           headers: {
@@ -95,7 +100,7 @@ export const getProjectByCode =
           },
         };
 
-        console.log('filters');
+        console.log("dispatch filter", filters);
 
         // const {data} = await axios.get('https://agvalogger.herokuapp.com/api/logger/projects/',
         // config
@@ -109,43 +114,43 @@ export const getProjectByCode =
             if (value) {
               logString += `${key}-`;
             }
-            console.log("logType", logString, record)
+
           }
           response = await axios.get(
             `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?startDate=${date.start}&endDate=${date.end}&limit=${record}&page=${page}&logType=${logString}`,
             config
           );
+          console.log("dispatch 1", response)
         } else if (date != null && date.start) {
           let logString = "";
           for (const [key, value] of Object.entries(filters)) {
             if (value) {
               logString += `${key}-`;
             }
-            console.log("logType", logString)
           }
           response = await axios.get(
             `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?startDate=${date.start}&limit=${record}&page=${page}&logType=${logString}`,
             config
           );
+          console.log("dispatch 2", response)
         } else if (date != null && date.end) {
           let logString = "";
           for (const [key, value] of Object.entries(filters)) {
             if (value) {
               logString += `${key}-`;
             }
-            console.log("logType", logString)
           }
           response = await axios.get(
             `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?endDate=${date.end}&limit=${record}&page=${page}&logType=${logString}`,
             config
           );
+          console.log("dispatch 3", response)
         } else if (filters != null) {
           let logString = "";
           for (const [key, value] of Object.entries(filters)) {
             if (value) {
               logString += `${key}-`;
             }
-            console.log("logType", logString)
           }
           // console.log(logString);
 
@@ -153,6 +158,7 @@ export const getProjectByCode =
             `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?logType=${logString}&page=${page}&limit=${record}`,
             config
           );
+          console.log("dispatch 4", response)
           // console.log(response);
         } else {
           console.log(`pageno from action project ${filters}`);
@@ -161,15 +167,20 @@ export const getProjectByCode =
             for (const [key, value] of Object.entries(filters)) {
               if (value) {
                 logString += `${key}-`;
+
+                console.log("dispatch 5", logString)
               }
-              console.log("logType", logString, record)
+
             }
           }
           response = await axios.get(
             `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?page=${page}&limit=${record}logType=${logString}`,
             config
           );
+          console.log("dispatch 5")
         }
+
+
         console.log(response.data);
         dispatch({
           type: GET_ALL_LOG_BY_CODE_SUCCESS,
@@ -179,17 +190,18 @@ export const getProjectByCode =
         // console.log(error.response);
         dispatch({
           type: GET_ALL_LOG_BY_CODE_FAIL,
-          payload:
-            error.response && error.response.data.message
-              ? error.response.data.message
-              : error.message,
+          payload: error.response && error.response.data.message ?
+            error.response.data.message :
+            error.message,
         });
       }
     };
 
 export const uploadNewProject = (name, modelList, desc) => async (dispatch) => {
   try {
-    dispatch({ type: UPLOAD_NEW_PROJECT_REQUEST });
+    dispatch({
+      type: UPLOAD_NEW_PROJECT_REQUEST
+    });
 
     const token = localStorage.getItem("ddAdminToken");
     const config = {
@@ -205,13 +217,14 @@ export const uploadNewProject = (name, modelList, desc) => async (dispatch) => {
     // config
     // )
 
-    const { data } = await axios.post(
-      `https://logger-server.herokuapp.com/api/logger/projects/`,
-      {
-        name: name,
-        description: desc,
-        device_type: modelList,
-      },
+    const {
+      data
+    } = await axios.post(
+      `https://logger-server.herokuapp.com/api/logger/projects/`, {
+      name: name,
+      description: desc,
+      device_type: modelList,
+    },
       config
     );
     // console.log(data);
@@ -223,10 +236,9 @@ export const uploadNewProject = (name, modelList, desc) => async (dispatch) => {
     // console.log(error.response);
     dispatch({
       type: UPLOAD_NEW_PROJECT_REQUEST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response && error.response.data.message ?
+        error.response.data.message :
+        error.message,
     });
   }
 };
@@ -239,11 +251,16 @@ export const clearProjectData = () => (dispatch) => {
 };
 
 export const getLogTypeCounts =
-  ({ code, diffDate }) =>
+  ({
+    code,
+    diffDate
+  }) =>
     async (dispatch) => {
       // code
       try {
-        dispatch({ type: GET_LOG_COUNT_REQUEST });
+        dispatch({
+          type: GET_LOG_COUNT_REQUEST
+        });
 
         const token = localStorage.getItem("ddAdminToken");
         const config = {
@@ -259,7 +276,9 @@ export const getLogTypeCounts =
         dt.setDate(dt.getDate() - diffDate);
         const start = dt.toISOString().slice(0, 10);
 
-        const { data } = await axios.get(
+        const {
+          data
+        } = await axios.get(
           `https://logger-server.herokuapp.com/api/logger/projects/getLogsCount/${code}?startDate=${start}&endDate=${end}`,
           config
         );
@@ -272,10 +291,9 @@ export const getLogTypeCounts =
         // console.log(error.response);
         dispatch({
           type: GET_LOG_COUNT_FAIL,
-          payload:
-            error.response && error.response.data.message
-              ? error.response.data.message
-              : error.message,
+          payload: error.response && error.response.data.message ?
+            error.response.data.message :
+            error.message,
         });
       }
     };
@@ -283,10 +301,15 @@ export const getLogTypeCounts =
 export const getLogByDate =
   // code, date = null
 
-  ({ code, diffDate }) =>
+  ({
+    code,
+    diffDate
+  }) =>
     async (dispatch) => {
       try {
-        dispatch({ type: GET_LOG_COUNT_BY_DATE_REQUEST });
+        dispatch({
+          type: GET_LOG_COUNT_BY_DATE_REQUEST
+        });
         const token = localStorage.getItem("ddAdminToken");
         const config = {
           headers: {
@@ -347,7 +370,9 @@ export const getLogByDate =
 
 export const getErrorWRTOS = (code) => async (dispatch) => {
   try {
-    dispatch({ type: GET_ERROR_WRT_OS_REQUEST });
+    dispatch({
+      type: GET_ERROR_WRT_OS_REQUEST
+    });
     const token = localStorage.getItem("ddAdminToken");
     const config = {
       headers: {
@@ -358,7 +383,9 @@ export const getErrorWRTOS = (code) => async (dispatch) => {
 
     // console.log("hello from action from OS arch");
 
-    const { data } = await axios.get(
+    const {
+      data
+    } = await axios.get(
       `https://logger-server.herokuapp.com/api/logger/projects/getErrorCountByOSArchitecture/${code}`,
       config
     );
@@ -371,17 +398,18 @@ export const getErrorWRTOS = (code) => async (dispatch) => {
     // console.log(error.response);
     dispatch({
       type: GET_ERROR_WRT_OS_REQUEST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response && error.response.data.message ?
+        error.response.data.message :
+        error.message,
     });
   }
 };
 
 export const getErrorWRTVersion = (code) => async (dispatch) => {
   try {
-    dispatch({ type: GET_ERROR_COUNT_BY_VERSION_REQUEST });
+    dispatch({
+      type: GET_ERROR_COUNT_BY_VERSION_REQUEST
+    });
     const token = localStorage.getItem("ddAdminToken");
     const config = {
       headers: {
@@ -392,7 +420,9 @@ export const getErrorWRTVersion = (code) => async (dispatch) => {
 
     // console.log("hello from action from OS arch");
 
-    const { data } = await axios.get(
+    const {
+      data
+    } = await axios.get(
       `https://logger-server.herokuapp.com/api/logger/projects/getErrorCountByVersion/${code}`,
       config
     );
@@ -405,17 +435,18 @@ export const getErrorWRTVersion = (code) => async (dispatch) => {
     // console.log(error.response);
     dispatch({
       type: GET_ERROR_COUNT_BY_VERSION_REQUEST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response && error.response.data.message ?
+        error.response.data.message :
+        error.message,
     });
   }
 };
 
 export const getProjectDetails = (code) => async (dispatch) => {
   try {
-    dispatch({ type: GET_DEVICE_INFO_REQUEST });
+    dispatch({
+      type: GET_DEVICE_INFO_REQUEST
+    });
     const token = localStorage.getItem("ddAdminToken");
     const config = {
       headers: {
@@ -426,7 +457,9 @@ export const getProjectDetails = (code) => async (dispatch) => {
 
     // console.log("hello from action from get project details");
 
-    const { data } = await axios.get(
+    const {
+      data
+    } = await axios.get(
       `https://logger-server.herokuapp.com/api/logger/projects/getDeviceCount/${code}`,
       config
     );
@@ -439,16 +472,20 @@ export const getProjectDetails = (code) => async (dispatch) => {
     // console.log(error.response);
     dispatch({
       type: GET_DEVICE_INFO_REQUEST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response && error.response.data.message ?
+        error.response.data.message :
+        error.message,
     });
   }
 };
 
 export const getLogMsgOccurenceWRTDate =
-  ({ code, startDate, endDate, logMsg }) =>
+  ({
+    code,
+    startDate,
+    endDate,
+    logMsg
+  }) =>
     async (dispatch) => {
       console.log("request comming to log")
       try {
@@ -456,7 +493,9 @@ export const getLogMsgOccurenceWRTDate =
         // console.log(code)
         // console.log(startDate)
         // console.log(endDate)
-        dispatch({ type: GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST });
+        dispatch({
+          type: GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST
+        });
         const token = localStorage.getItem("ddAdminToken");
         const config = {
           headers: {
@@ -474,7 +513,9 @@ export const getLogMsgOccurenceWRTDate =
           dt.setDate(dt.getDate() - 10);
           const startDate = dt.toISOString().slice(0, 10);
           // console.log("date", startDate, endDate, logMsg, code)
-          const { data } = await axios.get(
+          const {
+            data
+          } = await axios.get(
             // `https://logger-server.herokuapp.com/api/logger/projects/log-occurrences-datewise/${code}?startDate=${startDate}&endDate=${endDate}&logMsg=${logMsg}`
             `https://logger-server.herokuapp.com/api/logger/projects/log-occurrences-datewise/${code}?startDate=${startDate}&endDate=${endDate}&logMsg=${logMsg}`,
             // MF7OW?startDate=2021-08-01&endDate=2021-12-31&logMsg=Debugging!&did=10:EC:81:1C:12:30
@@ -485,7 +526,9 @@ export const getLogMsgOccurenceWRTDate =
             payload: data.data,
           });
         } else {
-          const { data } = await axios.get(
+          const {
+            data
+          } = await axios.get(
             // `https://logger-server.herokuapp.com/api/logger/projects/log-occurrences-datewise/${code}?startDate=${startDate}&endDate=${endDate}&logMsg=${logMsg}`
             `https://logger-server.herokuapp.com/api/logger/projects/log-occurrences-datewise/${code}?startDate=${startDate}&endDate=${endDate}&logMsg=${logMsg}`,
             // MF7OW?startDate=2021-08-01&endDate=2021-12-31&logMsg=Debugging!&did=10:EC:81:1C:12:30
@@ -500,16 +543,18 @@ export const getLogMsgOccurenceWRTDate =
         // console.log(error.response);
         dispatch({
           type: GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST_FAIL,
-          payload:
-            error.response && error.response.data.message
-              ? error.response.data.message
-              : error.message,
+          payload: error.response && error.response.data.message ?
+            error.response.data.message :
+            error.message,
         });
       }
     };
 
 export const getCrashFreeUsers =
-  ({ code, diffDate }) =>
+  ({
+    code,
+    diffDate
+  }) =>
     async (dispatch) => {
       try {
         // console.log(code);
@@ -521,7 +566,9 @@ export const getCrashFreeUsers =
         const startDate = dt.toISOString().slice(0, 10);
         // console.log(`${startDate} and ${endDate}`);
 
-        dispatch({ type: GET_CRASH_FREE_USERS_REQUEST });
+        dispatch({
+          type: GET_CRASH_FREE_USERS_REQUEST
+        });
         const token = localStorage.getItem("ddAdminToken");
         // console.log(token);
         const config = {
@@ -531,7 +578,9 @@ export const getCrashFreeUsers =
           },
         };
 
-        const { data } = await axios.get(
+        const {
+          data
+        } = await axios.get(
           `https://logger-server.herokuapp.com/api/logger/projects/crashfree-users-datewise/${code}?startDate=${startDate}&endDate=${endDate}`,
           config
         );
@@ -545,10 +594,9 @@ export const getCrashFreeUsers =
       } catch (error) {
         dispatch({
           type: GET_CRASH_FREE_USERS_REQUEST_FAIL,
-          payload:
-            error.response && error.response.data.message
-              ? error.response.data.message
-              : error.message,
+          payload: error.response && error.response.data.message ?
+            error.response.data.message :
+            error.message,
         });
       }
     };
@@ -564,7 +612,9 @@ export const getCrashAnalyticsData =
         const startDate = dt.toISOString().slice(0, 10);
         // console.log(`${startDate} and ${endDate}`);
 
-        dispatch({ type: GET_CRASH_ANALYTICS_DATA_REQUEST });
+        dispatch({
+          type: GET_CRASH_ANALYTICS_DATA_REQUEST
+        });
         const token = localStorage.getItem("ddAdminToken");
         // console.log(token);
         const config = {
@@ -574,7 +624,9 @@ export const getCrashAnalyticsData =
           },
         };
 
-        const { data } = await axios.get(
+        const {
+          data
+        } = await axios.get(
           `https://logger-server.herokuapp.com/api/logger/projects/get-crashlytics-data/${code}?&startDate=${startDate}&endDate=${endDate}&logMsg=${logMsg}`,
           config
         );
@@ -588,10 +640,9 @@ export const getCrashAnalyticsData =
       } catch (error) {
         dispatch({
           type: GET_CRASH_ANALYTICS_DATA_REQUEST_FAIL,
-          payload:
-            error.response && error.response.data.message
-              ? error.response.data.message
-              : error.message,
+          payload: error.response && error.response.data.message ?
+            error.response.data.message :
+            error.message,
         });
       }
     };
@@ -607,7 +658,9 @@ export const getCrashFreeUsersData =
         const startDate = dt.toISOString().slice(0, 10);
         // console.log(`${startDate} and ${endDate}`);
 
-        dispatch({ type: GET_CRASH_FREE_USERS_DATA_REQUEST });
+        dispatch({
+          type: GET_CRASH_FREE_USERS_DATA_REQUEST
+        });
         const token = localStorage.getItem("ddAdminToken");
         // console.log(token);
         const config = {
@@ -617,7 +670,9 @@ export const getCrashFreeUsersData =
           },
         };
 
-        const { data } = await axios.get(
+        const {
+          data
+        } = await axios.get(
           `https://logger-server.herokuapp.com/api/logger/projects/logMsgOccurence/${code}?msg=${logMsg}`,
           config
         );
@@ -631,10 +686,9 @@ export const getCrashFreeUsersData =
       } catch (error) {
         dispatch({
           type: GET_CRASH_FREE_USERS_DATA_REQUEST_FAIL,
-          payload:
-            error.response && error.response.data.message
-              ? error.response.data.message
-              : error.message,
+          payload: error.response && error.response.data.message ?
+            error.response.data.message :
+            error.message,
         });
       }
     };

@@ -913,7 +913,7 @@ function TableData(props) {
               // }
               pageCount={data && data.data && data.data.count / record}
               // previousLabel="< Previous"
-              initialPage={1}
+              // initialPage={1}
               renderOnZeroPageCount={null}
               containerClassName={"pagination"}
               pageClassName={"page-item"}

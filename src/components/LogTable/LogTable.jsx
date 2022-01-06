@@ -149,6 +149,8 @@ export default function LogTable() {
   // REFRESH ONLY TABLE
   const RefreshTableOnlyFun = () => {
     let logType = JSON.parse(localStorage.getItem("selected_log"));
+    console.log("dispatch logs", logType);
+
     let date = JSON.parse(localStorage.getItem("selected_date"));
     let record = JSON.parse(localStorage.getItem("selected_record"));
 
@@ -166,7 +168,7 @@ export default function LogTable() {
     // 3) code, logtype
     if (code && logType) {
       console.log("object 3", code, logType, record);
-      return dispatch(getProjectByCode(code, logType));
+      return dispatch(getProjectByCode(code, null, logType));
     }
 
     // --1) only logType
