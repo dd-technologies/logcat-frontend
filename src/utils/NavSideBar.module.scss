@@ -202,6 +202,7 @@
 // siderbar
 .sideBar {
   background-image: url("../../public//assets/images/background.jpg");
+  filter: contrast(150%);
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-color: $sideBarBackgroundColor;
@@ -272,6 +273,7 @@
   transition-duration: 0.5s !important;
   overflow: hidden;
   background-image: url("../../public//assets/images/background.jpg");
+  filter: contrast(150%);
   background-repeat: no-repeat;
 
   background-color: $sideBarBackgroundColor;

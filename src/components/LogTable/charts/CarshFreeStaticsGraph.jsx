@@ -39,7 +39,7 @@ export default function CarshFreeStaticsGraph() {
           <div style={{ width: "100%", height: 180 }}>
             <ResponsiveContainer>
               <LineChart data={dt}>
-                <CartesianGrid strokeDasharray="3 3" />
+                {/* <CartesianGrid strokeDasharray="3 3" /> */}
                 <XAxis dataKey="date" tickFormatter={dateFormatter} />
                 <YAxis dataKey="data" />
                 <Tooltip />

@@ -112,7 +112,7 @@ const EventChart = () => {
             bottom: 0,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          {/* <CartesianGrid strokeDasharray="3 3" /> */}
           <XAxis dataKey="_id" />
           <YAxis />
           <Tooltip />
