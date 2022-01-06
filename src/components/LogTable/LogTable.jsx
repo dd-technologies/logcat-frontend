@@ -168,7 +168,7 @@ export default function LogTable() {
     // 3) code, logtype
     if (code && logType) {
       console.log("object 3", code, logType, record);
-      return dispatch(getProjectByCode(code, null, logType));
+      return dispatch(getProjectByCode(code, null, logType, null, record));
     }
 
     // --1) only logType
