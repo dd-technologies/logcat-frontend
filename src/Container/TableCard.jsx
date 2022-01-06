@@ -9,7 +9,6 @@ export default function TableCard(props) {
           height: props.height ? props.height : "100%",
           width: props.width ? props.width : "100%",
           borderRadius: "10px",
-          overflow: "hidden",
           padding: props.padding ? props.padding : "0px",
           position: props.position ? props.position : "relative",
           right: props.right ? props.right : "",
