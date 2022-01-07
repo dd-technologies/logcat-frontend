@@ -1,0 +1,15 @@
+@import "../../../css/veriables.module.scss";
+.MainDiv {
+  & setcion {
+    display: flex;
+    justify-content: space-around;
+    width: 70% !important;
+
+    & p {
+      columns: $activehrefText;
+      & span {
+        padding: 7px;
+      }
+    }
+  }
+}

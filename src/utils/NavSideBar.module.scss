@@ -1,0 +1,354 @@
+@import "../css/veriables.module.scss";
+
+// navbar
+.navbar {
+  background-color: $backgroundColor;
+  height: 7% !important;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px !important;
+  align-items: center;
+  position: fixed;
+  z-index: 9;
+  width: 100%;
+  box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+  // width
+  @media screen and (min-width: 300px) and (max-width: 1024px) {
+    height: 6% !important;
+  }
+  @media screen and (min-width: 1024px) and (max-width: 1400px) {
+    height: 8% !important;
+  }
+
+  & h3 {
+    color: $defaultTextColor;
+  }
+
+  .NavbarSectionWithMenu {
+    display: flex;
+    align-items: center;
+
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      padding-left: 5px !important;
+    }
+    @media screen and (min-width: 1024px) and (max-width: 1400px) {
+      padding-left: 10px !important;
+    }
+    @media screen and (min-width: 1400px) and (max-width: 1600px) {
+      padding-left: 20px !important;
+    }
+    @media screen and (min-width: 1600px) and (max-width: 1920px) {
+      padding-left: 30px !important;
+    }
+
+    .Icon {
+      padding-left: 20px !important;
+      cursor: pointer;
+    }
+
+    & svg {
+      color: $defaultTextColor;
+    }
+  }
+
+  .userInfo {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      width: 60%;
+    }
+    @media screen and (min-width: 1024px) and (max-width: 1400px) {
+      width: 55%;
+    }
+    @media screen and (min-width: 1400px) and (max-width: 1600px) {
+      width: 50%;
+    }
+    @media screen and (min-width: 1600px) and (max-width: 1920px) {
+      width: 50%;
+    }
+
+    & section {
+      color: $filterButtonBackgroundColor;
+    }
+    .Avtar {
+      background-color: $filterButtonBackgroundColor;
+      border-radius: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      color: $activehrefText;
+      font-weight: 700;
+      // media query
+      @media screen and (min-width: 300px) and (max-width: 1024px) {
+        width: 28px;
+        height: 28px;
+      }
+    }
+  }
+}
+
+// NAVBAR WITH SLIDE
+.navbarWihoutSlide {
+  background-color: $backgroundColor;
+  height: 7% !important;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px !important;
+  align-items: center;
+  position: fixed;
+  z-index: 9;
+  width: 100%;
+  box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+  // width
+  @media screen and (min-width: 300px) and (max-width: 1024px) {
+    height: 6% !important;
+  }
+  @media screen and (min-width: 1024px) and (max-width: 1400px) {
+    height: 8% !important;
+  }
+
+  .NavbarSectionWithMenu {
+    display: flex;
+    align-items: center;
+
+    @media screen and (min-width: 300px) and (max-width: 768px) {
+      padding-left: 40px !important;
+    }
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      padding-left: 60px !important;
+    }
+    @media screen and (min-width: 1024px) and (max-width: 1400px) {
+      padding-left: 70px !important;
+    }
+    @media screen and (min-width: 1400px) and (max-width: 1600px) {
+      padding-left: 40px !important;
+    }
+    @media screen and (min-width: 1600px) and (max-width: 1920px) {
+      padding-left: 50px !important;
+    }
+    & svg {
+      padding: 0px;
+      color: $defaultTextColor;
+    }
+  }
+
+  .Icon {
+    cursor: pointer;
+    @media screen and (min-width: 300px) and (max-width: 768px) {
+      padding-left: 15px !important;
+    }
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      padding-left: 20px !important;
+    }
+    @media screen and (min-width: 1024px) and (max-width: 1400px) {
+      padding-left: 30px !important;
+    }
+    @media screen and (min-width: 1400px) and (max-width: 1600px) {
+      padding-left: 35px !important;
+    }
+    @media screen and (min-width: 1600px) and (max-width: 1920px) {
+      padding-left: 60px !important;
+    }
+  }
+
+  & h3 {
+    color: $defaultTextColor;
+  }
+
+  .userInfo {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      width: 40%;
+    }
+    @media screen and (min-width: 1024px) and (max-width: 1400px) {
+      width: 30%;
+    }
+    @media screen and (min-width: 1400px) and (max-width: 1600px) {
+      width: 30%;
+    }
+    @media screen and (min-width: 1600px) and (max-width: 1920px) {
+      width: 20%;
+    }
+
+    & section {
+      color: $filterButtonBackgroundColor;
+    }
+    .Avtar {
+      background-color: $filterButtonBackgroundColor;
+      border-radius: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      color: $activehrefText;
+      font-weight: 700;
+      // media query
+      @media screen and (min-width: 300px) and (max-width: 1024px) {
+        width: 28px;
+        height: 28px;
+      }
+    }
+  }
+}
+
+// siderbar
+.sideBar {
+  background-image: url("../../public//assets/images/background.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-color: $sideBarBackgroundColor;
+  height: 100%;
+  position: fixed;
+  width: 17.2%;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  .componyDetails {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    height: 10%;
+
+    .DashBoardTitle {
+      font-size: 2rem;
+    }
+
+    & img {
+      width: 45px;
+    }
+
+    & section {
+      color: $defaultTextColor;
+    }
+  }
+
+  .options {
+    height: 100%;
+    border-bottom: $borderBottom;
+    .optionItems {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      color: $defaultTextColor;
+      padding-left: 5%;
+      & section {
+        padding: 10px;
+      }
+    }
+
+    .option_active {
+      background-color: $backgroundColor;
+    }
+  }
+
+  .brandName {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // width: 80%;
+    & img {
+      width: 30%;
+    }
+    & p {
+      color: $defaultTextColor;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+// SWIPE WINDOW SIDE BAR
+.sideBarSwipe {
+  transition-duration: 0.5s !important;
+  overflow: hidden;
+  background-image: url("../../public//assets/images/background.jpg");
+  background-repeat: no-repeat;
+
+  background-color: $sideBarBackgroundColor;
+  height: 100%;
+  position: fixed;
+  width: 5%;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  .componyDetails {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    height: 10%;
+
+    .DashBoardTitle {
+      font-size: 2rem;
+    }
+
+    & img {
+      width: 45px;
+    }
+
+    & section {
+      color: $defaultTextColor;
+    }
+  }
+
+  .SwipeOption {
+    width: 100%;
+    height: 100%;
+    border-bottom: $borderBottom;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .optionItems {
+      text-decoration: none;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      color: $defaultTextColor;
+      padding: 10px;
+      .optionName {
+        display: none !important;
+      }
+
+      & section {
+        padding: 10px;
+      }
+    }
+
+    .option_active {
+      background-color: $backgroundColor;
+    }
+  }
+
+  .brandName {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // width: 80%;
+    & img {
+      width: 40px;
+    }
+    & p {
+      display: none !important;
+    }
+  }
+  .SwipeNavbar {
+    cursor: pointer;
+    color: $defaultTextColor;
+  }
+}
+
+// NAVBAR AND SIDEBAR THEMEMING

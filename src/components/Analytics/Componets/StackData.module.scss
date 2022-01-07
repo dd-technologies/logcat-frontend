@@ -1,0 +1,84 @@
+@import "../../../css/veriables.module.scss";
+
+.outerDiv {
+  border-radius: $cardBorderRadius;
+
+  .StackInfoDive {
+    background-color: $filterButtonBackgroundColor;
+    border-top-left-radius: $cardBorderRadius;
+    border-top-right-radius: $cardBorderRadius;
+    margin: 0px;
+    border: $borderBottom;
+
+    .ParaWithArrowDown {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: $activehrefText;
+      cursor: pointer;
+    }
+    & p {
+      @include headingFontdasktopMixin;
+    }
+    & h3 {
+      cursor: pointer;
+      font-size: 1.3rem;
+    }
+  }
+
+  .detailSection {
+    border: $borderBottom;
+    border-bottom-left-radius: $cardBorderRadius;
+    border-bottom-right-radius: $cardBorderRadius;
+    display: flex;
+    flex-direction: column;
+    background-color: $defaultTextColor;
+    font-size: 0.9rem;
+
+    .stackDetails {
+      @include headingFontdasktopMixin;
+    }
+
+    .pText {
+      @include paraFontdasktopMixin;
+      border-bottom: $borderBottom;
+    }
+
+    & p {
+      @include paraFontdasktopMixin;
+      color: $activehrefText;
+    }
+  }
+}
+
+.filterToggle {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  .filterGraphFirstSction {
+    & p {
+      color: $activehrefText;
+    }
+    cursor: pointer;
+    background-color: $filterButtonBackgroundColor;
+    padding: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: $buttonBorderRaduous;
+  }
+
+  .filterGraphFirstSctionActive {
+    & p {
+      color: $defaultTextColor;
+    }
+    & svg {
+      color: $defaultTextColor;
+    }
+    cursor: pointer;
+    background-color: $backgroundColor;
+    padding: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: $buttonBorderRaduous;
+  }
+}

@@ -1,0 +1,80 @@
+@import "../../css/veriables.module.scss";
+
+.AnalyticsEvents {
+  display: flex;
+  justify-content: space-between;
+
+  & p {
+    @include paraFontdasktopMixin;
+  }
+
+  .PrevNext {
+    display: flex;
+
+    & section {
+      width: 30px;
+      height: 30px;
+      background-color: $filterButtonBackgroundColor;
+      margin: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: $cardBorderRadius;
+    }
+  }
+}
+
+.AnalyticsNavigation {
+  width: 100% !important;
+}
+
+.AnalyticsContainer {
+  margin-top: 5% !important;
+  margin-left: 15% !important;
+  margin-bottom: 2% !important;
+
+  @media screen and (min-width: 300px) and (max-width: 768px) {
+    margin-top: 10% !important;
+    margin-left: 15% !important;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    margin-top: 10% !important;
+    margin-left: 5% !important;
+  }
+
+  @media screen and (min-width: 1024px) and (max-width: 1280px) {
+    margin-top: 15% !important;
+    margin-left: 5% !important;
+  }
+
+  @media screen and (min-width: 1280px) and (max-width: 1400px) {
+    margin-top: 8% !important;
+    margin-left: 7% !important;
+  }
+}
+
+.AnalyticsContainerWithputSlide {
+  margin-top: 8% !important;
+  margin-left: 10% !important;
+  margin-bottom: 2% !important;
+
+  @media screen and (min-width: 300px) and (max-width: 768px) {
+    margin-top: 10% !important;
+    margin-left: 0% !important;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    margin-top: 12% !important;
+    margin-left: 0% !important;
+  }
+  @media screen and (min-width: 1024px) and (max-width: 1280px) {
+    margin-top: 15% !important;
+    margin-left: 5% !important;
+  }
+
+  @media screen and (min-width: 1280px) and (max-width: 1400px) {
+    margin-top: 12% !important;
+    margin-left: 0% !important;
+  }
+}

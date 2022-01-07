@@ -1,0 +1,19 @@
+@import "../../../css/veriables.module.scss";
+
+.MainDiv {
+  display: flex;
+  justify-content: space-around;
+  width: 45% !important;
+
+  & p {
+    cursor: pointer;
+  }
+
+  .activeOpt {
+    border-bottom: solid 2px $backgroundColor;
+  }
+
+  .nonActive {
+    color: $backgroundColor;
+  }
+}

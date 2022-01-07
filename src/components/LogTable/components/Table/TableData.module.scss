@@ -1,0 +1,112 @@
+@import "../../../../css/veriables.module.scss";
+
+.OuterTable {
+  .BootstrapTable {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    & input {
+      height: 35px !important;
+    }
+
+    & button {
+      color: $defaultTextColor !important;
+      height: 35px !important;
+      font-weight: 500;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .filterOptions {
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 20px;
+    }
+    .filterGraphFirstSction {
+      height: 35px !important;
+      cursor: pointer;
+      background-color: $filterButtonBackgroundColor;
+      padding: 10px;
+      border-radius: $buttonBorderRaduous;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 10px;
+    }
+  }
+}
+
+.ViewButton {
+  display: flex;
+  justify-content: end;
+  border-radius: 50px !important;
+  color: $backgroundColor;
+}
+
+.ActiveOption {
+  background-color: $backgroundColor;
+  color: $defaultTextColor;
+  border-radius: 10px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.DateSection {
+  & input {
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.6);
+  }
+}
+
+.perPageOuter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .perPagesectionInner {
+    margin-top: 5px;
+  }
+  .perPagesectionInnerActive {
+    background-color: $backgroundColor !important;
+    color: $defaultTextColor;
+    padding: 5px;
+    border-radius: 30px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.DefaultOption {
+  color: $activehrefText;
+  padding: 5px;
+}
+
+.StatusInnerSecion {
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+
+// react bootstrap table css
+.expandedRow {
+  @media screen and (min-width: 600px) and (max-width: 1200px) {
+    width: 100px !important;
+  }
+
+  @media screen and (min-width: 1200px) and (max-width: 1600px) {
+    width: 300px !important;
+  }
+}

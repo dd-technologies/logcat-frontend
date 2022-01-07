@@ -1,0 +1,1 @@
+export const SWIPE_SLIDER_SHOW = 'SWIPE_SLIDER_SHOW'

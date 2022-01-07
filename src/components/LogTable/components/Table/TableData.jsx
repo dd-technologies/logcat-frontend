@@ -1,0 +1,933 @@
+import React, { useState, useEffect, useRef } from "react";
+import CustomCard from "../../../../Container/CustomCard";
+import BootstrapTable from "react-bootstrap-table-next";
+import { Link } from "react-router-dom";
+import { Button, Col, Row } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCaretRight,
+  faEllipsisV,
+  faFilter,
+} from "@fortawesome/free-solid-svg-icons";
+import ToolkitProvider, {
+  Search,
+  CSVExport,
+} from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit";
+import Style from "./TableData.module.scss";
+import ReactPaginate from "react-paginate";
+import { useDispatch, useSelector } from "react-redux";
+import { getProjectByCode } from "../../../../redux/action/ProjectAction";
+import Spinner from "../../../../Container/Spinner";
+import toast, { Toaster } from "react-hot-toast";
+import TableCard from "../../../../Container/TableCard";
+// import CustomeFilterTable from "./CustomeFilterTable";
+
+const { SearchBar } = Search;
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const { ExportCSVButton } = CSVExport;
+var dt = {};
+
+// function errorFormatter(cell, row) {
+//   if (row.logType) {
+//     return (
+//       <span>
+//         {cell === "error" ? (
+//           <strong style={{ color: "red" }}>{cell.toUpperCase()}</strong>
+//         ) : cell === "warn" ? (
+//           <strong style={{ color: "violet" }}>{cell.toUpperCase()}</strong>
+//         ) : cell === "info" ? (
+//           <strong style={{ color: "blue" }}>{cell.toUpperCase()}</strong>
+//         ) : cell === "verbose" ? (
+//           <strong style={{ color: "green" }}>{cell.toUpperCase()}</strong>
+//         ) : (
+//           <strong style={{ color: "orange" }}>{cell.toUpperCase()}</strong>
+//         )}
+//       </span>
+//     );
+//   }
+
+//   return <span>$ {cell} NTD</span>;
+// }
+
+// const defaultSorted = [
+//   {
+//     dataField: "name",
+//     order: "desc",
+//   },
+// ];
+
+// var queryAllSting = { value1: "at", value2: "" };
+
+// const StackOptions = () => {
+//   localStorage.setItem("queryAllSting", JSON.stringify(queryAllSting));
+// };
+
+// const columns = [
+//   {
+//     headerStyle: () => {
+//       return {
+//         backgroundColor: "#257d7c",
+//         color: "#fff",
+//       };
+//     },
+//     dataField: "did",
+//     text: "Mac address",
+//     sort: true,
+//   },
+
+//   {
+//     dataField: "logMsg",
+//     text: "Log Message",
+//     headerAlign: "center",
+//     headerStyle: () => {
+//       return {
+//         backgroundColor: "#257d7c",
+//         color: "#fff",
+//       };
+//     },
+//     formatter: (col, row) => {
+//       // console.log("row id mil", row);
+//       const newCode = urlParams.get("code");
+//       const projectName = urlParams.get("name");
+//       // const version = urlParams.get('version')
+//       // const osArchitecture = urlParams.get('osArchitecture')
+//       // console.log("now_code", newCode);
+//       // console.log(`start ${dt.start} and end ${dt.end}`)
+//       return (
+//         <div
+//           style={{
+//             width: "250px",
+//             height: "auto",
+//             overflow: "hidden",
+//           }}
+//         >
+//           <ReactReadMoreReadLess
+//             charLimit={40}
+//             readMoreText={"Read more ▼"}
+//             readLessText={"Read less ▲"}
+//           >
+//             {col}
+//           </ReactReadMoreReadLess>
+//           <Link
+//             to={`/analytics?code=${newCode}&name=${projectName}&col=${col}`}
+//           >
+//             <span className={Style.ViewButton}>
+//               <FontAwesomeIcon icon={faCaretRight} />
+//             </span>
+//           </Link>
+//         </div>
+//       );
+//     },
+
+//     //  to={`/analytics?code=${code}&name=Stack Trace&id=${row._id}&allStacks=${row.logMsg}&macAddress=${row.did}&loggenrateddate=${row.logGeneratedDate}&modeltype=${row.device_types}&logtype=${row.logType}`}
+
+//     // style: { backgroundColor: 'green' }
+//   },
+//   {
+//     dataField: "logType",
+//     text: "Log Type",
+//     headerStyle: () => {
+//       return {
+//         backgroundColor: "#257d7c",
+//         color: "#fff",
+//       };
+//     },
+//     formatter: errorFormatter,
+//     sort: true,
+//   },
+//   {
+//     dataField: "logGeneratedDate",
+//     text: "Log Generated At",
+//     width: "20",
+//     headerStyle: () => {
+//       return {
+//         backgroundColor: "#257d7c",
+//         color: "#fff",
+//       };
+//     },
+//     formatter: (cell) => cell.split("T")[0],
+//     sort: true,
+//   },
+
+//   // {
+//   //     dataField: 'logGeneratedDate',
+//   //     text: 'Log Generated Time',
+//   //   //   filter: textFilter(),
+//   //     formatter: cell => cell.split("T")[1],
+//   //     sort:true
+//   //   },
+
+//   {
+//     dataField: "device_types",
+//     text: "Device Code",
+//     headerStyle: () => {
+//       return {
+//         backgroundColor: "#257d7c",
+//         color: "#fff",
+//       };
+//     },
+//     formatter: (cell) => cell.split("|")[0],
+
+//     //   filter: textFilter(),
+//     sort: true,
+//   },
+//   {
+//     dataField: "device_types",
+//     text: "Device Type",
+//     headerStyle: () => {
+//       return {
+//         backgroundColor: "#257d7c",
+//         color: "#fff",
+//       };
+//     },
+//     formatter: (cell) => cell.split("|")[1],
+
+//     //   filter: textFilter(),
+//     sort: true,
+//   },
+// ];
+// ************************************************************************************************************************
+function TableData(props) {
+  // const queryString = window.location.search;
+  // const urlParams = new URLSearchParams(queryString);
+  const code = props.code;
+
+  const [dateSectionSelect, setDateSectionSelect] = useState(true);
+  const [StatusSectionSeclect, setStatusSectionSeclect] = useState(false);
+  const [countPerPageSection, setCountPerPageSection] = useState(false);
+  const [activeRecord, setActiveRecord] = useState({
+    record10: false,
+    record25: false,
+    record45: false,
+    record50: false,
+  });
+
+  const [pageNo, setPageNo] = useState(1);
+
+  // SHOW DATE SECTION FUNCTION
+  const handleShowDate = () => {
+    setDateSectionSelect(true);
+    setStatusSectionSeclect(false);
+    setCountPerPageSection(false);
+  };
+  // SHOW STATUS CODE SECTION FUNCTION
+  const handleShowStatus = () => {
+    setDateSectionSelect(false);
+    setStatusSectionSeclect(true);
+    setCountPerPageSection(false);
+  };
+
+  // SHOW PAGE PER COUNT SECTION FUNCTION
+  const handleShowPerPage = () => {
+    setDateSectionSelect(false);
+    setStatusSectionSeclect(false);
+    setCountPerPageSection(true);
+  };
+
+  const [date, setdate] = useState({
+    start: localStorage.getItem("selected_date")
+      ? JSON.parse(localStorage.getItem("selected_date")).start
+      : "",
+    end: localStorage.getItem("selected_date")
+      ? JSON.parse(localStorage.getItem("selected_date")).end
+      : "",
+  });
+
+  // const [pageNo, setPageNo] = useState(0);
+  const [record, setRecords] = useState(
+    localStorage.getItem("selected_record")
+      ? JSON.parse(localStorage.getItem("selected_record")).warn
+      : 25
+  );
+  const [showStackView, setShowStackView] = useState(false);
+
+  const ref = useRef();
+
+  // filter data fields with table
+  const [showTableField, setShowTableField] = useState(false);
+
+  const [logType, setLogType] = useState({
+    error: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).error
+      : false,
+    info: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).info
+      : false,
+    warn: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).warn
+      : false,
+    debug: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).debug
+      : false,
+    verbose: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).verbose
+      : false,
+  });
+
+  const getAllLogByCodeReducer = useSelector(
+    (state) => state.getAllLogByCodeReducer
+  );
+  const { loading, data } = getAllLogByCodeReducer;
+
+  // console.log("getAllLogByCodeReducer", data);
+
+  const selectRow = {
+    mode: "checkbox",
+    clickToSelect: true,
+  };
+
+  const dispatch = useDispatch();
+
+  const saveSearch = () => {
+    // console.log("save searches");
+    // localStorage.removeItem("name of localStorage variable you want to remove");
+    localStorage.setItem("selected_log", JSON.stringify(logType));
+    if (date.start.length > 0 || date.end.length > 0) {
+      localStorage.setItem("selected_date", JSON.stringify(date));
+    }
+    if (record !== 25) {
+      localStorage.setItem("selected_record", JSON.stringify(record));
+    }
+    toast.success("Filter saved");
+  };
+
+  const resetFilter = () => {
+    // startDateRef.current.value = "";
+    // endDatRef.current.value = "";
+    setdate({
+      start: "",
+      end: "",
+    });
+    setRecords(25);
+    setPageNo(1);
+    setLogType({
+      error: false,
+      info: false,
+      warn: false,
+      debug: false,
+      verbose: false,
+    });
+
+    localStorage.removeItem("selected_log");
+    localStorage.removeItem("selected_date");
+    localStorage.removeItem("selected_record");
+    // setLogType({...logType})
+    toast.success("Filter has been reset");
+    setShowTableField(false);
+    return dispatch(getProjectByCode(code, record));
+  };
+
+  const handlePageClick = (data) => {
+    // console.log(`data selected ${data.selected}`);
+    // console.log(`data selected page number ${pageNo}`);
+    if (
+      logType.error ||
+      logType.info ||
+      logType.warn ||
+      logType.debug ||
+      logType.verbose
+    ) {
+      setShowTableField(false);
+      // console.log(`data selected ${pageNo} and ${data.selected}`)
+      setPageNo(data.selected + 1);
+      return dispatch(
+        getProjectByCode(code, null, logType, data.selected + 1, record)
+      );
+    }
+
+    // console.log(`data selected ${data.selected+1} and page ${pageNo}`)
+    // if (pageNo !== data.selected + 1) {
+    //   console.log('data selected first if body')
+    //   if (data.selected + 1 < pageNo) {
+    //     console.log('data selected second if body')
+    //     const diff = pageNo-(data.selected+1)
+    //     setPageNo(pageNo - diff);
+    //     console.log(`data selected down ${data.selected} and page ${pageNo}`)
+    //   }else{
+    //     console.log('data selected second else body')
+    //     setPageNo(data.selected + 1);
+    //   }
+    // }
+    setPageNo(data.selected + 1);
+    // console.log(`data selected down ${data.selected} and page ${pageNo}`)
+    dispatch(getProjectByCode(code, null, null, data.selected + 1, record));
+  };
+
+  const applyFilter = () => {
+    // if (
+    //   logType.error ||
+    //   logType.info ||
+    //   logType.warn ||
+    //   logType.debug ||
+    //   logType.verbose
+    // ) {
+    //   console.log("Logtype applied")
+    //   return dispatch(getProjectByCode(code, date, logType, pageNo, record));
+    // }
+    // if (!date.start && !date.end) {
+    //   setdate({
+    //     start: "",
+    //     end: "",
+    //   });
+    // }
+    // if (date.start || data.end) {
+    //   console.log("date applied")
+    //   return dispatch(getProjectByCode(code, date, logType));
+    // }
+    // if (
+    //   logType.error ||
+    //   logType.info ||
+    //   logType.warn ||
+    //   logType.debug ||
+    //   logType.verbose
+    // ) {
+    //   dispatch(getProjectByCode(code, null, logType, pageNo, record));
+    // }
+    // if (record && (!date.start || !data.end)) {
+    //   return dispatch(getProjectByCode(code, null, null, null, record));
+    // }
+    dispatch(getProjectByCode(code, date, logType, pageNo, record));
+    setShowTableField(false);
+  };
+
+  // code, date = null, filters = null, page = null, record = 25
+
+  useEffect(() => {
+    dt.start = date.start;
+    dt.end = date.end;
+    console.log(logType);
+    if (
+      logType.error ||
+      logType.info ||
+      logType.warn ||
+      logType.debug ||
+      logType.verbose
+    ) {
+      console.log("if useEffect executed");
+      dispatch(getProjectByCode(code, date, logType, pageNo, record));
+    } else {
+      console.log("else useEffect click");
+      console.log(`${date.start} ${date.end} ${pageNo} ${record}`);
+      dispatch(getProjectByCode(code, date, null, pageNo, record));
+    }
+  }, [pageNo]);
+
+  const showTableFieldFunc = () => {
+    setShowTableField(!showTableField);
+  };
+
+  // columns *******************************
+  function errorFormatter(cell, row) {
+    if (row.logType) {
+      return (
+        <span>
+          {cell === "error" ? (
+            <p style={{ color: "red" }}>{cell.toUpperCase()}</p>
+          ) : cell === "warn" ? (
+            <p style={{ color: "violet" }}>{cell.toUpperCase()}</p>
+          ) : cell === "info" ? (
+            <p style={{ color: "blue" }}>{cell.toUpperCase()}</p>
+          ) : cell === "verbose" ? (
+            <p style={{ color: "green" }}>{cell.toUpperCase()}</p>
+          ) : (
+            <p style={{ color: "orange" }}>{cell.toUpperCase()}</p>
+          )}
+        </span>
+      );
+    }
+
+    return <span>$ {cell} NTD</span>;
+  }
+
+  const defaultSorted = [
+    {
+      dataField: "name",
+      order: "desc",
+    },
+  ];
+
+  var queryAllSting = { value1: "at", value2: "" };
+
+  const StackOptions = () => {
+    localStorage.setItem("queryAllSting", JSON.stringify(queryAllSting));
+  };
+
+  const columns = [
+    {
+      headerStyle: () => {
+        return {
+          backgroundColor: "#257d7c",
+          color: "#fff",
+        };
+      },
+      dataField: "did",
+      text: "MAC Address",
+      sort: true,
+    },
+
+    {
+      dataField: "logMsg",
+      text: "Log Message",
+      headerAlign: "center",
+      width: "10",
+      headerStyle: () => {
+        return {
+          backgroundColor: "#257d7c",
+          color: "#fff",
+        };
+      },
+      formatter: (col, row) => {
+        // console.log("row id mil", col);
+        // const newCode = urlParams.get("code");
+        const projectName = urlParams.get("name");
+        let version = row.version ? row.version : null;
+        let osArchitecture = row.osArchitecture ? row.osArchitecture : null;
+        let modelName = row.modelName ? row.modelName : null;
+        // const version = urlParams.get('version')
+        // const osArchitecture = urlParams.get('osArchitecture')
+        // console.log("now_code", newCode);
+        // console.log(`start ${dt.start} and end ${dt.end}`)
+        return (
+          <div className={Style.expandedRow}>
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "#000",
+              }}
+              to={`/analytics?code=${props.code}&name=${props.projectName}&col=${col}&rowlogGeneratedDate=${row.logGeneratedDate}&version=${version}&osArchitecture=${osArchitecture}&modelName=${modelName}`}
+            >
+              {col.split(" at").map((items) => items)[0]
+                ? col.split(" at").map((items) => items)[0]
+                : col}
+            </Link>
+          </div>
+        );
+      },
+
+      //  to={`/analytics?code=${code}&name=Stack Trace&id=${row._id}&allStacks=${row.logMsg}&macAddress=${row.did}&loggenrateddate=${row.logGeneratedDate}&modeltype=${row.device_types}&logtype=${row.logType}`}
+
+      // style: { backgroundColor: 'green' }
+    },
+    {
+      dataField: "logType",
+      text: "Log Type",
+      headerStyle: () => {
+        return {
+          backgroundColor: "#257d7c",
+          color: "#fff",
+        };
+      },
+      formatter: errorFormatter,
+      sort: true,
+    },
+    {
+      dataField: "logGeneratedDate",
+      text: "Date",
+      width: "20",
+      headerStyle: () => {
+        return {
+          backgroundColor: "#257d7c",
+          color: "#fff",
+        };
+      },
+
+      formatter: (cell) => {
+        cell = cell.split("T")[0];
+        let day = cell.split("-")[2];
+        let month = cell.split("-")[1];
+        let year = cell.split("-")[0];
+        cell = `${day}-${month}-${year}`;
+        return cell.split("T")[0];
+      },
+      sort: true,
+    },
+
+    // {
+    //     dataField: 'logGeneratedDate',
+    //     text: 'Log Generated Time',
+    //   //   filter: textFilter(),
+    //     formatter: cell => cell.split("T")[1],
+    //     sort:true
+    //   },
+
+    {
+      dataField: "device_types",
+      text: "Device Code",
+      headerStyle: () => {
+        return {
+          backgroundColor: "#257d7c",
+          color: "#fff",
+        };
+      },
+      formatter: (cell) => cell.split("|")[0],
+
+      //   filter: textFilter(),
+      sort: true,
+    },
+    {
+      dataField: "device_types",
+      text: "Device Type",
+      headerStyle: () => {
+        return {
+          backgroundColor: "#257d7c",
+          color: "#fff",
+        };
+      },
+      formatter: (cell) => cell.split("|")[1],
+
+      //   filter: textFilter(),
+      sort: true,
+    },
+  ];
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and the clicked target is not within the menu,
+      // then close the menu
+      if (showTableField && ref.current && !ref.current.contains(e.target)) {
+        setShowTableField(false);
+      }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [showTableField]);
+
+  return (
+    <>
+      <TableCard
+        height={data && data.data && data.data.logs ? "100%" : "400px"}
+      >
+        <Toaster />
+        <section className={Style.OuterTable} ref={ref}>
+          {data && data.data && data.data.logs ? (
+            <ToolkitProvider
+              keyField="_id"
+              data={data.data.logs}
+              columns={columns}
+              search
+              exportCSV={{ onlyExportSelection: true, exportAll: true }}
+            >
+              {(props) => (
+                <>
+                  <div className={Style.BootstrapTable}>
+                    <SearchBar {...props.searchProps} />
+                    <section className={Style.filterOptions}>
+                      <ExportCSVButton {...props.csvProps}>
+                        Export Table
+                      </ExportCSVButton>
+                      <section
+                        className={Style.filterGraphFirstSction}
+                        onClick={showTableFieldFunc}
+                      >
+                        <FontAwesomeIcon icon={faFilter} />
+                      </section>
+                      <section >
+                        {showTableField ? (
+                          <CustomCard
+                            position="absolute"
+                            height="auto"
+                            width="450px"
+                            top="5%"
+                            right="3%"
+                            padding="10px"
+                            boxShadow="0px 0px 4px -2px rgba(0,0,0,0.75)"
+                          >
+                            <section className={Style.TopButton}>
+                              <Button className="m-2" onClick={resetFilter}>
+                                Reset Filter
+                              </Button>
+                              <Button className="m-2" onClick={saveSearch}>
+                                Save Filter
+                              </Button>
+                              <Button className="m-2" onClick={applyFilter}>
+                                Apply Filter
+                              </Button>
+                            </section>
+                            <section>
+                              <Row>
+                                <Col xl={6} md={6} sm={6}>
+                                  <section className="m-2">
+                                    <p
+                                      className={
+                                        dateSectionSelect
+                                          ? `${Style.ActiveOption} mt-2`
+                                          : `${Style.DefaultOption} mt-2`
+                                      }
+                                      onClick={handleShowDate}
+                                    >
+                                      Date
+                                    </p>
+                                    <p
+                                      className={
+                                        StatusSectionSeclect
+                                          ? `${Style.ActiveOption} mt-2`
+                                          : `${Style.DefaultOption} mt-2`
+                                      }
+                                      onClick={handleShowStatus}
+                                    >
+                                      Select Log Type
+                                    </p>
+                                    <p
+                                      className={
+                                        countPerPageSection
+                                          ? `${Style.ActiveOption} mt-2`
+                                          : `${Style.DefaultOption} mt-2`
+                                      }
+                                      onClick={handleShowPerPage}
+                                    >
+                                      Record per page
+                                    </p>
+                                  </section>
+                                </Col>
+
+                                {/* DATA CHANGE SECTION START FROM HERE */}
+                                {dateSectionSelect ? (
+                                  <Col xl={6} md={6} sm={6}>
+                                    <section className={Style.DateSection}>
+                                      <input
+                                        type="date"
+                                        value={date.start}
+                                        onChange={(e) =>
+                                          setdate({
+                                            ...date,
+                                            start: e.target.value,
+                                          })
+                                        }
+                                      />
+                                      <input
+                                        type="date"
+                                        value={date.end}
+                                        onChange={(e) =>
+                                          setdate({
+                                            ...date,
+                                            end: e.target.value,
+                                          })
+                                        }
+                                      />
+                                    </section>
+                                  </Col>
+                                ) : null}
+
+                                {/* STATUS CODE SECTION START HERE */}
+                                {StatusSectionSeclect ? (
+                                  <Col xl={6} md={6} sm={6}>
+                                    <section className={Style.StatusSection}>
+                                      <section
+                                        className={Style.StatusInnerSecion}
+                                      >
+                                        <label for="exampleFormControlFile1">
+                                          Info
+                                        </label>
+                                        <input
+                                          type="checkbox"
+                                          checked={logType.info}
+                                          onClick={(e) => {
+                                            setLogType({
+                                              ...logType,
+                                              info: !logType.info,
+                                            });
+                                          }}
+                                        />
+                                      </section>
+                                      <section
+                                        className={Style.StatusInnerSecion}
+                                      >
+                                        <label for="exampleFormControlFile1">
+                                          Warn
+                                        </label>
+                                        <input
+                                          type="checkbox"
+                                          checked={logType.warn}
+                                          onClick={(e) => {
+                                            setLogType({
+                                              ...logType,
+                                              warn: !logType.warn,
+                                            });
+                                          }}
+                                        />
+                                      </section>
+                                      <section
+                                        className={Style.StatusInnerSecion}
+                                      >
+                                        <label for="exampleFormControlFile1">
+                                          Error
+                                        </label>
+                                        <input
+                                          type="checkbox"
+                                          checked={logType.error}
+                                          onClick={(e) => {
+                                            setLogType({
+                                              ...logType,
+                                              error: !logType.error,
+                                            });
+                                          }}
+                                        />
+                                      </section>
+                                      <section
+                                        className={Style.StatusInnerSecion}
+                                      >
+                                        <label for="exampleFormControlFile1">
+                                          Debug
+                                        </label>
+                                        <input
+                                          type="checkbox"
+                                          checked={logType.debug}
+                                          onClick={(e) => {
+                                            setLogType({
+                                              ...logType,
+                                              debug: !logType.debug,
+                                            });
+                                          }}
+                                        />
+                                      </section>
+                                      <section
+                                        className={Style.StatusInnerSecion}
+                                      >
+                                        <label for="exampleFormControlFile1">
+                                          Verbose
+                                        </label>
+                                        <input
+                                          type="checkbox"
+                                          checked={logType.verbose}
+                                          onClick={(e) => {
+                                            setLogType({
+                                              ...logType,
+                                              verbose: !logType.verbose,
+                                            });
+                                          }}
+                                        />
+                                      </section>
+                                    </section>
+                                  </Col>
+                                ) : null}
+
+                                {/* COUNT PER PAGE SECTION START FOM HERE   */}
+                                {countPerPageSection ? (
+                                  <Col xl={6} md={6} sm={6}>
+                                    <section className={Style.perPageOuter}>
+                                      <p
+                                        className={
+                                          activeRecord.record10
+                                            ? `${Style.perPagesectionInnerActive}`
+                                            : `${Style.perPagesectionInner}`
+                                        }
+                                        onClick={() => {
+                                          setRecords(10);
+                                          setActiveRecord({ record10: true });
+                                        }}
+                                        // style={
+                                        //   record === 10 && {
+                                        //     background: "#257D7C",
+                                        //   }
+                                        // }
+                                      >
+                                        10
+                                      </p>
+                                      <p
+                                        className={
+                                          activeRecord.record25 || record == 25
+                                            ? `${Style.perPagesectionInnerActive}`
+                                            : `${Style.perPagesectionInner}`
+                                        }
+                                        onClick={() => {
+                                          setRecords(25);
+                                          setActiveRecord({ record25: true });
+                                        }}
+                                        // style={
+                                        //   record === 25 && {
+                                        //     background: "#257D7C",
+                                        //   }
+                                        // }
+                                      >
+                                        25
+                                      </p>
+                                      <p
+                                        className={
+                                          activeRecord.record45
+                                            ? `${Style.perPagesectionInnerActive}`
+                                            : `${Style.perPagesectionInner}`
+                                        }
+                                        onClick={() => {
+                                          setRecords(45);
+                                          setActiveRecord({ record45: true });
+                                        }}
+                                        // style={
+                                        //   record === 45 && {
+                                        //     background: "#257D7C",
+                                        //   }
+                                        // }
+                                      >
+                                        45
+                                      </p>
+                                      <p
+                                        className={
+                                          activeRecord.record50
+                                            ? `${Style.perPagesectionInnerActive}`
+                                            : `${Style.perPagesectionInner}`
+                                        }
+                                        onClick={() => {
+                                          setRecords(50);
+                                          setActiveRecord({ record50: true });
+                                        }}
+                                        // style={
+                                        //   record === 50 && {
+                                        //     background: "#257D7C",
+                                        //   }
+                                        // }
+                                      >
+                                        50
+                                      </p>
+                                    </section>
+                                  </Col>
+                                ) : null}
+                              </Row>
+                            </section>
+                          </CustomCard>
+                        ) : null}
+                      </section>
+                    </section>
+                  </div>
+                  <BootstrapTable {...props.baseProps} selectRow={selectRow} />
+                </>
+              )}
+            </ToolkitProvider>
+          ) : loading ? (
+            <Spinner height="400px" />
+          ) : (
+            <h3 className="p-2">No Logs Found</h3>
+          )}
+          <section className="p-2">
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel="Next >"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={4}
+              // pageCount={
+              //   data && data.data && Math.ceil(data.data.count / record)
+              // }
+              pageCount={data && data.data && data.data.count / record}
+              // previousLabel="< Previous"
+              // initialPage={1}
+              renderOnZeroPageCount={null}
+              containerClassName={"pagination"}
+              pageClassName={"page-item"}
+              pageLinkClassName={"page-link"}
+              previousClassName={"page-item"}
+              nextClassName={"page-item"}
+              previousLinkClassName={"page-link"}
+              nextLinkClassName={"page-link"}
+            />
+          </section>
+        </section>
+      </TableCard>
+    </>
+  );
+}
+
+export default TableData;
