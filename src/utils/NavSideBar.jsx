@@ -73,7 +73,7 @@ export function Navbar(props) {
     }
   };
   useEffect(() => {
-    console.log("slideWindowReducer", "useEffect Run");
+    // console.log("slideWindowReducer", "useEffect Run");
     dispatch(slideShow(swipe));
   }, [swipe]);
 
@@ -124,7 +124,8 @@ export function Navbar(props) {
 }
 
 export function SideBar(props) {
-  const { navdetails } = props;
+  const { sidebarDetails } = props;
+  console.log("sidebarDetails", props);
   const [sidebar, setSidebar] = useState(false);
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const [navToggle, setNavToggle] = useState(true);
@@ -178,16 +179,16 @@ export function SideBar(props) {
             <Link
               className={`${Style.optionItems} ${Style.option_active}`}
               to={
-                navdetails.link1 &&
-                navdetails.link1.link &&
-                navdetails.link1.link.length === 0
+                sidebarDetails.link1 &&
+                sidebarDetails.link1.link &&
+                sidebarDetails.link1.link.length === 0
                   ? ""
-                  : navdetails.link1.link
+                  : sidebarDetails.link1.link
               }
             >
               <img src="/assets/icons/log.png" />
               <section className={Style.optionName}>
-                {navdetails.link1.linkName}
+                {sidebarDetails.link1.linkName}
               </section>
             </Link>
           </section>
@@ -195,16 +196,16 @@ export function SideBar(props) {
             <Link
               className={Style.optionItems}
               to={
-                navdetails.link1 &&
-                navdetails.link1.link &&
-                navdetails.link1.link.length === 0
+                sidebarDetails.link1 &&
+                sidebarDetails.link1.link &&
+                sidebarDetails.link1.link.length === 0
                   ? ""
-                  : navdetails.link1.link
+                  : sidebarDetails.link1.link
               }
             >
               <img src="/assets/icons/settings.png" />
               <section className={Style.optionName}>
-                {navdetails.link2.linkName}
+                {sidebarDetails.link2.linkName}
               </section>
             </Link>
           </section>

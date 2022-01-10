@@ -162,7 +162,8 @@ function CreateProject() {
                 allProjectData.data.data.length &&
                 allProjectData.data.data.map((datas) => (
                   <>
-                    <ProjectCard data={datas} />
+                    {/* {console.log("data", datas)} */}
+                    <ProjectCard data={datas} key={datas._id} />
                   </>
                 ))}
             </Row>

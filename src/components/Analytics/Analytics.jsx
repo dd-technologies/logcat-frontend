@@ -86,6 +86,7 @@ export default function Analytics() {
     link1: {
       iconName: faDatabase,
       linkName: "Analytics",
+      link: "",
     },
     link2: {
       iconName: faDatabase,
@@ -93,6 +94,8 @@ export default function Analytics() {
       link: "",
     },
   };
+
+  console.log("analytics sidebar", sidebarDetails);
 
   // console.log("data", date);
   const getCrashFreeUsersDataReducer = useSelector(
@@ -132,7 +135,7 @@ export default function Analytics() {
     <>
       <Row>
         <Col xl={2} lg={2} md={2} sm={2} style={{ padding: "0px" }}>
-          <SideBar navdetails={sidebarDetails} />
+          <SideBar sidebarDetails={sidebarDetails} />
         </Col>
         <Col
           xl={10}

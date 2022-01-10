@@ -14,3 +14,9 @@ table {
     border-bottom: 2px $filterButtonBackgroundColor solid;
   }
 }
+
+table tr {
+  /*display: block;*/
+  // border-top: 2px solid red !important;
+  border-bottom: $borderBottom !important;
+}

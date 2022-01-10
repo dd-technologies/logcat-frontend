@@ -59,6 +59,19 @@ export default function LogTable() {
 
   // navigation
 
+  const navdetails = {
+    name: projectName,
+    dashName: projectName,
+    link1: {
+      iconName: faDatabase,
+      linkName: "Logs",
+    },
+    link2: {
+      iconName: faDatabase,
+      linkName: "Profile",
+    },
+  };
+
   const sidebarDetails = {
     name: projectName,
     dashName: projectName,
@@ -204,7 +217,7 @@ export default function LogTable() {
           className={data.show && `${Style.SidebarLogTable}`}
           style={{ padding: "0px" }}
         >
-          <SideBar navdetails={sidebarDetails} />
+          <SideBar sidebarDetails={sidebarDetails} />
         </Col>
         <Col
           xl={10}
@@ -214,7 +227,7 @@ export default function LogTable() {
           className={data.show && `${Style.NavbarLogTable}`}
           style={{ padding: "0px" }}
         >
-          <Navbar navdetails={sidebarDetails} />
+          <Navbar navdetails={navdetails} />
 
           {/* data inhere */}
           <Container
