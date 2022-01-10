@@ -7,7 +7,15 @@ import {
 
     ADMIN_REGISTER_REQUEST,
     ADMIN_REGISTER_SUCCESS,
-    ADMIN_REGISTER_FAIL
+    ADMIN_REGISTER_FAIL,
+
+    FORGET_PASSWORD_REQUEST,
+    FORGET_PASSWORD_REQUEST_SUCCESS,
+    FORGET_PASSWORD_REQUEST_FAIL,
+
+    RESET_PASSWORD_REQUEST,
+    RESET_PASSWORD_REQUEST_SUCCESS,
+    RESET_PASSWORD_REQUEST_FAIL,
 } from '../types/AdminConstants'
 
 export const adminLoginReducer= (state={},action)=>{
@@ -72,3 +80,49 @@ export const adminRegisterReducer = (state={}, action)=>{
 //         return state
 //     }
 // }
+
+export const forgetPasswordReducer = (state={}, action)=>{
+    switch (action.type) {
+        case FORGET_PASSWORD_REQUEST:
+            return {
+                loading:true
+            }
+        case FORGET_PASSWORD_REQUEST_SUCCESS:
+            return {
+                loading:false,
+                forgetPasswordInfo: action.payload
+            }
+        
+        case FORGET_PASSWORD_REQUEST_FAIL:
+            return{
+                loading:false,
+                error: action.payload
+            }
+    
+        default:
+            return state
+    }
+}
+
+export const resetPasswordReducer = (state={}, action)=>{
+    switch (action.type) {
+        case RESET_PASSWORD_REQUEST:
+            return {
+                loading:true
+            }
+        case RESET_PASSWORD_REQUEST_SUCCESS:
+            return {
+                loading:false,
+                data: action.payload
+            }
+        
+        case RESET_PASSWORD_REQUEST_FAIL:
+            return{
+                loading:false,
+                error: action.payload
+            }
+    
+        default:
+            return state
+    }
+}

@@ -9,6 +9,8 @@ import { ADMIN_LOGOUT } from "./types/AdminConstants";
 import {
   adminLoginReducer,
   adminRegisterReducer,
+  forgetPasswordReducer,
+  resetPasswordReducer,
 } from "./reducer/AdminReducer";
 
 import {
@@ -40,6 +42,8 @@ const appReducer = combineReducers({
 
   adminLoginReducer,
   adminRegisterReducer,
+  forgetPasswordReducer,
+  resetPasswordReducer,
 
   getAllProjectReducer,
   getAllLogByCodeReducer,

@@ -9,32 +9,52 @@ import "../../css/theme.scss";
 import Style from "./ResetPassword.module.scss";
 import OtpInput from "react-otp-input";
 import {toast, Toaster} from 'react-hot-toast';
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
+import {resetForgetPassword} from '../../redux/action/AdminAction'
+import { useHistory } from "react-router-dom";
 
 export default function ResetPassword() {
   const [state, setState] = useState({ otp: null, newPass:null, confirmPass:null });
   const [stateErr, setStateErr] = useState({ err: null, inputErr:null });
 
   const handleChange = (otp) => setState({ otp });
+  const resetPasswordReducer = useSelector(state => state.resetPasswordReducer);
+
+  const {loading,data,error} = resetPasswordReducer;
+  const history = useHistory()
   const dispatch = useDispatch()
   const handleSubmit = ()=>{
+    console.log(state)
     if (state.otp == null || state.newPass == null || !state.confirmPass == null) {
-      // console.log("first if")
+      console.log("first if")
       toast.error('Please provide all the required field!')
     }
     else if (state.otp && state.otp.length === 6) {
-      // console.log('hello dispatch')
+      console.log('hello dispatch',state.newPass, state.confirmPass)
       if (state.newPass === state.confirmPass) {
         setStateErr({err:null,inputErr:null})
-        dispatch()
+        // email,otp,password,passwordVerify
+        const email = JSON.parse(localStorage.getItem('forgetEmail'));
+        console.log(email)
+        dispatch(resetForgetPassword({email,resetData:state}))
       } else {
+        console.log('else second if')
         setStateErr({inputErr:'New password and confirm password not matching'})
         toast.error(stateErr.inputErr)
       }
     }else{
+      console.log('hello dispatch 2')
       setStateErr({err:'Check OTP field!!'})
       toast.error(stateErr.err)
     }
+  }
+  if (data && data.success) {
+    toast.success("Password reset done")
+    history.push('/login')
+  }
+
+  if (error) {
+    toast.error("Please check all the credential!!")
   }
   return (
     <>
@@ -119,7 +139,7 @@ export default function ResetPassword() {
                 </section>
 
                 <Link>
-                  <Button type="submit" className="mt-4 w-50" onClick={()=>{handleSubmit()}}>
+                  <Button className="mt-4 w-50" onClick={handleSubmit}>
                     Reset Password
                   </Button>
                 </Link>

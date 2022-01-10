@@ -1,13 +1,37 @@
-import React from "react";
+import React,{useState} from "react";
 import { Button, Col, Container, Form } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMailBulk, faLock } from "@fortawesome/free-solid-svg-icons";
+import {forgetPassword} from '../../redux/action/AdminAction';
 import Style from "./Forgetpassword.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import {toast, Toaster} from 'react-hot-toast';
+import { useHistory } from "react-router-dom";
 
 export default function ForgetPassword() {
+
+  const [forgetEmail, setForgetEmail] = useState(null);
+
+  const dispatch = useDispatch();
+  const handleForgetPassword = ()=>{
+    if (!forgetEmail) {
+      toast.error('Please provide valid email!!!')
+    }else{
+      dispatch(forgetPassword(forgetEmail))
+    }
+  }
+  const forgetPasswordReducer = useSelector(state => state.forgetPasswordReducer);
+  const {loading,forgetPasswordInfo} = forgetPasswordReducer;
+  const history = useHistory()
+  if (forgetPasswordInfo && forgetPasswordInfo.success) {
+    toast.success(forgetPasswordInfo.message)
+    localStorage.setItem('forgetEmail',JSON.stringify(forgetEmail))
+    history.push('/resetpassword')
+  }
+
   return (
     <>
       <Container
@@ -18,6 +42,7 @@ export default function ForgetPassword() {
           height: "100vh",
         }}
       >
+        <Toaster />
         <CustomCard height="300px" width="500px">
           <section className={Style.forget}>
             <div className="Login-title">
@@ -31,17 +56,19 @@ export default function ForgetPassword() {
                   </span>
                   <input
                     type="email"
+                    value={forgetEmail}
+                    onChange={e=>setForgetEmail(e.target.value)}
                     className="form-control LoginForminput "
                     id="exampleInputEmail1"
                     placeholder="Enter your email"
                     aria-describedby="emailHelp"
                   />
                 </div>
-                <Link to="/resetpassword">
-                  <Button type="submit" className="mt-4 w-50">
-                    Send and email
+                {/* <Link to="/resetpassword"> */}
+                  <Button className="mt-4 w-50" onClick={handleForgetPassword}>
+                    {loading?'Sending Email...':'Send an Email'}
                   </Button>
-                </Link>
+                {/* </Link> */}
               </form>
             </div>
           </section>
