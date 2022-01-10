@@ -625,7 +625,7 @@ function TableData(props) {
                         className={Style.filterGraphFirstSction}
                         onClick={showTableFieldFunc}
                       >
-                        <FontAwesomeIcon icon={faFilter} />
+                        <img src="/assets/icons/filter.png" />
                       </section>
                       <section>
                         {showTableField ? (

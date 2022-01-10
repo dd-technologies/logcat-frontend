@@ -2,13 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import Style from "./NavSideBar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBars,
-  faHome,
-  faCog,
-  faLessThan,
-  faGreaterThan,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import CustomeDropDown from "../Container/DropDown";
 import { useDispatch, useSelector } from "react-redux";
@@ -88,7 +82,11 @@ export function Navbar(props) {
       <nav className={data.show ? Style.navbarWihoutSlide : Style.navbar}>
         <section className={Style.NavbarSectionWithMenu}>
           <section className={Style.Icon}>
-            <FontAwesomeIcon icon={faBars} onClick={siwpeSideBarFun} size="lg" />
+            <FontAwesomeIcon
+              icon={faBars}
+              onClick={siwpeSideBarFun}
+              size="lg"
+            />
           </section>
           <h3 className="p-3">
             {navdetails.dashName.charAt(0).toUpperCase() +
@@ -187,7 +185,7 @@ export function SideBar(props) {
                   : navdetails.link1.link
               }
             >
-              <FontAwesomeIcon icon={faHome} />
+              <img src="/assets/icons/log.png" />
               <section className={Style.optionName}>
                 {navdetails.link1.linkName}
               </section>
@@ -204,7 +202,7 @@ export function SideBar(props) {
                   : navdetails.link1.link
               }
             >
-              <FontAwesomeIcon icon={faCog} />
+              <img src="/assets/icons/settings.png" />
               <section className={Style.optionName}>
                 {navdetails.link2.linkName}
               </section>

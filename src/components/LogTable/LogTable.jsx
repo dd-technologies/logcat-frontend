@@ -236,7 +236,7 @@ export default function LogTable() {
               <Col xl={6} md={6} sm={6} className={Style.filterWithDate}>
                 <section className={Style.filterwithDate} ref={ref}>
                   <section className={Style.datafilter} onClick={DateFilter}>
-                    <FontAwesomeIcon icon={faCalendar} />
+                    <img src="/assets/icons/date.png" />
                     <p className="ms-2 p-1">
                       {diffDate == 10
                         ? `last 10 days`
