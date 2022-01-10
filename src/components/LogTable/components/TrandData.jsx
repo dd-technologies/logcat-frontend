@@ -24,7 +24,7 @@ export default function TrandData() {
       <CustomCard>
         <Row className="p-3">
           <Col xl={12} className={Style.Trand}>
-            <h5> Trends</h5>
+            <h5 style={{ fontWeight: 700, color: "#535353" }}>Trends</h5>
             {/* <p>
               <span className="p-2">
                 <FontAwesomeIcon icon={faRocket} />
@@ -36,7 +36,7 @@ export default function TrandData() {
             <section className={Style.Outsection}>
               <section>
                 <p>Crashes</p>
-                <h4>{add}</h4>
+                <h4 style={{ fontWeight: 700 }}>{add}</h4>
               </section>
               <section>
                 {/* <p className="ps-3">Users</p>

@@ -7,19 +7,17 @@ $padding: 10px;
 $h3colorText: #685af0;
 $margin: 10px;
 $filterButtonBackgroundColor: #e2e2e2;
-$activehrefText: #257d7c;
-$backgroundColor: #257d7c;
+$activehrefText: #0099a4;
+$backgroundColor: #0099a4;
 $defaultTextColor: #fff;
 $cardBorderRadius: 15px !important;
 $borderBottom: 1px solid rgba(90, 90, 90, 0.234);
 $sideBarBackgroundColor: #494949;
 $border: 1px solid rgba(141, 141, 141, 0.72);
-
-// ------ font default----------------------------------
-//* heading font ***************************************
-
-// dasktop
-@mixin headingFontdasktopMixin {
+$tableHaderBackgorundColor: #efefef;
+  // ------ font default----------------------------------
+  //* heading font *************************************** // dasktop
+  @mixin headingFontdasktopMixin {
   font-size: 0.9rem !important;
   font-weight: 500;
   color: $activehrefText;

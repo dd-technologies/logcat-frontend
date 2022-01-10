@@ -30,12 +30,12 @@ export default function CrashFreeStatics() {
     // data.response.map((items) => (totalCount += items.countLog));
     // data.response.map((items) => (counts.length !==0 && counts.find(items.did) ? '' :counts.push(items.did)));
 
-    console.log(counts)
+    console.log(counts);
     // totalCount = [...new Set(data.response.reduce((a, c) => [...a, c.did], []))];
     // totalCount = [...new Set(data.response.reduce((a, c) =>  ))];
   }
-  console.log(totalCount)
-  console.log('count length',counts.length)
+  console.log(totalCount);
+  console.log("count length", counts.length);
   if (data && data.response == []) {
     totalCount = null;
   }
@@ -45,7 +45,9 @@ export default function CrashFreeStatics() {
       <CustomCard>
         <Row className="p-3">
           <Col xl={12} className={Style.Statics}>
-            <h5>Crash free Statistics </h5>
+            <h5 style={{ fontWeight: 700, color: "#535353" }}>
+              Crash free Statistics{" "}
+            </h5>
             <section className={Style.StaticsSection}>
               <p>Crash free users</p>
               {/* <section className={Style.Tooltip}>
@@ -61,7 +63,7 @@ export default function CrashFreeStatics() {
                 <p>this is the tooltip example with no plugin used</p>
               </CustomeDropDown>
             ) : null}
-            <h4>{data&&data.count}</h4>
+            <h4 style={{ fontWeight: 700 }}>{data && data.count}</h4>
           </Col>
           <Col xl={12}>
             <CarshFreeStaticsGraph />

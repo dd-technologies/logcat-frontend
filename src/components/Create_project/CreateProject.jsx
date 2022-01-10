@@ -94,7 +94,7 @@ function CreateProject() {
           <Container className={Style.MainContantainer}>
             <Row>
               <Col xl={6} md={6} sm={6}>
-                <p className={Style.para}>Your Projects</p>
+                <h5 style={{ color: "#fff" }}>Your Projects</h5>
               </Col>
               <Col
                 xl={6}

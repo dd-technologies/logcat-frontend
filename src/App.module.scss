@@ -4,9 +4,10 @@
 
 table {
   & tr > th {
-    background-color: $backgroundColor !important;
+    background-color: $tableHaderBackgorundColor !important;
     border-bottom: none !important;
     height: 50px !important;
+    color: black !important;
   }
   & thead {
     vertical-align: middle !important;
