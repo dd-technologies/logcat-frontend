@@ -155,7 +155,7 @@ export default function Analytics() {
               {loading ? (
                 "Loading"
               ) : (
-                <p>
+                <p className={Style.paraTextIssue}>
                   This issue has <strong>{totalCount}</strong> crash events
                   affecting
                   <strong> {users} </strong> users

@@ -27,7 +27,7 @@ $border: 1px solid rgba(141, 141, 141, 0.72);
 
 // laptop
 @mixin headingFontLaptopMixin {
-  font-size: 0.7rem !important;
+  font-size: 0.8rem !important;
   font-weight: 500;
   color: $activehrefText;
 }
@@ -48,7 +48,7 @@ $border: 1px solid rgba(141, 141, 141, 0.72);
 
 // laptop
 @mixin ActiveheadingFontLaptopMixin {
-  font-size: 0.7rem !important;
+  font-size: 0.8rem !important;
   font-weight: 500;
 }
 // tablet
@@ -60,7 +60,7 @@ $border: 1px solid rgba(141, 141, 141, 0.72);
 
 // * para font **********************************************
 @mixin paraFontdasktopMixin {
-  font-size: 0.8rem !important;
+  font-size: 0.9rem !important;
 }
 
 // laptop

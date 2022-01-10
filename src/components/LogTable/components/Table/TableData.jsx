@@ -627,7 +627,7 @@ function TableData(props) {
                       >
                         <FontAwesomeIcon icon={faFilter} />
                       </section>
-                      <section >
+                      <section>
                         {showTableField ? (
                           <CustomCard
                             position="absolute"

@@ -54,6 +54,11 @@
   }
 }
 
+.paraTextIssue {
+  @include paraFontdasktopMixin;
+  color: $activehrefText;
+}
+
 .AnalyticsContainerWithputSlide {
   margin-top: 8% !important;
   margin-left: 10% !important;

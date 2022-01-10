@@ -88,7 +88,7 @@ export function Navbar(props) {
       <nav className={data.show ? Style.navbarWihoutSlide : Style.navbar}>
         <section className={Style.NavbarSectionWithMenu}>
           <section className={Style.Icon}>
-            <FontAwesomeIcon icon={faBars} onClick={siwpeSideBarFun} />
+            <FontAwesomeIcon icon={faBars} onClick={siwpeSideBarFun} size="lg" />
           </section>
           <h3 className="p-3">
             {navdetails.dashName.charAt(0).toUpperCase() +

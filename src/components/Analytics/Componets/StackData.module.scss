@@ -47,6 +47,7 @@
     & p {
       @include paraFontdasktopMixin;
       color: $activehrefText;
+      margin-top: 10px;
     }
   }
 }
