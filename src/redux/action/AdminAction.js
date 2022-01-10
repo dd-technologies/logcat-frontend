@@ -63,12 +63,20 @@ export const loginWithEmail = (email, password, isRemeberMe) => async (dispatch)
         })
 
         // isRemeberMe ? localStorage.setItem("adminInfo", JSON.stringify(data)):''
+        // data
         if (isRemeberMe) {
-            
+            localStorage.setItem("adminUserName", JSON.stringify(email))
+            localStorage.setItem("userIsRemember",JSON.stringify(isRemeberMe))
+            localStorage.setItem("adminUserCredential", JSON.stringify(password))
+        }
+        if (!isRemeberMe) {
+            localStorage.removeItem("adminUserName")
+            localStorage.removeItem("adminUserCredential")
+            localStorage.removeItem("userIsRemember")
         }
         // console.log(data)
         localStorage.setItem("ddAdminToken", data.data.token)
-        cookie.save('token',data.data.token)
+        // cookie.save('token',data.data.token)
 
     } catch (error) {
         // console.log(error.response)
