@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Col, Container, Form } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -12,6 +12,8 @@ import { toast, Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { resetForgetPassword } from "../../redux/action/AdminAction";
 import { useHistory } from "react-router-dom";
+import Timer from '../Analytics/Componets/Timer'
+import {forgetPassword} from '../../redux/action/AdminAction';
 
 export default function ResetPassword() {
   const [state, setState] = useState({
@@ -19,32 +21,44 @@ export default function ResetPassword() {
     newPass: null,
     confirmPass: null,
   });
+
+  console.log([state])
   const [stateErr, setStateErr] = useState({ err: null, inputErr: null });
+  const [enableResendButton, setEnableResendButton] = useState(false);
 
   const handleChange = (otp) => setState({ otp });
   const resetPasswordReducer = useSelector(
     (state) => state.resetPasswordReducer
   );
 
+  const handleEnableButton = ()=>{
+    if(enableResendButton) setEnableResendButton(true);
+    else setEnableResendButton(true)
+  }
+  const email = JSON.parse(localStorage.getItem("forgetEmail"));
+
+  const handleResendButton = ()=>{
+    setEnableResendButton(false);
+    dispatch(forgetPassword(email))
+    console.log( 'handle submit click')
+  }
+
   const { loading, data, error } = resetPasswordReducer;
   const history = useHistory();
   const dispatch = useDispatch();
+
   const handleSubmit = () => {
-    console.log(state);
     if (
       state.otp == null ||
       state.newPass == null ||
       !state.confirmPass == null
     ) {
-      console.log("first if");
       toast.error("Please provide all the required field!");
     } else if (state.otp && state.otp.length === 6) {
       console.log("hello dispatch", state.newPass, state.confirmPass);
       if (state.newPass === state.confirmPass) {
         setStateErr({ err: null, inputErr: null });
         // email,otp,password,passwordVerify
-        const email = JSON.parse(localStorage.getItem("forgetEmail"));
-        console.log(email);
         dispatch(resetForgetPassword({ email, resetData: state }));
       } else {
         console.log("else second if");
@@ -53,20 +67,27 @@ export default function ResetPassword() {
         });
         toast.error(stateErr.inputErr);
       }
-    } else {
+    } else if (stateErr.err) {
       console.log("hello dispatch 2");
       setStateErr({ err: "Check OTP field!!" });
       toast.error(stateErr.err);
     }
+    else {
+      if (error) {
+        toast.error("Please check all the credential!!");
+      }
+    }
   };
+
   if (data && data.success) {
     toast.success("Password reset done");
+    localStorage.removeItem('forgetEmail');
     history.push("/login");
   }
 
-  if (error) {
-    toast.error("Please check all the credential!!");
-  }
+  useEffect(() => {
+    
+  }, [enableResendButton]);
   return (
     <>
       <Container
@@ -103,26 +124,16 @@ export default function ResetPassword() {
                     }}
                     separator={<span></span>}
                   />
-                  <p>0:00</p>
+                  {
+                    !enableResendButton ? <Timer  resetTimer = {handleEnableButton} initialMinute = {4} initialSeconds = {59} /> :''
+                  }
+                  
                 </section>
               </section>
             </section>
 
             <section className="Form-card">
               <form>
-                {/* <section className={`${Style.imputFields} mt-4`}>
-                  <span>
-                    <FontAwesomeIcon icon={faLock} />
-                  </span>
-                  <input
-                    type="password"
-                    className="form-control LoginForminput "
-                    id="exampleInputEmail1"
-                    placeholder="Enter your old password"
-                    aria-describedby="emailHelp"
-                  />
-                </section> */}
-
                 <section className={`${Style.imputFields} mt-4`}>
                   <span>
                     <FontAwesomeIcon icon={faLock} />
@@ -158,7 +169,7 @@ export default function ResetPassword() {
                   Reset Password
                 </Button>
 
-                <Button className="mt-4  ms-2" onClick={handleSubmit} disabled>
+                <Button className="mt-4  ms-2" onClick={handleResendButton} disabled = {!enableResendButton ? true : false}>
                   Resend Otp
                 </Button>
               </form>

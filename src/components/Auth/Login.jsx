@@ -13,20 +13,20 @@ import { useHistory } from "react-router-dom";
 
 export default function Login() {
   const [loginForm, setLoginForm] = useState({
-    isRemeberMe: false,
-    email: null,
-    password: null,
+    isRemeberMe: localStorage.getItem('userIsRemember')?localStorage.getItem('userIsRemember'):false,
+    email: localStorage.getItem('adminUserName')?JSON.parse(localStorage.getItem('adminUserName')):null,
+    password: localStorage.getItem('adminUserCredential')?JSON.parse(localStorage.getItem('adminUserCredential')):null,
   });
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
   const [ispasswordHide, setIspasswordHide] = useState(true);
-  const [setErrorPassword, setSetErrorPassword] = useState(null)
+  const [setErrorPassword, setSetErrorPassword] = useState(null);
 
   const dispatch = useDispatch();
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { loading, error, adminInfo } = adminLoginReducer;
 
-  console.log("error", error)
+  console.log("error", error);
 
   // console.log("adminLoginReducer", adminLoginReducer)
 
@@ -98,7 +98,6 @@ export default function Login() {
   };
 
   const rememberMe = () => {
-    localStorage.setItem("rememberMe", "Shaktish");
     localStorage.setItem(
       "adminUserName",
       loginForm.isRemeberMe ? loginForm.email : ""
@@ -111,12 +110,11 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (loginForm.isRemeberMe) {
-    // rememberMe()
-    // }
+    if (loginForm.isRemeberMe) {
+        rememberMe()
+    }
     const email = validateEmail(loginForm.email);
     const password = validatePassword(loginForm.password);
-
 
     if (email && password) {
       dispatch(
@@ -129,12 +127,11 @@ export default function Login() {
     }
   };
 
-
   useEffect(() => {
-    setSetErrorPassword(error)
-  }, [error])
+    setSetErrorPassword(error);
+  }, [error]);
 
-  console.log("setErrorPassword", setErrorPassword)
+  console.log("setErrorPassword", setErrorPassword);
 
   return (
     <>
@@ -153,7 +150,13 @@ export default function Login() {
             </div>
             <div className="Form-card">
               <form>
-                <div className={emailError ? `${Style.imputFieldsError}` : `${Style.imputFields} mt-4`}>
+                <div
+                  className={
+                    emailError
+                      ? `${Style.imputFieldsError}`
+                      : `${Style.imputFields} mt-4`
+                  }
+                >
                   <span>
                     <FontAwesomeIcon icon={faMailBulk} />
                   </span>
@@ -175,7 +178,13 @@ export default function Login() {
                   ""
                 )}
 
-                <div className={passwordError ? `${Style.imputFieldsError} mt-4` : `${Style.imputFields} mt-4`}>
+                <div
+                  className={
+                    passwordError
+                      ? `${Style.imputFieldsError} mt-4`
+                      : `${Style.imputFields} mt-4`
+                  }
+                >
                   <span>
                     <FontAwesomeIcon icon={faLock} />
                   </span>
@@ -193,7 +202,9 @@ export default function Login() {
                 </div>
                 {passwordError != null ? (
                   <small style={{ color: "red" }}>{passwordError}</small>
-                ) : setErrorPassword ? <small style={{ color: "red" }}>{setErrorPassword}</small> : (
+                ) : setErrorPassword ? (
+                  <small style={{ color: "red" }}>{setErrorPassword}</small>
+                ) : (
                   ""
                 )}
                 <Row className="mt-3">
@@ -201,6 +212,7 @@ export default function Login() {
                     <Form.Check
                       type="checkbox"
                       label="Remember me"
+                      checked={loginForm.isRemeberMe}
                       onChange={() =>
                         setLoginForm({
                           ...loginForm,
@@ -209,7 +221,7 @@ export default function Login() {
                       }
                     />
                   </Col>
-                  <Col >
+                  <Col>
                     <Link
                       to="/forgetPassword"
                       style={{ textDecoration: "none", color: "#257d7c" }}
