@@ -76,11 +76,11 @@ export default function LogTable() {
     name: projectName,
     dashName: projectName,
     link1: {
-      iconName: faDatabase,
+      iconName: `/assets/icons/log.png`,
       linkName: "Logs",
     },
     link2: {
-      iconName: faDatabase,
+      iconName: `/assets/icons/settings.png`,
       linkName: "Profile",
     },
   };

@@ -186,7 +186,7 @@ export function SideBar(props) {
                   : sidebarDetails.link1.link
               }
             >
-              <img src="/assets/icons/log.png" />
+              <img src={sidebarDetails.link1.iconName} />
               <section className={Style.optionName}>
                 {sidebarDetails.link1.linkName}
               </section>
@@ -203,7 +203,7 @@ export function SideBar(props) {
                   : sidebarDetails.link1.link
               }
             >
-              <img src="/assets/icons/settings.png" />
+              <img src={sidebarDetails.link2.iconName} />
               <section className={Style.optionName}>
                 {sidebarDetails.link2.linkName}
               </section>
@@ -212,7 +212,7 @@ export function SideBar(props) {
         </section>
 
         <section className={Style.brandName}>
-          <img src="/assets/images/DDTECH.png" />
+          <img src={process.env.PUBLIC_URL + "/assets/images/DDTECH.png"} />
           <p>Technologies</p>
         </section>
       </section>

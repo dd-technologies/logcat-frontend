@@ -97,7 +97,7 @@ export default function ToggleTabs() {
                     <>
                       <p className="mt-4">
                         <span className="p-2">
-                          {parseFloat((e.data / adds) * 100).toFixed(2)}
+                          {parseFloat((e.data / adds) * 100).toFixed(2)}%
                         </span>
                         {e._id ? e._id : "Other"}
                       </p>
@@ -122,7 +122,7 @@ export default function ToggleTabs() {
                     <>
                       <p className="mt-4">
                         <span className="p-2">
-                          {parseFloat((e.count / add) * 100).toFixed(2)}
+                          {parseFloat((e.count / add) * 100).toFixed(2)}%
                         </span>
                         {e._id ? e._id : "Other"}
                       </p>
