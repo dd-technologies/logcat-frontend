@@ -84,16 +84,19 @@ export default function Analytics() {
     name: projectName,
     dashName: projectName,
     link1: {
-      iconName: faDatabase,
+      iconName: `/assets/icons/log.png`,
       linkName: "Analytics",
       link: "",
     },
     link2: {
-      iconName: faDatabase,
+      iconName: `/assets/icons/settings.png`,
       linkName: "Profile",
       link: "",
     },
   };
+
+  useEffect(() => {}, [])
+
 
   console.log("analytics sidebar", sidebarDetails);
 
