@@ -284,7 +284,7 @@ function TableData(props) {
   const selectRow = {
     mode: "checkbox",
     // clickToSelect: true,
-    style: { backgroundColor: "#0099a4" },
+    style: { backgroundColor: "#0099a4", color: "#fff" },
   };
 
   // console.log("selectRow", selectRow);
