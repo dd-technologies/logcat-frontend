@@ -28,3 +28,23 @@ p {
 hr {
   height: 2px !important;
 }
+
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top: 4px dashed;
+  border-top: 2px solid \9;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  color: #0099a4;
+}
+
+.dropup .caret, .navbar-fixed-bottom .dropdown .caret {
+  border-top: 0;
+  border-bottom: 4px dashed;
+  border-bottom: 4px solid \9;
+  content: "";
+}

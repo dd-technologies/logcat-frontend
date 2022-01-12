@@ -20,6 +20,8 @@ import { getProjectByCode } from "../../../../redux/action/ProjectAction";
 import Spinner from "../../../../Container/Spinner";
 import toast, { Toaster } from "react-hot-toast";
 import TableCard from "../../../../Container/TableCard";
+import { useHistory } from "react-router-dom";
+
 // import CustomeFilterTable from "./CustomeFilterTable";
 
 const { SearchBar } = Search;
@@ -242,6 +244,10 @@ function TableData(props) {
   );
   const [showStackView, setShowStackView] = useState(false);
 
+  // 1)-  ROW SELECTION WITH TOGGLE STATE
+  const [rowSelected, setRowSelected] = useState(null);
+  const [selectedRowArray, setSelectedRowArray] = useState([]);
+
   const ref = useRef();
 
   // filter data fields with table
@@ -265,6 +271,9 @@ function TableData(props) {
       : false,
   });
 
+  //  1)  DIRECTION PAGE TO NEW PAGE
+  let history = useHistory();
+
   const getAllLogByCodeReducer = useSelector(
     (state) => state.getAllLogByCodeReducer
   );
@@ -274,8 +283,11 @@ function TableData(props) {
 
   const selectRow = {
     mode: "checkbox",
-    clickToSelect: true,
+    // clickToSelect: true,
+    style: { backgroundColor: "#0099a4" },
   };
+
+  // console.log("selectRow", selectRow);
 
   const dispatch = useDispatch();
 
@@ -396,7 +408,7 @@ function TableData(props) {
   useEffect(() => {
     dt.start = date.start;
     dt.end = date.end;
-    console.log(logType);
+    // console.log(logType);
     if (
       logType.error ||
       logType.info ||
@@ -404,11 +416,11 @@ function TableData(props) {
       logType.debug ||
       logType.verbose
     ) {
-      console.log("if useEffect executed");
+      // console.log("if useEffect executed");
       dispatch(getProjectByCode(code, date, logType, pageNo, record));
     } else {
-      console.log("else useEffect click");
-      console.log(`${date.start} ${date.end} ${pageNo} ${record}`);
+      // console.log("else useEffect click");
+      // console.log(`${date.start} ${date.end} ${pageNo} ${record}`);
       dispatch(getProjectByCode(code, date, null, pageNo, record));
     }
   }, [pageNo]);
@@ -453,6 +465,24 @@ function TableData(props) {
     localStorage.setItem("queryAllSting", JSON.stringify(queryAllSting));
   };
 
+  // REACT BOOTSTRAP ROW CLICK EVENT
+  // const col = "";
+
+  const tableRowEvents = {
+    onClick: (e, row, rowIndex, col) => {
+      let version = row.version ? row.version : null;
+      let osArchitecture = row.osArchitecture ? row.osArchitecture : null;
+      let modelName = row.modelName ? row.modelName : null;
+      console.log("row", row);
+      history.push(
+        `/analytics?code=${props.code}&name=${props.projectName}&col=${row.logMsg}&rowlogGeneratedDate=${row.logGeneratedDate}&version=${version}&osArchitecture=${osArchitecture}&modelName=${modelName}`
+      );
+    },
+    // onMouseEnter: (e, row, rowIndex) => {
+    //   console.log(`enter on row with index: ${rowIndex}`);
+    // },
+  };
+
   const columns = [
     {
       headerStyle: () => {
@@ -477,8 +507,10 @@ function TableData(props) {
           color: "#fff",
         };
       },
-      formatter: (col, row) => {
-        // console.log("row id mil", col);
+      formatter: (col, row, rowIndex) => {
+        // console.log("col", col);
+        // console.log("col row", rowIndex);
+
         // const newCode = urlParams.get("code");
         const projectName = urlParams.get("name");
         let version = row.version ? row.version : null;
@@ -490,7 +522,7 @@ function TableData(props) {
         // console.log(`start ${dt.start} and end ${dt.end}`)
         return (
           <div className={Style.expandedRow}>
-            <Link
+            {/* <Link
               style={{
                 textDecoration: "none",
                 color: "#000",
@@ -500,7 +532,10 @@ function TableData(props) {
               {col.split(" at").map((items) => items)[0]
                 ? col.split(" at").map((items) => items)[0]
                 : col}
-            </Link>
+            </Link> */}
+            {col.split(" at").map((items) => items)[0]
+              ? col.split(" at").map((items) => items)[0]
+              : col}
           </div>
         );
       },
@@ -893,7 +928,12 @@ function TableData(props) {
                       </section>
                     </section>
                   </div>
-                  <BootstrapTable {...props.baseProps} selectRow={selectRow} />
+                  {console.log("props", props)}
+                  <BootstrapTable
+                    {...props.baseProps}
+                    selectRow={selectRow}
+                    rowEvents={tableRowEvents}
+                  />
                 </>
               )}
             </ToolkitProvider>

@@ -30,12 +30,12 @@ export default function CrashFreeStatics() {
     // data.response.map((items) => (totalCount += items.countLog));
     // data.response.map((items) => (counts.length !==0 && counts.find(items.did) ? '' :counts.push(items.did)));
 
-    console.log(counts);
+    // console.log(counts);
     // totalCount = [...new Set(data.response.reduce((a, c) => [...a, c.did], []))];
     // totalCount = [...new Set(data.response.reduce((a, c) =>  ))];
   }
-  console.log(totalCount);
-  console.log("count length", counts.length);
+  // console.log(totalCount);
+  // console.log("count length", counts.length);
   if (data && data.response == []) {
     totalCount = null;
   }

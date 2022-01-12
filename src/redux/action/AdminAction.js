@@ -173,7 +173,7 @@ export const adminRegister = (email,password,name,history) => async (dispatch)=>
 export const forgetPassword = (email) => async (dispatch)=>{
     
     try {
-        console.log(`action email ${email}`)
+        // console.log(`action email ${email}`)
         dispatch({
             type: FORGET_PASSWORD_REQUEST
         })
@@ -188,7 +188,7 @@ export const forgetPassword = (email) => async (dispatch)=>{
             email,
         })
 
-        console.log(data)
+        // console.log(data)
         dispatch({
             type: FORGET_PASSWORD_REQUEST_SUCCESS, 
             payload:data
@@ -213,7 +213,7 @@ export const forgetPassword = (email) => async (dispatch)=>{
 export const resetForgetPassword = ({email,resetData}) => async (dispatch)=>{
     
     try {
-        console.log(`action reset email ${email}`)
+        // console.log(`action reset email ${email}`)
         dispatch({
             type: RESET_PASSWORD_REQUEST
         })
@@ -227,7 +227,7 @@ export const resetForgetPassword = ({email,resetData}) => async (dispatch)=>{
         const password= resetData.newPass;
         const passwordVerify = resetData.confirmPass;
 
-        console.log(otp,password, passwordVerify)
+        // console.log(otp,password, passwordVerify)
 
         // https://insulink-backend.herokuapp.com
         const {data} = await axios.post('https://logger-server.herokuapp.com/api/logger/resetPassword',{
@@ -237,7 +237,7 @@ export const resetForgetPassword = ({email,resetData}) => async (dispatch)=>{
             passwordVerify
         })
 
-        console.log(data)
+        // console.log(data)
         dispatch({
             type: RESET_PASSWORD_REQUEST_SUCCESS, 
             payload:data
@@ -249,8 +249,8 @@ export const resetForgetPassword = ({email,resetData}) => async (dispatch)=>{
 
 
     } catch (error) {
-        console.log(error.response)
-        console.log(error.message)
+        // console.log(error.response)
+        // console.log(error.message)
         dispatch({
             type: RESET_PASSWORD_REQUEST_FAIL,
             payload:

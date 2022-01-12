@@ -22,7 +22,7 @@ export default function ResetPassword() {
     confirmPass: null,
   });
 
-  console.log([state])
+  // console.log([state])
   const [stateErr, setStateErr] = useState({ err: null, inputErr: null });
   const [enableResendButton, setEnableResendButton] = useState(false);
 
@@ -40,7 +40,7 @@ export default function ResetPassword() {
   const handleResendButton = ()=>{
     setEnableResendButton(false);
     dispatch(forgetPassword(email))
-    console.log( 'handle submit click')
+    // console.log( 'handle submit click')
   }
 
   const { loading, data, error } = resetPasswordReducer;
@@ -55,20 +55,20 @@ export default function ResetPassword() {
     ) {
       toast.error("Please provide all the required field!");
     } else if (state.otp && state.otp.length === 6) {
-      console.log("hello dispatch", state.newPass, state.confirmPass);
+      // console.log("hello dispatch", state.newPass, state.confirmPass);
       if (state.newPass === state.confirmPass) {
         setStateErr({ err: null, inputErr: null });
         // email,otp,password,passwordVerify
         dispatch(resetForgetPassword({ email, resetData: state }));
       } else {
-        console.log("else second if");
+        // console.log("else second if");
         setStateErr({
           inputErr: "New password and confirm password not matching",
         });
         toast.error(stateErr.inputErr);
       }
     } else if (stateErr.err) {
-      console.log("hello dispatch 2");
+      // console.log("hello dispatch 2");
       setStateErr({ err: "Check OTP field!!" });
       toast.error(stateErr.err);
     }
