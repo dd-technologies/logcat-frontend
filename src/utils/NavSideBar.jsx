@@ -167,7 +167,7 @@ export function SideBar(props) {
             }}
           >
             <section className={Style.DashBoardTitle}>
-              {data.show ? "LG" : "LogCat"}
+              {data.show ? "LC" : "LogCat"}
             </section>
           </Link>
         </section>

@@ -17,6 +17,7 @@ export default function CustomCard(props) {
           right: props.right ? props.right : "",
           boxShadow: props.boxShadow ? props.boxShadow : "",
           top: props.top ? props.top : "",
+          zIndex: props.zIndex ? props.zIndex : "1",
         }}
       >
         {props.children}

@@ -26,7 +26,7 @@ export default function Login() {
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { loading, error, adminInfo } = adminLoginReducer;
 
-  console.log("error", error);
+  // console.log("error", error);
 
   // console.log("adminLoginReducer", adminLoginReducer)
 
@@ -131,7 +131,7 @@ export default function Login() {
     setSetErrorPassword(error);
   }, [error]);
 
-  console.log("setErrorPassword", setErrorPassword);
+  // console.log("setErrorPassword", setErrorPassword);
 
   return (
     <>

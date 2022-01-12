@@ -41,7 +41,7 @@ export default function Analytics() {
   dt.setDate(dt.getDate() - 90);
   date.start = dt.toISOString().slice(0, 10);
 
-  console.log(date);
+  // console.log(date);
 
   const filterOnDate = ({ startDate = null, endDate = null, diff = 15 }) => {
     // console.log(diff);
@@ -61,7 +61,7 @@ export default function Analytics() {
   const code = urlParams.get("code");
   const logMsg = urlParams.get("col").split("at")[0];
 
-  console.log(logMsg);
+  // console.log(logMsg);
 
   const projectName = urlParams.get("name");
 
@@ -84,21 +84,20 @@ export default function Analytics() {
     name: projectName,
     dashName: projectName,
     link1: {
-      iconName: `/assets/icons/log.png`,
+      iconName: `./assets/icons/log.png`,
       linkName: "Analytics",
       link: "",
     },
     link2: {
-      iconName: `/assets/icons/settings.png`,
+      iconName: `./assets/icons/settings.png`,
       linkName: "Profile",
       link: "",
     },
   };
 
-  useEffect(() => {}, [])
+  useEffect(() => {}, []);
 
-
-  console.log("analytics sidebar", sidebarDetails);
+  // console.log("analytics sidebar", sidebarDetails);
 
   // console.log("data", date);
   const getCrashFreeUsersDataReducer = useSelector(
@@ -115,7 +114,7 @@ export default function Analytics() {
   const dispatch = useDispatch();
 
   const dispatchmultiple = () => {
-    console.log("dispatch multiple executed!!");
+    // console.log("dispatch multiple executed!!");
     dispatch(getCrashFreeUsersData(code, logMsg));
     dispatch(getCrashAnalyticsData(code, logMsg));
     dispatch(getErrorWRTOS(code));
@@ -131,11 +130,12 @@ export default function Analytics() {
   };
   useEffect(() => {
     dispatchmultiple();
-    console.log("hello useEffect");
+    // console.log("hello useEffect");
     // dispatch(getLogMsgOccurenceWRTDate({code, startDate:date.start, endDate:date.end, logMsg}));
   }, []);
   return (
     <>
+      {/* {console.log("analytic", "analytic render")} */}
       <Row>
         <Col xl={2} lg={2} md={2} sm={2} style={{ padding: "0px" }}>
           <SideBar sidebarDetails={sidebarDetails} />

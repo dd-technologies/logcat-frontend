@@ -100,7 +100,7 @@ export const getProjectByCode =
           },
         };
 
-        console.log("dispatch filter", filters);
+        // console.log("dispatch filter", filters);
 
         // const {data} = await axios.get('https://agvalogger.herokuapp.com/api/logger/projects/',
         // config
