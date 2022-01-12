@@ -539,6 +539,7 @@ function TableData(props) {
           </div>
         );
       },
+      sort: true,
 
       //  to={`/analytics?code=${code}&name=Stack Trace&id=${row._id}&allStacks=${row.logMsg}&macAddress=${row.did}&loggenrateddate=${row.logGeneratedDate}&modeltype=${row.device_types}&logtype=${row.logType}`}
 
