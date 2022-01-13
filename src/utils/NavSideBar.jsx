@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Image } from "react-bootstrap";
 import Style from "./NavSideBar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -9,6 +9,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { adminLogout } from "../redux/action/AdminAction";
 import { slideShow } from "../redux/action/SlideAction";
+import logo from "../assets/images/DDTECH.png";
+import Log from "../assets/icons/log.png";
+import settigns from "../assets/icons/settings.png";
 
 export function Navbar(props) {
   const { navdetails } = props;
@@ -186,7 +189,7 @@ export function SideBar(props) {
                   : sidebarDetails.link1.link
               }
             >
-              <img src={sidebarDetails.link1.iconName} />
+              <Image src={Log} />
               <section className={Style.optionName}>
                 {sidebarDetails.link1.linkName}
               </section>
@@ -203,7 +206,7 @@ export function SideBar(props) {
                   : sidebarDetails.link1.link
               }
             >
-              <img src={sidebarDetails.link2.iconName} />
+              <Image src={settigns} />
               <section className={Style.optionName}>
                 {sidebarDetails.link2.linkName}
               </section>
@@ -212,7 +215,7 @@ export function SideBar(props) {
         </section>
 
         <section className={Style.brandName}>
-          <img src={process.env.PUBLIC_URL + "/assets/images/DDTECH.png"} />
+          <Image src={logo} />
           <p>Technologies</p>
         </section>
       </section>
