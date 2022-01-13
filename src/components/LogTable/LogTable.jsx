@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFilter,
@@ -32,6 +32,8 @@ import { useHistory } from "react-router-dom";
 import Spinner from "../../Container/Spinner";
 import { slideShow } from "../../redux/action/SlideAction";
 import toast from "react-hot-toast";
+import DateIcons from "../../assets/icons/date.png";
+import LogICon from "../../assets/icons/log.png"
 
 export default function LogTable() {
   const history = useHistory();
@@ -76,7 +78,7 @@ export default function LogTable() {
     name: projectName,
     dashName: projectName,
     link1: {
-      iconName: `/assets/icons/log.png`,
+      iconName: LogICon,
       linkName: "Logs",
     },
     link2: {
@@ -249,7 +251,7 @@ export default function LogTable() {
               <Col xl={6} md={6} sm={6} className={Style.filterWithDate}>
                 <section className={Style.filterwithDate} ref={ref}>
                   <section className={Style.datafilter} onClick={DateFilter}>
-                    <img src="/assets/icons/date.png" />
+                    <Image src={DateIcons} />
                     <p className="ms-2 p-1">
                       {diffDate == 10
                         ? `last 10 days`

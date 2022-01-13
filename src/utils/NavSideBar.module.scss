@@ -204,7 +204,7 @@
 
 // siderbar
 .sideBar {
-  background-image: url("../../public//assets/images/background.jpg");
+  background-image: url("../assets/images/background.jpg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-color: $sideBarBackgroundColor;
@@ -274,7 +274,7 @@
 .sideBarSwipe {
   transition-duration: 0.5s !important;
   overflow: hidden;
-  background-image: url("../../public//assets/images/background.jpg");
+  background-image: url("../assets/images/background.jpg");
   background-repeat: no-repeat;
 
   background-color: $sideBarBackgroundColor;
