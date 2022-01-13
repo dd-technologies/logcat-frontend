@@ -33,6 +33,7 @@ import Spinner from "../../Container/Spinner";
 import { slideShow } from "../../redux/action/SlideAction";
 import toast from "react-hot-toast";
 import DateIcons from "../../assets/icons/date.png";
+import LogICon from "../../assets/icons/log.png"
 
 export default function LogTable() {
   const history = useHistory();
@@ -77,7 +78,7 @@ export default function LogTable() {
     name: projectName,
     dashName: projectName,
     link1: {
-      iconName: `/assets/icons/log.png`,
+      iconName: LogICon,
       linkName: "Logs",
     },
     link2: {

@@ -189,7 +189,7 @@ export function SideBar(props) {
                   : sidebarDetails.link1.link
               }
             >
-              <Image src={Log} />
+              <Image src={sidebarDetails.link1.iconName} />
               <section className={Style.optionName}>
                 {sidebarDetails.link1.linkName}
               </section>

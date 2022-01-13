@@ -25,6 +25,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { DateFilter } from "ag-grid-community";
+import AnalyticeIcon from "../../assets/icons/Analytics.png"
 
 export default function Analytics() {
   const [date, setdate] = useState({
@@ -84,7 +85,7 @@ export default function Analytics() {
     name: projectName,
     dashName: projectName,
     link1: {
-      iconName: `./assets/icons/log.png`,
+      iconName: AnalyticeIcon,
       linkName: "Analytics",
       link: "",
     },
