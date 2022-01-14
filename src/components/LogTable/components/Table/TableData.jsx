@@ -201,8 +201,8 @@ function TableData(props) {
   const [activeRecord, setActiveRecord] = useState({
     record10: false,
     record25: false,
-    record45: false,
     record50: false,
+    record100: false,
   });
 
   const [pageNo, setPageNo] = useState(1);
@@ -298,7 +298,7 @@ function TableData(props) {
     if (date.start.length > 0 || date.end.length > 0) {
       localStorage.setItem("selected_date", JSON.stringify(date));
     }
-      localStorage.setItem("selected_record", JSON.stringify(record));
+    localStorage.setItem("selected_record", JSON.stringify(record));
     toast.success("Filter saved");
   };
 
@@ -317,6 +317,13 @@ function TableData(props) {
       warn: false,
       debug: false,
       verbose: false,
+    });
+
+    setActiveRecord({
+      record10: false,
+      record25: false,
+      record50: false,
+      record100: false,
     });
 
     localStorage.removeItem("selected_log");
@@ -397,6 +404,7 @@ function TableData(props) {
     // if (record && (!date.start || !data.end)) {
     //   return dispatch(getProjectByCode(code, null, null, null, record));
     // }
+
     dispatch(getProjectByCode(code, date, logType, pageNo, record));
     setShowTableField(false);
   };
@@ -415,7 +423,7 @@ function TableData(props) {
       logType.verbose
     ) {
       console.log("if useEffect executed");
-      console.log(`page ${pageNo}`)
+      console.log(`page ${pageNo}`);
       dispatch(getProjectByCode(code, date, logType, pageNo, record));
     } else {
       console.log("else useEffect click");
@@ -633,6 +641,53 @@ function TableData(props) {
     };
   }, [showTableField]);
 
+  console.log("active recodes", activeRecord);
+
+  useEffect(() => {
+    // 1) if record are 10 in localstorage
+    if (localStorage.getItem("selected_record") == 10) {
+      setRecords(10);
+      setActiveRecord({
+        record10: true,
+        record25: false,
+        record50: false,
+        record100: false,
+      });
+    }
+
+    // 2) if record are 25 in localstorage
+    if (localStorage.getItem("selected_record") == 25) {
+      setRecords(25);
+      setActiveRecord({
+        record10: false,
+        record25: true,
+        record50: false,
+        record100: false,
+      });
+    }
+    // 3) if record are 50 in localstorage
+    if (localStorage.getItem("selected_record") == 50) {
+      setRecords(50);
+      setActiveRecord({
+        record10: false,
+        record25: false,
+        record50: true,
+        record100: false,
+      });
+    }
+
+    // 3) if record are 100 in localstorage
+    if (localStorage.getItem("selected_record") == 100) {
+      setRecords(100);
+      setActiveRecord({
+        record10: false,
+        record25: false,
+        record50: false,
+        record100: true,
+      });
+    }
+  }, []);
+
   return (
     <>
       <TableCard
@@ -848,86 +903,61 @@ function TableData(props) {
                                     <section className={Style.perPageOuter}>
                                       <p
                                         className={
-                                          activeRecord.record10 ||
-                                          localStorage.getItem(
-                                            "selected_record"
-                                          ) == 10
+                                          activeRecord.record10
                                             ? `${Style.perPagesectionInnerActive}`
                                             : `${Style.perPagesectionInner}`
                                         }
                                         onClick={() => {
                                           setRecords(10);
-                                          setActiveRecord({ record10: true });
+                                          setActiveRecord({
+                                            record10: true,
+                                          });
                                         }}
-                                        // style={
-                                        //   record === 10 && {
-                                        //     background: "#257D7C",
-                                        //   }
-                                        // }
                                       >
                                         10
                                       </p>
                                       <p
                                         className={
-                                          activeRecord.record25 ||
-                                          record == 25 ||
-                                          localStorage.getItem(
-                                            "selected_record"
-                                          ) == 25
+                                          activeRecord.record25 || record == 25
                                             ? `${Style.perPagesectionInnerActive}`
                                             : `${Style.perPagesectionInner}`
                                         }
                                         onClick={() => {
                                           setRecords(25);
-                                          setActiveRecord({ record25: true });
+                                          setActiveRecord({
+                                            record25: true,
+                                          });
                                         }}
-                                        // style={
-                                        //   record === 25 && {
-                                        //     background: "#257D7C",
-                                        //   }
-                                        // }
                                       >
                                         25
                                       </p>
                                       <p
                                         className={
-                                          activeRecord.record45 ||
-                                          localStorage.getItem(
-                                            "selected_record"
-                                          ) == 50
+                                          activeRecord.record50
                                             ? `${Style.perPagesectionInnerActive}`
                                             : `${Style.perPagesectionInner}`
                                         }
                                         onClick={() => {
                                           setRecords(50);
-                                          setActiveRecord({ record45: true });
+                                          setActiveRecord({
+                                            record50: true,
+                                          });
                                         }}
-                                        // style={
-                                        //   record === 45 && {
-                                        //     background: "#257D7C",
-                                        //   }
-                                        // }
                                       >
                                         50
                                       </p>
                                       <p
                                         className={
-                                          activeRecord.record50 || 
-                                          localStorage.getItem(
-                                            "selected_record"
-                                          ) == 100
+                                          activeRecord.record100
                                             ? `${Style.perPagesectionInnerActive}`
                                             : `${Style.perPagesectionInner}`
                                         }
                                         onClick={() => {
                                           setRecords(100);
-                                          setActiveRecord({ record50: true });
+                                          setActiveRecord({
+                                            record100: true,
+                                          });
                                         }}
-                                        // style={
-                                        //   record === 50 && {
-                                        //     background: "#257D7C",
-                                        //   }
-                                        // }
                                       >
                                         100
                                       </p>
@@ -966,7 +996,6 @@ function TableData(props) {
               //   data && data.data && Math.ceil(data.data.count / record)
               // }
               pageCount={data && data.data && data.data.count / record}
-              
               // previousLabel="< Previous"
               // initialPage={1}
               renderOnZeroPageCount={null}
