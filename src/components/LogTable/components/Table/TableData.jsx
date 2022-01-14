@@ -239,7 +239,7 @@ function TableData(props) {
   // const [pageNo, setPageNo] = useState(0);
   const [record, setRecords] = useState(
     localStorage.getItem("selected_record")
-      ? JSON.parse(localStorage.getItem("selected_record")).warn
+      ? JSON.parse(localStorage.getItem("selected_record"))
       : 25
   );
   const [showStackView, setShowStackView] = useState(false);
