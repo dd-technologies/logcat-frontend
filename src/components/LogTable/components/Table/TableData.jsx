@@ -849,7 +849,10 @@ function TableData(props) {
                                     <section className={Style.perPageOuter}>
                                       <p
                                         className={
-                                          activeRecord.record10
+                                          activeRecord.record10 ||
+                                          localStorage.getItem(
+                                            "selected_record"
+                                          ) == 10
                                             ? `${Style.perPagesectionInnerActive}`
                                             : `${Style.perPagesectionInner}`
                                         }
@@ -867,7 +870,11 @@ function TableData(props) {
                                       </p>
                                       <p
                                         className={
-                                          activeRecord.record25 || record == 25
+                                          activeRecord.record25 ||
+                                          record == 25 ||
+                                          localStorage.getItem(
+                                            "selected_record"
+                                          ) == 25
                                             ? `${Style.perPagesectionInnerActive}`
                                             : `${Style.perPagesectionInner}`
                                         }
@@ -885,7 +892,10 @@ function TableData(props) {
                                       </p>
                                       <p
                                         className={
-                                          activeRecord.record45
+                                          activeRecord.record45 ||
+                                          localStorage.getItem(
+                                            "selected_record"
+                                          ) == 45
                                             ? `${Style.perPagesectionInnerActive}`
                                             : `${Style.perPagesectionInner}`
                                         }
@@ -903,7 +913,10 @@ function TableData(props) {
                                       </p>
                                       <p
                                         className={
-                                          activeRecord.record50
+                                          activeRecord.record50 ||
+                                          localStorage.getItem(
+                                            "selected_record"
+                                          ) == 50
                                             ? `${Style.perPagesectionInnerActive}`
                                             : `${Style.perPagesectionInner}`
                                         }
