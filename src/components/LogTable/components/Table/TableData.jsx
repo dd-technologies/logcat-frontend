@@ -279,7 +279,7 @@ function TableData(props) {
   );
   const { loading, data } = getAllLogByCodeReducer;
 
-  // console.log("getAllLogByCodeReducer", data);
+  console.log("getAllLogByCodeReducer", data);
 
   const selectRow = {
     mode: "checkbox",
@@ -298,9 +298,7 @@ function TableData(props) {
     if (date.start.length > 0 || date.end.length > 0) {
       localStorage.setItem("selected_date", JSON.stringify(date));
     }
-    if (record !== 25) {
       localStorage.setItem("selected_record", JSON.stringify(record));
-    }
     toast.success("Filter saved");
   };
 
@@ -408,7 +406,7 @@ function TableData(props) {
   useEffect(() => {
     dt.start = date.start;
     dt.end = date.end;
-    // console.log(logType);
+    console.log(logType);
     if (
       logType.error ||
       logType.info ||
@@ -416,10 +414,11 @@ function TableData(props) {
       logType.debug ||
       logType.verbose
     ) {
-      // console.log("if useEffect executed");
+      console.log("if useEffect executed");
+      console.log(`page ${pageNo}`)
       dispatch(getProjectByCode(code, date, logType, pageNo, record));
     } else {
-      // console.log("else useEffect click");
+      console.log("else useEffect click");
       // console.log(`${date.start} ${date.end} ${pageNo} ${record}`);
       dispatch(getProjectByCode(code, date, null, pageNo, record));
     }
@@ -895,12 +894,12 @@ function TableData(props) {
                                           activeRecord.record45 ||
                                           localStorage.getItem(
                                             "selected_record"
-                                          ) == 45
+                                          ) == 50
                                             ? `${Style.perPagesectionInnerActive}`
                                             : `${Style.perPagesectionInner}`
                                         }
                                         onClick={() => {
-                                          setRecords(45);
+                                          setRecords(50);
                                           setActiveRecord({ record45: true });
                                         }}
                                         // style={
@@ -909,19 +908,19 @@ function TableData(props) {
                                         //   }
                                         // }
                                       >
-                                        45
+                                        50
                                       </p>
                                       <p
                                         className={
-                                          activeRecord.record50 ||
+                                          activeRecord.record50 || 
                                           localStorage.getItem(
                                             "selected_record"
-                                          ) == 50
+                                          ) == 100
                                             ? `${Style.perPagesectionInnerActive}`
                                             : `${Style.perPagesectionInner}`
                                         }
                                         onClick={() => {
-                                          setRecords(50);
+                                          setRecords(100);
                                           setActiveRecord({ record50: true });
                                         }}
                                         // style={
@@ -930,7 +929,7 @@ function TableData(props) {
                                         //   }
                                         // }
                                       >
-                                        50
+                                        100
                                       </p>
                                     </section>
                                   </Col>
@@ -956,6 +955,7 @@ function TableData(props) {
           ) : (
             <h3 className="p-2">No Logs Found</h3>
           )}
+          {console.log(`count ${data && data.data && data.data.count}`)}
           <section className="p-2">
             <ReactPaginate
               breakLabel="..."
@@ -966,6 +966,7 @@ function TableData(props) {
               //   data && data.data && Math.ceil(data.data.count / record)
               // }
               pageCount={data && data.data && data.data.count / record}
+              
               // previousLabel="< Previous"
               // initialPage={1}
               renderOnZeroPageCount={null}
