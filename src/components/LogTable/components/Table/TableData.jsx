@@ -890,7 +890,7 @@ function TableData(props) {
                                             : `${Style.perPagesectionInner}`
                                         }
                                         onClick={() => {
-                                          setRecords(45);
+                                          setRecords(50);
                                           setActiveRecord({ record45: true });
                                         }}
                                         // style={
@@ -899,7 +899,7 @@ function TableData(props) {
                                         //   }
                                         // }
                                       >
-                                        45
+                                        50
                                       </p>
                                       <p
                                         className={
@@ -908,7 +908,7 @@ function TableData(props) {
                                             : `${Style.perPagesectionInner}`
                                         }
                                         onClick={() => {
-                                          setRecords(50);
+                                          setRecords(100);
                                           setActiveRecord({ record50: true });
                                         }}
                                         // style={
@@ -917,7 +917,7 @@ function TableData(props) {
                                         //   }
                                         // }
                                       >
-                                        50
+                                        100
                                       </p>
                                     </section>
                                   </Col>
