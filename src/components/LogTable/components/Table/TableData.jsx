@@ -21,6 +21,7 @@ import Spinner from "../../../../Container/Spinner";
 import toast, { Toaster } from "react-hot-toast";
 import TableCard from "../../../../Container/TableCard";
 import { useHistory } from "react-router-dom";
+import useDrivePicker from "react-google-drive-picker";
 
 // import CustomeFilterTable from "./CustomeFilterTable";
 
@@ -247,6 +248,9 @@ function TableData(props) {
   // 1)-  ROW SELECTION WITH TOGGLE STATE
   const [rowSelected, setRowSelected] = useState(null);
   const [selectedRowArray, setSelectedRowArray] = useState([]);
+
+  // GOOGLE DRIVE SAVE STATE
+  const [openPicker, googleData, authResponse] = useDrivePicker();
 
   const ref = useRef();
 
@@ -688,6 +692,29 @@ function TableData(props) {
     }
   }, []);
 
+  // UPLOAD TO GOOGLE DRIVE
+  const handleOpenPicker = () => {
+    openPicker({
+      clientId:
+        "797675711024-cg2bgai0hcud8rqp965d481kkorl38f3.apps.googleusercontent.com",
+      developerKey: "AIzaSyC7ZaGvIfjyrhnz3OSb6Rf788j8xtmXkWA",
+      viewId: "DOCS",
+      // token: token, // pass oauth token in case you already have one
+      showUploadView: true,
+      showUploadFolders: true,
+      supportDrives: true,
+      multiselect: true,
+      // customViews: customViewsArray, // custom view
+    });
+  };
+
+  useEffect(() => {
+    // do anything with the selected/uploaded files
+    if (googleData) {
+      googleData.docs.map((i) => console.log(i.name));
+    }
+  }, [googleData]);
+
   return (
     <>
       <TableCard
@@ -708,6 +735,11 @@ function TableData(props) {
                   <div className={Style.BootstrapTable}>
                     <SearchBar {...props.searchProps} />
                     <section className={Style.filterOptions}>
+                      <section className={`${Style.GoogleDirve} px-2`}>
+                        <Button onClick={() => handleOpenPicker()}>
+                          Uplaod to google drive
+                        </Button>
+                      </section>
                       <ExportCSVButton {...props.csvProps}>
                         Export Table
                       </ExportCSVButton>

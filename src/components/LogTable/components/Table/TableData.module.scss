@@ -22,6 +22,12 @@
     }
 
     border-bottom: $borderBottom;
+
+    .GoogleDirve {
+      display: flex;
+      justify-content: center;
+    }
+
     .filterOptions {
       cursor: pointer;
       display: flex;
