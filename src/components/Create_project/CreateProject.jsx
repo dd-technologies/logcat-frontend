@@ -115,7 +115,11 @@ function CreateProject() {
             <Row>
               {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin ? (
                 <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
-                  <CustomCard padding="10px" height="200px">
+                  <CustomCard
+                    padding="10px"
+                    height="200px"
+                    boxShadow=" -3px 3px 5px 0px rgba(0,0,0,0.75)"
+                  >
                     <section
                       className={Style.addProject}
                       onClick={() => setModalShow(true)}

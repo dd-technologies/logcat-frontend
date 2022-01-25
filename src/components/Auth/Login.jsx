@@ -151,7 +151,7 @@ export default function Login() {
       >
         <CustomCard height="400px" width="500px">
           <section className={Style.Login}>
-            <div className="Login-title d-flex justify-content-end">
+            <div className="Login-title d-flex justify-content-start">
               <p className={Style.headerText}>Login</p>
             </div>
             <div className="Form-card">

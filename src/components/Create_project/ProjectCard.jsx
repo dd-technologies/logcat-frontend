@@ -18,7 +18,11 @@ const ProjectCard = (props) => {
 
   return (
     <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
-      <CustomCard padding="15px" height="200px">
+      <CustomCard
+        padding="15px"
+        height="200px"
+        boxShadow=" -3px 3px 5px 0px rgba(0,0,0,0.75)"
+      >
         <Link
           to={`/logtable?code=${props.data.code}&name=${props.data.name} `}
           style={{ textDecoration: "none" }}
@@ -26,7 +30,9 @@ const ProjectCard = (props) => {
           <section className={Style.Outer_InfoRow}>
             <section className={Style.InfoColumn}>
               <h5>{props.data.name}</h5>
-              <p>{props.data.description && props.data.description}</p>
+              <p style={{ opacity: "70%" }}>
+                {props.data.description && props.data.description}
+              </p>
             </section>
             <section className={Style.InfoDetails}>
               <p>
