@@ -13,13 +13,19 @@ import { useHistory } from "react-router-dom";
 
 export default function Login() {
   const [loginForm, setLoginForm] = useState({
-    isRemeberMe: localStorage.getItem('userIsRemember')?localStorage.getItem('userIsRemember'):false,
-    email: localStorage.getItem('adminUserName')?JSON.parse(localStorage.getItem('adminUserName')):null,
-    password: localStorage.getItem('adminUserCredential')?JSON.parse(localStorage.getItem('adminUserCredential')):null,
+    isRemeberMe: localStorage.getItem("userIsRemember")
+      ? localStorage.getItem("userIsRemember")
+      : false,
+    email: localStorage.getItem("adminUserName")
+      ? JSON.parse(localStorage.getItem("adminUserName"))
+      : null,
+    password: localStorage.getItem("adminUserCredential")
+      ? JSON.parse(localStorage.getItem("adminUserCredential"))
+      : null,
   });
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
-  const [ispasswordHide, setIspasswordHide] = useState(true);
+  // const [ispasswordHide, setIspasswordHide] = useState(true);
   const [setErrorPassword, setSetErrorPassword] = useState(null);
 
   const dispatch = useDispatch();
@@ -100,18 +106,18 @@ export default function Login() {
   const rememberMe = () => {
     localStorage.setItem(
       "adminUserName",
-      loginForm.isRemeberMe ? loginForm.email : ""
+      loginForm.isRemeberMe ? JSON.stringify(loginForm.email) : ""
     );
     localStorage.setItem(
       "adminUserCredential",
-      loginForm.isRemeberMe ? loginForm.password : ""
+      loginForm.isRemeberMe ? JSON.stringify(loginForm.password) : ""
     );
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (loginForm.isRemeberMe) {
-        rememberMe()
+      rememberMe();
     }
     const email = validateEmail(loginForm.email);
     const password = validatePassword(loginForm.password);
@@ -145,7 +151,7 @@ export default function Login() {
       >
         <CustomCard height="400px" width="500px">
           <section className={Style.Login}>
-            <div className="Login-title">
+            <div className="Login-title d-flex justify-content-end">
               <p className={Style.headerText}>Login</p>
             </div>
             <div className="Form-card">
@@ -158,7 +164,7 @@ export default function Login() {
                   }
                 >
                   <span>
-                    <FontAwesomeIcon icon={faMailBulk} />
+                    <FontAwesomeIcon icon={faMailBulk} className="ml-2" />
                   </span>
                   <input
                     type="email"
@@ -208,7 +214,7 @@ export default function Login() {
                   ""
                 )}
                 <Row className="mt-3">
-                  <Col>
+                  {/* <Col>
                     <Form.Check
                       type="checkbox"
                       label="Remember me"
@@ -220,8 +226,8 @@ export default function Login() {
                         })
                       }
                     />
-                  </Col>
-                  <Col>
+                  </Col> */}
+                  <Col className="d-flex justify-content-end">
                     <Link
                       to="/forgetPassword"
                       style={{ textDecoration: "none", color: "#257d7c" }}

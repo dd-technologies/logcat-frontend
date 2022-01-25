@@ -15,9 +15,14 @@
     border: $border;
     border-radius: $cardBorderRadius;
     padding: 5px;
+
+    & span {
+      margin-left: 5px;
+    }
+
     & input {
       border: none !important;
-      background: none !important;
+      background-color: none !important;
     }
 
     & svg {

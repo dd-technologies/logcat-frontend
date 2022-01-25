@@ -54,32 +54,49 @@
 
 .filterToggle {
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   align-items: center;
+  background-color: $activehrefText;
+  width: 9%;
+  padding: 1px;
+  border-radius: 50px;
+  overflow: hidden;
   .filterGraphFirstSction {
+    width: 100%;
     & p {
+      color: $defaultTextColor;
+      font-size: 0.8rem;
+    }
+    & svg {
+      color: $filterButtonBackgroundColor;
+    }
+    cursor: pointer;
+    padding: 10px;
+    margin-left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+    border-radius: 50px;
+  }
+
+  .filterGraphFirstSctionActive {
+    width: 100%;
+    & p {
+      color: $activehrefText;
+      font-size: 0.8rem;
+    }
+    & svg {
       color: $activehrefText;
     }
     cursor: pointer;
     background-color: $filterButtonBackgroundColor;
     padding: 10px;
     margin-left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-right: 5px;
-    border-radius: $buttonBorderRaduous;
-  }
-
-  .filterGraphFirstSctionActive {
-    & p {
-      color: $defaultTextColor;
-    }
-    & svg {
-      color: $defaultTextColor;
-    }
-    cursor: pointer;
-    background-color: $backgroundColor;
-    padding: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
-    border-radius: $buttonBorderRaduous;
+    border-radius: 50px;
   }
 }

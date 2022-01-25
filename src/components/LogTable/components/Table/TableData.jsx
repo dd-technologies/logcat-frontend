@@ -8,6 +8,7 @@ import {
   faCaretRight,
   faEllipsisV,
   faFilter,
+  faDownload,
 } from "@fortawesome/free-solid-svg-icons";
 import ToolkitProvider, {
   Search,
@@ -733,7 +734,9 @@ function TableData(props) {
               {(props) => (
                 <>
                   <div className={Style.BootstrapTable}>
-                    <SearchBar {...props.searchProps} />
+                    <section className={Style.searchbar}>
+                      <SearchBar {...props.searchProps} />
+                    </section>
                     <section className={Style.filterOptions}>
                       <section className={`${Style.GoogleDirve} px-2`}>
                         <Button onClick={() => handleOpenPicker()}>
@@ -741,7 +744,7 @@ function TableData(props) {
                         </Button>
                       </section>
                       <ExportCSVButton {...props.csvProps}>
-                        Export Table
+                        <FontAwesomeIcon icon={faDownload} />
                       </ExportCSVButton>
                       <section
                         className={Style.filterGraphFirstSction}

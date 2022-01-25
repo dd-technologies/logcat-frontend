@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faFilter } from "@fortawesome/free-solid-svg-icons";
 
 export default function StackData() {
-  const [InnerParaShow, setInnerParaShow] = useState(false);
+  const [InnerParaShow, setInnerParaShow] = useState(true);
   const [innerParaShowDetails, setInnerParaShowDetails] = useState(true);
   const [stackErrorFilter, setStackErrorFilter] = useState(false);
   const [stackErrorFilterTextFormate, setStackErrorFilterTextFormate] =
@@ -71,7 +71,7 @@ export default function StackData() {
               }
               onClick={stackErrorFilterFun}
             >
-              <p>Text</p>
+              <p>TXT</p>
             </section>
             <section
               className={
@@ -94,13 +94,15 @@ export default function StackData() {
                 className={Style.ParaWithArrowDown}
                 onClick={innerParaShowFun}
               >
-                <p>Stack error in text format</p>
+                <section>
+                  <p style={{ fontWeight: 600 }}>{DataINRow[0]}</p>
+                  <p>{DataINRow[1]}</p>
+                </section>
                 <FontAwesomeIcon icon={faCaretDown} />
               </section>
             </section>
 
             <section className={`${Style.detailSection} p-3`}>
-              <p className={Style.stackDetails}>Stack Error</p>
               {InnerParaShow ? <p>{colData}</p> : null}
             </section>
           </Col>
@@ -114,13 +116,18 @@ export default function StackData() {
                 className={Style.ParaWithArrowDown}
                 onClick={innerParaShowFun}
               >
-                <p>Stack error </p>
+                <section>
+                  <p style={{ fontWeight: 600 }}>{DataINRow[0]}</p>
+                  <p>{DataINRow[1]}</p>
+                </section>
+
                 <FontAwesomeIcon icon={faCaretDown} />
               </section>
             </section>
 
+            {/* stack error section */}
+
             <section className={`${Style.detailSection} py-3`}>
-              <p className={`${Style.stackDetails} ps-2`}>Stack Error</p>
               {InnerParaShow ? (
                 <section className="ps-2">
                   {DataINRow.map((itmes, index) => {

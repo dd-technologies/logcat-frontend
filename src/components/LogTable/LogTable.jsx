@@ -33,7 +33,7 @@ import Spinner from "../../Container/Spinner";
 import { slideShow } from "../../redux/action/SlideAction";
 import toast from "react-hot-toast";
 import DateIcons from "../../assets/icons/date.png";
-import LogICon from "../../assets/icons/log.png"
+import LogICon from "../../assets/icons/log.png";
 
 export default function LogTable() {
   const history = useHistory();
@@ -240,15 +240,7 @@ export default function LogTable() {
             }
           >
             <Row className="mt-4">
-              <Col xl={6} md={6} sm={6}>
-                <section
-                  className={Style.filterGraphFirstSction}
-                  onClick={RefreshTableOnlyFun}
-                >
-                  <FontAwesomeIcon icon={faSync} />
-                </section>
-              </Col>
-              <Col xl={6} md={6} sm={6} className={Style.filterWithDate}>
+              <Col xl={12} md={12} sm={12} className={Style.filterWithDate}>
                 <section className={Style.filterwithDate} ref={ref}>
                   <section className={Style.datafilter} onClick={DateFilter}>
                     <Image src={DateIcons} />
@@ -355,9 +347,22 @@ export default function LogTable() {
 
             {/* Events  */}
             <Row className="mt-5">
-              <Col xl={12} className={Style.issuesTable}>
+              <Col xl={6} md={6} sm={6} className={Style.issuesTable}>
                 <p>Issues</p>
                 {/* <p className={Style.LinkActiveText}>Search By userId</p> */}
+              </Col>
+              <Col
+                xl={6}
+                md={6}
+                sm={6}
+                style={{ display: "flex", justifyContent: "flex-end" }}
+              >
+                <section
+                  className={Style.filterGraphFirstSction}
+                  onClick={RefreshTableOnlyFun}
+                >
+                  <FontAwesomeIcon icon={faSync} />
+                </section>
               </Col>
             </Row>
 

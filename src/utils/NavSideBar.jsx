@@ -20,7 +20,7 @@ export function Navbar(props) {
   const [navToggle, setNavToggle] = useState(true);
   // SWIPE NAVBAR STATE
   const [swipe, setSwipe] = useState({
-    show: false,
+    show: true,
   });
 
   const { loading, adminInfo } = adminLoginReducer;
