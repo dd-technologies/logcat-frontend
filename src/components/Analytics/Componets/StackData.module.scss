@@ -92,11 +92,12 @@
     cursor: pointer;
     background-color: $filterButtonBackgroundColor;
     padding: 10px;
-    margin-left: 5px;
+    // margin-left: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-right: 5px;
     border-radius: 50px;
+    height: 100%;
   }
 }

@@ -136,9 +136,7 @@ export default function StackData() {
                         <p className={Style.pText}>
                           {index == 0 ? (
                             <span style={{ fontWeight: "bold" }}></span>
-                          ) : (
-                            <span style={{ fontWeight: "bold" }}>at : </span>
-                          )}
+                          ) : null}
                           {itmes}
                         </p>
                       </>
