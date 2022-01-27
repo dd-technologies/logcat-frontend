@@ -6,9 +6,9 @@ export default function CustomeDropDown(props) {
     <>
       <Card
         style={{
-          width: props.width && "auto",
+          width: props.width ? props.width : "auto",
           height: props.height && "auto",
-          zIndex: 8,
+          zIndex: props.zIndex ? props.zIndex : 8,
           borderRadius: "10px",
           padding: "10px",
           boxShadow: "0px 0px 4px -2px rgba(0,0,0,0.75)",
@@ -16,6 +16,9 @@ export default function CustomeDropDown(props) {
           justifyContent: "center",
           alignItems: "center",
           marginTop: props.marginTop && "",
+          position: props.position ? props.position : "",
+          top: props.top ? props.top : "",
+          right: props.right ? props.right : "",
         }}
       >
         {props.children}

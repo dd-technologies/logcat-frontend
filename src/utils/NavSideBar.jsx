@@ -118,22 +118,27 @@ export function Navbar(props) {
                 .map(
                   (name) => name.charAt(0).toUpperCase() + name.slice(1) + " "
                 )}
-
-            {userInfo && (
-              <CustomeDropDown marginTop="100px">
-                <p>Account</p>
-                <p
-                  onClick={(e) => {
-                    handlelogout(e);
-                  }}
-                >
-                  Logout
-                </p>
-              </CustomeDropDown>
-            )}
           </section>
         </section>
       </nav>
+      {userInfo && (
+        <CustomeDropDown
+          position="absolute"
+          right="10%"
+          top="7%"
+          width="200px"
+          zIndex="10"
+        >
+          <p>Account</p>
+          <p
+            onClick={(e) => {
+              handlelogout(e);
+            }}
+          >
+            Logout
+          </p>
+        </CustomeDropDown>
+      )}
     </>
   );
 }
