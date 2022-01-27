@@ -155,6 +155,7 @@ export function Navbar(props) {
         >
           <p>Account</p>
           <p
+            style={{ cursor: "pointer" }}
             onClick={(e) => {
               handlelogout(e);
             }}
