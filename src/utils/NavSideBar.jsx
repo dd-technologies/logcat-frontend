@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button, Image } from "react-bootstrap";
 import Style from "./NavSideBar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,7 +23,11 @@ export function Navbar(props) {
     show: true,
   });
 
+  // SHOW ACCOUNT DETAILS
+  // const [showTableDropDown, setShowTableDropDown] = useState(false);
+
   const [userInfo, setUserInfo] = useState(false);
+  const ref = useRef();
 
   const { loading, adminInfo } = adminLoginReducer;
 
@@ -86,9 +90,29 @@ export function Navbar(props) {
     setUserInfo(!userInfo);
   };
 
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and the clicked target is not within the menu,
+      // then close the menu
+      if (userInfo && ref.current && !ref.current.contains(e.target)) {
+        setUserInfo(false);
+      }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [userInfo]);
+
   return (
     <>
-      <nav className={data.show ? Style.navbarWihoutSlide : Style.navbar}>
+      <nav
+        className={data.show ? Style.navbarWihoutSlide : Style.navbar}
+        ref={ref}
+      >
         <section className={Style.NavbarSectionWithMenu}>
           <section className={Style.Icon}>
             <FontAwesomeIcon
