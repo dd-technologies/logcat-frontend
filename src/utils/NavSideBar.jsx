@@ -23,6 +23,8 @@ export function Navbar(props) {
     show: true,
   });
 
+  const [userInfo, setUserInfo] = useState(false);
+
   const { loading, adminInfo } = adminLoginReducer;
 
   // SLIDEWINDOW STATE
@@ -80,6 +82,10 @@ export function Navbar(props) {
     dispatch(slideShow(swipe));
   }, [swipe]);
 
+  const showUserInfoFun = () => {
+    setUserInfo(!userInfo);
+  };
+
   return (
     <>
       <nav className={data.show ? Style.navbarWihoutSlide : Style.navbar}>
@@ -91,12 +97,12 @@ export function Navbar(props) {
               size="lg"
             />
           </section>
-          <h3 className="p-3">
+          <h3 className="p-3" style={{ fontSize: "1.5rem" }}>
             {navdetails.dashName.charAt(0).toUpperCase() +
               navdetails.dashName.slice(1)}
           </h3>
         </section>
-        <section className={Style.userInfo}>
+        <section className={Style.userInfo} onClick={showUserInfoFun}>
           <section className={Style.Avtar}>
             {adminInfo &&
               adminInfo.data &&
@@ -112,14 +118,20 @@ export function Navbar(props) {
                 .map(
                   (name) => name.charAt(0).toUpperCase() + name.slice(1) + " "
                 )}
+
+            {userInfo && (
+              <CustomeDropDown marginTop="100px">
+                <p>Account</p>
+                <p
+                  onClick={(e) => {
+                    handlelogout(e);
+                  }}
+                >
+                  Logout
+                </p>
+              </CustomeDropDown>
+            )}
           </section>
-          <Button
-            onClick={(e) => {
-              handlelogout(e);
-            }}
-          >
-            Logout
-          </Button>
         </section>
       </nav>
     </>

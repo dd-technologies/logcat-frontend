@@ -10,6 +10,7 @@ import "../../css/theme.scss";
 import { loginWithEmail } from "../../redux/action/AdminAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 export default function Login() {
   const [loginForm, setLoginForm] = useState({
@@ -164,7 +165,7 @@ export default function Login() {
                   }
                 >
                   <span>
-                    <FontAwesomeIcon icon={faMailBulk} className="ml-2" />
+                    <FontAwesomeIcon icon={faGoogle} />
                   </span>
                   <input
                     type="email"
@@ -213,31 +214,27 @@ export default function Login() {
                 ) : (
                   ""
                 )}
-                <Row className="mt-3">
-                  {/* <Col>
-                    <Form.Check
-                      type="checkbox"
-                      label="Remember me"
-                      checked={loginForm.isRemeberMe}
-                      onChange={() =>
-                        setLoginForm({
-                          ...loginForm,
-                          isRemeberMe: !loginForm.isRemeberMe,
-                        })
-                      }
-                    />
-                  </Col> */}
-                  <Col className="d-flex justify-content-end">
-                    <Link
-                      to="/forgetPassword"
-                      style={{ textDecoration: "none", color: "#257d7c" }}
-                    >
-                      Forget Password?
-                    </Link>
-                  </Col>
-                </Row>
+
+                <section
+                  style={{
+                    marginTop: "20px",
+                    display: "flex",
+                    justifyContent: "end ",
+                  }}
+                >
+                  <Link
+                    to="/forgetPassword"
+                    style={{
+                      textDecoration: "none",
+                      color: "#257d7c",
+                    }}
+                  >
+                    Forget Password?
+                  </Link>
+                </section>
 
                 <Button
+                  style={{ float: "right" }}
                   type="submit"
                   className="mt-4 w-50"
                   onClick={(e) => handleSubmit(e)}

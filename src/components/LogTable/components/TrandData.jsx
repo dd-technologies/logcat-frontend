@@ -15,10 +15,13 @@ export default function TrandData() {
   const LineCount =
     data && data.data && data.data.response ? data.data.response : null;
 
+  // console.log("data", data.data);
+
   let add = 0;
   if (data && data.data && data.data.response) {
     LineCount.map((sum) => (add += sum.data));
   }
+
   return (
     <>
       <CustomCard>
@@ -37,6 +40,16 @@ export default function TrandData() {
               <section>
                 <p>Crashes</p>
                 <h4 style={{ fontWeight: 700 }}>{add}</h4>
+              </section>
+              <section className="ms-4">
+                <p>Count</p>
+                {data && data.data && data.data.count ? (
+                  <h4 style={{ fontWeight: 700 }}>
+                    {data && data.data && data.data.count}
+                  </h4>
+                ) : (
+                  <h4 style={{ fontWeight: 700 }}>0</h4>
+                )}
               </section>
               <section>
                 {/* <p className="ps-3">Users</p>
