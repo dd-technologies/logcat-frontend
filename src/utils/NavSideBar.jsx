@@ -123,7 +123,7 @@ export function Navbar(props) {
       </nav>
       {userInfo && (
         <CustomeDropDown
-          position="absolute"
+          position="fixed"
           right="10%"
           top="7%"
           width="200px"
