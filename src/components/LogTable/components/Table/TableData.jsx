@@ -694,27 +694,27 @@ function TableData(props) {
   }, []);
 
   // UPLOAD TO GOOGLE DRIVE
-  const handleOpenPicker = () => {
-    openPicker({
-      clientId:
-        "797675711024-cg2bgai0hcud8rqp965d481kkorl38f3.apps.googleusercontent.com",
-      developerKey: "AIzaSyC7ZaGvIfjyrhnz3OSb6Rf788j8xtmXkWA",
-      viewId: "DOCS",
-      // token: token, // pass oauth token in case you already have one
-      showUploadView: true,
-      showUploadFolders: true,
-      supportDrives: true,
-      multiselect: true,
-      // customViews: customViewsArray, // custom view
-    });
-  };
+  // const handleOpenPicker = () => {
+  //   openPicker({
+  //     clientId:
+  //       "797675711024-cg2bgai0hcud8rqp965d481kkorl38f3.apps.googleusercontent.com",
+  //     developerKey: "AIzaSyC7ZaGvIfjyrhnz3OSb6Rf788j8xtmXkWA",
+  //     viewId: "DOCS",
+  //     // token: token, // pass oauth token in case you already have one
+  //     showUploadView: true,
+  //     showUploadFolders: true,
+  //     supportDrives: true,
+  //     multiselect: true,
+  //     // customViews: customViewsArray, // custom view
+  //   });
+  // };
 
-  useEffect(() => {
-    // do anything with the selected/uploaded files
-    if (googleData) {
-      googleData.docs.map((i) => console.log(i.name));
-    }
-  }, [googleData]);
+  // useEffect(() => {
+  //   // do anything with the selected/uploaded files
+  //   if (googleData) {
+  //     googleData.docs.map((i) => console.log(i.name));
+  //   }
+  // }, [googleData]);
 
   return (
     <>
@@ -738,11 +738,11 @@ function TableData(props) {
                       <SearchBar {...props.searchProps} />
                     </section>
                     <section className={Style.filterOptions}>
-                      <section className={`${Style.GoogleDirve} px-2`}>
+                      {/* <section className={`${Style.GoogleDirve} px-2`}>
                         <Button onClick={() => handleOpenPicker()}>
                           Uplaod to google drive
                         </Button>
-                      </section>
+                      </section> */}
                       <ExportCSVButton {...props.csvProps}>
                         <FontAwesomeIcon icon={faDownload} />
                       </ExportCSVButton>

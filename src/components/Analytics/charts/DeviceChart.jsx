@@ -33,7 +33,7 @@ export default function DeviceChart(props) {
         left: 20,
       }}
     >
-      <CartesianGrid stroke="#f5f5f5" />
+      <CartesianGrid stroke="#f5f5f5"  />
       <XAxis type="number" />
       <YAxis dataKey="name" type="category" scale="band" />
       <Tooltip />
