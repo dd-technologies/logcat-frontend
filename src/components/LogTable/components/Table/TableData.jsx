@@ -506,8 +506,6 @@ function TableData(props) {
   };
 
   const columns = [
-    
-
     {
       dataField: "logMsg",
       text: "Log Message",
@@ -794,7 +792,11 @@ function TableData(props) {
               data={data.data.logs}
               columns={columns}
               search
-              exportCSV={{ fileName:`${code}_${filedate.toISOString()}.csv`, onlyExportSelection: true, exportAll: true }}
+              exportCSV={{
+                fileName: `${code}_${filedate.toISOString()}.csv`,
+                onlyExportSelection: true,
+                exportAll: true,
+              }}
             >
               {(props) => (
                 <>
@@ -805,11 +807,13 @@ function TableData(props) {
                     {/* chip section */}
                     {/* info: false, Warn: false, Error: false, Debug: false,
                     Verbose: false, */}
-                    {showChip.info && chipsScetion[0]}
-                    {showChip.Warn && chipsScetion[1]}
-                    {showChip.Error && chipsScetion[2]}
-                    {showChip.Debug && chipsScetion[3]}
-                    {showChip.Verbose && chipsScetion[4]}
+                    <section className={Style.chipOuter}>
+                      {showChip.info && chipsScetion[0]}
+                      {showChip.Warn && chipsScetion[1]}
+                      {showChip.Error && chipsScetion[2]}
+                      {showChip.Debug && chipsScetion[3]}
+                      {showChip.Verbose && chipsScetion[4]}
+                    </section>
                     <section className={Style.filterOptions}>
                       {/* <section className={`${Style.GoogleDirve} px-2`}>
                         <Button onClick={() => handleOpenPicker()}>
