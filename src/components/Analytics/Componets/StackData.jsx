@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import Style from "./StackData.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown, faFilter } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown, faFilter, faTasks } from "@fortawesome/free-solid-svg-icons";
 
 export default function StackData() {
   const [InnerParaShow, setInnerParaShow] = useState(true);
@@ -81,7 +81,7 @@ export default function StackData() {
               }
               onClick={stackErrorFilterTextFormateFun}
             >
-              <FontAwesomeIcon icon={faFilter} />
+              <FontAwesomeIcon icon={faTasks} />
             </section>
           </section>
         </Col>

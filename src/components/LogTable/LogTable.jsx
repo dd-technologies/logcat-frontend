@@ -7,6 +7,7 @@ import {
   faCaretDown,
   faDatabase,
   faSync,
+  faTasks,
 } from "@fortawesome/free-solid-svg-icons";
 import Style from "./LogTable.module.scss";
 import { Navbar, SideBar } from "../../utils/NavSideBar";
@@ -240,7 +241,100 @@ export default function LogTable() {
             }
           >
             <Row className="mt-4">
-              <Col xl={12} md={12} sm={12} className={Style.filterWithDate}>
+            <Col xl={10} md={12} sm={12} className={Style.filterWithDate}>
+                <section className={Style.filterwithDate} ref={ref}>
+                  <section className={Style.datafilter} onClick={DateFilter}>
+                    {/* <Image src={DateIcons} /> */}
+                    <FontAwesomeIcon icon={faTasks} color='#2A9AA4' size="2x" />
+                    <p className="ms-2 p-1">
+                      {/* {diffDate == 10
+                        ? `last 10 days`
+                        : diffDate == 7
+                        ? `last 7 days`
+                        : diffDate == 15
+                        ? `last 15 days`
+                        : diffDate == 30
+                        ? `last 30 days`
+                        : diffDate == 45
+                        ? `last 45 days`
+                        : diffDate == 60
+                        ? `last 60 days`
+                        : diffDate == 90
+                        ? `last 90 days`
+                        : null} */}
+                        001
+                    </p>
+                    <FontAwesomeIcon icon={faCaretDown} color="" />
+                  </section>
+
+                  <section>
+                    {dateDropDown ? (
+                      <CustomeDropDown width="100%">
+                        {/* <p className="mt-1">10 days</p> */}
+                        <p
+                          className="mt-1"
+                          onClick={() => {
+                            setDiffDate(7);
+                            setDateDropDown(false);
+                          }}
+                        >
+                          7 days
+                        </p>
+                        <p
+                          className="mt-1"
+                          onClick={() => {
+                            setDiffDate(15);
+                            setDateDropDown(false);
+                          }}
+                        >
+                          15 days
+                        </p>
+
+                        <p
+                          className="mt-1"
+                          onClick={() => {
+                            setDiffDate(30);
+                            setDateDropDown(false);
+                          }}
+                        >
+                          30 days
+                        </p>
+                        <p
+                          className="mt-1"
+                          onClick={() => {
+                            setDiffDate(45);
+                            setDateDropDown(false);
+                          }}
+                        >
+                          45 days
+                        </p>
+                        <p
+                          className="mt-1"
+                          onClick={() => {
+                            setDiffDate(60);
+                            setDateDropDown(false);
+                          }}
+                        >
+                          60 days
+                        </p>
+                        <p
+                          className="mt-1"
+                          onClick={() => {
+                            setDiffDate(90);
+                            setDateDropDown(false);
+                          }}
+                        >
+                          90 days
+                        </p>
+                      </CustomeDropDown>
+                    ) : null}
+                  </section>
+                </section>
+              </Col>
+
+
+
+              <Col xl={2} md={12} sm={12} className={Style.filterWithDate}>
                 <section className={Style.filterwithDate} ref={ref}>
                   <section className={Style.datafilter} onClick={DateFilter}>
                     <Image src={DateIcons} />

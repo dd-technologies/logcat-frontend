@@ -10,7 +10,9 @@ import "../../css/theme.scss";
 import { loginWithEmail } from "../../redux/action/AdminAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import {
+faEnvelope
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Login() {
   const [loginForm, setLoginForm] = useState({
@@ -165,7 +167,7 @@ export default function Login() {
                   }
                 >
                   <span>
-                    <FontAwesomeIcon icon={faGoogle} />
+                    <FontAwesomeIcon icon={faEnvelope} />
                   </span>
                   <input
                     type="email"
@@ -227,6 +229,7 @@ export default function Login() {
                     style={{
                       textDecoration: "none",
                       color: "#257d7c",
+                      fontWeight:500
                     }}
                   >
                     Forget Password?
@@ -234,9 +237,9 @@ export default function Login() {
                 </section>
 
                 <Button
-                  style={{ float: "right" }}
+                  style={{ float: "right", width:'30%', fontWeight:700 }}
                   type="submit"
-                  className="mt-4 w-50"
+                  className="mt-4"
                   onClick={(e) => handleSubmit(e)}
                 >
                   {loading ? "Loading..." : "Login"}

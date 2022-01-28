@@ -42,7 +42,7 @@ export default function TrandData() {
                 <h4 style={{ fontWeight: 700 }}>{add}</h4>
               </section>
               <section className="ms-4">
-                <p>Count</p>
+                <p>Users</p>
                 {data && data.data && data.data.count ? (
                   <h4 style={{ fontWeight: 700 }}>
                     {data && data.data && data.data.count}
