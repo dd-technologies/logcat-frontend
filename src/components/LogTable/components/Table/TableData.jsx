@@ -8,6 +8,7 @@ import {
   faCaretRight,
   faEllipsisV,
   faFilter,
+  faWindowClose,
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
 import ToolkitProvider, {
@@ -724,32 +725,45 @@ function TableData(props) {
   //   }
   // }, [googleData]);
 
-  // CHIP INFO
-  // const closeChipFun = () => {
-  //   setShowChip({ ...showChip, info: true });
-  // };
+  // menu chip created
 
-  // const chipsArray = ["info", "Warn", "Error", "Debug", "Verbose"];
+  // closing chips function
+  const closeChips = (index) => {
+    console.log("close chip", index);
+    if (index == 0) {
+      setShowChip({ ...showChip, info: false });
+      setLogType({ ...logType, info: false });
+    }
+    if (index == 1) {
+      setShowChip({ ...showChip, Warn: false });
+      setLogType({ ...logType, warn: false });
+    }
+    if (index == 2) {
+      setShowChip({ ...showChip, Error: false });
+      setLogType({ ...logType, error: false });
+    }
+    if (index == 3) {
+      setShowChip({ ...showChip, Debug: false });
+      setLogType({ ...logType, debug: false });
+    }
+    if (index == 4) {
+      setShowChip({ ...showChip, Verbose: false });
+      setLogType({ ...logType, verbose: false });
+    }
+  };
 
-  // const chipsScetion = chipsArray.map((items) => (
-  //   <section className={Style.chip} onClick={closeChipFun}>
-  //     <p>{items}</p>
-  //   </section>
-  // ));
+  const chipsArray = ["info", "Warn", "Error", "Debug", "Verbose"];
 
-  // var chipSection = Object.keys(showChip).forEach(function (key) {
-  //   return (
-  //     <section className={Style.chip} value={key}>
-  //       <p>{showChip[key]}</p>
-  //     </section>
-  //   );
-  // });
-  var tifs = { 1: "Joe", 2: "Jane" };
-  var tifOptions = Object.keys(tifs).forEach(function (key) {
-    return <option value={key}>{tifs[key]}</option>;
-  });
-
-  console.log("tifOptions", tifOptions);
+  const chipsScetion = chipsArray.map((items, index) => (
+    <section className={Style.chip}>
+      <p style={{ color: "#fff" }}>
+        {items}
+        <span onClick={() => closeChips(index)} className="ms-2">
+          <FontAwesomeIcon icon={faWindowClose} />
+        </span>
+      </p>
+    </section>
+  ));
 
   return (
     <>
@@ -772,10 +786,14 @@ function TableData(props) {
                     <section className={Style.searchbar}>
                       <SearchBar {...props.searchProps} />
                     </section>
-
                     {/* chip section */}
-                    {/* {chipSection} */}
-
+                    {/* info: false, Warn: false, Error: false, Debug: false,
+                    Verbose: false, */}
+                    {showChip.info && chipsScetion[0]}
+                    {showChip.Warn && chipsScetion[1]}
+                    {showChip.Error && chipsScetion[2]}
+                    {showChip.Debug && chipsScetion[3]}
+                    {showChip.Verbose && chipsScetion[4]}
                     <section className={Style.filterOptions}>
                       {/* <section className={`${Style.GoogleDirve} px-2`}>
                         <Button onClick={() => handleOpenPicker()}>
@@ -893,7 +911,10 @@ function TableData(props) {
                                           type="checkbox"
                                           checked={logType.info}
                                           onClick={(e) => {
-                                            setShowChip(true);
+                                            setShowChip({
+                                              ...showChip,
+                                              info: true,
+                                            });
                                             setLogType({
                                               ...logType,
                                               info: !logType.info,
@@ -911,6 +932,10 @@ function TableData(props) {
                                           type="checkbox"
                                           checked={logType.warn}
                                           onClick={(e) => {
+                                            setShowChip({
+                                              ...showChip,
+                                              Warn: true,
+                                            });
                                             setLogType({
                                               ...logType,
                                               warn: !logType.warn,
@@ -928,6 +953,10 @@ function TableData(props) {
                                           type="checkbox"
                                           checked={logType.error}
                                           onClick={(e) => {
+                                            setShowChip({
+                                              ...showChip,
+                                              Error: true,
+                                            });
                                             setLogType({
                                               ...logType,
                                               error: !logType.error,
@@ -945,6 +974,10 @@ function TableData(props) {
                                           type="checkbox"
                                           checked={logType.debug}
                                           onClick={(e) => {
+                                            setShowChip({
+                                              ...showChip,
+                                              Debug: true,
+                                            });
                                             setLogType({
                                               ...logType,
                                               debug: !logType.debug,
@@ -962,6 +995,10 @@ function TableData(props) {
                                           type="checkbox"
                                           checked={logType.verbose}
                                           onClick={(e) => {
+                                            setShowChip({
+                                              ...showChip,
+                                              Verbose: true,
+                                            });
                                             setLogType({
                                               ...logType,
                                               verbose: !logType.verbose,
