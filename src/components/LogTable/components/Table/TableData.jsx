@@ -569,18 +569,6 @@ function TableData(props) {
     },
 
     {
-      headerStyle: () => {
-        return {
-          backgroundColor: "#257d7c",
-          color: "#fff",
-        };
-      },
-      dataField: "did",
-      text: "MAC Address",
-      sort: true,
-    },
-
-    {
       dataField: "logType",
       text: "Log Type",
       headerStyle: () => {

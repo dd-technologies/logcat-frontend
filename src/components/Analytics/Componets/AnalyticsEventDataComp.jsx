@@ -3,6 +3,7 @@ import CustomCard from "../../../Container/CustomCard";
 import EventDataWithDate from "./EventDataWithDate";
 import Stackkeys from "./Stackkeys";
 import StackData from "./StackData";
+import StackDataNew from "./StackDataNew";
 
 export default function AnalyticsEventDataComp() {
   return (
@@ -11,7 +12,8 @@ export default function AnalyticsEventDataComp() {
         <EventDataWithDate />
         {/* <Stackkeys /> */}
         {/* pending toggle button */}
-        <StackData />
+        {/* <StackData /> */}
+        <StackDataNew />
       </CustomCard>
     </>
   );

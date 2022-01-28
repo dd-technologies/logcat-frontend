@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import Style from "./StackData.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown, faFilter, faTasks } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCaretDown,
+  faFilter,
+  faTasks,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function StackData() {
   const [InnerParaShow, setInnerParaShow] = useState(true);
@@ -28,7 +32,9 @@ export default function StackData() {
   const pattern = /(at).*/gm;
   const DataINRow = colData.split(" at");
 
-  // console.log("DataINRow", DataINRow);
+  console.log("DataInRow", DataINRow);
+
+  // const DataINRow = colData.match(pattern);
 
   // INNER PARA SHOW FUNCTION
   const innerParaShowFun = () => {
@@ -56,6 +62,8 @@ export default function StackData() {
     setStackErrorFilter(false);
     setactiveClassToggle({ text: false, stack: true });
   };
+
+  // console.log("colData", colData);
 
   return (
     <>
@@ -118,7 +126,6 @@ export default function StackData() {
               >
                 <section>
                   <p style={{ fontWeight: 600 }}>{DataINRow[0]}</p>
-                  <p>{DataINRow[1]}</p>
                 </section>
 
                 <FontAwesomeIcon icon={faCaretDown} />
@@ -130,13 +137,16 @@ export default function StackData() {
             <section className={`${Style.detailSection} py-3`}>
               {InnerParaShow ? (
                 <section className="ps-2">
+                  {/* FATAIL EXCEPTIPN */}
+                  {/* {console.log("hi", DataINRow.startsWith("Exception"))} */}
                   {DataINRow.map((itmes, index) => {
                     return (
                       <>
                         <p className={Style.pText}>
-                          {index == 0 ? (
-                            <span style={{ fontWeight: "bold" }}></span>
-                          ) : null}
+                          {index == 0 ? null : (
+                            <span style={{ fontWeight: "bold" }}>at</span>
+                          )}
+
                           {itmes}
                         </p>
                       </>
