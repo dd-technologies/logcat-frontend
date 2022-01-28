@@ -30,7 +30,7 @@
   .NavbarSectionWithMenu {
     display: flex;
     align-items: center;
-
+    cursor: pointer !important;
     @media screen and (min-width: 768px) and (max-width: 1024px) {
       padding-left: 5px !important;
     }
@@ -167,6 +167,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    // position: relative;
     @media screen and (min-width: 768px) and (max-width: 1024px) {
       width: 40%;
     }

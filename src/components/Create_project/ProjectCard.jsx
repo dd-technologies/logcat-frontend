@@ -21,7 +21,7 @@ const ProjectCard = (props) => {
       <CustomCard
         padding="15px"
         height="200px"
-        boxShadow=" -3px 3px 5px 0px rgba(0,0,0,0.75)"
+        boxShadow="0px 0px 3px 1px rgba(192,192,192,0.90)"
       >
         <Link
           to={`/logtable?code=${props.data.code}&name=${props.data.name} `}

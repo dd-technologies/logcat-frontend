@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button, Image } from "react-bootstrap";
 import Style from "./NavSideBar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,6 +22,12 @@ export function Navbar(props) {
   const [swipe, setSwipe] = useState({
     show: true,
   });
+
+  // SHOW ACCOUNT DETAILS
+  // const [showTableDropDown, setShowTableDropDown] = useState(false);
+
+  const [userInfo, setUserInfo] = useState(false);
+  const ref = useRef();
 
   const { loading, adminInfo } = adminLoginReducer;
 
@@ -80,9 +86,33 @@ export function Navbar(props) {
     dispatch(slideShow(swipe));
   }, [swipe]);
 
+  const showUserInfoFun = () => {
+    setUserInfo(!userInfo);
+  };
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and the clicked target is not within the menu,
+      // then close the menu
+      if (userInfo && ref.current && !ref.current.contains(e.target)) {
+        setUserInfo(false);
+      }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [userInfo]);
+
   return (
     <>
-      <nav className={data.show ? Style.navbarWihoutSlide : Style.navbar}>
+      <nav
+        className={data.show ? Style.navbarWihoutSlide : Style.navbar}
+        ref={ref}
+      >
         <section className={Style.NavbarSectionWithMenu}>
           <section className={Style.Icon}>
             <FontAwesomeIcon
@@ -91,12 +121,12 @@ export function Navbar(props) {
               size="lg"
             />
           </section>
-          <h3 className="p-3">
+          <h3 className="p-3" style={{ fontSize: "1.5rem" }}>
             {navdetails.dashName.charAt(0).toUpperCase() +
               navdetails.dashName.slice(1)}
           </h3>
         </section>
-        <section className={Style.userInfo}>
+        <section className={Style.userInfo} onClick={showUserInfoFun}>
           <section className={Style.Avtar}>
             {adminInfo &&
               adminInfo.data &&
@@ -113,15 +143,27 @@ export function Navbar(props) {
                   (name) => name.charAt(0).toUpperCase() + name.slice(1) + " "
                 )}
           </section>
-          <Button
+        </section>
+      </nav>
+      {userInfo && (
+        <CustomeDropDown
+          position="fixed"
+          right="10%"
+          top="7%"
+          width="200px"
+          zIndex="10"
+        >
+          <p>Account</p>
+          <p
+            style={{ cursor: "pointer" }}
             onClick={(e) => {
               handlelogout(e);
             }}
           >
             Logout
-          </Button>
-        </section>
-      </nav>
+          </p>
+        </CustomeDropDown>
+      )}
     </>
   );
 }

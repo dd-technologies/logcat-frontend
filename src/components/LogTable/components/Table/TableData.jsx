@@ -743,15 +743,16 @@ function TableData(props) {
                           Uplaod to google drive
                         </Button>
                       </section> */}
-                      <ExportCSVButton {...props.csvProps}>
-                        <FontAwesomeIcon icon={faDownload} />
-                      </ExportCSVButton>
+
                       <section
                         className={Style.filterGraphFirstSction}
                         onClick={showTableFieldFunc}
                       >
                         <FontAwesomeIcon icon={faFilter} />
                       </section>
+                      <ExportCSVButton {...props.csvProps}>
+                        <FontAwesomeIcon icon={faDownload} />
+                      </ExportCSVButton>
                       <section>
                         {showTableField ? (
                           <CustomCard

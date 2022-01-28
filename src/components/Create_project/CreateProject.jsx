@@ -118,7 +118,7 @@ function CreateProject() {
                   <CustomCard
                     padding="10px"
                     height="200px"
-                    boxShadow=" -1px 3px 0px 0px rgba(0,0,0,0.15)"
+                    boxShadow="0px 0px 3px 1px rgba(192,192,192,0.90)"
                   >
                     <section
                       className={Style.addProject}
