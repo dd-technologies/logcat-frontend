@@ -227,6 +227,7 @@ export default function Login() {
                     style={{
                       textDecoration: "none",
                       color: "#257d7c",
+                      fontWeight:500
                     }}
                   >
                     Forget Password?
@@ -234,9 +235,9 @@ export default function Login() {
                 </section>
 
                 <Button
-                  style={{ float: "right" }}
+                  style={{ float: "right", width:'30%', fontWeight:700 }}
                   type="submit"
-                  className="mt-4 w-50"
+                  className="mt-4"
                   onClick={(e) => handleSubmit(e)}
                 >
                   {loading ? "Loading..." : "Login"}

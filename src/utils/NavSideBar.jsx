@@ -44,6 +44,7 @@ export function Navbar(props) {
   const dispatch = useDispatch();
   let history = useHistory();
   const handlelogout = (e) => {
+    console.log('logout click');
     e.preventDefault();
     dispatch(adminLogout(history));
     console.log("handleclose", "handle close button pressed");
@@ -122,13 +123,13 @@ export function Navbar(props) {
               size="lg"
             />
           </section>
-          <h3 className="p-3" style={{ fontSize: "1.5rem" }}>
+          <h3 className="p-3" style={{ fontSize: "1.5rem", marginBottom: "-3px" }}>
             {navdetails.dashName.charAt(0).toUpperCase() +
               navdetails.dashName.slice(1)}
           </h3>
         </section>
         <section className={Style.userInfo} onClick={showUserInfoFun}>
-          <section className={Style.Avtar}>
+          <section className={Style.Avtar} >
             {adminInfo &&
               adminInfo.data &&
               adminInfo.data.name
@@ -149,7 +150,7 @@ export function Navbar(props) {
       {userInfo && (
         <CustomeDropDown
           position="fixed"
-          right="10%"
+          right="0%"
           top="7%"
           width="200px"
           zIndex="10"

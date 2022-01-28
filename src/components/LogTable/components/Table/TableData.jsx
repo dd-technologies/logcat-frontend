@@ -197,6 +197,7 @@ function TableData(props) {
   // const queryString = window.location.search;
   // const urlParams = new URLSearchParams(queryString);
   const code = props.code;
+  let filedate = new Date();
 
   const [dateSectionSelect, setDateSectionSelect] = useState(true);
   const [StatusSectionSeclect, setStatusSectionSeclect] = useState(false);
@@ -505,11 +506,13 @@ function TableData(props) {
   };
 
   const columns = [
+    
+
     {
       dataField: "logMsg",
       text: "Log Message",
       headerAlign: "center",
-      width: "10",
+      // width: "50",
       headerStyle: () => {
         return {
           backgroundColor: "#257d7c",
@@ -554,6 +557,19 @@ function TableData(props) {
 
       // style: { backgroundColor: 'green' }
     },
+
+    {
+      headerStyle: () => {
+        return {
+          backgroundColor: "#257d7c",
+          color: "#fff",
+        };
+      },
+      dataField: "did",
+      text: "MAC Address",
+      sort: true,
+    },
+
     {
       headerStyle: () => {
         return {
@@ -610,7 +626,7 @@ function TableData(props) {
 
     // {
     //   dataField: "device_types",
-    //   text: "Device Code",
+    //   text: "Version",
     //   headerStyle: () => {
     //     return {
     //       backgroundColor: "#257d7c",
@@ -778,7 +794,7 @@ function TableData(props) {
               data={data.data.logs}
               columns={columns}
               search
-              exportCSV={{ onlyExportSelection: true, exportAll: true }}
+              exportCSV={{ fileName:`${code}_${filedate.toISOString()}.csv`, onlyExportSelection: true, exportAll: true }}
             >
               {(props) => (
                 <>
