@@ -10,7 +10,7 @@ import "../../css/theme.scss";
 import { loginWithEmail } from "../../redux/action/AdminAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { faSteam } from "@fortawesome/free-brands-svg-icons";
 
 export default function Login() {
   const [loginForm, setLoginForm] = useState({
@@ -165,7 +165,7 @@ export default function Login() {
                   }
                 >
                   <span>
-                    <FontAwesomeIcon icon={faGoogle} />
+                    <FontAwesomeIcon icon={faSteam} />
                   </span>
                   <input
                     type="email"

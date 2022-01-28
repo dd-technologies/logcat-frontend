@@ -37,6 +37,18 @@
       }
     }
 
+    .chip {
+      background-color: $backgroundColor;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 20px;
+      height: 40px;
+      width: 80px;
+      cursor: pointer;
+      // color: $stackBackgroundColor;
+    }
+
     & button {
       color: $defaultTextColor !important;
       height: 35px !important;

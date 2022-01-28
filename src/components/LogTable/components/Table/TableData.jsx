@@ -250,6 +250,14 @@ function TableData(props) {
   const [rowSelected, setRowSelected] = useState(null);
   const [selectedRowArray, setSelectedRowArray] = useState([]);
 
+  const [showChip, setShowChip] = useState({
+    info: false,
+    Warn: false,
+    Error: false,
+    Debug: false,
+    Verbose: false,
+  });
+
   // GOOGLE DRIVE SAVE STATE
   const [openPicker, googleData, authResponse] = useDrivePicker();
 
@@ -497,18 +505,6 @@ function TableData(props) {
 
   const columns = [
     {
-      headerStyle: () => {
-        return {
-          backgroundColor: "#257d7c",
-          color: "#fff",
-        };
-      },
-      dataField: "did",
-      text: "MAC Address",
-      sort: true,
-    },
-
-    {
       dataField: "logMsg",
       text: "Log Message",
       headerAlign: "center",
@@ -558,6 +554,18 @@ function TableData(props) {
       // style: { backgroundColor: 'green' }
     },
     {
+      headerStyle: () => {
+        return {
+          backgroundColor: "#257d7c",
+          color: "#fff",
+        };
+      },
+      dataField: "did",
+      text: "MAC Address",
+      sort: true,
+    },
+
+    {
       dataField: "logType",
       text: "Log Type",
       headerStyle: () => {
@@ -599,34 +607,34 @@ function TableData(props) {
     //     sort:true
     //   },
 
-    {
-      dataField: "device_types",
-      text: "Device Code",
-      headerStyle: () => {
-        return {
-          backgroundColor: "#257d7c",
-          color: "#fff",
-        };
-      },
-      formatter: (cell) => cell.split("|")[0],
+    // {
+    //   dataField: "device_types",
+    //   text: "Device Code",
+    //   headerStyle: () => {
+    //     return {
+    //       backgroundColor: "#257d7c",
+    //       color: "#fff",
+    //     };
+    //   },
+    //   formatter: (cell) => cell.split("|")[0],
 
-      //   filter: textFilter(),
-      sort: true,
-    },
-    {
-      dataField: "device_types",
-      text: "Device Type",
-      headerStyle: () => {
-        return {
-          backgroundColor: "#257d7c",
-          color: "#fff",
-        };
-      },
-      formatter: (cell) => cell.split("|")[1],
+    //   //   filter: textFilter(),
+    //   sort: true,
+    // },
+    // {
+    //   dataField: "device_types",
+    //   text: "Device Type",
+    //   headerStyle: () => {
+    //     return {
+    //       backgroundColor: "#257d7c",
+    //       color: "#fff",
+    //     };
+    //   },
+    //   formatter: (cell) => cell.split("|")[1],
 
-      //   filter: textFilter(),
-      sort: true,
-    },
+    //   //   filter: textFilter(),
+    //   sort: true,
+    // },
   ];
 
   useEffect(() => {
@@ -716,6 +724,33 @@ function TableData(props) {
   //   }
   // }, [googleData]);
 
+  // CHIP INFO
+  // const closeChipFun = () => {
+  //   setShowChip({ ...showChip, info: true });
+  // };
+
+  // const chipsArray = ["info", "Warn", "Error", "Debug", "Verbose"];
+
+  // const chipsScetion = chipsArray.map((items) => (
+  //   <section className={Style.chip} onClick={closeChipFun}>
+  //     <p>{items}</p>
+  //   </section>
+  // ));
+
+  // var chipSection = Object.keys(showChip).forEach(function (key) {
+  //   return (
+  //     <section className={Style.chip} value={key}>
+  //       <p>{showChip[key]}</p>
+  //     </section>
+  //   );
+  // });
+  var tifs = { 1: "Joe", 2: "Jane" };
+  var tifOptions = Object.keys(tifs).forEach(function (key) {
+    return <option value={key}>{tifs[key]}</option>;
+  });
+
+  console.log("tifOptions", tifOptions);
+
   return (
     <>
       <TableCard
@@ -737,6 +772,10 @@ function TableData(props) {
                     <section className={Style.searchbar}>
                       <SearchBar {...props.searchProps} />
                     </section>
+
+                    {/* chip section */}
+                    {/* {chipSection} */}
+
                     <section className={Style.filterOptions}>
                       {/* <section className={`${Style.GoogleDirve} px-2`}>
                         <Button onClick={() => handleOpenPicker()}>
@@ -854,6 +893,7 @@ function TableData(props) {
                                           type="checkbox"
                                           checked={logType.info}
                                           onClick={(e) => {
+                                            setShowChip(true);
                                             setLogType({
                                               ...logType,
                                               info: !logType.info,

@@ -46,6 +46,7 @@ export function Navbar(props) {
   const handlelogout = (e) => {
     e.preventDefault();
     dispatch(adminLogout(history));
+    console.log("handleclose", "handle close button pressed");
   };
 
   const currentRoute = useHistory().location.pathname.toLowerCase();
@@ -111,7 +112,7 @@ export function Navbar(props) {
     <>
       <nav
         className={data.show ? Style.navbarWihoutSlide : Style.navbar}
-        ref={ref}
+        // ref={ref}
       >
         <section className={Style.NavbarSectionWithMenu}>
           <section className={Style.Icon}>
