@@ -11,6 +11,9 @@ import { loginWithEmail } from "../../redux/action/AdminAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { faSteam } from "@fortawesome/free-brands-svg-icons";
+import {
+  faEnvelope
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Login() {
   const [loginForm, setLoginForm] = useState({
@@ -165,7 +168,7 @@ export default function Login() {
                   }
                 >
                   <span>
-                    <FontAwesomeIcon icon={faSteam} />
+                    <FontAwesomeIcon icon={faEnvelope} />
                   </span>
                   <input
                     type="email"
