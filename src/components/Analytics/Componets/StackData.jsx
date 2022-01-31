@@ -73,16 +73,6 @@ export default function StackData() {
           <section className={Style.filterToggle}>
             <section
               className={
-                activeClassToggle.text
-                  ? `${Style.filterGraphFirstSctionActive} `
-                  : `${Style.filterGraphFirstSction} `
-              }
-              onClick={stackErrorFilterFun}
-            >
-              <p>TXT</p>
-            </section>
-            <section
-              className={
                 activeClassToggle.stack
                   ? `${Style.filterGraphFirstSctionActive} `
                   : `${Style.filterGraphFirstSction} `
@@ -90,6 +80,16 @@ export default function StackData() {
               onClick={stackErrorFilterTextFormateFun}
             >
               <FontAwesomeIcon icon={faTasks} />
+            </section>
+            <section
+              className={
+                activeClassToggle.text
+                  ? `${Style.filterGraphFirstSctionActive} `
+                  : `${Style.filterGraphFirstSction} `
+              }
+              onClick={stackErrorFilterFun}
+            >
+              <p>TXT</p>
             </section>
           </section>
         </Col>
