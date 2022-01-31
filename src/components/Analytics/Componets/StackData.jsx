@@ -120,16 +120,24 @@ export default function StackData() {
         {stackErrorFilterTextFormate ? (
           <Col xl={12} className={`${Style.outerDiv} mt-4`}>
             {/* stack error section */}
-            {DataINRow.sort().map((items) => {
+            {DataINRow.sort().map((items, index) => {
               return (
                 <>
                   <section className={Style.outerDiv}>
-                    <section className={Style.StackInfoDive}>
+                    <section
+                      className={Style.StackInfoDive}
+                      onclick={innerParaShowDetailsFun}
+                    >
                       <p>{items}</p>
                     </section>
-                    <section className={Style.detailSection}>
-                      <p>{items}</p>
-                    </section>
+                    {innerParaShowDetails ? (
+                      <section className={Style.detailSection}>
+                        <p>
+                          <span>at :</span>
+                          {items}
+                        </p>
+                      </section>
+                    ) : null}
                   </section>
                 </>
               );
