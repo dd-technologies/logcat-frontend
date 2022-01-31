@@ -42,7 +42,7 @@ export default function CarshFreeStaticsGraph() {
                 {/* <CartesianGrid strokeDasharray="3 3" /> */}
                 <XAxis dataKey="date" tickCount={5} minTickGap={10} tickFormatter={dateFormatter} />
                 {/* <YAxis dataKey="data" /> */}
-                <CartesianGrid strokeDasharray="0 0 4" />
+                <CartesianGrid vertical={false} strokeDasharray="0 0 4" />
                 <Tooltip />
                 <Line
                   connectNulls
