@@ -115,7 +115,7 @@ export const getProjectByCode =
           `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?startDate=${date.start}&endDate=${date.end}&limit=${record}&page=${page}&logType=${logString}`,
           config
         );
-        console.log("dispatch 1", response);
+        // console.log("dispatch 1", response);
       } else if (date != null && date.start) {
         let logString = "";
         for (const [key, value] of Object.entries(filters)) {
@@ -127,7 +127,7 @@ export const getProjectByCode =
           `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?startDate=${date.start}&limit=${record}&page=${page}&logType=${logString}`,
           config
         );
-        console.log("dispatch 2", response);
+        // console.log("dispatch 2", response);
       } else if (date != null && date.end) {
         let logString = "";
         for (const [key, value] of Object.entries(filters)) {
@@ -139,7 +139,7 @@ export const getProjectByCode =
           `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?endDate=${date.end}&limit=${record}&page=${page}&logType=${logString}`,
           config
         );
-        console.log("dispatch 3", response);
+        // console.log("dispatch 3", response);
       } else if (filters != null) {
         let logString = "";
         for (const [key, value] of Object.entries(filters)) {
@@ -153,17 +153,17 @@ export const getProjectByCode =
           `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?logType=${logString}&page=${page}&limit=${record}`,
           config
         );
-        console.log("dispatch 4", response);
+        // console.log("dispatch 4", response);
         // console.log(response);
       } else {
-        console.log(`pageno from action project ${filters}`);
+        // console.log(`pageno from action project ${filters}`);
         let logString = "";
         if (filters != null) {
           for (const [key, value] of Object.entries(filters)) {
             if (value) {
               logString += `${key}-`;
 
-              console.log("dispatch 5", logString);
+              // console.log("dispatch 5", logString);
             }
           }
         }
@@ -171,10 +171,10 @@ export const getProjectByCode =
           `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?page=${page}&limit=${record}logType=${logString}`,
           config
         );
-        console.log("dispatch 5");
+        // console.log("dispatch 5");
       }
 
-      console.log(response.data);
+      // console.log(response.data);
       dispatch({
         type: GET_ALL_LOG_BY_CODE_SUCCESS,
         payload: response.data,
@@ -336,7 +336,7 @@ export const getLogByDate =
         dt.setDate(dt.getDate() - diffDate);
         const start = dt.toISOString().slice(0, 10);
 
-        console.log("object", start, end);
+        // console.log("object", start, end);
 
         response = await axios.get(
           `https://logger-server.herokuapp.com/api/logger/projects/datewiselogcount/${code}?startDate=${start}&endDate=${end}`,
@@ -351,7 +351,7 @@ export const getLogByDate =
           payload: response.data,
         });
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
 
@@ -466,7 +466,7 @@ export const getProjectDetails = (code) => async (dispatch) => {
 export const getLogMsgOccurenceWRTDate =
   ({ code, startDate, endDate, logMsg }) =>
   async (dispatch) => {
-    console.log("request comming to log");
+    // console.log("request comming to log");
     try {
       // console.log(logMsg)
       // console.log(code)

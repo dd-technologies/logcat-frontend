@@ -34,7 +34,7 @@ export function Navbar(props) {
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
   const { data } = slideWindowReducer;
-  console.log("slideWindowReducer", data);
+  // console.log("slideWindowReducer", data);
 
   // console.log(adminInfo.data.name);
 
@@ -44,10 +44,10 @@ export function Navbar(props) {
   const dispatch = useDispatch();
   let history = useHistory();
   const handlelogout = (e) => {
-    console.log('logout click');
+    // console.log('logout click');
     e.preventDefault();
     dispatch(adminLogout(history));
-    console.log("handleclose", "handle close button pressed");
+    // console.log("handleclose", "handle close button pressed");
   };
 
   const currentRoute = useHistory().location.pathname.toLowerCase();
@@ -172,7 +172,7 @@ export function Navbar(props) {
 
 export function SideBar(props) {
   const { sidebarDetails } = props;
-  console.log("sidebarDetails", props);
+  // console.log("sidebarDetails", props);
   const [sidebar, setSidebar] = useState(false);
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const [navToggle, setNavToggle] = useState(true);
@@ -181,7 +181,7 @@ export function SideBar(props) {
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
   const { data } = slideWindowReducer;
-  console.log("slideWindowReducer", data);
+  // console.log("slideWindowReducer", data);
 
   // checking if navlink 2 is not avilables
 

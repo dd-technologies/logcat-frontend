@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import Style from "./StackData.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +10,7 @@ import {
 
 export default function StackData() {
   const [InnerParaShow, setInnerParaShow] = useState(true);
-  const [innerParaShowDetails, setInnerParaShowDetails] = useState(true);
+  const [innerParaShowDetails, setInnerParaShowDetails] = useState({});
   const [stackErrorFilter, setStackErrorFilter] = useState(false);
   const [stackErrorFilterTextFormate, setStackErrorFilterTextFormate] =
     useState(true);
@@ -32,7 +32,7 @@ export default function StackData() {
   const pattern = /(at).*/gm;
   const DataINRow = colData.split(" at");
 
-  console.log("DataInRow", DataINRow);
+  // console.log("DataInRow", DataINRow);
 
   // const DataINRow = colData.match(pattern);
 
@@ -46,10 +46,7 @@ export default function StackData() {
     }
   };
 
-  // INNER PARA DETAIL SECTION FUNCTION
-  const innerParaShowDetailsFun = () => {
-    setInnerParaShowDetails(!innerParaShowDetails);
-  };
+  // FILTER FUNCTION FOR TOGGLE BUTTON
 
   const stackErrorFilterFun = () => {
     setStackErrorFilter(true);
@@ -63,7 +60,20 @@ export default function StackData() {
     setactiveClassToggle({ text: false, stack: true });
   };
 
-  // console.log("colData", colData);
+  // INNER PARA DETAIL SECTION FUNCTION
+  const innerParaShowDetailsFun = (index) => {
+    // setInnerParaShowDetails();
+    let idx = index;
+
+    if (innerParaShowDetails.hasOwnProperty(idx)) {
+      setInnerParaShowDetails({
+        ...innerParaShowDetails,
+        [idx]: !innerParaShowDetails[idx],
+      });
+    } else {
+      setInnerParaShowDetails({ ...innerParaShowDetails, [idx]: true });
+    }
+  };
 
   return (
     <>
@@ -94,7 +104,7 @@ export default function StackData() {
           </section>
         </Col>
 
-        {/* STACK ERRO WITH  FILLTER BUTTON CLICK */}
+        {/* TEXT ERROR  WITH  FILLTER BUTTON CLICK */}
         {stackErrorFilter ? (
           <Col xl={12} className={`${Style.outerDiv} mt-4`}>
             <section className={`${Style.StackInfoDive} p-3`}>
@@ -116,7 +126,7 @@ export default function StackData() {
           </Col>
         ) : null}
 
-        {/* TEXT FILTER STACK ERROR FIELD HERE */}
+        {/* STACK FILTER STACK ERROR FIELD HERE */}
         {stackErrorFilterTextFormate ? (
           <Col xl={12} className={`${Style.outerDiv} mt-4`}>
             {/* stack error section */}
@@ -126,14 +136,20 @@ export default function StackData() {
                   <section className={Style.outerDiv}>
                     <section
                       className={Style.StackInfoDive}
-                      onclick={innerParaShowDetailsFun}
+                      onClick={() => innerParaShowDetailsFun(index)}
                     >
                       <p>{items}</p>
+                      {console.log("items", items)}
+                      <FontAwesomeIcon icon={faCaretDown} />
                     </section>
-                    {innerParaShowDetails ? (
+                    {innerParaShowDetails[index] ? (
                       <section className={Style.detailSection}>
                         <p>
                           <span>at :</span>
+                          {/* {items.includes("androidx.fragment.app")
+                            ? items
+                            : null}
+*/}
                           {items}
                         </p>
                       </section>

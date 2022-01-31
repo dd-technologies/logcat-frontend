@@ -294,7 +294,7 @@ function TableData(props) {
   );
   const { loading, data } = getAllLogByCodeReducer;
 
-  console.log("getAllLogByCodeReducer", data);
+  // console.log("getAllLogByCodeReducer", data);
 
   const selectRow = {
     mode: "checkbox",
@@ -429,7 +429,7 @@ function TableData(props) {
   useEffect(() => {
     dt.start = date.start;
     dt.end = date.end;
-    console.log(logType);
+    // console.log(logType);
     if (
       logType.error ||
       logType.info ||
@@ -437,11 +437,11 @@ function TableData(props) {
       logType.debug ||
       logType.verbose
     ) {
-      console.log("if useEffect executed");
-      console.log(`page ${pageNo}`);
+      // console.log("if useEffect executed");
+      // console.log(`page ${pageNo}`);
       dispatch(getProjectByCode(code, date, logType, pageNo, record));
     } else {
-      console.log("else useEffect click");
+      // console.log("else useEffect click");
       // console.log(`${date.start} ${date.end} ${pageNo} ${record}`);
       dispatch(getProjectByCode(code, date, null, pageNo, record));
     }
@@ -495,7 +495,7 @@ function TableData(props) {
       let version = row.version ? row.version : null;
       let osArchitecture = row.osArchitecture ? row.osArchitecture : null;
       let modelName = row.modelName ? row.modelName : null;
-      console.log("row", row);
+      // console.log("row", row);
       history.push(
         `/analytics?code=${props.code}&name=${props.projectName}&col=${row.logMsg}&rowlogGeneratedDate=${row.logGeneratedDate}&version=${version}&osArchitecture=${osArchitecture}&modelName=${modelName}`
       );
@@ -657,7 +657,7 @@ function TableData(props) {
     };
   }, [showTableField]);
 
-  console.log("active recodes", activeRecord);
+  // console.log("active recodes", activeRecord);
 
   useEffect(() => {
     // 1) if record are 10 in localstorage
@@ -731,7 +731,7 @@ function TableData(props) {
 
   // closing chips function
   const closeChips = (index) => {
-    console.log("close chip", index);
+    // console.log("close chip", index);
     if (index == 0) {
       setShowChip({ ...showChip, info: false });
       setLogType({ ...logType, info: false });
@@ -1094,7 +1094,7 @@ function TableData(props) {
                       </section>
                     </section>
                   </div>
-                  {console.log("props", props)}
+                  {/* {console.log("props", props)} */}
                   <BootstrapTable
                     {...props.baseProps}
                     selectRow={selectRow}
@@ -1108,7 +1108,7 @@ function TableData(props) {
           ) : (
             <h3 className="p-2">No Logs Found</h3>
           )}
-          {console.log(`count ${data && data.data && data.data.count}`)}
+          {/* {console.log(`count ${data && data.data && data.data.count}`)} */}
           <section className="p-2">
             <ReactPaginate
               breakLabel="..."
