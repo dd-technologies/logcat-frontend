@@ -13,27 +13,11 @@
     }
 
     .searchbar {
-      @media screen and (min-width: 600px) and (max-width: 1080px) {
-        width: 50%;
-      }
-      @media screen and (min-width: 1080px) and (max-width: 1400px) {
-        width: 50%;
-      }
+      // border: 2px solid red;
+      width: 100%;
 
-      @media screen and (min-width: 1600px) and (max-width: 1920px) {
-        width: 60%;
-      }
       & label {
-        @media screen and (min-width: 600px) and (max-width: 1080px) {
-          width: 50%;
-        }
-        @media screen and (min-width: 1080px) and (max-width: 1400px) {
-          width: 90%;
-        }
-
-        @media screen and (min-width: 1600px) and (max-width: 1920px) {
-          width: 60%;
-        }
+        width: 100%;
       }
     }
 
