@@ -752,6 +752,8 @@ function TableData(props) {
       setShowChip({ ...showChip, Verbose: false });
       setLogType({ ...logType, verbose: false });
     }
+
+    // CHECKING IF INPUT BOX HIDE
   };
 
   const chipsArray = ["info", "Warn", "Error", "Debug", "Verbose"];
@@ -796,11 +798,11 @@ function TableData(props) {
                     {/* info: false, Warn: false, Error: false, Debug: false,
                     Verbose: false, */}
                     <section className={Style.chipOuter}>
-                      {showChip.info && chipsScetion[0]}
-                      {showChip.Warn && chipsScetion[1]}
-                      {showChip.Error && chipsScetion[2]}
-                      {showChip.Debug && chipsScetion[3]}
-                      {showChip.Verbose && chipsScetion[4]}
+                      {showChip.info && logType.info && chipsScetion[0]}
+                      {showChip.Warn && logType.warn && chipsScetion[1]}
+                      {showChip.Error && logType.error && chipsScetion[2]}
+                      {showChip.Debug && logType.debug && chipsScetion[3]}
+                      {showChip.Verbose && logType.verbose && chipsScetion[4]}
                     </section>
                     <section className={Style.filterOptions}>
                       {/* <section className={`${Style.GoogleDirve} px-2`}>

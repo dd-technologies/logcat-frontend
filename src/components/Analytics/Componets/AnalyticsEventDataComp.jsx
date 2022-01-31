@@ -1,19 +1,16 @@
 import React from "react";
 import CustomCard from "../../../Container/CustomCard";
 import EventDataWithDate from "./EventDataWithDate";
-import Stackkeys from "./Stackkeys";
 import StackData from "./StackData";
-import StackDataNew from "./StackDataNew";
+import StackNewData from "./StackNewData";
 
 export default function AnalyticsEventDataComp() {
   return (
     <>
       <CustomCard height="100%">
         <EventDataWithDate />
-        {/* <Stackkeys /> */}
-        {/* pending toggle button */}
-        {/* <StackData /> */}
-        <StackDataNew />
+        <StackData />
+        {/* <StackNewData /> */}
       </CustomCard>
     </>
   );

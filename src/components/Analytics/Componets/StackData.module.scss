@@ -2,6 +2,7 @@
 
 .outerDiv {
   border-radius: $cardBorderRadius;
+  margin-top: 10px;
 
   .StackInfoDive {
     background-color: $filterButtonBackgroundColor;
@@ -9,6 +10,7 @@
     border-top-right-radius: $cardBorderRadius;
     margin: 0px;
     border: $borderBottom;
+    padding: 10px;
 
     .ParaWithArrowDown {
       display: flex;
@@ -34,7 +36,7 @@
     flex-direction: column;
     background-color: $defaultTextColor;
     font-size: 0.9rem;
-
+    padding: 10px;
     .stackDetails {
       @include headingFontdasktopMixin;
     }

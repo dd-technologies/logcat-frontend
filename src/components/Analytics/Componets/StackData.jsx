@@ -119,42 +119,21 @@ export default function StackData() {
         {/* TEXT FILTER STACK ERROR FIELD HERE */}
         {stackErrorFilterTextFormate ? (
           <Col xl={12} className={`${Style.outerDiv} mt-4`}>
-            <section className={`${Style.StackInfoDive} p-3`}>
-              <section
-                className={Style.ParaWithArrowDown}
-                onClick={innerParaShowFun}
-              >
-                <section>
-                  <p style={{ fontWeight: 600 }}>{DataINRow[0]}</p>
-                </section>
-
-                <FontAwesomeIcon icon={faCaretDown} />
-              </section>
-            </section>
-
             {/* stack error section */}
-
-            <section className={`${Style.detailSection} py-3`}>
-              {InnerParaShow ? (
-                <section className="ps-2">
-                  {/* FATAIL EXCEPTIPN */}
-                  {/* {console.log("hi", DataINRow.startsWith("Exception"))} */}
-                  {DataINRow.map((itmes, index) => {
-                    return (
-                      <>
-                        <p className={Style.pText}>
-                          {index == 0 ? null : (
-                            <span style={{ fontWeight: "bold" }}>at</span>
-                          )}
-
-                          {itmes}
-                        </p>
-                      </>
-                    );
-                  })}
-                </section>
-              ) : null}
-            </section>
+            {DataINRow.sort().map((items) => {
+              return (
+                <>
+                  <section className={Style.outerDiv}>
+                    <section className={Style.StackInfoDive}>
+                      <p>{items}</p>
+                    </section>
+                    <section className={Style.detailSection}>
+                      <p>{items}</p>
+                    </section>
+                  </section>
+                </>
+              );
+            })}
           </Col>
         ) : null}
       </Row>
