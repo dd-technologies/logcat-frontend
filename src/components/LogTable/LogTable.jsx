@@ -27,6 +27,7 @@ import {
   getLogByDate,
   getProjectByCode,
   getCrashFreeUsers,
+  getDeviceModelCode
 } from "../../redux/action/ProjectAction";
 import { getLogCountsReducer } from "../../redux/reducer/ProjectReducer";
 import { useHistory } from "react-router-dom";
@@ -35,13 +36,17 @@ import { slideShow } from "../../redux/action/SlideAction";
 import toast from "react-hot-toast";
 import DateIcons from "../../assets/icons/date.png";
 import LogICon from "../../assets/icons/log.png";
+import TypeDropDown from "./components/Table/TypeDropDown";
 
 export default function LogTable() {
   const history = useHistory();
   // filter with crash free statics and trands
   const [dropDownShow, setDropDownShow] = useState(false);
   const [dateDropDown, setDateDropDown] = useState(false);
+  const [projectCodeDropDown,setProjectCodeDropDown] = useState(false);
   const [diffDate, setDiffDate] = useState(90);
+
+  const [projectCode,setProjectCode] = useState()
 
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
@@ -102,12 +107,30 @@ export default function LogTable() {
       setDateDropDown(false);
     }
   };
+
+  let modelList;
+  const ProjectTypeFilter = () => {
+    
+
+    setProjectCodeDropDown(true);
+    if (projectCodeDropDown) {
+      setProjectCodeDropDown(false);
+    }
+  };
+
   const dispatch = useDispatch();
   const getAllLogByCodeReducer = useSelector(
     (state) => state.getAllLogByCodeReducer
   );
 
-  // console.log("getAllLogByCodeReducer", getAllLogByCodeReducer);
+//   const getModelCodeReducer = useSelector(
+//     (state) => state.getModelCodeReducer
+//   );
+  
+// let modelList;
+//   if (getModelCodeReducer && getModelCodeReducer.data) {
+//     modelList = getModelCodeReducer.data.modelList
+//   }
 
   const dispatchmultiple = () => {
     // dispatch(getLogTypeCounts(code));
@@ -127,6 +150,7 @@ export default function LogTable() {
     dispatch(getLogTypeCounts({ code, diffDate }));
     dispatch(getLogByDate({ code, diffDate }));
     dispatch(getCrashFreeUsers({ code, diffDate }));
+    
     // dispatch(getLogByDate(code, date));
   };
   useEffect(() => {
@@ -146,6 +170,7 @@ export default function LogTable() {
   }, [history]);
 
   useEffect(() => {
+    dispatch(getDeviceModelCode(code))
     const checkIfClickedOutside = (e) => {
       // If the menu is open and the clicked target is not within the menu,
       // then close the menu
@@ -242,94 +267,10 @@ export default function LogTable() {
           >
             <Row className="mt-4">
             <Col xl={10} md={12} sm={12} className={Style.filterWithDate}>
-                <section className={Style.filterwithDate} ref={ref}>
-                  <section className={Style.datafilter} onClick={DateFilter}>
-                    {/* <Image src={DateIcons} /> */}
-                    <FontAwesomeIcon icon={faTasks} color='#2A9AA4' size="2x" />
-                    <p className="ms-2 p-1">
-                      {/* {diffDate == 10
-                        ? `last 10 days`
-                        : diffDate == 7
-                        ? `last 7 days`
-                        : diffDate == 15
-                        ? `last 15 days`
-                        : diffDate == 30
-                        ? `last 30 days`
-                        : diffDate == 45
-                        ? `last 45 days`
-                        : diffDate == 60
-                        ? `last 60 days`
-                        : diffDate == 90
-                        ? `last 90 days`
-                        : null} */}
-                        001
-                    </p>
-                    <FontAwesomeIcon icon={faCaretDown} color="" />
-                  </section>
-
-                  <section>
-                    {dateDropDown ? (
-                      <CustomeDropDown width="100%">
-                        {/* <p className="mt-1">10 days</p> */}
-                        <p
-                          className="mt-1"
-                          onClick={() => {
-                            setDiffDate(7);
-                            setDateDropDown(false);
-                          }}
-                        >
-                          7 days
-                        </p>
-                        <p
-                          className="mt-1"
-                          onClick={() => {
-                            setDiffDate(15);
-                            setDateDropDown(false);
-                          }}
-                        >
-                          15 days
-                        </p>
-
-                        <p
-                          className="mt-1"
-                          onClick={() => {
-                            setDiffDate(30);
-                            setDateDropDown(false);
-                          }}
-                        >
-                          30 days
-                        </p>
-                        <p
-                          className="mt-1"
-                          onClick={() => {
-                            setDiffDate(45);
-                            setDateDropDown(false);
-                          }}
-                        >
-                          45 days
-                        </p>
-                        <p
-                          className="mt-1"
-                          onClick={() => {
-                            setDiffDate(60);
-                            setDateDropDown(false);
-                          }}
-                        >
-                          60 days
-                        </p>
-                        <p
-                          className="mt-1"
-                          onClick={() => {
-                            setDiffDate(90);
-                            setDateDropDown(false);
-                          }}
-                        >
-                          90 days
-                        </p>
-                      </CustomeDropDown>
-                    ) : null}
-                  </section>
-                </section>
+              {/* {
+               modelList && modelList.length ?  */}
+                <TypeDropDown /> 
+              {/* } */}
               </Col>
 
 

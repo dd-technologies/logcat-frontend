@@ -43,6 +43,10 @@ import {
   GET_CRASH_FREE_USERS_DATA_REQUEST,
   GET_CRASH_FREE_USERS_DATA_REQUEST_SUCCESS,
   GET_CRASH_FREE_USERS_DATA_REQUEST_FAIL,
+
+  GET_MODEL_CODE_REQUEST,
+  GET_MODEL_CODE_SUCCESS,
+  GET_MODEL_CODE_FAIL,
 } from "../types/ProjectConstants";
 
 export const getAllProjectReducer = (state = {}, action) => {
@@ -292,4 +296,24 @@ export const getCrashFreeUsersDataReducer= (state={},action)=>{
       return state;
 }
 };
+
+export const getModelCodeReducer = (state={},action)=>{
+  switch (action.type) {
+    case  GET_MODEL_CODE_REQUEST :
+      return { loading: true };
+
+    case  GET_MODEL_CODE_SUCCESS :
+      return {
+        loading: false,
+        data: action.payload,
+      };
+    case  GET_MODEL_CODE_FAIL :
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+}
 

@@ -25,7 +25,8 @@ import {
   getLogMsgOccurenceWRTDateReducer,
   getCrashFreeUsersReducer,
   getCrashAnalyticsDataReducer,
-  getCrashFreeUsersDataReducer
+  getCrashFreeUsersDataReducer,
+  getModelCodeReducer
 } from "./reducer/ProjectReducer";
 import slideWindowReducer from "./reducer/SliderReducer";
 
@@ -50,6 +51,7 @@ const appReducer = combineReducers({
   createNewProjectReducer,
   getLogCountsReducer,
   getLogCountsByDateReducer,
+  getModelCodeReducer,
 
   getErrorWRTOSReducer,
   getErrorWRTVersionReducer,
