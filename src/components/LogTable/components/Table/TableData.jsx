@@ -740,22 +740,27 @@ function TableData(props) {
     if (index == 0) {
       setShowChip({ ...showChip, info: false });
       setLogType({ ...logType, info: false });
+      dispatch(getProjectByCode(code, null, { ...logType, info: false }));
     }
     if (index == 1) {
       setShowChip({ ...showChip, Warn: false });
       setLogType({ ...logType, warn: false });
+      dispatch(getProjectByCode(code, null, { ...logType, warn: false }));
     }
     if (index == 2) {
       setShowChip({ ...showChip, Error: false });
       setLogType({ ...logType, error: false });
+      dispatch(getProjectByCode(code, null, { ...logType, error: false }));
     }
     if (index == 3) {
       setShowChip({ ...showChip, Debug: false });
       setLogType({ ...logType, debug: false });
+      dispatch(getProjectByCode(code, null, { ...logType, debug: false }));
     }
     if (index == 4) {
       setShowChip({ ...showChip, Verbose: false });
       setLogType({ ...logType, verbose: false });
+      dispatch(getProjectByCode(code, null, { ...logType, verbose: false }));
     }
 
     // CHECKING IF INPUT BOX HIDE
@@ -777,6 +782,7 @@ function TableData(props) {
   const closeDateChip = (index) => {
     if (index == 0) {
       setDatechips({ ...datechips, start: false });
+      dispatch(getProjectByCode(code, data.start));
       setdate({
         ...date,
         start: "",
@@ -784,6 +790,7 @@ function TableData(props) {
     }
     if (index == 1) {
       setDatechips({ ...datechips, end: false });
+      dispatch(getProjectByCode(code, date.end));
       setdate({
         ...date,
         end: "",
