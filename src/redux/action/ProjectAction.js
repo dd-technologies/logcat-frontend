@@ -37,6 +37,9 @@ import {
   GET_CRASH_FREE_USERS_DATA_REQUEST,
   GET_CRASH_FREE_USERS_DATA_REQUEST_SUCCESS,
   GET_CRASH_FREE_USERS_DATA_REQUEST_FAIL,
+  GET_MODEL_CODE_REQUEST,
+  GET_MODEL_CODE_SUCCESS,
+  GET_MODEL_CODE_FAIL,
 } from "../types/ProjectConstants";
 
 export const getAllProject = () => async (dispatch) => {
@@ -658,3 +661,42 @@ export const getCrashFreeUsersData = (code, logMsg) => async (dispatch) => {
     });
   }
 };
+
+
+  export const getDeviceModelCode = (code)=> async(dispatch) =>{
+    try {
+
+    dispatch({
+      type: GET_MODEL_CODE_REQUEST,
+    });
+    const token = localStorage.getItem("ddAdminToken");
+    // console.log(token);
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    // {URL}}api/logger/projects/getDeviceCount/MF7OW
+
+    const { data } = await axios.get(
+      `https://logger-server.herokuapp.com/api/logger/projects/getDeviceCount/${code}`,
+      config
+    );
+    // console.log(data);
+    dispatch({
+      type: GET_MODEL_CODE_SUCCESS,
+      payload: data.data,
+    });
+
+    } catch (error) {
+      dispatch({
+        type:   GET_MODEL_CODE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  }
