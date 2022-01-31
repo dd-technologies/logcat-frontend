@@ -767,12 +767,8 @@ function TableData(props) {
 
   const chipsScetion = chipsArray.map((items, index) => (
     <section className={Style.chip}>
-      <p style={{ color: "#fff" }}>
-        {items}
-        <span onClick={() => closeChips(index)} className="ms-2">
-          <FontAwesomeIcon icon={faWindowClose} />
-        </span>
-      </p>
+      <p style={{ color: "#fff" }}>{items}</p>
+      <FontAwesomeIcon icon={faWindowClose} onClick={() => closeChips(index)} />
     </section>
   ));
 
@@ -798,12 +794,11 @@ function TableData(props) {
   const DateChipsArray = [date.start, date.end];
   const dateChips = DateChipsArray.map((items, index) => (
     <section className={Style.chip}>
-      <p style={{ color: "#fff" }}>
-        {items}
-        <span onClick={() => closeDateChip(index)} className="ms-2">
-          <FontAwesomeIcon icon={faWindowClose} />
-        </span>
-      </p>
+      <p style={{ color: "#fff" }}>{items}</p>
+      <FontAwesomeIcon
+        icon={faWindowClose}
+        onClick={() => closeDateChip(index)}
+      />
     </section>
   ));
 

@@ -24,23 +24,41 @@
     .chipOuter {
       // border: red 1px solid;
       width: 50% !important;
-      display: flex;
       height: auto !important;
+      display: grid;
+      grid-template-columns: auto auto auto auto auto;
+      margin-right: 40px;
+
+      @media screen and (min-width: 600px) and (max-width: 1200px) {
+        width: 40% !important;
+        grid-template-columns: auto auto;
+      }
+
+      @media screen and (min-width: 1200px) and (max-width: 1600px) {
+        width: 60% !important;
+        grid-template-columns: auto auto auto;
+      }
     }
 
     .chip {
       background-color: $backgroundColor;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       border-radius: 20px;
+      padding: 10px;
       height: 30px;
-      width: 130px;
+      width: 120px;
       display: flex !important;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       cursor: pointer;
       margin: 5px;
+
+      & p {
+        font-size: 0.8rem !important;
+      }
+      & svg {
+        color: #fff;
+      }
+
       // color: $stackBackgroundColor;
     }
 
