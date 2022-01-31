@@ -260,6 +260,11 @@ function TableData(props) {
     Verbose: false,
   });
 
+  const [datechips, setDatechips] = useState({
+    start: null,
+    end: null,
+  });
+
   // GOOGLE DRIVE SAVE STATE
   const [openPicker, googleData, authResponse] = useDrivePicker();
 
@@ -756,6 +761,8 @@ function TableData(props) {
     // CHECKING IF INPUT BOX HIDE
   };
 
+  // STATUS LOG TYPE CHIPS
+
   const chipsArray = ["info", "Warn", "Error", "Debug", "Verbose"];
 
   const chipsScetion = chipsArray.map((items, index) => (
@@ -763,6 +770,37 @@ function TableData(props) {
       <p style={{ color: "#fff" }}>
         {items}
         <span onClick={() => closeChips(index)} className="ms-2">
+          <FontAwesomeIcon icon={faWindowClose} />
+        </span>
+      </p>
+    </section>
+  ));
+
+  // DATE CHIPS
+
+  const closeDateChip = (index) => {
+    if (index == 0) {
+      setDatechips({ ...datechips, start: false });
+      setdate({
+        ...date,
+        start: "",
+      });
+    }
+    if (index == 1) {
+      setDatechips({ ...datechips, end: false });
+      setdate({
+        ...date,
+        end: "",
+      });
+    }
+  };
+
+  const DateChipsArray = [date.start, date.end];
+  const dateChips = DateChipsArray.map((items, index) => (
+    <section className={Style.chip}>
+      <p style={{ color: "#fff" }}>
+        {items}
+        <span onClick={() => closeDateChip(index)} className="ms-2">
           <FontAwesomeIcon icon={faWindowClose} />
         </span>
       </p>
@@ -803,6 +841,10 @@ function TableData(props) {
                       {showChip.Error && logType.error && chipsScetion[2]}
                       {showChip.Debug && logType.debug && chipsScetion[3]}
                       {showChip.Verbose && logType.verbose && chipsScetion[4]}
+
+                      {/* DATE CHIPS */}
+                      {datechips.start && dateChips[0]}
+                      {datechips.end && dateChips[1]}
                     </section>
                     <section className={Style.filterOptions}>
                       {/* <section className={`${Style.GoogleDirve} px-2`}>
@@ -886,22 +928,30 @@ function TableData(props) {
                                       <input
                                         type="date"
                                         value={date.start}
-                                        onChange={(e) =>
+                                        onChange={(e) => {
+                                          setDatechips({
+                                            ...datechips,
+                                            start: true,
+                                          });
                                           setdate({
                                             ...date,
                                             start: e.target.value,
-                                          })
-                                        }
+                                          });
+                                        }}
                                       />
                                       <input
                                         type="date"
                                         value={date.end}
-                                        onChange={(e) =>
+                                        onChange={(e) => {
+                                          setDatechips({
+                                            ...datechips,
+                                            end: true,
+                                          });
                                           setdate({
                                             ...date,
                                             end: e.target.value,
-                                          })
-                                        }
+                                          });
+                                        }}
                                       />
                                     </section>
                                   </Col>

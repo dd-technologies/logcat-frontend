@@ -26,12 +26,21 @@ export default function StackData() {
   const urlParams = new URLSearchParams(queryString);
   const colData = urlParams.get("col");
 
-  // console.log("Col", colData);
-
   // HEADING DATA ANALYTIC
   const pattern = /(at).*/gm;
   const DataINRow = colData.split(" at");
 
+  // console.log("Col", DataINRow);
+  // let arrA = []
+  // DataINRow.map((e) => {
+  //   console.log("ArrayMap",e);
+
+  //   if(e.includes("androidx.")){
+  //     arrA.push(e)
+  //   }
+
+  // })
+  // console.log("arrA",arrA);
   // console.log("DataInRow", DataINRow);
 
   // const DataINRow = colData.match(pattern);
@@ -107,16 +116,15 @@ export default function StackData() {
         {/* TEXT ERROR  WITH  FILLTER BUTTON CLICK */}
         {stackErrorFilter ? (
           <Col xl={12} className={`${Style.outerDiv} mt-4`}>
-            <section className={`${Style.StackInfoDive} p-3`}>
+            <section className={`${Style.StackInfoDive}`}>
               <section
                 className={Style.ParaWithArrowDown}
                 onClick={innerParaShowFun}
               >
-                <section>
-                  <p style={{ fontWeight: 600 }}>{DataINRow[0]}</p>
-                  <p>{DataINRow[1]}</p>
+                <section className={Style.innerSection}>
+                  <section>{DataINRow[0]}</section>
+                  <FontAwesomeIcon icon={faCaretDown} />
                 </section>
-                <FontAwesomeIcon icon={faCaretDown} />
               </section>
             </section>
 
@@ -130,7 +138,7 @@ export default function StackData() {
         {stackErrorFilterTextFormate ? (
           <Col xl={12} className={`${Style.outerDiv} mt-4`}>
             {/* stack error section */}
-            {DataINRow.sort().map((items, index) => {
+            {DataINRow.map((items, index) => {
               return (
                 <>
                   <section className={Style.outerDiv}>
@@ -145,11 +153,14 @@ export default function StackData() {
                     {innerParaShowDetails[index] ? (
                       <section className={Style.detailSection}>
                         <p>
-                          <span>at :</span>
+                          <span>at </span>
                           {/* {items.includes("androidx.fragment.app")
                             ? items
                             : null}
-*/}
+*/}{" "}
+                          {
+                            // items.startsWith("Fatal Exception")
+                          }
                           {items}
                         </p>
                       </section>

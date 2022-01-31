@@ -23,8 +23,9 @@
 
     .chipOuter {
       // border: red 1px solid;
-      width: 100%;
+      width: 50% !important;
       display: flex;
+      height: auto !important;
     }
 
     .chip {

@@ -102,7 +102,9 @@ function CreateProject() {
                 sm={6}
                 className="d-flex justify-content-end align-items-center"
               >
-                <p className="px-4">{adminInfo.data.name}</p>
+                <p className="px-4" style={{ color: "#fff" }}>
+                  {adminInfo.data.name}
+                </p>
                 <Button
                   onClick={(e) => {
                     handlelogout(e);
