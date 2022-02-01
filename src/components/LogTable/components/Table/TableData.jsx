@@ -735,35 +735,49 @@ function TableData(props) {
   // menu chip created
 
   // closing chips function
+
   const closeChips = (index) => {
     // console.log("close chip", index);
     if (index == 0) {
       setShowChip({ ...showChip, info: false });
       setLogType({ ...logType, info: false });
+      return dispatch(getProjectByCode(code, null, logType));
     }
     if (index == 1) {
       setShowChip({ ...showChip, Warn: false });
       setLogType({ ...logType, warn: false });
+      return dispatch(getProjectByCode(code, null, logType));
     }
     if (index == 2) {
       setShowChip({ ...showChip, Error: false });
       setLogType({ ...logType, error: false });
+      return dispatch(getProjectByCode(code, null, logType));
     }
     if (index == 3) {
       setShowChip({ ...showChip, Debug: false });
       setLogType({ ...logType, debug: false });
+      return dispatch(getProjectByCode(code, null, logType));
     }
     if (index == 4) {
       setShowChip({ ...showChip, Verbose: false });
       setLogType({ ...logType, verbose: false });
+      return dispatch(getProjectByCode(code, null, logType));
     }
 
     // CHECKING IF INPUT BOX HIDE
   };
 
   // STATUS LOG TYPE CHIPS
+  const { info } = localStorage.getItem("selected_log");
+  console.log(info);
 
-  const chipsArray = ["info", "Warn", "Error", "Debug", "Verbose"];
+  const chipsArray = [
+    localStorage.getItem("selected_log") ? "info" : "info",
+    "Warn",
+    "Error",
+    "Debug",
+    "Verbose",
+  ];
 
   const chipsScetion = chipsArray.map((items, index) => (
     <section className={Style.chip}>
@@ -777,12 +791,14 @@ function TableData(props) {
   const closeDateChip = (index) => {
     if (index == 0) {
       setDatechips({ ...datechips, start: false });
+      dispatch(getProjectByCode(code, null));
       setdate({
         ...date,
         start: "",
       });
     }
     if (index == 1) {
+      dispatch(getProjectByCode(code, null));
       setDatechips({ ...datechips, end: false });
       setdate({
         ...date,
