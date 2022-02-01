@@ -75,11 +75,16 @@ const TypeDropDown = () => {
 
           <section>
             {projectCodeDropDown ? (
-              <CustomeDropDown width="20%" position="absolute">
+              <CustomeDropDown
+                width="15%"
+                position="absolute"
+                alignItems="flex-start"
+              >
                 {data &&
                   data.modelList.map((type) => {
                     return (
                       <p
+                        className={Style.productVersion}
                         onClick={() => {
                           setProjectCode({
                             code: type.typeCode,

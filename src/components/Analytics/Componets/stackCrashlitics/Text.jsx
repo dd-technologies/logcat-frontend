@@ -10,11 +10,19 @@ export default function Text() {
   const colData = urlParams.get("col");
   // HEADING DATA ANALYTIC
   const pattern = /(at).*/gm;
-  const DataINRow = colData.split(" at");
+  let DataINRow = colData.split(" at");
+
+  console.log("DataINRow", DataINRow);
 
   return (
     <>
+      {/* FATAL EXCEPTION ------------------------------------------------------- */}
+      {/* PAGE EXECEPTION ------------------------------------------------------- */}
+      {/* FATAL EXCEPTION ------------------------------------------------------- */}
+
+      {/* COMPLETE STACK */}
       {DataINRow.map((data) => {
+        // FATAL EXCEPTION -------------------------------------------------------
         return (
           <section className={Style.outerSection}>
             <p>{data}</p>

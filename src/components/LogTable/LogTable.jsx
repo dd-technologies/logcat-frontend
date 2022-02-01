@@ -5,6 +5,7 @@ import {
   faCaretDown,
   faDatabase,
   faSync,
+  faTasks,
 } from "@fortawesome/free-solid-svg-icons";
 import Style from "./LogTable.module.scss";
 import { Navbar, SideBar } from "../../utils/NavSideBar";
@@ -262,7 +263,7 @@ export default function LogTable() {
               <Col xl={6} md={6} sm={6}>
                 {/* {
                modelList && modelList.length ?  */}
-                <TypeDropDown  />
+                <TypeDropDown />
 
                 {/* } */}
               </Col>
@@ -271,7 +272,7 @@ export default function LogTable() {
                 <section className={Style.filterwithDate} ref={ref}>
                   <section className={Style.datafilter} onClick={DateFilter}>
                     <Image src={DateIcons} />
-                    <p className="ms-2 p-1">
+                    <p className=" ms-2 p-1">
                       {diffDate == 10
                         ? `last 10 days`
                         : diffDate == 7
@@ -296,7 +297,7 @@ export default function LogTable() {
                       <CustomeDropDown width="100%">
                         {/* <p className="mt-1">10 days</p> */}
                         <p
-                          className="mt-1"
+                          className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(7);
                             setDateDropDown(false);
@@ -305,7 +306,7 @@ export default function LogTable() {
                           7 days
                         </p>
                         <p
-                          className="mt-1"
+                          className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(15);
                             setDateDropDown(false);
@@ -315,7 +316,7 @@ export default function LogTable() {
                         </p>
 
                         <p
-                          className="mt-1"
+                          className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(30);
                             setDateDropDown(false);
@@ -324,7 +325,7 @@ export default function LogTable() {
                           30 days
                         </p>
                         <p
-                          className="mt-1"
+                          className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(45);
                             setDateDropDown(false);
@@ -333,7 +334,7 @@ export default function LogTable() {
                           45 days
                         </p>
                         <p
-                          className="mt-1"
+                          className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(60);
                             setDateDropDown(false);
@@ -342,7 +343,7 @@ export default function LogTable() {
                           60 days
                         </p>
                         <p
-                          className="mt-1"
+                          className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(90);
                             setDateDropDown(false);

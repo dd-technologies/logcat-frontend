@@ -153,8 +153,8 @@ export function Navbar(props) {
       {userInfo && (
         <CustomeDropDown
           position="fixed"
-          right="4%"
-          top="7%"
+          right="0%"
+          top="6%"
           width="200px"
           zIndex="10"
         >
