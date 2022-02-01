@@ -2,12 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faFilter,
-  faCalendar,
   faCaretDown,
   faDatabase,
   faSync,
-  faTasks,
 } from "@fortawesome/free-solid-svg-icons";
 import Style from "./LogTable.module.scss";
 import { Navbar, SideBar } from "../../utils/NavSideBar";
@@ -16,24 +13,18 @@ import CrashFreeStatics from "./components/CrashFreeStatics";
 import TrandData from "./components/TrandData";
 import CustomeDropDown from "../../Container/DropDown";
 import { useDispatch, useSelector } from "react-redux";
-import AgTable from "./components/Table/AgTable";
 import TableData from "./components/Table/TableData";
 import PieChartSection from "./components/PieChartSection";
 import {
   getLogTypeCounts,
-  getErrorWRTOS,
   getProjectDetails,
-  getErrorWRTVersion,
   getLogByDate,
   getProjectByCode,
   getCrashFreeUsers,
   getDeviceModelCode,
 } from "../../redux/action/ProjectAction";
-import { getLogCountsReducer } from "../../redux/reducer/ProjectReducer";
 import { useHistory } from "react-router-dom";
 import Spinner from "../../Container/Spinner";
-import { slideShow } from "../../redux/action/SlideAction";
-import toast from "react-hot-toast";
 import DateIcons from "../../assets/icons/date.png";
 import LogICon from "../../assets/icons/log.png";
 import TypeDropDown from "./components/Table/TypeDropDown";
@@ -43,6 +34,7 @@ export default function LogTable() {
   // filter with crash free statics and trands
   const [dropDownShow, setDropDownShow] = useState(false);
   const [dateDropDown, setDateDropDown] = useState(false);
+  const [productDropDown, seProductDropDown] = useState(false);
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
   const [diffDate, setDiffDate] = useState(90);
 
@@ -232,6 +224,9 @@ export default function LogTable() {
     dispatch(getProjectByCode(code));
   };
 
+  // PRODUCT VERSION FUNCTION
+  const productversionDropDown = () => {};
+
   return (
     <>
       <Row>
@@ -267,7 +262,8 @@ export default function LogTable() {
               <Col xl={6} md={6} sm={6}>
                 {/* {
                modelList && modelList.length ?  */}
-                <TypeDropDown />
+                <TypeDropDown  />
+
                 {/* } */}
               </Col>
 

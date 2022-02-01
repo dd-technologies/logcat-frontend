@@ -118,7 +118,6 @@ export default function StackData() {
         {/* TEXT ERROR  WITH  FILLTER BUTTON CLICK */}
         {stackErrorFilter ? (
           <Col xl={12} className={`${Style.outerDiv} mt-4`}>
-            {/* TEXT STACK HERE */}
             <Text />
           </Col>
         ) : null}

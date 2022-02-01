@@ -34,12 +34,34 @@ const TypeDropDown = () => {
 
   console.log("data", data);
 
+  // CLICKING OUTSIDE THE VIEWPORT
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and the clicked target is not within the menu,
+      // then close the menu
+      if (
+        projectCodeDropDown &&
+        ref.current &&
+        !ref.current.contains(e.target)
+      ) {
+        setProjectCodeDropDown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [projectCodeDropDown]);
+
   return (
     <>
       {loading ? (
         <p>loading..</p>
       ) : (
-        <section>
+        <section ref={ref}>
           <section onClick={ProjectTypeFilter} className={Style.OuterDiv}>
             {/* <Image src={DateIcons} /> */}
             <FontAwesomeIcon icon={faTasks} color="#2A9AA4" size="2x" />
