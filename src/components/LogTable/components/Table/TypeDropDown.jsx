@@ -10,9 +10,9 @@ import {
   faTasks,
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-// import Style from "./LogTable.module.scss";
-import Style from "../../LogTable.module.scss";
 import CustomeDropDown from "../../../../Container/DropDown";
+import Style from "./TypeDropDown.module.scss";
+import Spinner from "../../../../Container/Spinner";
 
 const TypeDropDown = () => {
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
@@ -37,28 +37,27 @@ const TypeDropDown = () => {
   return (
     <>
       {loading ? (
-        "Loading..."
+        <p>loading..</p>
       ) : (
-        <section className={Style.filterwithDate} ref={ref}>
-          <section className={Style.datafilter} onClick={ProjectTypeFilter}>
+        <section>
+          <section onClick={ProjectTypeFilter} className={Style.OuterDiv}>
             {/* <Image src={DateIcons} /> */}
             <FontAwesomeIcon icon={faTasks} color="#2A9AA4" size="2x" />
-            <p className="ms-2 p-1">
+            <p className="m-2">
               {projectCode
                 ? projectCode.name
                 : data && data.modelList[0].typeName}
             </p>
-            <FontAwesomeIcon icon={faCaretDown} color="" />
+            <FontAwesomeIcon icon={faCaretDown} color="#2A9AA4" />
           </section>
 
           <section>
             {projectCodeDropDown ? (
-              <CustomeDropDown width="100%">
+              <CustomeDropDown width="20%" position="absolute">
                 {data &&
                   data.modelList.map((type) => {
                     return (
                       <p
-                        className="mt-1"
                         onClick={() => {
                           setProjectCode({
                             code: type.typeCode,

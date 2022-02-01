@@ -6,7 +6,9 @@ import {
   faCaretDown,
   faFilter,
   faTasks,
+  faTextHeight,
 } from "@fortawesome/free-solid-svg-icons";
+import Text from "./stackCrashlitics/Text";
 
 export default function StackData() {
   const [InnerParaShow, setInnerParaShow] = useState(true);
@@ -108,7 +110,7 @@ export default function StackData() {
               }
               onClick={stackErrorFilterFun}
             >
-              <p>TXT</p>
+              <FontAwesomeIcon icon={faTextHeight} />
             </section>
           </section>
         </Col>
@@ -116,21 +118,8 @@ export default function StackData() {
         {/* TEXT ERROR  WITH  FILLTER BUTTON CLICK */}
         {stackErrorFilter ? (
           <Col xl={12} className={`${Style.outerDiv} mt-4`}>
-            <section className={`${Style.StackInfoDive}`}>
-              <section
-                className={Style.ParaWithArrowDown}
-                onClick={innerParaShowFun}
-              >
-                <section className={Style.innerSection}>
-                  <section>{DataINRow[0]}</section>
-                  <FontAwesomeIcon icon={faCaretDown} />
-                </section>
-              </section>
-            </section>
-
-            <section className={`${Style.detailSection} p-3`}>
-              {InnerParaShow ? <p>{colData}</p> : null}
-            </section>
+            {/* TEXT STACK HERE */}
+            <Text />
           </Col>
         ) : null}
 

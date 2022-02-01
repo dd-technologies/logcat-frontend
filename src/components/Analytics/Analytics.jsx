@@ -91,7 +91,7 @@ export default function Analytics() {
     },
     link2: {
       iconName: `./assets/icons/settings.png`,
-      linkName: "Profile",
+      linkName: "Settings",
       link: "",
     },
   };

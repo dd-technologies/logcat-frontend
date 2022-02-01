@@ -58,7 +58,7 @@
     width: 50%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center !important;
     @media screen and (min-width: 768px) and (max-width: 1024px) {
       width: 60%;
     }
@@ -69,7 +69,7 @@
       width: 50%;
     }
     @media screen and (min-width: 1600px) and (max-width: 1920px) {
-      width: 50%;
+      width: 43%;
     }
 
     & section {
@@ -166,7 +166,7 @@
     width: 50%;
     display: flex;
     justify-content: end;
-    align-items: end;
+    align-items: center;
     cursor: pointer;
     // position: relative;
     @media screen and (min-width: 768px) and (max-width: 1024px) {
@@ -357,3 +357,17 @@
 }
 
 // NAVBAR AND SIDEBAR THEMEMING
+
+.userInfoDropDown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  width: 100%;
+  transition-duration: 0.3s;
+  &:hover {
+    background-color: $backgroundColor;
+    color: $defaultTextColor;
+    cursor: pointer;
+  }
+}

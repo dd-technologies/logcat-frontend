@@ -123,13 +123,16 @@ export function Navbar(props) {
               size="lg"
             />
           </section>
-          <h3 className="p-3" style={{ fontSize: "1.5rem", marginBottom: "-3px" }}>
+          <h3
+            className="p-3"
+            style={{ fontSize: "1.5rem", marginBottom: "-3px" }}
+          >
             {navdetails.dashName.charAt(0).toUpperCase() +
               navdetails.dashName.slice(1)}
           </h3>
         </section>
         <section className={Style.userInfo} onClick={showUserInfoFun}>
-          <section className={Style.Avtar} >
+          <section className={Style.Avtar}>
             {adminInfo &&
               adminInfo.data &&
               adminInfo.data.name
@@ -150,13 +153,17 @@ export function Navbar(props) {
       {userInfo && (
         <CustomeDropDown
           position="fixed"
-          right="0%"
+          right="4%"
           top="7%"
           width="200px"
           zIndex="10"
         >
-          <p>Account</p>
+          <p className="mt-2" className={Style.userInfoDropDown}>
+            Account
+          </p>
           <p
+            className="mt-2"
+            className={Style.userInfoDropDown}
             style={{ cursor: "pointer" }}
             onClick={(e) => {
               handlelogout(e);

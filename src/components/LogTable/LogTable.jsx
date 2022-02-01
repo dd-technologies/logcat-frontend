@@ -27,7 +27,7 @@ import {
   getLogByDate,
   getProjectByCode,
   getCrashFreeUsers,
-  getDeviceModelCode
+  getDeviceModelCode,
 } from "../../redux/action/ProjectAction";
 import { getLogCountsReducer } from "../../redux/reducer/ProjectReducer";
 import { useHistory } from "react-router-dom";
@@ -43,10 +43,10 @@ export default function LogTable() {
   // filter with crash free statics and trands
   const [dropDownShow, setDropDownShow] = useState(false);
   const [dateDropDown, setDateDropDown] = useState(false);
-  const [projectCodeDropDown,setProjectCodeDropDown] = useState(false);
+  const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
   const [diffDate, setDiffDate] = useState(90);
 
-  const [projectCode,setProjectCode] = useState()
+  const [projectCode, setProjectCode] = useState();
 
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
@@ -76,7 +76,7 @@ export default function LogTable() {
     },
     link2: {
       iconName: faDatabase,
-      linkName: "Profile",
+      linkName: "Settings",
     },
   };
 
@@ -89,7 +89,7 @@ export default function LogTable() {
     },
     link2: {
       iconName: `/assets/icons/settings.png`,
-      linkName: "Profile",
+      linkName: "Settings",
     },
   };
 
@@ -110,8 +110,6 @@ export default function LogTable() {
 
   let modelList;
   const ProjectTypeFilter = () => {
-    
-
     setProjectCodeDropDown(true);
     if (projectCodeDropDown) {
       setProjectCodeDropDown(false);
@@ -123,14 +121,14 @@ export default function LogTable() {
     (state) => state.getAllLogByCodeReducer
   );
 
-//   const getModelCodeReducer = useSelector(
-//     (state) => state.getModelCodeReducer
-//   );
-  
-// let modelList;
-//   if (getModelCodeReducer && getModelCodeReducer.data) {
-//     modelList = getModelCodeReducer.data.modelList
-//   }
+  //   const getModelCodeReducer = useSelector(
+  //     (state) => state.getModelCodeReducer
+  //   );
+
+  // let modelList;
+  //   if (getModelCodeReducer && getModelCodeReducer.data) {
+  //     modelList = getModelCodeReducer.data.modelList
+  //   }
 
   const dispatchmultiple = () => {
     // dispatch(getLogTypeCounts(code));
@@ -150,7 +148,7 @@ export default function LogTable() {
     dispatch(getLogTypeCounts({ code, diffDate }));
     dispatch(getLogByDate({ code, diffDate }));
     dispatch(getCrashFreeUsers({ code, diffDate }));
-    
+
     // dispatch(getLogByDate(code, date));
   };
   useEffect(() => {
@@ -170,7 +168,7 @@ export default function LogTable() {
   }, [history]);
 
   useEffect(() => {
-    dispatch(getDeviceModelCode(code))
+    dispatch(getDeviceModelCode(code));
     const checkIfClickedOutside = (e) => {
       // If the menu is open and the clicked target is not within the menu,
       // then close the menu
@@ -266,16 +264,14 @@ export default function LogTable() {
             }
           >
             <Row className="mt-4">
-            <Col xl={10} md={12} sm={12} className={Style.filterWithDate}>
-              {/* {
+              <Col xl={6} md={6} sm={6}>
+                {/* {
                modelList && modelList.length ?  */}
-                <TypeDropDown /> 
-              {/* } */}
+                <TypeDropDown />
+                {/* } */}
               </Col>
 
-
-
-              <Col xl={2} md={12} sm={12} className={Style.filterWithDate}>
+              <Col xl={6} md={6} sm={6} className={Style.filterWithDate}>
                 <section className={Style.filterwithDate} ref={ref}>
                   <section className={Style.datafilter} onClick={DateFilter}>
                     <Image src={DateIcons} />
