@@ -253,16 +253,30 @@ function TableData(props) {
   const [selectedRowArray, setSelectedRowArray] = useState([]);
 
   const [showChip, setShowChip] = useState({
-    info: false,
-    Warn: false,
-    Error: false,
-    Debug: false,
-    Verbose: false,
+    info: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).info
+      : "",
+    Warn: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).warn
+      : "",
+    Error: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).error
+      : "",
+    Debug: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).debug
+      : "",
+    Verbose: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).verbose
+      : "",
   });
 
   const [datechips, setDatechips] = useState({
-    start: null,
-    end: null,
+    start: localStorage.getItem("selected_date")
+      ? JSON.parse(localStorage.getItem("selected_date")).start
+      : null,
+    end: localStorage.getItem("selected_date")
+      ? JSON.parse(localStorage.getItem("selected_date")).end
+      : null,
   });
 
   // GOOGLE DRIVE SAVE STATE
@@ -392,6 +406,45 @@ function TableData(props) {
   };
 
   const applyFilter = () => {
+    // 1) LOGTYPE
+    if (
+      logType.info ||
+      logType.warn ||
+      logType.error ||
+      logType.debug ||
+      logType.verbose
+    ) {
+      setShowChip({
+        ...showChip,
+        info: true,
+        Warn: true,
+        Error: true,
+        Debug: true,
+        Verbose: true,
+      });
+    }
+
+    // 2)DATE
+    if (date.start) {
+      setDatechips({
+        ...datechips,
+        start: true,
+      });
+    }
+    if (date.end) {
+      setDatechips({
+        ...datechips,
+        end: true,
+      });
+    }
+    // } else if (date.start || date.end) {
+    //   setDatechips({
+    //     ...datechips,
+    //     start: true,
+    //     end: true,
+    //   });
+    // }
+
     // if (
     //   logType.error ||
     //   logType.info ||
@@ -736,48 +789,64 @@ function TableData(props) {
 
   // closing chips function
 
+  // let logTypeParse = JSON.parse(localStorage.getItem("selected_log"));
+  // console.log("first", logTypeParse.info);
+
   const closeChips = (index) => {
     // console.log("close chip", index);
     if (index == 0) {
       setShowChip({ ...showChip, info: false });
       setLogType({ ...logType, info: false });
-      return dispatch(getProjectByCode(code, null, logType));
+      dispatch(getProjectByCode(code, null, { ...logType, info: false }));
+
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, info: false })
+      );
     }
     if (index == 1) {
       setShowChip({ ...showChip, Warn: false });
       setLogType({ ...logType, warn: false });
-      return dispatch(getProjectByCode(code, null, logType));
+      dispatch(getProjectByCode(code, null, { ...logType, warn: false }));
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, warn: false })
+      );
     }
     if (index == 2) {
       setShowChip({ ...showChip, Error: false });
       setLogType({ ...logType, error: false });
-      return dispatch(getProjectByCode(code, null, logType));
+      dispatch(getProjectByCode(code, null, { ...logType, error: false }));
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, error: false })
+      );
     }
     if (index == 3) {
       setShowChip({ ...showChip, Debug: false });
       setLogType({ ...logType, debug: false });
-      return dispatch(getProjectByCode(code, null, logType));
+      dispatch(getProjectByCode(code, null, { ...logType, debug: false }));
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, debug: false })
+      );
     }
     if (index == 4) {
       setShowChip({ ...showChip, Verbose: false });
       setLogType({ ...logType, verbose: false });
-      return dispatch(getProjectByCode(code, null, logType));
+      dispatch(getProjectByCode(code, null, { ...logType, verbose: false }));
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, verbose: false })
+      );
     }
 
     // CHECKING IF INPUT BOX HIDE
   };
 
   // STATUS LOG TYPE CHIPS
-  const { info } = localStorage.getItem("selected_log");
-  console.log(info);
 
-  const chipsArray = [
-    localStorage.getItem("selected_log") ? "info" : "info",
-    "Warn",
-    "Error",
-    "Debug",
-    "Verbose",
-  ];
+  const chipsArray = ["info", "Warn", "Error", "Debug", "Verbose"];
 
   const chipsScetion = chipsArray.map((items, index) => (
     <section className={Style.chip}>
@@ -791,19 +860,28 @@ function TableData(props) {
   const closeDateChip = (index) => {
     if (index == 0) {
       setDatechips({ ...datechips, start: false });
-      dispatch(getProjectByCode(code, null));
+      dispatch(getProjectByCode(code, data.start));
       setdate({
         ...date,
         start: "",
       });
+      localStorage.setItem(
+        "selected_date",
+        JSON.stringify({ ...date, start: "" })
+      );
     }
     if (index == 1) {
       dispatch(getProjectByCode(code, null));
       setDatechips({ ...datechips, end: false });
+      dispatch(getProjectByCode(code, date.end));
       setdate({
         ...date,
         end: "",
       });
+      localStorage.setItem(
+        "selected_date",
+        JSON.stringify({ ...date, end: "" })
+      );
     }
   };
 
@@ -827,7 +905,7 @@ function TableData(props) {
         <section className={Style.OuterTable} ref={ref}>
           {data && data.data && data.data.logs ? (
             <ToolkitProvider
-              keyField="_id"
+              keyField="_id"s
               data={data.data.logs}
               columns={columns}
               search
@@ -940,10 +1018,6 @@ function TableData(props) {
                                         type="date"
                                         value={date.start}
                                         onChange={(e) => {
-                                          setDatechips({
-                                            ...datechips,
-                                            start: true,
-                                          });
                                           setdate({
                                             ...date,
                                             start: e.target.value,
@@ -954,10 +1028,6 @@ function TableData(props) {
                                         type="date"
                                         value={date.end}
                                         onChange={(e) => {
-                                          setDatechips({
-                                            ...datechips,
-                                            end: true,
-                                          });
                                           setdate({
                                             ...date,
                                             end: e.target.value,
@@ -982,10 +1052,6 @@ function TableData(props) {
                                           type="checkbox"
                                           checked={logType.info}
                                           onClick={(e) => {
-                                            setShowChip({
-                                              ...showChip,
-                                              info: true,
-                                            });
                                             setLogType({
                                               ...logType,
                                               info: !logType.info,
@@ -1003,10 +1069,6 @@ function TableData(props) {
                                           type="checkbox"
                                           checked={logType.warn}
                                           onClick={(e) => {
-                                            setShowChip({
-                                              ...showChip,
-                                              Warn: true,
-                                            });
                                             setLogType({
                                               ...logType,
                                               warn: !logType.warn,
@@ -1024,10 +1086,6 @@ function TableData(props) {
                                           type="checkbox"
                                           checked={logType.error}
                                           onClick={(e) => {
-                                            setShowChip({
-                                              ...showChip,
-                                              Error: true,
-                                            });
                                             setLogType({
                                               ...logType,
                                               error: !logType.error,
@@ -1045,10 +1103,6 @@ function TableData(props) {
                                           type="checkbox"
                                           checked={logType.debug}
                                           onClick={(e) => {
-                                            setShowChip({
-                                              ...showChip,
-                                              Debug: true,
-                                            });
                                             setLogType({
                                               ...logType,
                                               debug: !logType.debug,
@@ -1066,10 +1120,6 @@ function TableData(props) {
                                           type="checkbox"
                                           checked={logType.verbose}
                                           onClick={(e) => {
-                                            setShowChip({
-                                              ...showChip,
-                                              Verbose: true,
-                                            });
                                             setLogType({
                                               ...logType,
                                               verbose: !logType.verbose,
