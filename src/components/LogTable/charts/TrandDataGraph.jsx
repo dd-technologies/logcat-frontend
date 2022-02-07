@@ -59,7 +59,7 @@ const TrandDataGraph = () => {
               >
                 {/* <CartesianGrid strokeDasharray="0 0" /> */}
                 <XAxis dataKey="date" tickCount={5} minTickGap={10} tickFormatter={dateFormatter} />
-                {/* <YAxis /> */}
+                <YAxis dataKey="data" axisLine={false} />
                 <CartesianGrid vertical={false} strokeDasharray="0 0 4" />
                 <Tooltip />
                 <Area

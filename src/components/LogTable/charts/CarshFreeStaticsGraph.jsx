@@ -43,7 +43,7 @@ export default function CarshFreeStaticsGraph() {
               <AreaChart data={dt}>
                 {/* <CartesianGrid strokeDasharray="3 3" /> */}
                 <XAxis dataKey="date" tickCount={5} minTickGap={10} tickFormatter={dateFormatter} />
-                {/* <YAxis dataKey="data" /> */}
+                <YAxis dataKey="data" axisLine={false} />
                 <CartesianGrid vertical={false} strokeDasharray="0 0 4" />
                 <Tooltip />
                 {/* <Line
