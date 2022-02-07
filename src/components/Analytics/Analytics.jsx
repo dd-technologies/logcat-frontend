@@ -163,9 +163,9 @@ export default function Analytics() {
                 "Loading"
               ) : (
                 <p className={Style.paraTextIssue}>
-                  This issue has <strong>{totalCount}</strong> crash events
+                  This issue has <strong style={{color: "#0099a4"}}>{totalCount} crash</strong>  events
                   affecting
-                  <strong> {users} </strong> users
+                  <strong style={{color: "#0099a4"}}> {users} users</strong>
                 </p>
               )}
             </Col>

@@ -56,7 +56,8 @@
 
 .paraTextIssue {
   @include paraFontdasktopMixin;
-  color: $activehrefText;
+  color: #000;
+  // $activehrefText;
 }
 
 .AnalyticsContainerWithputSlide {

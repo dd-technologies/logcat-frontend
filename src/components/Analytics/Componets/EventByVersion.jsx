@@ -28,15 +28,15 @@ export default function EventByVersion() {
       <CustomCard height="350px">
         <Row className="p-4">
           <Col xl={4} className={Style.EventByVersion}>
-            <p>Total events by version</p>
+            <h6 style={{ fontWeight : '600'}}>Total events by version</h6>
 
             {/*CHECKING FOR NOW IF NOT HAVING THE VALUE OF MAP */}
 
             {!ld ? (
               cnt.map((e) => (
                 <>
-                  <p>{e._id ? e._id : null}</p>
-                  <h4>{e.data}</h4>
+                  <p style={{color: "#666"}}>{e._id ? e._id : null}</p>
+                  <h5>{e.data}</h5>
                 </>
               ))
             ) : (
