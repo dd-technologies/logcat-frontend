@@ -171,10 +171,10 @@ export default function Analytics() {
             </Col>
             <Col>
               <Row>
-                <Col xl={8} md={8} sm={12}>
+                <Col style={{paddingLeft: '0'}} xl={8} md={8} sm={12}>
                   <EventByVersion />
                 </Col>
-                <Col xl={4} md={4} sm={12}>
+                <Col style={{paddingRight: '0'}} xl={4} md={4} sm={12}>
                   <ToggleTabs />
                 </Col>
               </Row>
