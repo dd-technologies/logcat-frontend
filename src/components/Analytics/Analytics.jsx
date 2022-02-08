@@ -60,7 +60,7 @@ export default function Analytics() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get("code");
-  const logMsg = urlParams.get("col").split("at")[0];
+  const logMsg = urlParams.get("col").split("at ")[0];
 
   // console.log(logMsg);
 

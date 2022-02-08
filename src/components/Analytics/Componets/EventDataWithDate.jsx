@@ -51,7 +51,7 @@ export default function EventDataWithDate() {
         style={{ borderBottom: "1px solid rgba(90, 90, 90, 0.234)" }}
       >
         <Col className={`${Style.MainDiv} m-2`}>
-          <setcion className={`${Style.outerSec} p-2`}>
+          <section className={`${Style.outerSec} p-2`}>
             <p>Event Summary</p>
             {version !== "null" ? (
               <section className="px-4">
@@ -94,7 +94,7 @@ export default function EventDataWithDate() {
                 {rowlogGeneratedDate}
               </p>
             </section>
-          </setcion>
+          </section>
         </Col>
       </Row>
     </>

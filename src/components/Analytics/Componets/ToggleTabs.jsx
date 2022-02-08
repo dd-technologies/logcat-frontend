@@ -27,16 +27,28 @@ export default function ToggleTabs() {
     (state) => state.getCrashAnalyticsDataReducer
   );
   const { loading: ld, data: alldata } = getCrashAnalyticsDataReducer;
-  let cnt =
+  let modelNamecnt =
     alldata && alldata.modelNameResponse ? alldata.modelNameResponse : null;
-  let adds = 0;
-  if (cnt) {
-    cnt.map((e) => (adds += e.data));
+  let modelNameAdds = 0;
+  if (modelNamecnt) {
+    modelNamecnt.map((e) => (modelNameAdds += e.data));
   }
-  if (cnt == null) {
-    cnt = [];
+  if (modelNamecnt == null) {
+    modelNamecnt = [];
   }
-  // console.log(alldata);
+
+  let osNamecnt =
+    alldata && alldata.osArchitectureResponse ? alldata.osArchitectureResponse : null;
+  let osNameAdds = 0;
+  if (osNamecnt) {
+    osNamecnt.map((e) => (osNameAdds += e.data));
+  }
+  if (osNamecnt == null) {
+    osNamecnt = [];
+  }
+
+  
+  console.log('alldata', alldata);
 
   const getErrorWRTOSReducer = useSelector(
     (state) => state.getErrorWRTOSReducer
@@ -93,16 +105,16 @@ export default function ToggleTabs() {
                 {/*CHECKING FOR NOW IF NOT HAVING THE VALUE OF MAP */}
 
                 {!ld ? (
-                  cnt.map((e) => (
+                  modelNamecnt.map((e) => (
                     <>
                       <p className="mt-4">
                         <span className="p-2">
-                          {parseFloat((e.data / adds) * 100).toFixed(2)}%
+                          {parseFloat((e.data / modelNameAdds) * 100).toFixed(2)}%
                         </span>
                         {e._id ? e._id : "Other"}
                       </p>
                       <Line
-                        percent={(e.data / adds) * 100}
+                        percent={(e.data / modelNameAdds) * 100}
                         strokeWidth="4"
                         strokeColor="#257d7c"
                       />
@@ -117,17 +129,18 @@ export default function ToggleTabs() {
             // OS MENUS
             <Col className="p-4">
               <section className={Style.DataTogleSection}>
-                {!loading ? (
-                  piCount.map((e) => (
+            
+                {!ld ? (
+                  osNamecnt.map((e) => (
                     <>
                       <p className="mt-4">
                         <span className="p-2">
-                          {parseFloat((e.count / add) * 100).toFixed(2)}%
+                          {parseFloat((e.data / osNameAdds) * 100).toFixed(2)}%
                         </span>
                         {e._id ? e._id : "Other"}
                       </p>
                       <Line
-                        percent={(e.count / add) * 100}
+                        percent={(e.data / osNameAdds) * 100}
                         strokeWidth="4"
                         strokeColor="#257d7c"
                       />

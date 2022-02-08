@@ -32,7 +32,7 @@ export default function Stackkeys() {
     <>
       <Row className="pt-2">
         <Col>
-          <setcion className={Style.MainDiv}>
+          <section className={Style.MainDiv}>
             <p
               className={
                 eventOne.event1 ? `${Style.activeOpt}` : `${Style.nonActive}`
@@ -65,7 +65,7 @@ export default function Stackkeys() {
             >
               Lenovo
             </p>
-          </setcion>
+          </section>
           <hr />
         </Col>
       </Row>
