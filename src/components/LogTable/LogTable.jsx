@@ -262,7 +262,7 @@ export default function LogTable() {
             }
           >
             <Row className="mt-4">
-            <Col xl={10} md={12} sm={12} /* className={Style.filterWithDate} */>
+            <Col xl={10} md={6} sm={6} /* className={Style.filterWithDate} */>
                 <TypeDropDown projectCode={projectCode} setProjectCode={setProjectCode} /> 
               </Col>
 
@@ -270,7 +270,7 @@ export default function LogTable() {
                 <section className={Style.filterwithDate} ref={ref}>
                   <section className={Style.datafilter} onClick={DateFilter}>
                     <Image src={DateIcons} />
-                    <p className=" ms-2 p-1">
+                    <p className="m-2">
                       {diffDate == 10
                         ? `last 10 days`
                         : diffDate == 7
@@ -287,7 +287,7 @@ export default function LogTable() {
                         ? `last 90 days`
                         : null}
                     </p>
-                    <FontAwesomeIcon icon={faCaretDown} color="#2A9AA4" />
+                    <FontAwesomeIcon icon={faCaretDown} color="#2A9AA4" style={{width: '10px', height: '20px'}} />
                   </section>
 
                   <section>
