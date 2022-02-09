@@ -33,165 +33,6 @@ const urlParams = new URLSearchParams(queryString);
 const { ExportCSVButton } = CSVExport;
 var dt = {};
 
-// function errorFormatter(cell, row) {
-//   if (row.logType) {
-//     return (
-//       <span>
-//         {cell === "error" ? (
-//           <strong style={{ color: "red" }}>{cell.toUpperCase()}</strong>
-//         ) : cell === "warn" ? (
-//           <strong style={{ color: "violet" }}>{cell.toUpperCase()}</strong>
-//         ) : cell === "info" ? (
-//           <strong style={{ color: "blue" }}>{cell.toUpperCase()}</strong>
-//         ) : cell === "verbose" ? (
-//           <strong style={{ color: "green" }}>{cell.toUpperCase()}</strong>
-//         ) : (
-//           <strong style={{ color: "orange" }}>{cell.toUpperCase()}</strong>
-//         )}
-//       </span>
-//     );
-//   }
-
-//   return <span>$ {cell} NTD</span>;
-// }
-
-// const defaultSorted = [
-//   {
-//     dataField: "name",
-//     order: "desc",
-//   },
-// ];
-
-// var queryAllSting = { value1: "at", value2: "" };
-
-// const StackOptions = () => {
-//   localStorage.setItem("queryAllSting", JSON.stringify(queryAllSting));
-// };
-
-// const columns = [
-//   {
-//     headerStyle: () => {
-//       return {
-//         backgroundColor: "#257d7c",
-//         color: "#fff",
-//       };
-//     },
-//     dataField: "did",
-//     text: "Mac address",
-//     sort: true,
-//   },
-
-//   {
-//     dataField: "logMsg",
-//     text: "Log Message",
-//     headerAlign: "center",
-//     headerStyle: () => {
-//       return {
-//         backgroundColor: "#257d7c",
-//         color: "#fff",
-//       };
-//     },
-//     formatter: (col, row) => {
-//       // console.log("row id mil", row);
-//       const newCode = urlParams.get("code");
-//       const projectName = urlParams.get("name");
-//       // const version = urlParams.get('version')
-//       // const osArchitecture = urlParams.get('osArchitecture')
-//       // console.log("now_code", newCode);
-//       // console.log(`start ${dt.start} and end ${dt.end}`)
-//       return (
-//         <div
-//           style={{
-//             width: "250px",
-//             height: "auto",
-//             overflow: "hidden",
-//           }}
-//         >
-//           <ReactReadMoreReadLess
-//             charLimit={40}
-//             readMoreText={"Read more ▼"}
-//             readLessText={"Read less ▲"}
-//           >
-//             {col}
-//           </ReactReadMoreReadLess>
-//           <Link
-//             to={`/analytics?code=${newCode}&name=${projectName}&col=${col}`}
-//           >
-//             <span className={Style.ViewButton}>
-//               <FontAwesomeIcon icon={faCaretRight} />
-//             </span>
-//           </Link>
-//         </div>
-//       );
-//     },
-
-//     //  to={`/analytics?code=${code}&name=Stack Trace&id=${row._id}&allStacks=${row.logMsg}&macAddress=${row.did}&loggenrateddate=${row.logGeneratedDate}&modeltype=${row.device_types}&logtype=${row.logType}`}
-
-//     // style: { backgroundColor: 'green' }
-//   },
-//   {
-//     dataField: "logType",
-//     text: "Log Type",
-//     headerStyle: () => {
-//       return {
-//         backgroundColor: "#257d7c",
-//         color: "#fff",
-//       };
-//     },
-//     formatter: errorFormatter,
-//     sort: true,
-//   },
-//   {
-//     dataField: "logGeneratedDate",
-//     text: "Log Generated At",
-//     width: "20",
-//     headerStyle: () => {
-//       return {
-//         backgroundColor: "#257d7c",
-//         color: "#fff",
-//       };
-//     },
-//     formatter: (cell) => cell.split("T")[0],
-//     sort: true,
-//   },
-
-//   // {
-//   //     dataField: 'logGeneratedDate',
-//   //     text: 'Log Generated Time',
-//   //   //   filter: textFilter(),
-//   //     formatter: cell => cell.split("T")[1],
-//   //     sort:true
-//   //   },
-
-//   {
-//     dataField: "device_types",
-//     text: "Device Code",
-//     headerStyle: () => {
-//       return {
-//         backgroundColor: "#257d7c",
-//         color: "#fff",
-//       };
-//     },
-//     formatter: (cell) => cell.split("|")[0],
-
-//     //   filter: textFilter(),
-//     sort: true,
-//   },
-//   {
-//     dataField: "device_types",
-//     text: "Device Type",
-//     headerStyle: () => {
-//       return {
-//         backgroundColor: "#257d7c",
-//         color: "#fff",
-//       };
-//     },
-//     formatter: (cell) => cell.split("|")[1],
-
-//     //   filter: textFilter(),
-//     sort: true,
-//   },
-// ];
 // ************************************************************************************************************************
 function TableData(props) {
   // const queryString = window.location.search;
@@ -231,6 +72,14 @@ function TableData(props) {
     setCountPerPageSection(true);
   };
 
+  const endDate = filedate.toISOString().slice(0, 10);
+  filedate.setDate(filedate.getDate() - props.diffDate);
+  const startDate = filedate.toISOString().slice(0, 10);
+
+  console.log(`start Date ${startDate} end Date ${endDate}`);
+
+
+  console.log("local storage ",localStorage.getItem("selected_date"));
   const [date, setdate] = useState({
     start: localStorage.getItem("selected_date")
       ? JSON.parse(localStorage.getItem("selected_date")).start
@@ -239,6 +88,14 @@ function TableData(props) {
       ? JSON.parse(localStorage.getItem("selected_date")).end
       : "",
   });
+
+  // const [date, setdate] = useState({
+  //   start:  startDate,
+  //   end:endDate,
+  // });
+
+  // setdate({start:startDate,end:endDate})
+  console.log("date state ",date);
 
   // const [pageNo, setPageNo] = useState(0);
   const [record, setRecords] = useState(
@@ -435,9 +292,9 @@ function TableData(props) {
   // code, date = null, filters = null, page = null, record = 25
 
   useEffect(() => {
-    dt.start = date.start;
-    dt.end = date.end;
-    // console.log(logType);
+    // dt.start = date.start;
+    // dt.end = date.end;
+    console.log(` start date useeffect ${date.start} ${date.end}`);
     if (
       logType.error ||
       logType.info ||
@@ -445,15 +302,13 @@ function TableData(props) {
       logType.debug ||
       logType.verbose
     ) {
-      // console.log("if useEffect executed");
-      // console.log(`page ${pageNo}`);
+      console.log("datte ", date);
       dispatch(getProjectByCode(code, date, logType, pageNo, record));
     } else {
-      // console.log("else useEffect click");
-      // console.log(`${date.start} ${date.end} ${pageNo} ${record}`);
+      console.log("datte ", date);
       dispatch(getProjectByCode(code, date, null, pageNo, record));
     }
-  }, [pageNo]);
+  }, [pageNo,startDate]);
 
   const showTableFieldFunc = () => {
     setShowTableField(!showTableField);
@@ -528,12 +383,13 @@ function TableData(props) {
       formatter: (col, row, rowIndex) => {
         // console.log("col", col);
         // console.log("col row", rowIndex);
-
         // const newCode = urlParams.get("code");
+
         const projectName = urlParams.get("name");
         let version = row.version ? row.version : null;
         let osArchitecture = row.osArchitecture ? row.osArchitecture : null;
         let modelName = row.modelName ? row.modelName : null;
+
         // const version = urlParams.get('version')
         // const osArchitecture = urlParams.get('osArchitecture')
         // console.log("now_code", newCode);

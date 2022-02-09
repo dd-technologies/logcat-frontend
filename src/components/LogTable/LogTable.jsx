@@ -176,7 +176,9 @@ export default function LogTable() {
       // Cleanup the event listener
       document.removeEventListener("mousedown", checkIfClickedOutside);
     };
-  }, [dateDropDown]);
+  }, []);
+  
+  // dateDropDown : was dependency for the above useeffect
 
   // REFRESH ONLY TABLE
   const RefreshTableOnlyFun = () => {
@@ -260,15 +262,11 @@ export default function LogTable() {
             }
           >
             <Row className="mt-4">
-              <Col xl={6} md={6} sm={6}>
-                {/* {
-               modelList && modelList.length ?  */}
-                <TypeDropDown />
-
-                {/* } */}
+            <Col xl={10} md={12} sm={12} /* className={Style.filterWithDate} */>
+                <TypeDropDown projectCode={projectCode} setProjectCode={setProjectCode} /> 
               </Col>
 
-              <Col xl={6} md={6} sm={6} className={Style.filterWithDate}>
+              <Col xl={2} md={6} sm={6} className={Style.filterWithDate}>
                 <section className={Style.filterwithDate} ref={ref}>
                   <section className={Style.datafilter} onClick={DateFilter}>
                     <Image src={DateIcons} />
@@ -399,7 +397,10 @@ export default function LogTable() {
             <Row className="mt-3">
               <Col>
                 {/* table with toolkit provider */}
-                <TableData code={code} projectName={projectName} />
+                {
+                  console.log("component redenr")
+                }
+                <TableData code={code} projectName={projectName} diffDate = {diffDate} />
 
                 {/*Ag table  */}
                 {/* <AgTable /> */}
