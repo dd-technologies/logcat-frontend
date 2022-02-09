@@ -181,7 +181,7 @@ export default function Analytics() {
             </Col>
 
             <Col className={`${Style.AnalyticsEvents} my-4`}>
-              <p>Events</p>
+              <p style={{fontWeight: '600'}}>Events</p>
               {/* <section className={Style.PrevNext}>
                 <section>
                   <FontAwesomeIcon icon={faLessThan} />

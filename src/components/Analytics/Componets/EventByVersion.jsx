@@ -44,7 +44,7 @@ export default function EventByVersion() {
             )}
           </Col>
           <Col xl={8} md={8}>
-            <p className={Style.Last90days}>from the last 90 days</p>
+            <p style={{float: 'right'}} className={Style.Last90days}>from the last 90 days</p>
             <EventByVersionChart height="200px" />
           </Col>
         </Row>

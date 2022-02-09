@@ -289,7 +289,7 @@ export default function LogTable() {
                         ? `last 90 days`
                         : null}
                     </p>
-                    <FontAwesomeIcon icon={faCaretDown} />
+                    <FontAwesomeIcon icon={faCaretDown} color="#2A9AA4" />
                   </section>
 
                   <section>
@@ -376,7 +376,7 @@ export default function LogTable() {
             {/* Events  */}
             <Row className="mt-5">
               <Col xl={6} md={6} sm={6} className={Style.issuesTable}>
-                <p>Issues</p>
+                <p style={{fontWeight: '600', fontSize: '0.9rem'}}>Issues</p>
                 {/* <p className={Style.LinkActiveText}>Search By userId</p> */}
               </Col>
               <Col

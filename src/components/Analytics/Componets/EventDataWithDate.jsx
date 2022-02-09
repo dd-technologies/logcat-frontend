@@ -53,6 +53,16 @@ export default function EventDataWithDate() {
         <Col className={`${Style.MainDiv} m-2`}>
           <section className={`${Style.outerSec} p-2`}>
             <p>Event Summary</p>
+
+            <section className="px-4">
+              <p>
+                <span>
+                  <FontAwesomeIcon icon={faClock} />
+                </span>
+                {rowlogGeneratedDate}
+              </p>
+            </section>
+            
             {version !== "null" ? (
               <section className="px-4">
                 <p>
@@ -86,14 +96,6 @@ export default function EventDataWithDate() {
               </section>
             ) : null}
 
-            <section className="px-4">
-              <p>
-                <span>
-                  <FontAwesomeIcon icon={faClock} />
-                </span>
-                {rowlogGeneratedDate}
-              </p>
-            </section>
           </section>
         </Col>
       </Row>

@@ -252,32 +252,10 @@ function TableData(props) {
   const [rowSelected, setRowSelected] = useState(null);
   const [selectedRowArray, setSelectedRowArray] = useState([]);
 
-  const [showChip, setShowChip] = useState({
-    info: localStorage.getItem("selected_log")
-      ? JSON.parse(localStorage.getItem("selected_log")).info
-      : "",
-    Warn: localStorage.getItem("selected_log")
-      ? JSON.parse(localStorage.getItem("selected_log")).warn
-      : "",
-    Error: localStorage.getItem("selected_log")
-      ? JSON.parse(localStorage.getItem("selected_log")).error
-      : "",
-    Debug: localStorage.getItem("selected_log")
-      ? JSON.parse(localStorage.getItem("selected_log")).debug
-      : "",
-    Verbose: localStorage.getItem("selected_log")
-      ? JSON.parse(localStorage.getItem("selected_log")).verbose
-      : "",
-  });
 
-  const [datechips, setDatechips] = useState({
-    start: localStorage.getItem("selected_date")
-      ? JSON.parse(localStorage.getItem("selected_date")).start
-      : null,
-    end: localStorage.getItem("selected_date")
-      ? JSON.parse(localStorage.getItem("selected_date")).end
-      : null,
-  });
+
+
+
 
   // GOOGLE DRIVE SAVE STATE
   const [openPicker, googleData, authResponse] = useDrivePicker();
@@ -406,37 +384,9 @@ function TableData(props) {
   };
 
   const applyFilter = () => {
-    // 1) LOGTYPE
-    if (
-      logType.info ||
-      logType.warn ||
-      logType.error ||
-      logType.debug ||
-      logType.verbose
-    ) {
-      setShowChip({
-        ...showChip,
-        info: true,
-        Warn: true,
-        Error: true,
-        Debug: true,
-        Verbose: true,
-      });
-    }
 
     // 2)DATE
-    if (date.start) {
-      setDatechips({
-        ...datechips,
-        start: true,
-      });
-    }
-    if (date.end) {
-      setDatechips({
-        ...datechips,
-        end: true,
-      });
-    }
+
     // } else if (date.start || date.end) {
     //   setDatechips({
     //     ...datechips,
@@ -712,6 +662,9 @@ function TableData(props) {
     return () => {
       // Cleanup the event listener
       document.removeEventListener("mousedown", checkIfClickedOutside);
+      if (showTableField) {
+        dispatch(getProjectByCode(code, date, logType, pageNo, record));
+      }
     };
   }, [showTableField]);
 
@@ -795,7 +748,6 @@ function TableData(props) {
   const closeChips = (index) => {
     // console.log("close chip", index);
     if (index == 0) {
-      setShowChip({ ...showChip, info: false });
       setLogType({ ...logType, info: false });
       dispatch(getProjectByCode(code, null, { ...logType, info: false }));
 
@@ -805,7 +757,6 @@ function TableData(props) {
       );
     }
     if (index == 1) {
-      setShowChip({ ...showChip, Warn: false });
       setLogType({ ...logType, warn: false });
       dispatch(getProjectByCode(code, null, { ...logType, warn: false }));
       localStorage.setItem(
@@ -814,7 +765,6 @@ function TableData(props) {
       );
     }
     if (index == 2) {
-      setShowChip({ ...showChip, Error: false });
       setLogType({ ...logType, error: false });
       dispatch(getProjectByCode(code, null, { ...logType, error: false }));
       localStorage.setItem(
@@ -823,7 +773,6 @@ function TableData(props) {
       );
     }
     if (index == 3) {
-      setShowChip({ ...showChip, Debug: false });
       setLogType({ ...logType, debug: false });
       dispatch(getProjectByCode(code, null, { ...logType, debug: false }));
       localStorage.setItem(
@@ -832,7 +781,6 @@ function TableData(props) {
       );
     }
     if (index == 4) {
-      setShowChip({ ...showChip, Verbose: false });
       setLogType({ ...logType, verbose: false });
       dispatch(getProjectByCode(code, null, { ...logType, verbose: false }));
       localStorage.setItem(
@@ -859,7 +807,6 @@ function TableData(props) {
 
   const closeDateChip = (index) => {
     if (index == 0) {
-      setDatechips({ ...datechips, start: false });
       dispatch(getProjectByCode(code, data.start));
       setdate({
         ...date,
@@ -872,7 +819,6 @@ function TableData(props) {
     }
     if (index == 1) {
       dispatch(getProjectByCode(code, null));
-      setDatechips({ ...datechips, end: false });
       dispatch(getProjectByCode(code, date.end));
       setdate({
         ...date,
@@ -905,7 +851,7 @@ function TableData(props) {
         <section className={Style.OuterTable} ref={ref}>
           {data && data.data && data.data.logs ? (
             <ToolkitProvider
-              keyField="_id"s
+              keyField="_id" s
               data={data.data.logs}
               columns={columns}
               search
@@ -925,15 +871,15 @@ function TableData(props) {
                     {/* info: false, Warn: false, Error: false, Debug: false,
                     Verbose: false, */}
                     <section className={Style.chipOuter}>
-                      {showChip.info && logType.info && chipsScetion[0]}
-                      {showChip.Warn && logType.warn && chipsScetion[1]}
-                      {showChip.Error && logType.error && chipsScetion[2]}
-                      {showChip.Debug && logType.debug && chipsScetion[3]}
-                      {showChip.Verbose && logType.verbose && chipsScetion[4]}
+                      {logType.info && chipsScetion[0]}
+                      {logType.warn && chipsScetion[1]}
+                      {logType.error && chipsScetion[2]}
+                      {logType.debug && chipsScetion[3]}
+                      {logType.verbose && chipsScetion[4]}
 
                       {/* DATE CHIPS */}
-                      {datechips.start && dateChips[0]}
-                      {datechips.end && dateChips[1]}
+                      {date.start && dateChips[0]}
+                      {date.end && dateChips[1]}
                     </section>
                     <section className={Style.filterOptions}>
                       {/* <section className={`${Style.GoogleDirve} px-2`}>

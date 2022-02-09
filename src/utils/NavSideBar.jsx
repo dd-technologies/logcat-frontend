@@ -139,7 +139,7 @@ export function Navbar(props) {
                 .split(" ")
                 .map((name) => name[0][0].toUpperCase())}
           </section>
-          <section className="m-2">
+          <section style={{fontWeight: '500'}} className="m-2">
             {adminInfo &&
               adminInfo.data &&
               adminInfo.data.name
