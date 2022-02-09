@@ -1,0 +1,183 @@
+@import "../../../../css/veriables.module.scss";
+
+.OuterTable {
+  .BootstrapTable {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: $tableHaderBackgorundColor;
+    & input {
+      height: 35px !important;
+    }
+
+    .searchbar {
+      // border: 2px solid red;
+      width: 100%;
+
+      & label {
+        width: 100%;
+      }
+    }
+
+    .chipOuter {
+      // border: red 1px solid;
+      width: 50% !important;
+      height: auto !important;
+      display: grid;
+      grid-template-columns: auto auto auto auto auto;
+      margin-right: 40px;
+
+      @media screen and (min-width: 600px) and (max-width: 1200px) {
+        width: 40% !important;
+        grid-template-columns: auto auto;
+      }
+
+      @media screen and (min-width: 1200px) and (max-width: 1600px) {
+        width: 60% !important;
+        grid-template-columns: auto auto auto;
+      }
+    }
+
+    .chip {
+      background-color: $backgroundColor;
+      border-radius: 20px;
+      padding: 10px;
+      height: 30px;
+      width: 120px;
+      display: flex !important;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      margin: 5px;
+
+      & p {
+        font-size: 0.8rem !important;
+      }
+      & svg {
+        color: #fff;
+      }
+
+      // color: $stackBackgroundColor;
+    }
+
+    & button {
+      color: $defaultTextColor !important;
+      height: 35px !important;
+      font-weight: 500;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    border-bottom: $borderBottom;
+
+    .GoogleDirve {
+      display: flex;
+      justify-content: center;
+    }
+
+    .filterOptions {
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 20px;
+    }
+    .filterGraphFirstSction {
+      color: $activehrefText !important;
+      height: 35px !important;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: $buttonBorderRaduous;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 10px;
+    }
+
+    .TopButton {
+      display: flex !important;
+      justify-content: space-around;
+    }
+  }
+}
+
+.ViewButton {
+  display: flex;
+  justify-content: end;
+  border-radius: 50px !important;
+  color: $backgroundColor;
+}
+
+.ActiveOption {
+  background-color: $backgroundColor;
+  color: $defaultTextColor;
+  border-radius: 10px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.DateSection {
+  & input {
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.6);
+  }
+}
+
+.perPageOuter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .perPagesectionInner {
+    margin-top: 5px;
+  }
+  .perPagesectionInnerActive {
+    background-color: $backgroundColor !important;
+    color: $defaultTextColor;
+    padding: 5px;
+    border-radius: 30px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.DefaultOption {
+  color: $activehrefText;
+  padding: 5px;
+}
+
+.StatusInnerSecion {
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+
+// react bootstrap table css
+.expandedRow {
+  @media screen and (min-width: 600px) and (max-width: 1200px) {
+    width: 200px !important;
+    height: 20px !important;
+    overflow: hidden !important;
+  }
+  
+  @media screen and (min-width: 1200px) and (max-width: 1600px) {
+    width: 500px !important;
+    height: 20px !important;
+    overflow: hidden !important;
+  }
+  @media screen and (min-width: 1600px) and (max-width: 1920px) {
+    width: 600px !important;
+    height: 20px !important;
+    overflow: hidden !important;
+  }
+}

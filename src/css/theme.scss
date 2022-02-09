@@ -1,0 +1,60 @@
+@import "./veriables.module.scss";
+
+.dropdown-toggle {
+  background-color: $filterButtonBackgroundColor !important;
+  border: none !important;
+  border-radius: $buttonBorderRaduous !important;
+}
+
+// paragraph
+p {
+  margin-bottom: 0 !important;
+}
+
+// erasing padding and margin from col and nav
+.row > * {
+  margin: 0%;
+  padding: 0%;
+}
+
+.btn {
+  background-color: $activehrefText !important;
+  border: none !important;
+}
+
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+thead,
+th {
+  text-align: start !important;
+  @include paraFontdasktopMixin;
+  @media screen and (min-width: 600px) and (max-width: 1200px) {
+    @include paraFontdasktopMixin;
+  }
+}
+
+tbody,
+td {
+  @include paraFontdasktopMixin;
+}
+
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+  border-width: none !important;
+  border-style: none !important;
+}
+
+// thememing start bootstrap --------
+.row {
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}

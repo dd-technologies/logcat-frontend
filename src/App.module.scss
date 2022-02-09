@@ -1,0 +1,23 @@
+@import "./css//veriables.module.scss";
+
+// table themeing
+
+table {
+  & tr > th {
+    background-color: $tableHaderBackgorundColor !important;
+    border-bottom: none !important;
+    height: 50px !important;
+    color: black !important;
+  }
+  & thead {
+    vertical-align: middle !important;
+    border-bottom: 2px $filterButtonBackgroundColor solid;
+  }
+}
+
+table tr {
+  /*display: block;*/
+  // border-top: 2px solid red !important;
+  border-bottom: $borderBottom !important;
+  cursor: pointer !important;
+}
