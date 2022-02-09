@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faFilter,
-  faCalendar,
   faCaretDown,
   faDatabase,
   faSync,
@@ -16,24 +14,18 @@ import CrashFreeStatics from "./components/CrashFreeStatics";
 import TrandData from "./components/TrandData";
 import CustomeDropDown from "../../Container/DropDown";
 import { useDispatch, useSelector } from "react-redux";
-import AgTable from "./components/Table/AgTable";
 import TableData from "./components/Table/TableData";
 import PieChartSection from "./components/PieChartSection";
 import {
   getLogTypeCounts,
-  getErrorWRTOS,
   getProjectDetails,
-  getErrorWRTVersion,
   getLogByDate,
   getProjectByCode,
   getCrashFreeUsers,
-  getDeviceModelCode
+  getDeviceModelCode,
 } from "../../redux/action/ProjectAction";
-import { getLogCountsReducer } from "../../redux/reducer/ProjectReducer";
 import { useHistory } from "react-router-dom";
 import Spinner from "../../Container/Spinner";
-import { slideShow } from "../../redux/action/SlideAction";
-import toast from "react-hot-toast";
 import DateIcons from "../../assets/icons/date.png";
 import LogICon from "../../assets/icons/log.png";
 import TypeDropDown from "./components/Table/TypeDropDown";
@@ -43,10 +35,11 @@ export default function LogTable() {
   // filter with crash free statics and trands
   const [dropDownShow, setDropDownShow] = useState(false);
   const [dateDropDown, setDateDropDown] = useState(false);
-  const [projectCodeDropDown,setProjectCodeDropDown] = useState(false);
+  const [productDropDown, seProductDropDown] = useState(false);
+  const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
   const [diffDate, setDiffDate] = useState(90);
 
-  const [projectCode,setProjectCode] = useState()
+  const [projectCode, setProjectCode] = useState();
 
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
@@ -76,7 +69,7 @@ export default function LogTable() {
     },
     link2: {
       iconName: faDatabase,
-      linkName: "Profile",
+      linkName: "Settings",
     },
   };
 
@@ -89,7 +82,7 @@ export default function LogTable() {
     },
     link2: {
       iconName: `/assets/icons/settings.png`,
-      linkName: "Profile",
+      linkName: "Settings",
     },
   };
 
@@ -123,14 +116,14 @@ export default function LogTable() {
     (state) => state.getAllLogByCodeReducer
   );
 
-//   const getModelCodeReducer = useSelector(
-//     (state) => state.getModelCodeReducer
-//   );
-  
-// let modelList;
-//   if (getModelCodeReducer && getModelCodeReducer.data) {
-//     modelList = getModelCodeReducer.data.modelList
-//   }
+  //   const getModelCodeReducer = useSelector(
+  //     (state) => state.getModelCodeReducer
+  //   );
+
+  // let modelList;
+  //   if (getModelCodeReducer && getModelCodeReducer.data) {
+  //     modelList = getModelCodeReducer.data.modelList
+  //   }
 
   const dispatchmultiple = () => {
     // dispatch(getLogTypeCounts(code));
@@ -150,7 +143,7 @@ export default function LogTable() {
     dispatch(getLogTypeCounts({ code, diffDate }));
     dispatch(getLogByDate({ code, diffDate }));
     dispatch(getCrashFreeUsers({ code, diffDate }));
-    
+
     // dispatch(getLogByDate(code, date));
   };
   useEffect(() => {
@@ -170,7 +163,7 @@ export default function LogTable() {
   }, [history]);
 
   useEffect(() => {
-    dispatch(getDeviceModelCode(code))
+    dispatch(getDeviceModelCode(code));
     const checkIfClickedOutside = (e) => {
       // If the menu is open and the clicked target is not within the menu,
       // then close the menu
@@ -185,7 +178,9 @@ export default function LogTable() {
       // Cleanup the event listener
       document.removeEventListener("mousedown", checkIfClickedOutside);
     };
-  }, [dateDropDown]);
+  }, []);
+  
+  // dateDropDown : was dependency for the above useeffect
 
   // REFRESH ONLY TABLE
   const RefreshTableOnlyFun = () => {
@@ -234,6 +229,9 @@ export default function LogTable() {
     dispatch(getProjectByCode(code));
   };
 
+  // PRODUCT VERSION FUNCTION
+  const productversionDropDown = () => {};
+
   return (
     <>
       <Row>
@@ -266,20 +264,15 @@ export default function LogTable() {
             }
           >
             <Row className="mt-4">
-            <Col xl={10} md={12} sm={12} className={Style.filterWithDate}>
-              {/* {
-               modelList && modelList.length ?  */}
-                <TypeDropDown /> 
-              {/* } */}
+            <Col xl={10} md={12} sm={12} /* className={Style.filterWithDate} */>
+                <TypeDropDown projectCode={projectCode} setProjectCode={setProjectCode} /> 
               </Col>
 
-
-
-              <Col xl={2} md={12} sm={12} className={Style.filterWithDate}>
+              <Col xl={2} md={6} sm={6} className={Style.filterWithDate}>
                 <section className={Style.filterwithDate} ref={ref}>
                   <section className={Style.datafilter} onClick={DateFilter}>
                     <Image src={DateIcons} />
-                    <p className="ms-2 p-1">
+                    <p className=" ms-2 p-1">
                       {diffDate == 10
                         ? `last 10 days`
                         : diffDate == 7
@@ -304,7 +297,7 @@ export default function LogTable() {
                       <CustomeDropDown width="100%">
                         {/* <p className="mt-1">10 days</p> */}
                         <p
-                          className="mt-1"
+                          className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(7);
                             setDateDropDown(false);
@@ -313,7 +306,7 @@ export default function LogTable() {
                           7 days
                         </p>
                         <p
-                          className="mt-1"
+                          className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(15);
                             setDateDropDown(false);
@@ -323,7 +316,7 @@ export default function LogTable() {
                         </p>
 
                         <p
-                          className="mt-1"
+                          className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(30);
                             setDateDropDown(false);
@@ -332,7 +325,7 @@ export default function LogTable() {
                           30 days
                         </p>
                         <p
-                          className="mt-1"
+                          className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(45);
                             setDateDropDown(false);
@@ -341,7 +334,7 @@ export default function LogTable() {
                           45 days
                         </p>
                         <p
-                          className="mt-1"
+                          className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(60);
                             setDateDropDown(false);
@@ -350,7 +343,7 @@ export default function LogTable() {
                           60 days
                         </p>
                         <p
-                          className="mt-1"
+                          className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(90);
                             setDateDropDown(false);
@@ -406,7 +399,10 @@ export default function LogTable() {
             <Row className="mt-3">
               <Col>
                 {/* table with toolkit provider */}
-                <TableData code={code} projectName={projectName} />
+                {
+                  console.log("component redenr")
+                }
+                <TableData code={code} projectName={projectName} diffDate = {diffDate} />
 
                 {/*Ag table  */}
                 {/* <AgTable /> */}

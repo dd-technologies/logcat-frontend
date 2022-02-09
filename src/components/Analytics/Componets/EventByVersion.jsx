@@ -27,23 +27,23 @@ export default function EventByVersion() {
     <>
       <CustomCard height="350px">
         <Row className="p-4">
-          <Col xl={4} className={Style.EventByVersion}>
-            <p>Total events by version</p>
+          <Col xl={4} md={4} className={Style.EventByVersion}>
+            <h6 style={{ fontWeight : '600'}}>Total events by version</h6>
 
             {/*CHECKING FOR NOW IF NOT HAVING THE VALUE OF MAP */}
 
             {!ld ? (
               cnt.map((e) => (
                 <>
-                  <p>{e._id ? e._id : null}</p>
-                  <h4>{e.data}</h4>
+                  <p style={{color: "#666"}}>{e._id ? e._id : null}</p>
+                  <h5>{e.data}</h5>
                 </>
               ))
             ) : (
               <Spinner height="280px" />
             )}
           </Col>
-          <Col xl={8}>
+          <Col xl={8} md={8}>
             <p className={Style.Last90days}>from the last 90 days</p>
             <EventByVersionChart height="200px" />
           </Col>

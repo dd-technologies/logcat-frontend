@@ -33,165 +33,6 @@ const urlParams = new URLSearchParams(queryString);
 const { ExportCSVButton } = CSVExport;
 var dt = {};
 
-// function errorFormatter(cell, row) {
-//   if (row.logType) {
-//     return (
-//       <span>
-//         {cell === "error" ? (
-//           <strong style={{ color: "red" }}>{cell.toUpperCase()}</strong>
-//         ) : cell === "warn" ? (
-//           <strong style={{ color: "violet" }}>{cell.toUpperCase()}</strong>
-//         ) : cell === "info" ? (
-//           <strong style={{ color: "blue" }}>{cell.toUpperCase()}</strong>
-//         ) : cell === "verbose" ? (
-//           <strong style={{ color: "green" }}>{cell.toUpperCase()}</strong>
-//         ) : (
-//           <strong style={{ color: "orange" }}>{cell.toUpperCase()}</strong>
-//         )}
-//       </span>
-//     );
-//   }
-
-//   return <span>$ {cell} NTD</span>;
-// }
-
-// const defaultSorted = [
-//   {
-//     dataField: "name",
-//     order: "desc",
-//   },
-// ];
-
-// var queryAllSting = { value1: "at", value2: "" };
-
-// const StackOptions = () => {
-//   localStorage.setItem("queryAllSting", JSON.stringify(queryAllSting));
-// };
-
-// const columns = [
-//   {
-//     headerStyle: () => {
-//       return {
-//         backgroundColor: "#257d7c",
-//         color: "#fff",
-//       };
-//     },
-//     dataField: "did",
-//     text: "Mac address",
-//     sort: true,
-//   },
-
-//   {
-//     dataField: "logMsg",
-//     text: "Log Message",
-//     headerAlign: "center",
-//     headerStyle: () => {
-//       return {
-//         backgroundColor: "#257d7c",
-//         color: "#fff",
-//       };
-//     },
-//     formatter: (col, row) => {
-//       // console.log("row id mil", row);
-//       const newCode = urlParams.get("code");
-//       const projectName = urlParams.get("name");
-//       // const version = urlParams.get('version')
-//       // const osArchitecture = urlParams.get('osArchitecture')
-//       // console.log("now_code", newCode);
-//       // console.log(`start ${dt.start} and end ${dt.end}`)
-//       return (
-//         <div
-//           style={{
-//             width: "250px",
-//             height: "auto",
-//             overflow: "hidden",
-//           }}
-//         >
-//           <ReactReadMoreReadLess
-//             charLimit={40}
-//             readMoreText={"Read more ▼"}
-//             readLessText={"Read less ▲"}
-//           >
-//             {col}
-//           </ReactReadMoreReadLess>
-//           <Link
-//             to={`/analytics?code=${newCode}&name=${projectName}&col=${col}`}
-//           >
-//             <span className={Style.ViewButton}>
-//               <FontAwesomeIcon icon={faCaretRight} />
-//             </span>
-//           </Link>
-//         </div>
-//       );
-//     },
-
-//     //  to={`/analytics?code=${code}&name=Stack Trace&id=${row._id}&allStacks=${row.logMsg}&macAddress=${row.did}&loggenrateddate=${row.logGeneratedDate}&modeltype=${row.device_types}&logtype=${row.logType}`}
-
-//     // style: { backgroundColor: 'green' }
-//   },
-//   {
-//     dataField: "logType",
-//     text: "Log Type",
-//     headerStyle: () => {
-//       return {
-//         backgroundColor: "#257d7c",
-//         color: "#fff",
-//       };
-//     },
-//     formatter: errorFormatter,
-//     sort: true,
-//   },
-//   {
-//     dataField: "logGeneratedDate",
-//     text: "Log Generated At",
-//     width: "20",
-//     headerStyle: () => {
-//       return {
-//         backgroundColor: "#257d7c",
-//         color: "#fff",
-//       };
-//     },
-//     formatter: (cell) => cell.split("T")[0],
-//     sort: true,
-//   },
-
-//   // {
-//   //     dataField: 'logGeneratedDate',
-//   //     text: 'Log Generated Time',
-//   //   //   filter: textFilter(),
-//   //     formatter: cell => cell.split("T")[1],
-//   //     sort:true
-//   //   },
-
-//   {
-//     dataField: "device_types",
-//     text: "Device Code",
-//     headerStyle: () => {
-//       return {
-//         backgroundColor: "#257d7c",
-//         color: "#fff",
-//       };
-//     },
-//     formatter: (cell) => cell.split("|")[0],
-
-//     //   filter: textFilter(),
-//     sort: true,
-//   },
-//   {
-//     dataField: "device_types",
-//     text: "Device Type",
-//     headerStyle: () => {
-//       return {
-//         backgroundColor: "#257d7c",
-//         color: "#fff",
-//       };
-//     },
-//     formatter: (cell) => cell.split("|")[1],
-
-//     //   filter: textFilter(),
-//     sort: true,
-//   },
-// ];
 // ************************************************************************************************************************
 function TableData(props) {
   // const queryString = window.location.search;
@@ -231,6 +72,14 @@ function TableData(props) {
     setCountPerPageSection(true);
   };
 
+  const endDate = filedate.toISOString().slice(0, 10);
+  filedate.setDate(filedate.getDate() - props.diffDate);
+  const startDate = filedate.toISOString().slice(0, 10);
+
+  console.log(`start Date ${startDate} end Date ${endDate}`);
+
+
+  console.log("local storage ",localStorage.getItem("selected_date"));
   const [date, setdate] = useState({
     start: localStorage.getItem("selected_date")
       ? JSON.parse(localStorage.getItem("selected_date")).start
@@ -239,6 +88,14 @@ function TableData(props) {
       ? JSON.parse(localStorage.getItem("selected_date")).end
       : "",
   });
+
+  // const [date, setdate] = useState({
+  //   start:  startDate,
+  //   end:endDate,
+  // });
+
+  // setdate({start:startDate,end:endDate})
+  console.log("date state ",date);
 
   // const [pageNo, setPageNo] = useState(0);
   const [record, setRecords] = useState(
@@ -253,16 +110,30 @@ function TableData(props) {
   const [selectedRowArray, setSelectedRowArray] = useState([]);
 
   const [showChip, setShowChip] = useState({
-    info: false,
-    Warn: false,
-    Error: false,
-    Debug: false,
-    Verbose: false,
+    info: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).info
+      : "",
+    Warn: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).warn
+      : "",
+    Error: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).error
+      : "",
+    Debug: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).debug
+      : "",
+    Verbose: localStorage.getItem("selected_log")
+      ? JSON.parse(localStorage.getItem("selected_log")).verbose
+      : "",
   });
 
   const [datechips, setDatechips] = useState({
-    start: null,
-    end: null,
+    start: localStorage.getItem("selected_date")
+      ? JSON.parse(localStorage.getItem("selected_date")).start
+      : null,
+    end: localStorage.getItem("selected_date")
+      ? JSON.parse(localStorage.getItem("selected_date")).end
+      : null,
   });
 
   // GOOGLE DRIVE SAVE STATE
@@ -392,38 +263,37 @@ function TableData(props) {
   };
 
   const applyFilter = () => {
-    // if (
-    //   logType.error ||
-    //   logType.info ||
-    //   logType.warn ||
-    //   logType.debug ||
-    //   logType.verbose
-    // ) {
-    //   console.log("Logtype applied")
-    //   return dispatch(getProjectByCode(code, date, logType, pageNo, record));
-    // }
-    // if (!date.start && !date.end) {
-    //   setdate({
-    //     start: "",
-    //     end: "",
-    //   });
-    // }
-    // if (date.start || data.end) {
-    //   console.log("date applied")
-    //   return dispatch(getProjectByCode(code, date, logType));
-    // }
-    // if (
-    //   logType.error ||
-    //   logType.info ||
-    //   logType.warn ||
-    //   logType.debug ||
-    //   logType.verbose
-    // ) {
-    //   dispatch(getProjectByCode(code, null, logType, pageNo, record));
-    // }
-    // if (record && (!date.start || !data.end)) {
-    //   return dispatch(getProjectByCode(code, null, null, null, record));
-    // }
+    // 1) LOGTYPE
+    if (
+      logType.info ||
+      logType.warn ||
+      logType.error ||
+      logType.debug ||
+      logType.verbose
+    ) {
+      setShowChip({
+        ...showChip,
+        info: true,
+        Warn: true,
+        Error: true,
+        Debug: true,
+        Verbose: true,
+      });
+    }
+
+    // 2)DATE
+    if (date.start) {
+      setDatechips({
+        ...datechips,
+        start: true,
+      });
+    }
+    if (date.end) {
+      setDatechips({
+        ...datechips,
+        end: true,
+      });
+    }
 
     dispatch(getProjectByCode(code, date, logType, pageNo, record));
     setShowTableField(false);
@@ -432,9 +302,9 @@ function TableData(props) {
   // code, date = null, filters = null, page = null, record = 25
 
   useEffect(() => {
-    dt.start = date.start;
-    dt.end = date.end;
-    // console.log(logType);
+    // dt.start = date.start;
+    // dt.end = date.end;
+    console.log(` start date useeffect ${date.start} ${date.end}`);
     if (
       logType.error ||
       logType.info ||
@@ -442,15 +312,13 @@ function TableData(props) {
       logType.debug ||
       logType.verbose
     ) {
-      // console.log("if useEffect executed");
-      // console.log(`page ${pageNo}`);
+      console.log("datte ", date);
       dispatch(getProjectByCode(code, date, logType, pageNo, record));
     } else {
-      // console.log("else useEffect click");
-      // console.log(`${date.start} ${date.end} ${pageNo} ${record}`);
+      console.log("datte ", date);
       dispatch(getProjectByCode(code, date, null, pageNo, record));
     }
-  }, [pageNo]);
+  }, [pageNo,startDate]);
 
   const showTableFieldFunc = () => {
     setShowTableField(!showTableField);
@@ -525,12 +393,13 @@ function TableData(props) {
       formatter: (col, row, rowIndex) => {
         // console.log("col", col);
         // console.log("col row", rowIndex);
-
         // const newCode = urlParams.get("code");
+
         const projectName = urlParams.get("name");
         let version = row.version ? row.version : null;
         let osArchitecture = row.osArchitecture ? row.osArchitecture : null;
         let modelName = row.modelName ? row.modelName : null;
+
         // const version = urlParams.get('version')
         // const osArchitecture = urlParams.get('osArchitecture')
         // console.log("now_code", newCode);
@@ -735,32 +604,57 @@ function TableData(props) {
   // menu chip created
 
   // closing chips function
+
+  // let logTypeParse = JSON.parse(localStorage.getItem("selected_log"));
+  // console.log("first", logTypeParse.info);
+
   const closeChips = (index) => {
     // console.log("close chip", index);
     if (index == 0) {
       setShowChip({ ...showChip, info: false });
       setLogType({ ...logType, info: false });
       dispatch(getProjectByCode(code, null, { ...logType, info: false }));
+
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, info: false })
+      );
     }
     if (index == 1) {
       setShowChip({ ...showChip, Warn: false });
       setLogType({ ...logType, warn: false });
       dispatch(getProjectByCode(code, null, { ...logType, warn: false }));
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, warn: false })
+      );
     }
     if (index == 2) {
       setShowChip({ ...showChip, Error: false });
       setLogType({ ...logType, error: false });
       dispatch(getProjectByCode(code, null, { ...logType, error: false }));
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, error: false })
+      );
     }
     if (index == 3) {
       setShowChip({ ...showChip, Debug: false });
       setLogType({ ...logType, debug: false });
       dispatch(getProjectByCode(code, null, { ...logType, debug: false }));
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, debug: false })
+      );
     }
     if (index == 4) {
       setShowChip({ ...showChip, Verbose: false });
       setLogType({ ...logType, verbose: false });
       dispatch(getProjectByCode(code, null, { ...logType, verbose: false }));
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, verbose: false })
+      );
     }
 
     // CHECKING IF INPUT BOX HIDE
@@ -787,14 +681,23 @@ function TableData(props) {
         ...date,
         start: "",
       });
+      localStorage.setItem(
+        "selected_date",
+        JSON.stringify({ ...date, start: "" })
+      );
     }
     if (index == 1) {
+      dispatch(getProjectByCode(code, null));
       setDatechips({ ...datechips, end: false });
       dispatch(getProjectByCode(code, date.end));
       setdate({
         ...date,
         end: "",
       });
+      localStorage.setItem(
+        "selected_date",
+        JSON.stringify({ ...date, end: "" })
+      );
     }
   };
 
@@ -818,7 +721,7 @@ function TableData(props) {
         <section className={Style.OuterTable} ref={ref}>
           {data && data.data && data.data.logs ? (
             <ToolkitProvider
-              keyField="_id"
+              keyField="_id"s
               data={data.data.logs}
               columns={columns}
               search
@@ -931,10 +834,6 @@ function TableData(props) {
                                         type="date"
                                         value={date.start}
                                         onChange={(e) => {
-                                          setDatechips({
-                                            ...datechips,
-                                            start: true,
-                                          });
                                           setdate({
                                             ...date,
                                             start: e.target.value,
@@ -945,10 +844,6 @@ function TableData(props) {
                                         type="date"
                                         value={date.end}
                                         onChange={(e) => {
-                                          setDatechips({
-                                            ...datechips,
-                                            end: true,
-                                          });
                                           setdate({
                                             ...date,
                                             end: e.target.value,
@@ -973,10 +868,6 @@ function TableData(props) {
                                           type="checkbox"
                                           checked={logType.info}
                                           onClick={(e) => {
-                                            setShowChip({
-                                              ...showChip,
-                                              info: true,
-                                            });
                                             setLogType({
                                               ...logType,
                                               info: !logType.info,
@@ -994,10 +885,6 @@ function TableData(props) {
                                           type="checkbox"
                                           checked={logType.warn}
                                           onClick={(e) => {
-                                            setShowChip({
-                                              ...showChip,
-                                              Warn: true,
-                                            });
                                             setLogType({
                                               ...logType,
                                               warn: !logType.warn,
@@ -1015,10 +902,6 @@ function TableData(props) {
                                           type="checkbox"
                                           checked={logType.error}
                                           onClick={(e) => {
-                                            setShowChip({
-                                              ...showChip,
-                                              Error: true,
-                                            });
                                             setLogType({
                                               ...logType,
                                               error: !logType.error,
@@ -1036,10 +919,6 @@ function TableData(props) {
                                           type="checkbox"
                                           checked={logType.debug}
                                           onClick={(e) => {
-                                            setShowChip({
-                                              ...showChip,
-                                              Debug: true,
-                                            });
                                             setLogType({
                                               ...logType,
                                               debug: !logType.debug,
@@ -1057,10 +936,6 @@ function TableData(props) {
                                           type="checkbox"
                                           checked={logType.verbose}
                                           onClick={(e) => {
-                                            setShowChip({
-                                              ...showChip,
-                                              Verbose: true,
-                                            });
                                             setLogType({
                                               ...logType,
                                               verbose: !logType.verbose,

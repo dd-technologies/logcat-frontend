@@ -1,0 +1,17 @@
+@import "../../../../css/veriables.module.scss";
+
+.outerSection {
+  background-color: $filterButtonBackgroundColor;
+  border-radius: 10px;
+  // background-color: red;
+  margin-top: 10px;
+  border: $borderBottom;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+
+  & p {
+    font-size: 0.8rem;
+    color: rgb(77, 77, 77);
+  }
+}

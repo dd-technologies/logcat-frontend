@@ -68,7 +68,7 @@
   }
 
   @media screen and (min-width: 1024px) and (max-width: 1400px) {
-    margin-top: 10% !important;
+    margin-top: 14% !important;
     margin-left: 10% !important;
   }
   @media screen and (min-width: 1400px) and (max-width: 1600px) {
@@ -118,5 +118,20 @@
       transition-duration: 0.5s;
       color: $backgroundColor;
     }
+  }
+}
+
+.productVersion {
+  padding: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: $backgroundColor;
+    width: 100%;
+    padding: 5px;
+    color: $defaultTextColor;
+    transition-duration: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

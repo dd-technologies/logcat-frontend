@@ -9,12 +9,14 @@ export default function CustomeDropDown(props) {
           width: props.width ? props.width : "auto",
           height: props.height && "auto",
           zIndex: props.zIndex ? props.zIndex : 8,
-          borderRadius: "10px",
+          borderRadius: props.borderRadius ? props.borderRadius : "0px",
           padding: "10px",
           boxShadow: "0px 0px 4px -2px rgba(0,0,0,0.75)",
           display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          justifyContent: props.justifyContent
+            ? props.justifyContent
+            : "center",
+          alignItems: props.alignItems ? props.alignItems : "center",
           marginTop: props.marginTop && "",
           position: props.position ? props.position : "",
           top: props.top ? props.top : "",

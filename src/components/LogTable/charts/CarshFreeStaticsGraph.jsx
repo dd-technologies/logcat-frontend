@@ -4,6 +4,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import {
   LineChart,
+  AreaChart,
+  Area,
   Line,
   XAxis,
   YAxis,
@@ -38,13 +40,13 @@ export default function CarshFreeStaticsGraph() {
         ) : data && data.response ? (
           <div style={{ width: "100%", height: 180 }}>
             <ResponsiveContainer>
-              <LineChart data={dt}>
+              <AreaChart data={dt}>
                 {/* <CartesianGrid strokeDasharray="3 3" /> */}
                 <XAxis dataKey="date" tickCount={5} minTickGap={10} tickFormatter={dateFormatter} />
                 {/* <YAxis dataKey="data" /> */}
                 <CartesianGrid vertical={false} strokeDasharray="0 0 4" />
                 <Tooltip />
-                <Line
+                {/* <Line
                   connectNulls
                   type="date"
                   dataKey="data"
@@ -52,8 +54,14 @@ export default function CarshFreeStaticsGraph() {
                   dot={false}
                   // strokeWidth={1}
                   fill="#257d7c"
+                /> */}
+                <Area
+                  type="monotone"
+                  dataKey="data"
+                  stroke="#257d7c"
+                  fill="#257d7c"
                 />
-              </LineChart>
+              </AreaChart>
             </ResponsiveContainer>
           </div>
         ) : (

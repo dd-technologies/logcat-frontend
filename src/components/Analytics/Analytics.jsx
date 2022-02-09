@@ -91,7 +91,7 @@ export default function Analytics() {
     },
     link2: {
       iconName: `./assets/icons/settings.png`,
-      linkName: "Profile",
+      linkName: "Settings",
       link: "",
     },
   };
@@ -163,18 +163,18 @@ export default function Analytics() {
                 "Loading"
               ) : (
                 <p className={Style.paraTextIssue}>
-                  This issue has <strong>{totalCount}</strong> crash events
+                  This issue has <strong style={{color: "#0099a4"}}>{totalCount} crash</strong>  events
                   affecting
-                  <strong> {users} </strong> users
+                  <strong style={{color: "#0099a4"}}> {users} users</strong>
                 </p>
               )}
             </Col>
             <Col>
               <Row>
-                <Col xl={8} md={8} sm={12}>
+                <Col style={{paddingLeft: '0'}} xl={8} md={8} sm={12}>
                   <EventByVersion />
                 </Col>
-                <Col xl={4} md={4} sm={12}>
+                <Col style={{paddingRight: '0'}} xl={4} md={4} sm={12}>
                   <ToggleTabs />
                 </Col>
               </Row>

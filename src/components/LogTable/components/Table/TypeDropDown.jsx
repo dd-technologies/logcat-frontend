@@ -10,9 +10,9 @@ import {
   faTasks,
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-// import Style from "./LogTable.module.scss";
-import Style from "../../LogTable.module.scss";
 import CustomeDropDown from "../../../../Container/DropDown";
+import Style from "./TypeDropDown.module.scss";
+import Spinner from "../../../../Container/Spinner";
 
 const TypeDropDown = () => {
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
@@ -34,13 +34,35 @@ const TypeDropDown = () => {
 
   console.log("data", data);
 
+  // CLICKING OUTSIDE THE VIEWPORT
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and the clicked target is not within the menu,
+      // then close the menu
+      if (
+        projectCodeDropDown &&
+        ref.current &&
+        !ref.current.contains(e.target)
+      ) {
+        setProjectCodeDropDown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [projectCodeDropDown]);
+
   return (
     <>
       {loading ? (
-        "Loading..."
+        <p>loading..</p>
       ) : (
-        <section className={Style.filterwithDate} ref={ref}>
-          <section className={Style.datafilter} onClick={ProjectTypeFilter}>
+        <section ref={ref}>
+          <section onClick={ProjectTypeFilter} className={Style.OuterDiv}>
             {/* <Image src={DateIcons} /> */}
             <FontAwesomeIcon icon={faTasks} color="#2A9AA4" size="2x" />
             <p className="ms-2 p-1">
@@ -48,17 +70,21 @@ const TypeDropDown = () => {
                 ? projectCode.name
                 : data && data.modelList[0].typeName}
             </p>
-            <FontAwesomeIcon icon={faCaretDown} color="" />
+            <FontAwesomeIcon icon={faCaretDown} color="#2A9AA4" />
           </section>
 
           <section>
             {projectCodeDropDown ? (
-              <CustomeDropDown width="100%">
+              <CustomeDropDown
+                width="15%"
+                position="absolute"
+                alignItems="flex-start"
+              >
                 {data &&
                   data.modelList.map((type) => {
                     return (
                       <p
-                        className="mt-1"
+                        className={Style.productVersion}
                         onClick={() => {
                           setProjectCode({
                             code: type.typeCode,
