@@ -28,7 +28,7 @@ export default function EventByVersion() {
       <CustomCard height="350px">
         <Row className="p-4">
           <Col xl={4} md={4} className={Style.EventByVersion}>
-            <h6 style={{ fontWeight : '600'}}>Total events by version</h6>
+            <h6 style={{ fontWeight: '600', letterSpacing: '0.5px'}}>Total events by version</h6>
 
             {/*CHECKING FOR NOW IF NOT HAVING THE VALUE OF MAP */}
 

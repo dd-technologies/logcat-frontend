@@ -40,10 +40,18 @@ export default function CarshFreeStaticsGraph() {
         ) : data && data.response ? (
           <div style={{ width: "100%", height: 180 }}>
             <ResponsiveContainer>
-              <AreaChart data={dt}>
+              <AreaChart  
+                data={dt}
+                margin={{
+                  top: 10,
+                  right: 30,
+                  left: 0,
+                  bottom: 0,
+                }}
+                >
                 {/* <CartesianGrid strokeDasharray="3 3" /> */}
                 <XAxis dataKey="date" tickCount={5} minTickGap={10} tickFormatter={dateFormatter} />
-                <YAxis dataKey="data" axisLine={false} />
+                <YAxis interval={1} dataKey="data" axisLine={false} />
                 <CartesianGrid vertical={false} strokeDasharray="0 0 4" />
                 <Tooltip />
                 {/* <Line
