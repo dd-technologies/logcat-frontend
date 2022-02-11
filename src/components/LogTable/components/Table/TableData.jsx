@@ -889,7 +889,7 @@ function TableData(props) {
                                         type="date"
                                         value={date.end}
                                         // max={startDate}
-                                        max={endDate -1}
+                                        max={endDate}
                                         onChange={(e) => {
                                           setdate({
                                             ...date,
