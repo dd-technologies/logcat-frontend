@@ -365,7 +365,7 @@ function TableData(props) {
       }
       dispatch(getProjectByCode(code, date, null, pageNo, record));
     }
-  }, [pageNo]);
+  }, [pageNo,startDate]);
 
   const showTableFieldFunc = () => {
     setShowTableField(!showTableField);
