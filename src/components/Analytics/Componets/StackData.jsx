@@ -56,9 +56,8 @@ export default function StackData() {
   var grouped = DataINRow.reduce((result, word) => {
     console.log("word", word);
     // get the first letter. (this assumes no empty words in the list)
-    const letter = `${word.split(".")[0]}.${word.split(".")[1]}.${
-      word.split(".")[2]
-    }`;
+    const letter = `${word.split(".")[0]}.${word.split(".")[1]}.${word.split(".")[2]
+      }`;
 
     // ensure the result has an entry for this letter
     console.log("letter " + letter);
@@ -175,19 +174,14 @@ export default function StackData() {
                 // console.log(`Keys ${grouped[key]} => ${idx}`)
                 const fileName = key.slice(key.indexOf("/") + 1);
                 if (fileName) {
-                  var fname = `${fileName.split(".")[0]}.${
-                    fileName.split(".")[1]
-                  }.${fileName.split(".")[2]}`;
+                  var fname = `${fileName.split(".")[0]}.${fileName.split(".")[1]}.${fileName.split(".")[2]
+                    }`;
                 }
                 return (
                   <>
                     <section className={Style.outerDiv}>
                       <section
-                        className={
-                          innerParaShowDetails[idx]
-                            ? `${Style.StackInfoDiveWithToggle}`
-                            : `${Style.StackInfoDive}`
-                        }
+                        className={innerParaShowDetails[idx] ? `${Style.StackInfoDiveWithToggle}` : `${Style.StackInfoDive}`}
                         onClick={() => innerParaShowDetailsFun(idx)}
                       >
                         <p>{`${key.slice(key.indexOf("/") + 1)}`}</p>

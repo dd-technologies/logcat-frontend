@@ -78,13 +78,11 @@ function TableData(props) {
 
   console.log(`start Date ! ${startDate} end Date ! ${endDate}`);
 
-
-  // !LOGTABLE DATE STATE SL == selected date from logtable 
+  // !LOGTABLE DATE STATE SL == selected date from logtable
   const [selectDate, setSelectDate] = useState({
     startSL: startDate ? startDate : "",
-    endSL: endDate ? endDate : ""
-  })
-
+    endSL: endDate ? endDate : "",
+  });
 
   const [date, setdate] = useState({
     start: JSON.parse(localStorage.getItem("selected_date")).start,
@@ -110,11 +108,6 @@ function TableData(props) {
   // 1)-  ROW SELECTION WITH TOGGLE STATE
   const [rowSelected, setRowSelected] = useState(null);
   const [selectedRowArray, setSelectedRowArray] = useState([]);
-
-
-
-
-
 
   // GOOGLE DRIVE SAVE STATE
   // const [openPicker, googleData, authResponse] = useDrivePicker();
@@ -167,27 +160,48 @@ function TableData(props) {
     // localStorage.removeItem("name of localStorage variable you want to remove");
     // LOG TYPE
     if (logType.info) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, info: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, info: true })
+      );
     }
     if (logType.error) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, error: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, error: true })
+      );
     }
     if (logType.warn) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, warn: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, warn: true })
+      );
     }
     if (logType.debug) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, debug: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, debug: true })
+      );
     }
     if (logType.verbos) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, verbos: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, verbos: true })
+      );
     }
 
     // DATE CHIPS
     if (date.start) {
-      localStorage.setItem("selected_date", JSON.stringify({ ...date, start: date.start }))
+      localStorage.setItem(
+        "selected_date",
+        JSON.stringify({ ...date, start: date.start })
+      );
     }
     if (date.end) {
-      localStorage.setItem("selected_date", JSON.stringify({ ...date, end: date.end }))
+      localStorage.setItem(
+        "selected_date",
+        JSON.stringify({ ...date, end: date.end })
+      );
     }
     localStorage.setItem("selected_record", JSON.stringify(record));
     dispatch(getProjectByCode(code, date, logType, pageNo, record));
@@ -199,34 +213,50 @@ function TableData(props) {
     // console.log("use effect is runnig")
 
     if (logType.info) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, info: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, info: true })
+      );
     }
     if (logType.error) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, error: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, error: true })
+      );
     }
     if (logType.warn) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, warn: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, warn: true })
+      );
     }
     if (logType.debug) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, debug: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, debug: true })
+      );
     }
     if (logType.verbos) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, verbos: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, verbos: true })
+      );
     }
 
     // DATE CHIPS
     if (date.start) {
-      localStorage.setItem("selected_date", JSON.stringify({ ...date, start: date.start }))
+      localStorage.setItem(
+        "selected_date",
+        JSON.stringify({ ...date, start: date.start })
+      );
     }
     if (date.end) {
-      localStorage.setItem("selected_date", JSON.stringify({ ...date, end: date.end }))
+      localStorage.setItem(
+        "selected_date",
+        JSON.stringify({ ...date, end: date.end })
+      );
     }
-
   }, [logType, date]);
-
-
-
-
 
   const resetFilter = () => {
     // startDateRef.current.value = "";
@@ -479,7 +509,6 @@ function TableData(props) {
       },
       sort: true,
     },
-
   ];
 
   useEffect(() => {
@@ -509,7 +538,8 @@ function TableData(props) {
     if (localStorage.getItem("selected_record") == 10) {
       setRecords(10);
       setActiveRecord({
-        ...activeRecord, record10: true,
+        ...activeRecord,
+        record10: true,
       });
     }
 
@@ -519,7 +549,6 @@ function TableData(props) {
       setActiveRecord({
         ...activeRecord,
         record25: true,
-
       });
     }
     // 3) if record are 50 in localstorage
@@ -528,7 +557,6 @@ function TableData(props) {
       setActiveRecord({
         ...activeRecord,
         record50: true,
-
       });
     }
 
@@ -541,8 +569,6 @@ function TableData(props) {
       });
     }
   }, []);
-
-
 
   const closeChips = (index) => {
     // console.log("close chip", index);
@@ -630,8 +656,11 @@ function TableData(props) {
     }
   };
 
-  const DateChipsArray = [JSON.parse(localStorage.getItem("selected_date")).start, JSON.parse(localStorage.getItem("selected_date")).end];
-  console.log("DateChipsArray", DateChipsArray)
+  const DateChipsArray = [
+    JSON.parse(localStorage.getItem("selected_date")).start,
+    JSON.parse(localStorage.getItem("selected_date")).end,
+  ];
+  console.log("DateChipsArray", DateChipsArray);
   const dateChips = DateChipsArray.map((items, index) => (
     <section className={Style.chip}>
       <p style={{ color: "#fff" }}>{items}</p>
@@ -642,8 +671,6 @@ function TableData(props) {
     </section>
   ));
 
-
-
   return (
     <>
       <TableCard
@@ -653,7 +680,8 @@ function TableData(props) {
         <section className={Style.OuterTable} ref={ref}>
           {data && data.data && data.data.logs ? (
             <ToolkitProvider
-              keyField="_id" s
+              keyField="_id"
+              s
               data={data.data.logs}
               columns={columns}
               search
@@ -764,7 +792,15 @@ function TableData(props) {
                                     <section className={Style.DateSection}>
                                       <input
                                         type="date"
-                                        value={date.start ? date.start : JSON.parse(localStorage.getItem("selected_newDate")).start}
+                                        value={
+                                          date.start
+                                            ? date.start
+                                            : JSON.parse(
+                                                localStorage.getItem(
+                                                  "selected_newDate"
+                                                )
+                                              ).start
+                                        }
                                         onChange={(e) => {
                                           setdate({
                                             ...date,
@@ -774,7 +810,15 @@ function TableData(props) {
                                       />
                                       <input
                                         type="date"
-                                        value={date.end ? date.end : JSON.parse(localStorage.getItem("selected_newDate")).end}
+                                        value={
+                                          date.end
+                                            ? date.end
+                                            : JSON.parse(
+                                                localStorage.getItem(
+                                                  "selected_newDate"
+                                                )
+                                              ).end
+                                        }
                                         onChange={(e) => {
                                           setdate({
                                             ...date,

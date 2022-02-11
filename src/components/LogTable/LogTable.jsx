@@ -396,8 +396,8 @@ export default function LogTable() {
 
             {/* Events  */}
             <Row className="mt-5">
-              <Col xl={6} md={6} sm={6} className={Style.issuesTable}>
-                <p style={{fontWeight: '600', fontSize: '0.9rem', lineHeight: '2.2rem', letterSpacing: '0.5px'}}>Issues</p>
+              <Col xl={6} md={6} sm={6} className={Style.issuesTable} >
+                <p style={{ fontWeight: '600', fontSize: '0.9rem', lineHeight: '2.2rem' }}>Issues</p>
                 {/* <p className={Style.LinkActiveText}>Search By userId</p> */}
               </Col>
               <Col
