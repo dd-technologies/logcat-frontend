@@ -149,10 +149,11 @@ export default function LogTable() {
   const endDate = filedate.toISOString().slice(0, 10);
   filedate.setDate(filedate.getDate() - diffDate);
   const startDate = filedate.toISOString().slice(0, 10);
-  localStorage.setItem(
-    "selected_date",
-    JSON.stringify({ start: startDate, end: endDate })
-  );
+
+  localStorage.setItem("selected_date", JSON.stringify({ start: startDate, end: endDate }));
+
+
+
 
   useEffect(() => {
     multipleDispatchGraph();
@@ -242,7 +243,7 @@ export default function LogTable() {
   };
 
   // PRODUCT VERSION FUNCTION
-  const productversionDropDown = () => {};
+  const productversionDropDown = () => { };
 
   return (
     <>
@@ -291,18 +292,18 @@ export default function LogTable() {
                       {diffDate == 10
                         ? `last 10 days`
                         : diffDate == 7
-                        ? `last 7 days`
-                        : diffDate == 15
-                        ? `last 15 days`
-                        : diffDate == 30
-                        ? `last 30 days`
-                        : diffDate == 45
-                        ? `last 45 days`
-                        : diffDate == 60
-                        ? `last 60 days`
-                        : diffDate == 90
-                        ? `last 90 days`
-                        : null}
+                          ? `last 7 days`
+                          : diffDate == 15
+                            ? `last 15 days`
+                            : diffDate == 30
+                              ? `last 30 days`
+                              : diffDate == 45
+                                ? `last 45 days`
+                                : diffDate == 60
+                                  ? `last 60 days`
+                                  : diffDate == 90
+                                    ? `last 90 days`
+                                    : null}
                     </p>
                     <FontAwesomeIcon
                       icon={faCaretDown}
@@ -394,8 +395,8 @@ export default function LogTable() {
 
             {/* Events  */}
             <Row className="mt-5">
-              <Col xl={6} md={6} sm={6} className={Style.issuesTable}>
-                <p style={{fontWeight: '600', fontSize: '0.9rem', lineHeight: '2.2rem'}}>Issues</p>
+              <Col xl={6} md={6} sm={6} className={Style.issuesTable} >
+                <p style={{ fontWeight: '600', fontSize: '0.9rem', lineHeight: '2.2rem' }}>Issues</p>
                 {/* <p className={Style.LinkActiveText}>Search By userId</p> */}
               </Col>
               <Col

@@ -51,7 +51,7 @@ export default function StackData() {
   //   }
   // })
 
-  // const fileName = 
+  // const fileName =
 
   var grouped = DataINRow.reduce((result, word) => {
     console.log("word", word);
@@ -130,8 +130,6 @@ export default function StackData() {
     }
   };
 
-  const object = { a: 1, b: 2, c: 3 };
-
   return (
     <>
       <Row className="p-4">
@@ -171,22 +169,25 @@ export default function StackData() {
         {/* STACK FILTER STACK ERROR FIELD HERE */}
         {stackErrorFilterTextFormate ? (
           <Col xl={12} className={`${Style.outerDiv} mt-4`}>
-
             {
               // DataINRow.map((items,index)
-              keys.map((key, idx)=>{
+              keys.map((key, idx) => {
                 // console.log(`Keys ${grouped[key]} => ${idx}`)
-                const fileName = key.slice(key.indexOf("/") + 1)
+                const fileName = key.slice(key.indexOf("/") + 1);
                 if (fileName) {
-                  var fname = `${fileName.split(".")[0]}.${fileName.split(".")[1]}.${
-                    fileName.split(".")[2]
-                  }`;
+                  var fname = `${fileName.split(".")[0]}.${
+                    fileName.split(".")[1]
+                  }.${fileName.split(".")[2]}`;
                 }
                 return (
                   <>
                     <section className={Style.outerDiv}>
                       <section
-                        className={Style.StackInfoDive}
+                        className={
+                          innerParaShowDetails[idx]
+                            ? `${Style.StackInfoDiveWithToggle}`
+                            : `${Style.StackInfoDive}`
+                        }
                         onClick={() => innerParaShowDetailsFun(idx)}
                       >
                         <p>{`${key.slice(key.indexOf("/") + 1)}`}</p>
@@ -197,28 +198,23 @@ export default function StackData() {
                       {
                         // grouped[key].foreach((value,index)=>{
                         //   console.log(`inside map ${index} : ${innerParaShowDetails[index]}`);
-                          innerParaShowDetails[idx] && (
+                        innerParaShowDetails[idx] && (
                           <section className={Style.detailSection}>
-                            {
-                              console.log("group value  ",grouped[key]) 
-                            }
-                          <p
-                            style={
-                              fileName && fname && key.includes(fname)
-                                ? { color: "#000" }
-                                : { color: "#787878" }
-                            }
-                          >
-                            <span>at </span>
-                            {grouped[key]}
-                          </p>
-                        </section>
-                          ) 
+                            {console.log("  [key]", grouped[key])}
+
+                            <p
+                              className={grouped[key].map((items, index) => {
+                                return index == "Activity"
+                                  ? Style.dynamicPara
+                                  : Style.normalPara;
+                              })}
+                            >
+                              {grouped[key]}
+                            </p>
+                          </section>
+                        )
                         // })
-                      
                       }
-
-
                     </section>
                   </>
                 );
@@ -247,13 +243,14 @@ export default function StackData() {
                 //             {items}
                 //           </p>
                 //         </section>
-                //       ) : null} 
+                //       ) : null}
                 //      </section>
                 //    </>
                 //  );
-            })}
-            </Col>)
-            :null}
+              })
+            }
+          </Col>
+        ) : null}
       </Row>
     </>
   );
