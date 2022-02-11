@@ -102,7 +102,9 @@
 
     .TopButton {
       display: flex !important;
-      justify-content: space-around;
+      justify-content: space-between;
+      padding-left: 10px !important;
+      padding-right: 10px !important;
     }
   }
 }
@@ -173,7 +175,7 @@
     height: 20px !important;
     overflow: hidden !important;
   }
-  
+
   @media screen and (min-width: 1200px) and (max-width: 1600px) {
     width: 500px !important;
     height: 20px !important;

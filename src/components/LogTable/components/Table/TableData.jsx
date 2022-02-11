@@ -76,15 +76,17 @@ function TableData(props) {
   filedate.setDate(filedate.getDate() - props.diffDate);
   const startDate = filedate.toISOString().slice(0, 10);
 
-  console.log(`start Date ${startDate} end Date ${endDate}`);
-  // console.log(localStorage.getItem("selected_date"))
+  console.log(`start Date ! ${startDate} end Date ! ${endDate}`);
+
+  // !LOGTABLE DATE STATE SL == selected date from logtable
+  const [selectDate, setSelectDate] = useState({
+    startSL: startDate ? startDate : "",
+    endSL: endDate ? endDate : "",
+  });
+
   const [date, setdate] = useState({
-    start: localStorage.getItem("selected_date")
-      ? JSON.parse(localStorage.getItem("selected_date")).start
-      : startDate,
-    end: localStorage.getItem("selected_date")
-      ? JSON.parse(localStorage.getItem("selected_date")).end
-      : endDate,
+    start: JSON.parse(localStorage.getItem("selected_date")).start,
+    end: JSON.parse(localStorage.getItem("selected_date")).end,
   });
 
   // const [date, setdate] = useState({
@@ -93,7 +95,7 @@ function TableData(props) {
   // });
 
   // setdate({start:startDate,end:endDate})
-  console.log("date state ",date);
+  console.log("date state ", date);
 
   // const [pageNo, setPageNo] = useState(0);
   const [record, setRecords] = useState(
@@ -107,13 +109,8 @@ function TableData(props) {
   const [rowSelected, setRowSelected] = useState(null);
   const [selectedRowArray, setSelectedRowArray] = useState([]);
 
-
-
-
-
-
   // GOOGLE DRIVE SAVE STATE
-  const [openPicker, googleData, authResponse] = useDrivePicker();
+  // const [openPicker, googleData, authResponse] = useDrivePicker();
 
   const ref = useRef();
 
@@ -163,27 +160,48 @@ function TableData(props) {
     // localStorage.removeItem("name of localStorage variable you want to remove");
     // LOG TYPE
     if (logType.info) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, info: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, info: true })
+      );
     }
     if (logType.error) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, error: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, error: true })
+      );
     }
     if (logType.warn) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, warn: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, warn: true })
+      );
     }
     if (logType.debug) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, debug: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, debug: true })
+      );
     }
     if (logType.verbos) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, verbos: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, verbos: true })
+      );
     }
 
     // DATE CHIPS
     if (date.start) {
-      localStorage.setItem("selected_date", JSON.stringify({ ...date, start: date.start }))
+      localStorage.setItem(
+        "selected_date",
+        JSON.stringify({ ...date, start: date.start })
+      );
     }
     if (date.end) {
-      localStorage.setItem("selected_date", JSON.stringify({ ...date, end: date.end }))
+      localStorage.setItem(
+        "selected_date",
+        JSON.stringify({ ...date, end: date.end })
+      );
     }
     localStorage.setItem("selected_record", JSON.stringify(record));
     dispatch(getProjectByCode(code, date, logType, pageNo, record));
@@ -195,31 +213,50 @@ function TableData(props) {
     // console.log("use effect is runnig")
 
     if (logType.info) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, info: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, info: true })
+      );
     }
     if (logType.error) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, error: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, error: true })
+      );
     }
     if (logType.warn) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, warn: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, warn: true })
+      );
     }
     if (logType.debug) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, debug: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, debug: true })
+      );
     }
     if (logType.verbos) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, verbos: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, verbos: true })
+      );
     }
 
     // DATE CHIPS
     if (date.start) {
-      localStorage.setItem("selected_date", JSON.stringify({ ...date, start: date.start }))
+      localStorage.setItem(
+        "selected_date",
+        JSON.stringify({ ...date, start: date.start })
+      );
     }
     if (date.end) {
-      localStorage.setItem("selected_date", JSON.stringify({ ...date, end: date.end }))
+      localStorage.setItem(
+        "selected_date",
+        JSON.stringify({ ...date, end: date.end })
+      );
     }
-
   }, [logType, date]);
-
 
   const resetFilter = () => {
     // startDateRef.current.value = "";
@@ -290,54 +327,11 @@ function TableData(props) {
     dispatch(getProjectByCode(code, null, null, data.selected + 1, record));
   };
 
-  const applyFilter = () => {
+  // const applyFilter = () => {
 
-    // 2)DATE
-
-    // } else if (date.start || date.end) {
-    //   setDatechips({
-    //     ...datechips,
-    //     start: true,
-    //     end: true,
-    //   });
-    // }
-
-    // if (
-    //   logType.error ||
-    //   logType.info ||
-    //   logType.warn ||
-    //   logType.debug ||
-    //   logType.verbose
-    // ) {
-    //   console.log("Logtype applied")
-    //   return dispatch(getProjectByCode(code, date, logType, pageNo, record));
-    // }
-    // if (!date.start && !date.end) {
-    //   setdate({
-    //     start: "",
-    //     end: "",
-    //   });
-    // }
-    // if (date.start || data.end) {
-    //   console.log("date applied")
-    //   return dispatch(getProjectByCode(code, date, logType));
-    // }
-    // if (
-    //   logType.error ||
-    //   logType.info ||
-    //   logType.warn ||
-    //   logType.debug ||
-    //   logType.verbose
-    // ) {
-    //   dispatch(getProjectByCode(code, null, logType, pageNo, record));
-    // }
-    // if (record && (!date.start || !data.end)) {
-    //   return dispatch(getProjectByCode(code, null, null, null, record));
-    // }
-
-    dispatch(getProjectByCode(code, date, logType, pageNo, record));
-    setShowTableField(false);
-  };
+  //   dispatch(getProjectByCode(code, date, logType, pageNo, record));
+  //   setShowTableField(false);
+  // };
 
   // code, date = null, filters = null, page = null, record = 25
 
@@ -356,16 +350,9 @@ function TableData(props) {
       dispatch(getProjectByCode(code, date, logType, pageNo, record));
     } else {
       console.log("datte ", date);
-      if (date.start !== startDate && date.end !== endDate) {
-        setdate({
-          start:startDate,
-          end: endDate
-        })
-        
-      }
       dispatch(getProjectByCode(code, date, null, pageNo, record));
     }
-  }, [pageNo,startDate]);
+  }, [pageNo, startDate, endDate]);
 
   const showTableFieldFunc = () => {
     setShowTableField(!showTableField);
@@ -522,43 +509,6 @@ function TableData(props) {
       },
       sort: true,
     },
-
-    // {
-    //     dataField: 'logGeneratedDate',
-    //     text: 'Log Generated Time',
-    //   //   filter: textFilter(),
-    //     formatter: cell => cell.split("T")[1],
-    //     sort:true
-    //   },
-
-    // {
-    //   dataField: "device_types",
-    //   text: "Version",
-    //   headerStyle: () => {
-    //     return {
-    //       backgroundColor: "#257d7c",
-    //       color: "#fff",
-    //     };
-    //   },
-    //   formatter: (cell) => cell.split("|")[0],
-
-    //   //   filter: textFilter(),
-    //   sort: true,
-    // },
-    // {
-    //   dataField: "device_types",
-    //   text: "Device Type",
-    //   headerStyle: () => {
-    //     return {
-    //       backgroundColor: "#257d7c",
-    //       color: "#fff",
-    //     };
-    //   },
-    //   formatter: (cell) => cell.split("|")[1],
-
-    //   //   filter: textFilter(),
-    //   sort: true,
-    // },
   ];
 
   useEffect(() => {
@@ -588,10 +538,8 @@ function TableData(props) {
     if (localStorage.getItem("selected_record") == 10) {
       setRecords(10);
       setActiveRecord({
+        ...activeRecord,
         record10: true,
-        record25: false,
-        record50: false,
-        record100: false,
       });
     }
 
@@ -599,20 +547,16 @@ function TableData(props) {
     if (localStorage.getItem("selected_record") == 25) {
       setRecords(25);
       setActiveRecord({
-        record10: false,
+        ...activeRecord,
         record25: true,
-        record50: false,
-        record100: false,
       });
     }
     // 3) if record are 50 in localstorage
     if (localStorage.getItem("selected_record") == 50) {
       setRecords(50);
       setActiveRecord({
-        record10: false,
-        record25: false,
+        ...activeRecord,
         record50: true,
-        record100: false,
       });
     }
 
@@ -620,43 +564,11 @@ function TableData(props) {
     if (localStorage.getItem("selected_record") == 100) {
       setRecords(100);
       setActiveRecord({
-        record10: false,
-        record25: false,
-        record50: false,
+        ...activeRecord,
         record100: true,
       });
     }
   }, []);
-
-  // UPLOAD TO GOOGLE DRIVE
-  // const handleOpenPicker = () => {
-  //   openPicker({
-  //     clientId:
-  //       "797675711024-cg2bgai0hcud8rqp965d481kkorl38f3.apps.googleusercontent.com",
-  //     developerKey: "AIzaSyC7ZaGvIfjyrhnz3OSb6Rf788j8xtmXkWA",
-  //     viewId: "DOCS",
-  //     // token: token, // pass oauth token in case you already have one
-  //     showUploadView: true,
-  //     showUploadFolders: true,
-  //     supportDrives: true,
-  //     multiselect: true,
-  //     // customViews: customViewsArray, // custom view
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   // do anything with the selected/uploaded files
-  //   if (googleData) {
-  //     googleData.docs.map((i) => console.log(i.name));
-  //   }
-  // }, [googleData]);
-
-  // menu chip created
-
-  // closing chips function
-
-  // let logTypeParse = JSON.parse(localStorage.getItem("selected_log"));
-  // console.log("first", logTypeParse.info);
 
   const closeChips = (index) => {
     // console.log("close chip", index);
@@ -744,7 +656,11 @@ function TableData(props) {
     }
   };
 
-  const DateChipsArray = [date.start, date.end];
+  const DateChipsArray = [
+    JSON.parse(localStorage.getItem("selected_date")).start,
+    JSON.parse(localStorage.getItem("selected_date")).end,
+  ];
+  console.log("DateChipsArray", DateChipsArray);
   const dateChips = DateChipsArray.map((items, index) => (
     <section className={Style.chip}>
       <p style={{ color: "#fff" }}>{items}</p>
@@ -764,7 +680,8 @@ function TableData(props) {
         <section className={Style.OuterTable} ref={ref}>
           {data && data.data && data.data.logs ? (
             <ToolkitProvider
-              keyField="_id" s
+              keyField="_id"
+              s
               data={data.data.logs}
               columns={columns}
               search
@@ -875,9 +792,15 @@ function TableData(props) {
                                     <section className={Style.DateSection}>
                                       <input
                                         type="date"
-                                        value={date.start}
-                                        min={startDate}
-                                        // max={endDate - 1}
+                                        value={
+                                          date.start
+                                            ? date.start
+                                            : JSON.parse(
+                                                localStorage.getItem(
+                                                  "selected_newDate"
+                                                )
+                                              ).start
+                                        }
                                         onChange={(e) => {
                                           setdate({
                                             ...date,
@@ -887,9 +810,15 @@ function TableData(props) {
                                       />
                                       <input
                                         type="date"
-                                        value={date.end}
-                                        // max={startDate}
-                                        max={endDate}
+                                        value={
+                                          date.end
+                                            ? date.end
+                                            : JSON.parse(
+                                                localStorage.getItem(
+                                                  "selected_newDate"
+                                                )
+                                              ).end
+                                        }
                                         onChange={(e) => {
                                           setdate({
                                             ...date,

@@ -5,10 +5,40 @@
   margin-top: 10px;
 
   .StackInfoDive {
-    background-color: $filterButtonBackgroundColor;
-    border-top-left-radius: $cardBorderRadius;
-    border-top-right-radius: $cardBorderRadius;
-    // background-color: red;
+    background-color: #eeeeee;
+    border-radius: 5px;
+
+    // background-color: red;s
+    margin: 0px;
+    border: $borderBottom;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    .ParaWithArrowDown {
+      color: $activehrefText;
+      cursor: pointer;
+    }
+    & p {
+      @include headingFontdasktopMixin;
+    }
+    & h3 {
+      cursor: pointer;
+      font-size: 1.3rem;
+    }
+    .innerSection {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .StackInfoDiveWithToggle {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-color: #eeeeee;
+    // background-color: red;s
     margin: 0px;
     border: $borderBottom;
     padding: 10px;
@@ -34,8 +64,8 @@
 
   .detailSection {
     border: $borderBottom;
-    border-bottom-left-radius: $cardBorderRadius;
-    border-bottom-right-radius: $cardBorderRadius;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     display: flex;
     flex-direction: column;
     background-color: $defaultTextColor;
@@ -45,15 +75,15 @@
       @include headingFontdasktopMixin;
     }
 
-    .pText {
-      @include paraFontdasktopMixin;
-      border-bottom: $borderBottom;
-    }
+    font-size: 0.8rem !important;
+    color: rgb(89, 89, 89) !important;
 
-    & p {
-      @include paraFontdasktopMixin;
-      color: $activehrefText;
-      margin-top: 10px;
+    .dynamicPara {
+      color: #000 !important;
+    }
+    .normalPara {
+      color: $activehrefText !important;
+      font-size: 0.8rem !important;
     }
   }
 }
