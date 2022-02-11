@@ -161,13 +161,65 @@ function TableData(props) {
   const saveSearch = () => {
     // console.log("save searches");
     // localStorage.removeItem("name of localStorage variable you want to remove");
-    localStorage.setItem("selected_log", JSON.stringify(logType));
-    if (date.start.length > 0 || date.end.length > 0) {
-      localStorage.setItem("selected_date", JSON.stringify(date));
+    // LOG TYPE
+    if (logType.info) {
+      localStorage.setItem("selected_log", JSON.stringify({ ...logType, info: true }))
+    }
+    if (logType.error) {
+      localStorage.setItem("selected_log", JSON.stringify({ ...logType, error: true }))
+    }
+    if (logType.warn) {
+      localStorage.setItem("selected_log", JSON.stringify({ ...logType, warn: true }))
+    }
+    if (logType.debug) {
+      localStorage.setItem("selected_log", JSON.stringify({ ...logType, debug: true }))
+    }
+    if (logType.verbos) {
+      localStorage.setItem("selected_log", JSON.stringify({ ...logType, verbos: true }))
+    }
+
+    // DATE CHIPS
+    if (date.start) {
+      localStorage.setItem("selected_date", JSON.stringify({ ...date, start: date.start }))
+    }
+    if (date.end) {
+      localStorage.setItem("selected_date", JSON.stringify({ ...date, end: date.end }))
     }
     localStorage.setItem("selected_record", JSON.stringify(record));
+    dispatch(getProjectByCode(code, date, logType, pageNo, record));
     toast.success("Filter saved");
+    setShowTableField(false);
   };
+
+  useEffect(() => {
+    // console.log("use effect is runnig")
+
+    if (logType.info) {
+      localStorage.setItem("selected_log", JSON.stringify({ ...logType, info: true }))
+    }
+    if (logType.error) {
+      localStorage.setItem("selected_log", JSON.stringify({ ...logType, error: true }))
+    }
+    if (logType.warn) {
+      localStorage.setItem("selected_log", JSON.stringify({ ...logType, warn: true }))
+    }
+    if (logType.debug) {
+      localStorage.setItem("selected_log", JSON.stringify({ ...logType, debug: true }))
+    }
+    if (logType.verbos) {
+      localStorage.setItem("selected_log", JSON.stringify({ ...logType, verbos: true }))
+    }
+
+    // DATE CHIPS
+    if (date.start) {
+      localStorage.setItem("selected_date", JSON.stringify({ ...date, start: date.start }))
+    }
+    if (date.end) {
+      localStorage.setItem("selected_date", JSON.stringify({ ...date, end: date.end }))
+    }
+
+  }, [logType, date]);
+
 
   const resetFilter = () => {
     // startDateRef.current.value = "";
@@ -313,7 +365,7 @@ function TableData(props) {
       }
       dispatch(getProjectByCode(code, date, null, pageNo, record));
     }
-  }, [pageNo,startDate]);
+  }, [pageNo]);
 
   const showTableFieldFunc = () => {
     setShowTableField(!showTableField);
@@ -776,9 +828,9 @@ function TableData(props) {
                               <Button className="m-2" onClick={saveSearch}>
                                 Save Filter
                               </Button>
-                              <Button className="m-2" onClick={applyFilter}>
+                              {/* <Button className="m-2" onClick={applyFilter}>
                                 Apply Filter
-                              </Button>
+                              </Button> */}
                             </section>
                             <section>
                               <Row>

@@ -180,7 +180,7 @@ export default function Analytics() {
               </Row>
             </Col>
 
-            <Col className={`${Style.AnalyticsEvents} my-4`}>
+            <Col className={`${Style.AnalyticsEvents} my-4 mt-5`}>
               <p style={{fontWeight: '600'}}>Events</p>
               {/* <section className={Style.PrevNext}>
                 <section>
