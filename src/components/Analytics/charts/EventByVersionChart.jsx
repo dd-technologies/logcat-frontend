@@ -57,7 +57,7 @@ export default function EventByVersionChart() {
         >
           {/* <CartesianGrid strokeDasharray="3 3" /> */}
           <XAxis dataKey="date" tickCount={5} minTickGap={10} tickFormatter={dateFormatter} />
-          <YAxis dataKey="data" axisLine={false} />
+          <YAxis dataKey="data" axisLine={true} />
           <CartesianGrid vertical={false} strokeDasharray="0 0 4" />
           <Tooltip />
           <Line
