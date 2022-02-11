@@ -99,7 +99,7 @@ export const getProjectByCode =
         },
       };
 
-      // console.log("dispatch filter", filters);
+      console.log("dispatch filter", date);
 
       // const {data} = await axios.get('https://agvalogger.herokuapp.com/api/logger/projects/',
       // config
@@ -109,9 +109,11 @@ export const getProjectByCode =
       let response;
       if (date != null && date.start && date.end) {
         let logString = "";
-        for (const [key, value] of Object.entries(filters)) {
-          if (value) {
-            logString += `${key}-`;
+        if (filters) {
+          for (const [key, value] of Object.entries(filters)) {
+            if (value) {
+              logString += `${key}-`;
+            }
           }
         }
         response = await axios.get(
@@ -121,9 +123,11 @@ export const getProjectByCode =
         // console.log("dispatch 1", response);
       } else if (date != null && date.start) {
         let logString = "";
-        for (const [key, value] of Object.entries(filters)) {
-          if (value) {
-            logString += `${key}-`;
+        if (filters) {
+          for (const [key, value] of Object.entries(filters)) {
+            if (value) {
+              logString += `${key}-`;
+            }
           }
         }
         response = await axios.get(
@@ -133,9 +137,11 @@ export const getProjectByCode =
         // console.log("dispatch 2", response);
       } else if (date != null && date.end) {
         let logString = "";
-        for (const [key, value] of Object.entries(filters)) {
-          if (value) {
-            logString += `${key}-`;
+        if (filters) {
+          for (const [key, value] of Object.entries(filters)) {
+            if (value) {
+              logString += `${key}-`;
+            }
           }
         }
         response = await axios.get(
@@ -145,9 +151,11 @@ export const getProjectByCode =
         // console.log("dispatch 3", response);
       } else if (filters != null) {
         let logString = "";
-        for (const [key, value] of Object.entries(filters)) {
-          if (value) {
-            logString += `${key}-`;
+        if (filters) {
+          for (const [key, value] of Object.entries(filters)) {
+            if (value) {
+              logString += `${key}-`;
+            }
           }
         }
         // console.log(logString);

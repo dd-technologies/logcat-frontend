@@ -70,7 +70,7 @@ const TypeDropDown = () => {
                 ? projectCode.name
                 : data && data.modelList[0].typeName}
             </p>
-            <FontAwesomeIcon icon={faCaretDown} color="#2A9AA4" style={{width: '10px', height: '20px'}} />
+            <FontAwesomeIcon icon={faCaretDown} color="#2A9AA4" style={{width:"20px", height:'20px'}} />
           </section>
 
           <section>
