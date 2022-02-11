@@ -77,16 +77,14 @@ function TableData(props) {
   const startDate = filedate.toISOString().slice(0, 10);
 
   console.log(`start Date ${startDate} end Date ${endDate}`);
-
-
-  console.log("local storage ",localStorage.getItem("selected_date"));
+  // console.log(localStorage.getItem("selected_date"))
   const [date, setdate] = useState({
     start: localStorage.getItem("selected_date")
       ? JSON.parse(localStorage.getItem("selected_date")).start
-      : "",
+      : startDate,
     end: localStorage.getItem("selected_date")
       ? JSON.parse(localStorage.getItem("selected_date")).end
-      : "",
+      : endDate,
   });
 
   // const [date, setdate] = useState({
@@ -306,6 +304,13 @@ function TableData(props) {
       dispatch(getProjectByCode(code, date, logType, pageNo, record));
     } else {
       console.log("datte ", date);
+      if (date.start !== startDate && date.end !== endDate) {
+        setdate({
+          start:startDate,
+          end: endDate
+        })
+        
+      }
       dispatch(getProjectByCode(code, date, null, pageNo, record));
     }
   }, [pageNo,startDate]);
@@ -819,6 +824,8 @@ function TableData(props) {
                                       <input
                                         type="date"
                                         value={date.start}
+                                        min={startDate}
+                                        // max={endDate - 1}
                                         onChange={(e) => {
                                           setdate({
                                             ...date,
@@ -829,6 +836,8 @@ function TableData(props) {
                                       <input
                                         type="date"
                                         value={date.end}
+                                        // max={startDate}
+                                        max={endDate -1}
                                         onChange={(e) => {
                                           setdate({
                                             ...date,
