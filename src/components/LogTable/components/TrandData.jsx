@@ -27,7 +27,7 @@ export default function TrandData() {
       <CustomCard>
         <Row className="p-3">
           <Col xl={12} className={Style.Trand}>
-            <h5 style={{ fontWeight: 700, color: "#535353" }}>Trends</h5>
+            <h5 style={{ fontWeight: 700, color: "#535353", letterSpacing: "0.5px" }}>Trends</h5>
             {/* <p>
               <span className="p-2">
                 <FontAwesomeIcon icon={faRocket} />

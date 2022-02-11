@@ -45,7 +45,7 @@ export default function CrashFreeStatics() {
       <CustomCard>
         <Row className="p-3">
           <Col xl={12} className={Style.Statics}>
-            <h5 style={{ fontWeight: 700, color: "#535353" }}>
+            <h5 style={{ fontWeight: 700, color: "#535353", letterSpacing: "0.5px" }}>
               Crash free Statistics{" "}
             </h5>
             <section className={Style.StaticsSection}>

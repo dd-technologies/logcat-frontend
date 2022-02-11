@@ -287,7 +287,7 @@ export default function LogTable() {
                 <section className={Style.filterwithDate} ref={ref}>
                   <section className={Style.datafilter} onClick={DateFilter}>
                     <Image src={DateIcons} />
-                    <p className="m-2">
+                    <p style={{ fontSize: '1rem'}} className="m-2">
                       {diffDate == 10
                         ? `last 10 days`
                         : diffDate == 7
@@ -307,7 +307,7 @@ export default function LogTable() {
                     <FontAwesomeIcon
                       icon={faCaretDown}
                       color="#2A9AA4"
-                      style={{ width: "10px", height: "20px" }}
+                      style={{ width: "10px", height: "20px", marginBottom: "2px" }}
                     />
                   </section>
 
@@ -315,7 +315,8 @@ export default function LogTable() {
                     {dateDropDown ? (
                       <CustomeDropDown width="100%">
                         {/* <p className="mt-1">10 days</p> */}
-                        <p
+                        <p 
+                          style={{ fontSize: '1rem'}}
                           className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(7);
@@ -395,7 +396,7 @@ export default function LogTable() {
             {/* Events  */}
             <Row className="mt-5">
               <Col xl={6} md={6} sm={6} className={Style.issuesTable}>
-                <p style={{fontWeight: '600', fontSize: '0.9rem', lineHeight: '2.2rem'}}>Issues</p>
+                <p style={{fontWeight: '600', fontSize: '0.9rem', lineHeight: '2.2rem', letterSpacing: '0.5px'}}>Issues</p>
                 {/* <p className={Style.LinkActiveText}>Search By userId</p> */}
               </Col>
               <Col

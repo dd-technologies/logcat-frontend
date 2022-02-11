@@ -79,7 +79,7 @@ export default function ToggleTabs() {
             }
             onClick={DeviceShowFun}
           >
-            <p style={{fontWeight: '600'}} className="p-2">Devices</p>
+            <p style={{fontWeight: '600', letterSpacing: '0.5px'}} className="p-2">Devices</p>
           </Col>
           <Col
             xl={6}
@@ -92,7 +92,7 @@ export default function ToggleTabs() {
             }
             onClick={opratingSystemFun}
           >
-            <p style={{fontWeight: '600'}} className="p-2">Operating System</p>
+            <p style={{fontWeight: '600', letterSpacing: '0.5px'}} className="p-2">Operating System</p>
           </Col>
         </Row>
 
