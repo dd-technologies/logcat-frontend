@@ -31,6 +31,49 @@ export default function StackData() {
   // HEADING DATA ANALYTIC
   const pattern = /(at).*/gm;
   const DataINRow = colData.split(" at");
+  // let array = [];
+  // let index = 0;
+  // DataINRow.map((items,index)=>{
+  //   if(items.includes("com.agvahealthcare.ventilator_ext")){
+  //     if(typeof array[index] !== 'undefined'){
+  //       let newEle = array.indexOf(index)+" /n" +items;
+  //       console.log("new element "+newEle);
+  //       array[index] = newEle;
+  //       console.log('if',array[index])
+  //     }else{
+  //       array[index] = items;
+  //       console.log('else',array[index])
+  //     }
+  //   }else{
+  //     index++;
+  //     array[index] = items;
+  //     console.log('outer else',array[index])
+  //   }
+  // })
+
+  // const fileName =
+
+  var grouped = DataINRow.reduce((result, word) => {
+    console.log("word", word);
+    // get the first letter. (this assumes no empty words in the list)
+    const letter = `${word.split(".")[0]}.${word.split(".")[1]}.${word.split(".")[2]
+      }`;
+
+    // ensure the result has an entry for this letter
+    console.log("letter " + letter);
+    result[letter] = result[letter] || [];
+
+    console.log("result " + result[letter]);
+
+    // add the word to the letter index
+    result[letter].push(word);
+    return result;
+  }, {});
+  console.log("groupedd  ", grouped);
+  const keys = Object.keys(grouped);
+  console.log("keys", keys);
+
+  // console.log("array length  "+array.length)
 
   // console.log("Col", DataINRow);
   // let arrA = []
@@ -125,38 +168,81 @@ export default function StackData() {
         {/* STACK FILTER STACK ERROR FIELD HERE */}
         {stackErrorFilterTextFormate ? (
           <Col xl={12} className={`${Style.outerDiv} mt-4`}>
-            {/* stack error section */}
-            {DataINRow.map((items, index) => {
-              return (
-                <>
-                  <section className={Style.outerDiv}>
-                    <section
-                      className={Style.StackInfoDive}
-                      onClick={() => innerParaShowDetailsFun(index)}
-                    >
-                      <p>{items}</p>
-                      {console.log("items", items)}
-                      <FontAwesomeIcon icon={faCaretDown} />
-                    </section>
-                    {innerParaShowDetails[index] ? (
-                      <section className={Style.detailSection}>
-                        <p>
-                          <span>at </span>
-                          {/* {items.includes("androidx.fragment.app")
-                            ? items
-                            : null}
-*/}{" "}
-                          {
-                            // items.startsWith("Fatal Exception")
-                          }
-                          {items}
-                        </p>
+            {
+              // DataINRow.map((items,index)
+              keys.map((key, idx) => {
+                // console.log(`Keys ${grouped[key]} => ${idx}`)
+                const fileName = key.slice(key.indexOf("/") + 1);
+                if (fileName) {
+                  var fname = `${fileName.split(".")[0]}.${fileName.split(".")[1]}.${fileName.split(".")[2]
+                    }`;
+                }
+                return (
+                  <>
+                    <section className={Style.outerDiv}>
+                      <section
+                        className={innerParaShowDetails[idx] ? `${Style.StackInfoDiveWithToggle}` : `${Style.StackInfoDive}`}
+                        onClick={() => innerParaShowDetailsFun(idx)}
+                      >
+                        <p>{`${key.slice(key.indexOf("/") + 1)}`}</p>
+                        {console.log("items", grouped[key])}
+                        <FontAwesomeIcon icon={faCaretDown} />
                       </section>
-                    ) : null}
-                  </section>
-                </>
-              );
-            })}
+
+                      {
+                        // grouped[key].foreach((value,index)=>{
+                        //   console.log(`inside map ${index} : ${innerParaShowDetails[index]}`);
+                        innerParaShowDetails[idx] && (
+                          <section className={Style.detailSection}>
+                            {console.log("  [key]", grouped[key])}
+
+                            <p
+                              className={grouped[key].map((items, index) => {
+                                return index == "Activity"
+                                  ? Style.dynamicPara
+                                  : Style.normalPara;
+                              })}
+                            >
+                              {grouped[key]}
+                            </p>
+                          </section>
+                        )
+                        // })
+                      }
+                    </section>
+                  </>
+                );
+
+                //  return (
+                //    <>
+                //      <section className={Style.outerDiv}>
+                //        <section
+                //          className={Style.StackInfoDive}
+                //          onClick={() => innerParaShowDetailsFun(index)}
+                //        >
+                //          <p>{`${items.slice(items.indexOf("/") + 1)}`}</p>
+                //          {console.log("items", items)}
+                //          <FontAwesomeIcon icon={faCaretDown} />
+                //        </section>
+                //        {innerParaShowDetails[index] ? (
+                //         <section className={Style.detailSection}>
+                //           <p
+                //             style={
+                //               items.includes("com.agvahealthcare.ventilator_ext")
+                //                 ? { color: "#000" }
+                //                 : { color: "	#A9A9A9" }
+                //             }
+                //           >
+                //             <span>at </span>
+                //             {items}
+                //           </p>
+                //         </section>
+                //       ) : null}
+                //      </section>
+                //    </>
+                //  );
+              })
+            }
           </Col>
         ) : null}
       </Row>

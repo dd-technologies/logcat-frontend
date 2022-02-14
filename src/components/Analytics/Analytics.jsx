@@ -180,8 +180,8 @@ export default function Analytics() {
               </Row>
             </Col>
 
-            <Col className={`${Style.AnalyticsEvents} my-4`}>
-              <p>Events</p>
+            <Col className={`${Style.AnalyticsEvents} my-4 mt-5`}>
+              <p style={{fontWeight: '600', letterSpacing: '0.5px'}}>Events</p>
               {/* <section className={Style.PrevNext}>
                 <section>
                   <FontAwesomeIcon icon={faLessThan} />

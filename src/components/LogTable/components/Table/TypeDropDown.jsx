@@ -64,13 +64,13 @@ const TypeDropDown = () => {
         <section ref={ref}>
           <section onClick={ProjectTypeFilter} className={Style.OuterDiv}>
             {/* <Image src={DateIcons} /> */}
-            <FontAwesomeIcon icon={faTasks} color="#2A9AA4" size="2x" />
-            <p className="m-2">
+            <FontAwesomeIcon icon={faTasks} color="#2A9AA4" style={{width: '22px', height: '25px'}} />
+            <p style={{fontSize: '1rem'}} className="m-2">
               {projectCode
                 ? projectCode.name
                 : data && data.modelList[0].typeName}
             </p>
-            <FontAwesomeIcon icon={faCaretDown} color="#2A9AA4" />
+            <FontAwesomeIcon icon={faCaretDown} color="#2A9AA4" style={{width:"10px", height:'20px', marginBottom: '2px'}} />
           </section>
 
           <section>
@@ -83,7 +83,8 @@ const TypeDropDown = () => {
                 {data &&
                   data.modelList.map((type) => {
                     return (
-                      <p
+                      <p 
+                        style={{fontSize: '1rem !important'}} 
                         className={Style.productVersion}
                         onClick={() => {
                           setProjectCode({

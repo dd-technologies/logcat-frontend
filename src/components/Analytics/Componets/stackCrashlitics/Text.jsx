@@ -15,21 +15,9 @@ export default function Text() {
   console.log("DataINRow", DataINRow);
 
   return (
-    <>
-      {/* FATAL EXCEPTION ------------------------------------------------------- */}
-      {/* PAGE EXECEPTION ------------------------------------------------------- */}
-      {/* FATAL EXCEPTION ------------------------------------------------------- */}
-
-      {/* COMPLETE STACK */}
-      {DataINRow.map((data) => {
-        // FATAL EXCEPTION -------------------------------------------------------
-        return (
-          <section className={Style.outerSection}>
-            <p>{data}</p>
-            <FontAwesomeIcon icon={faCaretDown} />
-          </section>
-        );
-      })}
-    </>
+    <section className={Style.outerSection}>
+      <p>{colData}</p>
+      <FontAwesomeIcon icon={faCaretDown} />
+    </section>
   );
 }

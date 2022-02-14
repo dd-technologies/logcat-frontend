@@ -33,165 +33,6 @@ const urlParams = new URLSearchParams(queryString);
 const { ExportCSVButton } = CSVExport;
 var dt = {};
 
-// function errorFormatter(cell, row) {
-//   if (row.logType) {
-//     return (
-//       <span>
-//         {cell === "error" ? (
-//           <strong style={{ color: "red" }}>{cell.toUpperCase()}</strong>
-//         ) : cell === "warn" ? (
-//           <strong style={{ color: "violet" }}>{cell.toUpperCase()}</strong>
-//         ) : cell === "info" ? (
-//           <strong style={{ color: "blue" }}>{cell.toUpperCase()}</strong>
-//         ) : cell === "verbose" ? (
-//           <strong style={{ color: "green" }}>{cell.toUpperCase()}</strong>
-//         ) : (
-//           <strong style={{ color: "orange" }}>{cell.toUpperCase()}</strong>
-//         )}
-//       </span>
-//     );
-//   }
-
-//   return <span>$ {cell} NTD</span>;
-// }
-
-// const defaultSorted = [
-//   {
-//     dataField: "name",
-//     order: "desc",
-//   },
-// ];
-
-// var queryAllSting = { value1: "at", value2: "" };
-
-// const StackOptions = () => {
-//   localStorage.setItem("queryAllSting", JSON.stringify(queryAllSting));
-// };
-
-// const columns = [
-//   {
-//     headerStyle: () => {
-//       return {
-//         backgroundColor: "#257d7c",
-//         color: "#fff",
-//       };
-//     },
-//     dataField: "did",
-//     text: "Mac address",
-//     sort: true,
-//   },
-
-//   {
-//     dataField: "logMsg",
-//     text: "Log Message",
-//     headerAlign: "center",
-//     headerStyle: () => {
-//       return {
-//         backgroundColor: "#257d7c",
-//         color: "#fff",
-//       };
-//     },
-//     formatter: (col, row) => {
-//       // console.log("row id mil", row);
-//       const newCode = urlParams.get("code");
-//       const projectName = urlParams.get("name");
-//       // const version = urlParams.get('version')
-//       // const osArchitecture = urlParams.get('osArchitecture')
-//       // console.log("now_code", newCode);
-//       // console.log(`start ${dt.start} and end ${dt.end}`)
-//       return (
-//         <div
-//           style={{
-//             width: "250px",
-//             height: "auto",
-//             overflow: "hidden",
-//           }}
-//         >
-//           <ReactReadMoreReadLess
-//             charLimit={40}
-//             readMoreText={"Read more ▼"}
-//             readLessText={"Read less ▲"}
-//           >
-//             {col}
-//           </ReactReadMoreReadLess>
-//           <Link
-//             to={`/analytics?code=${newCode}&name=${projectName}&col=${col}`}
-//           >
-//             <span className={Style.ViewButton}>
-//               <FontAwesomeIcon icon={faCaretRight} />
-//             </span>
-//           </Link>
-//         </div>
-//       );
-//     },
-
-//     //  to={`/analytics?code=${code}&name=Stack Trace&id=${row._id}&allStacks=${row.logMsg}&macAddress=${row.did}&loggenrateddate=${row.logGeneratedDate}&modeltype=${row.device_types}&logtype=${row.logType}`}
-
-//     // style: { backgroundColor: 'green' }
-//   },
-//   {
-//     dataField: "logType",
-//     text: "Log Type",
-//     headerStyle: () => {
-//       return {
-//         backgroundColor: "#257d7c",
-//         color: "#fff",
-//       };
-//     },
-//     formatter: errorFormatter,
-//     sort: true,
-//   },
-//   {
-//     dataField: "logGeneratedDate",
-//     text: "Log Generated At",
-//     width: "20",
-//     headerStyle: () => {
-//       return {
-//         backgroundColor: "#257d7c",
-//         color: "#fff",
-//       };
-//     },
-//     formatter: (cell) => cell.split("T")[0],
-//     sort: true,
-//   },
-
-//   // {
-//   //     dataField: 'logGeneratedDate',
-//   //     text: 'Log Generated Time',
-//   //   //   filter: textFilter(),
-//   //     formatter: cell => cell.split("T")[1],
-//   //     sort:true
-//   //   },
-
-//   {
-//     dataField: "device_types",
-//     text: "Device Code",
-//     headerStyle: () => {
-//       return {
-//         backgroundColor: "#257d7c",
-//         color: "#fff",
-//       };
-//     },
-//     formatter: (cell) => cell.split("|")[0],
-
-//     //   filter: textFilter(),
-//     sort: true,
-//   },
-//   {
-//     dataField: "device_types",
-//     text: "Device Type",
-//     headerStyle: () => {
-//       return {
-//         backgroundColor: "#257d7c",
-//         color: "#fff",
-//       };
-//     },
-//     formatter: (cell) => cell.split("|")[1],
-
-//     //   filter: textFilter(),
-//     sort: true,
-//   },
-// ];
 // ************************************************************************************************************************
 function TableData(props) {
   // const queryString = window.location.search;
@@ -231,14 +72,30 @@ function TableData(props) {
     setCountPerPageSection(true);
   };
 
-  const [date, setdate] = useState({
-    start: localStorage.getItem("selected_date")
-      ? JSON.parse(localStorage.getItem("selected_date")).start
-      : "",
-    end: localStorage.getItem("selected_date")
-      ? JSON.parse(localStorage.getItem("selected_date")).end
-      : "",
+  const endDate = filedate.toISOString().slice(0, 10);
+  filedate.setDate(filedate.getDate() - props.diffDate);
+  const startDate = filedate.toISOString().slice(0, 10);
+
+  console.log(`start Date ! ${startDate} end Date ! ${endDate}`);
+
+  // !LOGTABLE DATE STATE SL == selected date from logtable
+  const [selectDate, setSelectDate] = useState({
+    startSL: startDate ? startDate : "",
+    endSL: endDate ? endDate : "",
   });
+
+  const [date, setdate] = useState({
+    start: JSON.parse(localStorage.getItem("selected_date")).start,
+    end: JSON.parse(localStorage.getItem("selected_date")).end,
+  });
+
+  // const [date, setdate] = useState({
+  //   start:  startDate,
+  //   end:endDate,
+  // });
+
+  // setdate({start:startDate,end:endDate})
+  console.log("date state ", date);
 
   // const [pageNo, setPageNo] = useState(0);
   const [record, setRecords] = useState(
@@ -252,13 +109,8 @@ function TableData(props) {
   const [rowSelected, setRowSelected] = useState(null);
   const [selectedRowArray, setSelectedRowArray] = useState([]);
 
-
-
-
-
-
   // GOOGLE DRIVE SAVE STATE
-  const [openPicker, googleData, authResponse] = useDrivePicker();
+  // const [openPicker, googleData, authResponse] = useDrivePicker();
 
   const ref = useRef();
 
@@ -308,27 +160,48 @@ function TableData(props) {
     // localStorage.removeItem("name of localStorage variable you want to remove");
     // LOG TYPE
     if (logType.info) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, info: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, info: true })
+      );
     }
     if (logType.error) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, error: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, error: true })
+      );
     }
     if (logType.warn) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, warn: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, warn: true })
+      );
     }
     if (logType.debug) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, debug: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, debug: true })
+      );
     }
     if (logType.verbos) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, verbos: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, verbos: true })
+      );
     }
 
     // DATE CHIPS
     if (date.start) {
-      localStorage.setItem("selected_date", JSON.stringify({ ...date, start: date.start }))
+      localStorage.setItem(
+        "selected_date",
+        JSON.stringify({ ...date, start: date.start })
+      );
     }
     if (date.end) {
-      localStorage.setItem("selected_date", JSON.stringify({ ...date, end: date.end }))
+      localStorage.setItem(
+        "selected_date",
+        JSON.stringify({ ...date, end: date.end })
+      );
     }
     localStorage.setItem("selected_record", JSON.stringify(record));
     dispatch(getProjectByCode(code, date, logType, pageNo, record));
@@ -340,31 +213,50 @@ function TableData(props) {
     // console.log("use effect is runnig")
 
     if (logType.info) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, info: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, info: true })
+      );
     }
     if (logType.error) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, error: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, error: true })
+      );
     }
     if (logType.warn) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, warn: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, warn: true })
+      );
     }
     if (logType.debug) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, debug: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, debug: true })
+      );
     }
     if (logType.verbos) {
-      localStorage.setItem("selected_log", JSON.stringify({ ...logType, verbos: true }))
+      localStorage.setItem(
+        "selected_log",
+        JSON.stringify({ ...logType, verbos: true })
+      );
     }
 
     // DATE CHIPS
     if (date.start) {
-      localStorage.setItem("selected_date", JSON.stringify({ ...date, start: date.start }))
+      localStorage.setItem(
+        "selected_date",
+        JSON.stringify({ ...date, start: date.start })
+      );
     }
     if (date.end) {
-      localStorage.setItem("selected_date", JSON.stringify({ ...date, end: date.end }))
+      localStorage.setItem(
+        "selected_date",
+        JSON.stringify({ ...date, end: date.end })
+      );
     }
-
   }, [logType, date]);
-
 
   const resetFilter = () => {
     // startDateRef.current.value = "";
@@ -437,32 +329,6 @@ function TableData(props) {
 
   // const applyFilter = () => {
 
-  //   // LOG TYPE
-  //   if (logType.info) {
-  //     localStorage.setItem("selected_log", JSON.stringify({ ...logType, info: true }))
-  //   }
-  //   if (logType.error) {
-  //     localStorage.setItem("selected_log", JSON.stringify({ ...logType, error: true }))
-  //   }
-  //   if (logType.warn) {
-  //     localStorage.setItem("selected_log", JSON.stringify({ ...logType, warn: true }))
-  //   }
-  //   if (logType.debug) {
-  //     localStorage.setItem("selected_log", JSON.stringify({ ...logType, debug: true }))
-  //   }
-  //   if (logType.verbos) {
-  //     localStorage.setItem("selected_log", JSON.stringify({ ...logType, verbos: true }))
-  //   }
-
-  //   // DATE CHIPS
-  //   if (date.start) {
-  //     localStorage.setItem("selected_log", JSON.stringify({ ...date, start: date.start }))
-  //   }
-  //   if (date.end) {
-  //     localStorage.setItem("selected_log", JSON.stringify({ ...date, end: date.end }))
-  //   }
-
-
   //   dispatch(getProjectByCode(code, date, logType, pageNo, record));
   //   setShowTableField(false);
   // };
@@ -470,9 +336,9 @@ function TableData(props) {
   // code, date = null, filters = null, page = null, record = 25
 
   useEffect(() => {
-    dt.start = date.start;
-    dt.end = date.end;
-    // console.log(logType);
+    // dt.start = date.start;
+    // dt.end = date.end;
+    console.log(` start date useeffect ${date.start} ${date.end}`);
     if (
       logType.error ||
       logType.info ||
@@ -480,15 +346,13 @@ function TableData(props) {
       logType.debug ||
       logType.verbose
     ) {
-      // console.log("if useEffect executed");
-      // console.log(`page ${pageNo}`);
+      console.log("datte ", date);
       dispatch(getProjectByCode(code, date, logType, pageNo, record));
     } else {
-      // console.log("else useEffect click");
-      // console.log(`${date.start} ${date.end} ${pageNo} ${record}`);
+      console.log("datte ", date);
       dispatch(getProjectByCode(code, date, null, pageNo, record));
     }
-  }, [pageNo]);
+  }, [pageNo, startDate, endDate]);
 
   const showTableFieldFunc = () => {
     setShowTableField(!showTableField);
@@ -563,8 +427,8 @@ function TableData(props) {
       formatter: (col, row, rowIndex) => {
         // console.log("col", col);
         // console.log("col row", rowIndex);
-
         // const newCode = urlParams.get("code");
+
         const projectName = urlParams.get("name");
         let version = row.version ? row.version : null;
         let osArchitecture = row.osArchitecture ? row.osArchitecture : null;
@@ -644,49 +508,7 @@ function TableData(props) {
       },
       sort: true,
     },
-
-    // {
-    //     dataField: 'logGeneratedDate',
-    //     text: 'Log Generated Time',
-    //   //   filter: textFilter(),
-    //     formatter: cell => cell.split("T")[1],
-    //     sort:true
-    //   },
-
-    // {
-    //   dataField: "device_types",
-    //   text: "Version",
-    //   headerStyle: () => {
-    //     return {
-    //       backgroundColor: "#257d7c",
-    //       color: "#fff",
-    //     };
-    //   },
-    //   formatter: (cell) => cell.split("|")[0],
-
-    //   //   filter: textFilter(),
-    //   sort: true,
-    // },
-    // {
-    //   dataField: "device_types",
-    //   text: "Device Type",
-    //   headerStyle: () => {
-    //     return {
-    //       backgroundColor: "#257d7c",
-    //       color: "#fff",
-    //     };
-    //   },
-    //   formatter: (cell) => cell.split("|")[1],
-
-    //   //   filter: textFilter(),
-    //   sort: true,
-    // },
   ];
-
-
-
-
-
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
@@ -694,22 +516,6 @@ function TableData(props) {
       // then close the menu
       if (showTableField && ref.current && !ref.current.contains(e.target)) {
         setShowTableField(false);
-        // // LOGTYPE
-        // if (JSON.parse(localStorage.getItem("selected_log").info) == false) {
-        //   setLogType({ ...logType, info: false })
-        // }
-        // if (JSON.parse(localStorage.getItem("selected_log").error) == false) {
-        //   setLogType({ ...logType, error: false })
-        // }
-        // if (!JSON.parse(localStorage.getItem("selected_log").warn) == false) {
-        //   setLogType({ ...logType, warn: false })
-        // }
-        // if (!JSON.parse(localStorage.getItem("selected_log").debug) == false) {
-        //   setLogType({ ...logType, debug: false })
-        // }
-        // if (!JSON.parse(localStorage.getItem("selected_log").verbose) == false) {
-        //   setLogType({ ...logType, verbose: false })
-        // }
       }
     };
 
@@ -719,9 +525,8 @@ function TableData(props) {
       // Cleanup the event listener
       document.removeEventListener("mousedown", checkIfClickedOutside);
       if (showTableField) {
-        dispatch(getProjectByCode(code, date, logType, pageNo, record))
+        dispatch(getProjectByCode(code, date, logType, pageNo, record));
       }
-
     };
   }, [showTableField]);
 
@@ -732,10 +537,8 @@ function TableData(props) {
     if (localStorage.getItem("selected_record") == 10) {
       setRecords(10);
       setActiveRecord({
+        ...activeRecord,
         record10: true,
-        record25: false,
-        record50: false,
-        record100: false,
       });
     }
 
@@ -743,20 +546,16 @@ function TableData(props) {
     if (localStorage.getItem("selected_record") == 25) {
       setRecords(25);
       setActiveRecord({
-        record10: false,
+        ...activeRecord,
         record25: true,
-        record50: false,
-        record100: false,
       });
     }
     // 3) if record are 50 in localstorage
     if (localStorage.getItem("selected_record") == 50) {
       setRecords(50);
       setActiveRecord({
-        record10: false,
-        record25: false,
+        ...activeRecord,
         record50: true,
-        record100: false,
       });
     }
 
@@ -764,43 +563,11 @@ function TableData(props) {
     if (localStorage.getItem("selected_record") == 100) {
       setRecords(100);
       setActiveRecord({
-        record10: false,
-        record25: false,
-        record50: false,
+        ...activeRecord,
         record100: true,
       });
     }
   }, []);
-
-  // UPLOAD TO GOOGLE DRIVE
-  // const handleOpenPicker = () => {
-  //   openPicker({
-  //     clientId:
-  //       "797675711024-cg2bgai0hcud8rqp965d481kkorl38f3.apps.googleusercontent.com",
-  //     developerKey: "AIzaSyC7ZaGvIfjyrhnz3OSb6Rf788j8xtmXkWA",
-  //     viewId: "DOCS",
-  //     // token: token, // pass oauth token in case you already have one
-  //     showUploadView: true,
-  //     showUploadFolders: true,
-  //     supportDrives: true,
-  //     multiselect: true,
-  //     // customViews: customViewsArray, // custom view
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   // do anything with the selected/uploaded files
-  //   if (googleData) {
-  //     googleData.docs.map((i) => console.log(i.name));
-  //   }
-  // }, [googleData]);
-
-  // menu chip created
-
-  // closing chips function
-
-  // let logTypeParse = JSON.parse(localStorage.getItem("selected_log"));
-  // console.log("first", logTypeParse.info);
 
   const closeChips = (index) => {
     // console.log("close chip", index);
@@ -888,7 +655,11 @@ function TableData(props) {
     }
   };
 
-  const DateChipsArray = [date.start, date.end];
+  const DateChipsArray = [
+    JSON.parse(localStorage.getItem("selected_date")).start,
+    JSON.parse(localStorage.getItem("selected_date")).end,
+  ];
+  console.log("DateChipsArray", DateChipsArray);
   const dateChips = DateChipsArray.map((items, index) => (
     <section className={Style.chip}>
       <p style={{ color: "#fff" }}>{items}</p>
@@ -901,7 +672,6 @@ function TableData(props) {
 
   return (
     <>
-      {console.log("render")}
       <TableCard
         height={data && data.data && data.data.logs ? "100%" : "400px"}
       >
@@ -909,7 +679,8 @@ function TableData(props) {
         <section className={Style.OuterTable} ref={ref}>
           {data && data.data && data.data.logs ? (
             <ToolkitProvider
-              keyField="_id" s
+              keyField="_id"
+              s
               data={data.data.logs}
               columns={columns}
               search
@@ -1020,7 +791,15 @@ function TableData(props) {
                                     <section className={Style.DateSection}>
                                       <input
                                         type="date"
-                                        value={date.start}
+                                        value={
+                                          date.start
+                                            ? date.start
+                                            : JSON.parse(
+                                                localStorage.getItem(
+                                                  "selected_newDate"
+                                                )
+                                              ).start
+                                        }
                                         onChange={(e) => {
                                           setdate({
                                             ...date,
@@ -1030,7 +809,15 @@ function TableData(props) {
                                       />
                                       <input
                                         type="date"
-                                        value={date.end}
+                                        value={
+                                          date.end
+                                            ? date.end
+                                            : JSON.parse(
+                                                localStorage.getItem(
+                                                  "selected_newDate"
+                                                )
+                                              ).end
+                                        }
                                         onChange={(e) => {
                                           setdate({
                                             ...date,

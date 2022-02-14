@@ -144,6 +144,17 @@ export default function LogTable() {
 
     // dispatch(getLogByDate(code, date));
   };
+
+  let filedate = new Date();
+  const endDate = filedate.toISOString().slice(0, 10);
+  filedate.setDate(filedate.getDate() - diffDate);
+  const startDate = filedate.toISOString().slice(0, 10);
+
+  localStorage.setItem("selected_date", JSON.stringify({ start: startDate, end: endDate }));
+
+
+
+
   useEffect(() => {
     multipleDispatchGraph();
   }, [diffDate]);
@@ -176,7 +187,9 @@ export default function LogTable() {
       // Cleanup the event listener
       document.removeEventListener("mousedown", checkIfClickedOutside);
     };
-  }, [dateDropDown]);
+  }, []);
+
+  // dateDropDown : was dependency for the above useeffect
 
   // REFRESH ONLY TABLE
   const RefreshTableOnlyFun = () => {
@@ -222,11 +235,15 @@ export default function LogTable() {
 
     // *) code
     // console.log("object 7", code, logType, record);
-    dispatch(getProjectByCode(code));
+    let filedate = new Date();
+    const endDate = filedate.toISOString().slice(0, 10);
+    filedate.setDate(filedate.getDate() - diffDate);
+    const startDate = filedate.toISOString().slice(0, 10);
+    dispatch(getProjectByCode({ code: code, date: { startDate, endDate } }));
   };
 
   // PRODUCT VERSION FUNCTION
-  const productversionDropDown = () => {};
+  const productversionDropDown = () => { };
 
   return (
     <>
@@ -260,43 +277,47 @@ export default function LogTable() {
             }
           >
             <Row className="mt-4">
-              <Col xl={6} md={6} sm={6}>
-                {/* {
-               modelList && modelList.length ?  */}
-                <TypeDropDown />
-
-                {/* } */}
+              <Col xl={10} md={9} sm={9} /* className={Style.filterWithDate} */>
+                <TypeDropDown
+                  projectCode={projectCode}
+                  setProjectCode={setProjectCode}
+                />
               </Col>
 
-              <Col xl={6} md={6} sm={6} className={Style.filterWithDate}>
+              <Col xl={2} md={3} sm={3} className={Style.filterWithDate}>
                 <section className={Style.filterwithDate} ref={ref}>
                   <section className={Style.datafilter} onClick={DateFilter}>
                     <Image src={DateIcons} />
-                    <p className=" ms-2 p-1">
+                    <p style={{ fontSize: '1rem'}} className="m-2">
                       {diffDate == 10
                         ? `last 10 days`
                         : diffDate == 7
-                        ? `last 7 days`
-                        : diffDate == 15
-                        ? `last 15 days`
-                        : diffDate == 30
-                        ? `last 30 days`
-                        : diffDate == 45
-                        ? `last 45 days`
-                        : diffDate == 60
-                        ? `last 60 days`
-                        : diffDate == 90
-                        ? `last 90 days`
-                        : null}
+                          ? `last 7 days`
+                          : diffDate == 15
+                            ? `last 15 days`
+                            : diffDate == 30
+                              ? `last 30 days`
+                              : diffDate == 45
+                                ? `last 45 days`
+                                : diffDate == 60
+                                  ? `last 60 days`
+                                  : diffDate == 90
+                                    ? `last 90 days`
+                                    : null}
                     </p>
-                    <FontAwesomeIcon icon={faCaretDown} />
+                    <FontAwesomeIcon
+                      icon={faCaretDown}
+                      color="#2A9AA4"
+                      style={{ width: "10px", height: "20px", marginBottom: "2px" }}
+                    />
                   </section>
 
                   <section>
                     {dateDropDown ? (
                       <CustomeDropDown width="100%">
                         {/* <p className="mt-1">10 days</p> */}
-                        <p
+                        <p 
+                          style={{ fontSize: '1rem'}}
                           className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(7);
@@ -375,8 +396,8 @@ export default function LogTable() {
 
             {/* Events  */}
             <Row className="mt-5">
-              <Col xl={6} md={6} sm={6} className={Style.issuesTable}>
-                <p>Issues</p>
+              <Col xl={6} md={6} sm={6} className={Style.issuesTable} >
+                <p style={{ fontWeight: '600', fontSize: '0.9rem', lineHeight: '2.2rem' }}>Issues</p>
                 {/* <p className={Style.LinkActiveText}>Search By userId</p> */}
               </Col>
               <Col
@@ -399,7 +420,12 @@ export default function LogTable() {
             <Row className="mt-3">
               <Col>
                 {/* table with toolkit provider */}
-                <TableData code={code} projectName={projectName} />
+                {console.log("component redenr")}
+                <TableData
+                  code={code}
+                  projectName={projectName}
+                  diffDate={diffDate}
+                />
 
                 {/*Ag table  */}
                 {/* <AgTable /> */}
