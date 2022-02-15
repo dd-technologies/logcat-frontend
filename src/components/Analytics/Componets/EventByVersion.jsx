@@ -43,8 +43,8 @@ export default function EventByVersion() {
               <Spinner height="280px" />
             )}
           </Col>
-          <Col xl={8} md={8}>
-            <p style={{float: 'right'}} className={Style.Last90days}>from the last 90 days</p>
+          <Col xl={8} md={8} style={{padding: '0px'}}>
+            <p style={{float: 'right', color: '#666'}} className={Style.Last90days}>from the last 90 days</p>
             <EventByVersionChart height="200px" />
           </Col>
         </Row>

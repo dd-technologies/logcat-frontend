@@ -125,7 +125,7 @@ export function Navbar(props) {
           </section>
           <h3
             className="p-3"
-            style={{ fontSize: "1.5rem", marginBottom: "-3px" }}
+            style={{ fontSize: "1.5rem", marginBottom: "-3px", letterSpacing: "0.5px" }}
           >
             {navdetails.dashName.charAt(0).toUpperCase() +
               navdetails.dashName.slice(1)}

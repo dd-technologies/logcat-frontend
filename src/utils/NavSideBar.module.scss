@@ -267,9 +267,14 @@
     }
     & p {
       color: $defaultTextColor;
-      font-size: 0.8rem;
+      font-size: 1rem;
     }
   }
+  @media screen and (min-width: 600px) and (max-width: 1200px) {
+    .brandName > p {
+      font-size: 0.8rem;
+    }
+   }
 }
 
 // SWIPE WINDOW SIDE BAR

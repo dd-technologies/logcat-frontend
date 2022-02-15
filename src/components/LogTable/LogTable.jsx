@@ -288,7 +288,7 @@ export default function LogTable() {
                 <section className={Style.filterwithDate} ref={ref}>
                   <section className={Style.datafilter} onClick={DateFilter}>
                     <Image src={DateIcons} />
-                    <p style={{ fontSize: '1rem'}} className="m-2">
+                    <p style={{ fontSize: '1rem'}} className="mm-2">
                       {diffDate == 10
                         ? `last 10 days`
                         : diffDate == 7
@@ -389,7 +389,7 @@ export default function LogTable() {
               <Col xl={4} md={6} sm={12}>
                 <PieChartSection />
               </Col>
-              <Col xl={4} md={12} sm={12}>
+              <Col className="trends-container" xl={4} md={12} sm={12}>
                 <TrandData />
               </Col>
             </Row>
@@ -397,7 +397,7 @@ export default function LogTable() {
             {/* Events  */}
             <Row className="mt-5">
               <Col xl={6} md={6} sm={6} className={Style.issuesTable} >
-                <p style={{ fontWeight: '600', fontSize: '0.9rem', lineHeight: '2.2rem' }}>Issues</p>
+                <p style={{ fontWeight: '600', fontSize: '0.9rem', lineHeight: '2.2rem', letterSpacing: '0.5px' }}>Issues</p>
                 {/* <p className={Style.LinkActiveText}>Search By userId</p> */}
               </Col>
               <Col

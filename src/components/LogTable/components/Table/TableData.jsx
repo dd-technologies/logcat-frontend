@@ -792,9 +792,11 @@ function TableData(props) {
                                       <input
                                         type="date"
                                         value={
-                                          date.start
+                                          date && date.start
                                             ? date.start
-                                            : JSON.parse(
+                                            : localStorage.getItem(
+                                              "selected_newDate"
+                                            ) && JSON.parse(
                                                 localStorage.getItem(
                                                   "selected_newDate"
                                                 )
@@ -810,9 +812,11 @@ function TableData(props) {
                                       <input
                                         type="date"
                                         value={
-                                          date.end
+                                          date && date.end
                                             ? date.end
-                                            : JSON.parse(
+                                            : localStorage.getItem(
+                                              "selected_newDate"
+                                            ) && JSON.parse(
                                                 localStorage.getItem(
                                                   "selected_newDate"
                                                 )

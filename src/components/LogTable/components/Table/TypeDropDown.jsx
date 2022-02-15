@@ -65,7 +65,7 @@ const TypeDropDown = () => {
           <section onClick={ProjectTypeFilter} className={Style.OuterDiv}>
             {/* <Image src={DateIcons} /> */}
             <FontAwesomeIcon icon={faTasks} color="#2A9AA4" style={{width: '22px', height: '25px'}} />
-            <p style={{fontSize: '1rem'}} className="m-2">
+            <p style={{fontSize: '1rem'}} className="mm-2">
               {projectCode
                 ? projectCode.name
                 : data && data.modelList[0].typeName}
