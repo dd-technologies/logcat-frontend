@@ -433,7 +433,6 @@ function TableData(props) {
         let version = row.version ? row.version : null;
         let osArchitecture = row.osArchitecture ? row.osArchitecture : null;
         let modelName = row.modelName ? row.modelName : null;
-
         // const version = urlParams.get('version')
         // const osArchitecture = urlParams.get('osArchitecture')
         // console.log("now_code", newCode);
