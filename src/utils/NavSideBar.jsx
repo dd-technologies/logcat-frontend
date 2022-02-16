@@ -139,7 +139,7 @@ export function Navbar(props) {
                 .split(" ")
                 .map((name) => name[0][0].toUpperCase())}
           </section>
-          <section style={{fontWeight: '500'}} className="m-2">
+          <section style={{ fontWeight: "500" }} className="m-2">
             {adminInfo &&
               adminInfo.data &&
               adminInfo.data.name
@@ -179,7 +179,6 @@ export function Navbar(props) {
 
 // =========================================sidebar starts here=======================================
 
-
 export function SideBar(props) {
   const { sidebarDetails } = props;
   // console.log("sidebarDetails", props);
@@ -192,6 +191,12 @@ export function SideBar(props) {
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
   const { data } = slideWindowReducer;
   // console.log("slideWindowReducer", data);
+
+  // URL STRING
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const settingUrl = urlParams.get("pagename") || "";
+  const logURLName = urlParams.get("pagename") || "";
 
   // checking if navlink 2 is not avilables
 
@@ -232,9 +237,19 @@ export function SideBar(props) {
         <section
           className={data.show ? `${Style.SwipeOption}` : `${Style.options}`}
         >
-          <section className={`${Style.optionItems} ${Style.option_active}`}>
+          {/* LINK FIRST  */}
+
+          <section
+            className={
+              logURLName.includes("logpage")
+                ? `${Style.option_active}`
+                : `${Style.optionItems} `
+            }
+          >
             <Link
-              className={`${Style.optionItems} ${Style.option_active}`}
+
+              className={Style.optionItems}
+
               to={
                 sidebarDetails.link1 &&
                 sidebarDetails.link1.link &&
@@ -249,9 +264,18 @@ export function SideBar(props) {
               </section>
             </Link>
           </section>
-          <section className={Style.optionItems}>
+
+          {/* LINK SECOND  */}
+
+          <section
+            className={
+              settingUrl.includes("settings")
+                ? `${Style.option_active}`
+                : `${Style.optionItems} `
+            }
+          >
             <Link
-              className={`${Style.optionItems} ${Style.option_active}`}
+              className={Style.optionItems}
               to={
                 sidebarDetails.link2 &&
                 sidebarDetails.link2.link &&

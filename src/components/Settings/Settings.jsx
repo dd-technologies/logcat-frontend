@@ -62,6 +62,7 @@ export default function Settings() {
     link1: {
       iconName: LogICon,
       linkName: "Logs",
+      link: "/",
     },
     link2: {
       iconName: `/assets/icons/settings.png`,

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+  import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -57,6 +57,8 @@ export default function LogTable() {
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get("code");
   const projectName = urlParams.get("name");
+ 
+
 
 
   // navigation
@@ -84,7 +86,7 @@ export default function LogTable() {
     link2: {
       iconName: `/assets/icons/settings.png`,
       linkName: "Settings",
-      link:`/settings?code=${code}&name=${projectName}&page=settings`
+      link:`/settings?code=${code}&name=${projectName}&pagename=settings`
     },
   };
 
