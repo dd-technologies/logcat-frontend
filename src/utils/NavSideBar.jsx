@@ -177,6 +177,9 @@ export function Navbar(props) {
   );
 }
 
+// =========================================sidebar starts here=======================================
+
+
 export function SideBar(props) {
   const { sidebarDetails } = props;
   // console.log("sidebarDetails", props);
@@ -248,13 +251,13 @@ export function SideBar(props) {
           </section>
           <section className={Style.optionItems}>
             <Link
-              className={Style.optionItems}
+              className={`${Style.optionItems} ${Style.option_active}`}
               to={
-                sidebarDetails.link1 &&
-                sidebarDetails.link1.link &&
-                sidebarDetails.link1.link.length === 0
+                sidebarDetails.link2 &&
+                sidebarDetails.link2.link &&
+                sidebarDetails.link2.link.length === 0
                   ? ""
-                  : sidebarDetails.link1.link
+                  : sidebarDetails.link2.link
               }
             >
               <Image src={settigns} />

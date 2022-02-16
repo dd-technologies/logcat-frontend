@@ -58,6 +58,7 @@ export default function LogTable() {
   const code = urlParams.get("code");
   const projectName = urlParams.get("name");
 
+
   // navigation
 
   const navdetails = {
@@ -83,6 +84,7 @@ export default function LogTable() {
     link2: {
       iconName: `/assets/icons/settings.png`,
       linkName: "Settings",
+      link:`/settings?code=${code}&name=${projectName}&page=settings`
     },
   };
 

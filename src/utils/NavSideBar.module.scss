@@ -323,7 +323,6 @@
       align-items: center;
 
       color: $defaultTextColor;
-      padding: 10px;
       .optionName {
         display: none !important;
       }
@@ -334,7 +333,21 @@
     }
 
     .option_active {
-      background-color: $backgroundColor;
+      text-decoration: none;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $activehrefText;
+      color: $defaultTextColor;
+      padding: 10px;
+      .optionName {
+        display: none !important;
+      }
+
+      & section {
+        padding: 10px;
+      }
     }
   }
 
