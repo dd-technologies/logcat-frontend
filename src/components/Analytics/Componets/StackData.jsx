@@ -55,9 +55,12 @@ export default function StackData() {
 
   var grouped = DataINRow.reduce((result, word) => {
     console.log("word", word);
-    // get the first letter. (this assumes no empty words in the list)
-    const letter = `${word.split(".")[0]}.${word.split(".")[1]}.${word.split(".")[2]
-      }`;
+    var letter;
+    if (word.split(".").length > 2) {
+      // get the first letter. (this assumes no empty words in the list)
+      letter = `${word.split(".")[0]}.${word.split(".")[1]}.${word.split(".")[2]
+        }`;
+    } else letter = word.split(".")[0]
 
     // ensure the result has an entry for this letter
     console.log("letter " + letter);
@@ -195,16 +198,21 @@ export default function StackData() {
                         innerParaShowDetails[idx] && (
                           <section className={Style.detailSection}>
                             {console.log("  [key]", grouped[key])}
-
-                            <p
+                            {
+                              grouped[key].map((items, index) => {
+                                return(
+                                  <p
                               className={grouped[key].map((items, index) => {
-                                return index == "Activity"
-                                  ? Style.dynamicPara
-                                  : Style.normalPara;
+                                return items.includes("Activity")
+                                  ? Style.normalPara
+                                  : Style.dynamicPara;
                               })}
                             >
-                              {grouped[key]}
+                              {items}
                             </p>
+                                )
+                              })
+                            }
                           </section>
                         )
                         // })

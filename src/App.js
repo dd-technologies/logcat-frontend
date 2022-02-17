@@ -27,7 +27,6 @@ function App() {
         <Route exact path="/logtable" component={LogTable} />
         <Route exact path="/analytics" component={Analytics} />
         <Route exact path="/settings" component={Settings} />
-
         <Route exact path="*" component={NotFound} />
       </Switch>
     </Router>

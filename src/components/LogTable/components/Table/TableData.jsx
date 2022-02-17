@@ -72,30 +72,31 @@ function TableData(props) {
     setCountPerPageSection(true);
   };
 
-  const endDate = filedate.toISOString().slice(0, 10);
-  filedate.setDate(filedate.getDate() - props.diffDate);
-  const startDate = filedate.toISOString().slice(0, 10);
-
-  console.log(`start Date ! ${startDate} end Date ! ${endDate}`);
+  var startDate, endDate;
 
   // !LOGTABLE DATE STATE SL == selected date from logtable
-  const [selectDate, setSelectDate] = useState({
-    startSL: startDate ? startDate : "",
-    endSL: endDate ? endDate : "",
-  });
 
-  const [date, setdate] = useState({
+  const [dateState, setdate] = useState({
     start: JSON.parse(localStorage.getItem("selected_date")).start,
     end: JSON.parse(localStorage.getItem("selected_date")).end,
   });
 
-  // const [date, setdate] = useState({
-  //   start:  startDate,
-  //   end:endDate,
-  // });
+  var date = {
+    start: JSON.parse(localStorage.getItem("selected_date")).start,
+    end: JSON.parse(localStorage.getItem("selected_date")).end,
+  }
 
-  // setdate({start:startDate,end:endDate})
-  console.log("date state ", date);
+  endDate = filedate.toISOString().slice(0, 10);
+  filedate.setDate(filedate.getDate() - props.diffDate);
+  startDate = filedate.toISOString().slice(0, 10);
+  useEffect(() => {
+    console.log(`start Date ! ${startDate} end Date ! ${endDate}`);
+    date.start = startDate
+    date.end = endDate
+    setdate({ start: startDate, end: endDate})
+    console.log('useEffect props.diffdate', startDate, endDate, date)
+  }, [props.diffDate])
+
 
   // const [pageNo, setPageNo] = useState(0);
   const [record, setRecords] = useState(
@@ -191,16 +192,16 @@ function TableData(props) {
     }
 
     // DATE CHIPS
-    if (date.start) {
+    if (dateState.start) {
       localStorage.setItem(
         "selected_date",
-        JSON.stringify({ ...date, start: date.start })
+        JSON.stringify({ ...dateState, start: dateState.start })
       );
     }
-    if (date.end) {
+    if (dateState.end) {
       localStorage.setItem(
         "selected_date",
-        JSON.stringify({ ...date, end: date.end })
+        JSON.stringify({ ...dateState, end: dateState.end })
       );
     }
     localStorage.setItem("selected_record", JSON.stringify(record));
@@ -244,16 +245,16 @@ function TableData(props) {
     }
 
     // DATE CHIPS
-    if (date.start) {
+    if (dateState.start) {
       localStorage.setItem(
         "selected_date",
-        JSON.stringify({ ...date, start: date.start })
+        JSON.stringify({ ...dateState, start: dateState.start })
       );
     }
-    if (date.end) {
+    if (dateState.end) {
       localStorage.setItem(
         "selected_date",
-        JSON.stringify({ ...date, end: date.end })
+        JSON.stringify({ ...dateState, end: dateState.end })
       );
     }
   }, [logType, date]);
@@ -265,6 +266,8 @@ function TableData(props) {
       start: "",
       end: "",
     });
+    date.start = ""
+    date.end = ""
     setRecords(25);
     setPageNo(1);
     setLogType({
@@ -433,7 +436,6 @@ function TableData(props) {
         let version = row.version ? row.version : null;
         let osArchitecture = row.osArchitecture ? row.osArchitecture : null;
         let modelName = row.modelName ? row.modelName : null;
-
         // const version = urlParams.get('version')
         // const osArchitecture = urlParams.get('osArchitecture')
         // console.log("now_code", newCode);
@@ -631,34 +633,37 @@ function TableData(props) {
   // DATE CHIPS
 
   const closeDateChip = (index) => {
+    console.log('Date on chip closing:', date)
     if (index == 0) {
-      dispatch(getProjectByCode(code, data.start));
       setdate({
-        ...date,
+        ...dateState,
         start: "",
       });
+      date.start = ""
       localStorage.setItem(
         "selected_date",
-        JSON.stringify({ ...date, start: "" })
+        JSON.stringify({ ...dateState, start: "" })
       );
+      dispatch(getProjectByCode(code, date));
     }
     if (index == 1) {
-      dispatch(getProjectByCode(code, null));
-      dispatch(getProjectByCode(code, date.end));
+      // dispatch(getProjectByCode(code, null));
       setdate({
-        ...date,
+        ...dateState,
         end: "",
       });
+      date.end = ""
       localStorage.setItem(
         "selected_date",
-        JSON.stringify({ ...date, end: "" })
+        JSON.stringify({ ...dateState, end: "" })
       );
+      dispatch(getProjectByCode(code, date));
     }
   };
 
   const DateChipsArray = [
-    JSON.parse(localStorage.getItem("selected_date")).start,
-    JSON.parse(localStorage.getItem("selected_date")).end,
+    dateState.start,
+    dateState.end,
   ];
   console.log("DateChipsArray", DateChipsArray);
   const dateChips = DateChipsArray.map((items, index) => (
@@ -708,8 +713,8 @@ function TableData(props) {
                       {logType.verbose && chipsScetion[4]}
 
                       {/* DATE CHIPS */}
-                      {date.start && dateChips[0]}
-                      {date.end && dateChips[1]}
+                      {dateState.start && dateChips[0]}
+                      {dateState.end && dateChips[1]}
                     </section>
                     <section className={Style.filterOptions}>
                       {/* <section className={`${Style.GoogleDirve} px-2`}>
@@ -792,38 +797,48 @@ function TableData(props) {
                                     <section className={Style.DateSection}>
                                       <input
                                         type="date"
+                                        min={date.start}
+                                        max={date.end}
                                         value={
-                                          date.start
-                                            ? date.start
-                                            : JSON.parse(
-                                                localStorage.getItem(
-                                                  "selected_newDate"
-                                                )
-                                              ).start
+                                          dateState && dateState.start
+                                            ? dateState.start
+                                            : localStorage.getItem(
+                                              "selected_date"
+                                            ) && JSON.parse(
+                                              localStorage.getItem(
+                                                "selected_date"
+                                              )
+                                            ).start
                                         }
                                         onChange={(e) => {
                                           setdate({
-                                            ...date,
+                                            ...dateState,
                                             start: e.target.value,
                                           });
+                                          date.start = e.target.value
                                         }}
                                       />
                                       <input
                                         type="date"
+                                        min={date.start}
+                                        max={date.end}
                                         value={
-                                          date.end
-                                            ? date.end
-                                            : JSON.parse(
-                                                localStorage.getItem(
-                                                  "selected_newDate"
-                                                )
-                                              ).end
+                                          dateState && dateState.end
+                                            ? dateState.end
+                                            : localStorage.getItem(
+                                              "selected_date"
+                                            ) && JSON.parse(
+                                              localStorage.getItem(
+                                                "selected_date"
+                                              )
+                                            ).end
                                         }
                                         onChange={(e) => {
                                           setdate({
-                                            ...date,
+                                            ...dateState,
                                             end: e.target.value,
                                           });
+                                          date.end = e.target.value
                                         }}
                                       />
                                     </section>

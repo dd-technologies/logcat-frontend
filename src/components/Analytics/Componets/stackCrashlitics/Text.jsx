@@ -17,7 +17,7 @@ export default function Text() {
   return (
     <section className={Style.outerSection}>
       <p>{colData}</p>
-      <FontAwesomeIcon icon={faCaretDown} />
+      {/* <FontAwesomeIcon icon={faCaretDown} /> */}
     </section>
   );
 }
