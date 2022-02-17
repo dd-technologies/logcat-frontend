@@ -60,7 +60,7 @@
   border: $border;
   border-radius: $cardBorderRadius;
   padding: 5px;
-
+  border: 1px solid $activehrefText;
   & span {
     margin-left: 5px;
   }
@@ -82,7 +82,7 @@
   }
 }
 
-.chipouter{
+.chipouter {
   width: 100% !important;
   display: grid;
   grid-template-columns: auto auto auto auto;
@@ -117,5 +117,7 @@
   position: absolute;
 }
 .headingText {
-  @include activeparaFontdasktopMixin;
+  font-size: 1.3rem !important;
+  color: $activehrefText;
+  font-weight: 600;
 }

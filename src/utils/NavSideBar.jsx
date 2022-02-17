@@ -241,15 +241,13 @@ export function SideBar(props) {
 
           <section
             className={
-              logURLName.includes("logpage")
+              logURLName.includes("logpage") || logURLName.includes("analytics")
                 ? `${Style.option_active}`
                 : `${Style.optionItems} `
             }
           >
             <Link
-
               className={Style.optionItems}
-
               to={
                 sidebarDetails.link1 &&
                 sidebarDetails.link1.link &&

@@ -62,7 +62,7 @@ export default function Settings() {
     link1: {
       iconName: LogICon,
       linkName: "Logs",
-      link: "/",
+      link: `/logtable?code=${code}&name=${projectName}&pagename=logpage`,
     },
     link2: {
       iconName: `/assets/icons/settings.png`,
@@ -159,7 +159,7 @@ export default function Settings() {
           <SideBar sidebarDetails={sidebarDetails} />
         </Col>
         <Col
-          xl={10}
+          xl={10} 
           lg={10}
           md={10}
           sm={10}

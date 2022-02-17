@@ -404,7 +404,7 @@ function TableData(props) {
       let modelName = row.modelName ? row.modelName : null;
       // console.log("row", row);
       history.push(
-        `/analytics?code=${props.code}&name=${props.projectName}&col=${row.logMsg}&rowlogGeneratedDate=${row.logGeneratedDate}&version=${version}&osArchitecture=${osArchitecture}&modelName=${modelName}`
+        `/analytics?code=${props.code}&name=${props.projectName}&col=${row.logMsg}&rowlogGeneratedDate=${row.logGeneratedDate}&version=${version}&osArchitecture=${osArchitecture}&modelName=${modelName}&pagename=analytics`
       );
     },
     // onMouseEnter: (e, row, rowIndex) => {
