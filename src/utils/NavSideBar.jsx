@@ -10,7 +10,9 @@ import { useHistory } from "react-router-dom";
 import { adminLogout } from "../redux/action/AdminAction";
 import { slideShow } from "../redux/action/SlideAction";
 import logo from "../assets/images/DDTECH.png";
-import Log from "../assets/icons/log.png";
+import Logcat from "../assets/images/logcat.png";
+import LogcatLarge from "../assets/images/logcat_large.png";
+
 import settigns from "../assets/icons/settings.png";
 
 export function Navbar(props) {
@@ -125,7 +127,11 @@ export function Navbar(props) {
           </section>
           <h3
             className="p-3"
-            style={{ fontSize: "1.5rem", marginBottom: "-3px", letterSpacing: "0.5px" }}
+            style={{
+              fontSize: "1.5rem",
+              marginBottom: "-3px",
+              letterSpacing: "0.5px",
+            }}
           >
             {navdetails.dashName.charAt(0).toUpperCase() +
               navdetails.dashName.slice(1)}
@@ -229,7 +235,15 @@ export function SideBar(props) {
             }}
           >
             <section className={Style.DashBoardTitle}>
-              {data.show ? "LC" : "LogCat"}
+              {data.show ? (
+                <Image className={Style.logologcat} src={Logcat} alt="logcat" />
+              ) : (
+                <Image
+                  className={Style.logologcat}
+                  src={LogcatLarge}
+                  alt="logcat"
+                />
+              )}
             </section>
           </Link>
         </section>

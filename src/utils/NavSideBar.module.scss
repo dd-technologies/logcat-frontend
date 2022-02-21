@@ -227,6 +227,23 @@
 
     .DashBoardTitle {
       font-size: 2rem;
+      display: flex;
+      justify-content: center !important;
+      align-items: center !important;
+      .logologcat {
+        @media screen and (min-width: 600px) and (max-width: 1200px) {
+          width: 80% !important;
+          margin-top: 15px;
+        }
+        @media screen and (min-width: 1200px) and (max-width: 1600px) {
+          width: 60% !important;
+          margin-top: 5px;
+        }
+        @media screen and (min-width: 1600px) and (max-width: 1900px) {
+          width: 60% !important;
+          margin-top: 5px;
+        }
+      }
     }
 
     & img {
@@ -241,8 +258,6 @@
   .options {
     height: 100%;
     border-bottom: $borderBottom;
-
-  
 
     .option_active {
       background-color: $backgroundColor;
@@ -277,12 +292,11 @@
     .brandName > p {
       font-size: 0.8rem;
     }
-   }
+  }
 }
 
 // SWIPE WINDOW SIDE BAR
 .sideBarSwipe {
-  transition-duration: 0.5s !important;
   overflow: hidden;
   background-image: url("../assets/images/background.jpg");
   background-repeat: no-repeat;
@@ -305,6 +319,23 @@
 
     .DashBoardTitle {
       font-size: 2rem;
+      display: flex;
+      justify-content: center !important;
+      align-items: center !important;
+      .logologcat {
+        @media screen and (min-width: 600px) and (max-width: 1200px) {
+          width: 100% !important;
+          margin-top: 15px;
+        }
+        @media screen and (min-width: 1200px) and (max-width: 1600px) {
+          width: 70% !important;
+          margin-top: 5px;
+        }
+        @media screen and (min-width: 1600px) and (max-width: 1900px) {
+          width: 60% !important;
+          margin-top: 5px;
+        }
+      }
     }
 
     & img {
@@ -386,7 +417,6 @@
   align-items: center;
   padding: 5px;
   width: 100%;
-  transition-duration: 0.3s;
   &:hover {
     background-color: $backgroundColor;
     color: $defaultTextColor;
