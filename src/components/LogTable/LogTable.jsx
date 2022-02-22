@@ -1,4 +1,4 @@
-  import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -46,6 +46,11 @@ export default function LogTable() {
   const { data } = slideWindowReducer;
   // console.log("slideWindowReducer", data);
 
+  const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
+  const { loading, data: projectType } = getModelCodeReducer;
+
+  // console.log("projectTypefromRedux", projectType);
+
   const ref = useRef();
 
   const [date, setdate] = useState({
@@ -57,9 +62,6 @@ export default function LogTable() {
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get("code");
   const projectName = urlParams.get("name");
- 
-
-
 
   // navigation
 
@@ -86,7 +88,7 @@ export default function LogTable() {
     link2: {
       iconName: `/assets/icons/settings.png`,
       linkName: "Settings",
-      link:`/settings?code=${code}&name=${projectName}&pagename=settings`
+      link: `/settings?code=${code}&name=${projectName}&pagename=settings`,
     },
   };
 
@@ -142,9 +144,27 @@ export default function LogTable() {
   }, [date]);
 
   const multipleDispatchGraph = () => {
-    dispatch(getLogTypeCounts({ code, diffDate }));
-    dispatch(getLogByDate({ code, diffDate }));
-    dispatch(getCrashFreeUsers({ code, diffDate }));
+    dispatch(
+      getLogTypeCounts({
+        code,
+        diffDate,
+        code1: projectType && projectType.modelList[0].typeCode,
+      })
+    );
+    dispatch(
+      getLogByDate({
+        code,
+        diffDate,
+        code1: projectType && projectType.modelList[0].typeCode,
+      })
+    );
+    dispatch(
+      getCrashFreeUsers({
+        code,
+        diffDate,
+        code1: projectType && projectType.modelList[0].typeCode,
+      })
+    );
 
     // dispatch(getLogByDate(code, date));
   };
@@ -154,10 +174,10 @@ export default function LogTable() {
   filedate.setDate(filedate.getDate() - diffDate);
   const startDate = filedate.toISOString().slice(0, 10);
 
-  localStorage.setItem("selected_date", JSON.stringify({ start: startDate, end: endDate }));
-
-
-
+  localStorage.setItem(
+    "selected_date",
+    JSON.stringify({ start: startDate, end: endDate })
+  );
 
   useEffect(() => {
     multipleDispatchGraph();
@@ -247,7 +267,7 @@ export default function LogTable() {
   };
 
   // PRODUCT VERSION FUNCTION
-  const productversionDropDown = () => { };
+  const productversionDropDown = () => {};
 
   return (
     <>
@@ -285,6 +305,7 @@ export default function LogTable() {
                 <TypeDropDown
                   projectCode={projectCode}
                   setProjectCode={setProjectCode}
+                  diffDate={diffDate}
                 />
               </Col>
 
@@ -292,27 +313,31 @@ export default function LogTable() {
                 <section className={Style.filterwithDate} ref={ref}>
                   <section className={Style.datafilter} onClick={DateFilter}>
                     <Image src={DateIcons} />
-                    <p style={{ fontSize: '1rem'}} className="mm-2">
+                    <p style={{ fontSize: "1rem" }} className="mm-2">
                       {diffDate == 10
                         ? `last 10 days`
                         : diffDate == 7
-                          ? `last 7 days`
-                          : diffDate == 15
-                            ? `last 15 days`
-                            : diffDate == 30
-                              ? `last 30 days`
-                              : diffDate == 45
-                                ? `last 45 days`
-                                : diffDate == 60
-                                  ? `last 60 days`
-                                  : diffDate == 90
-                                    ? `last 90 days`
-                                    : null}
+                        ? `last 7 days`
+                        : diffDate == 15
+                        ? `last 15 days`
+                        : diffDate == 30
+                        ? `last 30 days`
+                        : diffDate == 45
+                        ? `last 45 days`
+                        : diffDate == 60
+                        ? `last 60 days`
+                        : diffDate == 90
+                        ? `last 90 days`
+                        : null}
                     </p>
                     <FontAwesomeIcon
                       icon={faCaretDown}
                       color="#2A9AA4"
-                      style={{ width: "10px", height: "20px", marginBottom: "2px" }}
+                      style={{
+                        width: "10px",
+                        height: "20px",
+                        marginBottom: "2px",
+                      }}
                     />
                   </section>
 
@@ -320,8 +345,8 @@ export default function LogTable() {
                     {dateDropDown ? (
                       <CustomeDropDown width="100%">
                         {/* <p className="mt-1">10 days</p> */}
-                        <p 
-                          style={{ fontSize: '1rem'}}
+                        <p
+                          style={{ fontSize: "1rem" }}
                           className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(7);
@@ -400,8 +425,17 @@ export default function LogTable() {
 
             {/* Events  */}
             <Row className="mt-5">
-              <Col xl={6} md={6} sm={6} className={Style.issuesTable} >
-                <p style={{ fontWeight: '600', fontSize: '0.9rem', lineHeight: '2.2rem', letterSpacing: '0.5px' }}>Issues</p>
+              <Col xl={6} md={6} sm={6} className={Style.issuesTable}>
+                <p
+                  style={{
+                    fontWeight: "600",
+                    fontSize: "0.9rem",
+                    lineHeight: "2.2rem",
+                    letterSpacing: "0.5px",
+                  }}
+                >
+                  Issues
+                </p>
                 {/* <p className={Style.LinkActiveText}>Search By userId</p> */}
               </Col>
               <Col

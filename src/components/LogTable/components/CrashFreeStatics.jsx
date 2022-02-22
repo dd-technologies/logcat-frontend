@@ -48,8 +48,8 @@ export default function CrashFreeStatics() {
             <h5 style={{ fontWeight: 700, color: "#535353", letterSpacing: "0.5px" }}>
               Crash free Statistics{" "}
             </h5>
-            <section className={Style.StaticsSection}>
-              <p>Crash free users</p>
+            {/* <section className={Style.StaticsSection}>
+              <p>Crash free users</p> */}
               {/* <section className={Style.Tooltip}>
                 <FontAwesomeIcon
                   icon={faQuestion}
@@ -57,12 +57,12 @@ export default function CrashFreeStatics() {
                   onMouseLeave={hidToolTips}
                 />
               </section> */}
-            </section>
-            {showTooltipCrash ? (
+            {/* </section> */}
+            {/* {showTooltipCrash ? (
               <CustomeDropDown width="auto">
                 <p>this is the tooltip example with no plugin used</p>
               </CustomeDropDown>
-            ) : null}
+            ) : null} */}
             <h4 style={{ fontWeight: 700 }}>{data && data.count}</h4>
           </Col>
           <Col xl={12}>

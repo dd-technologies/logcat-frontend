@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 import { adminLogout } from "../redux/action/AdminAction";
 import { slideShow } from "../redux/action/SlideAction";
 import logo from "../assets/images/DDTECH.png";
-import Logcat from "../assets/images/logcat.png";
+import Logcat from "../assets/images/logcat_logo.svg";
 import LogcatLarge from "../assets/images/logcat_large.png";
 
 import settigns from "../assets/icons/settings.png";
