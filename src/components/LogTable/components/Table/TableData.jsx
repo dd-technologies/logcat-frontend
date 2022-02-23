@@ -138,8 +138,8 @@ function TableData(props) {
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { loading: loadingdata, data: typeWiseDate } = getModelCodeReducer;
 
-  let porjectCodeType = typeWiseDate && typeWiseDate.modelList[0].typeCode;
   // console.log("porjectCodeType", porjectCodeType);
+  let porjectCodeType = typeWiseDate && typeWiseDate.modelList[0].typeCode;
 
   //  1)  DIRECTION PAGE TO NEW PAGE
   let history = useHistory();
@@ -149,7 +149,24 @@ function TableData(props) {
   );
   const { loading, data } = getAllLogByCodeReducer;
 
-  console.log("getAllLogByCodeReducer", data);
+  console.log(
+    "getAllLogByCodeReducer",
+    (data &&
+      data.data &&
+      data.data.logs &&
+      data.data.logs[0] &&
+      data.data.logs[0].type) ||
+      []
+  );
+
+  // porject code to analytics screen
+  const projectCodeAnalytics =
+    (data &&
+      data.data &&
+      data.data.logs &&
+      data.data.logs[0] &&
+      data.data.logs[0].type) ||
+    [];
 
   const selectRow = {
     mode: "checkbox",
@@ -372,8 +389,7 @@ function TableData(props) {
 
   // columns *******************************
   function errorFormatter(cell, row) {
-
-    console.log("row logtype", row.log.type)
+    console.log("row logtype", row.log.type);
 
     if (row.log.type) {
       return (
@@ -419,7 +435,7 @@ function TableData(props) {
       let modelName = row.modelName ? row.modelName : null;
       // console.log("row", row);
       history.push(
-        `/analytics?code=${props.code}&name=${props.projectName}&col=${row.log.message}&rowlogGeneratedDate=${row.log.date}&version=${version}&osArchitecture=${row.device.os.name}&modelName=${row.device.name}&pagename=analytics`
+        `/analytics?code=${props.code}&name=${props.projectName}&col=${row.log.message}&rowlogGeneratedDate=${row.log.date}&version=${version}&osArchitecture=${row.device.os.name}&modelName=${row.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`
       );
     },
     // onMouseEnter: (e, row, rowIndex) => {
@@ -498,7 +514,6 @@ function TableData(props) {
           backgroundColor: "#257d7c",
           color: "#fff",
         };
-        
       },
       formatter: errorFormatter,
       sort: true,

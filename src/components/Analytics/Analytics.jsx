@@ -25,7 +25,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { DateFilter } from "ag-grid-community";
-import AnalyticeIcon from "../../assets/icons/Analytics.png"
+import AnalyticeIcon from "../../assets/icons/Analytics.png";
 
 export default function Analytics() {
   const [date, setdate] = useState({
@@ -65,6 +65,8 @@ export default function Analytics() {
   // console.log(logMsg);
 
   const projectName = urlParams.get("name");
+  const projectCodeAnalytics = urlParams.get("projectCodeAnalytics");
+  console.log("projectCodeAnalytics", projectCodeAnalytics);
 
   const navbardetail = {
     name: projectName,
@@ -105,6 +107,10 @@ export default function Analytics() {
     (state) => state.getCrashFreeUsersDataReducer
   );
 
+  const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
+  const { loading: loadingPorjectType, data: projectType } =
+    getModelCodeReducer;
+
   const { loading, data } = getCrashFreeUsersDataReducer;
   let users = data && data.response ? data.response.length : 0;
   let totalCount = 0;
@@ -116,16 +122,17 @@ export default function Analytics() {
 
   const dispatchmultiple = () => {
     // console.log("dispatch multiple executed!!");
-    dispatch(getCrashFreeUsersData(code, logMsg));
-    dispatch(getCrashAnalyticsData(code, logMsg));
-    dispatch(getErrorWRTOS(code));
-    dispatch(getErrorWRTVersion(code));
+    dispatch(getCrashFreeUsersData(code, logMsg, projectCodeAnalytics));
+    dispatch(getCrashAnalyticsData(code, logMsg, projectCodeAnalytics));
+    dispatch(getErrorWRTOS(code, projectCodeAnalytics));
+    dispatch(getErrorWRTVersion(code, projectCodeAnalytics));
     dispatch(
       getLogMsgOccurenceWRTDate({
         code,
         startDate: date.start,
         endDate: date.end,
         logMsg,
+        code1: projectCodeAnalytics,
       })
     );
   };
@@ -163,25 +170,30 @@ export default function Analytics() {
                 "Loading"
               ) : (
                 <p className={Style.paraTextIssue}>
-                  This issue has <strong style={{color: "#0099a4"}}>{totalCount} crash</strong>  events
-                  affecting
-                  <strong style={{color: "#0099a4"}}> {users} users</strong>
+                  This issue has{" "}
+                  <strong style={{ color: "#0099a4" }}>
+                    {totalCount} crash
+                  </strong>{" "}
+                  events affecting
+                  <strong style={{ color: "#0099a4" }}> {users} users</strong>
                 </p>
               )}
             </Col>
             <Col>
               <Row>
-                <Col style={{paddingLeft: '0'}} xl={8} md={8} sm={12}>
+                <Col style={{ paddingLeft: "0" }} xl={8} md={8} sm={12}>
                   <EventByVersion />
                 </Col>
-                <Col style={{paddingRight: '0'}} xl={4} md={4} sm={12}>
+                <Col style={{ paddingRight: "0" }} xl={4} md={4} sm={12}>
                   <ToggleTabs />
                 </Col>
               </Row>
             </Col>
 
             <Col className={`${Style.AnalyticsEvents} my-4 mt-5`}>
-              <p style={{fontWeight: '600', letterSpacing: '0.5px'}}>Events</p>
+              <p style={{ fontWeight: "600", letterSpacing: "0.5px" }}>
+                Events
+              </p>
               {/* <section className={Style.PrevNext}>
                 <section>
                   <FontAwesomeIcon icon={faLessThan} />
