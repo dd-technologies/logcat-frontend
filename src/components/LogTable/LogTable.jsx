@@ -269,7 +269,7 @@ export default function LogTable() {
   // PRODUCT VERSION FUNCTION
   const productversionDropDown = () => {};
 
-  return (
+  return (  
     <>
       <Row>
         <Col

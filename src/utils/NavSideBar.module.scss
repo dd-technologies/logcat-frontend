@@ -223,7 +223,10 @@
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    height: 10%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+    // border : 2px solid red;
 
     .DashBoardTitle {
       font-size: 2rem;
@@ -232,16 +235,13 @@
       align-items: center !important;
       .logologcat {
         @media screen and (min-width: 600px) and (max-width: 1200px) {
-          width: 80% !important;
-          margin-top: 10px;
+          width: 50% !important;
         }
         @media screen and (min-width: 1200px) and (max-width: 1600px) {
-          width: 60% !important;
-          margin-top: 5px;
+          width: 30% !important;
         }
         @media screen and (min-width: 1600px) and (max-width: 1900px) {
-          width: 50% !important;
-          margin-top: 10px;
+          width: 30% !important;
         }
       }
     }
@@ -315,7 +315,10 @@
     justify-content: space-between;
     flex-direction: column;
     align-items: center;
-    height: 10%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+
 
     .DashBoardTitle {
       font-size: 2rem;
@@ -325,15 +328,12 @@
       .logologcat {
         @media screen and (min-width: 600px) and (max-width: 1200px) {
           width: 100% !important;
-          margin-top: 10px;
         }
         @media screen and (min-width: 1200px) and (max-width: 1600px) {
           width: 70% !important;
-          margin-top: 5px;
         }
         @media screen and (min-width: 1600px) and (max-width: 1900px) {
-          width: 48% !important;
-          margin-top: 15px;
+          width: 40% !important;
         }
       }
     }
