@@ -22,8 +22,6 @@ import {
   getCrashFreeUsersData,
 } from "../../redux/action/ProjectAction";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { DateFilter } from "ag-grid-community";
 import AnalyticeIcon from "../../assets/icons/Analytics.png";
 
 export default function Analytics() {
@@ -123,8 +121,8 @@ export default function Analytics() {
     // console.log("dispatch multiple executed!!");
     dispatch(getCrashFreeUsersData(code, logMsg, projectCodeAnalytics));
     dispatch(getCrashAnalyticsData(code, logMsg, projectCodeAnalytics));
-    dispatch(getErrorWRTOS(code, projectCodeAnalytics));
-    dispatch(getErrorWRTVersion(code, projectCodeAnalytics));
+    // dispatch(getErrorWRTOS(code, projectCodeAnalytics));
+    // dispatch(getErrorWRTVersion(code, projectCodeAnalytics));
     dispatch(
       getLogMsgOccurenceWRTDate({
         code,

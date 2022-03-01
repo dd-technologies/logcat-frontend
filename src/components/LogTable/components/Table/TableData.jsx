@@ -36,8 +36,6 @@ var dt = {};
 
 // ************************************************************************************************************************
 function TableData(props) {
-  // const queryString = window.location.search;
-  // const urlParams = new URLSearchParams(queryString);
   const code = props.code;
   let filedate = new Date();
 
@@ -326,36 +324,12 @@ function TableData(props) {
       );
     }
 
-    // console.log(`data selected ${data.selected+1} and page ${pageNo}`)
-    // if (pageNo !== data.selected + 1) {
-    //   console.log('data selected first if body')
-    //   if (data.selected + 1 < pageNo) {
-    //     console.log('data selected second if body')
-    //     const diff = pageNo-(data.selected+1)
-    //     setPageNo(pageNo - diff);
-    //     console.log(`data selected down ${data.selected} and page ${pageNo}`)
-    //   }else{
-    //     console.log('data selected second else body')
-    //     setPageNo(data.selected + 1);
-    //   }
-    // }
     setPageNo(data.selected + 1);
     // console.log(`data selected down ${data.selected} and page ${pageNo}`)
     dispatch(getProjectByCode(code, null, null, data.selected + 1, record));
   };
 
-  // const applyFilter = () => {
-
-  //   dispatch(getProjectByCode(code, date, logType, pageNo, record));
-  //   setShowTableField(false);
-  // };
-
-  // code, date = null, filters = null, page = null, record = 25
-
   useEffect(() => {
-    // dt.start = date.start;
-    // dt.end = date.end;
-    // console.log(` start date useeffect ${date.start} ${date.end}`);
     if (
       logType.error ||
       logType.info ||
@@ -363,9 +337,8 @@ function TableData(props) {
       logType.debug ||
       logType.verbose
     ) {
-      // console.log("dasfsdftte ", porjectCodeType);
       dispatch(
-        getProjectByCode(code, date, logType, pageNo, record, porjectCodeType)      //TODO: dispatch close
+        getProjectByCode(code, date, logType, pageNo, record, porjectCodeType) //TODO: dispatch close
       );
     } else {
       console.log("datte ", date);
@@ -417,9 +390,6 @@ function TableData(props) {
     localStorage.setItem("queryAllSting", JSON.stringify(queryAllSting));
   };
 
-  // REACT BOOTSTRAP ROW CLICK EVENT
-  // const col = "";
-
   const tableRowEvents = {
     onClick: (e, row, rowIndex, col) => {
       let version = row.version ? row.version : null;
@@ -430,9 +400,6 @@ function TableData(props) {
         `/analytics?code=${props.code}&name=${props.projectName}&col=${row.log.message}&rowlogGeneratedDate=${row.log.date}&version=${version}&osArchitecture=${row.device.os.name}&modelName=${row.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`
       );
     },
-    // onMouseEnter: (e, row, rowIndex) => {
-    //   console.log(`enter on row with index: ${rowIndex}`);
-    // },
   };
 
   const columns = [
@@ -448,31 +415,13 @@ function TableData(props) {
         };
       },
       formatter: (col, row, rowIndex) => {
-        // console.log("col", col);
-        // console.log("col row", rowIndex);
-        // const newCode = urlParams.get("code");
-
         const projectName = urlParams.get("name");
         let version = row.version ? row.version : null;
         let osArchitecture = row.osArchitecture ? row.osArchitecture : null;
         let modelName = row.modelName ? row.modelName : null;
-        // const version = urlParams.get('version')
-        // const osArchitecture = urlParams.get('osArchitecture')
-        // console.log("now_code", newCode);
-        // console.log(`start ${dt.start} and end ${dt.end}`)
+
         return (
           <div className={Style.expandedRow}>
-            {/* <Link
-              style={{
-                textDecoration: "none",
-                color: "#000",
-              }}
-              to={`/analytics?code=${props.code}&name=${props.projectName}&col=${col}&rowlogGeneratedDate=${row.logGeneratedDate}&version=${version}&osArchitecture=${osArchitecture}&modelName=${modelName}`}
-            >
-              {col.split(" at").map((items) => items)[0]
-                ? col.split(" at").map((items) => items)[0]
-                : col}
-            </Link> */}
             {col.split(" at").map((items) => items)[0]
               ? col.split(" at").map((items) => items)[0]
               : col}
@@ -480,10 +429,6 @@ function TableData(props) {
         );
       },
       sort: true,
-
-      //  to={`/analytics?code=${code}&name=Stack Trace&id=${row._id}&allStacks=${row.logMsg}&macAddress=${row.did}&loggenrateddate=${row.logGeneratedDate}&modeltype=${row.device_types}&logtype=${row.logType}`}
-
-      // style: { backgroundColor: 'green' }
     },
 
     {
@@ -695,8 +640,9 @@ function TableData(props) {
     </section>
   ));
 
-  // console.log("pageNo", pageNo);
-  // console.log("logtype", logType);
+  useEffect(() => {
+    props.tableDataStateFun(code, date, logType, null, record, porjectCodeType);
+  }, []);
 
   return (
     <>

@@ -37,6 +37,7 @@ export default function LogTable() {
   const [productDropDown, seProductDropDown] = useState(false);
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
   const [diffDate, setDiffDate] = useState(90);
+  const [tableDataState, setTableDataState] = useState({});
 
   const [projectCode, setProjectCode] = useState();
 
@@ -269,8 +270,23 @@ export default function LogTable() {
     dispatch(getProjectByCode({ code: code, date: { startDate, endDate } }));
   };
 
-  // PRODUCT VERSION FUNCTION
-  const productversionDropDown = () => {};
+  const tableDataStateFun = (
+    code,
+    date,
+    logtype,
+    page,
+    records,
+    projectType
+  ) => {
+    setTableDataState({
+      code,
+      date,
+      logtype,
+      page,
+      records,
+      projectType,
+    });
+  };
 
   return (
     <>
@@ -306,10 +322,8 @@ export default function LogTable() {
             <Row className="mt-4">
               <Col xl={10} md={9} sm={9} /* className={Style.filterWithDate} */>
                 <TypeDropDown
-                  projectCode={projectCode}
-                  setProjectCode={setProjectCode}
+                  tableDataState={tableDataState}
                   diffDate={diffDate}
-                  record={recordavilable}
                 />
               </Col>
 
@@ -467,6 +481,7 @@ export default function LogTable() {
                   code={code}
                   projectName={projectName}
                   diffDate={diffDate}
+                  tableDataStateFun={tableDataStateFun}
                 />
 
                 {/*Ag table  */}

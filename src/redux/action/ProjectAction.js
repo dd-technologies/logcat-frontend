@@ -56,12 +56,7 @@ export const getAllProject = () => async (dispatch) => {
       },
     };
 
-    // console.log(config);
-
-    // const {data} = await axios.get('https://agvalogger.herokuapp.com/api/logger/projects/',
-    // config
-    // )
-
+  
     const { data } = await axios.get(
       `https://logger-server.herokuapp.com/api/logger/projects/`,
       config

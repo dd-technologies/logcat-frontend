@@ -11,7 +11,9 @@ import {
   getProjectByCode,
 } from "../../../../redux/action/ProjectAction";
 
-const TypeDropDown = ({ diffDate, record }) => {
+const TypeDropDown = (props) => {
+  console.log("props typedropdown", props);
+
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
   const ref = useRef();
   //   let modelList;
@@ -71,17 +73,40 @@ const TypeDropDown = ({ diffDate, record }) => {
     console.log(
       "getProjectByCode typedropdown",
       code,
-      diffDate,
-      null,
+      props.diffDate,
       null,
       null,
       type.typeCode
     );
 
-    dispatch(getProjectByCode(code, diffDate, null, null, null, type.typeCode));
-    dispatch(getCrashFreeUsers({ code, diffDate, code1: type.typeCode }));
-    dispatch(getLogTypeCounts({ code, diffDate, code1: type.typeCode }));
-    dispatch(getLogByDate({ code, diffDate, code1: type.typeCode }));
+    //
+
+    dispatch(
+      getProjectByCode(
+        props.tableDataState.code,
+        props.tableDataState.date,
+        props.tableDataState.logtype,
+        null,
+        props.tableDataState.records,
+        type.typeCode
+      )
+    );
+    //
+    dispatch(
+      getCrashFreeUsers({
+        code,
+        diffDate: props.diffDate,
+        code1: type.typeCode,
+      })
+    );
+    //
+    dispatch(
+      getLogTypeCounts({ code, diffDate: props.diffDate, code1: type.typeCode })
+    );
+    //
+    dispatch(
+      getLogByDate({ code, diffDate: props.diffDate, code1: type.typeCode })
+    );
   };
 
   return (
