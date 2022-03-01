@@ -23,6 +23,7 @@ import Spinner from "../../../../Container/Spinner";
 import toast, { Toaster } from "react-hot-toast";
 import TableCard from "../../../../Container/TableCard";
 import { useHistory } from "react-router-dom";
+import { createContext } from "react";
 // import useDrivePicker from "react-google-drive-picker";
 
 // import CustomeFilterTable from "./CustomeFilterTable";
@@ -39,6 +40,8 @@ function TableData(props) {
   // const urlParams = new URLSearchParams(queryString);
   const code = props.code;
   let filedate = new Date();
+
+  console.log("props logtable", props);
 
   const [dateSectionSelect, setDateSectionSelect] = useState(true);
   const [StatusSectionSeclect, setStatusSectionSeclect] = useState(false);
@@ -90,11 +93,11 @@ function TableData(props) {
   filedate.setDate(filedate.getDate() - props.diffDate);
   startDate = filedate.toISOString().slice(0, 10);
   useEffect(() => {
-    console.log(`start Date ! ${startDate} end Date ! ${endDate}`);
+    // console.log(`start Date ! ${startDate} end Date ! ${endDate}`);
     date.start = startDate;
     date.end = endDate;
     setdate({ start: startDate, end: endDate });
-    console.log("useEffect props.diffdate", startDate, endDate, date);
+    // console.log("useEffect props.diffdate", startDate, endDate, date);
   }, [props.diffDate]);
 
   // const [pageNo, setPageNo] = useState(0);
@@ -138,7 +141,6 @@ function TableData(props) {
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { loading: loadingdata, data: typeWiseDate } = getModelCodeReducer;
 
-  // console.log("porjectCodeType", porjectCodeType);
   let porjectCodeType = typeWiseDate && typeWiseDate.modelList[0].typeCode;
 
   //  1)  DIRECTION PAGE TO NEW PAGE
@@ -148,16 +150,6 @@ function TableData(props) {
     (state) => state.getAllLogByCodeReducer
   );
   const { loading, data } = getAllLogByCodeReducer;
-
-  console.log(
-    "getAllLogByCodeReducer",
-    (data &&
-      data.data &&
-      data.data.logs &&
-      data.data.logs[0] &&
-      data.data.logs[0].type) ||
-      []
-  );
 
   // porject code to analytics screen
   const projectCodeAnalytics =
@@ -363,7 +355,7 @@ function TableData(props) {
   useEffect(() => {
     // dt.start = date.start;
     // dt.end = date.end;
-    console.log(` start date useeffect ${date.start} ${date.end}`);
+    // console.log(` start date useeffect ${date.start} ${date.end}`);
     if (
       logType.error ||
       logType.info ||
@@ -371,14 +363,14 @@ function TableData(props) {
       logType.debug ||
       logType.verbose
     ) {
-      console.log("datte ", date);
+      // console.log("dasfsdftte ", porjectCodeType);
       dispatch(
-        getProjectByCode(code, date, logType, pageNo, record, porjectCodeType)
+        getProjectByCode(code, date, logType, pageNo, record, porjectCodeType)      //TODO: dispatch close
       );
     } else {
       console.log("datte ", date);
       dispatch(
-        getProjectByCode(code, date, null, pageNo, record, porjectCodeType)
+        getProjectByCode(code, date, null, pageNo, record, porjectCodeType) //TODO: dispatch close
       );
     }
   }, [pageNo, startDate, endDate, porjectCodeType]);
@@ -389,7 +381,7 @@ function TableData(props) {
 
   // columns *******************************
   function errorFormatter(cell, row) {
-    console.log("row logtype", row.log.type);
+    // console.log("row logtype", row.log.type);
 
     if (row.log.type) {
       return (
@@ -556,7 +548,9 @@ function TableData(props) {
       // Cleanup the event listener
       document.removeEventListener("mousedown", checkIfClickedOutside);
       if (showTableField) {
-        dispatch(getProjectByCode(code, date, logType, pageNo, record));
+        dispatch(
+          getProjectByCode(code, date, logType, pageNo, record, porjectCodeType)
+        );
       }
     };
   }, [showTableField]);
@@ -661,7 +655,7 @@ function TableData(props) {
   // DATE CHIPS
 
   const closeDateChip = (index) => {
-    console.log("Date on chip closing:", date);
+    // console.log("Date on chip closing:", date);
     if (index == 0) {
       setdate({
         ...dateState,
@@ -690,7 +684,7 @@ function TableData(props) {
   };
 
   const DateChipsArray = [dateState.start, dateState.end];
-  console.log("DateChipsArray", DateChipsArray);
+  // console.log("DateChipsArray", DateChipsArray);
   const dateChips = DateChipsArray.map((items, index) => (
     <section className={Style.chip}>
       <p style={{ color: "#fff" }}>{items}</p>
@@ -700,6 +694,9 @@ function TableData(props) {
       />
     </section>
   ));
+
+  // console.log("pageNo", pageNo);
+  // console.log("logtype", logType);
 
   return (
     <>

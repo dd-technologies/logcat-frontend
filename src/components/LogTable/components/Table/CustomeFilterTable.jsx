@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import CustomCard from "../../../../Container/CustomCard";
 import Style from "./CustomeFilterTable.module.scss";
-import {useDispatch,useSelector} from 'react-redux'
-import getProjectByCode from '../../redux/action/ProjectAction'
+import { useDispatch, useSelector } from "react-redux";
+import getProjectByCode from "../../redux/action/ProjectAction";
 import { useHistory } from "react-router-dom";
 
 export default function CustomeFilterTable(props) {
@@ -59,8 +59,6 @@ export default function CustomeFilterTable(props) {
     }
   };
 
-  
-
   const dispatch = useDispatch();
 
   // SHOW DATE SECTION FUNCTION
@@ -83,22 +81,21 @@ export default function CustomeFilterTable(props) {
     setCountPerPageSection(true);
   };
 
-
-  useEffect(() => {
-    if (
-      logType.error ||
-      logType.info ||
-      logType.warn ||
-      logType.debug ||
-      logType.verbose
-    ) {
-      dispatch(getProjectByCode(props.code, null, logType, props.page, record));
-    } else {
-      // setPageNo(0);
-      // dispatch(getProjectByCode(code, null, null, pageNo, record));
-    }
-  }, []);
-  // logType, pageNo, record
+  // useEffect(() => {
+  //   if (
+  //     logType.error ||
+  //     logType.info ||
+  //     logType.warn ||
+  //     logType.debug ||
+  //     logType.verbose
+  //   ) {
+  //     dispatch(getProjectByCode(props.code, null, logType, props.page, record));
+  //   } else {
+  //     // setPageNo(0);
+  //     // dispatch(getProjectByCode(code, null, null, pageNo, record));
+  //   }
+  // }, []);
+  // // logType, pageNo, record
 
   return (
     <>
@@ -156,14 +153,18 @@ export default function CustomeFilterTable(props) {
             {dateSectionSelect ? (
               <Col xl={6}>
                 <section className={Style.DateSection}>
-                  <input type="date" value={date.start}
+                  <input
+                    type="date"
+                    value={date.start}
                     onChange={(e) =>
                       setdate({ ...date, start: e.target.value })
-                    }/>
-                  <input type="date" value={date.start}
-                    onChange={(e) =>
-                      setdate({ ...date, end: e.target.value })
-                    } />
+                    }
+                  />
+                  <input
+                    type="date"
+                    value={date.start}
+                    onChange={(e) => setdate({ ...date, end: e.target.value })}
+                  />
                 </section>
               </Col>
             ) : null}
@@ -196,10 +197,30 @@ export default function CustomeFilterTable(props) {
             {countPerPageSection ? (
               <Col xl={6}>
                 <section className={Style.perPageOuter}>
-                  <p className={Style.perPagesectionInner} onClick={() => setRecords(10)}>10</p>
-                  <p className={Style.perPagesectionInner} onClick={() => setRecords(25)}>25</p>
-                  <p className={Style.perPagesectionInner} onClick={() => setRecords(45)}>45</p>
-                  <p className={Style.perPagesectionInner} onClick={() => setRecords(50)}>50</p>
+                  <p
+                    className={Style.perPagesectionInner}
+                    onClick={() => setRecords(10)}
+                  >
+                    10
+                  </p>
+                  <p
+                    className={Style.perPagesectionInner}
+                    onClick={() => setRecords(25)}
+                  >
+                    25
+                  </p>
+                  <p
+                    className={Style.perPagesectionInner}
+                    onClick={() => setRecords(45)}
+                  >
+                    45
+                  </p>
+                  <p
+                    className={Style.perPagesectionInner}
+                    onClick={() => setRecords(50)}
+                  >
+                    50
+                  </p>
                 </section>
               </Col>
             ) : null}

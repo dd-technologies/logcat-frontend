@@ -17,7 +17,6 @@ import {
   getLogByDate,
   getErrorWRTOS,
   getErrorWRTVersion,
-  getProjectDetails,
   getLogMsgOccurenceWRTDate,
   getCrashAnalyticsData,
   getCrashFreeUsersData,
@@ -66,7 +65,7 @@ export default function Analytics() {
 
   const projectName = urlParams.get("name");
   const projectCodeAnalytics = urlParams.get("projectCodeAnalytics");
-  console.log("projectCodeAnalytics", projectCodeAnalytics);
+  // console.log("projectCodeAnalytics", projectCodeAnalytics);
 
   const navbardetail = {
     name: projectName,

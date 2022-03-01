@@ -87,7 +87,16 @@ export const getProjectByCode =
   (code, date = null, filters = null, page = null, record = 25, projectType) =>
   async (dispatch) => {
     try {
-      // console.log(`pageno from action project code ${code}`);
+      console.log(
+        "getProjectByCode",
+        code,
+        date,
+        filters,
+        page,
+        record,
+        projectType
+      );
+
       dispatch({
         type: GET_ALL_LOG_BY_CODE_REQUEST,
       });
@@ -99,18 +108,6 @@ export const getProjectByCode =
         },
       };
 
-      // for (const [key, value] of Object.entries(projectType)) {
-      //   console.log(`hi obj key${key.code}: value${value}`);
-      //   projectType = value;
-      // }
-
-      console.log("dispatch filter", date);
-
-      // const {data} = await axios.get('https://agvalogger.herokuapp.com/api/logger/projects/',
-      // config
-      // )
-
-      // /api/logger/projects/getDetail/MF7OW?startDate=2021-09-20&endDate=2021-10-04
       let response;
       if (date != null && date.start && date.end) {
         let logString = "";
@@ -274,7 +271,7 @@ export const getLogTypeCounts =
         type: GET_LOG_COUNT_REQUEST,
       });
 
-      console.log("code1", code, diffDate, code1);
+      // console.log("code1", code, diffDate, code1);
 
       const token = localStorage.getItem("ddAdminToken");
       const config = {
@@ -451,41 +448,6 @@ export const getErrorWRTVersion = (code, projectType) => async (dispatch) => {
   }
 };
 
-export const getProjectDetails = (code) => async (dispatch) => {
-  try {
-    dispatch({
-      type: GET_DEVICE_INFO_REQUEST,
-    });
-    const token = localStorage.getItem("ddAdminToken");
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    // console.log("hello from action from get project details");
-
-    const { data } = await axios.get(
-      `https://logger-server.herokuapp.com/api/logger/projects/getDeviceCount/${code}`,
-      config
-    );
-    // console.log(data);
-    dispatch({
-      type: GET_DEVICE_INFO_REQUEST_SUCCESS,
-      payload: data.data,
-    });
-  } catch (error) {
-    // console.log(error.response);
-    dispatch({
-      type: GET_DEVICE_INFO_REQUEST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
 
 export const getLogMsgOccurenceWRTDate =
   ({ code, startDate, endDate, logMsg, code1 }) =>
@@ -556,7 +518,7 @@ export const getCrashFreeUsers =
     try {
       // console.log(code);
       // console.log("difference date" + diffDate);
-      console.log("projectType11", code, diffDate, code1);
+      // console.log("projectType11", code, diffDate, code1);
       var dt = new Date();
       const endDate = dt.toISOString().slice(0, 10);
       dt.setDate(dt.getDate() - diffDate);
@@ -646,7 +608,7 @@ export const getCrashFreeUsersData =
     try {
       // console.log(code);
 
-      console.log("projectType22", code, logMsg, projectType);
+      // console.log("projectType22", code, logMsg, projectType);
 
       var dt = new Date();
       const endDate = dt.toISOString().slice(0, 10);
@@ -689,6 +651,8 @@ export const getCrashFreeUsersData =
   };
 
 export const getDeviceModelCode = (code) => async (dispatch) => {
+
+  console.log("hello model")
   try {
     dispatch({
       type: GET_MODEL_CODE_REQUEST,

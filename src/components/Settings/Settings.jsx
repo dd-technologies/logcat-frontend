@@ -40,7 +40,7 @@ export default function Settings() {
   const code = urlParams.get("code");
   const projectName = urlParams.get("name");
 
-  console.log("prject name", projectName);
+  // console.log("prject name", projectName);
 
   // NAVIGATION MENU HERE
   const navdetails = {
@@ -83,7 +83,7 @@ export default function Settings() {
       });
     }
 
-    console.log("chip on key down");
+    // console.log("chip on key down");
   };
 
   //   HANDLE CHANG FUNCTION
@@ -93,9 +93,9 @@ export default function Settings() {
       value: evt.target.value,
       error: null,
     });
-    console.log("chip handle change", evt.target.value);
+    // console.log("chip handle change", evt.target.value);
   };
-  console.log("chip array", chipState);
+  // console.log("chip array", chipState);
 
   const hanldeOndeleteEmail = (item) => {
     setChipState({
@@ -125,7 +125,7 @@ export default function Settings() {
       }
     }
 
-    console.log("chip on key down");
+    // console.log("chip on key down");
   };
 
   //   HANDLE CHANG FUNCTION

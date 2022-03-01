@@ -29,7 +29,6 @@ export default function CrashFreeStatics() {
   if (data && data.response) {
     // data.response.map((items) => (totalCount += items.countLog));
     // data.response.map((items) => (counts.length !==0 && counts.find(items.did) ? '' :counts.push(items.did)));
-
     // console.log(counts);
     // totalCount = [...new Set(data.response.reduce((a, c) => [...a, c.did], []))];
     // totalCount = [...new Set(data.response.reduce((a, c) =>  ))];
@@ -45,11 +44,17 @@ export default function CrashFreeStatics() {
       <CustomCard>
         <Row className="p-3">
           <Col xl={12} className={Style.Statics}>
-            <h5 style={{ fontWeight: 700, color: "#535353", letterSpacing: "0.5px" }}>
-              Crash free Statistics{" "}
+            <h5
+              style={{
+                fontWeight: 700,
+                color: "#535353",
+                letterSpacing: "0.5px",
+              }}
+            >
+              Crash free Statistics
             </h5>
+            <p>Crash free users</p>
             {/* <section className={Style.StaticsSection}>
-              <p>Crash free users</p> */}
               {/* <section className={Style.Tooltip}>
                 <FontAwesomeIcon
                   icon={faQuestion}

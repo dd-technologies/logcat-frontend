@@ -32,12 +32,6 @@ export default function EventByVersionChart() {
   // console.log("getLogMsgOccurenceWRTDateReducer", data.response);
   let dataarray = data && data.response ? data.response : [];
 
-  // let alldate = data && data.response && dataarray.map((items) => items.date);
-  // let day = alldate.map((day) => day[0]);
-  // console.log("day", day);
-
-  // changing formation of date
-
   // CHANGING DATE FORMATE
   const dateFormatter = (date) => {
     // return moment(date).unix();
@@ -56,7 +50,12 @@ export default function EventByVersionChart() {
           }}
         >
           {/* <CartesianGrid strokeDasharray="3 3" /> */}
-          <XAxis dataKey="date" tickCount={5} minTickGap={10} tickFormatter={dateFormatter} />
+          <XAxis
+            dataKey="date"
+            tickCount={5}
+            minTickGap={10}
+            tickFormatter={dateFormatter}
+          />
           <YAxis dataKey="data" axisLine={true} />
           <CartesianGrid vertical={false} strokeDasharray="0 0 4" />
           <Tooltip />

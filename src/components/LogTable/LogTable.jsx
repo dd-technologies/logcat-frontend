@@ -18,11 +18,10 @@ import TableData from "./components/Table/TableData";
 import PieChartSection from "./components/PieChartSection";
 import {
   getLogTypeCounts,
-  getProjectDetails,
   getLogByDate,
   getProjectByCode,
-  getCrashFreeUsers,
   getDeviceModelCode,
+  getCrashFreeUsers,
 } from "../../redux/action/ProjectAction";
 import { useHistory } from "react-router-dom";
 import Spinner from "../../Container/Spinner";
@@ -49,7 +48,14 @@ export default function LogTable() {
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { loading, data: projectType } = getModelCodeReducer;
 
-  // console.log("projectTypefromRedux", projectType);
+  const getAllLogByCodeReducer = useSelector(
+    (state) => state.getAllLogByCodeReducer
+  );
+
+  const { data: getallCode } = getAllLogByCodeReducer;
+
+  const recordavilable =
+    getallCode && getallCode.data && getallCode.data.pageLimit;
 
   const ref = useRef();
 
@@ -116,9 +122,6 @@ export default function LogTable() {
   };
 
   const dispatch = useDispatch();
-  const getAllLogByCodeReducer = useSelector(
-    (state) => state.getAllLogByCodeReducer
-  );
 
   //   const getModelCodeReducer = useSelector(
   //     (state) => state.getModelCodeReducer
@@ -129,19 +132,19 @@ export default function LogTable() {
   //     modelList = getModelCodeReducer.data.modelList
   //   }
 
-  const dispatchmultiple = () => {
-    // dispatch(getLogTypeCounts(code));
-    // dispatch(getErrorWRTOS(code));
-    dispatch(getProjectDetails(code));
-    // dispatch(getErrorWRTVersion(code));
-    // getProjectByCode()
+  // const dispatchmultiple = () => {
+  //   // dispatch(getLogTypeCounts(code));
+  //   // dispatch(getErrorWRTOS(code));
+  //   // dispatch(getProjectDetails(code));
+  //   // dispatch(getErrorWRTVersion(code));
+  //   // getProjectByCode()
 
-    // dispatch(getLogByDate(code, date));
-    // dispatch(getCrashFreeUsers({code,diffDate}));
-  };
-  useEffect(() => {
-    dispatchmultiple();
-  }, [date]);
+  //   // dispatch(getLogByDate(code, date));
+  //   // dispatch(getCrashFreeUsers({code,diffDate}));
+  // };
+  // useEffect(() => {
+  //   dispatchmultiple();
+  // }, [date]);
 
   const multipleDispatchGraph = () => {
     dispatch(
@@ -216,12 +219,12 @@ export default function LogTable() {
   // dateDropDown : was dependency for the above useeffect
 
   // REFRESH ONLY TABLE
+  let logType = JSON.parse(localStorage.getItem("selected_log"));
+  let record = JSON.parse(localStorage.getItem("selected_record"));
   const RefreshTableOnlyFun = () => {
-    let logType = JSON.parse(localStorage.getItem("selected_log"));
     // console.log("dispatch logs", logType);
 
     let date = JSON.parse(localStorage.getItem("selected_date"));
-    let record = JSON.parse(localStorage.getItem("selected_record"));
 
     // 1) code, logtype , start date, end date, records, page==null
     if (code && logType && date && record) {
@@ -269,7 +272,7 @@ export default function LogTable() {
   // PRODUCT VERSION FUNCTION
   const productversionDropDown = () => {};
 
-  return (  
+  return (
     <>
       <Row>
         <Col
@@ -306,6 +309,7 @@ export default function LogTable() {
                   projectCode={projectCode}
                   setProjectCode={setProjectCode}
                   diffDate={diffDate}
+                  record={recordavilable}
                 />
               </Col>
 
@@ -458,7 +462,7 @@ export default function LogTable() {
             <Row className="mt-3">
               <Col>
                 {/* table with toolkit provider */}
-                {console.log("component redenr")}
+                {/* {console.log("component redenr")} */}
                 <TableData
                   code={code}
                   projectName={projectName}
