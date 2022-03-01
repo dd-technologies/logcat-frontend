@@ -21,9 +21,16 @@ const TypeDropDown = (props) => {
   const { loading, data } = getModelCodeReducer;
 
   const [projectCode, setProjectCode] = useState({
-    code: (data && data.modelList[0].typeCode) || "",
-    name: (data && data.modelList[0].typeName) || "",
+    code: localStorage.getItem("project_type")
+      ? JSON.parse(localStorage.getItem("project_type")).typeCode
+      : (data && data.modelList[0].typeCode) || "",
+
+    name: localStorage.getItem("project_type")
+      ? JSON.parse(localStorage.getItem("project_type")).typeName
+      : (data && data.modelList[0].typeName) || "",
   });
+
+  console.log("projectCosde", projectCode);
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -70,15 +77,10 @@ const TypeDropDown = (props) => {
       name: type.typeName,
     });
     ProjectTypeFilter();
-    console.log(
-      "getProjectByCode typedropdown",
-      code,
-      props.diffDate,
-      null,
-      null,
-      type.typeCode
-    );
 
+    // console.log("projectCode", localStorage.getItem("project_type"));
+
+    localStorage.setItem("project_type", JSON.stringify(type));
     //
 
     dispatch(
@@ -86,7 +88,7 @@ const TypeDropDown = (props) => {
         props.tableDataState.code,
         props.tableDataState.date,
         props.tableDataState.logtype,
-        null,
+        props.tableDataState.pageNo,
         props.tableDataState.records,
         type.typeCode
       )
@@ -108,6 +110,8 @@ const TypeDropDown = (props) => {
       getLogByDate({ code, diffDate: props.diffDate, code1: type.typeCode })
     );
   };
+
+  //  TODO: dispatch the code depanding the local storage
 
   return (
     <>

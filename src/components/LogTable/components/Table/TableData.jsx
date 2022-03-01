@@ -147,7 +147,12 @@ function TableData(props) {
   const getAllLogByCodeReducer = useSelector(
     (state) => state.getAllLogByCodeReducer
   );
+
   const { loading, data } = getAllLogByCodeReducer;
+  // console.log(
+  //   "getAllLogByCodeReducer",
+  //   data && data.data && data.data.logs[0].type
+  // );
 
   // porject code to analytics screen
   const projectCodeAnalytics =
@@ -217,7 +222,9 @@ function TableData(props) {
       );
     }
     localStorage.setItem("selected_record", JSON.stringify(record));
-    dispatch(getProjectByCode(code, date, logType, pageNo, record));
+    dispatch(
+      getProjectByCode(code, date, logType, pageNo, record, projectCodeAnalytics)
+    );
     toast.success("Filter saved");
     setShowTableField(false);
   };
@@ -303,7 +310,9 @@ function TableData(props) {
     // setLogType({...logType})
     toast.success("Filter has been reset");
     setShowTableField(false);
-    return dispatch(getProjectByCode(code, record));
+    return dispatch(
+      getProjectByCode(code, null, null, null, record, projectCodeAnalytics)
+    );
   };
 
   const handlePageClick = (data) => {
@@ -641,7 +650,14 @@ function TableData(props) {
   ));
 
   useEffect(() => {
-    props.tableDataStateFun(code, date, logType, null, record, porjectCodeType);
+    props.tableDataStateFun(
+      code,
+      date,
+      logType,
+      pageNo,
+      record,
+      porjectCodeType
+    );
   }, []);
 
   return (

@@ -274,7 +274,7 @@ export default function LogTable() {
     code,
     date,
     logtype,
-    page,
+    pageNo,
     records,
     projectType
   ) => {
@@ -282,7 +282,7 @@ export default function LogTable() {
       code,
       date,
       logtype,
-      page,
+      pageNo,
       records,
       projectType,
     });
