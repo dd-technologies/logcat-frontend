@@ -24,7 +24,7 @@ const ProjectCard = (props) => {
         boxShadow="0px 0px 3px 1px rgba(192,192,192,0.90)"
       >
         <Link
-          to={`/logtable?code=${props.data.code}&name=${props.data.name} `}
+          to={`/logtable?code=${props.data.code}&name=${props.data.name}&pagename=logpage `}
           style={{ textDecoration: "none" }}
         >
           <section className={Style.Outer_InfoRow}>

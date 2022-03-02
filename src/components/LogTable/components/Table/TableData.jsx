@@ -23,7 +23,8 @@ import Spinner from "../../../../Container/Spinner";
 import toast, { Toaster } from "react-hot-toast";
 import TableCard from "../../../../Container/TableCard";
 import { useHistory } from "react-router-dom";
-import useDrivePicker from "react-google-drive-picker";
+import { createContext } from "react";
+// import useDrivePicker from "react-google-drive-picker";
 
 // import CustomeFilterTable from "./CustomeFilterTable";
 
@@ -35,10 +36,10 @@ var dt = {};
 
 // ************************************************************************************************************************
 function TableData(props) {
-  // const queryString = window.location.search;
-  // const urlParams = new URLSearchParams(queryString);
   const code = props.code;
   let filedate = new Date();
+
+  console.log("props logtable", props);
 
   const [dateSectionSelect, setDateSectionSelect] = useState(true);
   const [StatusSectionSeclect, setStatusSectionSeclect] = useState(false);
@@ -84,19 +85,18 @@ function TableData(props) {
   var date = {
     start: JSON.parse(localStorage.getItem("selected_date")).start,
     end: JSON.parse(localStorage.getItem("selected_date")).end,
-  }
+  };
 
   endDate = filedate.toISOString().slice(0, 10);
   filedate.setDate(filedate.getDate() - props.diffDate);
   startDate = filedate.toISOString().slice(0, 10);
   useEffect(() => {
-    console.log(`start Date ! ${startDate} end Date ! ${endDate}`);
-    date.start = startDate
-    date.end = endDate
-    setdate({ start: startDate, end: endDate})
-    console.log('useEffect props.diffdate', startDate, endDate, date)
-  }, [props.diffDate])
-
+    // console.log(`start Date ! ${startDate} end Date ! ${endDate}`);
+    date.start = startDate;
+    date.end = endDate;
+    setdate({ start: startDate, end: endDate });
+    // console.log("useEffect props.diffdate", startDate, endDate, date);
+  }, [props.diffDate]);
 
   // const [pageNo, setPageNo] = useState(0);
   const [record, setRecords] = useState(
@@ -136,15 +136,32 @@ function TableData(props) {
       : false,
   });
 
+  const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
+  const { loading: loadingdata, data: typeWiseDate } = getModelCodeReducer;
+
+  let porjectCodeType = typeWiseDate && typeWiseDate.modelList[0].typeCode;
+
   //  1)  DIRECTION PAGE TO NEW PAGE
   let history = useHistory();
 
   const getAllLogByCodeReducer = useSelector(
     (state) => state.getAllLogByCodeReducer
   );
-  const { loading, data } = getAllLogByCodeReducer;
 
-  // console.log("getAllLogByCodeReducer", data);
+  const { loading, data } = getAllLogByCodeReducer;
+  // console.log(
+  //   "getAllLogByCodeReducer",
+  //   data && data.data && data.data.logs[0].type
+  // );
+
+  // porject code to analytics screen
+  const projectCodeAnalytics =
+    (data &&
+      data.data &&
+      data.data.logs &&
+      data.data.logs[0] &&
+      data.data.logs[0].type) ||
+    [];
 
   const selectRow = {
     mode: "checkbox",
@@ -205,7 +222,9 @@ function TableData(props) {
       );
     }
     localStorage.setItem("selected_record", JSON.stringify(record));
-    dispatch(getProjectByCode(code, date, logType, pageNo, record));
+    dispatch(
+      getProjectByCode(code, date, logType, pageNo, record, projectCodeAnalytics)
+    );
     toast.success("Filter saved");
     setShowTableField(false);
   };
@@ -266,8 +285,8 @@ function TableData(props) {
       start: "",
       end: "",
     });
-    date.start = ""
-    date.end = ""
+    date.start = "";
+    date.end = "";
     setRecords(25);
     setPageNo(1);
     setLogType({
@@ -291,7 +310,9 @@ function TableData(props) {
     // setLogType({...logType})
     toast.success("Filter has been reset");
     setShowTableField(false);
-    return dispatch(getProjectByCode(code, record));
+    return dispatch(
+      getProjectByCode(code, null, null, null, record, projectCodeAnalytics)
+    );
   };
 
   const handlePageClick = (data) => {
@@ -312,36 +333,12 @@ function TableData(props) {
       );
     }
 
-    // console.log(`data selected ${data.selected+1} and page ${pageNo}`)
-    // if (pageNo !== data.selected + 1) {
-    //   console.log('data selected first if body')
-    //   if (data.selected + 1 < pageNo) {
-    //     console.log('data selected second if body')
-    //     const diff = pageNo-(data.selected+1)
-    //     setPageNo(pageNo - diff);
-    //     console.log(`data selected down ${data.selected} and page ${pageNo}`)
-    //   }else{
-    //     console.log('data selected second else body')
-    //     setPageNo(data.selected + 1);
-    //   }
-    // }
     setPageNo(data.selected + 1);
     // console.log(`data selected down ${data.selected} and page ${pageNo}`)
     dispatch(getProjectByCode(code, null, null, data.selected + 1, record));
   };
 
-  // const applyFilter = () => {
-
-  //   dispatch(getProjectByCode(code, date, logType, pageNo, record));
-  //   setShowTableField(false);
-  // };
-
-  // code, date = null, filters = null, page = null, record = 25
-
   useEffect(() => {
-    // dt.start = date.start;
-    // dt.end = date.end;
-    console.log(` start date useeffect ${date.start} ${date.end}`);
     if (
       logType.error ||
       logType.info ||
@@ -349,13 +346,16 @@ function TableData(props) {
       logType.debug ||
       logType.verbose
     ) {
-      console.log("datte ", date);
-      dispatch(getProjectByCode(code, date, logType, pageNo, record));
+      dispatch(
+        getProjectByCode(code, date, logType, pageNo, record, porjectCodeType) //TODO: dispatch close
+      );
     } else {
       console.log("datte ", date);
-      dispatch(getProjectByCode(code, date, null, pageNo, record));
+      dispatch(
+        getProjectByCode(code, date, null, pageNo, record, porjectCodeType) //TODO: dispatch close
+      );
     }
-  }, [pageNo, startDate, endDate]);
+  }, [pageNo, startDate, endDate, porjectCodeType]);
 
   const showTableFieldFunc = () => {
     setShowTableField(!showTableField);
@@ -363,7 +363,9 @@ function TableData(props) {
 
   // columns *******************************
   function errorFormatter(cell, row) {
-    if (row.logType) {
+    // console.log("row logtype", row.log.type);
+
+    if (row.log.type) {
       return (
         <span>
           {cell === "error" ? (
@@ -397,9 +399,6 @@ function TableData(props) {
     localStorage.setItem("queryAllSting", JSON.stringify(queryAllSting));
   };
 
-  // REACT BOOTSTRAP ROW CLICK EVENT
-  // const col = "";
-
   const tableRowEvents = {
     onClick: (e, row, rowIndex, col) => {
       let version = row.version ? row.version : null;
@@ -407,17 +406,14 @@ function TableData(props) {
       let modelName = row.modelName ? row.modelName : null;
       // console.log("row", row);
       history.push(
-        `/analytics?code=${props.code}&name=${props.projectName}&col=${row.logMsg}&rowlogGeneratedDate=${row.logGeneratedDate}&version=${version}&osArchitecture=${osArchitecture}&modelName=${modelName}`
+        `/analytics?code=${props.code}&name=${props.projectName}&col=${row.log.message}&rowlogGeneratedDate=${row.log.date}&version=${version}&osArchitecture=${row.device.os.name}&modelName=${row.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`
       );
     },
-    // onMouseEnter: (e, row, rowIndex) => {
-    //   console.log(`enter on row with index: ${rowIndex}`);
-    // },
   };
 
   const columns = [
     {
-      dataField: "logMsg",
+      dataField: "log.message",
       text: "Log Message",
       headerAlign: "center",
       // width: "50",
@@ -428,31 +424,13 @@ function TableData(props) {
         };
       },
       formatter: (col, row, rowIndex) => {
-        // console.log("col", col);
-        // console.log("col row", rowIndex);
-        // const newCode = urlParams.get("code");
-
         const projectName = urlParams.get("name");
         let version = row.version ? row.version : null;
         let osArchitecture = row.osArchitecture ? row.osArchitecture : null;
         let modelName = row.modelName ? row.modelName : null;
-        // const version = urlParams.get('version')
-        // const osArchitecture = urlParams.get('osArchitecture')
-        // console.log("now_code", newCode);
-        // console.log(`start ${dt.start} and end ${dt.end}`)
+
         return (
           <div className={Style.expandedRow}>
-            {/* <Link
-              style={{
-                textDecoration: "none",
-                color: "#000",
-              }}
-              to={`/analytics?code=${props.code}&name=${props.projectName}&col=${col}&rowlogGeneratedDate=${row.logGeneratedDate}&version=${version}&osArchitecture=${osArchitecture}&modelName=${modelName}`}
-            >
-              {col.split(" at").map((items) => items)[0]
-                ? col.split(" at").map((items) => items)[0]
-                : col}
-            </Link> */}
             {col.split(" at").map((items) => items)[0]
               ? col.split(" at").map((items) => items)[0]
               : col}
@@ -460,10 +438,6 @@ function TableData(props) {
         );
       },
       sort: true,
-
-      //  to={`/analytics?code=${code}&name=Stack Trace&id=${row._id}&allStacks=${row.logMsg}&macAddress=${row.did}&loggenrateddate=${row.logGeneratedDate}&modeltype=${row.device_types}&logtype=${row.logType}`}
-
-      // style: { backgroundColor: 'green' }
     },
 
     {
@@ -473,13 +447,13 @@ function TableData(props) {
           color: "#fff",
         };
       },
-      dataField: "did",
+      dataField: "device.did",
       text: "MAC Address",
       sort: true,
     },
 
     {
-      dataField: "logType",
+      dataField: "log.type",
       text: "Log Type",
       headerStyle: () => {
         return {
@@ -491,7 +465,7 @@ function TableData(props) {
       sort: true,
     },
     {
-      dataField: "logGeneratedDate",
+      dataField: "log.date",
       text: "Date",
       width: "20",
       headerStyle: () => {
@@ -528,7 +502,9 @@ function TableData(props) {
       // Cleanup the event listener
       document.removeEventListener("mousedown", checkIfClickedOutside);
       if (showTableField) {
-        dispatch(getProjectByCode(code, date, logType, pageNo, record));
+        dispatch(
+          getProjectByCode(code, date, logType, pageNo, record, porjectCodeType)
+        );
       }
     };
   }, [showTableField]);
@@ -633,13 +609,13 @@ function TableData(props) {
   // DATE CHIPS
 
   const closeDateChip = (index) => {
-    console.log('Date on chip closing:', date)
+    // console.log("Date on chip closing:", date);
     if (index == 0) {
       setdate({
         ...dateState,
         start: "",
       });
-      date.start = ""
+      date.start = "";
       localStorage.setItem(
         "selected_date",
         JSON.stringify({ ...dateState, start: "" })
@@ -652,7 +628,7 @@ function TableData(props) {
         ...dateState,
         end: "",
       });
-      date.end = ""
+      date.end = "";
       localStorage.setItem(
         "selected_date",
         JSON.stringify({ ...dateState, end: "" })
@@ -661,11 +637,8 @@ function TableData(props) {
     }
   };
 
-  const DateChipsArray = [
-    dateState.start,
-    dateState.end,
-  ];
-  console.log("DateChipsArray", DateChipsArray);
+  const DateChipsArray = [dateState.start, dateState.end];
+  // console.log("DateChipsArray", DateChipsArray);
   const dateChips = DateChipsArray.map((items, index) => (
     <section className={Style.chip}>
       <p style={{ color: "#fff" }}>{items}</p>
@@ -675,6 +648,17 @@ function TableData(props) {
       />
     </section>
   ));
+
+  useEffect(() => {
+    props.tableDataStateFun(
+      code,
+      date,
+      logType,
+      pageNo,
+      record,
+      porjectCodeType
+    );
+  }, []);
 
   return (
     <>
@@ -686,7 +670,6 @@ function TableData(props) {
           {data && data.data && data.data.logs ? (
             <ToolkitProvider
               keyField="_id"
-              s
               data={data.data.logs}
               columns={columns}
               search
@@ -803,19 +786,20 @@ function TableData(props) {
                                           dateState && dateState.start
                                             ? dateState.start
                                             : localStorage.getItem(
-                                              "selected_date"
-                                            ) && JSON.parse(
-                                              localStorage.getItem(
                                                 "selected_date"
-                                              )
-                                            ).start
+                                              ) &&
+                                              JSON.parse(
+                                                localStorage.getItem(
+                                                  "selected_date"
+                                                )
+                                              ).start
                                         }
                                         onChange={(e) => {
                                           setdate({
                                             ...dateState,
                                             start: e.target.value,
                                           });
-                                          date.start = e.target.value
+                                          date.start = e.target.value;
                                         }}
                                       />
                                       <input
@@ -826,19 +810,20 @@ function TableData(props) {
                                           dateState && dateState.end
                                             ? dateState.end
                                             : localStorage.getItem(
-                                              "selected_date"
-                                            ) && JSON.parse(
-                                              localStorage.getItem(
                                                 "selected_date"
-                                              )
-                                            ).end
+                                              ) &&
+                                              JSON.parse(
+                                                localStorage.getItem(
+                                                  "selected_date"
+                                                )
+                                              ).end
                                         }
                                         onChange={(e) => {
                                           setdate({
                                             ...dateState,
                                             end: e.target.value,
                                           });
-                                          date.end = e.target.value
+                                          date.end = e.target.value;
                                         }}
                                       />
                                     </section>

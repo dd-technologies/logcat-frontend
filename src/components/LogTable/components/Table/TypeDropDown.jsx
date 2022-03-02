@@ -1,26 +1,43 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFilter,
-  faCalendar,
-  faCaretDown,
-  faDatabase,
-  faSync,
-  faTasks,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown, faTasks } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import CustomeDropDown from "../../../../Container/DropDown";
 import Style from "./TypeDropDown.module.scss";
-import Spinner from "../../../../Container/Spinner";
+import {
+  getCrashFreeUsers,
+  getLogByDate,
+  getLogTypeCounts,
+  getProjectByCode,
+} from "../../../../redux/action/ProjectAction";
 
-const TypeDropDown = () => {
+const TypeDropDown = (props) => {
+  console.log("props typedropdown", props);
+
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
-  const [projectCode, setProjectCode] = useState();
   const ref = useRef();
   //   let modelList;
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { loading, data } = getModelCodeReducer;
+
+  const [projectCode, setProjectCode] = useState({
+    code: localStorage.getItem("project_type")
+      ? JSON.parse(localStorage.getItem("project_type")).typeCode
+      : (data && data.modelList[0].typeCode) || "",
+
+    name: localStorage.getItem("project_type")
+      ? JSON.parse(localStorage.getItem("project_type")).typeName
+      : (data && data.modelList[0].typeName) || "",
+  });
+
+  console.log("projectCosde", projectCode);
+
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const code = urlParams.get("code");
+
+  const dispatch = useDispatch();
+
   if (data) {
     // modelList = getModelCodeReducer.data.modelList;
   }
@@ -31,8 +48,6 @@ const TypeDropDown = () => {
       setProjectCodeDropDown(false);
     }
   };
-
-  console.log("data", data);
 
   // CLICKING OUTSIDE THE VIEWPORT
   useEffect(() => {
@@ -56,6 +71,48 @@ const TypeDropDown = () => {
     };
   }, [projectCodeDropDown]);
 
+  const onSubmitFun = (type) => {
+    setProjectCode({
+      code: type.typeCode,
+      name: type.typeName,
+    });
+    ProjectTypeFilter();
+
+    // console.log("projectCode", localStorage.getItem("project_type"));
+
+    localStorage.setItem("project_type", JSON.stringify(type));
+    //
+
+    dispatch(
+      getProjectByCode(
+        props.tableDataState.code,
+        props.tableDataState.date,
+        props.tableDataState.logtype,
+        props.tableDataState.pageNo,
+        props.tableDataState.records,
+        type.typeCode
+      )
+    );
+    //
+    dispatch(
+      getCrashFreeUsers({
+        code,
+        diffDate: props.diffDate,
+        code1: type.typeCode,
+      })
+    );
+    //
+    dispatch(
+      getLogTypeCounts({ code, diffDate: props.diffDate, code1: type.typeCode })
+    );
+    //
+    dispatch(
+      getLogByDate({ code, diffDate: props.diffDate, code1: type.typeCode })
+    );
+  };
+
+  //  TODO: dispatch the code depanding the local storage
+
   return (
     <>
       {loading ? (
@@ -64,13 +121,21 @@ const TypeDropDown = () => {
         <section ref={ref}>
           <section onClick={ProjectTypeFilter} className={Style.OuterDiv}>
             {/* <Image src={DateIcons} /> */}
-            <FontAwesomeIcon icon={faTasks} color="#2A9AA4" style={{width: '22px', height: '25px'}} />
-            <p style={{fontSize: '1rem'}} className="mm-2">
+            <FontAwesomeIcon
+              icon={faTasks}
+              color="#2A9AA4"
+              style={{ width: "22px", height: "25px" }}
+            />
+            <p style={{ fontSize: "1rem" }} className="mm-2">
               {projectCode
                 ? projectCode.name
                 : data && data.modelList[0].typeName}
             </p>
-            <FontAwesomeIcon icon={faCaretDown} color="#2A9AA4" style={{width:"10px", height:'20px', marginBottom: '2px'}} />
+            <FontAwesomeIcon
+              icon={faCaretDown}
+              color="#2A9AA4"
+              style={{ width: "10px", height: "20px", marginBottom: "2px" }}
+            />
           </section>
 
           <section>
@@ -83,20 +148,12 @@ const TypeDropDown = () => {
                 {data &&
                   data.modelList.map((type) => {
                     return (
-                      <p 
-                        style={{fontSize: '1rem !important'}} 
+                      <p
+                        style={{ fontSize: "1rem !important" }}
                         className={Style.productVersion}
-                        onClick={() => {
-                          setProjectCode({
-                            code: type.typeCode,
-                            name: type.typeName,
-                          });
-                          ProjectTypeFilter();
-                        }}
+                        onClick={() => onSubmitFun(type)}
                       >
                         {type.typeName}
-
-                        {console.log("type name " + type.typeName)}
                       </p>
                     );
                   })}
@@ -107,38 +164,6 @@ const TypeDropDown = () => {
       )}
     </>
   );
-  //   <section className={Style.filterwithDate} ref={ref}>
-  //   <section className={Style.datafilter} onClick={ProjectTypeFilter}>
-  //     {/* <Image src={DateIcons} /> */}
-  //     <FontAwesomeIcon icon={faTasks} color='#2A9AA4' size="2x" />
-  //     <p className="ms-2 p-1">
-  //         {modelList[0].name}
-  //         {console.log("modelList"+modelList.name)}
-  //     </p>
-  //     <FontAwesomeIcon icon={faCaretDown} color="" />
-  //   </section>
-
-  //   <section>
-  //     {projectCodeDropDown ? (
-  //       <CustomeDropDown width="100%">
-  //         {
-  //           modelList.map(type => {
-  //           <p
-  //             className="mt-1"
-  //             // onClick={() => {
-  //             //   setDiffDate(7);
-  //             //   setDateDropDown(false);
-  //             // }}
-  //           >
-  //             {type.name}
-  //           </p>
-
-  //           })
-  //         }
-  //         </CustomeDropDown>
-  //     ) : null}
-  //   </section>
-  // </section>
 };
 
 export default TypeDropDown;

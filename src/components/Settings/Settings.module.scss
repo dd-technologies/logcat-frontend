@@ -60,7 +60,7 @@
   border: $border;
   border-radius: $cardBorderRadius;
   padding: 5px;
-
+  border: 1px solid $activehrefText;
   & span {
     margin-left: 5px;
   }
@@ -82,12 +82,18 @@
   }
 }
 
+.chipouter {
+  width: 100% !important;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+}
+
 .chip {
   background-color: #8e8e8e;
   border-radius: 20px;
   padding: 10px;
   height: 30px;
-  width: 100%;
+  width: max-content;
   display: flex !important;
   justify-content: space-between;
   align-items: center;
@@ -111,5 +117,7 @@
   position: absolute;
 }
 .headingText {
-  @include activeparaFontdasktopMixin;
+  font-size: 1.3rem !important;
+  color: $activehrefText;
+  font-weight: 600;
 }

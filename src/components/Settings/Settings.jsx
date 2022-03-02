@@ -29,6 +29,8 @@ export default function Settings() {
     error: null,
   });
 
+  const [projectChip, setprojectChip] = useState("");
+
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
   const { data } = slideWindowReducer;
@@ -38,7 +40,7 @@ export default function Settings() {
   const code = urlParams.get("code");
   const projectName = urlParams.get("name");
 
-  console.log("prject name", projectName);
+  // console.log("prject name", projectName);
 
   // NAVIGATION MENU HERE
   const navdetails = {
@@ -60,6 +62,7 @@ export default function Settings() {
     link1: {
       iconName: LogICon,
       linkName: "Logs",
+      link: `/logtable?code=${code}&name=${projectName}&pagename=logpage`,
     },
     link2: {
       iconName: `/assets/icons/settings.png`,
@@ -75,23 +78,31 @@ export default function Settings() {
       evt.preventDefault();
 
       setChipState({
-        items: [chipState.value],
+        items: [...chipState.items, chipState.value],
         value: "",
       });
     }
 
-    console.log("chip on key down");
+    // console.log("chip on key down");
   };
 
   //   HANDLE CHANG FUNCTION
   const handleChangeEmail = (evt) => {
     setChipState({
+      ...chipState,
       value: evt.target.value,
       error: null,
     });
-    console.log("chip handle change", evt.target.value);
+    // console.log("chip handle change", evt.target.value);
   };
-  console.log("chip array", chipState);
+  // console.log("chip array", chipState);
+
+  const hanldeOndeleteEmail = (item) => {
+    setChipState({
+      ...chipState,
+      items: chipState.items.filter((i) => i !== item),
+    });
+  };
 
   //   -----------------------------------------------------------------------------------------------------------------
 
@@ -102,24 +113,35 @@ export default function Settings() {
     if (["Enter", "Tab", ","].includes(evt.key)) {
       evt.preventDefault();
 
-      setChipStateProject({
-        items: [chipStateProject.value],
-        value: "",
-      });
+      var value = chipStateProject.value.trim();
+
+      if (value) {
+        setChipStateProject({
+          ...chipStateProject,
+          items: [...chipStateProject.items, chipStateProject.value],
+          // ...chipStateProject,
+          value: "",
+        });
+      }
     }
 
-    console.log("chip on key down");
+    // console.log("chip on key down");
   };
 
   //   HANDLE CHANG FUNCTION
   const handleChangeProject = (evt) => {
     setChipStateProject({
+      ...chipStateProject,
       value: evt.target.value,
       error: null,
     });
-    console.log("chip handle change", evt.target.value);
   };
-  console.log("chip array", chipStateProject);
+
+  const hanldeOndeleteProject = (item) => {
+    setChipStateProject({
+      items: chipStateProject.items.filter((i) => i !== item),
+    });
+  };
 
   //   -----------------------------------------------------------------------------------------------------------------
 
@@ -137,7 +159,7 @@ export default function Settings() {
           <SideBar sidebarDetails={sidebarDetails} />
         </Col>
         <Col
-          xl={10}
+          xl={10} 
           lg={10}
           md={10}
           sm={10}
@@ -174,7 +196,7 @@ export default function Settings() {
                 </div>
 
                 <Button
-                  style={{ width: "30%", fontWeight: 700 }}
+                  style={{ fontWeight: 700 }}
                   type="submit"
                   className="mt-4"
                 >
@@ -196,23 +218,28 @@ export default function Settings() {
                   />
                 </div>
                 {/* CHIP SECTION */}
-                <Row>
+
+                <section className={Style.chipouter}>
                   {chipStateProject.items &&
                     chipStateProject.items.map((items) => {
                       return (
                         <>
-                          <Col xl={3} md={3} sm={2} className="mt-2">
-                            <section className={Style.chip}>
-                              <p style={{ color: "#fff" }}>{items}</p>
-                              <FontAwesomeIcon icon={faWindowClose} />
-                            </section>
-                          </Col>
+                          <section className={Style.chip}>
+                            <p style={{ color: "#fff" }} className="m-2">
+                              {items}
+                            </p>
+                            <FontAwesomeIcon
+                              icon={faWindowClose}
+                              onClick={() => hanldeOndeleteProject(items)}
+                            />
+                          </section>
                         </>
                       );
                     })}
-                </Row>
+                </section>
+
                 <Button
-                  style={{ width: "30%", fontWeight: 700 }}
+                  style={{ fontWeight: 700 }}
                   type="submit"
                   className="mt-4"
                 >
@@ -247,24 +274,27 @@ export default function Settings() {
                   />
                 </div>
                 {/* CHIP SECTION */}
-                <Row>
+                <section className={Style.chipouter}>
                   {chipState.items &&
                     chipState.items.map((items) => {
                       return (
                         <>
-                          <Col xl={3} md={3} sm={2} className="mt-2">
-                            <section className={Style.chip}>
-                              <p style={{ color: "#fff" }}>{items}</p>
-                              <FontAwesomeIcon icon={faWindowClose} />
-                            </section>
-                          </Col>
+                          <section className={Style.chip}>
+                            <p style={{ color: "#fff" }} className="m-2">
+                              {items}
+                            </p>
+                            <FontAwesomeIcon
+                              icon={faWindowClose}
+                              onClick={() => hanldeOndeleteEmail(items)}
+                            />
+                          </section>
                         </>
                       );
                     })}
-                </Row>
+                </section>
 
                 <Button
-                  style={{ width: "30%", fontWeight: 700 }}
+                  style={{ fontWeight: 700 }}
                   type="submit"
                   className="mt-4"
                 >

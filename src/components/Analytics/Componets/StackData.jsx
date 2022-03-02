@@ -54,7 +54,7 @@ export default function StackData() {
   // const fileName =
 
   var grouped = DataINRow.reduce((result, word) => {
-    console.log("word", word);
+    // console.log("word", word);
     var letter;
     if (word.split(".").length > 2) {
       // get the first letter. (this assumes no empty words in the list)
@@ -63,18 +63,18 @@ export default function StackData() {
     } else letter = word.split(".")[0]
 
     // ensure the result has an entry for this letter
-    console.log("letter " + letter);
+    // console.log("letter " + letter);
     result[letter] = result[letter] || [];
 
-    console.log("result " + result[letter]);
+    // console.log("result " + result[letter]);
 
     // add the word to the letter index
     result[letter].push(word);
     return result;
   }, {});
-  console.log("groupedd  ", grouped);
+  // console.log("groupedd  ", grouped);
   const keys = Object.keys(grouped);
-  console.log("keys", keys);
+  // console.log("keys", keys);
 
   // console.log("array length  "+array.length)
 
@@ -188,7 +188,7 @@ export default function StackData() {
                         onClick={() => innerParaShowDetailsFun(idx)}
                       >
                         <p>{`${key.slice(key.indexOf("/") + 1)}`}</p>
-                        {console.log("items", grouped[key])}
+                        {/* {console.log("items", grouped[key])} */}
                         <FontAwesomeIcon icon={faCaretDown} />
                       </section>
 
@@ -197,7 +197,7 @@ export default function StackData() {
                         //   console.log(`inside map ${index} : ${innerParaShowDetails[index]}`);
                         innerParaShowDetails[idx] && (
                           <section className={Style.detailSection}>
-                            {console.log("  [key]", grouped[key])}
+                            {/* {console.log("  [key]", grouped[key])} */}
                             {
                               grouped[key].map((items, index) => {
                                 return(

@@ -18,11 +18,10 @@ import TableData from "./components/Table/TableData";
 import PieChartSection from "./components/PieChartSection";
 import {
   getLogTypeCounts,
-  getProjectDetails,
   getLogByDate,
   getProjectByCode,
-  getCrashFreeUsers,
   getDeviceModelCode,
+  getCrashFreeUsers,
 } from "../../redux/action/ProjectAction";
 import { useHistory } from "react-router-dom";
 import Spinner from "../../Container/Spinner";
@@ -38,6 +37,7 @@ export default function LogTable() {
   const [productDropDown, seProductDropDown] = useState(false);
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
   const [diffDate, setDiffDate] = useState(90);
+  const [tableDataState, setTableDataState] = useState({});
 
   const [projectCode, setProjectCode] = useState();
 
@@ -45,6 +45,18 @@ export default function LogTable() {
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
   const { data } = slideWindowReducer;
   // console.log("slideWindowReducer", data);
+
+  const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
+  const { loading, data: projectType } = getModelCodeReducer;
+
+  const getAllLogByCodeReducer = useSelector(
+    (state) => state.getAllLogByCodeReducer
+  );
+
+  const { data: getallCode } = getAllLogByCodeReducer;
+
+  const recordavilable =
+    getallCode && getallCode.data && getallCode.data.pageLimit;
 
   const ref = useRef();
 
@@ -83,6 +95,7 @@ export default function LogTable() {
     link2: {
       iconName: `/assets/icons/settings.png`,
       linkName: "Settings",
+      link: `/settings?code=${code}&name=${projectName}&pagename=settings`,
     },
   };
 
@@ -110,9 +123,6 @@ export default function LogTable() {
   };
 
   const dispatch = useDispatch();
-  const getAllLogByCodeReducer = useSelector(
-    (state) => state.getAllLogByCodeReducer
-  );
 
   //   const getModelCodeReducer = useSelector(
   //     (state) => state.getModelCodeReducer
@@ -123,24 +133,42 @@ export default function LogTable() {
   //     modelList = getModelCodeReducer.data.modelList
   //   }
 
-  const dispatchmultiple = () => {
-    // dispatch(getLogTypeCounts(code));
-    // dispatch(getErrorWRTOS(code));
-    dispatch(getProjectDetails(code));
-    // dispatch(getErrorWRTVersion(code));
-    // getProjectByCode()
+  // const dispatchmultiple = () => {
+  //   // dispatch(getLogTypeCounts(code));
+  //   // dispatch(getErrorWRTOS(code));
+  //   // dispatch(getProjectDetails(code));
+  //   // dispatch(getErrorWRTVersion(code));
+  //   // getProjectByCode()
 
-    // dispatch(getLogByDate(code, date));
-    // dispatch(getCrashFreeUsers({code,diffDate}));
-  };
-  useEffect(() => {
-    dispatchmultiple();
-  }, [date]);
+  //   // dispatch(getLogByDate(code, date));
+  //   // dispatch(getCrashFreeUsers({code,diffDate}));
+  // };
+  // useEffect(() => {
+  //   dispatchmultiple();
+  // }, [date]);
 
   const multipleDispatchGraph = () => {
-    dispatch(getLogTypeCounts({ code, diffDate }));
-    dispatch(getLogByDate({ code, diffDate }));
-    dispatch(getCrashFreeUsers({ code, diffDate }));
+    dispatch(
+      getLogTypeCounts({
+        code,
+        diffDate,
+        code1: projectType && projectType.modelList[0].typeCode,
+      })
+    );
+    dispatch(
+      getLogByDate({
+        code,
+        diffDate,
+        code1: projectType && projectType.modelList[0].typeCode,
+      })
+    );
+    dispatch(
+      getCrashFreeUsers({
+        code,
+        diffDate,
+        code1: projectType && projectType.modelList[0].typeCode,
+      })
+    );
 
     // dispatch(getLogByDate(code, date));
   };
@@ -150,10 +178,10 @@ export default function LogTable() {
   filedate.setDate(filedate.getDate() - diffDate);
   const startDate = filedate.toISOString().slice(0, 10);
 
-  localStorage.setItem("selected_date", JSON.stringify({ start: startDate, end: endDate }));
-
-
-
+  localStorage.setItem(
+    "selected_date",
+    JSON.stringify({ start: startDate, end: endDate })
+  );
 
   useEffect(() => {
     multipleDispatchGraph();
@@ -192,12 +220,12 @@ export default function LogTable() {
   // dateDropDown : was dependency for the above useeffect
 
   // REFRESH ONLY TABLE
+  let logType = JSON.parse(localStorage.getItem("selected_log"));
+  let record = JSON.parse(localStorage.getItem("selected_record"));
   const RefreshTableOnlyFun = () => {
-    let logType = JSON.parse(localStorage.getItem("selected_log"));
     // console.log("dispatch logs", logType);
 
     let date = JSON.parse(localStorage.getItem("selected_date"));
-    let record = JSON.parse(localStorage.getItem("selected_record"));
 
     // 1) code, logtype , start date, end date, records, page==null
     if (code && logType && date && record) {
@@ -242,8 +270,23 @@ export default function LogTable() {
     dispatch(getProjectByCode({ code: code, date: { startDate, endDate } }));
   };
 
-  // PRODUCT VERSION FUNCTION
-  const productversionDropDown = () => { };
+  const tableDataStateFun = (
+    code,
+    date,
+    logtype,
+    pageNo,
+    records,
+    projectType
+  ) => {
+    setTableDataState({
+      code,
+      date,
+      logtype,
+      pageNo,
+      records,
+      projectType,
+    });
+  };
 
   return (
     <>
@@ -279,8 +322,8 @@ export default function LogTable() {
             <Row className="mt-4">
               <Col xl={10} md={9} sm={9} /* className={Style.filterWithDate} */>
                 <TypeDropDown
-                  projectCode={projectCode}
-                  setProjectCode={setProjectCode}
+                  tableDataState={tableDataState}
+                  diffDate={diffDate}
                 />
               </Col>
 
@@ -288,27 +331,31 @@ export default function LogTable() {
                 <section className={Style.filterwithDate} ref={ref}>
                   <section className={Style.datafilter} onClick={DateFilter}>
                     <Image src={DateIcons} />
-                    <p style={{ fontSize: '1rem'}} className="mm-2">
+                    <p style={{ fontSize: "1rem" }} className="mm-2">
                       {diffDate == 10
                         ? `last 10 days`
                         : diffDate == 7
-                          ? `last 7 days`
-                          : diffDate == 15
-                            ? `last 15 days`
-                            : diffDate == 30
-                              ? `last 30 days`
-                              : diffDate == 45
-                                ? `last 45 days`
-                                : diffDate == 60
-                                  ? `last 60 days`
-                                  : diffDate == 90
-                                    ? `last 90 days`
-                                    : null}
+                        ? `last 7 days`
+                        : diffDate == 15
+                        ? `last 15 days`
+                        : diffDate == 30
+                        ? `last 30 days`
+                        : diffDate == 45
+                        ? `last 45 days`
+                        : diffDate == 60
+                        ? `last 60 days`
+                        : diffDate == 90
+                        ? `last 90 days`
+                        : null}
                     </p>
                     <FontAwesomeIcon
                       icon={faCaretDown}
                       color="#2A9AA4"
-                      style={{ width: "10px", height: "20px", marginBottom: "2px" }}
+                      style={{
+                        width: "10px",
+                        height: "20px",
+                        marginBottom: "2px",
+                      }}
                     />
                   </section>
 
@@ -316,8 +363,8 @@ export default function LogTable() {
                     {dateDropDown ? (
                       <CustomeDropDown width="100%">
                         {/* <p className="mt-1">10 days</p> */}
-                        <p 
-                          style={{ fontSize: '1rem'}}
+                        <p
+                          style={{ fontSize: "1rem" }}
                           className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(7);
@@ -396,8 +443,17 @@ export default function LogTable() {
 
             {/* Events  */}
             <Row className="mt-5">
-              <Col xl={6} md={6} sm={6} className={Style.issuesTable} >
-                <p style={{ fontWeight: '600', fontSize: '0.9rem', lineHeight: '2.2rem', letterSpacing: '0.5px' }}>Issues</p>
+              <Col xl={6} md={6} sm={6} className={Style.issuesTable}>
+                <p
+                  style={{
+                    fontWeight: "600",
+                    fontSize: "0.9rem",
+                    lineHeight: "2.2rem",
+                    letterSpacing: "0.5px",
+                  }}
+                >
+                  Issues
+                </p>
                 {/* <p className={Style.LinkActiveText}>Search By userId</p> */}
               </Col>
               <Col
@@ -420,11 +476,12 @@ export default function LogTable() {
             <Row className="mt-3">
               <Col>
                 {/* table with toolkit provider */}
-                {console.log("component redenr")}
+                {/* {console.log("component redenr")} */}
                 <TableData
                   code={code}
                   projectName={projectName}
                   diffDate={diffDate}
+                  tableDataStateFun={tableDataStateFun}
                 />
 
                 {/*Ag table  */}

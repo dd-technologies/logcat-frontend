@@ -3,7 +3,6 @@ import { Row, Col } from "react-bootstrap";
 import Style from "./ToggleTabs.module.scss";
 import CustomCard from "../../../Container/CustomCard";
 import EventChart from "../charts/EventChart";
-import DeviceChart from "../charts/DeviceChart";
 import { Line } from "rc-progress";
 import { useSelector } from "react-redux";
 import Spinner from "../../../Container/Spinner";
@@ -48,7 +47,7 @@ export default function ToggleTabs() {
   }
 
   
-  console.log('alldata', alldata);
+  // console.log('alldata', alldata);
 
   const getErrorWRTOSReducer = useSelector(
     (state) => state.getErrorWRTOSReducer

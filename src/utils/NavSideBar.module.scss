@@ -179,7 +179,7 @@
       width: 30%;
     }
     @media screen and (min-width: 1600px) and (max-width: 1920px) {
-      width: 20%;
+      width: 50%;
     }
 
     & section {
@@ -223,10 +223,27 @@
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    height: 10%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+    // border : 2px solid red;
 
     .DashBoardTitle {
       font-size: 2rem;
+      display: flex;
+      justify-content: center !important;
+      align-items: center !important;
+      .logologcat {
+        @media screen and (min-width: 600px) and (max-width: 1200px) {
+          width: 50% !important;
+        }
+        @media screen and (min-width: 1200px) and (max-width: 1600px) {
+          width: 30% !important;
+        }
+        @media screen and (min-width: 1600px) and (max-width: 1900px) {
+          width: 30% !important;
+        }
+      }
     }
 
     & img {
@@ -241,19 +258,20 @@
   .options {
     height: 100%;
     border-bottom: $borderBottom;
-    .optionItems {
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      color: $defaultTextColor;
-      padding-left: 5%;
-      & section {
-        padding: 10px;
-      }
-    }
 
     .option_active {
       background-color: $backgroundColor;
+      padding: 10px;
+    }
+  }
+  .optionItems {
+    display: flex !important;
+    text-decoration: none;
+    align-items: center;
+    color: $defaultTextColor;
+    padding-left: 5%;
+    & section {
+      padding: 10px;
     }
   }
 
@@ -274,12 +292,11 @@
     .brandName > p {
       font-size: 0.8rem;
     }
-   }
+  }
 }
 
 // SWIPE WINDOW SIDE BAR
 .sideBarSwipe {
-  transition-duration: 0.5s !important;
   overflow: hidden;
   background-image: url("../assets/images/background.jpg");
   background-repeat: no-repeat;
@@ -298,10 +315,27 @@
     justify-content: space-between;
     flex-direction: column;
     align-items: center;
-    height: 10%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+
 
     .DashBoardTitle {
       font-size: 2rem;
+      display: flex;
+      justify-content: center !important;
+      align-items: center !important;
+      .logologcat {
+        @media screen and (min-width: 600px) and (max-width: 1200px) {
+          width: 100% !important;
+        }
+        @media screen and (min-width: 1200px) and (max-width: 1600px) {
+          width: 70% !important;
+        }
+        @media screen and (min-width: 1600px) and (max-width: 1900px) {
+          width: 40% !important;
+        }
+      }
     }
 
     & img {
@@ -326,9 +360,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 10px;
 
       color: $defaultTextColor;
-      padding: 10px;
       .optionName {
         display: none !important;
       }
@@ -339,7 +373,21 @@
     }
 
     .option_active {
-      background-color: $backgroundColor;
+      text-decoration: none;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $activehrefText;
+      color: $defaultTextColor;
+      padding: 10px;
+      .optionName {
+        display: none !important;
+      }
+
+      & section {
+        padding: 10px;
+      }
     }
   }
 
@@ -369,7 +417,6 @@
   align-items: center;
   padding: 5px;
   width: 100%;
-  transition-duration: 0.3s;
   &:hover {
     background-color: $backgroundColor;
     color: $defaultTextColor;
