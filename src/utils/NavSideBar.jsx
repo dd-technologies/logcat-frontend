@@ -278,30 +278,31 @@ export function SideBar(props) {
           </section>
 
           {/* LINK SECOND  */}
-
-          <section
-            className={
-              settingUrl.includes("settings")
-                ? `${Style.option_active}`
-                : `${Style.optionItems} `
-            }
-          >
-            <Link
-              className={Style.optionItems}
-              to={
-                sidebarDetails.link2 &&
-                sidebarDetails.link2.link &&
-                sidebarDetails.link2.link.length === 0
-                  ? ""
-                  : sidebarDetails.link2.link
+          {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
+            <section
+              className={
+                settingUrl.includes("settings")
+                  ? `${Style.option_active}`
+                  : `${Style.optionItems} `
               }
             >
-              <Image src={settigns} />
-              <section className={Style.optionName}>
-                {sidebarDetails.link2.linkName}
-              </section>
-            </Link>
-          </section>
+              <Link
+                className={Style.optionItems}
+                to={
+                  sidebarDetails.link2 &&
+                  sidebarDetails.link2.link &&
+                  sidebarDetails.link2.link.length === 0
+                    ? ""
+                    : sidebarDetails.link2.link
+                }
+              >
+                <Image src={settigns} />
+                <section className={Style.optionName}>
+                  {sidebarDetails.link2.linkName}
+                </section>
+              </Link>
+            </section>
+          )}
         </section>
 
         <section className={Style.brandName}>
