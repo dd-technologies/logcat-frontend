@@ -39,15 +39,26 @@ export default function LogTable() {
   const [diffDate, setDiffDate] = useState(90);
   const [tableDataState, setTableDataState] = useState({});
 
-  const [projectCode, setProjectCode] = useState();
-
+  
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
   const { data } = slideWindowReducer;
-  // console.log("slideWindowReducer", data);
 
+  // const { loading,data:dt } = getModelCodeReducer;
+  // console.log("slideWindowReducer", data);
+  
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { loading, data: projectType } = getModelCodeReducer;
+  const { loading:ld, data: dt } = getModelCodeReducer;
+
+  const [projectCode, setProjectCode] = useState({
+    code: localStorage.getItem("project_type")
+      ? JSON.parse(localStorage.getItem("project_type")).typeCode
+      : dt && dt.modelList&& dt.modelList[0].typeCode,
+    name: localStorage.getItem("project_type")
+    ? JSON.parse(localStorage.getItem("project_type")).typeName
+    : dt && dt.modelList && dt.modelList[0].typeName,
+  });
 
   const getAllLogByCodeReducer = useSelector(
     (state) => state.getAllLogByCodeReducer
@@ -220,54 +231,58 @@ export default function LogTable() {
   // dateDropDown : was dependency for the above useeffect
 
   // REFRESH ONLY TABLE
-  let logType = JSON.parse(localStorage.getItem("selected_log"));
-  let record = JSON.parse(localStorage.getItem("selected_record"));
   const RefreshTableOnlyFun = () => {
-    // console.log("dispatch logs", logType);
+    let logType = JSON.parse(localStorage.getItem("selected_log"));
+    let record = JSON.parse(localStorage.getItem("selected_record"));
+    let start = JSON.parse(localStorage.getItem("selected_date")).start;
+    let end= JSON.parse(localStorage.getItem("selected_date")).end;
+    let pgNo = JSON.parse(localStorage.getItem("page_no"));
+    // // console.log("dispatch logs", logType);
 
-    let date = JSON.parse(localStorage.getItem("selected_date"));
+    // let date = JSON.parse(localStorage.getItem("selected_date"));
 
-    // 1) code, logtype , start date, end date, records, page==null
-    if (code && logType && date && record) {
-      // console.log("object 1", code, logType, record);
-      return dispatch(getProjectByCode(code, logType, date, record));
-    }
+    // // 1) code, logtype , start date, end date, records, page==null
+    // if (code && logType && date && record) {
+    //   // console.log("object 1", code, logType, record);
+    //   return dispatch(getProjectByCode(code, logType, date, record));
+    // }
 
-    // 2) code, logtype , start date, end date,
-    if (code && logType && date) {
-      // console.log("object 2", code, logType, record);
-      return dispatch(getProjectByCode(code, logType, date));
-    }
-    // 3) code, logtype
-    if (code && logType) {
-      // console.log("object 3", code, logType, record);
-      return dispatch(getProjectByCode(code, null, logType, null, record));
-    }
+    // // 2) code, logtype , start date, end date,
+    // if (code && logType && date) {
+    //   // console.log("object 2", code, logType, record);
+    //   return dispatch(getProjectByCode(code, logType, date));
+    // }
+    // // 3) code, logtype
+    // if (code && logType) {
+    //   // console.log("object 3", code, logType, record);
+    //   return dispatch(getProjectByCode(code, null, logType, null, record));
+    // }
 
-    // --1) only logType
-    if (code && logType) {
-      // console.log("object 4", code, logType, record);
-      return dispatch(getProjectByCode(code, logType, null, null));
-    }
+    // // --1) only logType
+    // if (code && logType) {
+    //   // console.log("object 4", code, logType, record);
+    //   return dispatch(getProjectByCode(code, logType, null, null));
+    // }
 
-    // --2) only date
-    if (code && date) {
-      // console.log("object 5", code, logType, record);
-      return dispatch(getProjectByCode(code, null, date, null));
-    }
-    // --3) only records
-    if (code && record) {
-      // console.log("object 6", code, logType, record);
-      return dispatch(getProjectByCode(code, null, null, record));
-    }
+    // // --2) only date
+    // if (code && date) {
+    //   // console.log("object 5", code, logType, record);
+    //   return dispatch(getProjectByCode(code, null, date, null));
+    // }
+    // // --3) only records
+    // if (code && record) {
+    //   // console.log("object 6", code, logType, record);
+    //   return dispatch(getProjectByCode(code, null, null, record));
+    // }
 
     // *) code
-    // console.log("object 7", code, logType, record);
-    let filedate = new Date();
-    const endDate = filedate.toISOString().slice(0, 10);
-    filedate.setDate(filedate.getDate() - diffDate);
-    const startDate = filedate.toISOString().slice(0, 10);
-    dispatch(getProjectByCode({ code: code, date: { startDate, endDate } }));
+    console.log(`object 7 refresh ${code} date ${start} filter ${logType} page ${pgNo} record ${record} project type ${projectCode.code}`);
+    // let filedate = new Date();
+    // const endDate = filedate.toISOString().slice(0, 10);
+    // filedate.setDate(filedate.getDate() - diffDate);
+    // const startDate = filedate.toISOString().slice(0, 10);
+    dispatch(getProjectByCode(code, {start,end}, logType, pgNo, record, projectCode.code))
+    // dispatch(getProjectByCode({ code: code, date: { startDate, endDate } }));
   };
 
   const tableDataStateFun = (
@@ -324,6 +339,9 @@ export default function LogTable() {
                 <TypeDropDown
                   tableDataState={tableDataState}
                   diffDate={diffDate}
+                  projectCode={projectCode}
+                  codeReducer = {getModelCodeReducer}
+                  setProjectCode = {setProjectCode}
                 />
               </Col>
 
@@ -481,6 +499,7 @@ export default function LogTable() {
                   code={code}
                   projectName={projectName}
                   diffDate={diffDate}
+                  projectCode = {projectCode}
                   tableDataStateFun={tableDataStateFun}
                 />
 
