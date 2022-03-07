@@ -464,7 +464,7 @@ function TableData(props) {
       document.removeEventListener("mousedown", checkIfClickedOutside);
       if (showTableField) {
         dispatch(
-          getProjectByCode({code:code, date:date, filters:logType, page:pageNo, record:record, projectType:props.projectCode.code})
+          getProjectByCode(code, date, logType, pageNo, record, props.projectCode.code)
         );
       }
     };

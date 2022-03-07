@@ -39,6 +39,8 @@ export default function LogTable() {
   const [diffDate, setDiffDate] = useState(90);
   const [tableDataState, setTableDataState] = useState({});
 
+  console.log("diffdate: ",diffDate);
+
   
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
@@ -158,6 +160,25 @@ export default function LogTable() {
   //   dispatchmultiple();
   // }, [date]);
 
+  useEffect(() => {
+    dispatch(getDeviceModelCode(code));
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and the clicked target is not within the menu,
+      // then close the menu
+      if (dateDropDown && ref.current && !ref.current.contains(e.target)) {
+        setDateDropDown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, []);
+
+
   const multipleDispatchGraph = () => {
     dispatch(
       getLogTypeCounts({
@@ -210,23 +231,7 @@ export default function LogTable() {
     };
   }, [history]);
 
-  useEffect(() => {
-    dispatch(getDeviceModelCode(code));
-    const checkIfClickedOutside = (e) => {
-      // If the menu is open and the clicked target is not within the menu,
-      // then close the menu
-      if (dateDropDown && ref.current && !ref.current.contains(e.target)) {
-        setDateDropDown(false);
-      }
-    };
-
-    document.addEventListener("mousedown", checkIfClickedOutside);
-
-    return () => {
-      // Cleanup the event listener
-      document.removeEventListener("mousedown", checkIfClickedOutside);
-    };
-  }, []);
+  
 
   // dateDropDown : was dependency for the above useeffect
 
@@ -327,6 +332,8 @@ export default function LogTable() {
           <Navbar navdetails={navdetails} />
 
           {/* data inhere */}
+          {
+            ld ? <Spinner height="400px" /> :
           <Container
             className={
               data.show
@@ -508,6 +515,7 @@ export default function LogTable() {
               </Col>
             </Row>
           </Container>
+          }
         </Col>
       </Row>
     </>

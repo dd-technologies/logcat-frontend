@@ -23,11 +23,11 @@ const TypeDropDown = (props) => {
   // const [projectCode, setProjectCode] = useState({
   //   code: localStorage.getItem("project_type")
   //     ? JSON.parse(localStorage.getItem("project_type")).typeCode
-  //     : (data && data.modelList[0].typeCode) || "",
+  //     : (data && data.modelList[0].typeCode),
 
   //   name: localStorage.getItem("project_type")
   //     ? JSON.parse(localStorage.getItem("project_type")).typeName
-  //     : (data && data.modelList[0].typeName) || "",
+  //     : (data && data.modelList[0].typeName),
   // });
 
   // console.log("projectCosde", projectCode);
@@ -112,6 +112,7 @@ const TypeDropDown = (props) => {
   console.log("data data: ",data)
 
 
+
   //  TODO: dispatch the code depanding the local storage
 
   return (
@@ -127,10 +128,16 @@ const TypeDropDown = (props) => {
               color="#2A9AA4"
               style={{ width: "22px", height: "25px" }}
             />
+            {
+              console.log("props project code: ",props.projectCode.name)
+            }
             <p style={{ fontSize: "1rem" }} className="mm-2">
-              {props.projectCode
+              {console.log("project Code2: ",props.projectCode)}
+              {
+              props.projectCode
                 ? props.projectCode.name
-                : data && data.modelList[0].typeName}
+                : 
+                data && data.modelList[0].typeName}
             </p>
             <FontAwesomeIcon
               icon={faCaretDown}
