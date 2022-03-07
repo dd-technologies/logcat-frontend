@@ -40,6 +40,7 @@ function TableData(props) {
   let filedate = new Date();
 
   console.log("props logtable", props);
+  console.log("getprojectbycode")
 
   const [dateSectionSelect, setDateSectionSelect] = useState(true);
   const [StatusSectionSeclect, setStatusSectionSeclect] = useState(false);
@@ -52,6 +53,7 @@ function TableData(props) {
   });
 
   const [pageNo, setPageNo] = useState(1);
+  localStorage.setItem("page_no",pageNo);
 
   // SHOW DATE SECTION FUNCTION
   const handleShowDate = () => {
@@ -163,6 +165,8 @@ function TableData(props) {
       data.data.logs[0].type) ||
     [];
 
+  console.log("project code: ",projectCodeAnalytics)
+
   const selectRow = {
     mode: "checkbox",
     // clickToSelect: true,
@@ -173,10 +177,7 @@ function TableData(props) {
 
   const dispatch = useDispatch();
 
-  const saveSearch = () => {
-    // console.log("save searches");
-    // localStorage.removeItem("name of localStorage variable you want to remove");
-    // LOG TYPE
+  let logTypeFun = ()=>{
     if (logType.info) {
       localStorage.setItem(
         "selected_log",
@@ -207,8 +208,9 @@ function TableData(props) {
         JSON.stringify({ ...logType, verbos: true })
       );
     }
+  }
 
-    // DATE CHIPS
+  let dateChipFun=()=>{
     if (dateState.start) {
       localStorage.setItem(
         "selected_date",
@@ -221,66 +223,33 @@ function TableData(props) {
         JSON.stringify({ ...dateState, end: dateState.end })
       );
     }
+  }
+
+  const saveSearch = () => {
+    // LOG TYPE
+    logTypeFun()
+
+    // DATE CHIPS
+    dateChipFun();
+
     localStorage.setItem("selected_record", JSON.stringify(record));
+    console.log("logType: ",logType)
     dispatch(
-      getProjectByCode(code, date, logType, pageNo, record, projectCodeAnalytics)
+      getProjectByCode(code, date, logType, pageNo, record, props.projectCode.code)
     );
     toast.success("Filter saved");
     setShowTableField(false);
   };
 
   useEffect(() => {
-    // console.log("use effect is runnig")
-
-    if (logType.info) {
-      localStorage.setItem(
-        "selected_log",
-        JSON.stringify({ ...logType, info: true })
-      );
-    }
-    if (logType.error) {
-      localStorage.setItem(
-        "selected_log",
-        JSON.stringify({ ...logType, error: true })
-      );
-    }
-    if (logType.warn) {
-      localStorage.setItem(
-        "selected_log",
-        JSON.stringify({ ...logType, warn: true })
-      );
-    }
-    if (logType.debug) {
-      localStorage.setItem(
-        "selected_log",
-        JSON.stringify({ ...logType, debug: true })
-      );
-    }
-    if (logType.verbos) {
-      localStorage.setItem(
-        "selected_log",
-        JSON.stringify({ ...logType, verbos: true })
-      );
-    }
+    // LOG TYPE
+    logTypeFun();
 
     // DATE CHIPS
-    if (dateState.start) {
-      localStorage.setItem(
-        "selected_date",
-        JSON.stringify({ ...dateState, start: dateState.start })
-      );
-    }
-    if (dateState.end) {
-      localStorage.setItem(
-        "selected_date",
-        JSON.stringify({ ...dateState, end: dateState.end })
-      );
-    }
+    dateChipFun();
   }, [logType, date]);
 
   const resetFilter = () => {
-    // startDateRef.current.value = "";
-    // endDatRef.current.value = "";
     setdate({
       start: "",
       end: "",
@@ -307,17 +276,16 @@ function TableData(props) {
     localStorage.removeItem("selected_log");
     localStorage.removeItem("selected_date");
     localStorage.removeItem("selected_record");
-    // setLogType({...logType})
     toast.success("Filter has been reset");
     setShowTableField(false);
     return dispatch(
-      getProjectByCode(code, null, null, null, record, projectCodeAnalytics)
+      getProjectByCode(code, null, null, null, record, props.projectCode.code)
     );
   };
 
+  console.log("project Code2 ", props.projectCode)
+
   const handlePageClick = (data) => {
-    // console.log(`data selected ${data.selected}`);
-    // console.log(`data selected page number ${pageNo}`);
     if (
       logType.error ||
       logType.info ||
@@ -326,16 +294,16 @@ function TableData(props) {
       logType.verbose
     ) {
       setShowTableField(false);
-      // console.log(`data selected ${pageNo} and ${data.selected}`)
       setPageNo(data.selected + 1);
+      localStorage.setItem("page_no",data.selected+1)
       return dispatch(
-        getProjectByCode(code, null, logType, data.selected + 1, record)
+        getProjectByCode(code, null, logType, data.selected + 1, record,props.projectCode)
       );
     }
 
     setPageNo(data.selected + 1);
-    // console.log(`data selected down ${data.selected} and page ${pageNo}`)
-    dispatch(getProjectByCode(code, null, null, data.selected + 1, record));
+    localStorage.setItem("page_no",data.selected+1)
+    dispatch(getProjectByCode(code, null, null, data.selected + 1, record,props.projectCode));
   };
 
   useEffect(() => {
@@ -347,15 +315,15 @@ function TableData(props) {
       logType.verbose
     ) {
       dispatch(
-        getProjectByCode(code, date, logType, pageNo, record, porjectCodeType) //TODO: dispatch close
+        getProjectByCode(code, date, logType, pageNo, record, props.projectCode.code) //TODO: dispatch close
       );
     } else {
       console.log("datte ", date);
       dispatch(
-        getProjectByCode(code, date, null, pageNo, record, porjectCodeType) //TODO: dispatch close
+        getProjectByCode(code, date, null, pageNo, record, props.projectCode.code) //TODO: dispatch close
       );
     }
-  }, [pageNo, startDate, endDate, porjectCodeType]);
+  }, [pageNo, startDate, endDate, props.projectCode.code]);
 
   const showTableFieldFunc = () => {
     setShowTableField(!showTableField);
@@ -363,8 +331,6 @@ function TableData(props) {
 
   // columns *******************************
   function errorFormatter(cell, row) {
-    // console.log("row logtype", row.log.type);
-
     if (row.log.type) {
       return (
         <span>
@@ -489,27 +455,20 @@ function TableData(props) {
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
-      // If the menu is open and the clicked target is not within the menu,
-      // then close the menu
       if (showTableField && ref.current && !ref.current.contains(e.target)) {
         setShowTableField(false);
       }
     };
-
     document.addEventListener("mousedown", checkIfClickedOutside);
-
     return () => {
-      // Cleanup the event listener
       document.removeEventListener("mousedown", checkIfClickedOutside);
       if (showTableField) {
         dispatch(
-          getProjectByCode(code, date, logType, pageNo, record, porjectCodeType)
+          getProjectByCode({code:code, date:date, filters:logType, page:pageNo, record:record, projectType:props.projectCode.code})
         );
       }
     };
   }, [showTableField]);
-
-  // console.log("active recodes", activeRecord);
 
   useEffect(() => {
     // 1) if record are 10 in localstorage
@@ -548,68 +507,37 @@ function TableData(props) {
     }
   }, []);
 
-  const closeChips = (index) => {
-    // console.log("close chip", index);
-    if (index == 0) {
-      setLogType({ ...logType, info: false });
-      dispatch(getProjectByCode(code, null, { ...logType, info: false }));
+  const closeChips = (items,index) => {
+    console.log(`close chips ${items} ${logType[items]}`);
 
+    // if (index === 0) {
+      setLogType({ ...logType, [items]: false });
+      // dispatch(getProjectByCode({code:code, date:date, filters:{ ...logType, [items]: false }, projectType:projectCodeAnalytics}));
+      console.log(`projectCodeType table ${props.projectCode.code}`)
+      dispatch(getProjectByCode(code, date, { ...logType, [items]: false }, pageNo, record, props.projectCode.code))
       localStorage.setItem(
         "selected_log",
-        JSON.stringify({ ...logType, info: false })
+        JSON.stringify({ ...logType, [items]: false })
       );
-    }
-    if (index == 1) {
-      setLogType({ ...logType, warn: false });
-      dispatch(getProjectByCode(code, null, { ...logType, warn: false }));
-      localStorage.setItem(
-        "selected_log",
-        JSON.stringify({ ...logType, warn: false })
-      );
-    }
-    if (index == 2) {
-      setLogType({ ...logType, error: false });
-      dispatch(getProjectByCode(code, null, { ...logType, error: false }));
-      localStorage.setItem(
-        "selected_log",
-        JSON.stringify({ ...logType, error: false })
-      );
-    }
-    if (index == 3) {
-      setLogType({ ...logType, debug: false });
-      dispatch(getProjectByCode(code, null, { ...logType, debug: false }));
-      localStorage.setItem(
-        "selected_log",
-        JSON.stringify({ ...logType, debug: false })
-      );
-    }
-    if (index == 4) {
-      setLogType({ ...logType, verbose: false });
-      dispatch(getProjectByCode(code, null, { ...logType, verbose: false }));
-      localStorage.setItem(
-        "selected_log",
-        JSON.stringify({ ...logType, verbose: false })
-      );
-    }
-
+    // }
     // CHECKING IF INPUT BOX HIDE
   };
 
   // STATUS LOG TYPE CHIPS
 
-  const chipsArray = ["info", "Warn", "Error", "Debug", "Verbose"];
+  const chipsArray = ["info", "warn", "error", "debug", "verbose"];
 
   const chipsScetion = chipsArray.map((items, index) => (
     <section className={Style.chip}>
-      <p style={{ color: "#fff" }}>{items}</p>
-      <FontAwesomeIcon icon={faWindowClose} onClick={() => closeChips(index)} />
+      <p style={{ color: "#fff" }}>{items.toUpperCase()}</p>
+      <FontAwesomeIcon icon={faWindowClose} onClick={() => closeChips(items,index)} />
     </section>
   ));
 
   // DATE CHIPS
 
   const closeDateChip = (index) => {
-    // console.log("Date on chip closing:", date);
+    console.log("Date on chip closing:", dateState);
     if (index == 0) {
       setdate({
         ...dateState,
@@ -620,7 +548,8 @@ function TableData(props) {
         "selected_date",
         JSON.stringify({ ...dateState, start: "" })
       );
-      dispatch(getProjectByCode(code, date));
+      console.log(`code ${code} date ${date} projectType ${projectCodeAnalytics}`)
+      dispatch(getProjectByCode({code:code, date:date, projectType:projectCodeAnalytics}));
     }
     if (index == 1) {
       // dispatch(getProjectByCode(code, null));
@@ -633,7 +562,7 @@ function TableData(props) {
         "selected_date",
         JSON.stringify({ ...dateState, end: "" })
       );
-      dispatch(getProjectByCode(code, date));
+      dispatch(getProjectByCode({code:code, date:date,projectType:projectCodeAnalytics}));
     }
   };
 
@@ -644,12 +573,13 @@ function TableData(props) {
       <p style={{ color: "#fff" }}>{items}</p>
       <FontAwesomeIcon
         icon={faWindowClose}
-        onClick={() => closeDateChip(index)}
+        onClick={() => closeDateChip(items,index)}
       />
     </section>
   ));
 
   useEffect(() => {
+    // this useEffect is providing data to the type-dropdown
     props.tableDataStateFun(
       code,
       date,
@@ -700,12 +630,6 @@ function TableData(props) {
                       {dateState.end && dateChips[1]}
                     </section>
                     <section className={Style.filterOptions}>
-                      {/* <section className={`${Style.GoogleDirve} px-2`}>
-                        <Button onClick={() => handleOpenPicker()}>
-                          Uplaod to google drive
-                        </Button>
-                      </section> */}
-
                       <section
                         className={Style.filterGraphFirstSction}
                         onClick={showTableFieldFunc}

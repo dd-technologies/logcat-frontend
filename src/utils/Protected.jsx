@@ -2,33 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Route, useHistory, Redirect } from "react-router-dom";
 // import { useHistory } from "react-router";
 
-const Protected = ({ Component, ...rest }) => {
+const Protected = ({ component:Component, ...restOfProps }) => {
   const history = useHistory();
-  const [isLoggedIn, setisLoggedIn] = useState(false);
-  // console.log(localStorage.getItem("ddAdminToken"));
+  const isAuthenticated = localStorage.getItem("ddAdminToken");
+  console.log("this", isAuthenticated);
 
-  // useEffect(() => {
-  //   console.log("inside the useEffect");
-  // if (!localStorage.getItem("ddAdminToken")) {
-  //   setisLoggedIn(false)
-  // }
-  // if(localStorage.getItem("ddAdminToken")){
-  //   setisLoggedIn(true)
-  // }
-  // }, []);
   return (
     <Route
-      {...rest}
-      render={
-        // props => <Component {...rest} {...props} />
-        (props) => {
-          // console.log(localStorage.getItem("ddAdminToken"))
-          return localStorage.getItem("ddAdminToken") ? (
-            <Component {...props} />
-          ) : (
-            <Redirect path="/" />
-          );
-        }
+      {...restOfProps}
+      render={(props) =>
+        isAuthenticated ? <Component {...props} /> : <Redirect to="/" />
       }
     />
   );
