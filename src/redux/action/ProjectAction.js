@@ -116,6 +116,7 @@ export const getProjectByCode =
             }
           }
         }
+        console.log("clg date: ",date)
         response = await axios.get(
           `https://logger-server.herokuapp.com/api/logger/projects/getDetail/${code}?startDate=${date.start}&endDate=${date.end}&limit=${record}&page=${page}&logType=${logString}&projectType=${projectType}`,
           config
