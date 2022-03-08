@@ -112,9 +112,6 @@ const TypeDropDown = (props) => {
               color="#2A9AA4"
               style={{ width: "22px", height: "25px" }}
             />
-            {
-              console.log("props project code: ",props.projectCode.name)
-            }
             <p style={{ fontSize: "1rem" }} className="mm-2">
 
               {localStorage.getItem("project_type")
