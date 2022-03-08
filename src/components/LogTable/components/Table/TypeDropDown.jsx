@@ -19,18 +19,6 @@ const TypeDropDown = (props) => {
   //   let modelList;
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { loading, data } = getModelCodeReducer;
-  // let {loading, data} = props.codeReducer;
-  // const [projectCode, setProjectCode] = useState({
-  //   code: localStorage.getItem("project_type")
-  //     ? JSON.parse(localStorage.getItem("project_type")).typeCode
-  //     : (data && data.modelList[0].typeCode) || "",
-
-  //   name: localStorage.getItem("project_type")
-  //     ? JSON.parse(localStorage.getItem("project_type")).typeName
-  //     : (data && data.modelList[0].typeName) || "",
-  // });
-
-  // console.log("projectCosde", projectCode);
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -72,15 +60,11 @@ const TypeDropDown = (props) => {
   }, [projectCodeDropDown]);
 
   const onSubmitFun = (type) => {
-    props.setProjectCode({
-      code: type.typeCode,
-      name: type.typeName,
-    });
     ProjectTypeFilter();
 
     // console.log("projectCode", localStorage.getItem("project_type"));
     localStorage.setItem("page_no", 1);
-    //
+    localStorage.setItem("project_type",JSON.stringify(type))
 
     dispatch(
       getProjectByCode(
@@ -128,9 +112,9 @@ const TypeDropDown = (props) => {
               style={{ width: "22px", height: "25px" }}
             />
             <p style={{ fontSize: "1rem" }} className="mm-2">
-              {props.projectCode
-                ? props.projectCode.name
-                : data && data.modelList[0].typeName}
+              {localStorage.getItem("project_type")
+    ? JSON.parse(localStorage.getItem("project_type")).typeName
+    : data && data.modelList && data.modelList[0].typeName}
             </p>
             <FontAwesomeIcon
               icon={faCaretDown}
