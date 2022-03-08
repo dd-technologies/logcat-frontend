@@ -141,6 +141,15 @@ function TableData(props) {
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { loading: loadingdata, data: typeWiseDate } = getModelCodeReducer;
 
+  var projectCode = {
+    code:  localStorage.getItem("project_type")
+    ? JSON.parse(localStorage.getItem("project_type")).typeCode
+    : typeWiseDate && typeWiseDate.modelList&& typeWiseDate.modelList[0].typeCode,
+    name: localStorage.getItem("project_type")
+    ? JSON.parse(localStorage.getItem("project_type")).typeName
+    : typeWiseDate && typeWiseDate.modelList && typeWiseDate.modelList[0].typeName,
+  }
+
   let porjectCodeType = typeWiseDate && typeWiseDate.modelList[0].typeCode;
 
   //  1)  DIRECTION PAGE TO NEW PAGE
@@ -235,7 +244,7 @@ function TableData(props) {
     localStorage.setItem("selected_record", JSON.stringify(record));
     console.log("logType: ",logType)
     dispatch(
-      getProjectByCode(code, date, logType, pageNo, record, props.projectCode.code)
+      getProjectByCode(code, date, logType, pageNo, record, projectCode.code)
     );
     toast.success("Filter saved");
     setShowTableField(false);
@@ -279,11 +288,9 @@ function TableData(props) {
     toast.success("Filter has been reset");
     setShowTableField(false);
     return dispatch(
-      getProjectByCode(code, null, null, null, record, props.projectCode.code)
+      getProjectByCode(code, null, null, null, record, projectCode.code)
     );
   };
-
-  console.log("project Code2 ", props.projectCode)
 
   const handlePageClick = (data) => {
     if (
@@ -297,13 +304,13 @@ function TableData(props) {
       setPageNo(data.selected + 1);
       localStorage.setItem("page_no",data.selected+1)
       return dispatch(
-        getProjectByCode(code, null, logType, data.selected + 1, record,props.projectCode)
+        getProjectByCode(code, null, logType, data.selected + 1, record, projectCode.code)
       );
     }
 
     setPageNo(data.selected + 1);
     localStorage.setItem("page_no",data.selected+1)
-    dispatch(getProjectByCode(code, null, null, data.selected + 1, record,props.projectCode));
+    dispatch(getProjectByCode(code, null, null, data.selected + 1, record, projectCode.code));
   };
 
   useEffect(() => {
@@ -315,15 +322,15 @@ function TableData(props) {
       logType.verbose
     ) {
       dispatch(
-        getProjectByCode(code, date, logType, pageNo, record, props.projectCode.code) //TODO: dispatch close
+        getProjectByCode(code, date, logType, pageNo, record, projectCode.code) //TODO: dispatch close
       );
     } else {
       console.log("datte ", date);
       dispatch(
-        getProjectByCode(code, date, null, pageNo, record, props.projectCode.code) //TODO: dispatch close
+        getProjectByCode(code, date, null, pageNo, record, projectCode.code) //TODO: dispatch close
       );
     }
-  }, [pageNo, startDate, endDate, props.projectCode.code]);
+  }, [pageNo, startDate, endDate, projectCode.code]);
 
   const showTableFieldFunc = () => {
     setShowTableField(!showTableField);
@@ -513,8 +520,7 @@ function TableData(props) {
     // if (index === 0) {
       setLogType({ ...logType, [items]: false });
       // dispatch(getProjectByCode({code:code, date:date, filters:{ ...logType, [items]: false }, projectType:projectCodeAnalytics}));
-      console.log(`projectCodeType table ${props.projectCode.code}`)
-      dispatch(getProjectByCode(code, date, { ...logType, [items]: false }, pageNo, record, props.projectCode.code))
+      dispatch(getProjectByCode(code, date, { ...logType, [items]: false }, pageNo, record, projectCode.code))
       localStorage.setItem(
         "selected_log",
         JSON.stringify({ ...logType, [items]: false })

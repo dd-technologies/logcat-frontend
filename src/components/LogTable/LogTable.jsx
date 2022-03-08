@@ -36,7 +36,7 @@ export default function LogTable() {
   const [dateDropDown, setDateDropDown] = useState(false);
   const [productDropDown, seProductDropDown] = useState(false);
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
-  const [diffDate, setDiffDate] = useState(90);
+  const [diffDate, setDiffDate] = useState(localStorage.getItem('diffDate') || 90);
   const [tableDataState, setTableDataState] = useState({});
 
   console.log("diffdate: ",diffDate);
@@ -45,22 +45,19 @@ export default function LogTable() {
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
   const { data } = slideWindowReducer;
-
-  // const { loading,data:dt } = getModelCodeReducer;
-  // console.log("slideWindowReducer", data);
   
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { loading, data: projectType } = getModelCodeReducer;
   const { loading:ld, data: dt } = getModelCodeReducer;
 
-  const [projectCode, setProjectCode] = useState({
-    code: localStorage.getItem("project_type")
-      ? JSON.parse(localStorage.getItem("project_type")).typeCode
-      : dt && dt.modelList&& dt.modelList[0].typeCode,
+  var projectCode = {
+    code:  localStorage.getItem("project_type")
+    ? JSON.parse(localStorage.getItem("project_type")).typeCode
+    : projectType && projectType.modelList && projectType.modelList[0].typeCode,
     name: localStorage.getItem("project_type")
     ? JSON.parse(localStorage.getItem("project_type")).typeName
-    : dt && dt.modelList && dt.modelList[0].typeName,
-  });
+    : projectType && projectType.modelList && projectType.modelList[0].typeName,
+  }
 
   const getAllLogByCodeReducer = useSelector(
     (state) => state.getAllLogByCodeReducer
@@ -180,25 +177,26 @@ export default function LogTable() {
 
 
   const multipleDispatchGraph = () => {
+    console.log("ProjectType", projectCode.code)
     dispatch(
       getLogTypeCounts({
         code,
         diffDate,
-        code1: projectType && projectType.modelList[0].typeCode,
+        code1: projectCode.code,
       })
     );
     dispatch(
       getLogByDate({
         code,
         diffDate,
-        code1: projectType && projectType.modelList[0].typeCode,
+        code1: projectCode.code,
       })
     );
     dispatch(
       getCrashFreeUsers({
         code,
         diffDate,
-        code1: projectType && projectType.modelList[0].typeCode,
+        code1: projectCode.code,
       })
     );
 
@@ -217,7 +215,7 @@ export default function LogTable() {
 
   useEffect(() => {
     multipleDispatchGraph();
-  }, [diffDate]);
+  }, [diffDate, projectCode.code]);
 
   // console.log("diffDate", diffDate);
 
@@ -346,9 +344,7 @@ export default function LogTable() {
                 <TypeDropDown
                   tableDataState={tableDataState}
                   diffDate={diffDate}
-                  projectCode={projectCode}
                   codeReducer = {getModelCodeReducer}
-                  setProjectCode = {setProjectCode}
                 />
               </Col>
 
@@ -393,6 +389,7 @@ export default function LogTable() {
                           className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(7);
+                            localStorage.setItem("diffDate",7)
                             setDateDropDown(false);
                           }}
                         >
@@ -402,6 +399,7 @@ export default function LogTable() {
                           className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(15);
+                            localStorage.setItem("diffDate",15)
                             setDateDropDown(false);
                           }}
                         >
@@ -412,6 +410,7 @@ export default function LogTable() {
                           className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(30);
+                            localStorage.setItem("diffDate",30)
                             setDateDropDown(false);
                           }}
                         >
@@ -421,6 +420,7 @@ export default function LogTable() {
                           className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(45);
+                            localStorage.setItem("diffDate",45)
                             setDateDropDown(false);
                           }}
                         >
@@ -430,6 +430,7 @@ export default function LogTable() {
                           className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(60);
+                            localStorage.setItem("diffDate",60)
                             setDateDropDown(false);
                           }}
                         >
@@ -439,6 +440,7 @@ export default function LogTable() {
                           className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(90);
+                            localStorage.setItem("diffDate",90)
                             setDateDropDown(false);
                           }}
                         >
@@ -506,7 +508,6 @@ export default function LogTable() {
                   code={code}
                   projectName={projectName}
                   diffDate={diffDate}
-                  projectCode = {projectCode}
                   tableDataStateFun={tableDataStateFun}
                 />
 
