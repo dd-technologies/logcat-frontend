@@ -330,8 +330,6 @@ export default function LogTable() {
           <Navbar navdetails={navdetails} />
 
           {/* data inhere */}
-          {
-            ld ? <Spinner height="400px" /> :
           <Container
             className={
               data.show
@@ -516,7 +514,6 @@ export default function LogTable() {
               </Col>
             </Row>
           </Container>
-          }
         </Col>
       </Row>
     </>

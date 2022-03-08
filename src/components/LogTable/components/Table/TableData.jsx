@@ -39,7 +39,8 @@ function TableData(props) {
   const code = props.code;
   let filedate = new Date();
 
-  console.log("props logtable", props);
+
+  console.log("props logtable", code);
   console.log("getprojectbycode")
 
   const [dateSectionSelect, setDateSectionSelect] = useState(true);
@@ -287,6 +288,7 @@ function TableData(props) {
     localStorage.removeItem("selected_record");
     toast.success("Filter has been reset");
     setShowTableField(false);
+    console.log("reset code: ",projectCode.code);
     return dispatch(
       getProjectByCode(code, null, null, null, record, projectCode.code)
     );
@@ -471,7 +473,7 @@ function TableData(props) {
       document.removeEventListener("mousedown", checkIfClickedOutside);
       if (showTableField) {
         dispatch(
-          getProjectByCode(code, date, logType, pageNo, record, props.projectCode.code)
+          getProjectByCode(code, date, logType, pageNo, record, projectCode.code)
         );
       }
     };
