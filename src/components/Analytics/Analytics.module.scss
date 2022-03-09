@@ -52,6 +52,10 @@
     margin-top: 8% !important;
     margin-left: 7% !important;
   }
+  @media screen and (min-width: 1400px) and (max-width: 1600px) {
+    margin-top: 8% !important;
+    margin-left: 7% !important;
+  }
 }
 
 .paraTextIssue {
@@ -82,5 +86,13 @@
   @media screen and (min-width: 1280px) and (max-width: 1400px) {
     margin-top: 12% !important;
     margin-left: 0% !important;
+  }
+  @media screen and (min-width: 1400px) and (max-width: 1600px) {
+    margin-top: 8% !important;
+    margin-left: 0% !important;
+  }
+  @media screen and (min-width: 1600px) and (max-width: 1900px) {
+    margin-top: 8% !important;
+    margin-left: 5% !important;
   }
 }
