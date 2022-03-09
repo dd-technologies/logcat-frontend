@@ -36,18 +36,28 @@ export default function LogTable() {
   const [dateDropDown, setDateDropDown] = useState(false);
   const [productDropDown, seProductDropDown] = useState(false);
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
-  const [diffDate, setDiffDate] = useState(90);
+  const [diffDate, setDiffDate] = useState(localStorage.getItem('diffDate') || 90);
   const [tableDataState, setTableDataState] = useState({});
 
-  const [projectCode, setProjectCode] = useState();
+  console.log("diffdate: ",diffDate);
 
+  
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
   const { data } = slideWindowReducer;
-  // console.log("slideWindowReducer", data);
-
+  
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { loading, data: projectType } = getModelCodeReducer;
+  const { loading:ld, data: dt } = getModelCodeReducer;
+
+  var projectCode = {
+    code:  localStorage.getItem("project_type")
+    ? JSON.parse(localStorage.getItem("project_type")).typeCode
+    : projectType && projectType.modelList && projectType.modelList[0].typeCode,
+    name: localStorage.getItem("project_type")
+    ? JSON.parse(localStorage.getItem("project_type")).typeName
+    : projectType && projectType.modelList && projectType.modelList[0].typeName,
+  }
 
   const getAllLogByCodeReducer = useSelector(
     (state) => state.getAllLogByCodeReducer
@@ -147,58 +157,6 @@ export default function LogTable() {
   //   dispatchmultiple();
   // }, [date]);
 
-  const multipleDispatchGraph = () => {
-    dispatch(
-      getLogTypeCounts({
-        code,
-        diffDate,
-        code1: projectType && projectType.modelList[0].typeCode,
-      })
-    );
-    dispatch(
-      getLogByDate({
-        code,
-        diffDate,
-        code1: projectType && projectType.modelList[0].typeCode,
-      })
-    );
-    dispatch(
-      getCrashFreeUsers({
-        code,
-        diffDate,
-        code1: projectType && projectType.modelList[0].typeCode,
-      })
-    );
-
-    // dispatch(getLogByDate(code, date));
-  };
-
-  let filedate = new Date();
-  const endDate = filedate.toISOString().slice(0, 10);
-  filedate.setDate(filedate.getDate() - diffDate);
-  const startDate = filedate.toISOString().slice(0, 10);
-
-  localStorage.setItem(
-    "selected_date",
-    JSON.stringify({ start: startDate, end: endDate })
-  );
-
-  useEffect(() => {
-    multipleDispatchGraph();
-  }, [diffDate]);
-
-  // console.log("diffDate", diffDate);
-
-  // CHECKING IF USER IS NOT LOGIN AND REDIRECTION USER OT LOGIN PAGE
-  useEffect(() => {
-    if (!localStorage.getItem("ddAdminToken")) {
-      history.push("/");
-    }
-    return () => {
-      <Spinner />;
-    };
-  }, [history]);
-
   useEffect(() => {
     dispatch(getDeviceModelCode(code));
     const checkIfClickedOutside = (e) => {
@@ -217,57 +175,117 @@ export default function LogTable() {
     };
   }, []);
 
+
+  const multipleDispatchGraph = () => {
+    console.log("ProjectType", projectCode.code)
+    dispatch(
+      getLogTypeCounts({
+        code,
+        diffDate,
+        code1: projectCode.code,
+      })
+    );
+    dispatch(
+      getLogByDate({
+        code,
+        diffDate,
+        code1: projectCode.code,
+      })
+    );
+    dispatch(
+      getCrashFreeUsers({
+        code,
+        diffDate,
+        code1: projectCode.code,
+      })
+    );
+
+    // dispatch(getLogByDate(code, date));
+  };
+
+  let filedate = new Date();
+  const endDate = filedate.toISOString().slice(0, 10);
+  filedate.setDate(filedate.getDate() - diffDate);
+  const startDate = filedate.toISOString().slice(0, 10);
+
+  localStorage.setItem(
+    "selected_date",
+    JSON.stringify({ start: startDate, end: endDate })
+  );
+
+  useEffect(() => {
+    multipleDispatchGraph();
+  }, [diffDate, projectCode.code]);
+
+  // console.log("diffDate", diffDate);
+
+  // CHECKING IF USER IS NOT LOGIN AND REDIRECTION USER OT LOGIN PAGE
+  useEffect(() => {
+    if (!localStorage.getItem("ddAdminToken")) {
+      history.push("/");
+    }
+    return () => {
+      <Spinner />;
+    };
+  }, [history]);
+
+  
+
   // dateDropDown : was dependency for the above useeffect
 
   // REFRESH ONLY TABLE
-  let logType = JSON.parse(localStorage.getItem("selected_log"));
-  let record = JSON.parse(localStorage.getItem("selected_record"));
   const RefreshTableOnlyFun = () => {
-    // console.log("dispatch logs", logType);
+    let logType = JSON.parse(localStorage.getItem("selected_log"));
+    let record = JSON.parse(localStorage.getItem("selected_record"));
+    let start = JSON.parse(localStorage.getItem("selected_date")).start;
+    let end= JSON.parse(localStorage.getItem("selected_date")).end;
+    let pgNo = JSON.parse(localStorage.getItem("page_no"));
+    // // console.log("dispatch logs", logType);
 
-    let date = JSON.parse(localStorage.getItem("selected_date"));
+    // let date = JSON.parse(localStorage.getItem("selected_date"));
 
-    // 1) code, logtype , start date, end date, records, page==null
-    if (code && logType && date && record) {
-      // console.log("object 1", code, logType, record);
-      return dispatch(getProjectByCode(code, logType, date, record));
-    }
+    // // 1) code, logtype , start date, end date, records, page==null
+    // if (code && logType && date && record) {
+    //   // console.log("object 1", code, logType, record);
+    //   return dispatch(getProjectByCode(code, logType, date, record));
+    // }
 
-    // 2) code, logtype , start date, end date,
-    if (code && logType && date) {
-      // console.log("object 2", code, logType, record);
-      return dispatch(getProjectByCode(code, logType, date));
-    }
-    // 3) code, logtype
-    if (code && logType) {
-      // console.log("object 3", code, logType, record);
-      return dispatch(getProjectByCode(code, null, logType, null, record));
-    }
+    // // 2) code, logtype , start date, end date,
+    // if (code && logType && date) {
+    //   // console.log("object 2", code, logType, record);
+    //   return dispatch(getProjectByCode(code, logType, date));
+    // }
+    // // 3) code, logtype
+    // if (code && logType) {
+    //   // console.log("object 3", code, logType, record);
+    //   return dispatch(getProjectByCode(code, null, logType, null, record));
+    // }
 
-    // --1) only logType
-    if (code && logType) {
-      // console.log("object 4", code, logType, record);
-      return dispatch(getProjectByCode(code, logType, null, null));
-    }
+    // // --1) only logType
+    // if (code && logType) {
+    //   // console.log("object 4", code, logType, record);
+    //   return dispatch(getProjectByCode(code, logType, null, null));
+    // }
 
-    // --2) only date
-    if (code && date) {
-      // console.log("object 5", code, logType, record);
-      return dispatch(getProjectByCode(code, null, date, null));
-    }
-    // --3) only records
-    if (code && record) {
-      // console.log("object 6", code, logType, record);
-      return dispatch(getProjectByCode(code, null, null, record));
-    }
+    // // --2) only date
+    // if (code && date) {
+    //   // console.log("object 5", code, logType, record);
+    //   return dispatch(getProjectByCode(code, null, date, null));
+    // }
+    // // --3) only records
+    // if (code && record) {
+    //   // console.log("object 6", code, logType, record);
+    //   return dispatch(getProjectByCode(code, null, null, record));
+    // }
 
     // *) code
-    // console.log("object 7", code, logType, record);
-    let filedate = new Date();
-    const endDate = filedate.toISOString().slice(0, 10);
-    filedate.setDate(filedate.getDate() - diffDate);
-    const startDate = filedate.toISOString().slice(0, 10);
-    dispatch(getProjectByCode({ code: code, date: { startDate, endDate } }));
+    console.log(`object 7 refresh ${code} date ${start} filter ${logType} page ${pgNo} record ${record} project type ${projectCode.code}`);
+    // let filedate = new Date();
+    // const endDate = filedate.toISOString().slice(0, 10);
+    // filedate.setDate(filedate.getDate() - diffDate);
+    // const startDate = filedate.toISOString().slice(0, 10);
+    dispatch(getProjectByCode(code, {start,end}, logType, pgNo, record, projectCode.code))
+    // dispatch(getProjectByCode({ code: code, date: { startDate, endDate } }));
   };
 
   const tableDataStateFun = (
@@ -324,6 +342,7 @@ export default function LogTable() {
                 <TypeDropDown
                   tableDataState={tableDataState}
                   diffDate={diffDate}
+                  codeReducer = {getModelCodeReducer}
                 />
               </Col>
 
@@ -368,6 +387,7 @@ export default function LogTable() {
                           className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(7);
+                            localStorage.setItem("diffDate",7)
                             setDateDropDown(false);
                           }}
                         >
@@ -377,6 +397,7 @@ export default function LogTable() {
                           className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(15);
+                            localStorage.setItem("diffDate",15)
                             setDateDropDown(false);
                           }}
                         >
@@ -387,6 +408,7 @@ export default function LogTable() {
                           className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(30);
+                            localStorage.setItem("diffDate",30)
                             setDateDropDown(false);
                           }}
                         >
@@ -396,6 +418,7 @@ export default function LogTable() {
                           className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(45);
+                            localStorage.setItem("diffDate",45)
                             setDateDropDown(false);
                           }}
                         >
@@ -405,6 +428,7 @@ export default function LogTable() {
                           className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(60);
+                            localStorage.setItem("diffDate",60)
                             setDateDropDown(false);
                           }}
                         >
@@ -414,6 +438,7 @@ export default function LogTable() {
                           className={`${Style.productVersion} mt-1`}
                           onClick={() => {
                             setDiffDate(90);
+                            localStorage.setItem("diffDate",90)
                             setDateDropDown(false);
                           }}
                         >

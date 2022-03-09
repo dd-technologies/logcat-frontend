@@ -13,7 +13,6 @@ import { useSelector } from "react-redux";
 
 function App() {
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
-
   const { adminInfo } = adminLoginReducer;
 
   return (
