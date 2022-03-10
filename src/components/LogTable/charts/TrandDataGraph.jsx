@@ -19,13 +19,11 @@ const TrandDataGraph = () => {
   //   );
   //   const { data: ApiData } = getLogCountsByDateReducer;
 
-  //   console.log("getLogCountsByDateReducer", getLogCountsByDateReducer);
 
   //   const LineCount =
   //     ApiData && ApiData.data && ApiData.data.response
   //       ? ApiData.data.response
   //       : null;
-  //   console.log("LineCount", LineCount);
 
   const getLogCountsByDateReducer = useSelector(
     (state) => state.getLogCountsByDateReducer

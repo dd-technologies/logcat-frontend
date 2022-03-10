@@ -3,10 +3,8 @@ import moment from "moment";
 import React from "react";
 import { useSelector } from "react-redux";
 import {
-  LineChart,
   AreaChart,
   Area,
-  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -25,7 +23,6 @@ export default function CarshFreeStaticsGraph() {
 
   let dt = data && data.response;
   // let date = data && data.response.map((date) => date.date);
-  // console.log("data", countLog);
 
   // CHANGING DATE FORMATE
   const dateFormatter = (date) => {

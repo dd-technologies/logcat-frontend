@@ -1,22 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Container } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faGreaterThan,
-  faLessThan,
-  faDatabase,
-  faChartPie,
-} from "@fortawesome/free-solid-svg-icons";
 import ToggleTabs from "./Componets/ToggleTabs";
 import Style from "./Analytics.module.scss";
 import { Navbar, SideBar } from "../../utils/NavSideBar";
 import AnalyticsEventDataComp from "./Componets/AnalyticsEventDataComp";
 import EventByVersion from "./Componets/EventByVersion";
 import {
-  getLogTypeCounts,
-  getLogByDate,
-  getErrorWRTOS,
-  getErrorWRTVersion,
   getLogMsgOccurenceWRTDate,
   getCrashAnalyticsData,
   getCrashFreeUsersData,
@@ -39,46 +28,37 @@ export default function Analytics() {
   dt.setDate(dt.getDate() - 90);
   date.start = dt.toISOString().slice(0, 10);
 
-  // console.log(date);
-
-  const filterOnDate = ({ startDate = null, endDate = null, diff = 15 }) => {
-    // console.log(diff);
-    if (diff != null) {
-      var dt = new Date();
-      const endd = dt.toISOString().slice(0, 10);
-      // console.log(date);
-      dt.setDate(dt.getDate() - diff);
-      setdate({ start: dt.toISOString().slice(0, 10), end: endd });
-      // console.log(date);
-    } else {
-      // console.log("Does not execute");
-    }
-  };
+  // const filterOnDate = ({ startDate = null, endDate = null, diff = 15 }) => {
+  //   if (diff != null) {
+  //     var dt = new Date();
+  //     const endd = dt.toISOString().slice(0, 10);
+  //     dt.setDate(dt.getDate() - diff);
+  //     setdate({ start: dt.toISOString().slice(0, 10), end: endd });
+  //   } else {
+  //   }
+  // };
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get("code");
   const logMsg = urlParams.get("col").split("at ")[0];
 
-  // console.log(logMsg);
-
   const projectName = urlParams.get("name");
   const projectCodeAnalytics = urlParams.get("projectCodeAnalytics");
-  // console.log("projectCodeAnalytics", projectCodeAnalytics);
 
-  const navbardetail = {
-    name: projectName,
-    dashName: projectName,
-    link1: {
-      iconName: faDatabase,
-      linkName: "Logs",
-      link: `/logTable?code=${code}&name=${projectName}`,
-    },
-    link2: {
-      iconName: faChartPie,
-      linkName: "Analytics",
-      link: `/analytics?code=${code}&name=${projectName}`,
-    },
-  };
+  // const navbardetail = {
+  //   name: projectName,
+  //   dashName: projectName,
+  //   link1: {
+  //     iconName: faDatabase,
+  //     linkName: "Logs",
+  //     link: `/logTable?code=${code}&name=${projectName}`,
+  //   },
+  //   link2: {
+  //     iconName: faChartPie,
+  //     linkName: "Analytics",
+  //     link: `/analytics?code=${code}&name=${projectName}`,
+  //   },
+  // };
 
   const sidebarDetails = {
     name: projectName,
@@ -97,16 +77,13 @@ export default function Analytics() {
 
   useEffect(() => {}, []);
 
-  // console.log("analytics sidebar", sidebarDetails);
-
-  // console.log("data", date);
   const getCrashFreeUsersDataReducer = useSelector(
     (state) => state.getCrashFreeUsersDataReducer
   );
 
-  const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
-  const { loading: loadingPorjectType, data: projectType } =
-    getModelCodeReducer;
+  // const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
+  // const { loading: loadingPorjectType, data: projectType } =
+  //   getModelCodeReducer;
 
   const { loading, data } = getCrashFreeUsersDataReducer;
   let users = data && data.response ? data.response.length : 0;
@@ -118,11 +95,8 @@ export default function Analytics() {
   const dispatch = useDispatch();
 
   const dispatchmultiple = () => {
-    // console.log("dispatch multiple executed!!");
     dispatch(getCrashFreeUsersData(code, logMsg, projectCodeAnalytics));
     dispatch(getCrashAnalyticsData(code, logMsg, projectCodeAnalytics));
-    // dispatch(getErrorWRTOS(code, projectCodeAnalytics));
-    // dispatch(getErrorWRTVersion(code, projectCodeAnalytics));
     dispatch(
       getLogMsgOccurenceWRTDate({
         code,
@@ -135,12 +109,9 @@ export default function Analytics() {
   };
   useEffect(() => {
     dispatchmultiple();
-    // console.log("hello useEffect");
-    // dispatch(getLogMsgOccurenceWRTDate({code, startDate:date.start, endDate:date.end, logMsg}));
   }, []);
   return (
     <>
-      {/* {console.log("analytic", "analytic render")} */}
       <Row>
         <Col xl={2} lg={2} md={2} sm={2} style={{ padding: "0px" }}>
           <SideBar sidebarDetails={sidebarDetails} />
@@ -191,14 +162,6 @@ export default function Analytics() {
               <p style={{ fontWeight: "600", letterSpacing: "0.5px" }}>
                 Events
               </p>
-              {/* <section className={Style.PrevNext}>
-                <section>
-                  <FontAwesomeIcon icon={faLessThan} />
-                </section>
-                <section>
-                  <FontAwesomeIcon icon={faGreaterThan} />
-                </section>
-              </section> */}
             </Col>
 
             {/* data tables   */}

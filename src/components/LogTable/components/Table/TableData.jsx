@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import CustomCard from "../../../../Container/CustomCard";
 import BootstrapTable from "react-bootstrap-table-next";
-import { Link } from "react-router-dom";
 import { Button, Col, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCaretRight,
-  faEllipsisV,
   faFilter,
   faWindowClose,
   faDownload,
@@ -23,7 +20,6 @@ import Spinner from "../../../../Container/Spinner";
 import toast, { Toaster } from "react-hot-toast";
 import TableCard from "../../../../Container/TableCard";
 import { useHistory } from "react-router-dom";
-import { createContext } from "react";
 // import useDrivePicker from "react-google-drive-picker";
 
 // import CustomeFilterTable from "./CustomeFilterTable";
@@ -39,10 +35,6 @@ function TableData(props) {
   const code = props.code;
   let filedate = new Date();
 
-
-  console.log("props logtable", code);
-  console.log("getprojectbycode")
-
   const [dateSectionSelect, setDateSectionSelect] = useState(true);
   const [StatusSectionSeclect, setStatusSectionSeclect] = useState(false);
   const [countPerPageSection, setCountPerPageSection] = useState(false);
@@ -54,7 +46,7 @@ function TableData(props) {
   });
 
   const [pageNo, setPageNo] = useState(1);
-  localStorage.setItem("page_no",pageNo);
+  localStorage.setItem("page_no", pageNo);
 
   // SHOW DATE SECTION FUNCTION
   const handleShowDate = () => {
@@ -94,11 +86,9 @@ function TableData(props) {
   filedate.setDate(filedate.getDate() - props.diffDate);
   startDate = filedate.toISOString().slice(0, 10);
   useEffect(() => {
-    // console.log(`start Date ! ${startDate} end Date ! ${endDate}`);
     date.start = startDate;
     date.end = endDate;
     setdate({ start: startDate, end: endDate });
-    // console.log("useEffect props.diffdate", startDate, endDate, date);
   }, [props.diffDate]);
 
   // const [pageNo, setPageNo] = useState(0);
@@ -143,13 +133,17 @@ function TableData(props) {
   const { loading: loadingdata, data: typeWiseDate } = getModelCodeReducer;
 
   var projectCode = {
-    code:  localStorage.getItem("project_type")
-    ? JSON.parse(localStorage.getItem("project_type")).typeCode
-    : typeWiseDate && typeWiseDate.modelList&& typeWiseDate.modelList[0].typeCode,
+    code: localStorage.getItem("project_type")
+      ? JSON.parse(localStorage.getItem("project_type")).typeCode
+      : typeWiseDate &&
+        typeWiseDate.modelList &&
+        typeWiseDate.modelList[0].typeCode,
     name: localStorage.getItem("project_type")
-    ? JSON.parse(localStorage.getItem("project_type")).typeName
-    : typeWiseDate && typeWiseDate.modelList && typeWiseDate.modelList[0].typeName,
-  }
+      ? JSON.parse(localStorage.getItem("project_type")).typeName
+      : typeWiseDate &&
+        typeWiseDate.modelList &&
+        typeWiseDate.modelList[0].typeName,
+  };
 
   let porjectCodeType = typeWiseDate && typeWiseDate.modelList[0].typeCode;
 
@@ -161,7 +155,6 @@ function TableData(props) {
   );
 
   const { loading, data } = getAllLogByCodeReducer;
-  // console.log(
   //   "getAllLogByCodeReducer",
   //   data && data.data && data.data.logs[0].type
   // );
@@ -175,19 +168,15 @@ function TableData(props) {
       data.data.logs[0].type) ||
     [];
 
-  console.log("project code: ",projectCodeAnalytics)
-
   const selectRow = {
     mode: "checkbox",
     // clickToSelect: true,
     style: { backgroundColor: "#0099a4", color: "#fff" },
   };
 
-  // console.log("selectRow", selectRow);
-
   const dispatch = useDispatch();
 
-  let logTypeFun = ()=>{
+  let logTypeFun = () => {
     if (logType.info) {
       localStorage.setItem(
         "selected_log",
@@ -218,9 +207,9 @@ function TableData(props) {
         JSON.stringify({ ...logType, verbos: true })
       );
     }
-  }
+  };
 
-  let dateChipFun=()=>{
+  let dateChipFun = () => {
     if (dateState.start) {
       localStorage.setItem(
         "selected_date",
@@ -233,17 +222,16 @@ function TableData(props) {
         JSON.stringify({ ...dateState, end: dateState.end })
       );
     }
-  }
+  };
 
   const saveSearch = () => {
     // LOG TYPE
-    logTypeFun()
+    logTypeFun();
 
     // DATE CHIPS
     dateChipFun();
 
     localStorage.setItem("selected_record", JSON.stringify(record));
-    console.log("logType: ",logType)
     dispatch(
       getProjectByCode(code, date, logType, pageNo, record, projectCode.code)
     );
@@ -288,7 +276,6 @@ function TableData(props) {
     localStorage.removeItem("selected_record");
     toast.success("Filter has been reset");
     setShowTableField(false);
-    console.log("reset code: ",projectCode.code);
     return dispatch(
       getProjectByCode(code, null, null, null, record, projectCode.code)
     );
@@ -304,15 +291,31 @@ function TableData(props) {
     ) {
       setShowTableField(false);
       setPageNo(data.selected + 1);
-      localStorage.setItem("page_no",data.selected+1)
+      localStorage.setItem("page_no", data.selected + 1);
       return dispatch(
-        getProjectByCode(code, null, logType, data.selected + 1, record, projectCode.code)
+        getProjectByCode(
+          code,
+          null,
+          logType,
+          data.selected + 1,
+          record,
+          projectCode.code
+        )
       );
     }
 
     setPageNo(data.selected + 1);
-    localStorage.setItem("page_no",data.selected+1)
-    dispatch(getProjectByCode(code, null, null, data.selected + 1, record, projectCode.code));
+    localStorage.setItem("page_no", data.selected + 1);
+    dispatch(
+      getProjectByCode(
+        code,
+        null,
+        null,
+        data.selected + 1,
+        record,
+        projectCode.code
+      )
+    );
   };
 
   useEffect(() => {
@@ -327,7 +330,6 @@ function TableData(props) {
         getProjectByCode(code, date, logType, pageNo, record, projectCode.code) //TODO: dispatch close
       );
     } else {
-      console.log("datte ", date);
       dispatch(
         getProjectByCode(code, date, null, pageNo, record, projectCode.code) //TODO: dispatch close
       );
@@ -379,7 +381,6 @@ function TableData(props) {
       let version = row.version ? row.version : null;
       let osArchitecture = row.osArchitecture ? row.osArchitecture : null;
       let modelName = row.modelName ? row.modelName : null;
-      // console.log("row", row);
       history.push(
         `/analytics?code=${props.code}&name=${props.projectName}&col=${row.log.message}&rowlogGeneratedDate=${row.log.date}&version=${version}&osArchitecture=${row.device.os.name}&modelName=${row.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`
       );
@@ -473,7 +474,14 @@ function TableData(props) {
       document.removeEventListener("mousedown", checkIfClickedOutside);
       if (showTableField) {
         dispatch(
-          getProjectByCode(code, date, logType, pageNo, record, projectCode.code)
+          getProjectByCode(
+            code,
+            date,
+            logType,
+            pageNo,
+            record,
+            projectCode.code
+          )
         );
       }
     };
@@ -516,17 +524,24 @@ function TableData(props) {
     }
   }, []);
 
-  const closeChips = (items,index) => {
-    console.log(`close chips ${items} ${logType[items]}`);
-
+  const closeChips = (items, index) => {
     // if (index === 0) {
-      setLogType({ ...logType, [items]: false });
-      // dispatch(getProjectByCode({code:code, date:date, filters:{ ...logType, [items]: false }, projectType:projectCodeAnalytics}));
-      dispatch(getProjectByCode(code, date, { ...logType, [items]: false }, pageNo, record, projectCode.code))
-      localStorage.setItem(
-        "selected_log",
-        JSON.stringify({ ...logType, [items]: false })
-      );
+    setLogType({ ...logType, [items]: false });
+    // dispatch(getProjectByCode({code:code, date:date, filters:{ ...logType, [items]: false }, projectType:projectCodeAnalytics}));
+    dispatch(
+      getProjectByCode(
+        code,
+        date,
+        { ...logType, [items]: false },
+        pageNo,
+        record,
+        projectCode.code
+      )
+    );
+    localStorage.setItem(
+      "selected_log",
+      JSON.stringify({ ...logType, [items]: false })
+    );
     // }
     // CHECKING IF INPUT BOX HIDE
   };
@@ -538,14 +553,16 @@ function TableData(props) {
   const chipsScetion = chipsArray.map((items, index) => (
     <section className={Style.chip}>
       <p style={{ color: "#fff" }}>{items.toUpperCase()}</p>
-      <FontAwesomeIcon icon={faWindowClose} onClick={() => closeChips(items,index)} />
+      <FontAwesomeIcon
+        icon={faWindowClose}
+        onClick={() => closeChips(items, index)}
+      />
     </section>
   ));
 
   // DATE CHIPS
 
   const closeDateChip = (index) => {
-    console.log("Date on chip closing:", dateState);
     if (index == 0) {
       setdate({
         ...dateState,
@@ -556,8 +573,13 @@ function TableData(props) {
         "selected_date",
         JSON.stringify({ ...dateState, start: "" })
       );
-      console.log(`code ${code} date ${date} projectType ${projectCodeAnalytics}`)
-      dispatch(getProjectByCode({code:code, date:date, projectType:projectCodeAnalytics}));
+      dispatch(
+        getProjectByCode({
+          code: code,
+          date: date,
+          projectType: projectCodeAnalytics,
+        })
+      );
     }
     if (index == 1) {
       // dispatch(getProjectByCode(code, null));
@@ -570,18 +592,23 @@ function TableData(props) {
         "selected_date",
         JSON.stringify({ ...dateState, end: "" })
       );
-      dispatch(getProjectByCode({code:code, date:date,projectType:projectCodeAnalytics}));
+      dispatch(
+        getProjectByCode({
+          code: code,
+          date: date,
+          projectType: projectCodeAnalytics,
+        })
+      );
     }
   };
 
   const DateChipsArray = [dateState.start, dateState.end];
-  // console.log("DateChipsArray", DateChipsArray);
   const dateChips = DateChipsArray.map((items, index) => (
     <section className={Style.chip}>
       <p style={{ color: "#fff" }}>{items}</p>
       <FontAwesomeIcon
         icon={faWindowClose}
-        onClick={() => closeDateChip(items,index)}
+        onClick={() => closeDateChip(items, index)}
       />
     </section>
   ));
@@ -929,7 +956,7 @@ function TableData(props) {
                       </section>
                     </section>
                   </div>
-                  {/* {console.log("props", props)} */}
+
                   <BootstrapTable
                     {...props.baseProps}
                     selectRow={selectRow}
@@ -943,7 +970,7 @@ function TableData(props) {
           ) : (
             <h3 className="p-2">No Logs Found</h3>
           )}
-          {/* {console.log(`count ${data && data.data && data.data.count}`)} */}
+
           <section className="p-2">
             <ReactPaginate
               breakLabel="..."

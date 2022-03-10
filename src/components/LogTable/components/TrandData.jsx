@@ -15,7 +15,6 @@ export default function TrandData() {
   const LineCount =
     data && data.data && data.data.response ? data.data.response : null;
 
-  // console.log("data", data.data);
 
   let add = 0;
   if (data && data.data && data.data.response) {

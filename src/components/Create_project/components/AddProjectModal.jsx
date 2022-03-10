@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadNewProject } from "../../../redux/action/ProjectAction";
 import Style from "./AddProjectModal.module.scss";
 
 const AddProjectModal = (props) => {
-  // console.log("projectmodal", props);
-
   const [createProject, setCreateProject] = useState({
     name: "",
     description: "",
@@ -31,12 +29,10 @@ const AddProjectModal = (props) => {
   };
 
   const addChips = (e) => {
-    // console.log(e.key);
     if (["Enter", "Tab", ","].includes(e.key)) {
       e.preventDefault();
 
       let inputChips = chips.trim();
-      // console.log(inputChips);
       if (inputChips) {
         if (!modelType.includes(inputChips.toLowerCase())) {
           setModelType([...modelType, inputChips]);
@@ -44,7 +40,6 @@ const AddProjectModal = (props) => {
         setchips("");
       }
     }
-    // console.log(modelType);
   };
   const dispatch = useDispatch();
 
@@ -78,115 +73,6 @@ const AddProjectModal = (props) => {
     }
   };
   return (
-    // <Modal
-    //   {...props}
-    //   size="lg"
-    //   aria-labelledby="contained-modal-title-vcenter"
-    //   centered
-    //   onHide={props.closemodal}
-    // >
-    //   {/* {console.log("props", props)} */}
-    //   <Modal.Header closeButton>
-    //     <Modal.Title id="contained-modal-title-vcenter">
-    //       Add New Project
-    //     </Modal.Title>
-    //   </Modal.Header>
-    //   <Modal.Body>
-    //     {/* <h4>Centered Modal</h4> */}
-    //     {error ? <div style={{ fontSize: 12, color: "red" }}>{error}</div> : ""}
-    //     {data ? (
-    //       <h6 style={{ fontSize: 12, color: "green" }}>
-    //         Porject Created Successfully...
-    //       </h6>
-    //     ) : (
-    //       // <Toaster/>
-    //       ""
-    //     )}
-
-    //     <Form.Group className="mb-3" controlId="formBasicPassword">
-    //       <Form.Label style={{ float: "left", color: "#212529" }}>
-    //         Project Name
-    //       </Form.Label>
-    //       <Form.Control
-    //         type="text"
-    //         placeholder="Please Enter Project Name"
-    //         onChange={(e) =>
-    //           setCreateProject({ ...createProject, name: e.target.value })
-    //         }
-    //         required
-    //       />
-    //       {errorName ? (
-    //         <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
-    //       ) : (
-    //         ""
-    //       )}
-    //     </Form.Group>
-
-    //     <Form.Group className="mb-3" controlId="formBasicPassword">
-    //       <Form.Label style={{ float: "left", color: "#212529" }}>
-    //         Description
-    //       </Form.Label>
-    //       <Form.Control
-    //         as="textarea"
-    //         rows={3}
-    //         type="textarea"
-    //         placeholder="Please Provide Project description"
-    //         onChange={(e) =>
-    //           setCreateProject({
-    //             ...createProject,
-    //             description: e.target.value,
-    //           })
-    //         }
-    //       />
-    //     </Form.Group>
-    //     <Form.Group className="mb-3" controlId="formBasicPassword">
-    //       <Form.Label style={{ float: "left", color: "#212529" }}>
-    //         Provide Device type
-    //       </Form.Label>
-    //       <Form.Control
-    //         type="text"
-    //         placeholder="Device type"
-    //         value={chips}
-    //         onKeyDown={(e) => {
-    //           addChips(e);
-    //         }}
-    //         onChange={(e) => setchips(e.target.value)}
-    //         required
-    //       />
-    //       {errorMsg ? (
-    //         <small style={{ fontSize: 12, color: "red" }}>{errorMsg}</small>
-    //       ) : (
-    //         ""
-    //       )}
-    //     </Form.Group>
-
-    //     {modelType.map((type) => (
-    //       <div className={Style.tag_item} key={type}>
-    //         {type}
-    //         <button
-    //           type="button"
-    //           onClick={() => {
-    //             deleteChips(type);
-    //           }}
-    //         >
-    //           &times;
-    //         </button>
-    //         {console.log(type)}
-    //       </div>
-    //     ))}
-    //   </Modal.Body>
-    //   <Modal.Footer>
-    //     <Button
-    //       style={{ backgroundColor: "#1a83ff" }}
-    //       onClick={(e) => {
-    //         handleSubmit(e);
-    //       }}
-    //     >
-    //       Create Project
-    //     </Button>
-    //   </Modal.Footer>
-    // </Modal>
-
     <>
       <Modal
         {...props}
@@ -194,7 +80,6 @@ const AddProjectModal = (props) => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        {/* {console.log("add project", props)} */}
 
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -285,7 +170,6 @@ const AddProjectModal = (props) => {
               >
                 &times;
               </button>
-              {/* {console.log(type)} */}
             </div>
           ))}
         </Modal.Body>

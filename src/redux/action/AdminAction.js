@@ -31,7 +31,6 @@ import { persistor } from '../Store';
 
 
 export const loginWithEmail = (email, password, isRemeberMe) => async (dispatch)=>{
-    // console.log(email, password)
     try {
         dispatch({type:ADMIN_LOGIN_REQUEST});
         const config = {
@@ -40,7 +39,6 @@ export const loginWithEmail = (email, password, isRemeberMe) => async (dispatch)
             },
         }
 
-        // console.log(email, password, isRemeberMe)
         // const {data} = await axios.post('https://agvalogger.herokuapp.com/api/logger/login',{
         //     email,
         //     password
@@ -48,7 +46,6 @@ export const loginWithEmail = (email, password, isRemeberMe) => async (dispatch)
         // config
         // )
         // https://logger-server.herokuapp.com
-        // console.log(process.env.BASE_URL)
 
         const {data} = await axios.post(`https://logger-server.herokuapp.com/api/logger/login`,{
             email,
@@ -56,7 +53,6 @@ export const loginWithEmail = (email, password, isRemeberMe) => async (dispatch)
         },
         config
         )
-        // console.log(data)
         dispatch({
             type: ADMIN_LOGIN_SUCCESS, 
             payload:data
@@ -74,12 +70,10 @@ export const loginWithEmail = (email, password, isRemeberMe) => async (dispatch)
             localStorage.removeItem("adminUserCredential")
             localStorage.removeItem("userIsRemember")
         }
-        // console.log(data)
         localStorage.setItem("ddAdminToken", data.data.token)
         // cookie.save('token',data.data.token)
 
     } catch (error) {
-        // console.log(error.response)
         dispatch({
             type: ADMIN_LOGIN_FAIL,
             payload:
@@ -160,7 +154,6 @@ export const adminRegister = (email,password,name,history) => async (dispatch)=>
 
 
     } catch (error) {
-        // console.log(error.response)
         dispatch({
             type: ADMIN_REGISTER_FAIL,
             payload:
@@ -173,7 +166,6 @@ export const adminRegister = (email,password,name,history) => async (dispatch)=>
 export const forgetPassword = (email) => async (dispatch)=>{
     
     try {
-        // console.log(`action email ${email}`)
         dispatch({
             type: FORGET_PASSWORD_REQUEST
         })
@@ -188,7 +180,6 @@ export const forgetPassword = (email) => async (dispatch)=>{
             email,
         })
 
-        // console.log(data)
         dispatch({
             type: FORGET_PASSWORD_REQUEST_SUCCESS, 
             payload:data
@@ -200,7 +191,6 @@ export const forgetPassword = (email) => async (dispatch)=>{
 
 
     } catch (error) {
-        // console.log(error.response)
         dispatch({
             type: FORGET_PASSWORD_REQUEST_FAIL,
             payload:
@@ -213,7 +203,6 @@ export const forgetPassword = (email) => async (dispatch)=>{
 export const resetForgetPassword = ({email,resetData}) => async (dispatch)=>{
     
     try {
-        // console.log(`action reset email ${email}`)
         dispatch({
             type: RESET_PASSWORD_REQUEST
         })
@@ -227,7 +216,6 @@ export const resetForgetPassword = ({email,resetData}) => async (dispatch)=>{
         const password= resetData.newPass;
         const passwordVerify = resetData.confirmPass;
 
-        // console.log(otp,password, passwordVerify)
 
         // https://insulink-backend.herokuapp.com
         const {data} = await axios.post('https://logger-server.herokuapp.com/api/logger/resetPassword',{
@@ -237,7 +225,6 @@ export const resetForgetPassword = ({email,resetData}) => async (dispatch)=>{
             passwordVerify
         })
 
-        // console.log(data)
         dispatch({
             type: RESET_PASSWORD_REQUEST_SUCCESS, 
             payload:data
@@ -249,8 +236,6 @@ export const resetForgetPassword = ({email,resetData}) => async (dispatch)=>{
 
 
     } catch (error) {
-        // console.log(error.response)
-        // console.log(error.message)
         dispatch({
             type: RESET_PASSWORD_REQUEST_FAIL,
             payload:

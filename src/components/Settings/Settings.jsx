@@ -2,13 +2,7 @@ import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Navbar, SideBar } from "../../utils/NavSideBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCaretDown,
-  faDatabase,
-  faSync,
-  faTasks,
-  faWindowClose,
-} from "@fortawesome/free-solid-svg-icons";
+import { faDatabase, faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import LogICon from "../../assets/icons/log.png";
 import Style from "./Settings.module.scss";
 import { useSelector } from "react-redux";
@@ -39,8 +33,6 @@ export default function Settings() {
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get("code");
   const projectName = urlParams.get("name");
-
-  // console.log("prject name", projectName);
 
   // NAVIGATION MENU HERE
   const navdetails = {
@@ -82,8 +74,6 @@ export default function Settings() {
         value: "",
       });
     }
-
-    // console.log("chip on key down");
   };
 
   //   HANDLE CHANG FUNCTION
@@ -93,9 +83,7 @@ export default function Settings() {
       value: evt.target.value,
       error: null,
     });
-    // console.log("chip handle change", evt.target.value);
   };
-  // console.log("chip array", chipState);
 
   const hanldeOndeleteEmail = (item) => {
     setChipState({
@@ -124,8 +112,6 @@ export default function Settings() {
         });
       }
     }
-
-    // console.log("chip on key down");
   };
 
   //   HANDLE CHANG FUNCTION
@@ -159,7 +145,7 @@ export default function Settings() {
           <SideBar sidebarDetails={sidebarDetails} />
         </Col>
         <Col
-          xl={10} 
+          xl={10}
           lg={10}
           md={10}
           sm={10}

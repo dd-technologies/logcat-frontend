@@ -12,7 +12,6 @@ import {
 } from "../../../../redux/action/ProjectAction";
 
 const TypeDropDown = (props) => {
-  console.log("props typedropdown", props);
 
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
   const ref = useRef();
@@ -29,7 +28,6 @@ const TypeDropDown = (props) => {
   if (data) {
     // modelList = getModelCodeReducer.data.modelList;
   }
-  //   console.log('model code: '+data.modelList[0].typeName);
   const ProjectTypeFilter = () => {
     setProjectCodeDropDown(true);
     if (projectCodeDropDown) {
@@ -62,7 +60,6 @@ const TypeDropDown = (props) => {
   const onSubmitFun = (type) => {
     ProjectTypeFilter();
 
-    // console.log("projectCode", localStorage.getItem("project_type"));
     localStorage.setItem("page_no", 1);
     localStorage.setItem("project_type",JSON.stringify(type))
 
@@ -93,7 +90,6 @@ const TypeDropDown = (props) => {
       getLogByDate({ code, diffDate: props.diffDate, code1: type.typeCode })
     );
   };
-  console.log("data data: ",data)
 
 
 

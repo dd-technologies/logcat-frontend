@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import Style from "./CrashFreeStatic.module.scss";
-import { Row, Col, Card, Dropdown } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Row, Col } from "react-bootstrap";
 import CarshFreeStaticsGraph from "../charts/CarshFreeStaticsGraph";
-import { faQuestion } from "@fortawesome/free-solid-svg-icons";
 import CustomCard from "../../../Container/CustomCard";
-import CustomeDropDown from "../../../Container/DropDown";
 import { useSelector } from "react-redux";
 export default function CrashFreeStatics() {
   const [showTooltipCrash, setShowTooltipCrash] = useState(false);
@@ -29,12 +26,9 @@ export default function CrashFreeStatics() {
   if (data && data.response) {
     // data.response.map((items) => (totalCount += items.countLog));
     // data.response.map((items) => (counts.length !==0 && counts.find(items.did) ? '' :counts.push(items.did)));
-    // console.log(counts);
     // totalCount = [...new Set(data.response.reduce((a, c) => [...a, c.did], []))];
     // totalCount = [...new Set(data.response.reduce((a, c) =>  ))];
   }
-  // console.log(totalCount);
-  // console.log("count length", counts.length);
   if (data && data.response == []) {
     totalCount = null;
   }

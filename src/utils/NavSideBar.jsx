@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Button, Image } from "react-bootstrap";
+import { Image } from "react-bootstrap";
 import Style from "./NavSideBar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -19,7 +19,7 @@ export function Navbar(props) {
   const { navdetails } = props;
   const [sidebar, setSidebar] = useState(false);
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
-  const [navToggle, setNavToggle] = useState(true);
+  // const [navToggle, setNavToggle] = useState(true);
   // SWIPE NAVBAR STATE
   const [swipe, setSwipe] = useState({
     show: true,
@@ -31,14 +31,11 @@ export function Navbar(props) {
   const [userInfo, setUserInfo] = useState(false);
   const ref = useRef();
 
-  const { loading, adminInfo } = adminLoginReducer;
+  const { adminInfo } = adminLoginReducer;
 
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
   const { data } = slideWindowReducer;
-  // console.log("slideWindowReducer", data);
-
-  // console.log(adminInfo.data.name);
 
   // checking if navlink 2 is not avilables
 
@@ -46,22 +43,19 @@ export function Navbar(props) {
   const dispatch = useDispatch();
   let history = useHistory();
   const handlelogout = (e) => {
-    // console.log('logout click');
     e.preventDefault();
     dispatch(adminLogout(history));
-    // console.log("handleclose", "handle close button pressed");
   };
 
-  const currentRoute = useHistory().location.pathname.toLowerCase();
-  // console.log("currentRoute", currentRoute);
+  // const currentRoute = useHistory().location.pathname.toLowerCase();
 
   // navigation toogle
-  const navToggleFun = () => {
-    if (navToggle) {
-      return setNavToggle(false);
-    }
-    return setNavToggle(true);
-  };
+  // const navToggleFun = () => {
+  //   if (navToggle) {
+  //     return setNavToggle(false);
+  //   }
+  //   return setNavToggle(true);
+  // };
 
   // let history = useHistory();
   // const dispatch = useDispatch();
@@ -86,7 +80,6 @@ export function Navbar(props) {
     }
   };
   useEffect(() => {
-    // console.log("slideWindowReducer", "useEffect Run");
     dispatch(slideShow(swipe));
   }, [swipe]);
 
@@ -187,16 +180,14 @@ export function Navbar(props) {
 
 export function SideBar(props) {
   const { sidebarDetails } = props;
-  // console.log("sidebarDetails", props);
   const [sidebar, setSidebar] = useState(false);
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
-  const [navToggle, setNavToggle] = useState(true);
+  // const [navToggle, setNavToggle] = useState(true);
   const { loading, adminInfo } = adminLoginReducer;
 
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
   const { data } = slideWindowReducer;
-  // console.log("slideWindowReducer", data);
 
   // URL STRING
   const queryString = window.location.search;
@@ -208,16 +199,15 @@ export function SideBar(props) {
 
   const dispatch = useDispatch();
 
-  const currentRoute = useHistory().location.pathname.toLowerCase();
-  // console.log("currentRoute", currentRoute);
+  // const currentRoute = useHistory().location.pathname.toLowerCase();
 
   // navigation toogle
-  const navToggleFun = () => {
-    if (navToggle) {
-      return setNavToggle(false);
-    }
-    return setNavToggle(true);
-  };
+  // const navToggleFun = () => {
+  //   if (navToggle) {
+  //     return setNavToggle(false);
+  //   }
+  //   return setNavToggle(true);
+  // };
 
   return (
     <>

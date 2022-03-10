@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Button, Col, Container, Form } from "react-bootstrap";
-import { Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Button, Container } from "react-bootstrap";
 import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMailBulk, faLock } from "@fortawesome/free-solid-svg-icons";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
 import "../../css/theme.scss";
 import Style from "./ResetPassword.module.scss";
 import OtpInput from "react-otp-input";
@@ -12,8 +10,8 @@ import { toast, Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { resetForgetPassword } from "../../redux/action/AdminAction";
 import { useHistory } from "react-router-dom";
-import Timer from '../Analytics/Componets/Timer'
-import {forgetPassword} from '../../redux/action/AdminAction';
+import Timer from "../Analytics/Componets/Timer";
+import { forgetPassword } from "../../redux/action/AdminAction";
 
 export default function ResetPassword() {
   const [state, setState] = useState({
@@ -22,7 +20,6 @@ export default function ResetPassword() {
     confirmPass: null,
   });
 
-  // console.log([state])
   const [stateErr, setStateErr] = useState({ err: null, inputErr: null });
   const [enableResendButton, setEnableResendButton] = useState(false);
 
@@ -31,17 +28,16 @@ export default function ResetPassword() {
     (state) => state.resetPasswordReducer
   );
 
-  const handleEnableButton = ()=>{
-    if(enableResendButton) setEnableResendButton(true);
-    else setEnableResendButton(true)
-  }
+  const handleEnableButton = () => {
+    if (enableResendButton) setEnableResendButton(true);
+    else setEnableResendButton(true);
+  };
   const email = JSON.parse(localStorage.getItem("forgetEmail"));
 
-  const handleResendButton = ()=>{
+  const handleResendButton = () => {
     setEnableResendButton(false);
-    dispatch(forgetPassword(email))
-    // console.log( 'handle submit click')
-  }
+    dispatch(forgetPassword(email));
+  };
 
   const { loading, data, error } = resetPasswordReducer;
   const history = useHistory();
@@ -55,24 +51,19 @@ export default function ResetPassword() {
     ) {
       toast.error("Please provide all the required field!");
     } else if (state.otp && state.otp.length === 6) {
-      // console.log("hello dispatch", state.newPass, state.confirmPass);
       if (state.newPass === state.confirmPass) {
         setStateErr({ err: null, inputErr: null });
-        // email,otp,password,passwordVerify
         dispatch(resetForgetPassword({ email, resetData: state }));
       } else {
-        // console.log("else second if");
         setStateErr({
           inputErr: "New password and confirm password not matching",
         });
         toast.error(stateErr.inputErr);
       }
     } else if (stateErr.err) {
-      // console.log("hello dispatch 2");
       setStateErr({ err: "Check OTP field!!" });
       toast.error(stateErr.err);
-    }
-    else {
+    } else {
       if (error) {
         toast.error("Please check all the credential!!");
       }
@@ -81,13 +72,11 @@ export default function ResetPassword() {
 
   if (data && data.success) {
     toast.success("Password reset done");
-    localStorage.removeItem('forgetEmail');
+    localStorage.removeItem("forgetEmail");
     history.push("/login");
   }
 
-  useEffect(() => {
-    
-  }, [enableResendButton]);
+  useEffect(() => {}, [enableResendButton]);
   return (
     <>
       <Container
@@ -124,10 +113,15 @@ export default function ResetPassword() {
                     }}
                     separator={<span></span>}
                   />
-                  {
-                    !enableResendButton ? <Timer  resetTimer = {handleEnableButton} initialMinute = {4} initialSeconds = {59} /> :''
-                  }
-                  
+                  {!enableResendButton ? (
+                    <Timer
+                      resetTimer={handleEnableButton}
+                      initialMinute={4}
+                      initialSeconds={59}
+                    />
+                  ) : (
+                    ""
+                  )}
                 </section>
               </section>
             </section>
@@ -169,7 +163,11 @@ export default function ResetPassword() {
                   Reset Password
                 </Button>
 
-                <Button className="mt-4  ms-2" onClick={handleResendButton} disabled = {!enableResendButton ? true : false}>
+                <Button
+                  className="mt-4  ms-2"
+                  onClick={handleResendButton}
+                  disabled={!enableResendButton ? true : false}
+                >
                   Resend Otp
                 </Button>
               </form>
