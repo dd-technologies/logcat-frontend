@@ -33,11 +33,21 @@ export default function CarshFreeStaticsGraph() {
     <>
       {data && data.response ? (
         data.response == 0 ? (
-          <p>No data found</p>
+          <p
+            style={{
+              width: "100%",
+              height: "600%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            No data found
+          </p>
         ) : data && data.response ? (
           <div style={{ width: "100%", height: 180 }}>
             <ResponsiveContainer>
-              <AreaChart  
+              <AreaChart
                 data={dt}
                 margin={{
                   top: 10,
@@ -45,9 +55,14 @@ export default function CarshFreeStaticsGraph() {
                   left: -25,
                   bottom: 0,
                 }}
-                >
+              >
                 {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                <XAxis dataKey="date" tickCount={5} minTickGap={10} tickFormatter={dateFormatter} />
+                <XAxis
+                  dataKey="date"
+                  tickCount={5}
+                  minTickGap={10}
+                  tickFormatter={dateFormatter}
+                />
                 <YAxis interval={1} dataKey="data" axisLine={false} />
                 <CartesianGrid vertical={false} strokeDasharray="0 0 4" />
                 <Tooltip />

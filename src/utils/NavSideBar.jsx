@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Image } from "react-bootstrap";
 import Style from "./NavSideBar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faBell } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import CustomeDropDown from "../Container/DropDown";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,6 +32,8 @@ export function Navbar(props) {
   const ref = useRef();
 
   const { adminInfo } = adminLoginReducer;
+
+  console.log("adminInfo", adminInfo);
 
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
@@ -130,15 +132,19 @@ export function Navbar(props) {
               navdetails.dashName.slice(1)}
           </h3>
         </section>
-        <section className={Style.userInfo} onClick={showUserInfoFun}>
-          <section className={Style.Avtar}>
-            {adminInfo &&
-              adminInfo.data &&
-              adminInfo.data.name
-                .split(" ")
-                .map((name) => name[0][0].toUpperCase())}
+        <section className={Style.userInfo}>
+          <section className={Style.InfoSection}>
+            <FontAwesomeIcon icon={faBell} size="lg" />
+
+            <section className={Style.Avtar} onClick={showUserInfoFun}>
+              {adminInfo &&
+                adminInfo.data &&
+                adminInfo.data.name
+                  .split(" ")
+                  .map((name) => name[0][0].toUpperCase())}
+            </section>
           </section>
-          <section style={{ fontWeight: "500" }} className="m-2">
+          {/* <section style={{ fontWeight: "500" }} className="m-2">
             {adminInfo &&
               adminInfo.data &&
               adminInfo.data.name
@@ -146,7 +152,7 @@ export function Navbar(props) {
                 .map(
                   (name) => name.charAt(0).toUpperCase() + name.slice(1) + " "
                 )}
-          </section>
+          </section> */}
         </section>
       </nav>
       {userInfo && (
@@ -154,22 +160,40 @@ export function Navbar(props) {
           position="fixed"
           right="0%"
           top="6%"
-          width="200px"
+          width="400px"
           zIndex="10"
+          marginRight="10px"
         >
-          <p className="mt-2" className={Style.userInfoDropDown}>
-            Account
+          <section className={Style.Avtarunder} onClick={showUserInfoFun}>
+            {adminInfo &&
+              adminInfo.data &&
+              adminInfo.data.name
+                .split(" ")
+                .map((name) => name[0][0].toUpperCase())}
+          </section>
+          <p style={{ fontSize: "1.3rem" }}>
+            {adminInfo && adminInfo.data && adminInfo.data.name}
           </p>
+          <p style={{ fontSize: "1rem" }}>
+            {adminInfo && adminInfo.data && adminInfo.data.email}
+          </p>
+          <p className={`${Style.userInfoDropDown} mt-4`}>
+            Manage your account
+          </p>
+
           <p
-            className="mt-2"
-            className={Style.userInfoDropDown}
-            style={{ cursor: "pointer" }}
+            className={`${Style.userInfoDropDown} mt-2`}
             onClick={(e) => {
               handlelogout(e);
             }}
           >
             Logout
           </p>
+
+          <section className={Style.privacyPolicy}>
+            <p style={{ fontSize: "0.8rem" }}>Privacy policy</p>
+            <p style={{ fontSize: "0.8rem" }}>Terms of service</p>
+          </section>
         </CustomeDropDown>
       )}
     </>
@@ -226,10 +250,11 @@ export function SideBar(props) {
           >
             <section className={Style.DashBoardTitle}>
               {data.show ? (
-                <Image className={Style.logologcat} src={Logcat} alt="logcat" />
+                <Image className={Style.logologcatsmall} width={30} src={Logcat} alt="logcat" />
               ) : (
                 <Image
                   className={Style.logologcat}
+                  width={70}
                   src={LogcatLarge}
                   alt="logcat"
                 />

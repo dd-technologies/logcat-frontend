@@ -17,7 +17,6 @@ export default function PieChartDataGraph() {
 
   const { data } = getLogCountsReducer;
 
-
   const fetchDetails = () => {
     if (data && data.data && data.data.typeWiseCount) {
       let logType = data.data.typeWiseCount.map((type) => type.logType);
@@ -80,7 +79,17 @@ export default function PieChartDataGraph() {
         {/* {data && data.data && data.data.typeWiseCount ? (<Pie data={allData} />) : (<Spinner height="350px" />)} */}
         {data && data.data && data.data.typeWiseCount ? (
           countData.length == 0 ? (
-            <p>No data found</p>
+            <p
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              No data found
+            </p>
           ) : data && data.data && data.data.typeWiseCount ? (
             <Pie data={allData} options={options} />
           ) : (

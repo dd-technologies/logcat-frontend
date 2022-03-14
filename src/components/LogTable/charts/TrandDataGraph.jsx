@@ -12,13 +12,11 @@ import {
 } from "recharts";
 import Spinner from "../../../Container/Spinner";
 
-
 const TrandDataGraph = () => {
   //   const getLogCountsByDateReducer = useSelector(
   //     (state) => state.getLogCountsByDateReducer
   //   );
   //   const { data: ApiData } = getLogCountsByDateReducer;
-
 
   //   const LineCount =
   //     ApiData && ApiData.data && ApiData.data.response
@@ -42,7 +40,17 @@ const TrandDataGraph = () => {
     <>
       {data && data.data && data.data.response ? (
         data.data.response.length == 0 ? (
-          <p>No data found</p>
+          <p
+            style={{
+              width: "100%",
+              height: "600%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            No data found
+          </p>
         ) : data && data.data && data.data.response ? (
           <div style={{ width: "100%", height: 180 }}>
             <ResponsiveContainer>
@@ -56,7 +64,12 @@ const TrandDataGraph = () => {
                 }}
               >
                 {/* <CartesianGrid strokeDasharray="0 0" /> */}
-                <XAxis dataKey="date" tickCount={5} minTickGap={10} tickFormatter={dateFormatter} />
+                <XAxis
+                  dataKey="date"
+                  tickCount={5}
+                  minTickGap={10}
+                  tickFormatter={dateFormatter}
+                />
                 <YAxis dataKey="data" interval={1} axisLine={false} />
                 <CartesianGrid vertical={false} strokeDasharray="0 0 4" />
                 <Tooltip />

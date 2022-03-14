@@ -118,7 +118,7 @@ export default function Analytics() {
         </Col>
         <Col
           xl={10}
-          lg={10}
+          lg={10}s
           md={10}
           sm={10}
           style={{ padding: "0px" }}
