@@ -35,6 +35,8 @@ export function Navbar(props) {
 
   console.log("adminInfo", adminInfo);
 
+  // console.log("stackArray", mappedArraywithKey);
+
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
   const { data } = slideWindowReducer;
@@ -120,6 +122,9 @@ export function Navbar(props) {
               size="lg"
             />
           </section>
+
+          {/* Error From log table */}
+
           <h3
             className="p-3"
             style={{
@@ -250,7 +255,12 @@ export function SideBar(props) {
           >
             <section className={Style.DashBoardTitle}>
               {data.show ? (
-                <Image className={Style.logologcatsmall} width={30} src={Logcat} alt="logcat" />
+                <Image
+                  className={Style.logologcatsmall}
+                  width={30}
+                  src={Logcat}
+                  alt="logcat"
+                />
               ) : (
                 <Image
                   className={Style.logologcat}

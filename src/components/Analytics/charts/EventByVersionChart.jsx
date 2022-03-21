@@ -46,7 +46,7 @@ export default function EventByVersionChart() {
             tickFormatter={dateFormatter}
           />
           <YAxis dataKey="data" axisLine={true} />
-          <CartesianGrid vertical={false} strokeDasharray="0 0 4" />
+          <CartesianGrid vertical={false}  strokeDasharray="0 0 4"/>{/*strokeDasharray="0 0 4"*/}
           <Tooltip />
           <Line
             isAnimationActive={false}
