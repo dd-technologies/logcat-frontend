@@ -21,6 +21,7 @@ import {
   getProjectByCode,
   getDeviceModelCode,
   getCrashFreeUsers,
+  getProjectByCodeSetting,
 } from "../../redux/action/ProjectAction";
 import { useHistory } from "react-router-dom";
 import Spinner from "../../Container/Spinner";
@@ -161,6 +162,7 @@ export default function LogTable() {
 
   useEffect(() => {
     dispatch(getDeviceModelCode(code));
+    dispatch(getProjectByCodeSetting(code));
     const checkIfClickedOutside = (e) => {
       // If the menu is open and the clicked target is not within the menu,
       // then close the menu
