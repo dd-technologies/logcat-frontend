@@ -18,6 +18,7 @@ export default function Analytics() {
     start: null,
     end: null,
   });
+  const [title, setTitle] = useState("");
 
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
@@ -37,13 +38,6 @@ export default function Analytics() {
   //   } else {
   //   }
   // };
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const code = urlParams.get("code");
-  const logMsg = urlParams.get("col").split("at ")[0];
-
-  const projectName = urlParams.get("name");
-  const projectCodeAnalytics = urlParams.get("projectCodeAnalytics");
 
   // const navbardetail = {
   //   name: projectName,
@@ -60,6 +54,20 @@ export default function Analytics() {
   //   },
   // };
 
+  // URL STRING
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const code = urlParams.get("code");
+  // const logMsg = urlParams.get("col").split("at ");
+  // console.log("logMsg", logMsg);
+
+  const projectName = urlParams.get("name");
+  const projectCodeAnalytics = urlParams.get("projectCodeAnalytics");
+  // const analyticsURL = urlParams.get("pagetype") || "";
+  let stackArray = urlParams.get("col") || "";
+  let stackArrayNew = stackArray.split(" at ");
+  console.log("stackArrayNew", stackArrayNew);
+
   const sidebarDetails = {
     name: projectName,
     dashName: projectName,
@@ -75,7 +83,79 @@ export default function Analytics() {
     },
   };
 
-  useEffect(() => {}, []);
+  let mappedArraywithKey = stackArrayNew.map((val, index) => {
+    return val;
+  });
+
+  // console.log("mappedArraywithKey", mappedArraywithKey);
+
+  //  when error has caused by -- function
+
+  const stackErrorLine = () => {
+    var causedError, noCousedError;
+
+    if (mappedArraywithKey.length == 1) {
+      setTitle(mappedArraywithKey[0]);
+    } else {
+
+      for (let key in mappedArraywithKey) {
+
+        if (mappedArraywithKey[key].includes("Caused by:")) {
+          causedError = mappedArraywithKey[parseInt(key) + 1];
+          // console.log("causedError", causedError);
+          setTitle(
+            causedError.split("(")[1].replace(":", " line ").split(")")[0]
+          );
+        }
+
+      }
+
+      if (!stackArray.includes("Caused by:")) {
+        noCousedError = mappedArraywithKey[1]
+          .split("(")[1]
+          .replace(":", " ")
+          .split(")")[0];
+        setTitle(noCousedError);
+        console.log(
+          "mappedArraywithKey",
+          mappedArraywithKey[1]
+            .split("(")[1]
+            .replace(":", " line ")
+            .split(")")[0]
+        );
+      }
+
+    }
+  };
+
+  useEffect(() => {
+    stackErrorLine();
+  }, []);
+
+  // var headingTitle, headingTitleNew;
+  // useEffect(() => {
+  //   console.log("complete arr", mappedArraywithKey);
+  //   for (let i = 0; i < mappedArraywithKey.length; i++) {
+  //     console.log("test", mappedArraywithKey[1]);
+  //     if (mappedArraywithKey[i].includes(" Caused by: ")) {
+  //       console.log("test", mappedArraywithKey[i + 1]);
+  //     }
+  //   }
+  //   for (const key in mappedArraywithKey) {
+  //     console.log(`stackArrayNew`, mappedArraywithKey[key]);
+  //     if (mappedArraywithKey[key].indexOf("Caused by: ") == 1) {
+  //       headingTitle = mappedArraywithKey[parseInt(key) + 1];
+  //       console.log("headingTitle", headingTitle);
+  //       headingTitleNew = headingTitle.split("(")[1];
+  //       console.log("headingTitleNew", headingTitleNew);
+  //       setTitle(headingTitleNew.split(")"));
+  //       console.log("titile condition", title);
+  //     } else {
+  //       console.log("else part");
+  //     }
+  //   }
+  //   setTitle(headingTitleNew);
+  // }, []);
 
   const getCrashFreeUsersDataReducer = useSelector(
     (state) => state.getCrashFreeUsersDataReducer
@@ -95,14 +175,18 @@ export default function Analytics() {
   const dispatch = useDispatch();
 
   const dispatchmultiple = () => {
-    dispatch(getCrashFreeUsersData(code, logMsg, projectCodeAnalytics));
-    dispatch(getCrashAnalyticsData(code, logMsg, projectCodeAnalytics));
+    dispatch(
+      getCrashFreeUsersData(code, stackArrayNew[0], projectCodeAnalytics)
+    );
+    dispatch(
+      getCrashAnalyticsData(code, stackArrayNew[0], projectCodeAnalytics)
+    );
     dispatch(
       getLogMsgOccurenceWRTDate({
         code,
         startDate: date.start,
         endDate: date.end,
-        logMsg,
+        logMsg: stackArrayNew[0],
         code1: projectCodeAnalytics,
       })
     );
@@ -118,7 +202,8 @@ export default function Analytics() {
         </Col>
         <Col
           xl={10}
-          lg={10}s
+          lg={10}
+          s
           md={10}
           sm={10}
           style={{ padding: "0px" }}
@@ -133,6 +218,11 @@ export default function Analytics() {
             }
           >
             {/* data from api */}
+            <Col>
+              {console.log("title render", title)}
+              <h2>{title}</h2>
+            </Col>
+
             <Col className="my-4">
               {loading ? (
                 "Loading"

@@ -44,6 +44,7 @@ function TableData(props) {
     record50: false,
     record100: false,
   });
+  const [title, setTitle] = useState([]);
 
   const [pageNo, setPageNo] = useState(1);
   localStorage.setItem("page_no", pageNo);
@@ -67,6 +68,28 @@ function TableData(props) {
     setStatusSectionSeclect(false);
     setCountPerPageSection(true);
   };
+
+  // let stackArray = urlParams.get("col") || "";
+
+  // let stackArrayNew = stackArray.split(" at ");
+  // const mappedArraywithKey = stackArrayNew.map((val, index) => {
+  //   // console.log("val", index, val)
+  //   return val;
+  // });
+  // useEffect(() => {
+  //   var headingTitle, headingTitleNew;
+  //   for (const key in mappedArraywithKey) {
+  //     console.log(`stackArrayNew`, stackArray);
+  //     if (mappedArraywithKey[key].includes("Caused by:")) {
+  //       headingTitle = mappedArraywithKey[parseInt(key) + 1];
+  //       console.log("headingTitle", headingTitle);
+  //       headingTitleNew = headingTitle.split("(");
+  //       setTitle(headingTitleNew[1].replace(":", " line ").split(")")[0]);
+  //     } else {
+  //       // setTitle("Halluu")
+  //     }
+  //   }
+  // }, []);
 
   var startDate, endDate;
 
@@ -400,6 +423,8 @@ function TableData(props) {
         };
       },
       formatter: (col, row, rowIndex) => {
+
+
         const projectName = urlParams.get("name");
         let version = row.version ? row.version : null;
         let osArchitecture = row.osArchitecture ? row.osArchitecture : null;

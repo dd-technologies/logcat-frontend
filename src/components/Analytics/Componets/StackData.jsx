@@ -138,7 +138,7 @@ export default function StackData() {
                 }
                 return (
                   <>
-                    <section className={Style.outerDiv}>
+                    <section className={Style.outerDivinner}>
                       <section
                         className={
                           innerParaShowDetails[idx]
@@ -147,7 +147,15 @@ export default function StackData() {
                         }
                         onClick={() => innerParaShowDetailsFun(idx)}
                       >
-                        <p>{`${key.slice(key.indexOf("/") + 1)}`}</p>
+                        {idx == 0 ? (
+                          <p>{`${key.slice(key.indexOf("/") + 1)}`}</p>
+                        ) : (
+                          <p className={Style.index0}>
+                            {" "}
+                            {`${key.slice(key.indexOf("/") + 1)}`}
+                          </p>
+                        )}
+
                         <FontAwesomeIcon icon={faCaretDown} />
                       </section>
 
@@ -157,17 +165,33 @@ export default function StackData() {
                           <section className={Style.detailSection}>
                             {grouped[key].map((items, index) => {
                               return (
-                                <p
-                                  className={grouped[key].map(
-                                    (items, index) => {
-                                      return items.includes("Activity")
-                                        ? Style.normalPara
-                                        : Style.dynamicPara;
-                                    }
+                                <>
+                                  {idx == 0 ? (
+                                    <p
+                                      className={grouped[key].map(
+                                        (items, index) => {
+                                          return items.includes("Activity")
+                                            ? Style.normalPara
+                                            : Style.dynamicPara;
+                                        }
+                                      )}
+                                    >
+                                      {items}
+                                    </p>
+                                  ) : (
+                                    <p
+                                      className={grouped[key].map(
+                                        (items, index) => {
+                                          return items.includes("Activity")
+                                            ? Style.normalPara
+                                            : Style.dynamicPara;
+                                        }
+                                      )}
+                                    >
+                                      at {items}
+                                    </p>
                                   )}
-                                >
-                                  {items}
-                                </p>
+                                </>
                               );
                             })}
                           </section>

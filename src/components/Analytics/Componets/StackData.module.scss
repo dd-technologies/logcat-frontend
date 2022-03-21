@@ -4,11 +4,14 @@
   border-radius: $cardBorderRadius;
   margin-top: 10px;
   // background-color: red;
+  .outerDivinner {
+    margin-top: 10px;
+  }
 
   .StackInfoDive {
     background-color: #eeeeee;
     border-radius: 5px;
-    
+
     // background-color: red;s
     margin: 0px;
     border: $borderBottom;
@@ -21,6 +24,7 @@
     }
     & p {
       @include headingFontdasktopMixin;
+      // color: rgb(121, 121, 121) !important;
     }
     & h3 {
       cursor: pointer;
@@ -39,7 +43,6 @@
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
     background-color: #eeeeee;
-    // background-color: red;s
     margin: 0px;
     border: $borderBottom;
     padding: 10px;
@@ -51,6 +54,7 @@
     }
     & p {
       @include headingFontdasktopMixin;
+      // color: rgb(121, 121, 121) !important;
     }
     & h3 {
       cursor: pointer;
@@ -61,6 +65,9 @@
       justify-content: space-between;
       align-items: center;
     }
+  }
+  .index0{
+    color: rgb(116, 116, 116) !important;
   }
 
   .detailSection {
@@ -85,6 +92,9 @@
     .normalPara {
       color: $activehrefText !important;
       font-size: 0.8rem !important;
+    }
+    & p {
+      color: rgb(143, 143, 143);
     }
   }
 }
