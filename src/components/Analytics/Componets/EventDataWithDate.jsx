@@ -3,7 +3,6 @@ import { Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLocationArrow,
-  faBuilding,
   faMobile,
   faClock,
 } from "@fortawesome/free-solid-svg-icons";
@@ -16,13 +15,11 @@ export default function EventDataWithDate() {
     (state) => state.getAllLogByCodeReducer
   );
 
-  // console.log("getAllLogByCodeReducer", getAllLogByCodeReducer);
   const {
     data: {
       data: { logs },
     },
   } = getAllLogByCodeReducer;
-  // console.log("getAllLogByCodeReducer logs", logs);
 
   // GETTGIN DATA FROM URL
   const queryString = window.location.search;
@@ -36,7 +33,6 @@ export default function EventDataWithDate() {
   const osArchitecture = urlParams.get("osArchitecture");
   const modelName = urlParams.get("modelName");
 
-  // console.log("version", version);
   // LOG DATE INVERT
   rowlogGeneratedDate = rowlogGeneratedDate.split("T")[0];
   let day = rowlogGeneratedDate.split("-")[2];

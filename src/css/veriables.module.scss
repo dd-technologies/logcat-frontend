@@ -59,6 +59,7 @@ $tableHaderBackgorundColor: #efefef;
 // * para font **********************************************
 @mixin paraFontdasktopMixin {
   font-size: 0.9rem !important;
+  color: #646464;
 }
 
 // laptop
@@ -73,7 +74,7 @@ $tableHaderBackgorundColor: #efefef;
 
 // *active paraFont font **********************************
 @mixin activeparaFontdasktopMixin {
-  font-size: 1.3rem !important;
+  font-size: 1rem !important;
   color: $activehrefText;
   font-weight: 500;
 }

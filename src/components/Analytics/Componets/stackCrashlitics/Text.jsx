@@ -12,7 +12,6 @@ export default function Text() {
   const pattern = /(at).*/gm;
   let DataINRow = colData.split(" at");
 
-  // console.log("DataINRow", DataINRow);
 
   return (
     <section className={Style.outerSection}>

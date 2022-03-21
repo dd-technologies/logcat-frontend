@@ -16,9 +16,9 @@ export default function CustomCard(props) {
         style={{
           borderRadius: "10px",
           overflow: "hidden",
-          boxShadow: props.boxShadow
-            ? props.boxShadow
-            : "4px 5px 18px 1px rgba(0, 0, 0, 0.07)",
+          // boxShadow: props.boxShadow
+          //   ? props.boxShadow
+          //   : "4px 5px 18px 1px rgba(0, 0, 0, 0.07)",
           height: props.height ? props.height : "100%",
           width: props.width ? props.width : "100%",
           padding: props.padding ? props.padding : "0px",

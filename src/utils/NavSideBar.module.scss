@@ -93,6 +93,44 @@
     }
   }
 }
+.privacyPolicy {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 20px;
+  align-items: baseline;
+}
+
+.Avtarunder {
+  background-color: $filterButtonBackgroundColor;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 70px;
+  color: $activehrefText;
+  font-weight: 700;
+}
+
+.InfoSection {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: 30%;
+  }
+  @media screen and (min-width: 1024px) and (max-width: 1400px) {
+    width: 30%;
+  }
+  @media screen and (min-width: 1400px) and (max-width: 1600px) {
+    width: 30%;
+  }
+  @media screen and (min-width: 1600px) and (max-width: 1920px) {
+    width: 15%;
+  }
+}
 
 // NAVBAR WITH SLIDE
 .navbarWihoutSlide {
@@ -207,9 +245,8 @@
 // siderbar
 .sideBar {
   background-image: url("../assets/images/background.jpg");
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-size: 100% 100%;
-  background-color: $sideBarBackgroundColor;
   height: 100%;
   position: fixed;
   width: 17.2%;
@@ -218,36 +255,46 @@
   justify-content: space-between;
   flex-direction: column;
 
+  // with slide
+
   .componyDetails {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    margin-bottom: 10px;
-    margin-top: 10px;
-
-    // border : 2px solid red;
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      height: 5% !important;
+    }
+    @media screen and (min-width: 1024px) and (max-width: 1400px) {
+      height: 9% !important;
+    }
+    @media screen and (min-width: 1400px) and (max-width: 1600px) {
+      height: 7% !important;
+    }
+    @media screen and (min-width: 1600px) and (max-width: 1920px) {
+      height: 7% !important;
+    }
 
     .DashBoardTitle {
       font-size: 2rem;
       display: flex;
       justify-content: center !important;
       align-items: center !important;
+
       .logologcat {
-        @media screen and (min-width: 600px) and (max-width: 1200px) {
-          width: 50% !important;
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
+          width: 40px;
         }
-        @media screen and (min-width: 1200px) and (max-width: 1600px) {
-          width: 30% !important;
+        @media screen and (min-width: 1024px) and (max-width: 1400px) {
+          width: 70px;
         }
-        @media screen and (min-width: 1600px) and (max-width: 1900px) {
-          width: 30% !important;
+        @media screen and (min-width: 1400px) and (max-width: 1600px) {
+          width: 65px;
+        }
+        @media screen and (min-width: 1600px) and (max-width: 1920px) {
+          width: 70px;
         }
       }
-    }
-
-    & img {
-      width: 45px;
     }
 
     & section {
@@ -261,15 +308,18 @@
 
     .option_active {
       background-color: $backgroundColor;
-      padding: 10px;
+      display: flex;
+      align-items: center;
+      padding-left: 20px;
     }
   }
   .optionItems {
     display: flex !important;
+    align-items: center;
+    padding-left: 20px;
     text-decoration: none;
     align-items: center;
     color: $defaultTextColor;
-    padding-left: 5%;
     & section {
       padding: 10px;
     }
@@ -297,10 +347,8 @@
 
 // SWIPE WINDOW SIDE BAR
 .sideBarSwipe {
-  overflow: hidden;
   background-image: url("../assets/images/background.jpg");
-  background-repeat: no-repeat;
-
+  background-repeat: repeat;
   background-color: $sideBarBackgroundColor;
   height: 100%;
   position: fixed;
@@ -310,36 +358,46 @@
   justify-content: space-between;
   flex-direction: column;
 
+  // without slide
+
   .componyDetails {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 10px;
-    margin-top: 10px;
-
-
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      height: 6.5% !important;
+    }
+    @media screen and (min-width: 1024px) and (max-width: 1400px) {
+      height: 9% !important;
+    }
+    @media screen and (min-width: 1400px) and (max-width: 1600px) {
+      height: 7% !important;
+    }
+    @media screen and (min-width: 1600px) and (max-width: 1920px) {
+      height: 7.5% !important;
+    }
 
     .DashBoardTitle {
       font-size: 2rem;
       display: flex;
       justify-content: center !important;
       align-items: center !important;
-      .logologcat {
-        @media screen and (min-width: 600px) and (max-width: 1200px) {
-          width: 100% !important;
+
+      .logologcatsmall {
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
+          width: 30px;
         }
-        @media screen and (min-width: 1200px) and (max-width: 1600px) {
-          width: 70% !important;
+        @media screen and (min-width: 1024px) and (max-width: 1400px) {
+          width: 30px;
         }
-        @media screen and (min-width: 1600px) and (max-width: 1900px) {
-          width: 40% !important;
+        @media screen and (min-width: 1400px) and (max-width: 1600px) {
+          width: 35px;
+        }
+        @media screen and (min-width: 1600px) and (max-width: 1920px) {
+          width: 40px;
         }
       }
-    }
-
-    & img {
-      width: 45px;
     }
 
     & section {
@@ -380,7 +438,6 @@
       align-items: center;
       background-color: $activehrefText;
       color: $defaultTextColor;
-      padding: 10px;
       .optionName {
         display: none !important;
       }
@@ -415,11 +472,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   padding: 5px;
   width: 100%;
+  border: 1px solid gray;
+  border-radius: 10px;
+  transition-duration: 0.5s;
   &:hover {
-    background-color: $backgroundColor;
-    color: $defaultTextColor;
     cursor: pointer;
+    background-color: $activehrefText;
+    color: #fff;
   }
 }

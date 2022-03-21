@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCodeBranch,
-  faPlus,
-  faCity,
-  faHome,
-  faUserAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faHome, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import Style from "./CreateProject.module.scss";
 import CustomCard from "../../Container/CustomCard";
-import { Button, Card, Row, Col, Container } from "react-bootstrap";
+import { Button, Row, Col, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import ProjectCard from "./ProjectCard";
 import {
   clearProjectData,
   getAllProject,
 } from "../../redux/action/ProjectAction";
 import { useHistory } from "react-router-dom";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import AddProjectModal from "./components/AddProjectModal";
 import Spinner from "../../Container/Spinner";
 import { adminLogout } from "../../redux/action/AdminAction";
@@ -36,13 +29,10 @@ function CreateProject() {
     loading,
     allProjectData,
   } = getAllProjectReducer;
-  // console.log("PorjectData", PorjectData);
 
   // GETTGIN THE USER NAME TO PUT IN DOCUMENT
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { adminInfo } = adminLoginReducer;
-
-  // console.log("adminInfo", adminInfo);
 
   const createNewProjectReducer = useSelector(
     (state) => state.createNewProjectReducer
@@ -55,22 +45,20 @@ function CreateProject() {
 
   // CHEKING IF USER IN NOT PRIME ADMIN
 
-  // console.log("adminLoginReducer", adminInfo.data.isSuperAdmin);
-
-  const navbardetail = {
-    name: adminInfo.data.name,
-    dashName: "Welcome",
-    link1: {
-      iconName: faHome,
-      linkName: "Home",
-      link: `/`,
-    },
-    link2: {
-      iconName: faUserAlt,
-      linkName: "Profile",
-      link: `/`,
-    },
-  };
+  // const navbardetail = {
+  //   name: adminInfo.data.name,
+  //   dashName: "Welcome",
+  //   link1: {
+  //     iconName: faHome,
+  //     linkName: "Home",
+  //     link: `/`,
+  //   },
+  //   link2: {
+  //     iconName: faUserAlt,
+  //     linkName: "Profile",
+  //     link: `/`,
+  //   },
+  // };
   const history = useHistory();
 
   useEffect(() => {
@@ -141,34 +129,10 @@ function CreateProject() {
                 </Col>
               ) : null}
 
-              {/* dynamic projects */}
-
-              {/* <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
-            <CustomCard padding="10px">
-              <Row>
-                <Col xl={12} className={Style.InfoColumn}>
-                  <h4>Agva Advanced</h4>
-                  <p>agva Advanced</p>
-                </Col>
-                <Col xl={12} className={Style.InfoDetails}>
-                  <p>
-                    <FontAwesomeIcon icon={faCodeBranch} />
-                  </p>
-                  <p>
-                    <span>
-                      <FontAwesomeIcon icon={faCity} />
-                    </span>
-                    agvaadvanced.com
-                  </p>
-                </Col>
-              </Row>
-            </CustomCard>
-          </Col> */}
               {allProjectData &&
                 allProjectData.data.data.length &&
                 allProjectData.data.data.map((datas) => (
                   <>
-                    {/* {console.log("data", datas)} */}
                     <ProjectCard data={datas} key={datas._id} />
                   </>
                 ))}

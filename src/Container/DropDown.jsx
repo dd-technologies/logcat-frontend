@@ -21,6 +21,7 @@ export default function CustomeDropDown(props) {
           position: props.position ? props.position : "",
           top: props.top ? props.top : "",
           right: props.right ? props.right : "",
+          marginRight: props.marginRight ? props.marginRight : "",
         }}
       >
         {props.children}

@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import CustomCard from "../../../../Container/CustomCard";
 import Style from "./CustomeFilterTable.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import getProjectByCode from "../../redux/action/ProjectAction";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 export default function CustomeFilterTable(props) {
@@ -45,19 +44,15 @@ export default function CustomeFilterTable(props) {
       : false,
   });
 
-  const filterOnDate = ({ startDate = null, endDate = null, diff = 15 }) => {
-    // console.log(diff);
-    if (diff != null) {
-      var dt = new Date();
-      const endd = dt.toISOString().slice(0, 10);
-      // console.log(date);
-      dt.setDate(dt.getDate() - diff);
-      setdate({ start: dt.toISOString().slice(0, 10), end: endd });
-      // console.log(date);
-    } else {
-      // console.log("Does not execute");
-    }
-  };
+  // const filterOnDate = ({ startDate = null, endDate = null, diff = 15 }) => {
+  //   if (diff != null) {
+  //     var dt = new Date();
+  //     const endd = dt.toISOString().slice(0, 10);
+  //     dt.setDate(dt.getDate() - diff);
+  //     setdate({ start: dt.toISOString().slice(0, 10), end: endd });
+  //   } else {
+  //   }
+  // };
 
   const dispatch = useDispatch();
 

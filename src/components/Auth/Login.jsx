@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Button, Col, Container, Form } from "react-bootstrap";
-import { Row } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMailBulk, faLock } from "@fortawesome/free-solid-svg-icons";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
 import Style from "./Login.module.scss";
 import "../../css/theme.scss";
 import { loginWithEmail } from "../../redux/action/AdminAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { faSteam } from "@fortawesome/free-brands-svg-icons";
-import {
-  faEnvelope
-} from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 export default function Login() {
   const [loginForm, setLoginForm] = useState({
@@ -36,10 +32,6 @@ export default function Login() {
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { loading, error, adminInfo } = adminLoginReducer;
 
-  // console.log("error", error);
-
-  // console.log("adminLoginReducer", adminLoginReducer)
-
   const history = useHistory();
   useEffect(() => {
     if (localStorage.getItem("ddAdminToken")) {
@@ -51,7 +43,6 @@ export default function Login() {
     if (!email) {
       setEmailError("Please enter your email Id");
 
-      // console.log("email validate function " + emailError);
       return false;
     }
 
@@ -60,7 +51,6 @@ export default function Login() {
         /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
       );
       if (!pattern.test(email)) {
-        // console.log("patern test " + pattern.test(email));
         setEmailError("Please enter valid email address.");
         return false;
       }
@@ -70,33 +60,20 @@ export default function Login() {
       email,
     });
 
-    // console.log("LoginFormState", loginForm);
-
     setEmailError(null);
     return true;
   };
 
   const validatePassword = (password) => {
-    // console.log("password validate");
-
     if (!password) {
       // isValid = false;
       setPasswordError("Please enter your password.");
       return false;
     }
-    // console.log("password validate function " + passwordError);
     if (password !== null) {
       var pattern = new RegExp(
         "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
       );
-      // if (!pattern.test(password)) {
-      //     //   isValid = false;
-      //     setPasswordError(
-      //         "Please enter valid password.",
-      //     )
-      //     return false
-      // }
-      // return true
     }
 
     setLoginForm({
@@ -140,8 +117,6 @@ export default function Login() {
   useEffect(() => {
     setSetErrorPassword(error);
   }, [error]);
-
-  // console.log("setErrorPassword", setErrorPassword);
 
   return (
     <>
@@ -230,7 +205,7 @@ export default function Login() {
                     style={{
                       textDecoration: "none",
                       color: "#257d7c",
-                      fontWeight:500
+                      fontWeight: 500,
                     }}
                   >
                     Forget Password?
@@ -238,7 +213,7 @@ export default function Login() {
                 </section>
 
                 <Button
-                  style={{ float: "right", width:'30%', fontWeight:700 }}
+                  style={{ float: "right", width: "30%", fontWeight: 700 }}
                   type="submit"
                   className="mt-4"
                   onClick={(e) => handleSubmit(e)}

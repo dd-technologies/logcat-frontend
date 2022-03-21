@@ -5,7 +5,6 @@ import { Route, useHistory, Redirect } from "react-router-dom";
 const Protected = ({ component:Component, ...restOfProps }) => {
   const history = useHistory();
   const isAuthenticated = localStorage.getItem("ddAdminToken");
-  console.log("this", isAuthenticated);
 
   return (
     <Route

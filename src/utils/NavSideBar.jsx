@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Button, Image } from "react-bootstrap";
+import { Image } from "react-bootstrap";
 import Style from "./NavSideBar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faBell } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import CustomeDropDown from "../Container/DropDown";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +19,7 @@ export function Navbar(props) {
   const { navdetails } = props;
   const [sidebar, setSidebar] = useState(false);
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
-  const [navToggle, setNavToggle] = useState(true);
+  // const [navToggle, setNavToggle] = useState(true);
   // SWIPE NAVBAR STATE
   const [swipe, setSwipe] = useState({
     show: true,
@@ -31,14 +31,13 @@ export function Navbar(props) {
   const [userInfo, setUserInfo] = useState(false);
   const ref = useRef();
 
-  const { loading, adminInfo } = adminLoginReducer;
+  const { adminInfo } = adminLoginReducer;
+
+  console.log("adminInfo", adminInfo);
 
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
   const { data } = slideWindowReducer;
-  // console.log("slideWindowReducer", data);
-
-  // console.log(adminInfo.data.name);
 
   // checking if navlink 2 is not avilables
 
@@ -46,22 +45,19 @@ export function Navbar(props) {
   const dispatch = useDispatch();
   let history = useHistory();
   const handlelogout = (e) => {
-    // console.log('logout click');
     e.preventDefault();
     dispatch(adminLogout(history));
-    // console.log("handleclose", "handle close button pressed");
   };
 
-  const currentRoute = useHistory().location.pathname.toLowerCase();
-  // console.log("currentRoute", currentRoute);
+  // const currentRoute = useHistory().location.pathname.toLowerCase();
 
   // navigation toogle
-  const navToggleFun = () => {
-    if (navToggle) {
-      return setNavToggle(false);
-    }
-    return setNavToggle(true);
-  };
+  // const navToggleFun = () => {
+  //   if (navToggle) {
+  //     return setNavToggle(false);
+  //   }
+  //   return setNavToggle(true);
+  // };
 
   // let history = useHistory();
   // const dispatch = useDispatch();
@@ -86,7 +82,6 @@ export function Navbar(props) {
     }
   };
   useEffect(() => {
-    // console.log("slideWindowReducer", "useEffect Run");
     dispatch(slideShow(swipe));
   }, [swipe]);
 
@@ -137,15 +132,19 @@ export function Navbar(props) {
               navdetails.dashName.slice(1)}
           </h3>
         </section>
-        <section className={Style.userInfo} onClick={showUserInfoFun}>
-          <section className={Style.Avtar}>
-            {adminInfo &&
-              adminInfo.data &&
-              adminInfo.data.name
-                .split(" ")
-                .map((name) => name[0][0].toUpperCase())}
+        <section className={Style.userInfo}>
+          <section className={Style.InfoSection}>
+            <FontAwesomeIcon icon={faBell} size="lg" />
+
+            <section className={Style.Avtar} onClick={showUserInfoFun}>
+              {adminInfo &&
+                adminInfo.data &&
+                adminInfo.data.name
+                  .split(" ")
+                  .map((name) => name[0][0].toUpperCase())}
+            </section>
           </section>
-          <section style={{ fontWeight: "500" }} className="m-2">
+          {/* <section style={{ fontWeight: "500" }} className="m-2">
             {adminInfo &&
               adminInfo.data &&
               adminInfo.data.name
@@ -153,7 +152,7 @@ export function Navbar(props) {
                 .map(
                   (name) => name.charAt(0).toUpperCase() + name.slice(1) + " "
                 )}
-          </section>
+          </section> */}
         </section>
       </nav>
       {userInfo && (
@@ -161,22 +160,40 @@ export function Navbar(props) {
           position="fixed"
           right="0%"
           top="6%"
-          width="200px"
+          width="400px"
           zIndex="10"
+          marginRight="10px"
         >
-          <p className="mt-2" className={Style.userInfoDropDown}>
-            Account
+          <section className={Style.Avtarunder} onClick={showUserInfoFun}>
+            {adminInfo &&
+              adminInfo.data &&
+              adminInfo.data.name
+                .split(" ")
+                .map((name) => name[0][0].toUpperCase())}
+          </section>
+          <p style={{ fontSize: "1.3rem" }}>
+            {adminInfo && adminInfo.data && adminInfo.data.name}
           </p>
+          <p style={{ fontSize: "1rem" }}>
+            {adminInfo && adminInfo.data && adminInfo.data.email}
+          </p>
+          <p className={`${Style.userInfoDropDown} mt-4`}>
+            Manage your account
+          </p>
+
           <p
-            className="mt-2"
-            className={Style.userInfoDropDown}
-            style={{ cursor: "pointer" }}
+            className={`${Style.userInfoDropDown} mt-2`}
             onClick={(e) => {
               handlelogout(e);
             }}
           >
             Logout
           </p>
+
+          <section className={Style.privacyPolicy}>
+            <p style={{ fontSize: "0.8rem" }}>Privacy policy</p>
+            <p style={{ fontSize: "0.8rem" }}>Terms of service</p>
+          </section>
         </CustomeDropDown>
       )}
     </>
@@ -187,16 +204,14 @@ export function Navbar(props) {
 
 export function SideBar(props) {
   const { sidebarDetails } = props;
-  // console.log("sidebarDetails", props);
   const [sidebar, setSidebar] = useState(false);
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
-  const [navToggle, setNavToggle] = useState(true);
+  // const [navToggle, setNavToggle] = useState(true);
   const { loading, adminInfo } = adminLoginReducer;
 
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
   const { data } = slideWindowReducer;
-  // console.log("slideWindowReducer", data);
 
   // URL STRING
   const queryString = window.location.search;
@@ -208,16 +223,15 @@ export function SideBar(props) {
 
   const dispatch = useDispatch();
 
-  const currentRoute = useHistory().location.pathname.toLowerCase();
-  // console.log("currentRoute", currentRoute);
+  // const currentRoute = useHistory().location.pathname.toLowerCase();
 
   // navigation toogle
-  const navToggleFun = () => {
-    if (navToggle) {
-      return setNavToggle(false);
-    }
-    return setNavToggle(true);
-  };
+  // const navToggleFun = () => {
+  //   if (navToggle) {
+  //     return setNavToggle(false);
+  //   }
+  //   return setNavToggle(true);
+  // };
 
   return (
     <>
@@ -236,10 +250,11 @@ export function SideBar(props) {
           >
             <section className={Style.DashBoardTitle}>
               {data.show ? (
-                <Image className={Style.logologcat} src={Logcat} alt="logcat" />
+                <Image className={Style.logologcatsmall} width={30} src={Logcat} alt="logcat" />
               ) : (
                 <Image
                   className={Style.logologcat}
+                  width={70}
                   src={LogcatLarge}
                   alt="logcat"
                 />

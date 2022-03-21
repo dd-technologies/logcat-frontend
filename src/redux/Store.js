@@ -73,7 +73,6 @@ const persistConf = {
 };
 
 const rootReducer = (state, action) => {
-  // console.log('root reducer')
   if (action.type === ADMIN_LOGOUT) {
     // for all keys defined in your persistConfig(s)
     storage.removeItem("persist:root");
