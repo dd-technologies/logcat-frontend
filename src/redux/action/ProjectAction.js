@@ -43,7 +43,11 @@ import {
 
   ADD_CRASH_EMAIL_REQUEST,
   ADD_CRASH_EMAIL_REQUEST_SUCCESS,
-  ADD_CRASH_EMAIL_REQUEST_FAIL
+  ADD_CRASH_EMAIL_REQUEST_FAIL,
+
+  GET_PROJECT_BY_CODE_REQUEST,
+  GET_PROJECT_BY_CODE_REQUEST_SUCCESS,
+  GET_PROJECT_BY_CODE_REQUEST_FAIL,
 } from "../types/ProjectConstants";
 
 export const getAllProject = () => async (dispatch) => {
@@ -376,6 +380,38 @@ export const getLogByDate =
           payload: response.data,
         });
       } catch (error) {}
+    };
+
+    export const getProjectByCodeSetting = (code) => async (dispatch) => {
+      try {
+        dispatch({
+          type: GET_PROJECT_BY_CODE_REQUEST,
+        });
+        const token = localStorage.getItem("ddAdminToken");
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        };
+    
+        const { data } = await axios.get(
+          `https://logger-server.herokuapp.com/api/logger/projects/${code}`,
+          config
+        );
+        dispatch({
+          type: GET_PROJECT_BY_CODE_REQUEST_SUCCESS,
+          payload: data.data,
+        });
+      } catch (error) {
+        dispatch({
+          type: GET_PROJECT_BY_CODE_REQUEST_FAIL,
+          payload:
+            error.response && error.response.data.message
+              ? error.response.data.message
+              : error.message,
+        });
+      }
     };
 
 export const getErrorWRTOS = (code, projectType) => async (dispatch) => {

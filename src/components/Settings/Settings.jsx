@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Navbar, SideBar } from "../../utils/NavSideBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,7 +7,7 @@ import LogICon from "../../assets/icons/log.png";
 import Style from "./Settings.module.scss";
 import { useDispatch,useSelector } from "react-redux";
 import { useState } from "react";
-import { addCrashEmail } from "../../redux/action/ProjectAction";
+import { addCrashEmail, getProjectByCodeSetting } from "../../redux/action/ProjectAction";
 
 export default function Settings() {
 
@@ -23,6 +23,9 @@ export default function Settings() {
   const addCrashEmailReducer = useSelector(
     (state) => state.addCrashEmailReducer
   );
+
+  const getProjectByCodeSettingReducer = useSelector((state) => state.getProjectByCodeSettingReducer);
+  const { data:dt } = getProjectByCodeSettingReducer;
 
   console.log(`add email: ${addCrashEmailReducer}`)
 
@@ -68,8 +71,8 @@ export default function Settings() {
 
   // Project name and description state
   const [nameAndDesc, setNameAndDesc] = useState({
-    name: dataObj.name,
-    desc:dataObj.description
+    name: dt && dt.data.name,
+    desc:dt && dt.data.description
   });
 
   const [projectChip, setprojectChip] = useState("");
@@ -229,6 +232,10 @@ export default function Settings() {
   };
 
   //   -----------------------------------------------------------------------------------------------------------------
+
+  useEffect(() => {
+    // dispatch(getProjectByCodeSetting(code));
+  }, []);
 
   return (
     <>
