@@ -19,6 +19,7 @@ export default function Analytics() {
     end: null,
   });
   const [title, setTitle] = useState("");
+  const [subTitle, setSubTitle] = useState("");
 
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
@@ -96,18 +97,17 @@ export default function Analytics() {
 
     if (mappedArraywithKey.length == 1) {
       setTitle(mappedArraywithKey[0]);
+      setSubTitle("");
     } else {
-
       for (let key in mappedArraywithKey) {
-
         if (mappedArraywithKey[key].includes("Caused by:")) {
           causedError = mappedArraywithKey[parseInt(key) + 1];
           // console.log("causedError", causedError);
           setTitle(
             causedError.split("(")[1].replace(":", " line ").split(")")[0]
           );
+          setSubTitle(causedError.split("(")[0]);
         }
-
       }
 
       if (!stackArray.includes("Caused by:")) {
@@ -116,6 +116,7 @@ export default function Analytics() {
           .replace(":", " ")
           .split(")")[0];
         setTitle(noCousedError);
+        setSubTitle(mappedArraywithKey[1].split("(")[0]);
         console.log(
           "mappedArraywithKey",
           mappedArraywithKey[1]
@@ -124,7 +125,6 @@ export default function Analytics() {
             .split(")")[0]
         );
       }
-
     }
   };
 
@@ -220,7 +220,8 @@ export default function Analytics() {
             {/* data from api */}
             <Col>
               {console.log("title render", title)}
-              <h2>{title}</h2>
+              <h2 style={{ fontWeight: "600" }}>{title}</h2>
+              <p style={{ fontWeight: "600" }}>{subTitle}</p>
             </Col>
 
             <Col className="my-4">
@@ -249,7 +250,13 @@ export default function Analytics() {
             </Col>
 
             <Col className={`${Style.AnalyticsEvents} my-4 mt-5`}>
-              <p style={{ fontWeight: "600", letterSpacing: "0.5px" }}>
+              <p
+                style={{
+                  color: "black",
+                  fontWeight: "600",
+                  letterSpacing: "0.5px",
+                }}
+              >
                 Events
               </p>
             </Col>

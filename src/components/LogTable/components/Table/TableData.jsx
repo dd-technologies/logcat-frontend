@@ -423,20 +423,33 @@ function TableData(props) {
         };
       },
       formatter: (col, row, rowIndex) => {
+        // const projectName = urlParams.get("name");
+        // let version = row.version ? row.version : null;
+        // let osArchitecture = row.osArchitecture ? row.osArchitecture : null;
+        // let modelName = row.modelName ? row.modelName : null;
+        var title;
+        var colData = col.split("at ");
 
+        console.log("col");
 
-        const projectName = urlParams.get("name");
-        let version = row.version ? row.version : null;
-        let osArchitecture = row.osArchitecture ? row.osArchitecture : null;
-        let modelName = row.modelName ? row.modelName : null;
+        if (colData.length == 1) {
+          title = colData[0];
+        } else {
+          for (let key in colData) {
+            if (colData[key].includes("Caused by:")) {
+              // console.log("causedError", causedError);
+              title = colData[parseInt(key) + 1]
+                .split("(")[1]
+                .replace(":", " line ")
+                .split(")")[0];
+            }
+          }
+          if (!col.includes("Caused by:")) {
+            title = colData[1].split("(")[1].replace(":", " ").split(")")[0];
+          }
+        }
 
-        return (
-          <div className={Style.expandedRow}>
-            {col.split(" at").map((items) => items)[0]
-              ? col.split(" at").map((items) => items)[0]
-              : col}
-          </div>
-        );
+        return <div className={Style.expandedRow}>{title}</div>;
       },
       sort: true,
     },
