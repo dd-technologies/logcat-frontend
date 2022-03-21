@@ -34,6 +34,9 @@ export default function Settings() {
   const code = urlParams.get("code");
   const projectName = urlParams.get("name");
 
+
+  
+
   // NAVIGATION MENU HERE
   const navdetails = {
     name: projectName,
@@ -54,13 +57,15 @@ export default function Settings() {
     link1: {
       iconName: LogICon,
       linkName: "Logs",
-      link: `/logtable?code=${code}&name=${projectName}&pagename=logpage`,
+      link: "",
     },
     link2: {
       iconName: `/assets/icons/settings.png`,
       linkName: "Settings",
     },
   };
+
+
 
   //   EMAIL CHIPS --------------------------------------------------------------------------------------------------
 
