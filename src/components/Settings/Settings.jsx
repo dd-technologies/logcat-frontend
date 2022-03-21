@@ -85,15 +85,6 @@ export default function Settings() {
   const { data } = slideWindowReducer;
 
 
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const code = urlParams.get("code");
-  const projectName = urlParams.get("name");
-
-
-  
-
-
   // NAVIGATION MENU HERE
   const navdetails = {
     name: projectName,
