@@ -80,7 +80,7 @@ export default function Analytics() {
     link2: {
       iconName: `./assets/icons/settings.png`,
       linkName: "Settings",
-      link: "",
+      link: `/settings?code=${code}&name=${projectName}&pagename=settings`,
     },
   };
 
