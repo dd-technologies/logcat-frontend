@@ -47,6 +47,15 @@ import {
   GET_MODEL_CODE_REQUEST,
   GET_MODEL_CODE_SUCCESS,
   GET_MODEL_CODE_FAIL,
+
+  ADD_CRASH_EMAIL_REQUEST,
+  ADD_CRASH_EMAIL_REQUEST_SUCCESS,
+  ADD_CRASH_EMAIL_REQUEST_FAIL,
+
+  GET_PROJECT_BY_CODE_REQUEST,
+  GET_PROJECT_BY_CODE_REQUEST_SUCCESS,
+  GET_PROJECT_BY_CODE_REQUEST_FAIL,
+
 } from "../types/ProjectConstants";
 
 export const getAllProjectReducer = (state = {}, action) => {
@@ -316,4 +325,46 @@ export const getModelCodeReducer = (state={},action)=>{
       return state;
   }
 }
+
+
+export const addCrashEmailReducer = (state={},action)=>{
+  switch (action.type) {
+    case  ADD_CRASH_EMAIL_REQUEST :
+      return { loading: true };
+
+    case  ADD_CRASH_EMAIL_REQUEST_SUCCESS :
+      return {
+        loading: false,
+        data: action.payload,
+      };
+    case  ADD_CRASH_EMAIL_REQUEST_FAIL :
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+}
+
+export const getProjectByCodeSettingReducer = (state={},action)=>{
+  switch (action.type) {
+    case  GET_PROJECT_BY_CODE_REQUEST :
+      return { loading: true };
+
+    case  GET_PROJECT_BY_CODE_REQUEST_SUCCESS :
+      return {
+        loading: false,
+        data: action.payload,
+      };
+    case  GET_PROJECT_BY_CODE_REQUEST_FAIL :
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+}
+
 

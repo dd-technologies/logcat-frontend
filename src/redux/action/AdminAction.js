@@ -1,8 +1,6 @@
 import axios from 'axios';
 import cookie from 'react-cookies';
 import { useHistory } from 'react-router';
-
-
 import { 
     ADMIN_LOGIN_REQUEST,
     ADMIN_LOGIN_SUCCESS,

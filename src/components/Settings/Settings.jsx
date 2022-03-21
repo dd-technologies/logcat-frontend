@@ -1,33 +1,89 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Navbar, SideBar } from "../../utils/NavSideBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDatabase, faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import LogICon from "../../assets/icons/log.png";
 import Style from "./Settings.module.scss";
-import { useSelector } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { useState } from "react";
+import { addCrashEmail, getProjectByCodeSetting } from "../../redux/action/ProjectAction";
 
 export default function Settings() {
+
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const code = urlParams.get("code");
+  const projectName = urlParams.get("name");
+
+  const getAllProjectReducer = useSelector(
+    (state) => state.getAllProjectReducer
+  );
+
+  const addCrashEmailReducer = useSelector(
+    (state) => state.addCrashEmailReducer
+  );
+
+  const getProjectByCodeSettingReducer = useSelector((state) => state.getProjectByCodeSettingReducer);
+  const { data:dt } = getProjectByCodeSettingReducer;
+
+  console.log(`add email: ${addCrashEmailReducer}`)
+
+  const {
+    allProjectData: PorjectData,
+    loading,
+    allProjectData,
+  } = getAllProjectReducer;
+  
+  let dataObj;
+  allProjectData && allProjectData.data && allProjectData.data.data.map((dt,idx)=>{
+    if(dt.code === code){
+      dataObj = dt;
+    }
+  })
+
+  const dispatch = useDispatch();
+
   // CHIP CREATING STATE EMAIL
   const [chipState, setChipState] = useState({
-    items: [],
+    items: [...dataObj.reportEmail],
     value: "",
     error: null,
   });
 
+  const [emailstate, setEmail] = useState({
+    email:"",
+    error:null,
+  });
+  const [emailList, setEmailList] = useState([...dataObj.reportEmail]);
+
+  let deviceTypeArray = dataObj.device_types.map(type => type.typeName)
+
+  // Email error state
+  const [emailError, setEmailError] = useState();
+
   // CHIP CREATING STATE PROJECT
   const [chipStateProject, setChipStateProject] = useState({
-    items: [],
+    items: [...deviceTypeArray],
     value: "",
     error: null,
+  });
+
+  // Project name and description state
+  const [nameAndDesc, setNameAndDesc] = useState({
+    name: dt && dt.data.name,
+    desc:dt && dt.data.description
   });
 
   const [projectChip, setprojectChip] = useState("");
 
+
+  var dataOf
+
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
   const { data } = slideWindowReducer;
+
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -36,6 +92,7 @@ export default function Settings() {
 
 
   
+
 
   // NAVIGATION MENU HERE
   const navdetails = {
@@ -69,15 +126,50 @@ export default function Settings() {
 
   //   EMAIL CHIPS --------------------------------------------------------------------------------------------------
 
+
+  const validateEmail = (email) => {
+    console.log("input chip validate")
+    if (!email) {
+      setEmailError("Please enter your email Id");
+
+      console.log("email validate function " + emailError);
+      return false;
+    }
+
+    if (email.length) {
+      var pattern = new RegExp(
+        /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+      );
+      if (!pattern.test(email)) {
+        // console.log("patern test " + pattern.test(email));
+        setEmailError("Please enter valid email address.");
+        return false;
+      }
+    }
+
+    // console.log("LoginFormState", loginForm);
+
+    setEmailError(null);
+    return true;
+  };
+
   //   HANDLE KEYDOWN FUNCTION
   const handleKeyDownEmail = (evt) => {
-    if (["Enter", "Tab", ","].includes(evt.key)) {
+    if (["Enter", "Tab", ","," "].includes(evt.key)) {
       evt.preventDefault();
-
-      setChipState({
-        items: [...chipState.items, chipState.value],
-        value: "",
-      });
+      setEmail({...emailstate, error:null})
+      let inputChips = emailstate.email.trim();
+      console.log(`input chip: ${inputChips}`)
+      const emailValid = validateEmail(inputChips);
+      console.log(`input chip email: ${emailValid}`)
+      if (emailValid) {
+        setEmailList([...emailList, inputChips]);
+        setEmail({email:""})
+        setEmailError(null)
+      }
+      else{
+        setEmailError("Check Email")
+      }
     }
   };
 
@@ -91,10 +183,27 @@ export default function Settings() {
   };
 
   const hanldeOndeleteEmail = (item) => {
-    setChipState({
-      ...chipState,
-      items: chipState.items.filter((i) => i !== item),
-    });
+    setEmailList(
+      emailList.filter((it) => {
+        return it !== item;
+      })
+      );
+  };
+
+
+
+  const handleSaveEmail = (e)=>{
+    e.preventDefault()
+    setEmailList({email:""})
+    setEmailError(null)
+    if (emailList.email!==null) {
+      dispatch(
+        addCrashEmail(code,emailList)
+      );
+      if (!emailList.email.length) {
+        setEmailError("Email is required");
+      }
+    }
   };
 
   //   -----------------------------------------------------------------------------------------------------------------
@@ -136,6 +245,10 @@ export default function Settings() {
 
   //   -----------------------------------------------------------------------------------------------------------------
 
+  useEffect(() => {
+    // dispatch(getProjectByCodeSetting(code));
+  }, []);
+
   return (
     <>
       <Row>
@@ -171,18 +284,20 @@ export default function Settings() {
                 <h4 className={Style.headingText}>Update project</h4>
                 <div className={`${Style.imputFields} mt-4`}>
                   <input
-                    type="email"
+                    type="text"
                     className="form-control LoginForminput "
-                    id="exampleInputEmail1"
                     placeholder="Project Name"
-                    aria-describedby="emailHelp"
+                    value = {nameAndDesc.name}
+                    onChange = {(e)=>setNameAndDesc({...nameAndDesc, name:e.target.value})}
                   />
                 </div>
                 <div className={`${Style.imputFields} mt-4`}>
                   <textarea
-                    placeholder="Project Discription"
+                    placeholder="Project Description"
                     rows="4"
                     cols="50"
+                    value = {nameAndDesc.desc}
+                    onChange = {(e)=>setNameAndDesc({...nameAndDesc, desc:e.target.value})}
                   />
                 </div>
 
@@ -195,13 +310,13 @@ export default function Settings() {
                 </Button>
               </Col>
               <Col xl={6} md={6} sm={12}>
-                <h4 className={Style.headingText}>Add a project type</h4>
+                <h4 className={Style.headingText}>Add project type</h4>
                 <div className={`${Style.imputFields} mt-4`}>
                   <input
-                    type="email"
+                    type="text"
                     className="form-control LoginForminput "
                     id="exampleInputEmail1"
-                    placeholder="Project Name"
+                    placeholder="Project Type"
                     aria-describedby="emailHelp"
                     value={chipStateProject.value}
                     onKeyDown={handleKeyDownPorject}
@@ -257,17 +372,24 @@ export default function Settings() {
                     type="email"
                     className="form-control LoginForminput "
                     id="exampleInputEmail1"
-                    placeholder="email"
-                    value={chipState.value}
+                    placeholder="Enter Email"
+                    value={emailstate.email}
                     aria-describedby="emailHelp"
-                    onKeyDown={handleKeyDownEmail}
-                    onChange={handleChangeEmail}
+                    onKeyDown={(e) => {
+                      handleKeyDownEmail(e);
+                    }}
+                    onChange={(e) => setEmail({email:e.target.value})}
                   />
                 </div>
+                  {
+                    emailError ? <small style={{color:'red'}}>
+                      {emailError}
+                    </small>:''
+                  }
                 {/* CHIP SECTION */}
                 <section className={Style.chipouter}>
-                  {chipState.items &&
-                    chipState.items.map((items) => {
+                  {
+                    emailList.length > 0 && emailList.map((items) => {
                       return (
                         <>
                           <section className={Style.chip}>
@@ -286,10 +408,11 @@ export default function Settings() {
 
                 <Button
                   style={{ fontWeight: 700 }}
-                  type="submit"
+                  // type="submit"
                   className="mt-4"
+                  onClick = {(e)=>{handleSaveEmail(e)}}
                 >
-                  Save Changes
+                  Save Emails
                 </Button>
               </Col>
             </Row>
