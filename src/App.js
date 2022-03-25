@@ -10,6 +10,7 @@ import ForgetPassword from "./components/Auth/ForgetPassword";
 import Protected from "./utils/Protected";
 import Settings from "./components/Settings/Settings";
 import { useSelector } from "react-redux";
+import UpdateProfile from "./components/user/UpdateProfile";
 
 function App() {
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
@@ -24,6 +25,7 @@ function App() {
         <Protected exact path="/home" component={CreateProject} />
         <Route exact path="/logtable" component={LogTable} />
         <Route exact path="/analytics" component={Analytics} />
+        <Route exact path="/update" component={UpdateProfile} />
         {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
           <Route exact path="/settings" component={Settings} />
         )}

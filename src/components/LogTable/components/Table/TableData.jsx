@@ -430,7 +430,7 @@ function TableData(props) {
         var title;
         var colData = col.split("at ");
 
-        console.log("col");
+        // console.log("col");
 
         if (colData.length == 1) {
           title = colData[0];

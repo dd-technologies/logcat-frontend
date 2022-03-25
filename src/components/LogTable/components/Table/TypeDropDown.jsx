@@ -127,6 +127,7 @@ const TypeDropDown = (props) => {
                 width="15%"
                 position="absolute"
                 alignItems="flex-start"
+                zIndex="9"
               >
                 {data &&
                   data.modelList.map((type) => {

@@ -66,8 +66,8 @@ export default function Analytics() {
   const projectCodeAnalytics = urlParams.get("projectCodeAnalytics");
   // const analyticsURL = urlParams.get("pagetype") || "";
   let stackArray = urlParams.get("col") || "";
-  let stackArrayNew = stackArray.split(" at ");
-  console.log("stackArrayNew", stackArrayNew);
+  let stackArrayNew = stackArray.split("at ");
+  // console.log("stackArrayNew", stackArrayNew);
 
   const sidebarDetails = {
     name: projectName,
@@ -106,7 +106,8 @@ export default function Analytics() {
           setTitle(
             causedError.split("(")[1].replace(":", " line ").split(")")[0]
           );
-          setSubTitle(causedError.split("(")[0]);
+          setSubTitle(causedError);
+          // console.log("mappedArraywithKey", causedError);
         }
       }
 
@@ -116,14 +117,8 @@ export default function Analytics() {
           .replace(":", " ")
           .split(")")[0];
         setTitle(noCousedError);
-        setSubTitle(mappedArraywithKey[1].split("(")[0]);
-        console.log(
-          "mappedArraywithKey",
-          mappedArraywithKey[1]
-            .split("(")[1]
-            .replace(":", " line ")
-            .split(")")[0]
-        );
+        setSubTitle(mappedArraywithKey[1]);
+        // console.log("mappedArraywithKey", mappedArraywithKey);
       }
     }
   };
@@ -219,7 +214,7 @@ export default function Analytics() {
           >
             {/* data from api */}
             <Col>
-              {console.log("title render", title)}
+              {/* {console.log("title render", title)} */}
               <h2 style={{ fontWeight: "600" }}>{title}</h2>
               <p style={{ fontWeight: "600" }}>{subTitle}</p>
             </Col>
