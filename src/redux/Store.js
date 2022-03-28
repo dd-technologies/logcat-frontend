@@ -27,6 +27,10 @@ import {
   getCrashAnalyticsDataReducer,
   getCrashFreeUsersDataReducer,
   getModelCodeReducer,
+
+  addCrashEmailReducer,
+  getProjectByCodeSettingReducer,
+
 } from "./reducer/ProjectReducer";
 import slideWindowReducer from "./reducer/SliderReducer";
 import { passwordChangeReducer } from "./reducer/UserProfileReducer";
@@ -62,7 +66,13 @@ const appReducer = combineReducers({
   getCrashAnalyticsDataReducer,
   getCrashFreeUsersDataReducer,
   slideWindowReducer,
+
   passwordChangeReducer,
+
+
+  addCrashEmailReducer,
+  getProjectByCodeSettingReducer,
+
 });
 
 const persistConf = {
