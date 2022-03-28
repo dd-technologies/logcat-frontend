@@ -48,6 +48,10 @@ import {
   GET_PROJECT_BY_CODE_REQUEST,
   GET_PROJECT_BY_CODE_REQUEST_SUCCESS,
   GET_PROJECT_BY_CODE_REQUEST_FAIL,
+
+  GET_PROJECT_CRASH_EMAIL_REQUEST,
+  GET_PROJECT_CRASH_EMAIL_REQUEST_SUCCESS,
+  GET_PROJECT_CRASH_EMAIL_REQUEST_FAIL,
 } from "../types/ProjectConstants";
 
 export const getAllProject = () => async (dispatch) => {
@@ -99,7 +103,7 @@ export const addCrashEmail = (code,email)=> async(dispatch)=>{
 
   
     const { data } = await axios.put(
-      `https://logger-server.herokuapp.com/api/logger/projects/updateEmail/${code}`,{
+      `192.168.1.216:5000/api/logger/projects/updateEmail/${code}`,{
       email
       },
       config
