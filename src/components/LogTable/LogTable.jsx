@@ -379,7 +379,7 @@ export default function LogTable() {
 
                   <section>
                     {dateDropDown ? (
-                      <CustomeDropDown width="100%">
+                      <CustomeDropDown width="100%" zIndex="9">
                         {/* <p className="mt-1">10 days</p> */}
                         <p
                           style={{ fontSize: "1rem" }}

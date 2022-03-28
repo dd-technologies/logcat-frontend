@@ -33,7 +33,7 @@ export function Navbar(props) {
 
   const { adminInfo } = adminLoginReducer;
 
-  console.log("adminInfo", adminInfo);
+  // console.log("adminInfo", adminInfo);
 
   // console.log("stackArray", mappedArraywithKey);
 
@@ -182,7 +182,7 @@ export function Navbar(props) {
           <p style={{ fontSize: "1rem" }}>
             {adminInfo && adminInfo.data && adminInfo.data.email}
           </p>
-          <p className={`${Style.userInfoDropDown} mt-4`}>
+          <p className={`${Style.userInfoDropDown} mt-4`} onClick={()=>history.push("/update")}>
             Manage your account
           </p>
 

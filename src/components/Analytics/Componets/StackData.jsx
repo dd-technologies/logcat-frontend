@@ -29,7 +29,7 @@ export default function StackData() {
 
   // HEADING DATA ANALYTIC
   const pattern = /(at).*/gm;
-  const DataINRow = colData.split(" at");
+  const DataINRow = colData.split("at ");
 
   var grouped = DataINRow.reduce((result, word) => {
     var letter;
