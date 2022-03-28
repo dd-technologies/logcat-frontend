@@ -55,9 +55,9 @@ export default function UpdateProfile() {
   // show password state
 
   const [showPassword, setShowPassword] = useState({
-    currentpasswordShow: null,
-    newPasswordShow: null,
-    confirmNewpasswordShow: null,
+    currentpasswordShow: false,
+    newPasswordShow: false,
+    confirmNewpasswordShow: false,
   });
 
   const history = useHistory();
@@ -114,12 +114,9 @@ export default function UpdateProfile() {
     }
 
     // 1) if current and new password are same
-    if (
-      currentpassword.length > 0 &&
-      newPassword.length > 0 &&
-      currentpassword == newPassword
-    ) {
-      setError({ custome: "current and new password can not be same" });
+    if (currentpassword == newPassword) {
+      toast.error("current and new password can not be same");
+      return;
     }
 
     // 2) new password match with current password
@@ -128,22 +125,21 @@ export default function UpdateProfile() {
       confirmNewpassword.length > 0 &&
       newPassword !== confirmNewpassword
     ) {
-      setError({ custome: "new password and confirme password are not same" });
+      setError({ custome: "new password and confirme password can not same" });
       return;
     }
-
-    if (updatepasswordresponseData.success == false) {
-      setError({
-        custome:
-          updatepasswordresponseData && updatepasswordresponseData.message,
-      });
+    if (
+      updatepasswordresponseData &&
+      updatepasswordresponseData.success == false
+    ) {
+      toast.error(
+        updatepasswordresponseData && updatepasswordresponseData.message
+      );
+      return;
     }
-
-    // if()
-
     dispatch(passwordChangeAction(currentpassword, newPassword));
 
-    setStatusSucess(
+    toast.success(
       updatepasswordresponseData && updatepasswordresponseData.message
     );
 
@@ -155,9 +151,6 @@ export default function UpdateProfile() {
       history.push("/");
     }, 3000);
   };
-
-  // show password function
-  const showPasswordFun = () => {};
 
   return (
     <>
@@ -189,6 +182,7 @@ export default function UpdateProfile() {
             }
           >
             <section className={Style.OuterDiv}>
+              <Toaster />
               <Row style={{ marginTop: "150px" }}>
                 <Col xl={6} md={12} sm={12}>
                   <CustomeDropDown
@@ -315,7 +309,13 @@ export default function UpdateProfile() {
                                 ? faEye
                                 : faEyeSlash
                             }
-                            onClick={() => showPasswordFun()}
+                            onClick={() =>
+                              setShowPassword({
+                                ...showPassword,
+                                currentpasswordShow:
+                                  !showPassword.currentpasswordShow,
+                              })
+                            }
                           />
                         </span>
                       </div>
@@ -354,7 +354,12 @@ export default function UpdateProfile() {
                             icon={
                               showPassword.newPasswordShow ? faEye : faEyeSlash
                             }
-                            onClick={() => showPasswordFun()}
+                            onClick={() =>
+                              setShowPassword({
+                                ...showPassword,
+                                newPasswordShow: !showPassword.newPasswordShow,
+                              })
+                            }
                           />
                         </span>
                       </div>
@@ -397,7 +402,13 @@ export default function UpdateProfile() {
                                 ? faEye
                                 : faEyeSlash
                             }
-                            onClick={() => showPasswordFun()}
+                            onClick={() =>
+                              setShowPassword({
+                                ...showPassword,
+                                confirmNewpasswordShow:
+                                  !showPassword.confirmNewpasswordShow,
+                              })
+                            }
                           />
                         </span>
                       </div>
@@ -405,21 +416,13 @@ export default function UpdateProfile() {
                         {error.confirmNewpasswordError}
                       </p>
                     </section>
-                    {(
-                      <p
-                        className="mt-4"
-                        style={{ color: "red", fontSize: ".8rem" }}
-                      >
-                        {error.custome}
-                      </p>
-                    ) && (
-                      <p
-                        className="mt-4"
-                        style={{ color: "green", fontSize: ".8rem" }}
-                      >
-                        {statusSucess}
-                      </p>
-                    )}
+                    <p
+                      className="mt-4"
+                      style={{ color: "red", fontSize: ".8rem" }}
+                    >
+                      {console.log("error", error.custome)}
+                      {error.custome}
+                    </p>
 
                     <Row className={Style.buttonbackground}>
                       <Col className={Style.buttonbackground}>
