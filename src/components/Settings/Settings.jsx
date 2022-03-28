@@ -8,6 +8,7 @@ import Style from "./Settings.module.scss";
 import { useDispatch,useSelector } from "react-redux";
 import { useState } from "react";
 import { addCrashEmail, getProjectByCodeSetting } from "../../redux/action/ProjectAction";
+import Spinner from "../../Container/Spinner";
 
 export default function Settings() {
 
@@ -25,9 +26,12 @@ export default function Settings() {
   );
 
   const getProjectByCodeSettingReducer = useSelector((state) => state.getProjectByCodeSettingReducer);
-  const { data:dt } = getProjectByCodeSettingReducer;
+  const { loading:ld,data:dt } = getProjectByCodeSettingReducer;
 
-  console.log(`add email: ${addCrashEmailReducer}`)
+  console.log(`add email: ${dt}`)
+
+  const { loading:lnd,data:dat } = addCrashEmailReducer;
+  console.log(`crash email: ${dat && dat.reportEmail}`)
 
   const {
     allProjectData: PorjectData,
@@ -185,15 +189,16 @@ export default function Settings() {
 
   const handleSaveEmail = (e)=>{
     e.preventDefault()
-    setEmailList({email:""})
+    // setEmailList({email:""})
     setEmailError(null)
     if (emailList.email!==null) {
       dispatch(
         addCrashEmail(code,emailList)
       );
-      if (!emailList.email.length) {
-        setEmailError("Email is required");
-      }
+    }
+
+    if (!emailList.email.length) {
+      setEmailError("Email is required");
     }
   };
 
@@ -237,7 +242,7 @@ export default function Settings() {
   //   -----------------------------------------------------------------------------------------------------------------
 
   useEffect(() => {
-    // dispatch(getProjectByCodeSetting(code));
+    // dispatch(addCrashEmailReducer(code));
   }, []);
 
   return (
@@ -270,7 +275,7 @@ export default function Settings() {
             }
           >
             {/* SETTGINS COMPONENTS */}
-            <Row>
+            {ld? <Spinner/> : <Row>
               <Col xl={6} md={6} sm={12}>
                 <h4 className={Style.headingText}>Update project</h4>
                 <div className={`${Style.imputFields} mt-4`}>
@@ -343,7 +348,7 @@ export default function Settings() {
                   Save Changes
                 </Button>
               </Col>
-            </Row>
+            </Row>}
           </Container>
           <div className={Style.hrLine}></div>
 
