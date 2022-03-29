@@ -19,7 +19,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { passwordChangeAction } from "../../redux/action/UserProfileAction";
 import { persistor } from "../../redux/Store";
 import { toast, Toaster } from "react-hot-toast";
-import {updateProfile} from '../../redux/action/AdminAction'
+import { updateProfile } from "../../redux/action/AdminAction";
+import ReactCrop from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
+// or scss:
+import "react-image-crop/src/ReactCrop.scss";
 
 export default function UpdateProfile() {
   // SLIDEWINDOW STATE
@@ -35,18 +39,18 @@ export default function UpdateProfile() {
     (state) => state.passwordChangeReducer
   );
 
-  const [name, setname] = useState(adminInfo &&
-    adminInfo.data &&
-    adminInfo.data.name);
+  const [name, setname] = useState(
+    adminInfo && adminInfo.data && adminInfo.data.name
+  );
 
-  const [email, setemail] = useState(adminInfo &&
-    adminInfo.data &&
-    adminInfo.data.email);
+  const [email, setemail] = useState(
+    adminInfo && adminInfo.data && adminInfo.data.email
+  );
 
-  const [avatar,setAvatar] = useState(adminInfo &&
-    adminInfo.image &&
-    adminInfo.image);
-  
+  const [avatar, setAvatar] = useState(
+    adminInfo && adminInfo.image && adminInfo.image
+  );
+
   console.log(`image ${avatar && avatar.name}`);
 
   const { data: updatepasswordresponseData } = passwordChangeReducer;
@@ -64,21 +68,23 @@ export default function UpdateProfile() {
     custome: null,
   });
 
+  const [crop, setCrop] = useState();
+
   // save update profile data
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateProfile(email,name,avatar))
-  }
+    dispatch(updateProfile(email, name, avatar));
+  };
 
   // Upload Avatar
-  const handleUpload =(e)=>{
+  const handleUpload = (e) => {
     // e.preventDefault();
     const file = e.target.files;
     // const formData = new FormData();
     // formData.append(file[0].name,file[0])
     setAvatar(file[0]);
-  }
+  };
 
   // status sucess
   const [statusSucess, setStatusSucess] = useState("");
@@ -225,12 +231,18 @@ export default function UpdateProfile() {
                   >
                     <h3 className="mb-4">Update profile</h3>
                     <section className={Style.Avtarunder}>
-                    {/* src={URL.createObjectURL(image)} */}
-                      {avatar ?<img src={URL.createObjectURL(avatar)} alt="Avatar" /> : adminInfo &&
-                        adminInfo.data &&
-                        adminInfo.data.name
-                          .split(" ")
-                          .map((name) => name[0][0].toUpperCase())}
+                      <ReactCrop crop={crop} onChange={(c) => setCrop(c)}>
+                        {avatar ? (
+                          <img src={URL.createObjectURL(avatar)} alt="Avatar" />
+                        ) : (
+                          adminInfo &&
+                          adminInfo.data &&
+                          adminInfo.data.name
+                            .split(" ")
+                            .map((name) => name[0][0].toUpperCase())
+                        )}
+                      </ReactCrop>
+                      {/* src={URL.createObjectURL(image)} */}
                     </section>
                     <section className={Style.editImage}>
                       {/* <FontAwesomeIcon icon={faMailBulk} /> */}
@@ -242,7 +254,7 @@ export default function UpdateProfile() {
                         id="image_upload"
                         accept=".jpg, .jpeg, .png"
                         style={{ display: "none", visibility: "none" }}
-                        onChange={e=>handleUpload(e)}
+                        onChange={(e) => handleUpload(e)}
                       />
                     </section>
                     {/*name field  */}
@@ -262,8 +274,8 @@ export default function UpdateProfile() {
                           id="exampleInputEmail1"
                           placeholder="Enter your email"
                           aria-describedby="emailHelp"
-                          onChange={e=>{
-                            setname(e.target.value)
+                          onChange={(e) => {
+                            setname(e.target.value);
                           }}
                         />
                       </div>
@@ -278,9 +290,7 @@ export default function UpdateProfile() {
                         </span>
                         <input
                           type="email"
-                          value={
-                            email
-                          }
+                          value={email}
                           className="form-control LoginForminput "
                           id="exampleInputEmail1"
                           placeholder="Enter your email"
@@ -292,9 +302,9 @@ export default function UpdateProfile() {
 
                     <Row className={Style.buttonbackground}>
                       <Col className={Style.buttonbackground}>
-                        <Button className="mt-4 w-50" 
-                          onClick={handleSubmit}
-                        >Save</Button>
+                        <Button className="mt-4 w-50" onClick={handleSubmit}>
+                          Save
+                        </Button>
                       </Col>
                     </Row>
                   </CustomeDropDown>
