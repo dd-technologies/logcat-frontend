@@ -285,8 +285,7 @@ export default function UpdateProfile() {
                           id="exampleInputEmail1"
                           placeholder="Enter your email"
                           aria-describedby="emailHelp"
-                          // disabled
-                          onChange={e=>setemail(e.target.value)}
+                          disabled
                         />
                       </div>
                     </section>
