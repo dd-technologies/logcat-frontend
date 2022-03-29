@@ -16,6 +16,10 @@ import {
     RESET_PASSWORD_REQUEST,
     RESET_PASSWORD_REQUEST_SUCCESS,
     RESET_PASSWORD_REQUEST_FAIL,
+
+    UPDATE_PROFILE_REQUEST,
+    UPDATE_PROFILE_REQUEST_SUCCESS,
+    UPDATE_PROFILE_REQUEST_FAIL,
 } from '../types/AdminConstants'
 
 export const adminLoginReducer= (state={},action)=>{
@@ -126,3 +130,23 @@ export const resetPasswordReducer = (state={}, action)=>{
             return state
     }
 }
+
+export const updateProfileReducer = (state={},action)=>{
+    switch (action.type) {
+      case  UPDATE_PROFILE_REQUEST :
+        return { loading: true };
+  
+      case  UPDATE_PROFILE_REQUEST_SUCCESS :
+        return {
+          loading: false,
+          data: action.payload,
+        };
+      case  UPDATE_PROFILE_REQUEST_FAIL :
+        return {
+          loading: false,
+          error: action.payload,
+        };
+      default:
+        return state;
+    }
+  }

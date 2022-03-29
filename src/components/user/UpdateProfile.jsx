@@ -19,6 +19,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { passwordChangeAction } from "../../redux/action/UserProfileAction";
 import { persistor } from "../../redux/Store";
 import { toast, Toaster } from "react-hot-toast";
+import {updateProfile} from '../../redux/action/AdminAction'
 
 export default function UpdateProfile() {
   // SLIDEWINDOW STATE
@@ -34,6 +35,20 @@ export default function UpdateProfile() {
     (state) => state.passwordChangeReducer
   );
 
+  const [name, setname] = useState(adminInfo &&
+    adminInfo.data &&
+    adminInfo.data.name);
+
+  const [email, setemail] = useState(adminInfo &&
+    adminInfo.data &&
+    adminInfo.data.email);
+
+  const [avatar,setAvatar] = useState(adminInfo &&
+    adminInfo.image &&
+    adminInfo.image);
+  
+  console.log(`image ${avatar && avatar.name}`);
+
   const { data: updatepasswordresponseData } = passwordChangeReducer;
   // console.log("message", updatepasswordresponseData);
 
@@ -48,6 +63,22 @@ export default function UpdateProfile() {
     confirmNewpasswordError: null,
     custome: null,
   });
+
+  // save update profile data
+
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    dispatch(updateProfile(email,name,avatar))
+  }
+
+  // Upload Avatar
+  const handleUpload =(e)=>{
+    // e.preventDefault();
+    const file = e.target.files;
+    // const formData = new FormData();
+    // formData.append(file[0].name,file[0])
+    setAvatar(file[0]);
+  }
 
   // status sucess
   const [statusSucess, setStatusSucess] = useState("");
@@ -194,7 +225,8 @@ export default function UpdateProfile() {
                   >
                     <h3 className="mb-4">Update profile</h3>
                     <section className={Style.Avtarunder}>
-                      {adminInfo &&
+                    {/* src={URL.createObjectURL(image)} */}
+                      {avatar ?<img src={URL.createObjectURL(avatar)} alt="Avatar" /> : adminInfo &&
                         adminInfo.data &&
                         adminInfo.data.name
                           .split(" ")
@@ -210,6 +242,7 @@ export default function UpdateProfile() {
                         id="image_upload"
                         accept=".jpg, .jpeg, .png"
                         style={{ display: "none", visibility: "none" }}
+                        onChange={e=>handleUpload(e)}
                       />
                     </section>
                     {/*name field  */}
@@ -222,13 +255,16 @@ export default function UpdateProfile() {
                         <input
                           type="email"
                           value={
-                            adminInfo && adminInfo.data && adminInfo.data.name
+                            // adminInfo && adminInfo.data && adminInfo.data.name
+                            name
                           }
                           className="form-control LoginForminput "
                           id="exampleInputEmail1"
                           placeholder="Enter your email"
                           aria-describedby="emailHelp"
-                          disabled
+                          onChange={e=>{
+                            setname(e.target.value)
+                          }}
                         />
                       </div>
                     </section>
@@ -243,20 +279,23 @@ export default function UpdateProfile() {
                         <input
                           type="email"
                           value={
-                            adminInfo && adminInfo.data && adminInfo.data.email
+                            email
                           }
                           className="form-control LoginForminput "
                           id="exampleInputEmail1"
                           placeholder="Enter your email"
                           aria-describedby="emailHelp"
-                          disabled
+                          // disabled
+                          onChange={e=>setemail(e.target.value)}
                         />
                       </div>
                     </section>
 
                     <Row className={Style.buttonbackground}>
                       <Col className={Style.buttonbackground}>
-                        <Button className="mt-4 w-50">Save</Button>
+                        <Button className="mt-4 w-50" 
+                          onClick={handleSubmit}
+                        >Save</Button>
                       </Col>
                     </Row>
                   </CustomeDropDown>

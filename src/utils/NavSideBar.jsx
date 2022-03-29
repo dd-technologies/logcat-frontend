@@ -25,13 +25,18 @@ export function Navbar(props) {
     show: true,
   });
 
+  // const [navToggle, setNavToggle] = useState(true);
+  const { loading, adminInfo } = adminLoginReducer;
+
+  const [avatar, setAvatar] = useState(
+    adminInfo && adminInfo.image && adminInfo.image
+  );
+
   // SHOW ACCOUNT DETAILS
   // const [showTableDropDown, setShowTableDropDown] = useState(false);
 
   const [userInfo, setUserInfo] = useState(false);
   const ref = useRef();
-
-  const { adminInfo } = adminLoginReducer;
 
   // console.log("adminInfo", adminInfo);
 
@@ -170,19 +175,28 @@ export function Navbar(props) {
           marginRight="10px"
         >
           <section className={Style.Avtarunder} onClick={showUserInfoFun}>
-            {adminInfo &&
+            {/* src={URL.createObjectURL(image)} */}
+            {avatar ? (
+              <img src={URL.createObjectURL(avatar)} alt="Avatar" />
+            ) : (
+              adminInfo &&
               adminInfo.data &&
               adminInfo.data.name
                 .split(" ")
-                .map((name) => name[0][0].toUpperCase())}
+                .map((name) => name[0][0].toUpperCase())
+            )}
           </section>
+
           <p style={{ fontSize: "1.3rem" }}>
             {adminInfo && adminInfo.data && adminInfo.data.name}
           </p>
           <p style={{ fontSize: "1rem" }}>
             {adminInfo && adminInfo.data && adminInfo.data.email}
           </p>
-          <p className={`${Style.userInfoDropDown} mt-4`} onClick={()=>history.push("/update")}>
+          <p
+            className={`${Style.userInfoDropDown} mt-4`}
+            onClick={() => history.push("/update")}
+          >
             Manage your account
           </p>
 

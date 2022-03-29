@@ -19,6 +19,10 @@ import {
     RESET_PASSWORD_REQUEST,
     RESET_PASSWORD_REQUEST_SUCCESS,
     RESET_PASSWORD_REQUEST_FAIL,
+
+    UPDATE_PROFILE_REQUEST,
+    UPDATE_PROFILE_REQUEST_SUCCESS,
+    UPDATE_PROFILE_REQUEST_FAIL,
 } from '../types/AdminConstants'
 
 
@@ -242,3 +246,48 @@ export const resetForgetPassword = ({email,resetData}) => async (dispatch)=>{
         })
     }
 }
+
+export const updateProfile = (email,name,avatar)=>async(dispatch)=>{
+    try {
+      console.log("form data: ",email, name, avatar);
+      let formData = new FormData();
+      formData.append('name',name)
+    formData.append('image',avatar)
+    console.log([...formData])
+      dispatch({
+        type: UPDATE_PROFILE_REQUEST,
+      });
+      const token = localStorage.getItem("ddAdminToken");
+      // console.log(token);
+      const config = {
+        headers: {
+          "Accept":"application/JSON",
+          "Content-type": "multipart/form-data",
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjI0MTU0MDM5ZDQxZjZhYTY3YzBjZDkzIiwianRpIjoiTWZheXpKd29WViIsImlhdCI6MTY0ODQ2NjkxOCwiZXhwIjoxNjQ5NzYyOTE4fQ.oDa9BefMV0qzIjVgGI9hpHn4dPTHukrZlmCcANxrjIc`,
+        },
+      };
+    //   const body = {
+    //     name,
+    //     // email,
+    //     formData
+    //   }
+    
+      const { data } = await axios.put(
+        `http://localhost:5000/api/logger/update`,formData,
+        config,
+      );
+      // console.log(data);
+      dispatch({
+        type: UPDATE_PROFILE_REQUEST_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: UPDATE_PROFILE_REQUEST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  }
