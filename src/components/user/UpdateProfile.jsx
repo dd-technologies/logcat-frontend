@@ -54,6 +54,7 @@ export default function UpdateProfile() {
   console.log(`image ${avatar && avatar.name}`);
 
   const { data: updatepasswordresponseData } = passwordChangeReducer;
+  // console.log("updatepasswordresponseData", updatepasswordresponseData);
   // console.log("message", updatepasswordresponseData);
 
   const dispatch = useDispatch();
@@ -126,33 +127,48 @@ export default function UpdateProfile() {
     },
   };
 
+  // after dispatch function callback
+  const afterDispatchFun = async () => {
+    const success =
+      (await updatepasswordresponseData) && !updatepasswordresponseData.status;
+    const message =
+      (await updatepasswordresponseData) && updatepasswordresponseData.message;
+    // console.log("first");
+    if (!success == 1) {
+      toast.success(message);
+    } else {
+      toast.error(message);
+    }
+  };
+
   // updated password function
-  const updatePasswordFun = () => {
+  const updatePasswordFun = (afterDispatchFun) => {
+    // console.log("first1");
     // if current password is empty
     if (!currentpassword) {
       setError({
-        currentpasswordError: "current password  can not be empty",
+        currentpasswordError: "Current password  can not be empty",
       });
       return;
     }
     // if new password is empty
     if (!newPassword) {
       setError({
-        newPasswordError: "new password  can not be empty",
+        newPasswordError: "New password  can not be empty",
       });
       return;
     }
     // if newconfirme password is empty
     if (!confirmNewpassword) {
       setError({
-        confirmNewpasswordError: "confirm password can not be empty",
+        confirmNewpasswordError: "Confirm password can not be empty",
       });
       return;
     }
 
     // 1) if current and new password are same
     if (currentpassword == newPassword) {
-      toast.error("current and new password can not be same");
+      toast.error("Current and new password can not be same");
       return;
     }
 
@@ -162,31 +178,22 @@ export default function UpdateProfile() {
       confirmNewpassword.length > 0 &&
       newPassword !== confirmNewpassword
     ) {
-      setError({ custome: "new password and confirme password can not same" });
+      setError({ custome: "New password and Confirm pass should be same" });
       return;
     }
-    if (
-      updatepasswordresponseData &&
-      updatepasswordresponseData.success == false
-    ) {
-      toast.error(
-        updatepasswordresponseData && updatepasswordresponseData.message
-      );
-      return;
-    }
+
     dispatch(passwordChangeAction(currentpassword, newPassword));
-
-    toast.success(
-      updatepasswordresponseData && updatepasswordresponseData.message
-    );
-
-    setTimeout(() => {
-      localStorage.removeItem("ddAdminToken");
-      localStorage.removeItem("selected_date");
-      localStorage.removeItem("page_no");
-      persistor.purge();
-      history.push("/");
-    }, 3000);
+    afterDispatchFun();
+    // after dispach need to push url to the home
+    // console.log("dispatch", updatepasswordresponseData);
+    // if (updatepasswordresponseData && updatepasswordresponseData.status) {
+    // } else {
+    //   toast.error(updatepasswordresponseData.message);
+    // }
+    // localStorage.removeItem("ddAdminToken");
+    // localStorage.removeItem("selected_date");
+    // localStorage.removeItem("page_no");
+    // history.push("/");
   };
 
   return (
@@ -477,7 +484,7 @@ export default function UpdateProfile() {
                       <Col className={Style.buttonbackground}>
                         <Button
                           className="mt-4 w-50"
-                          onClick={updatePasswordFun}
+                          onClick={() => updatePasswordFun(afterDispatchFun)}
                         >
                           Update
                         </Button>
