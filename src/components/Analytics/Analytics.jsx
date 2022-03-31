@@ -66,7 +66,7 @@ export default function Analytics() {
   const projectCodeAnalytics = urlParams.get("projectCodeAnalytics");
   // const analyticsURL = urlParams.get("pagetype") || "";
   let stackArray = urlParams.get("col") || "";
-  let stackArrayNew = stackArray.split("at ");
+  let stackArrayNew = stackArray.split("at ") && stackArray.split(")");
   // console.log("stackArrayNew", stackArrayNew);
 
   const sidebarDetails = {
@@ -112,13 +112,15 @@ export default function Analytics() {
       }
 
       if (!stackArray.includes("Caused by:")) {
-        noCousedError = mappedArraywithKey[1]
-          .split("(")[1]
-          .replace(":", " ")
-          .split(")")[0];
+        noCousedError =
+          mappedArraywithKey[1].split("(")[1].replace(":", " ").split(")")[0] &&
+          mappedArraywithKey[1]
+            .split("(")[1]
+            .replace(":", " ")
+            .replace(" ", " line ");
         setTitle(noCousedError);
-        setSubTitle(mappedArraywithKey[1]);
-        // console.log("mappedArraywithKey", mappedArraywithKey);
+        setSubTitle(mappedArraywithKey[1].concat(")"));
+        console.log("mappedArraywithKey", title);
       }
     }
   };

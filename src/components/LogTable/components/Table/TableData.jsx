@@ -427,14 +427,29 @@ function TableData(props) {
         // let version = row.version ? row.version : null;
         // let osArchitecture = row.osArchitecture ? row.osArchitecture : null;
         // let modelName = row.modelName ? row.modelName : null;
+        // console.log("col", col);
         var title;
+
         var colData = col.split("at ");
+        console.log("colData", colData);
 
         // console.log("col");
-
-        if (colData.length == 1) {
-          title = colData[0];
+        var colDataTOString = colData.toString();
+        if (colData) {
+          // console.log("arrayTOString", arrayTOString);
+          if (colDataTOString.includes("(")) {
+            title = colData[0].split(")")[0].concat(")");
+          } else {
+            title = colData[0].split(")")[0];
+          }
+        }
+        // if coldata fiest index in java lang so [1] will be the title
+        if (colDataTOString.includes("java.lang.RuntimeException")) {
+          title = colData[1].split("(")[1].replace(":", " ").split(")")[0];
+          console.log("this is condition is working");
+          // title = colData[1];
         } else {
+          // title = colData;
           for (let key in colData) {
             if (colData[key].includes("Caused by:")) {
               // console.log("causedError", causedError);
@@ -444,10 +459,13 @@ function TableData(props) {
                 .split(")")[0];
             }
           }
-          if (!col.includes("Caused by:")) {
-            title = colData[1].split("(")[1].replace(":", " ").split(")")[0];
-          }
+          // if (!col.includes("Caused by:")) {
+          //   title = colData[1].split("(")[1].replace(":", " ").split(")")[0];
+
+          //   // title = colData[parseInt(key) + 1]
+          // }
         }
+        console.log("title 1", title);
 
         return <div className={Style.expandedRow}>{title}</div>;
       },

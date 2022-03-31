@@ -29,7 +29,7 @@ export default function StackData() {
 
   // HEADING DATA ANALYTIC
   const pattern = /(at).*/gm;
-  const DataINRow = colData.split("at ");
+  const DataINRow = colData.split("at ") && colData.split(")").slice(0, -1);
 
   var grouped = DataINRow.reduce((result, word) => {
     var letter;
@@ -176,7 +176,9 @@ export default function StackData() {
                                         }
                                       )}
                                     >
-                                      {items}
+                                      {DataINRow.includes("Caused by:")
+                                        ? items
+                                        : items.concat(")")}
                                     </p>
                                   ) : (
                                     <p
@@ -188,7 +190,10 @@ export default function StackData() {
                                         }
                                       )}
                                     >
-                                      at {items}
+                                      at{" "}
+                                      {DataINRow.includes("Caused by:")
+                                        ? items
+                                        : items.concat(")")}
                                     </p>
                                   )}
                                 </>
