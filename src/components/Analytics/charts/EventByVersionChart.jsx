@@ -19,6 +19,8 @@ export default function EventByVersionChart() {
 
   const { data } = getLogMsgOccurenceWRTDateReducer;
 
+  
+
   // let dataarray = data && data.response ? data.response : [];
 
   // CHANGING DATE FORMATE

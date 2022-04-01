@@ -47,7 +47,13 @@ export default function StackData() {
     result[letter].push(word);
     return result;
   }, {});
+
+  // console.log("first", colData);
+
   const keys = Object.keys(grouped);
+  // {
+  //   console.log("key", keys);
+  // }
 
   // INNER PARA SHOW FUNCTION
   const innerParaShowFun = () => {
@@ -125,89 +131,108 @@ export default function StackData() {
         ) : null}
 
         {/* STACK FILTER STACK ERROR FIELD HERE */}
+
         {stackErrorFilterTextFormate ? (
-          <Col xl={12} className={`${Style.outerDiv} mt-4`}>
-            {
-              // DataINRow.map((items,index)
-              keys.map((key, idx) => {
-                const fileName = key.slice(key.indexOf("/") + 1);
-                if (fileName) {
-                  var fname = `${fileName.split(".")[0]}.${
-                    fileName.split(".")[1]
-                  }.${fileName.split(".")[2]}`;
-                }
-                return (
-                  <>
-                    <section className={Style.outerDivinner}>
-                      <section
-                        className={
-                          innerParaShowDetails[idx]
-                            ? `${Style.StackInfoDiveWithToggle}`
-                            : `${Style.StackInfoDive}`
-                        }
-                        onClick={() => innerParaShowDetailsFun(idx)}
-                      >
-                        {idx == 0 ? (
-                          <p>{`${key.slice(key.indexOf("/") + 1)}`}</p>
-                        ) : (
-                          <p className={Style.index0}>
-                            {" "}
-                            {`${key.slice(key.indexOf("/") + 1)}`}
-                          </p>
-                        )}
-
-                        <FontAwesomeIcon icon={faCaretDown} />
-                      </section>
-
-                      {
-                        // grouped[key].foreach((value,index)=>{
-                        innerParaShowDetails[idx] && (
-                          <section className={Style.detailSection}>
-                            {grouped[key].map((items, index) => {
-                              return (
-                                <>
-                                  {idx == 0 ? (
-                                    <p
-                                      className={grouped[key].map(
-                                        (items, index) => {
-                                          return items.includes("Activity")
-                                            ? Style.normalPara
-                                            : Style.dynamicPara;
-                                        }
-                                      )}
-                                    >
-                                      {DataINRow.includes("Caused by:")
-                                        ? items
-                                        : items.concat(")")}
-                                    </p>
-                                  ) : (
-                                    <p
-                                      className={grouped[key].map(
-                                        (items, index) => {
-                                          return items.includes("Activity")
-                                            ? Style.normalPara
-                                            : Style.dynamicPara;
-                                        }
-                                      )}
-                                    >
-                                      at{" "}
-                                      {DataINRow.includes("Caused by:")
-                                        ? items
-                                        : items.concat(")")}
-                                    </p>
-                                  )}
-                                </>
-                              );
-                            })}
-                          </section>
-                        )
+          <>
+            {!keys.length < 1 ? (
+              <Col xl={12} className={`${Style.outerDiv} mt-4`}>
+                {
+                  // DataINRow.map((items,index)
+                  !keys == [] &&
+                    keys.map((key, idx) => {
+                      const fileName = key.slice(key.indexOf("/") + 1);
+                      if (fileName) {
+                        var fname = `${fileName.split(".")[0]}.${
+                          fileName.split(".")[1]
+                        }.${fileName.split(".")[2]}`;
                       }
-                    </section>
-                  </>
-                );
-              })
-            }
-          </Col>
+                      return (
+                        <>
+                          <section className={Style.outerDivinner}>
+                            <section
+                              className={
+                                innerParaShowDetails[idx]
+                                  ? `${Style.StackInfoDiveWithToggle}`
+                                  : `${Style.StackInfoDive}`
+                              }
+                              onClick={() => innerParaShowDetailsFun(idx)}
+                            >
+                              {idx == 0 ? (
+                                <p>
+                                  {`${key.slice(key.indexOf("/") + 1)}`}{" "}
+                                  {console.log("key", colData)}
+                                </p>
+                              ) : (
+                                <p className={Style.index0}>
+                                  {console.log("key", colData)}
+                                  {`${key.slice(key.indexOf("/") + 1)}`}
+                                </p>
+                              )}
+
+                              <FontAwesomeIcon icon={faCaretDown} />
+                            </section>
+
+                            {
+                              // grouped[key].foreach((value,index)=>{
+                              innerParaShowDetails[idx] && (
+                                <section className={Style.detailSection}>
+                                  {grouped[key].map((items, index) => {
+                                    return (
+                                      <>
+                                        {idx == 0 ? (
+                                          <p
+                                            className={grouped[key].map(
+                                              (items, index) => {
+                                                return items.includes(
+                                                  "Activity"
+                                                )
+                                                  ? Style.normalPara
+                                                  : Style.dynamicPara;
+                                              }
+                                            )}
+                                          >
+                                            {DataINRow.includes("Caused by:")
+                                              ? items
+                                              : items.concat(")")}
+                                          </p>
+                                        ) : (
+                                          <p
+                                            className={grouped[key].map(
+                                              (items, index) => {
+                                                return items.includes(
+                                                  "Activity"
+                                                )
+                                                  ? Style.normalPara
+                                                  : Style.dynamicPara;
+                                              }
+                                            )}
+                                          >
+                                            at{" "}
+                                            {DataINRow.includes("Caused by:")
+                                              ? items
+                                              : items.concat(")")}
+                                          </p>
+                                        )}
+                                      </>
+                                    );
+                                  })}
+                                </section>
+                              )
+                            }
+                          </section>
+                        </>
+                      );
+                    })
+                }
+              </Col>
+            ) : (
+              <Col xl={12} className={`${Style.outerDiv} mt-4`}>
+                <section className={Style.StackInfoDive}>
+                  <p>{colData}</p>
+                </section>
+              </Col>
+            )}
+          </>
         ) : null}
       </Row>
     </>

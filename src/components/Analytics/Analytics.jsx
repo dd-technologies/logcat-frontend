@@ -67,7 +67,8 @@ export default function Analytics() {
   // const analyticsURL = urlParams.get("pagetype") || "";
   let stackArray = urlParams.get("col") || "";
   let stackArrayNew = stackArray.split("at ") && stackArray.split(")");
-  // console.log("stackArrayNew", stackArrayNew);
+
+  console.log("first", stackArrayNew);
 
   const sidebarDetails = {
     name: projectName,
@@ -172,9 +173,36 @@ export default function Analytics() {
   const dispatch = useDispatch();
 
   const dispatchmultiple = () => {
+    // if (true) {
+    //   console.log("condition running");
+    //   dispatch(
+    //     getCrashFreeUsersData(
+    //       code,
+    //       stackArrayNew[0].concat(")"),
+    //       projectCodeAnalytics
+    //     )
+    //   );
+    //   dispatch(
+    //     getCrashAnalyticsData(
+    //       code,
+    //       stackArrayNew[0].concat(")"),
+    //       projectCodeAnalytics
+    //     )
+    //   );
+    //   dispatch(
+    //     getLogMsgOccurenceWRTDate({
+    //       code,
+    //       startDate: date.start,
+    //       endDate: date.end,
+    //       logMsg: stackArrayNew[0].concat(")"),
+    //       code1: projectCodeAnalytics,
+    //     })
+    //   );
+    // } else {
     dispatch(
       getCrashFreeUsersData(code, stackArrayNew[0], projectCodeAnalytics)
     );
+
     dispatch(
       getCrashAnalyticsData(code, stackArrayNew[0], projectCodeAnalytics)
     );
@@ -187,6 +215,7 @@ export default function Analytics() {
         code1: projectCodeAnalytics,
       })
     );
+    // }
   };
   useEffect(() => {
     dispatchmultiple();
