@@ -60,16 +60,16 @@
     justify-content: center;
     align-items: center !important;
     @media screen and (min-width: 768px) and (max-width: 1024px) {
-      width: 60%;
+      width: 40%;
     }
     @media screen and (min-width: 1024px) and (max-width: 1400px) {
-      width: 55%;
+      width: 40%;
     }
     @media screen and (min-width: 1400px) and (max-width: 1600px) {
-      width: 50%;
+      width: 40%;
     }
     @media screen and (min-width: 1600px) and (max-width: 1920px) {
-      width: 43%;
+      width: 40%;
     }
 
     & section {
@@ -85,10 +85,28 @@
       height: 40px;
       color: $activehrefText;
       font-weight: 700;
+      // margin-left: 10px !important;
       // media query
-      @media screen and (min-width: 300px) and (max-width: 1024px) {
+      // border: 2px solid red; // media query
+      @media screen and (min-width: 768px) and (max-width: 1024px) {
         width: 28px;
         height: 28px;
+        margin-left: 10px !important;
+      }
+      @media screen and (min-width: 1024px) and (max-width: 1400px) {
+        width: 28px;
+        height: 28px;
+        margin-left: 10px !important;
+      }
+      @media screen and (min-width: 1400px) and (max-width: 1600px) {
+        width: 28px;
+        height: 28px;
+        margin-left: 10px !important;
+      }
+      @media screen and (min-width: 1600px) and (max-width: 1920px) {
+        width: 40px;
+        height: 40px;
+        margin-left: 10px !important;
       }
     }
   }
@@ -114,15 +132,14 @@
 }
 
 .InfoSection {
-  width: 10%;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: conter;
   @media screen and (min-width: 768px) and (max-width: 1024px) {
-    width: 30%;
+    width: 25%;
   }
   @media screen and (min-width: 1024px) and (max-width: 1400px) {
-    width: 30%;
+    width: 20%;
   }
   @media screen and (min-width: 1400px) and (max-width: 1600px) {
     width: 25%;
@@ -203,7 +220,7 @@
   .userInfo {
     width: 50%;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     cursor: pointer;
     // position: relative;
@@ -229,14 +246,29 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 40px;
-      height: 40px;
       color: $activehrefText;
       font-weight: 700;
-      // media query
-      @media screen and (min-width: 300px) and (max-width: 1024px) {
+
+      // border: 2px solid red; // media query
+      @media screen and (min-width: 768px) and (max-width: 1024px) {
         width: 28px;
         height: 28px;
+        margin-left: 10px !important;
+      }
+      @media screen and (min-width: 1024px) and (max-width: 1400px) {
+        width: 28px;
+        height: 28px;
+        margin-left: 10px !important;
+      }
+      @media screen and (min-width: 1400px) and (max-width: 1600px) {
+        width: 28px;
+        height: 28px;
+        margin-left: 10px !important;
+      }
+      @media screen and (min-width: 1600px) and (max-width: 1920px) {
+        width: 40px;
+        height: 40px;
+        margin-left: 10px !important;
       }
     }
   }
