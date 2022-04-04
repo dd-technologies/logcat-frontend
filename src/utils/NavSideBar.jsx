@@ -146,7 +146,10 @@ export function Navbar(props) {
           <section className={Style.InfoSection}>
             <FontAwesomeIcon icon={faBell} size="lg" />
 
-            <section className={Style.Avtar} onClick={showUserInfoFun}>
+            <section
+              className={`${Style.Avtar}`}
+              onClick={showUserInfoFun}
+            >
               {adminInfo &&
                 adminInfo.data &&
                 adminInfo.data.name

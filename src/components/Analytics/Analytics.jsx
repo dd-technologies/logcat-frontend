@@ -66,8 +66,9 @@ export default function Analytics() {
   const projectCodeAnalytics = urlParams.get("projectCodeAnalytics");
   // const analyticsURL = urlParams.get("pagetype") || "";
   let stackArray = urlParams.get("col") || "";
-  let stackArrayNew = stackArray.split("at ");
-  // console.log("stackArrayNew", stackArrayNew);
+  let stackArrayNew = stackArray.split("at ") && stackArray.split(")");
+
+  console.log("first", stackArrayNew);
 
   const sidebarDetails = {
     name: projectName,
@@ -112,13 +113,15 @@ export default function Analytics() {
       }
 
       if (!stackArray.includes("Caused by:")) {
-        noCousedError = mappedArraywithKey[1]
-          .split("(")[1]
-          .replace(":", " ")
-          .split(")")[0];
+        noCousedError =
+          mappedArraywithKey[1].split("(")[1].replace(":", " ").split(")")[0] &&
+          mappedArraywithKey[1]
+            .split("(")[1]
+            .replace(":", " ")
+            .replace(" ", " line ");
         setTitle(noCousedError);
-        setSubTitle(mappedArraywithKey[1]);
-        // console.log("mappedArraywithKey", mappedArraywithKey);
+        setSubTitle(mappedArraywithKey[1].concat(")"));
+        console.log("mappedArraywithKey", title);
       }
     }
   };
@@ -170,9 +173,36 @@ export default function Analytics() {
   const dispatch = useDispatch();
 
   const dispatchmultiple = () => {
+    // if (true) {
+    //   console.log("condition running");
+    //   dispatch(
+    //     getCrashFreeUsersData(
+    //       code,
+    //       stackArrayNew[0].concat(")"),
+    //       projectCodeAnalytics
+    //     )
+    //   );
+    //   dispatch(
+    //     getCrashAnalyticsData(
+    //       code,
+    //       stackArrayNew[0].concat(")"),
+    //       projectCodeAnalytics
+    //     )
+    //   );
+    //   dispatch(
+    //     getLogMsgOccurenceWRTDate({
+    //       code,
+    //       startDate: date.start,
+    //       endDate: date.end,
+    //       logMsg: stackArrayNew[0].concat(")"),
+    //       code1: projectCodeAnalytics,
+    //     })
+    //   );
+    // } else {
     dispatch(
       getCrashFreeUsersData(code, stackArrayNew[0], projectCodeAnalytics)
     );
+
     dispatch(
       getCrashAnalyticsData(code, stackArrayNew[0], projectCodeAnalytics)
     );
@@ -185,6 +215,7 @@ export default function Analytics() {
         code1: projectCodeAnalytics,
       })
     );
+    // }
   };
   useEffect(() => {
     dispatchmultiple();
