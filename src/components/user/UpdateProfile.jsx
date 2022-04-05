@@ -18,12 +18,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { passwordChangeAction } from "../../redux/action/UserProfileAction";
 import { persistor } from "../../redux/Store";
-import { toast, Toaster } from "react-hot-toast";
+import toast, {Toaster } from "react-hot-toast";
 import { updateProfile } from "../../redux/action/AdminAction";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 // or scss:
 import "react-image-crop/src/ReactCrop.scss";
+import UpdatePassord from "./component/UpdatePassord";
 
 export default function UpdateProfile() {
   // SLIDEWINDOW STATE
@@ -51,39 +52,48 @@ export default function UpdateProfile() {
     adminInfo && adminInfo.image && adminInfo.image
   );
 
-  console.log(`image ${avatar && avatar.name}`);
 
-  const { data: updatepasswordresponseData } = passwordChangeReducer;
-  // console.log("updatepasswordresponseData", updatepasswordresponseData);
-  // console.log("message", updatepasswordresponseData);
+  const { loading:lnd,data: updatepasswordresponseData,error:err } = passwordChangeReducer;
 
   const dispatch = useDispatch();
 
   const [currentpassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewpassword, setConfirmNewPassword] = useState("");
-  const [error, setError] = useState({
-    currentpasswordError: null,
-    newPasswordError: null,
-    confirmNewpasswordError: null,
-    custome: null,
-  });
+  const [toastMessage, setToastMessage] = useState(null)
+  const [error, setError] = useState(null);
+
+  if(updatepasswordresponseData && updatepasswordresponseData.success === false) {
+    updatepasswordresponseData.success = ''
+    toast.error(updatepasswordresponseData && updatepasswordresponseData.message)
+  };
+  if(updatepasswordresponseData && updatepasswordresponseData.status === 1) {
+    updatepasswordresponseData.status = ''
+    toast.success(updatepasswordresponseData && updatepasswordresponseData.message);
+  };
+  // const [error, setError] = useState({
+  //   currentpasswordError: null,
+  //   newPasswordError: null,
+  //   confirmNewpasswordError: null,
+  //   custome: null,
+  // });
 
   const [crop, setCrop] = useState();
 
   // save update profile data
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     dispatch(updateProfile(email, name, avatar));
+    // setToastMessage(null)
+    // setCurrentPassword(null)
+    // setNewPassword(null)
+    // setConfirmNewPassword(null)
   };
 
   // Upload Avatar
   const handleUpload = (e) => {
-    // e.preventDefault();
     const file = e.target.files;
-    // const formData = new FormData();
-    // formData.append(file[0].name,file[0])
     setAvatar(file[0]);
   };
 
@@ -127,74 +137,34 @@ export default function UpdateProfile() {
     },
   };
 
-  // after dispatch function callback
-  const afterDispatchFun = async () => {
-    const success =
-      (await updatepasswordresponseData) && !updatepasswordresponseData.status;
-    const message =
-      (await updatepasswordresponseData) && updatepasswordresponseData.message;
-    // console.log("first");
-    if (!success == 1) {
-      toast.success(message);
-    } else {
-      toast.error(message);
-    }
-  };
-
   // updated password function
-  const updatePasswordFun = (afterDispatchFun) => {
-    // console.log("first1");
-    // if current password is empty
-    if (!currentpassword) {
-      setError({
-        currentpasswordError: "Current password  can not be empty",
-      });
-      return;
-    }
-    // if new password is empty
-    if (!newPassword) {
-      setError({
-        newPasswordError: "New password  can not be empty",
-      });
-      return;
-    }
-    // if newconfirme password is empty
-    if (!confirmNewpassword) {
-      setError({
-        confirmNewpasswordError: "Confirm password can not be empty",
-      });
-      return;
-    }
-
+  const updatePasswordFun = (e) => {
+    e.preventDefault();
+  if (!currentpassword || !newPassword || !confirmNewpassword){
+    toast.error("Provide all field value to update password!");
+    return
+  }
     // 1) if current and new password are same
-    if (currentpassword == newPassword) {
-      toast.error("Current and new password can not be same");
+    if (currentpassword === newPassword && currentpassword === confirmNewpassword) {
+      // toast.error("Check new password it should not be same to previous");
+      toast.error('Check new password it should not be same to previous')
       return;
     }
-
     // 2) new password match with current password
-    if (
-      newPassword.length > 0 &&
-      confirmNewpassword.length > 0 &&
-      newPassword !== confirmNewpassword
-    ) {
-      setError({ custome: "New password and Confirm pass should be same" });
+    if (newPassword !== confirmNewpassword) {
+      toast.error('New password and Confirm pass should be same')
       return;
     }
+    dispatch(passwordChangeAction(currentpassword, newPassword))
+    // setCurrentPassword(null)
+    // setNewPassword(null)
+    // setConfirmNewPassword(null)
 
-    dispatch(passwordChangeAction(currentpassword, newPassword));
-    afterDispatchFun();
-    // after dispach need to push url to the home
-    // console.log("dispatch", updatepasswordresponseData);
-    // if (updatepasswordresponseData && updatepasswordresponseData.status) {
-    // } else {
-    //   toast.error(updatepasswordresponseData.message);
-    // }
-    // localStorage.removeItem("ddAdminToken");
-    // localStorage.removeItem("selected_date");
-    // localStorage.removeItem("page_no");
-    // history.push("/");
   };
+
+  useEffect(() => {
+
+  }, []);
 
   return (
     <>
@@ -317,9 +287,20 @@ export default function UpdateProfile() {
                   </CustomeDropDown>
                 </Col>
 
-                {/* password change section */}
-
-                <Col xl={6} md={12} sm={12}>
+                {/*********************************** password change section ********************************/}
+                <UpdatePassord
+                  error = {error}
+                  currentpassword = {currentpassword}
+                  setCurrentPassword ={setCurrentPassword}
+                  showPassword = {showPassword}
+                  setShowPassword = {setShowPassword}
+                  newPassword = {newPassword}
+                  setNewPassword = {setNewPassword}
+                  confirmNewpassword={confirmNewpassword}
+                  setConfirmNewPassword={setConfirmNewPassword}
+                  updatePasswordFun={updatePasswordFun}
+                />
+                {/* <Col xl={6} md={12} sm={12}>
                   <CustomeDropDown
                     padding="30px"
                     marginRight="10px"
@@ -328,13 +309,13 @@ export default function UpdateProfile() {
                     height="600px"
                   >
                     <h3 className="mb-4">Change password</h3>
-                    {/* password field */}
+                    {/* password field ***
                     <section className="mt-4">
                       <h5>Current Password</h5>
 
                       <div
                         className={
-                          error.currentpasswordError
+                          error
                             ? `${Style.imputFieldsError}`
                             : `${Style.imputFields} mt-4`
                         }
@@ -375,15 +356,15 @@ export default function UpdateProfile() {
                         </span>
                       </div>
                       <p style={{ color: "red", fontSize: ".8rem" }}>
-                        {error.currentpasswordError}
+                        {error}
                       </p>
                     </section>
-                    {/* new password field */}
+                    {/* new password field ***
                     <section className="mt-4">
                       <h5>New Password</h5>
                       <div
                         className={
-                          error.newPasswordError
+                          error
                             ? `${Style.imputFieldsError}`
                             : `${Style.imputFields} mt-4`
                         }
@@ -419,15 +400,15 @@ export default function UpdateProfile() {
                         </span>
                       </div>
                       <p style={{ color: "red", fontSize: ".8rem" }}>
-                        {error.newPasswordError}
+                        {error}
                       </p>
                     </section>
-                    {/* confirme password field */}
+                    {/* confirme password field ***
                     <section className="mt-4">
                       <h5>Confirm New Password</h5>
                       <div
                         className={
-                          error.confirmNewpasswordError
+                          error
                             ? `${Style.imputFieldsError}`
                             : `${Style.imputFields} mt-4`
                         }
@@ -468,29 +449,29 @@ export default function UpdateProfile() {
                         </span>
                       </div>
                       <p style={{ color: "red", fontSize: ".8rem" }}>
-                        {error.confirmNewpasswordError}
+                        {error}
                       </p>
                     </section>
                     <p
                       className="mt-4"
                       style={{ color: "red", fontSize: ".8rem" }}
                     >
-                      {console.log("error", error.custome)}
-                      {error.custome}
+                      {console.log("error", error)}
+                      {error}
                     </p>
 
                     <Row className={Style.buttonbackground}>
                       <Col className={Style.buttonbackground}>
                         <Button
                           className="mt-4 w-50"
-                          onClick={() => updatePasswordFun(afterDispatchFun)}
+                          onClick={(e) => updatePasswordFun(e)}
                         >
                           Update
                         </Button>
                       </Col>
                     </Row>
                   </CustomeDropDown>
-                </Col>
+                </Col> */}
               </Row>
             </section>
           </Container>
