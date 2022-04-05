@@ -82,7 +82,15 @@ function CreateProject() {
           <Container className={Style.MainContantainer}>
             <Row>
               <Col xl={6} md={6} sm={6}>
-                <h5 style={{ color: "#fff" }}>Your Projects</h5>
+                <h5
+                  style={{
+                    color: JSON.parse(localStorage.getItem("darkMood"))
+                      ? "#fff"
+                      : null,
+                  }}
+                >
+                  Your Projects
+                </h5>
               </Col>
               <Col
                 xl={6}
@@ -90,7 +98,14 @@ function CreateProject() {
                 sm={6}
                 className="d-flex justify-content-end align-items-center"
               >
-                <p className="px-4" style={{ color: "#fff" }}>
+                <p
+                  className="px-4"
+                  style={{
+                    color: JSON.parse(localStorage.getItem("darkMood"))
+                      ? "#fff"
+                      : null,
+                  }}
+                >
                   {adminInfo.data.name}
                 </p>
                 <Button
@@ -118,7 +133,15 @@ function CreateProject() {
                         <p>
                           <FontAwesomeIcon icon={faPlus} />
                         </p>
-                        <p>Add Project</p>
+                        <p
+                          style={{
+                            color: JSON.parse(localStorage.getItem("darkMood"))
+                              ? "#fff"
+                              : null,
+                          }}
+                        >
+                          Add Project
+                        </p>
                       </section>
                     </section>
                   </CustomCard>

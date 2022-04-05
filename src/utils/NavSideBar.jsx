@@ -14,6 +14,7 @@ import Logcat from "../assets/images/lgnewsmall.png";
 import LogcatLarge from "../assets/images/logcatlargewhite.png";
 
 import settigns from "../assets/icons/settings.png";
+import DarkLightMood from "./DarkLightMood";
 
 export function Navbar(props) {
   const { navdetails } = props;
@@ -143,13 +144,12 @@ export function Navbar(props) {
           </h3>
         </section>
         <section className={Style.userInfo}>
+          {/* light and dark mood */}
+          <DarkLightMood />
           <section className={Style.InfoSection}>
             <FontAwesomeIcon icon={faBell} size="lg" />
 
-            <section
-              className={`${Style.Avtar}`}
-              onClick={showUserInfoFun}
-            >
+            <section className={`${Style.Avtar}`} onClick={showUserInfoFun}>
               {adminInfo &&
                 adminInfo.data &&
                 adminInfo.data.name
@@ -176,6 +176,11 @@ export function Navbar(props) {
           width="400px"
           zIndex="10"
           marginRight="10px"
+          boxShadow={
+            JSON.parse(localStorage.getItem("darkMood"))
+              ? "1px 1px 10px 2px rgba(0,0,0,0.45)"
+              : ""
+          }
         >
           <section className={Style.Avtarunder} onClick={showUserInfoFun}>
             {/* src={URL.createObjectURL(image)} */}
@@ -190,13 +195,32 @@ export function Navbar(props) {
             )}
           </section>
 
-          <p style={{ fontSize: "1.3rem" }}>
+          <p
+            style={{
+              fontSize: "1.3rem",
+              color: JSON.parse(localStorage.getItem("darkMood"))
+                ? "#fff"
+                : "#000",
+            }}
+          >
             {adminInfo && adminInfo.data && adminInfo.data.name}
           </p>
-          <p style={{ fontSize: "1rem" }}>
+          <p
+            style={{
+              fontSize: "1rem",
+              color: JSON.parse(localStorage.getItem("darkMood"))
+                ? "#fff"
+                : "#000",
+            }}
+          >
             {adminInfo && adminInfo.data && adminInfo.data.email}
           </p>
           <p
+            style={{
+              color: JSON.parse(localStorage.getItem("darkMood"))
+                ? "#fff"
+                : "#000",
+            }}
             className={`${Style.userInfoDropDown} mt-4`}
             onClick={() => history.push("/update")}
           >
@@ -204,6 +228,11 @@ export function Navbar(props) {
           </p>
 
           <p
+            style={{
+              color: JSON.parse(localStorage.getItem("darkMood"))
+                ? "#fff"
+                : "#000",
+            }}
             className={`${Style.userInfoDropDown} mt-2`}
             onClick={(e) => {
               handlelogout(e);
@@ -213,8 +242,26 @@ export function Navbar(props) {
           </p>
 
           <section className={Style.privacyPolicy}>
-            <p style={{ fontSize: "0.8rem" }}>Privacy policy</p>
-            <p style={{ fontSize: "0.8rem" }}>Terms of service</p>
+            <p
+              style={{
+                fontSize: "0.8rem",
+                color: JSON.parse(localStorage.getItem("darkMood"))
+                  ? "#fff"
+                  : "#000",
+              }}
+            >
+              Privacy policy
+            </p>
+            <p
+              style={{
+                fontSize: "0.8rem",
+                color: JSON.parse(localStorage.getItem("darkMood"))
+                  ? "#fff"
+                  : "#000",
+              }}
+            >
+              Terms of service
+            </p>
           </section>
         </CustomeDropDown>
       )}

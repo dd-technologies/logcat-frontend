@@ -76,7 +76,7 @@ export default function CarshFreeStaticsGraph() {
                   fill="#257d7c"
                 /> */}
                 <Area
-                  type="monotone"
+                  type="natural"
                   dataKey="data"
                   stroke="#257d7c"
                   fill="#257d7c"

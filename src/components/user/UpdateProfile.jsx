@@ -236,7 +236,16 @@ export default function UpdateProfile() {
                     zIndex="8"
                     height="600px"
                   >
-                    <h3 className="mb-4">Update profile</h3>
+                    <h3
+                      className="mb-4"
+                      style={{
+                        color: JSON.parse(localStorage.getItem("darkMood"))
+                          ? "#fff"
+                          : "#000",
+                      }}
+                    >
+                      Update profile
+                    </h3>
                     <section className={Style.Avtarunder}>
                       <ReactCrop crop={crop} onChange={(c) => setCrop(c)}>
                         {avatar ? (
@@ -266,12 +275,25 @@ export default function UpdateProfile() {
                     </section>
                     {/*name field  */}
                     <section className="mt-4">
-                      <h5>Name</h5>
+                      <h5
+                        style={{
+                          color: JSON.parse(localStorage.getItem("darkMood"))
+                            ? "#fff"
+                            : "#000",
+                        }}
+                      >
+                        Name
+                      </h5>
                       <div className={`${Style.imputFields} mt-4`}>
                         <span>
                           <FontAwesomeIcon icon={faPersonBooth} />
                         </span>
                         <input
+                          style={{
+                            color: JSON.parse(localStorage.getItem("darkMood"))
+                              ? "#fff"
+                              : "#000",
+                          }}
                           type="email"
                           value={
                             // adminInfo && adminInfo.data && adminInfo.data.name
@@ -290,12 +312,25 @@ export default function UpdateProfile() {
 
                     {/* email field */}
                     <section className="mt-4">
-                      <h5>Email</h5>
+                      <h5
+                        style={{
+                          color: JSON.parse(localStorage.getItem("darkMood"))
+                            ? "#fff"
+                            : "#000",
+                        }}
+                      >
+                        Email
+                      </h5>
                       <div className={`${Style.imputFields} mt-4`}>
                         <span>
                           <FontAwesomeIcon icon={faMailBulk} />
                         </span>
                         <input
+                          style={{
+                            color: JSON.parse(localStorage.getItem("darkMood"))
+                              ? "#fff"
+                              : "#000",
+                          }}
                           type="email"
                           value={email}
                           className="form-control LoginForminput "
@@ -328,10 +363,27 @@ export default function UpdateProfile() {
                     zIndex="8"
                     height="600px"
                   >
-                    <h3 className="mb-4">Change password</h3>
+                    <h3
+                      className="mb-4"
+                      style={{
+                        color: JSON.parse(localStorage.getItem("darkMood"))
+                          ? "#fff"
+                          : "#000",
+                      }}
+                    >
+                      Change password
+                    </h3>
                     {/* password field */}
                     <section className="mt-4">
-                      <h5>Current Password</h5>
+                      <h5
+                        style={{
+                          color: JSON.parse(localStorage.getItem("darkMood"))
+                            ? "#fff"
+                            : "#000",
+                        }}
+                      >
+                        Current Password
+                      </h5>
 
                       <div
                         className={
@@ -344,6 +396,11 @@ export default function UpdateProfile() {
                           <FontAwesomeIcon icon={faLock} />
                         </span>
                         <input
+                          style={{
+                            color: JSON.parse(localStorage.getItem("darkMood"))
+                              ? "#fff"
+                              : "#000",
+                          }}
                           type={
                             showPassword.currentpasswordShow
                               ? "text"
@@ -381,7 +438,15 @@ export default function UpdateProfile() {
                     </section>
                     {/* new password field */}
                     <section className="mt-4">
-                      <h5>New Password</h5>
+                      <h5
+                        style={{
+                          color: JSON.parse(localStorage.getItem("darkMood"))
+                            ? "#fff"
+                            : "#000",
+                        }}
+                      >
+                        New Password
+                      </h5>
                       <div
                         className={
                           error.newPasswordError
@@ -393,6 +458,11 @@ export default function UpdateProfile() {
                           <FontAwesomeIcon icon={faLock} />
                         </span>
                         <input
+                          style={{
+                            color: JSON.parse(localStorage.getItem("darkMood"))
+                              ? "#fff"
+                              : "#000",
+                          }}
                           type={
                             showPassword.newPasswordShow ? "text" : "password"
                           }
@@ -425,7 +495,15 @@ export default function UpdateProfile() {
                     </section>
                     {/* confirme password field */}
                     <section className="mt-4">
-                      <h5>Confirm New Password</h5>
+                      <h5
+                        style={{
+                          color: JSON.parse(localStorage.getItem("darkMood"))
+                            ? "#fff"
+                            : "#000",
+                        }}
+                      >
+                        Confirm New Password
+                      </h5>
                       <div
                         className={
                           error.confirmNewpasswordError
@@ -437,6 +515,11 @@ export default function UpdateProfile() {
                           <FontAwesomeIcon icon={faLock} />
                         </span>
                         <input
+                          style={{
+                            color: JSON.parse(localStorage.getItem("darkMood"))
+                              ? "#fff"
+                              : "#000",
+                          }}
                           type={
                             showPassword.confirmNewpasswordShow
                               ? "text"

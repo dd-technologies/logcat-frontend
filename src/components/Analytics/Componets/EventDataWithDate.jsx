@@ -24,17 +24,20 @@ export default function EventDataWithDate() {
   // GETTGIN DATA FROM URL
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
+  console.log("first", urlParams);
 
   // GETTIN ROW DATA
   const rowdevice_types = urlParams.get("rowdevice_types");
   const rowdid = urlParams.get("rowdid");
-  let rowlogGeneratedDate = urlParams.get("rowlogGeneratedDate");
+  let rowlogGeneratedDate = urlParams.get("rowlogGeneratedDate") || "";
+  console.log("first 1", rowlogGeneratedDate);
   const version = urlParams.get("version");
   const osArchitecture = urlParams.get("osArchitecture");
   const modelName = urlParams.get("modelName");
 
   // LOG DATE INVERT
   rowlogGeneratedDate = rowlogGeneratedDate.split("T")[0];
+
   let day = rowlogGeneratedDate.split("-")[2];
   let month = rowlogGeneratedDate.split("-")[1];
   let year = rowlogGeneratedDate.split("-")[0];
@@ -48,20 +51,40 @@ export default function EventDataWithDate() {
       >
         <Col className={`${Style.MainDiv} m-2`}>
           <section className={`${Style.outerSec} p-2`}>
-            <p>Event Summary</p>
+            <p
+              style={{
+                color: JSON.parse(localStorage.getItem("darkMood"))
+                  ? "#fff"
+                  : "#0099a4",
+              }}
+            >
+              Event Summary
+            </p>
 
             <section className="px-4">
-              <p>
+              <p
+                style={{
+                  color: JSON.parse(localStorage.getItem("darkMood"))
+                    ? "#fff"
+                    : "#0099a4",
+                }}
+              >
                 <span>
                   <FontAwesomeIcon icon={faClock} />
                 </span>
                 {rowlogGeneratedDate}
               </p>
             </section>
-            
+
             {version !== "null" ? (
               <section className="px-4">
-                <p>
+                <p
+                  style={{
+                    color: JSON.parse(localStorage.getItem("darkMood"))
+                      ? "#fff"
+                      : "#0099a4",
+                  }}
+                >
                   <span>
                     <FontAwesomeIcon icon={faLocationArrow} />
                   </span>
@@ -72,7 +95,13 @@ export default function EventDataWithDate() {
 
             {osArchitecture !== "null" ? (
               <section className="px-4">
-                <p>
+                <p
+                  style={{
+                    color: JSON.parse(localStorage.getItem("darkMood"))
+                      ? "#fff"
+                      : "#0099a4",
+                  }}
+                >
                   <span>
                     <FontAwesomeIcon icon={faAndroid} />
                   </span>
@@ -83,7 +112,13 @@ export default function EventDataWithDate() {
 
             {modelName !== "null" ? (
               <section className="px-4">
-                <p>
+                <p
+                  style={{
+                    color: JSON.parse(localStorage.getItem("darkMood"))
+                      ? "#fff"
+                      : "#0099a4",
+                  }}
+                >
                   <span>
                     <FontAwesomeIcon icon={faMobile} />
                   </span>
@@ -91,7 +126,6 @@ export default function EventDataWithDate() {
                 </p>
               </section>
             ) : null}
-
           </section>
         </Col>
       </Row>

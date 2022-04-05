@@ -43,11 +43,22 @@ export default function CrashFreeStatics() {
                 fontWeight: 700,
                 color: "#535353",
                 letterSpacing: "0.5px",
+                color: JSON.parse(localStorage.getItem("darkMood"))
+                  ? "#fff"
+                  : "#535353",
               }}
             >
               Crash free Statistics
             </h5>
-            <p>Crash free users</p>
+            <p
+              style={{
+                color: JSON.parse(localStorage.getItem("darkMood"))
+                  ? "#fff"
+                  : "#535353",
+              }}
+            >
+              Crash free users
+            </p>
             {/* <section className={Style.StaticsSection}>
               {/* <section className={Style.Tooltip}>
                 <FontAwesomeIcon

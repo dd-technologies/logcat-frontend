@@ -125,7 +125,7 @@ export default function StackData() {
 
         {/* TEXT ERROR  WITH  FILLTER BUTTON CLICK */}
         {stackErrorFilter ? (
-          <Col xl={12} className={`${Style.outerDiv} mt-4`}>
+          <Col xl={12} className={`${Style.outerDiv} mt-4`} >
             <Text />
           </Col>
         ) : null}
@@ -150,6 +150,13 @@ export default function StackData() {
                         <>
                           <section className={Style.outerDivinner}>
                             <section
+                              style={{
+                                background: JSON.parse(
+                                  localStorage.getItem("darkMood")
+                                )
+                                  ? "#cfcfcf"
+                                  : "#fff",
+                              }}
                               className={
                                 innerParaShowDetails[idx]
                                   ? `${Style.StackInfoDiveWithToggle}`
@@ -175,7 +182,16 @@ export default function StackData() {
                             {
                               // grouped[key].foreach((value,index)=>{
                               innerParaShowDetails[idx] && (
-                                <section className={Style.detailSection}>
+                                <section
+                                  className={Style.detailSection}
+                                  style={{
+                                    background: JSON.parse(
+                                      localStorage.getItem("darkMood")
+                                    )
+                                      ? "#cfcfcf"
+                                      : "#fff",
+                                  }}
+                                >
                                   {grouped[key].map((items, index) => {
                                     return (
                                       <>
@@ -207,7 +223,8 @@ export default function StackData() {
                                               }
                                             )}
                                           >
-                                            at{" "}
+                                            {items.includes("at") ? null : "at"}
+
                                             {DataINRow.includes("Caused by:")
                                               ? items
                                               : items.concat(")")}

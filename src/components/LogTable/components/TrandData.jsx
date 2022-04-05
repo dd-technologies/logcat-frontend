@@ -15,7 +15,6 @@ export default function TrandData() {
   const LineCount =
     data && data.data && data.data.response ? data.data.response : null;
 
-
   let add = 0;
   if (data && data.data && data.data.response) {
     LineCount.map((sum) => (add += sum.data));
@@ -26,7 +25,17 @@ export default function TrandData() {
       <CustomCard>
         <Row className="p-3">
           <Col xl={12} className={Style.Trand}>
-            <h5 style={{ fontWeight: 700, color: "#535353", letterSpacing: "0.5px" }}>Trends</h5>
+            <h5
+              style={{
+                fontWeight: 700,
+                color: JSON.parse(localStorage.getItem("darkMood"))
+                  ? "#fff"
+                  : "#535353",
+                letterSpacing: "0.5px",
+              }}
+            >
+              Trends
+            </h5>
             {/* <p>
               <span className="p-2">
                 <FontAwesomeIcon icon={faRocket} />
@@ -37,11 +46,27 @@ export default function TrandData() {
           <Col xl={12} className={Style.TrandsDataTable}>
             <section className={Style.Outsection}>
               <section>
-                <p>Crashes</p>
+                <p
+                  style={{
+                    color: JSON.parse(localStorage.getItem("darkMood"))
+                      ? "#fff"
+                      : "#535353",
+                  }}
+                >
+                  Crashes
+                </p>
                 <h4 style={{ fontWeight: 700 }}>{add}</h4>
               </section>
               <section className="ms-4">
-                <p>Users</p>
+                <p
+                  style={{
+                    color: JSON.parse(localStorage.getItem("darkMood"))
+                      ? "#fff"
+                      : "#535353",
+                  }}
+                >
+                  Users
+                </p>
                 {data && data.data && data.data.count ? (
                   <h4 style={{ fontWeight: 700 }}>
                     {data && data.data && data.data.count}

@@ -27,12 +27,26 @@ const ProjectCard = (props) => {
           <section className={Style.Outer_InfoRow}>
             <section className={Style.InfoColumn}>
               <h5>{props.data.name}</h5>
-              <p style={{ opacity: "70%" }}>
+              <p
+                style={{
+                  color: JSON.parse(localStorage.getItem("darkMood"))
+                    ? "#fff"
+                    : null,
+                  // opacity: "70%",
+                }}
+              >
                 {props.data.description && props.data.description}
               </p>
             </section>
             <section className={Style.InfoDetails}>
-              <p>
+              <p
+                style={{
+                  color: JSON.parse(localStorage.getItem("darkMood"))
+                    ? "#fff"
+                    : null,
+                  opacity: "70%",
+                }}
+              >
                 <span>
                   <FontAwesomeIcon icon={faCalendar} />
                 </span>

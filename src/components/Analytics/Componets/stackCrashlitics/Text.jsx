@@ -12,9 +12,15 @@ export default function Text() {
   const pattern = /(at).*/gm;
   let DataINRow = colData.split(" at");
 
-
   return (
-    <section className={Style.outerSection}>
+    <section
+      className={Style.outerSection}
+      style={{
+        background: JSON.parse(localStorage.getItem("darkMood"))
+          ? "#cfcfcf"
+          : "#fff",
+      }}
+    >
       <p>{colData}</p>
       {/* <FontAwesomeIcon icon={faCaretDown} /> */}
     </section>

@@ -35,7 +35,9 @@ export default function ToggleTabs() {
   }
 
   let osNamecnt =
-    alldata && alldata.osArchitectureResponse ? alldata.osArchitectureResponse : null;
+    alldata && alldata.osArchitectureResponse
+      ? alldata.osArchitectureResponse
+      : null;
   let osNameAdds = 0;
   if (osNamecnt) {
     osNamecnt.map((e) => (osNameAdds += e.data));
@@ -44,15 +46,12 @@ export default function ToggleTabs() {
     osNamecnt = [];
   }
 
-  
-
   const getErrorWRTOSReducer = useSelector(
     (state) => state.getErrorWRTOSReducer
   );
   const { loading, data } = getErrorWRTOSReducer;
 
   let piCount = data && data.typeWiseCount ? data.typeWiseCount : null;
-
 
   let add = 0;
   if (piCount) {
@@ -74,7 +73,12 @@ export default function ToggleTabs() {
             }
             onClick={DeviceShowFun}
           >
-            <p style={{fontWeight: '600', letterSpacing: '0.5px'}} className="p-2">Devices</p>
+            <p
+              style={{ fontWeight: "600", letterSpacing: "0.5px" }}
+              className="p-2"
+            >
+              Devices
+            </p>
           </Col>
           <Col
             xl={6}
@@ -87,7 +91,12 @@ export default function ToggleTabs() {
             }
             onClick={opratingSystemFun}
           >
-            <p style={{fontWeight: '600', letterSpacing: '0.5px'}} className="p-2">Operating System</p>
+            <p
+              style={{ fontWeight: "600", letterSpacing: "0.5px" }}
+              className="p-2"
+            >
+              Operating System
+            </p>
           </Col>
         </Row>
 
@@ -102,9 +111,19 @@ export default function ToggleTabs() {
                 {!ld ? (
                   modelNamecnt.map((e) => (
                     <>
-                      <p className="mt-4">
+                      <p
+                        className="mt-4"
+                        style={{
+                          color: JSON.parse(localStorage.getItem("darkMood"))
+                            ? "#fff"
+                            : "#000",
+                        }}
+                      >
                         <span className="p-2">
-                          {parseFloat((e.data / modelNameAdds) * 100).toFixed(2)}%
+                          {parseFloat((e.data / modelNameAdds) * 100).toFixed(
+                            2
+                          )}
+                          %
                         </span>
                         {e._id ? e._id : "Other"}
                       </p>
@@ -124,11 +143,17 @@ export default function ToggleTabs() {
             // OS MENUS
             <Col className="p-4">
               <section className={Style.DataTogleSection}>
-            
                 {!ld ? (
                   osNamecnt.map((e) => (
                     <>
-                      <p className="mt-4">
+                      <p
+                        className="mt-4"
+                        style={{
+                          color: JSON.parse(localStorage.getItem("darkMood"))
+                            ? "#fff"
+                            : "#666",
+                        }}
+                      >
                         <span className="p-2">
                           {parseFloat((e.data / osNameAdds) * 100).toFixed(2)}%
                         </span>

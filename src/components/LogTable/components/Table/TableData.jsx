@@ -467,7 +467,18 @@ function TableData(props) {
         }
         console.log("title 1", title);
 
-        return <div className={Style.expandedRow}>{title}</div>;
+        return (
+          <div
+            className={Style.expandedRow}
+            style={{
+              color: JSON.parse(localStorage.getItem("darkMood"))
+                ? "#fff"
+                : null,
+            }}
+          >
+            {title}
+          </div>
+        );
       },
       sort: true,
     },
@@ -685,6 +696,11 @@ function TableData(props) {
     <>
       <TableCard
         height={data && data.data && data.data.logs ? "100%" : "400px"}
+        boxShadow={
+          JSON.parse(localStorage.getItem("darkMood"))
+            ? "1px 1px 10px 2px rgba(0,0,0,0.45)"
+            : ""
+        }
       >
         <Toaster />
         <section className={Style.OuterTable} ref={ref}>
@@ -702,7 +718,16 @@ function TableData(props) {
             >
               {(props) => (
                 <>
-                  <div className={Style.BootstrapTable}>
+                  <div
+                    className={Style.BootstrapTable}
+                    style={{
+                      backgroundColor: JSON.parse(
+                        localStorage.getItem("darkMood")
+                      )
+                        ? "#202940"
+                        : null,
+                    }}
+                  >
                     <section className={Style.searchbar}>
                       <SearchBar {...props.searchProps} />
                     </section>
@@ -852,7 +877,16 @@ function TableData(props) {
                                       <section
                                         className={Style.StatusInnerSecion}
                                       >
-                                        <label for="exampleFormControlFile1">
+                                        <label
+                                          style={{
+                                            color: JSON.parse(
+                                              localStorage.getItem("darkMood")
+                                            )
+                                              ? "#fff"
+                                              : null,
+                                          }}
+                                          for="exampleFormControlFile1"
+                                        >
                                           Info
                                         </label>
                                         <input
@@ -869,7 +903,16 @@ function TableData(props) {
                                       <section
                                         className={Style.StatusInnerSecion}
                                       >
-                                        <label for="exampleFormControlFile1">
+                                        <label
+                                          style={{
+                                            color: JSON.parse(
+                                              localStorage.getItem("darkMood")
+                                            )
+                                              ? "#fff"
+                                              : null,
+                                          }}
+                                          for="exampleFormControlFile1"
+                                        >
                                           Warn
                                         </label>
                                         <input
@@ -886,7 +929,16 @@ function TableData(props) {
                                       <section
                                         className={Style.StatusInnerSecion}
                                       >
-                                        <label for="exampleFormControlFile1">
+                                        <label
+                                          style={{
+                                            color: JSON.parse(
+                                              localStorage.getItem("darkMood")
+                                            )
+                                              ? "#fff"
+                                              : null,
+                                          }}
+                                          for="exampleFormControlFile1"
+                                        >
                                           Error
                                         </label>
                                         <input
@@ -903,7 +955,16 @@ function TableData(props) {
                                       <section
                                         className={Style.StatusInnerSecion}
                                       >
-                                        <label for="exampleFormControlFile1">
+                                        <label
+                                          style={{
+                                            color: JSON.parse(
+                                              localStorage.getItem("darkMood")
+                                            )
+                                              ? "#fff"
+                                              : null,
+                                          }}
+                                          for="exampleFormControlFile1"
+                                        >
                                           Debug
                                         </label>
                                         <input
@@ -920,7 +981,16 @@ function TableData(props) {
                                       <section
                                         className={Style.StatusInnerSecion}
                                       >
-                                        <label for="exampleFormControlFile1">
+                                        <label
+                                          style={{
+                                            color: JSON.parse(
+                                              localStorage.getItem("darkMood")
+                                            )
+                                              ? "#fff"
+                                              : null,
+                                          }}
+                                          for="exampleFormControlFile1"
+                                        >
                                           Verbose
                                         </label>
                                         <input
@@ -943,6 +1013,13 @@ function TableData(props) {
                                   <Col xl={6} md={6} sm={6}>
                                     <section className={Style.perPageOuter}>
                                       <p
+                                        style={{
+                                          color: JSON.parse(
+                                            localStorage.getItem("darkMood")
+                                          )
+                                            ? "#fff"
+                                            : null,
+                                        }}
                                         className={
                                           activeRecord.record10
                                             ? `${Style.perPagesectionInnerActive}`
@@ -958,6 +1035,13 @@ function TableData(props) {
                                         10
                                       </p>
                                       <p
+                                        style={{
+                                          color: JSON.parse(
+                                            localStorage.getItem("darkMood")
+                                          )
+                                            ? "#fff"
+                                            : null,
+                                        }}
                                         className={
                                           activeRecord.record25 || record == 25
                                             ? `${Style.perPagesectionInnerActive}`
@@ -973,6 +1057,13 @@ function TableData(props) {
                                         25
                                       </p>
                                       <p
+                                        style={{
+                                          color: JSON.parse(
+                                            localStorage.getItem("darkMood")
+                                          )
+                                            ? "#fff"
+                                            : null,
+                                        }}
                                         className={
                                           activeRecord.record50
                                             ? `${Style.perPagesectionInnerActive}`
@@ -988,6 +1079,13 @@ function TableData(props) {
                                         50
                                       </p>
                                       <p
+                                        style={{
+                                          color: JSON.parse(
+                                            localStorage.getItem("darkMood")
+                                          )
+                                            ? "#fff"
+                                            : null,
+                                        }}
                                         className={
                                           activeRecord.record100
                                             ? `${Style.perPagesectionInnerActive}`
@@ -1029,7 +1127,7 @@ function TableData(props) {
 
           <section className="p-2">
             <ReactPaginate
-              breakLabel="..."
+              breakLabel=". . ."
               nextLabel="Next >"
               onPageChange={handlePageClick}
               pageRangeDisplayed={4}

@@ -5,11 +5,16 @@
   padding: 0px;
   box-sizing: border-box;
 }
-
+/* 
 body {
+  background-color: #1A2035 !important;
+  overflow-x: hidden;
+} */
+
+/* body {
   background-color: #e3e7ee3a !important;
   overflow-x: hidden;
-}
+} */
 
 h1,
 h2,
@@ -18,7 +23,7 @@ h4,
 h5,
 h6,
 p {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 p {
@@ -42,7 +47,8 @@ hr {
   color: #0099a4;
 }
 
-.dropup .caret, .navbar-fixed-bottom .dropdown .caret {
+.dropup .caret,
+.navbar-fixed-bottom .dropdown .caret {
   border-top: 0;
   border-bottom: 4px dashed;
   border-bottom: 4px solid \9;
