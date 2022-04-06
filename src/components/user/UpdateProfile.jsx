@@ -237,7 +237,7 @@ export default function UpdateProfile() {
                     height="600px"
                   >
                     <h3
-                      className="mb-4"
+                      className="mb-4 CPp"
                       style={{
                         color: JSON.parse(localStorage.getItem("darkMood"))
                           ? "#fff"
@@ -275,31 +275,18 @@ export default function UpdateProfile() {
                     </section>
                     {/*name field  */}
                     <section className="mt-4">
-                      <h5
-                        style={{
-                          color: JSON.parse(localStorage.getItem("darkMood"))
-                            ? "#fff"
-                            : "#000",
-                        }}
-                      >
-                        Name
-                      </h5>
+                      <h5 className="CPp">Name</h5>
                       <div className={`${Style.imputFields} mt-4`}>
                         <span>
                           <FontAwesomeIcon icon={faPersonBooth} />
                         </span>
                         <input
-                          style={{
-                            color: JSON.parse(localStorage.getItem("darkMood"))
-                              ? "#fff"
-                              : "#000",
-                          }}
                           type="email"
                           value={
                             // adminInfo && adminInfo.data && adminInfo.data.name
                             name
                           }
-                          className="form-control LoginForminput "
+                          className="form-control LoginForminput CPp "
                           id="exampleInputEmail1"
                           placeholder="Enter your email"
                           aria-describedby="emailHelp"
@@ -312,28 +299,15 @@ export default function UpdateProfile() {
 
                     {/* email field */}
                     <section className="mt-4">
-                      <h5
-                        style={{
-                          color: JSON.parse(localStorage.getItem("darkMood"))
-                            ? "#fff"
-                            : "#000",
-                        }}
-                      >
-                        Email
-                      </h5>
+                      <h5 className="CPp">Email</h5>
                       <div className={`${Style.imputFields} mt-4`}>
                         <span>
                           <FontAwesomeIcon icon={faMailBulk} />
                         </span>
                         <input
-                          style={{
-                            color: JSON.parse(localStorage.getItem("darkMood"))
-                              ? "#fff"
-                              : "#000",
-                          }}
                           type="email"
                           value={email}
-                          className="form-control LoginForminput "
+                          className="form-control LoginForminput CPp "
                           id="exampleInputEmail1"
                           placeholder="Enter your email"
                           aria-describedby="emailHelp"
@@ -363,27 +337,10 @@ export default function UpdateProfile() {
                     zIndex="8"
                     height="600px"
                   >
-                    <h3
-                      className="mb-4"
-                      style={{
-                        color: JSON.parse(localStorage.getItem("darkMood"))
-                          ? "#fff"
-                          : "#000",
-                      }}
-                    >
-                      Change password
-                    </h3>
+                    <h3 className="mb-4 CPp">Change password</h3>
                     {/* password field */}
                     <section className="mt-4">
-                      <h5
-                        style={{
-                          color: JSON.parse(localStorage.getItem("darkMood"))
-                            ? "#fff"
-                            : "#000",
-                        }}
-                      >
-                        Current Password
-                      </h5>
+                      <h5 className="CPp">Current Password</h5>
 
                       <div
                         className={
@@ -396,11 +353,6 @@ export default function UpdateProfile() {
                           <FontAwesomeIcon icon={faLock} />
                         </span>
                         <input
-                          style={{
-                            color: JSON.parse(localStorage.getItem("darkMood"))
-                              ? "#fff"
-                              : "#000",
-                          }}
                           type={
                             showPassword.currentpasswordShow
                               ? "text"
@@ -410,7 +362,7 @@ export default function UpdateProfile() {
                           onChange={(e) => {
                             setCurrentPassword(e.target.value);
                           }}
-                          className="form-control LoginForminput "
+                          className="form-control LoginForminput  CPp"
                           id="exampleInputEmail1"
                           placeholder="Enter your current password"
                           aria-describedby="emailHelp"
@@ -438,15 +390,7 @@ export default function UpdateProfile() {
                     </section>
                     {/* new password field */}
                     <section className="mt-4">
-                      <h5
-                        style={{
-                          color: JSON.parse(localStorage.getItem("darkMood"))
-                            ? "#fff"
-                            : "#000",
-                        }}
-                      >
-                        New Password
-                      </h5>
+                      <h5 className="CPp">New Password</h5>
                       <div
                         className={
                           error.newPasswordError
@@ -458,11 +402,6 @@ export default function UpdateProfile() {
                           <FontAwesomeIcon icon={faLock} />
                         </span>
                         <input
-                          style={{
-                            color: JSON.parse(localStorage.getItem("darkMood"))
-                              ? "#fff"
-                              : "#000",
-                          }}
                           type={
                             showPassword.newPasswordShow ? "text" : "password"
                           }
@@ -470,7 +409,7 @@ export default function UpdateProfile() {
                           onChange={(e) => {
                             setNewPassword(e.target.value);
                           }}
-                          className="form-control LoginForminput "
+                          className="form-control LoginForminput  CPp"
                           id="exampleInputEmail1"
                           placeholder="Enter your new password"
                           aria-describedby="emailHelp"
@@ -495,15 +434,7 @@ export default function UpdateProfile() {
                     </section>
                     {/* confirme password field */}
                     <section className="mt-4">
-                      <h5
-                        style={{
-                          color: JSON.parse(localStorage.getItem("darkMood"))
-                            ? "#fff"
-                            : "#000",
-                        }}
-                      >
-                        Confirm New Password
-                      </h5>
+                      <h5 className="CPp">Confirm New Password</h5>
                       <div
                         className={
                           error.confirmNewpasswordError
@@ -515,11 +446,6 @@ export default function UpdateProfile() {
                           <FontAwesomeIcon icon={faLock} />
                         </span>
                         <input
-                          style={{
-                            color: JSON.parse(localStorage.getItem("darkMood"))
-                              ? "#fff"
-                              : "#000",
-                          }}
                           type={
                             showPassword.confirmNewpasswordShow
                               ? "text"
@@ -529,7 +455,7 @@ export default function UpdateProfile() {
                           onChange={(e) => {
                             setConfirmNewPassword(e.target.value);
                           }}
-                          className="form-control LoginForminput "
+                          className="form-control LoginForminput CPp"
                           id="exampleInputEmail1"
                           placeholder="Confirm your new password"
                           aria-describedby="emailHelp"

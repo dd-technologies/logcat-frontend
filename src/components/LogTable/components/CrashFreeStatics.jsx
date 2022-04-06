@@ -39,26 +39,16 @@ export default function CrashFreeStatics() {
         <Row className="p-3">
           <Col xl={12} className={Style.Statics}>
             <h5
+              className="cpactiveText"
               style={{
                 fontWeight: 700,
                 color: "#535353",
                 letterSpacing: "0.5px",
-                color: JSON.parse(localStorage.getItem("darkMood"))
-                  ? "#fff"
-                  : "#535353",
               }}
             >
               Crash free Statistics
             </h5>
-            <p
-              style={{
-                color: JSON.parse(localStorage.getItem("darkMood"))
-                  ? "#fff"
-                  : "#535353",
-              }}
-            >
-              Crash free users
-            </p>
+            <p className="LTp">Crash free users</p>
             {/* <section className={Style.StaticsSection}>
               {/* <section className={Style.Tooltip}>
                 <FontAwesomeIcon

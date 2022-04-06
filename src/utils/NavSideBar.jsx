@@ -176,11 +176,6 @@ export function Navbar(props) {
           width="400px"
           zIndex="10"
           marginRight="10px"
-          boxShadow={
-            JSON.parse(localStorage.getItem("darkMood"))
-              ? "1px 1px 10px 2px rgba(0,0,0,0.45)"
-              : ""
-          }
         >
           <section className={Style.Avtarunder} onClick={showUserInfoFun}>
             {/* src={URL.createObjectURL(image)} */}
@@ -196,44 +191,30 @@ export function Navbar(props) {
           </section>
 
           <p
+            className="cpactiveText"
             style={{
               fontSize: "1.3rem",
-              color: JSON.parse(localStorage.getItem("darkMood"))
-                ? "#fff"
-                : "#000",
             }}
           >
             {adminInfo && adminInfo.data && adminInfo.data.name}
           </p>
           <p
+            className="CPp"
             style={{
               fontSize: "1rem",
-              color: JSON.parse(localStorage.getItem("darkMood"))
-                ? "#fff"
-                : "#000",
             }}
           >
             {adminInfo && adminInfo.data && adminInfo.data.email}
           </p>
           <p
-            style={{
-              color: JSON.parse(localStorage.getItem("darkMood"))
-                ? "#fff"
-                : "#000",
-            }}
-            className={`${Style.userInfoDropDown} mt-4`}
+            className={`${Style.userInfoDropDown} mt-4 CPp`}
             onClick={() => history.push("/update")}
           >
             Manage your account
           </p>
 
           <p
-            style={{
-              color: JSON.parse(localStorage.getItem("darkMood"))
-                ? "#fff"
-                : "#000",
-            }}
-            className={`${Style.userInfoDropDown} mt-2`}
+            className={`${Style.userInfoDropDown} mt-2 CPp`}
             onClick={(e) => {
               handlelogout(e);
             }}
@@ -243,21 +224,17 @@ export function Navbar(props) {
 
           <section className={Style.privacyPolicy}>
             <p
+              className="CPp"
               style={{
                 fontSize: "0.8rem",
-                color: JSON.parse(localStorage.getItem("darkMood"))
-                  ? "#fff"
-                  : "#000",
               }}
             >
               Privacy policy
             </p>
             <p
+              className="CPp"
               style={{
                 fontSize: "0.8rem",
-                color: JSON.parse(localStorage.getItem("darkMood"))
-                  ? "#fff"
-                  : "#000",
               }}
             >
               Terms of service

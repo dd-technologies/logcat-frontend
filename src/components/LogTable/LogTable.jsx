@@ -28,6 +28,8 @@ import Spinner from "../../Container/Spinner";
 import DateIcons from "../../assets/icons/date.png";
 import LogICon from "../../assets/icons/log.png";
 import TypeDropDown from "./components/Table/TypeDropDown";
+import "../../utils/Theme.scss";
+import { ThemeContext, themes } from "../../utils/ThemeContext";
 
 export default function LogTable() {
   const history = useHistory();
@@ -235,8 +237,6 @@ export default function LogTable() {
     };
   }, [history]);
 
- 
-
   // dateDropDown : was dependency for the above useeffect
 
   // REFRESH ONLY TABLE
@@ -315,7 +315,7 @@ export default function LogTable() {
 
   return (
     <>
-      {console.log("render is running logTable")}
+      {/* // {console.log("render is running logTable")} */}
       <div>
         <Row>
           <Col
@@ -359,9 +359,8 @@ export default function LogTable() {
                       <p
                         style={{
                           fontSize: "1rem",
-                          color: darkMood ? "#fff" : "#000",
                         }}
-                        className="mm-2"
+                        className="mm-2 LTp"
                       >
                         {diffDate == 10
                           ? `last 10 days`
@@ -399,13 +398,10 @@ export default function LogTable() {
                             darkMood ? "1px 1px 10px 2px rgba(0,0,0,0.45)" : ""
                           }
                         >
-                          {/* <p className="mt-1">10 days</p> */}
+                          {/* <p className="mt-1 LTp">10 days</p> */}
                           <p
-                            style={{
-                              fontSize: "1rem",
-                              color: darkMood ? "#fff" : "#000",
-                            }}
-                            className={`${Style.productVersion} mt-1`}
+                            style={{}}
+                            className={`${Style.productVersion} mt-1 LTp `}
                             onClick={() => {
                               setDiffDate(7);
                               localStorage.setItem("diffDate", 7);
@@ -415,11 +411,8 @@ export default function LogTable() {
                             7 days
                           </p>
                           <p
-                            style={{
-                              fontSize: "1rem",
-                              color: darkMood ? "#fff" : "#000",
-                            }}
-                            className={`${Style.productVersion} mt-1`}
+                            style={{}}
+                            className={`${Style.productVersion} mt-1 LTp`}
                             onClick={() => {
                               setDiffDate(15);
                               localStorage.setItem("diffDate", 15);
@@ -430,11 +423,8 @@ export default function LogTable() {
                           </p>
 
                           <p
-                            style={{
-                              fontSize: "1rem",
-                              color: darkMood ? "#fff" : "#000",
-                            }}
-                            className={`${Style.productVersion} mt-1`}
+                            style={{}}
+                            className={`${Style.productVersion} mt-1 LTp`}
                             onClick={() => {
                               setDiffDate(30);
                               localStorage.setItem("diffDate", 30);
@@ -444,11 +434,8 @@ export default function LogTable() {
                             30 days
                           </p>
                           <p
-                            style={{
-                              fontSize: "1rem",
-                              color: darkMood ? "#fff" : "#000",
-                            }}
-                            className={`${Style.productVersion} mt-1`}
+                            style={{}}
+                            className={`${Style.productVersion} mt-1 LTp`}
                             onClick={() => {
                               setDiffDate(45);
                               localStorage.setItem("diffDate", 45);
@@ -458,11 +445,8 @@ export default function LogTable() {
                             45 days
                           </p>
                           <p
-                            style={{
-                              fontSize: "1rem",
-                              color: darkMood ? "#fff" : "#000",
-                            }}
-                            className={`${Style.productVersion} mt-1`}
+                            style={{}}
+                            className={`${Style.productVersion} mt-1 LTp`}
                             onClick={() => {
                               setDiffDate(60);
                               localStorage.setItem("diffDate", 60);
@@ -472,11 +456,8 @@ export default function LogTable() {
                             60 days
                           </p>
                           <p
-                            style={{
-                              fontSize: "1rem",
-                              color: darkMood ? "#fff" : "#000",
-                            }}
-                            className={`${Style.productVersion} mt-1`}
+                            style={{}}
+                            className={`${Style.productVersion} mt-1 LTp`}
                             onClick={() => {
                               setDiffDate(90);
                               localStorage.setItem("diffDate", 90);
@@ -511,14 +492,12 @@ export default function LogTable() {
               <Row className="mt-5">
                 <Col xl={6} md={6} sm={6} className={Style.issuesTable}>
                   <p
+                    className="LTp"
                     style={{
                       fontWeight: "600",
                       fontSize: "0.9rem",
                       lineHeight: "2.2rem",
                       letterSpacing: "0.5px",
-                      color: JSON.parse(localStorage.getItem("darkMood"))
-                        ? "#fff"
-                        : null,
                     }}
                   >
                     Issues

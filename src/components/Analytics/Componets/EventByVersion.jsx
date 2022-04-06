@@ -28,12 +28,10 @@ export default function EventByVersion() {
         <Row className="p-4">
           <Col xl={4} md={4} className={Style.EventByVersion}>
             <h6
+              className="cpactiveText"
               style={{
                 fontWeight: "600",
                 letterSpacing: "0.5px",
-                color: JSON.parse(localStorage.getItem("darkMood"))
-                  ? "#fff"
-                  : "#000",
               }}
             >
               Total events by version
@@ -45,24 +43,8 @@ export default function EventByVersion() {
             {!ld ? (
               cnt.map((e) => (
                 <>
-                  <p
-                    style={{
-                      color: JSON.parse(localStorage.getItem("darkMood"))
-                        ? "#fff"
-                        : "#666",
-                    }}
-                  >
-                    {e._id ? e._id : null}
-                  </p>
-                  <h5
-                    style={{
-                      color: JSON.parse(localStorage.getItem("darkMood"))
-                        ? "#fff"
-                        : "#000",
-                    }}
-                  >
-                    {e.data}
-                  </h5>
+                  <p className="AYp">{e._id ? e._id : null}</p>
+                  <h5 className="AYp">{e.data}</h5>
                 </>
               ))
             ) : (
@@ -73,11 +55,8 @@ export default function EventByVersion() {
             <p
               style={{
                 float: "right",
-                color: JSON.parse(localStorage.getItem("darkMood"))
-                  ? "#fff"
-                  : "#666",
               }}
-              className={Style.Last90days}
+              className={`${Style.Last90days} AYp`}
             >
               from the last 90 days
             </p>

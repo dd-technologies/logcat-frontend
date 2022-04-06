@@ -26,11 +26,10 @@ export default function TrandData() {
         <Row className="p-3">
           <Col xl={12} className={Style.Trand}>
             <h5
+              className="cpactiveText"
               style={{
                 fontWeight: 700,
-                color: JSON.parse(localStorage.getItem("darkMood"))
-                  ? "#fff"
-                  : "#535353",
+
                 letterSpacing: "0.5px",
               }}
             >
@@ -46,27 +45,11 @@ export default function TrandData() {
           <Col xl={12} className={Style.TrandsDataTable}>
             <section className={Style.Outsection}>
               <section>
-                <p
-                  style={{
-                    color: JSON.parse(localStorage.getItem("darkMood"))
-                      ? "#fff"
-                      : "#535353",
-                  }}
-                >
-                  Crashes
-                </p>
+                <p className="LTp">Crashes</p>
                 <h4 style={{ fontWeight: 700 }}>{add}</h4>
               </section>
               <section className="ms-4">
-                <p
-                  style={{
-                    color: JSON.parse(localStorage.getItem("darkMood"))
-                      ? "#fff"
-                      : "#535353",
-                  }}
-                >
-                  Users
-                </p>
+                <p className="LTp">Users</p>
                 {data && data.data && data.data.count ? (
                   <h4 style={{ fontWeight: 700 }}>
                     {data && data.data && data.data.count}

@@ -14,14 +14,14 @@ export default function Text() {
 
   return (
     <section
-      className={Style.outerSection}
+      className={`${Style.outerSection} SDb`}
       style={{
         background: JSON.parse(localStorage.getItem("darkMood"))
           ? "#cfcfcf"
           : "#fff",
       }}
     >
-      <p>{colData}</p>
+      <p className="SDb">{colData}</p>
       {/* <FontAwesomeIcon icon={faCaretDown} /> */}
     </section>
   );

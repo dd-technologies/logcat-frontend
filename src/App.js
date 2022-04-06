@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Style from "./App.module.scss";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CreateProject from "./components/Create_project/CreateProject";
@@ -11,18 +12,14 @@ import Protected from "./utils/Protected";
 import Settings from "./components/Settings/Settings";
 import { useSelector } from "react-redux";
 import UpdateProfile from "./components/user/UpdateProfile";
-import { useEffect, useState } from "react";
+import "./utils/Theme.scss";
 
 function App() {
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { adminInfo } = adminLoginReducer;
-  var colors = JSON.parse(localStorage.getItem("darkMood"))
-    ? "#1A2035"
-    : "#e3e7ee3a";
-  var [backGroundCOlor, setBackgroundColor] = useState(colors);
+
   return (
     <>
-      <style>{"body {background-color:" + backGroundCOlor + "}"}</style>
       <Router>
         <Switch>
           <Route exact path="/" component={Login} />

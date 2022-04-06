@@ -10,15 +10,12 @@ import {
   getLogTypeCounts,
   getProjectByCode,
 } from "../../../../redux/action/ProjectAction";
+import { ThemeContext } from "../../../../utils/ThemeContext";
 
 const TypeDropDown = (props) => {
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
 
   // dark mood state
-
-  const [darkMood, setDarkMood] = useState(
-    JSON.parse(localStorage.getItem("darkMood"))
-  );
 
   const ref = useRef();
   //   let modelList;
@@ -112,10 +109,7 @@ const TypeDropDown = (props) => {
               color="#2A9AA4"
               style={{ width: "22px", height: "25px" }}
             />
-            <p
-              style={{ fontSize: "1rem", color: darkMood ? "#fff" : "#000" }}
-              className="mm-2"
-            >
+            <p className="mm-2 LTp">
               {localStorage.getItem("project_type")
                 ? JSON.parse(localStorage.getItem("project_type")).typeName
                 : data && data.modelList && data.modelList[0].typeName}
@@ -128,31 +122,26 @@ const TypeDropDown = (props) => {
           </section>
 
           <section>
-            {projectCodeDropDown ? (
-              <CustomeDropDown
-                width="15%"
-                position="absolute"
-                alignItems="flex-start"
-                zIndex="8"
-                boxShadow={darkMood ? "1px 1px 10px 2px rgba(0,0,0,0.45)" : ""}
-              >
-                {data &&
-                  data.modelList.map((type) => {
-                    return (
-                      <p
-                        style={{
-                          fontSize: "1rem !important",
-                          color: darkMood ? "#fff" : "#000",
-                        }}
-                        className={Style.productVersion}
-                        onClick={() => onSubmitFun(type)}
-                      >
-                        {type.typeName}
-                      </p>
-                    );
-                  })}
-              </CustomeDropDown>
-            ) : null}
+              {projectCodeDropDown ? (
+                <CustomeDropDown
+                  width="15%"
+                  position="absolute"
+                  alignItems="flex-start"
+                  zIndex="8"
+                >
+                  {data &&
+                    data.modelList.map((type) => {
+                      return (
+                        <p
+                          className={`${Style.productVersion} LTp`}
+                          onClick={() => onSubmitFun(type)}
+                        >
+                          {type.typeName}
+                        </p>
+                      );
+                    })}
+                </CustomeDropDown>
+              ) : null}
           </section>
         </section>
       )}

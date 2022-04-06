@@ -15,10 +15,13 @@ import { toast } from "react-hot-toast";
 import AddProjectModal from "./components/AddProjectModal";
 import Spinner from "../../Container/Spinner";
 import { adminLogout } from "../../redux/action/AdminAction";
+import "../../utils/Theme.scss";
 
 function CreateProject() {
   const [modalShow, setModalShow] = useState(false);
+  const [darkMode, setDarkMode] = React.useState(true);
   // project data load or not
+  // console.log("first 23", props);
 
   const Dispatch = useDispatch();
   const getAllProjectReducer = useSelector(
@@ -73,6 +76,10 @@ function CreateProject() {
     Dispatch(adminLogout(history));
   };
 
+  useEffect(() => {
+    setDarkMode(!darkMode);
+  }, []);
+
   return (
     <>
       {/* user name with logout functionalty */}
@@ -82,15 +89,7 @@ function CreateProject() {
           <Container className={Style.MainContantainer}>
             <Row>
               <Col xl={6} md={6} sm={6}>
-                <h5
-                  style={{
-                    color: JSON.parse(localStorage.getItem("darkMood"))
-                      ? "#fff"
-                      : null,
-                  }}
-                >
-                  Your Projects
-                </h5>
+                <h5 className="CPp">Your Projects</h5>
               </Col>
               <Col
                 xl={6}
@@ -98,16 +97,7 @@ function CreateProject() {
                 sm={6}
                 className="d-flex justify-content-end align-items-center"
               >
-                <p
-                  className="px-4"
-                  style={{
-                    color: JSON.parse(localStorage.getItem("darkMood"))
-                      ? "#fff"
-                      : null,
-                  }}
-                >
-                  {adminInfo.data.name}
-                </p>
+                <p className="px-4 CPp">{adminInfo.data.name}</p>
                 <Button
                   onClick={(e) => {
                     handlelogout(e);
@@ -133,15 +123,7 @@ function CreateProject() {
                         <p>
                           <FontAwesomeIcon icon={faPlus} />
                         </p>
-                        <p
-                          style={{
-                            color: JSON.parse(localStorage.getItem("darkMood"))
-                              ? "#fff"
-                              : null,
-                          }}
-                        >
-                          Add Project
-                        </p>
+                        <p className="CPp">Add Project</p>
                       </section>
                     </section>
                   </CustomCard>

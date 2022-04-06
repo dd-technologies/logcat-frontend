@@ -703,7 +703,7 @@ function TableData(props) {
         }
       >
         <Toaster />
-        <section className={Style.OuterTable} ref={ref}>
+        <section className={`${Style.OuterTable}`} ref={ref}>
           {data && data.data && data.data.logs ? (
             <ToolkitProvider
               keyField="_id"
@@ -728,7 +728,7 @@ function TableData(props) {
                         : null,
                     }}
                   >
-                    <section className={Style.searchbar}>
+                    <section className={`S{Style.searchbar} `}>
                       <SearchBar {...props.searchProps} />
                     </section>
                     {/* chip section */}

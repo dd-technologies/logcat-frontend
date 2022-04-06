@@ -247,21 +247,17 @@ export default function Analytics() {
             <Col>
               {/* {console.log("title render", title)} */}
               <h2
+                className="AYp"
                 style={{
                   fontWeight: "600",
-                  color: JSON.parse(localStorage.getItem("darkMood"))
-                    ? "#fff"
-                    : "#000",
                 }}
               >
                 {title}
               </h2>
               <p
+                className="AYp"
                 style={{
                   fontWeight: "600",
-                  color: JSON.parse(localStorage.getItem("darkMood"))
-                    ? "#fff"
-                    : "#000",
                 }}
               >
                 {subTitle}
@@ -272,14 +268,7 @@ export default function Analytics() {
               {loading ? (
                 "Loading"
               ) : (
-                <p
-                  className={Style.paraTextIssue}
-                  style={{
-                    color: JSON.parse(localStorage.getItem("darkMood"))
-                      ? "#fff"
-                      : "#000",
-                  }}
-                >
+                <p className={`${Style.paraTextIssue} AYp`}>
                   This issue has{" "}
                   <strong style={{ color: "#0099a4" }}>
                     {totalCount} crash
@@ -302,11 +291,8 @@ export default function Analytics() {
 
             <Col className={`${Style.AnalyticsEvents} my-4 mt-5`}>
               <p
+                className="AYp"
                 style={{
-                  color: JSON.parse(localStorage.getItem("darkMood"))
-                    ? "#fff"
-                    : "#000",
-
                   fontWeight: "600",
                   letterSpacing: "0.5px",
                 }}

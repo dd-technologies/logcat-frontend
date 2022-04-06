@@ -5,16 +5,11 @@
   padding: 0px;
   box-sizing: border-box;
 }
-/* 
-body {
-  background-color: #1A2035 !important;
-  overflow-x: hidden;
-} */
 
-/* body {
+body {
   background-color: #e3e7ee3a !important;
   overflow-x: hidden;
-} */
+}
 
 h1,
 h2,
