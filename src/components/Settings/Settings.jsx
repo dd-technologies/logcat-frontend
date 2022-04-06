@@ -28,10 +28,7 @@ export default function Settings() {
   const getProjectByCodeSettingReducer = useSelector((state) => state.getProjectByCodeSettingReducer);
   const { loading:ld,data:dt } = getProjectByCodeSettingReducer;
 
-  console.log(`add email: ${dt}`)
-
   const { loading:lnd,data:dat } = addCrashEmailReducer;
-  console.log(`crash email: ${dat && dat.reportEmail}`)
 
   const {
     allProjectData: PorjectData,
