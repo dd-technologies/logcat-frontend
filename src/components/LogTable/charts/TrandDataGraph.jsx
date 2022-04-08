@@ -74,7 +74,7 @@ const TrandDataGraph = () => {
                 <CartesianGrid vertical={false} strokeDasharray="0 0 4" />
                 <Tooltip />
                 <Area
-                  type="monotone"
+                  type="monotoneX"
                   dataKey="data"
                   stroke="#257d7c"
                   fill="#257d7c"

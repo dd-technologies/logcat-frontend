@@ -122,26 +122,26 @@ const TypeDropDown = (props) => {
           </section>
 
           <section>
-              {projectCodeDropDown ? (
-                <CustomeDropDown
-                  width="15%"
-                  position="absolute"
-                  alignItems="flex-start"
-                  zIndex="8"
-                >
-                  {data &&
-                    data.modelList.map((type) => {
-                      return (
-                        <p
-                          className={`${Style.productVersion} LTp`}
-                          onClick={() => onSubmitFun(type)}
-                        >
-                          {type.typeName}
-                        </p>
-                      );
-                    })}
-                </CustomeDropDown>
-              ) : null}
+            {projectCodeDropDown ? (
+              <CustomeDropDown
+                width="15%"
+                position="absolute"
+                alignItems="flex-start"
+                zIndex="8"
+              >
+                {data &&
+                  data.modelList.map((type) => {
+                    return (
+                      <p
+                        className={`${Style.productVersion} LTp`}
+                        onClick={() => onSubmitFun(type)}
+                      >
+                        {type.typeName}
+                      </p>
+                    );
+                  })}
+              </CustomeDropDown>
+            ) : null}
           </section>
         </section>
       )}

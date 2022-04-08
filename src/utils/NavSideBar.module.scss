@@ -302,7 +302,7 @@
 
       .logologcat {
         @media screen and (min-width: 768px) and (max-width: 1024px) {
-          width: 40px;
+          width: 60px;
         }
         @media screen and (min-width: 1024px) and (max-width: 1400px) {
           width: 70px;
@@ -335,9 +335,10 @@
     }
   }
   .optionItems {
+    // border: red 2px solid;
     display: flex !important;
     align-items: center;
-    padding-left: 20px;
+    padding-left: 10px;
     text-decoration: none;
     align-items: center;
     color: $defaultTextColor;
@@ -404,8 +405,8 @@
       display: flex;
       justify-content: center !important;
       align-items: center !important;
-
       .logologcatsmall {
+        width: 30px;
         @media screen and (min-width: 768px) and (max-width: 1024px) {
           width: 30px;
         }

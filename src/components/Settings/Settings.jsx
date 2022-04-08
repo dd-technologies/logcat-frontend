@@ -281,8 +281,10 @@ export default function Settings() {
               <Spinner />
             ) : (
               <Row>
-                <Col xl={6} md={6} sm={12}>
-                  <h4 className={`${Style.headingText} cpactiveText`}>Update project</h4>
+                <Col xl={6} md={6} sm={12} className="mt-4">
+                  <h4 className={`${Style.headingText} cpactiveText`}>
+                    Update project
+                  </h4>
                   <div className={`${Style.imputFields} mt-4`}>
                     <input
                       type="text"
@@ -314,7 +316,7 @@ export default function Settings() {
                     Save Changes
                   </Button>
                 </Col>
-                <Col xl={6} md={6} sm={12}>
+                <Col xl={6} md={6} sm={12} className="mt-4">
                   <h4 className={Style.headingText}>Add project type</h4>
                   <div className={`${Style.imputFields} mt-4`}>
                     <input

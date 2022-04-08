@@ -13,14 +13,7 @@ export default function Text() {
   let DataINRow = colData.split(" at");
 
   return (
-    <section
-      className={`${Style.outerSection} SDb`}
-      style={{
-        background: JSON.parse(localStorage.getItem("darkMood"))
-          ? "#cfcfcf"
-          : "#fff",
-      }}
-    >
+    <section className={`${Style.outerSection} SDb`}>
       <p className="SDb">{colData}</p>
       {/* <FontAwesomeIcon icon={faCaretDown} /> */}
     </section>

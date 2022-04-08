@@ -53,7 +53,7 @@ export default function EventByVersionChart() {
           <Line
             isAnimationActive={false}
             connectNulls
-            type="monotone"
+            type="monotoneX"
             dataKey="data"
             dot={false}
             stroke="#257d7c"

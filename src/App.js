@@ -26,11 +26,11 @@ function App() {
           <Route exact path="/resetpassword" component={ResetPassword} />
           <Route exact path="/forgetPassword" component={ForgetPassword} />
           <Protected exact path="/home" component={CreateProject} />
-          <Route exact path="/logtable" component={LogTable} />
-          <Route exact path="/analytics" component={Analytics} />
-          <Route exact path="/update" component={UpdateProfile} />
+          <Protected exact path="/logtable" component={LogTable} />
+          <Protected exact path="/analytics" component={Analytics} />
+          <Protected exact path="/update" component={UpdateProfile} />
           {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
-            <Route exact path="/settings" component={Settings} />
+            <Protected exact path="/settings" component={Settings} />
           )}
           <Route exact path="*" component={NotFound} />
         </Switch>
