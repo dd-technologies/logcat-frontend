@@ -89,7 +89,9 @@ function CreateProject() {
           <Container className={Style.MainContantainer}>
             <Row>
               <Col xl={6} md={6} sm={6}>
-                <h5 className="CPp">Your Projects</h5>
+                <h5 className="CPp" style={{ color: "#fff" }}>
+                  Your Projects
+                </h5>
               </Col>
               <Col
                 xl={6}
@@ -97,7 +99,9 @@ function CreateProject() {
                 sm={6}
                 className="d-flex justify-content-end align-items-center"
               >
-                <p className="px-4 CPp">{adminInfo.data.name}</p>
+                <p className="px-4 CPp" style={{ color: "#fff" }}>
+                  {adminInfo.data.name}
+                </p>
                 <Button
                   onClick={(e) => {
                     handlelogout(e);

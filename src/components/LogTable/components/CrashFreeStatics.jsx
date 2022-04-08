@@ -42,7 +42,6 @@ export default function CrashFreeStatics() {
               className="cpactiveText"
               style={{
                 fontWeight: 700,
-                color: "#535353",
                 letterSpacing: "0.5px",
               }}
             >

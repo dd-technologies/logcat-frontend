@@ -76,7 +76,7 @@ export default function Analytics() {
     link1: {
       iconName: AnalyticeIcon,
       linkName: "Analytics",
-      link: "",
+      link: null,
     },
     link2: {
       iconName: `./assets/icons/settings.png`,

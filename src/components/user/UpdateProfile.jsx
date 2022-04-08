@@ -367,7 +367,7 @@ export default function UpdateProfile() {
                           placeholder="Enter your current password"
                           aria-describedby="emailHelp"
                         />
-                        <span>
+                        <span style={{ cursor: "pointer" }}>
                           <FontAwesomeIcon
                             icon={
                               showPassword.currentpasswordShow
@@ -414,7 +414,7 @@ export default function UpdateProfile() {
                           placeholder="Enter your new password"
                           aria-describedby="emailHelp"
                         />
-                        <span>
+                        <span style={{ cursor: "pointer" }}>
                           <FontAwesomeIcon
                             icon={
                               showPassword.newPasswordShow ? faEye : faEyeSlash
@@ -460,7 +460,7 @@ export default function UpdateProfile() {
                           placeholder="Confirm your new password"
                           aria-describedby="emailHelp"
                         />
-                        <span>
+                        <span style={{ cursor: "pointer" }}>
                           <FontAwesomeIcon
                             icon={
                               showPassword.confirmNewpasswordShow

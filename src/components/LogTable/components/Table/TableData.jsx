@@ -446,7 +446,8 @@ function TableData(props) {
         // if coldata fiest index in java lang so [1] will be the title
         if (colDataTOString.includes("java.lang.RuntimeException")) {
           title = colData[1].split("(")[1].replace(":", " ").split(")")[0];
-          console.log("this is condition is working");
+          console.log("title new", title);
+
           // title = colData[1];
         } else {
           // title = colData;
@@ -457,6 +458,8 @@ function TableData(props) {
                 .split("(")[1]
                 .replace(":", " line ")
                 .split(")")[0];
+
+              console.log("title new", title);
             }
           }
           // if (!col.includes("Caused by:")) {
@@ -465,18 +468,11 @@ function TableData(props) {
           //   // title = colData[parseInt(key) + 1]
           // }
         }
-        console.log("title 1", title);
+        console.log("title 1", typeof title);
 
         return (
-          <div
-            className={Style.expandedRow}
-            style={{
-              color: JSON.parse(localStorage.getItem("darkMood"))
-                ? "#fff"
-                : null,
-            }}
-          >
-            {title}
+          <div className={Style.expandedRow}>
+            {title.indexOf(")") ? title.split(")")[0] : title}
           </div>
         );
       },
@@ -728,7 +724,7 @@ function TableData(props) {
                         : null,
                     }}
                   >
-                    <section className={`S{Style.searchbar} `}>
+                    <section className={Style.searchbar}>
                       <SearchBar {...props.searchProps} />
                     </section>
                     {/* chip section */}

@@ -117,8 +117,8 @@ export default function Settings() {
     name: projectName,
     dashName: projectName,
     link1: {
-      iconName: LogICon,
-      linkName: "Logs",
+      iconName: null,
+      linkName: null,
       link: "",
     },
     link2: {
@@ -282,7 +282,7 @@ export default function Settings() {
             ) : (
               <Row>
                 <Col xl={6} md={6} sm={12}>
-                  <h4 className={`${Style.headingText} AYp`}>Update project</h4>
+                  <h4 className={`${Style.headingText} cpactiveText`}>Update project</h4>
                   <div className={`${Style.imputFields} mt-4`}>
                     <input
                       type="text"

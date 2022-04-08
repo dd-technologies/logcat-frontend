@@ -8,23 +8,26 @@ export default function DarkLightMood() {
   const [darkMode, setDarkMode] = useState(true);
 
   return (
-    <section className={Style.Outer_section}>
-      <section>
-        {/*className={darkMood ? Style.darkMood_outer : null}*/}
-        <ThemeContext.Consumer>
-          {({ changeTheme }) => (
+    <ThemeContext.Consumer>
+      {({ changeTheme }) => (
+        <section
+          className={Style.Outer_section}
+          onClick={() => {
+            setDarkMode(!darkMode);
+            changeTheme(darkMode ? themes.light : themes.dark);
+          }}
+        >
+          <section>
+            {/*className={darkMood ? Style.darkMood_outer : null}*/}
+
             <FontAwesomeIcon
               icon={!darkMode ? faMoon : faSun}
-              size="md"
-              onClick={() => {
-                setDarkMode(!darkMode);
-                changeTheme(darkMode ? themes.light : themes.dark);
-              }}
+              size="1x"
               color={darkMode ? "#0099a4" : "#0099a4"}
             />
-          )}
-        </ThemeContext.Consumer>
-      </section>
-    </section>
+          </section>
+        </section>
+      )}
+    </ThemeContext.Consumer>
   );
 }
