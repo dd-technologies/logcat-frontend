@@ -1,17 +1,15 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRocket, faDatabase } from "@fortawesome/free-solid-svg-icons";
 import Style from "./TrandData.module.scss";
 import CustomCard from "../../../Container/CustomCard";
 import TrandDataGraph from "../charts/TrandDataGraph";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function TrandData() {
   const getLogCountsByDateReducer = useSelector(
     (state) => state.getLogCountsByDateReducer
   );
-  const { loading, data } = getLogCountsByDateReducer;
+  const { data } = getLogCountsByDateReducer;
   const LineCount =
     data && data.data && data.data.response ? data.data.response : null;
 

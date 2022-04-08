@@ -19,7 +19,7 @@ export default function CarshFreeStaticsGraph() {
     (state) => state.getCrashFreeUsersReducer
   );
 
-  const { loading, data } = getCrashFreeUsersReducer;
+  const { data } = getCrashFreeUsersReducer;
 
   let dt = data && data.response;
   // let date = data && data.response.map((date) => date.date);

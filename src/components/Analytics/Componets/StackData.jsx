@@ -160,11 +160,11 @@ export default function StackData() {
                               {idx == 0 ? (
                                 <p>
                                   {`${key.slice(key.indexOf("/") + 1)}`}{" "}
-                                  {console.log("key", colData)}
+                                  {/* {console.log("key", colData)} */}
                                 </p>
                               ) : (
                                 <p className={`${Style.index0}`}>
-                                  {console.log("key", colData)}
+                                  {/* {console.log("key", colData)} */}
                                   {`${key.slice(key.indexOf("/") + 1)}`}
                                 </p>
                               )}

@@ -10,7 +10,6 @@ import {
   getLogTypeCounts,
   getProjectByCode,
 } from "../../../../redux/action/ProjectAction";
-import { ThemeContext } from "../../../../utils/ThemeContext";
 
 const TypeDropDown = (props) => {
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);

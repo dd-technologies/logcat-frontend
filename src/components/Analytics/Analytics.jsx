@@ -68,7 +68,7 @@ export default function Analytics() {
   let stackArray = urlParams.get("col") || "";
   let stackArrayNew = stackArray.split("at ") && stackArray.split(")");
 
-  console.log("first", stackArrayNew);
+  // console.log("first", stackArrayNew);
 
   const sidebarDetails = {
     name: projectName,
@@ -121,7 +121,7 @@ export default function Analytics() {
             .replace(" ", " line ");
         setTitle(noCousedError);
         setSubTitle(mappedArraywithKey[1].concat(")"));
-        console.log("mappedArraywithKey", title);
+        // console.log("mappedArraywithKey", title);
       }
     }
   };

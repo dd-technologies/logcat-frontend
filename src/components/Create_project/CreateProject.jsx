@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faHome, faUserAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Style from "./CreateProject.module.scss";
 import CustomCard from "../../Container/CustomCard";
 import { Button, Row, Col, Container } from "react-bootstrap";
@@ -29,7 +29,6 @@ function CreateProject() {
   );
   const {
     allProjectData: PorjectData,
-    loading,
     allProjectData,
   } = getAllProjectReducer;
 

@@ -1,5 +1,5 @@
 import moment from "moment";
-import React, { PureComponent } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import {
   AreaChart,
@@ -26,7 +26,7 @@ const TrandDataGraph = () => {
   const getLogCountsByDateReducer = useSelector(
     (state) => state.getLogCountsByDateReducer
   );
-  const { loading, data } = getLogCountsByDateReducer;
+  const { data } = getLogCountsByDateReducer;
   const LineCount =
     data && data.data && data.data.response ? data.data.response : null;
 

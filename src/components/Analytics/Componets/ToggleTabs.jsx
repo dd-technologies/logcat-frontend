@@ -49,7 +49,7 @@ export default function ToggleTabs() {
   const getErrorWRTOSReducer = useSelector(
     (state) => state.getErrorWRTOSReducer
   );
-  const { loading, data } = getErrorWRTOSReducer;
+  const { data } = getErrorWRTOSReducer;
 
   let piCount = data && data.typeWiseCount ? data.typeWiseCount : null;
 

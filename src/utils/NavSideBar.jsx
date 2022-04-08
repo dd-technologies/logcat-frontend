@@ -49,7 +49,6 @@ export function Navbar(props) {
 
   // checking if navlink 2 is not avilables
 
-  const showSidebar = () => setSidebar(!sidebar);
   const dispatch = useDispatch();
   let history = useHistory();
   const handlelogout = (e) => {
@@ -269,7 +268,7 @@ export function SideBar(props) {
 
   var url_string = window.location.href;
   var url = new URL(url_string);
-  console.log("first", url);
+  // console.log("first", url);
 
   // checking if navlink 2 is not avilables
 

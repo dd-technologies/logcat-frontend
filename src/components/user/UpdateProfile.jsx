@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-  faDatabase,
   faUpload,
   faMailBulk,
   faLock,
@@ -17,8 +16,7 @@ import LogICon from "../../assets/icons/log.png";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { passwordChangeAction } from "../../redux/action/UserProfileAction";
-import { persistor } from "../../redux/Store";
-import toast, {Toaster } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import { updateProfile } from "../../redux/action/AdminAction";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
@@ -33,7 +31,7 @@ export default function UpdateProfile() {
 
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   // const [navToggle, setNavToggle] = useState(true);
-  const { loading, adminInfo } = adminLoginReducer;
+  const { adminInfo } = adminLoginReducer;
 
   // update profile reducer
   const passwordChangeReducer = useSelector(
@@ -52,25 +50,37 @@ export default function UpdateProfile() {
     adminInfo && adminInfo.image && adminInfo.image
   );
 
+  // console.log(`image ${avatar && avatar.name}`);
 
-  const { loading:lnd,data: updatepasswordresponseData,error:err } = passwordChangeReducer;
+  const {
+    loading: lnd,
+    data: updatepasswordresponseData,
+    error: err,
+  } = passwordChangeReducer;
 
   const dispatch = useDispatch();
 
   const [currentpassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewpassword, setConfirmNewPassword] = useState("");
-  const [toastMessage, setToastMessage] = useState(null)
+  const [toastMessage, setToastMessage] = useState(null);
   const [error, setError] = useState(null);
 
-  if(updatepasswordresponseData && updatepasswordresponseData.success === false) {
-    updatepasswordresponseData.success = ''
-    toast.error(updatepasswordresponseData && updatepasswordresponseData.message)
-  };
-  if(updatepasswordresponseData && updatepasswordresponseData.status === 1) {
-    updatepasswordresponseData.status = ''
-    toast.success(updatepasswordresponseData && updatepasswordresponseData.message);
-  };
+  if (
+    updatepasswordresponseData &&
+    updatepasswordresponseData.success === false
+  ) {
+    updatepasswordresponseData.success = "";
+    toast.error(
+      updatepasswordresponseData && updatepasswordresponseData.message
+    );
+  }
+  if (updatepasswordresponseData && updatepasswordresponseData.status === 1) {
+    updatepasswordresponseData.status = "";
+    toast.success(
+      updatepasswordresponseData && updatepasswordresponseData.message
+    );
+  }
   // const [error, setError] = useState({
   //   currentpasswordError: null,
   //   newPasswordError: null,
@@ -97,9 +107,6 @@ export default function UpdateProfile() {
     setAvatar(file[0]);
   };
 
-  // status sucess
-  const [statusSucess, setStatusSucess] = useState("");
-
   // show password state
 
   const [showPassword, setShowPassword] = useState({
@@ -107,8 +114,6 @@ export default function UpdateProfile() {
     newPasswordShow: false,
     confirmNewpasswordShow: false,
   });
-
-  const history = useHistory();
 
   const navdetails = {
     name: "Update profile",
@@ -140,31 +145,29 @@ export default function UpdateProfile() {
   // updated password function
   const updatePasswordFun = (e) => {
     e.preventDefault();
-  if (!currentpassword || !newPassword || !confirmNewpassword){
-    toast.error("Provide all field value to update password!");
-    return
-  }
+    if (!currentpassword || !newPassword || !confirmNewpassword) {
+      toast.error("Provide all field value to update password!");
+      return;
+    }
     // 1) if current and new password are same
-    if (currentpassword === newPassword && currentpassword === confirmNewpassword) {
+    if (
+      currentpassword === newPassword &&
+      currentpassword === confirmNewpassword
+    ) {
       // toast.error("Check new password it should not be same to previous");
-      toast.error('Check new password it should not be same to previous')
+      toast.error("Check new password it should not be same to previous");
       return;
     }
     // 2) new password match with current password
     if (newPassword !== confirmNewpassword) {
-      toast.error('New password and Confirm pass should be same')
+      toast.error("New password and Confirm pass should be same");
       return;
     }
-    dispatch(passwordChangeAction(currentpassword, newPassword))
+    dispatch(passwordChangeAction(currentpassword, newPassword));
     // setCurrentPassword(null)
     // setNewPassword(null)
     // setConfirmNewPassword(null)
-
   };
-
-  useEffect(() => {
-
-  }, []);
 
   return (
     <>
@@ -298,13 +301,13 @@ export default function UpdateProfile() {
 
                 {/*********************************** password change section ********************************/}
                 <UpdatePassord
-                  error = {error}
-                  currentpassword = {currentpassword}
-                  setCurrentPassword ={setCurrentPassword}
-                  showPassword = {showPassword}
-                  setShowPassword = {setShowPassword}
-                  newPassword = {newPassword}
-                  setNewPassword = {setNewPassword}
+                  error={error}
+                  currentpassword={currentpassword}
+                  setCurrentPassword={setCurrentPassword}
+                  showPassword={showPassword}
+                  setShowPassword={setShowPassword}
+                  newPassword={newPassword}
+                  setNewPassword={setNewPassword}
                   confirmNewpassword={confirmNewpassword}
                   setConfirmNewPassword={setConfirmNewPassword}
                   updatePasswordFun={updatePasswordFun}
@@ -319,56 +322,50 @@ export default function UpdateProfile() {
                   >
                     <h3 className="mb-4 CPp">Change password</h3>
                     {/* password field */}
-                    <section className="mt-4">
-                      <h5 className="CPp">Current Password</h5>
+                <section className="mt-4">
+                  <h5 className="CPp">Current Password</h5>
 
-                      <div
-                        className={
-                          error
-                            ? `${Style.imputFieldsError}`
-                            : `${Style.imputFields} mt-4`
+                  <div
+                    className={
+                      error
+                        ? `${Style.imputFieldsError}`
+                        : `${Style.imputFields} mt-4`
+                    }
+                  >
+                    <span>
+                      <FontAwesomeIcon icon={faLock} />
+                    </span>
+                    <input
+                      type={
+                        showPassword.currentpasswordShow ? "text" : "password"
+                      }
+                      value={currentpassword}
+                      onChange={(e) => {
+                        setCurrentPassword(e.target.value);
+                      }}
+                      className="form-control LoginForminput  CPp"
+                      id="exampleInputEmail1"
+                      placeholder="Enter your current password"
+                      aria-describedby="emailHelp"
+                    />
+                    <span style={{ cursor: "pointer" }}>
+                      <FontAwesomeIcon
+                        icon={
+                          showPassword.currentpasswordShow ? faEye : faEyeSlash
                         }
-                      >
-                        <span>
-                          <FontAwesomeIcon icon={faLock} />
-                        </span>
-                        <input
-                          type={
-                            showPassword.currentpasswordShow
-                              ? "text"
-                              : "password"
-                          }
-                          value={currentpassword}
-                          onChange={(e) => {
-                            setCurrentPassword(e.target.value);
-                          }}
-                          className="form-control LoginForminput  CPp"
-                          id="exampleInputEmail1"
-                          placeholder="Enter your current password"
-                          aria-describedby="emailHelp"
-                        />
-                        <span style={{ cursor: "pointer" }}>
-                          <FontAwesomeIcon
-                            icon={
-                              showPassword.currentpasswordShow
-                                ? faEye
-                                : faEyeSlash
-                            }
-                            onClick={() =>
-                              setShowPassword({
-                                ...showPassword,
-                                currentpasswordShow:
-                                  !showPassword.currentpasswordShow,
-                              })
-                            }
-                          />
-                        </span>
-                      </div>
-                      <p style={{ color: "red", fontSize: ".8rem" }}>
-                        {error}
-                      </p>
-                    </section>
-                    {/* new password field ***
+                        onClick={() =>
+                          setShowPassword({
+                            ...showPassword,
+                            currentpasswordShow:
+                              !showPassword.currentpasswordShow,
+                          })
+                        }
+                      />
+                    </span>
+                  </div>
+                  <p style={{ color: "red", fontSize: ".8rem" }}>{error}</p>
+                </section>
+                {/* new password field ***
                     <section className="mt-4">
                       <h5 className="CPp">New Password</h5>
                       <div

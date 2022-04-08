@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Card } from "react-bootstrap";
 import Style from "./CustomeCard.module.scss";
 
@@ -7,9 +7,6 @@ const defaultStyle = {
   overflow: "hidden",
   boxShadow: "4px 5px 18px 1px rgba(0, 0, 0, 0.07) !important",
 };
-
-const darkmood = localStorage.getItem("darkMood");
-// console.log("darkmood", JSON.parse(darkmood));
 
 export default function CustomCard(props) {
   // dark mood state

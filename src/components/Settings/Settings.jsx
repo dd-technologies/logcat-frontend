@@ -3,22 +3,14 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { Navbar, SideBar } from "../../utils/NavSideBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDatabase, faWindowClose } from "@fortawesome/free-solid-svg-icons";
-import LogICon from "../../assets/icons/log.png";
 import Style from "./Settings.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import {
-  addCrashEmail,
-  getProjectByCodeSetting,
-} from "../../redux/action/ProjectAction";
+import { addCrashEmail } from "../../redux/action/ProjectAction";
 import Spinner from "../../Container/Spinner";
 
 export default function Settings() {
   // dark mood state
-
-  const [darkMood, setDarkMood] = useState(
-    JSON.parse(localStorage.getItem("darkMood"))
-  );
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -38,13 +30,12 @@ export default function Settings() {
   );
   const { loading: ld, data: dt } = getProjectByCodeSettingReducer;
 
-  const { loading:lnd,data:dat } = addCrashEmailReducer;
+  // console.log(`add email: ${dt}`);
 
-  const {
-    allProjectData: PorjectData,
-    loading,
-    allProjectData,
-  } = getAllProjectReducer;
+  const { loading: lnd, data: dat } = addCrashEmailReducer;
+  // console.log(`crash email: ${dat && dat.reportEmail}`);
+
+  const { allProjectData } = getAllProjectReducer;
 
   let dataObj;
   allProjectData &&
@@ -127,11 +118,11 @@ export default function Settings() {
   //   EMAIL CHIPS --------------------------------------------------------------------------------------------------
 
   const validateEmail = (email) => {
-    console.log("input chip validate");
+    // console.log("input chip validate");
     if (!email) {
       setEmailError("Please enter your email Id");
 
-      console.log("email validate function " + emailError);
+      // console.log("email validate function " + emailError);
       return false;
     }
 
@@ -158,9 +149,9 @@ export default function Settings() {
       evt.preventDefault();
       setEmail({ ...emailstate, error: null });
       let inputChips = emailstate.email.trim();
-      console.log(`input chip: ${inputChips}`);
+      // console.log(`input chip: ${inputChips}`);
       const emailValid = validateEmail(inputChips);
-      console.log(`input chip email: ${emailValid}`);
+      // console.log(`input chip email: ${emailValid}`);
       if (emailValid) {
         setEmailList([...emailList, inputChips]);
         setEmail({ email: "" });

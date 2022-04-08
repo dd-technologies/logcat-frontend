@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import Style from "./App.module.scss";
+import React from "react";
+import "./App.module.scss";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CreateProject from "./components/Create_project/CreateProject";
 import LogTable from "./components/LogTable/LogTable";

@@ -29,14 +29,12 @@ import DateIcons from "../../assets/icons/date.png";
 import LogICon from "../../assets/icons/log.png";
 import TypeDropDown from "./components/Table/TypeDropDown";
 import "../../utils/Theme.scss";
-import { ThemeContext, themes } from "../../utils/ThemeContext";
 
 export default function LogTable() {
   const history = useHistory();
   // filter with crash free statics and trands
   const [dropDownShow, setDropDownShow] = useState(false);
   const [dateDropDown, setDateDropDown] = useState(false);
-  const [productDropDown, seProductDropDown] = useState(false);
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
   const [diffDate, setDiffDate] = useState(
     localStorage.getItem("diffDate") || 90
@@ -54,7 +52,7 @@ export default function LogTable() {
   const { data } = slideWindowReducer;
 
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
-  const { loading, data: projectType } = getModelCodeReducer;
+  const { data: projectType } = getModelCodeReducer;
   const { loading: ld, data: dt } = getModelCodeReducer;
 
   var projectCode = {
@@ -75,9 +73,6 @@ export default function LogTable() {
   );
 
   const { data: getallCode } = getAllLogByCodeReducer;
-
-  const recordavilable =
-    getallCode && getallCode.data && getallCode.data.pageLimit;
 
   const ref = useRef();
 
@@ -120,26 +115,11 @@ export default function LogTable() {
     },
   };
 
-  const dropDownShowFun = () => {
-    setDropDownShow(true);
-    if (dropDownShow) {
-      setDropDownShow(false);
-    }
-  };
-
   // filter crashfree statcis and trands with data filter
   const DateFilter = () => {
     setDateDropDown(true);
     if (dateDropDown) {
       setDateDropDown(false);
-    }
-  };
-
-  let modelList;
-  const ProjectTypeFilter = () => {
-    setProjectCodeDropDown(true);
-    if (projectCodeDropDown) {
-      setProjectCodeDropDown(false);
     }
   };
 
