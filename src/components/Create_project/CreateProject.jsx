@@ -68,6 +68,12 @@ function CreateProject() {
     if (!localStorage.getItem("ddAdminToken")) {
       history.push("/");
     }
+    if(localStorage.getItem("project_type")){
+      localStorage.removeItem("project_type")
+    }
+    if(localStorage.getItem("selected_date")){
+      localStorage.removeItem("selected_date")
+    }
     Dispatch(getAllProject());
   }, []);
 
