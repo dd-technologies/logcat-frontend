@@ -5,7 +5,7 @@ import Style from "./DarkLightMood.module.scss";
 import { ThemeContext, themes } from "./ThemeContext";
 
 export default function DarkLightMood() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
 
   return (
     <ThemeContext.Consumer>
@@ -15,6 +15,7 @@ export default function DarkLightMood() {
           onClick={() => {
             setDarkMode(!darkMode);
             changeTheme(darkMode ? themes.light : themes.dark);
+            localStorage.setItem("mode", darkMode);
           }}
         >
           <section>

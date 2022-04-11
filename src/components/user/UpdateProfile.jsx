@@ -22,7 +22,7 @@ import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 // or scss:
 import "react-image-crop/src/ReactCrop.scss";
-import UpdatePassord from "./component/UpdatePassord";
+import UpdatePassord from "./UpdatePassord";
 
 export default function UpdateProfile() {
   // SLIDEWINDOW STATE
@@ -322,7 +322,7 @@ export default function UpdateProfile() {
                   >
                     <h3 className="mb-4 CPp">Change password</h3>
                     {/* password field */}
-                <section className="mt-4">
+                {/* <section className="mt-4">
                   <h5 className="CPp">Current Password</h5>
 
                   <div
@@ -364,7 +364,7 @@ export default function UpdateProfile() {
                     </span>
                   </div>
                   <p style={{ color: "red", fontSize: ".8rem" }}>{error}</p>
-                </section>
+                </section> */}
                 {/* new password field ***
                     <section className="mt-4">
                       <h5 className="CPp">New Password</h5>
