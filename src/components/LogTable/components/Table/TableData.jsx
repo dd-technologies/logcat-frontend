@@ -424,7 +424,7 @@ function TableData(props) {
         var title;
 
         var colData = col.split("at ");
-        // console.log("colData", colData);
+
 
         // console.log("col");
         var colDataTOString = colData.toString();
@@ -439,7 +439,6 @@ function TableData(props) {
         // if coldata fiest index in java lang so [1] will be the title
         if (colDataTOString.includes("java.lang.RuntimeException")) {
           title = colData[1].split("(")[1].replace(":", " ").split(")")[0];
-          // console.log("title new", title);
 
           // title = colData[1];
         } else {
@@ -461,7 +460,7 @@ function TableData(props) {
           //   // title = colData[parseInt(key) + 1]
           // }
         }
-        // console.log("title 1", typeof title);
+
 
         return (
           <div className={Style.expandedRow}>

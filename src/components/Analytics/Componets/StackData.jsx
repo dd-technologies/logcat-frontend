@@ -152,19 +152,24 @@ export default function StackData() {
                             <section
                               className={
                                 innerParaShowDetails[idx]
+
                                   ? `${Style.StackInfoDiveWithToggle} SDb`
                                   : `${Style.StackInfoDive} SDb`
+
+                            
                               }
                               onClick={() => innerParaShowDetailsFun(idx)}
                             >
                               {idx == 0 ? (
                                 <p>
                                   {`${key.slice(key.indexOf("/") + 1)}`}{" "}
+                                  
                                   {/* {console.log("key", colData)} */}
                                 </p>
                               ) : (
                                 <p className={`${Style.index0}`}>
                                   {/* {console.log("key", colData)} */}
+                                 
                                   {`${key.slice(key.indexOf("/") + 1)}`}
                                 </p>
                               )}
@@ -175,9 +180,11 @@ export default function StackData() {
                             {
                               // grouped[key].foreach((value,index)=>{
                               innerParaShowDetails[idx] && (
+
                                 <section
                                   className={`${Style.detailSection}  SDb1`}
                                 >
+
                                   {grouped[key].map((items, index) => {
                                     return (
                                       <>
@@ -209,6 +216,7 @@ export default function StackData() {
                                               }
                                             )}
                                           >
+
                                             {items.includes("at") ? null : "at"}
 
                                             {DataINRow.includes("Caused by:")
@@ -230,7 +238,9 @@ export default function StackData() {
               </Col>
             ) : (
               <Col xl={12} className={`${Style.outerDiv} mt-4`}>
+
                 <section className={`${Style.StackInfoDive}`}>
+
                   <p>{colData}</p>
                 </section>
               </Col>

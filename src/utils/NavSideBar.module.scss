@@ -60,6 +60,7 @@
     align-items: center !important;
     // border: 2px solid red;
     @media screen and (min-width: 768px) and (max-width: 1024px) {
+
       width: 20%;
       margin-right: 15%;
     }
@@ -89,20 +90,25 @@
       height: 40px;
       color: $activehrefText;
       font-weight: 700;
+
       cursor: pointer;
+
       // margin-left: 10px !important;
       // media query
       // border: 2px solid red; // media query
       @media screen and (min-width: 768px) and (max-width: 1024px) {
+
         width: 28px;
         height: 28px;
         margin-left: 10px !important;
       }
       @media screen and (min-width: 1024px) and (max-width: 1400px) {
+
         width: 28px;
         height: 28px;
         margin-left: 10px !important;
       }
+
       @media screen and (min-width: 1400px) and (max-width: 1600px) {
         width: 28px;
         height: 28px;
@@ -135,6 +141,7 @@
   color: $activehrefText;
   font-weight: 700;
 }
+
 
 // NAVBAR WITH SLIDE
 .navbarWihoutSlide {
@@ -207,6 +214,7 @@
   .userInfo {
     display: flex;
     justify-content: space-around;
+
     align-items: center;
     cursor: pointer;
     // border: 2px solid red;

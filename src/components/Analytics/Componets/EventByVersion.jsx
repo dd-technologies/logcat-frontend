@@ -11,7 +11,6 @@ export default function EventByVersion() {
     (state) => state.getCrashAnalyticsDataReducer
   );
   const { loading: ld, data: alldata } = getCrashAnalyticsDataReducer;
-  // console.log("first", getCrashAnalyticsDataReducer);
 
   let cnt = alldata && alldata.versionResponse ? alldata.versionResponse : null;
 
@@ -38,7 +37,6 @@ export default function EventByVersion() {
             </h6>
 
             {/*CHECKING FOR NOW IF NOT HAVING THE VALUE OF MAP */}
-            {/* {console.log("cnt", cnt)} */}
 
             {!ld ? (
               cnt.map((e) => (
