@@ -15,6 +15,7 @@ import {
     FORGET_PASSWORD_REQUEST,
     FORGET_PASSWORD_REQUEST_SUCCESS,
     FORGET_PASSWORD_REQUEST_FAIL,
+    FORGET_PASSWORD_RESET_STATE,
 
     RESET_PASSWORD_REQUEST,
     RESET_PASSWORD_REQUEST_SUCCESS,
@@ -179,7 +180,8 @@ export const forgetPassword = (email) => async (dispatch)=>{
             },
         }
         // https://insulink-backend.herokuapp.com
-        const {data} = await axios.post('https://logger-server.herokuapp.com/api/logger/forget',{
+        // https://logger-server.herokuapp.com
+        const {data} = await axios.post('http://localhost:5000/api/logger/forget',{
             email,
         })
 
@@ -192,6 +194,23 @@ export const forgetPassword = (email) => async (dispatch)=>{
         // cookie.save('token',data.user.token)
         // history.push('/')
 
+
+    } catch (error) {
+        dispatch({
+            type: FORGET_PASSWORD_REQUEST_FAIL,
+            payload:
+            error.response && error.response.data.errorMessage 
+            ? error.response.data.errorMessage : error.message,
+        })
+    }
+}
+
+export const resetForgetPasswordState = () => async (dispatch)=>{
+    
+    try {
+        dispatch({
+            type: FORGET_PASSWORD_RESET_STATE
+        })
 
     } catch (error) {
         dispatch({
@@ -221,7 +240,9 @@ export const resetForgetPassword = ({email,resetData}) => async (dispatch)=>{
 
 
         // https://insulink-backend.herokuapp.com
-        const {data} = await axios.post('https://logger-server.herokuapp.com/api/logger/resetPassword',{
+        // https://logger-server.herokuapp.com
+        
+        const {data} = await axios.post('http://localhost:5000/api/logger/resetPassword',{
             otp,
             password,
             email,

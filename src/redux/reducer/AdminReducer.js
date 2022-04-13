@@ -12,6 +12,7 @@ import {
     FORGET_PASSWORD_REQUEST,
     FORGET_PASSWORD_REQUEST_SUCCESS,
     FORGET_PASSWORD_REQUEST_FAIL,
+    FORGET_PASSWORD_RESET_STATE,
 
     RESET_PASSWORD_REQUEST,
     RESET_PASSWORD_REQUEST_SUCCESS,
@@ -102,7 +103,8 @@ export const forgetPasswordReducer = (state={}, action)=>{
                 loading:false,
                 error: action.payload
             }
-    
+        case FORGET_PASSWORD_RESET_STATE:
+            return {}
         default:
             return state
     }
