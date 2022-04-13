@@ -11,9 +11,10 @@ import { adminLogout } from "../redux/action/AdminAction";
 import { slideShow } from "../redux/action/SlideAction";
 import logo from "../assets/images/DDTECH.png";
 import Logcat from "../assets/images/lgnewsmall.png";
-import LogcatLarge from "../assets/images/logcatlargewhite.png";
+import LogcatLarge from "../assets/images/logcarLarge.svg";
 
 import settigns from "../assets/icons/settings.png";
+import DarkLightMood from "./DarkLightMood";
 
 export function Navbar(props) {
   const { navdetails } = props;
@@ -48,7 +49,6 @@ export function Navbar(props) {
 
   // checking if navlink 2 is not avilables
 
-  const showSidebar = () => setSidebar(!sidebar);
   const dispatch = useDispatch();
   let history = useHistory();
   const handlelogout = (e) => {
@@ -143,16 +143,20 @@ export function Navbar(props) {
           </h3>
         </section>
         <section className={Style.userInfo}>
-          <section className={Style.InfoSection}>
-            <FontAwesomeIcon icon={faBell} size="lg" />
 
-            <section className={Style.Avtar} onClick={showUserInfoFun}>
-              {adminInfo &&
-                adminInfo.data &&
-                adminInfo.data.name
-                  .split(" ")
-                  .map((name) => name[0][0].toUpperCase())}
-            </section>
+          {/* light and dark mood */}
+          <DarkLightMood />
+          <section>
+            <FontAwesomeIcon icon={faBell} size="2x" />
+          </section>
+
+          <section className={`${Style.Avtar}`} onClick={showUserInfoFun}>
+            {adminInfo &&
+              adminInfo.data &&
+              adminInfo.data.name
+                .split(" ")
+                .map((name) => name[0][0].toUpperCase())}
+
           </section>
           {/* <section style={{ fontWeight: "500" }} className="m-2">
             {adminInfo &&
@@ -187,21 +191,31 @@ export function Navbar(props) {
             )}
           </section>
 
-          <p style={{ fontSize: "1.3rem" }}>
+          <p
+            className="cpactiveText"
+            style={{
+              fontSize: "1.3rem",
+            }}
+          >
             {adminInfo && adminInfo.data && adminInfo.data.name}
           </p>
-          <p style={{ fontSize: "1rem" }}>
+          <p
+            className="CPp"
+            style={{
+              fontSize: "1rem",
+            }}
+          >
             {adminInfo && adminInfo.data && adminInfo.data.email}
           </p>
           <p
-            className={`${Style.userInfoDropDown} mt-4`}
+            className={`${Style.userInfoDropDown} mt-4 CPp`}
             onClick={() => history.push("/update")}
           >
             Manage your account
           </p>
 
           <p
-            className={`${Style.userInfoDropDown} mt-2`}
+            className={`${Style.userInfoDropDown} mt-2 CPp`}
             onClick={(e) => {
               handlelogout(e);
             }}
@@ -210,8 +224,22 @@ export function Navbar(props) {
           </p>
 
           <section className={Style.privacyPolicy}>
-            <p style={{ fontSize: "0.8rem" }}>Privacy policy</p>
-            <p style={{ fontSize: "0.8rem" }}>Terms of service</p>
+            <p
+              className="CPp"
+              style={{
+                fontSize: "0.8rem",
+              }}
+            >
+              Privacy policy
+            </p>
+            <p
+              className="CPp"
+              style={{
+                fontSize: "0.8rem",
+              }}
+            >
+              Terms of service
+            </p>
           </section>
         </CustomeDropDown>
       )}
@@ -223,6 +251,7 @@ export function Navbar(props) {
 
 export function SideBar(props) {
   const { sidebarDetails } = props;
+
   const [sidebar, setSidebar] = useState(false);
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   // const [navToggle, setNavToggle] = useState(true);
@@ -237,6 +266,11 @@ export function SideBar(props) {
   const urlParams = new URLSearchParams(queryString);
   const settingUrl = urlParams.get("pagename") || "";
   const logURLName = urlParams.get("pagename") || "";
+  // console.log("first", updatePage);
+
+  var url_string = window.location.href;
+  var url = new URL(url_string);
+  // console.log("first", url);
 
   // checking if navlink 2 is not avilables
 
@@ -271,14 +305,12 @@ export function SideBar(props) {
               {data.show ? (
                 <Image
                   className={Style.logologcatsmall}
-                  width={30}
                   src={Logcat}
                   alt="logcat"
                 />
               ) : (
                 <Image
                   className={Style.logologcat}
-                  width={70}
                   src={LogcatLarge}
                   alt="logcat"
                 />
@@ -292,35 +324,13 @@ export function SideBar(props) {
         >
           {/* LINK FIRST  */}
 
-          <section
-            className={
-              logURLName.includes("logpage") || logURLName.includes("analytics")
-                ? `${Style.option_active}`
-                : `${Style.optionItems} `
-            }
-          >
-            <Link
-              className={Style.optionItems}
-              to={
-                sidebarDetails.link1 &&
-                sidebarDetails.link1.link &&
-                sidebarDetails.link1.link.length === 0
-                  ? ""
-                  : sidebarDetails.link1.link
-              }
-            >
-              <Image src={sidebarDetails.link1.iconName} />
-              <section className={Style.optionName}>
-                {sidebarDetails.link1.linkName}
-              </section>
-            </Link>
-          </section>
-
-          {/* LINK SECOND  */}
-          {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
+          {url.pathname == "/update" || url.pathname == "/settings" ? (
+            <></>
+          ) : (
             <section
               className={
-                settingUrl.includes("settings")
+                logURLName.includes("logpage") ||
+                logURLName.includes("analytics")
                   ? `${Style.option_active}`
                   : `${Style.optionItems} `
               }
@@ -328,19 +338,52 @@ export function SideBar(props) {
               <Link
                 className={Style.optionItems}
                 to={
-                  sidebarDetails.link2 &&
-                  sidebarDetails.link2.link &&
-                  sidebarDetails.link2.link.length === 0
+                  sidebarDetails.link1 &&
+                  sidebarDetails.link1.link &&
+                  sidebarDetails.link1.link.length === 0
                     ? ""
-                    : sidebarDetails.link2.link
+                    : sidebarDetails.link1.link
                 }
               >
-                <Image src={settigns} />
+                <Image src={sidebarDetails.link1.iconName} />
                 <section className={Style.optionName}>
-                  {sidebarDetails.link2.linkName}
+                  {sidebarDetails.link1.linkName}
                 </section>
               </Link>
             </section>
+          )}
+
+          {/* LINK SECOND  */}
+          {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
+            <>
+              {url.pathname == "/update" ? (
+                <></>
+              ) : (
+                <section
+                  className={
+                    settingUrl.includes("settings")
+                      ? `${Style.option_active}`
+                      : `${Style.optionItems} `
+                  }
+                >
+                  <Link
+                    className={Style.optionItems}
+                    to={
+                      sidebarDetails.link2 &&
+                      sidebarDetails.link2.link &&
+                      sidebarDetails.link2.link.length === 0
+                        ? ""
+                        : sidebarDetails.link2.link
+                    }
+                  >
+                    <Image src={settigns} />
+                    <section className={Style.optionName}>
+                      {sidebarDetails.link2.linkName}
+                    </section>
+                  </Link>
+                </section>
+              )}
+            </>
           )}
         </section>
 

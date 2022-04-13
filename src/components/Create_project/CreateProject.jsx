@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faHome, faUserAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Style from "./CreateProject.module.scss";
 import CustomCard from "../../Container/CustomCard";
 import { Button, Row, Col, Container } from "react-bootstrap";
@@ -15,10 +15,13 @@ import { toast } from "react-hot-toast";
 import AddProjectModal from "./components/AddProjectModal";
 import Spinner from "../../Container/Spinner";
 import { adminLogout } from "../../redux/action/AdminAction";
+import "../../utils/Theme.scss";
 
 function CreateProject() {
   const [modalShow, setModalShow] = useState(false);
+  const [darkMode, setDarkMode] = React.useState(true);
   // project data load or not
+  // console.log("first 23", props);
 
   const Dispatch = useDispatch();
   const getAllProjectReducer = useSelector(
@@ -26,7 +29,6 @@ function CreateProject() {
   );
   const {
     allProjectData: PorjectData,
-    loading,
     allProjectData,
   } = getAllProjectReducer;
 
@@ -42,34 +44,17 @@ function CreateProject() {
     toast.success("Project Created Successfully");
     Dispatch(clearProjectData());
   }
-
-  // CHEKING IF USER IN NOT PRIME ADMIN
-
-  // const navbardetail = {
-  //   name: adminInfo.data.name,
-  //   dashName: "Welcome",
-  //   link1: {
-  //     iconName: faHome,
-  //     linkName: "Home",
-  //     link: `/`,
-  //   },
-  //   link2: {
-  //     iconName: faUserAlt,
-  //     linkName: "Profile",
-  //     link: `/`,
-  //   },
-  // };
   const history = useHistory();
 
   useEffect(() => {
     if (!localStorage.getItem("ddAdminToken")) {
       history.push("/");
     }
-    if(localStorage.getItem("project_type")){
-      localStorage.removeItem("project_type")
+    if (localStorage.getItem("project_type")) {
+      localStorage.removeItem("project_type");
     }
-    if(localStorage.getItem("selected_date")){
-      localStorage.removeItem("selected_date")
+    if (localStorage.getItem("selected_date")) {
+      localStorage.removeItem("selected_date");
     }
     Dispatch(getAllProject());
   }, []);
@@ -78,6 +63,10 @@ function CreateProject() {
     e.preventDefault();
     Dispatch(adminLogout(history));
   };
+
+  useEffect(() => {
+    setDarkMode(!darkMode);
+  }, []);
 
   return (
     <>
@@ -88,7 +77,9 @@ function CreateProject() {
           <Container className={Style.MainContantainer}>
             <Row>
               <Col xl={6} md={6} sm={6}>
-                <h5 style={{ color: "#fff" }}>Your Projects</h5>
+                <h5 className="CPp" style={{ color: "#fff" }}>
+                  Your Projects
+                </h5>
               </Col>
               <Col
                 xl={6}
@@ -96,7 +87,7 @@ function CreateProject() {
                 sm={6}
                 className="d-flex justify-content-end align-items-center"
               >
-                <p className="px-4" style={{ color: "#fff" }}>
+                <p className="px-4 CPp" style={{ color: "#fff" }}>
                   {adminInfo.data.name}
                 </p>
                 <Button
@@ -124,7 +115,7 @@ function CreateProject() {
                         <p>
                           <FontAwesomeIcon icon={faPlus} />
                         </p>
-                        <p>Add Project</p>
+                        <p className="CPp">Add Project</p>
                       </section>
                     </section>
                   </CustomCard>
