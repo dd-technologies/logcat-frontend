@@ -18,7 +18,6 @@ const AddProjectModal = (props) => {
     (state) => state.createNewProjectReducer
   );
   const { loading, data, error } = createNewProjectReducer;
-  const Dispatch = useDispatch();
   const deleteChips = (type) => {
     setModelType(
       //    modelType.filter(idx => idx !== type)

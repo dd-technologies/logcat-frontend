@@ -11,6 +11,7 @@ export default function EventByVersion() {
     (state) => state.getCrashAnalyticsDataReducer
   );
   const { loading: ld, data: alldata } = getCrashAnalyticsDataReducer;
+
   let cnt = alldata && alldata.versionResponse ? alldata.versionResponse : null;
 
   let adds = 0;
@@ -25,7 +26,13 @@ export default function EventByVersion() {
       <CustomCard height="350px">
         <Row className="p-4">
           <Col xl={4} md={4} className={Style.EventByVersion}>
-            <h6 style={{ fontWeight: "600", letterSpacing: "0.5px" }}>
+            <h6
+              className="cpactiveText"
+              style={{
+                fontWeight: "600",
+                letterSpacing: "0.5px",
+              }}
+            >
               Total events by version
             </h6>
 
@@ -34,8 +41,8 @@ export default function EventByVersion() {
             {!ld ? (
               cnt.map((e) => (
                 <>
-                  <p style={{ color: "#666" }}>{e._id ? e._id : null}</p>
-                  <h5>{e.data}</h5>
+                  <p className="AYp">{e._id ? e._id : null}</p>
+                  <h5 className="AYp">{e.data}</h5>
                 </>
               ))
             ) : (
@@ -44,8 +51,10 @@ export default function EventByVersion() {
           </Col>
           <Col xl={8} md={8} style={{ padding: "0px" }}>
             <p
-              style={{ float: "right", color: "#666" }}
-              className={Style.Last90days}
+              style={{
+                float: "right",
+              }}
+              className={`${Style.Last90days} AYp`}
             >
               from the last 90 days
             </p>

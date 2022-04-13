@@ -66,8 +66,7 @@ export default function Analytics() {
   const projectCodeAnalytics = urlParams.get("projectCodeAnalytics");
   // const analyticsURL = urlParams.get("pagetype") || "";
   let stackArray = urlParams.get("col") || "";
-  let stackArrayNew = stackArray.split("at ");
-  // console.log("stackArrayNew", stackArrayNew);
+  let stackArrayNew = stackArray.split("at ") && stackArray.split(")");
 
   const sidebarDetails = {
     name: projectName,
@@ -75,7 +74,7 @@ export default function Analytics() {
     link1: {
       iconName: AnalyticeIcon,
       linkName: "Analytics",
-      link: "",
+      link: null,
     },
     link2: {
       iconName: `./assets/icons/settings.png`,
@@ -112,13 +111,14 @@ export default function Analytics() {
       }
 
       if (!stackArray.includes("Caused by:")) {
-        noCousedError = mappedArraywithKey[1]
-          .split("(")[1]
-          .replace(":", " ")
-          .split(")")[0];
+        noCousedError =
+          mappedArraywithKey[1].split("(")[1].replace(":", " ").split(")")[0] &&
+          mappedArraywithKey[1]
+            .split("(")[1]
+            .replace(":", " ")
+            .replace(" ", " line ");
         setTitle(noCousedError);
-        setSubTitle(mappedArraywithKey[1]);
-        // console.log("mappedArraywithKey", mappedArraywithKey);
+        setSubTitle(mappedArraywithKey[1].concat(")"));
       }
     }
   };
@@ -170,9 +170,36 @@ export default function Analytics() {
   const dispatch = useDispatch();
 
   const dispatchmultiple = () => {
+    // if (true) {
+    //   console.log("condition running");
+    //   dispatch(
+    //     getCrashFreeUsersData(
+    //       code,
+    //       stackArrayNew[0].concat(")"),
+    //       projectCodeAnalytics
+    //     )
+    //   );
+    //   dispatch(
+    //     getCrashAnalyticsData(
+    //       code,
+    //       stackArrayNew[0].concat(")"),
+    //       projectCodeAnalytics
+    //     )
+    //   );
+    //   dispatch(
+    //     getLogMsgOccurenceWRTDate({
+    //       code,
+    //       startDate: date.start,
+    //       endDate: date.end,
+    //       logMsg: stackArrayNew[0].concat(")"),
+    //       code1: projectCodeAnalytics,
+    //     })
+    //   );
+    // } else {
     dispatch(
       getCrashFreeUsersData(code, stackArrayNew[0], projectCodeAnalytics)
     );
+
     dispatch(
       getCrashAnalyticsData(code, stackArrayNew[0], projectCodeAnalytics)
     );
@@ -185,6 +212,7 @@ export default function Analytics() {
         code1: projectCodeAnalytics,
       })
     );
+    // }
   };
   useEffect(() => {
     dispatchmultiple();
@@ -215,15 +243,29 @@ export default function Analytics() {
             {/* data from api */}
             <Col>
               {/* {console.log("title render", title)} */}
-              <h2 style={{ fontWeight: "600" }}>{title}</h2>
-              <p style={{ fontWeight: "600" }}>{subTitle}</p>
+              <h2
+                className="AYp"
+                style={{
+                  fontWeight: "600",
+                }}
+              >
+                {title}
+              </h2>
+              <p
+                className="AYp"
+                style={{
+                  fontWeight: "600",
+                }}
+              >
+                {subTitle}
+              </p>
             </Col>
 
             <Col className="my-4">
               {loading ? (
                 "Loading"
               ) : (
-                <p className={Style.paraTextIssue}>
+                <p className={`${Style.paraTextIssue} AYp`}>
                   This issue has{" "}
                   <strong style={{ color: "#0099a4" }}>
                     {totalCount} crash
@@ -246,8 +288,8 @@ export default function Analytics() {
 
             <Col className={`${Style.AnalyticsEvents} my-4 mt-5`}>
               <p
+                className="AYp"
                 style={{
-                  color: "black",
                   fontWeight: "600",
                   letterSpacing: "0.5px",
                 }}
