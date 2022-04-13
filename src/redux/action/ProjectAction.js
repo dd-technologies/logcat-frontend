@@ -93,7 +93,7 @@ export const getAllProject = () => async (dispatch) => {
 
 export const addCrashEmail = (code,email)=> async(dispatch)=>{
   try {
-    console.log(`add emails: ${email} ${code}`)
+    // console.log(`add emails: ${email} ${code}`)
     dispatch({
       type: ADD_CRASH_EMAIL_REQUEST,
     });
@@ -120,7 +120,7 @@ export const addCrashEmail = (code,email)=> async(dispatch)=>{
     });
 
   } catch (error) {
-    console.log(`error: ${error}`)
+    // console.log(`error: ${error}`)
     dispatch({
       type: ADD_CRASH_EMAIL_REQUEST_FAIL,
       payload:

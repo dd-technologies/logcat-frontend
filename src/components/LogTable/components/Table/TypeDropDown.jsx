@@ -12,8 +12,10 @@ import {
 } from "../../../../redux/action/ProjectAction";
 
 const TypeDropDown = (props) => {
-
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
+
+  // dark mood state
+
   const ref = useRef();
   //   let modelList;
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
@@ -61,7 +63,7 @@ const TypeDropDown = (props) => {
     ProjectTypeFilter();
 
     localStorage.setItem("page_no", 1);
-    localStorage.setItem("project_type",JSON.stringify(type))
+    localStorage.setItem("project_type", JSON.stringify(type));
 
     dispatch(
       getProjectByCode(
@@ -91,8 +93,6 @@ const TypeDropDown = (props) => {
     );
   };
 
-
-
   //  TODO: dispatch the code depanding the local storage
 
   return (
@@ -108,11 +108,10 @@ const TypeDropDown = (props) => {
               color="#2A9AA4"
               style={{ width: "22px", height: "25px" }}
             />
-            <p style={{ fontSize: "1rem" }} className="mm-2">
-
+            <p className="mm-2 LTp">
               {localStorage.getItem("project_type")
-    ? JSON.parse(localStorage.getItem("project_type")).typeName
-    : data && data.modelList && data.modelList[0].typeName}
+                ? JSON.parse(localStorage.getItem("project_type")).typeName
+                : data && data.modelList && data.modelList[0].typeName}
             </p>
             <FontAwesomeIcon
               icon={faCaretDown}
@@ -127,14 +126,13 @@ const TypeDropDown = (props) => {
                 width="15%"
                 position="absolute"
                 alignItems="flex-start"
-                zIndex="9"
+                zIndex="8"
               >
                 {data &&
                   data.modelList.map((type) => {
                     return (
                       <p
-                        style={{ fontSize: "1rem !important" }}
-                        className={Style.productVersion}
+                        className={`${Style.productVersion} LTp`}
                         onClick={() => onSubmitFun(type)}
                       >
                         {type.typeName}

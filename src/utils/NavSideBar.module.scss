@@ -55,21 +55,26 @@
   }
 
   .userInfo {
-    width: 50%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center !important;
+    // border: 2px solid red;
     @media screen and (min-width: 768px) and (max-width: 1024px) {
-      width: 40%;
+
+      width: 20%;
+      margin-right: 15%;
     }
     @media screen and (min-width: 1024px) and (max-width: 1400px) {
-      width: 40%;
+      width: 15%;
+      margin-right: 16%;
     }
     @media screen and (min-width: 1400px) and (max-width: 1600px) {
-      width: 40%;
+      width: 10%;
+      margin-right: 16%;
     }
     @media screen and (min-width: 1600px) and (max-width: 1920px) {
-      width: 40%;
+      width: 10%;
+      margin-right: 17%;
     }
 
     & section {
@@ -85,19 +90,25 @@
       height: 40px;
       color: $activehrefText;
       font-weight: 700;
+
+      cursor: pointer;
+
       // margin-left: 10px !important;
       // media query
       // border: 2px solid red; // media query
       @media screen and (min-width: 768px) and (max-width: 1024px) {
+
         width: 28px;
         height: 28px;
         margin-left: 10px !important;
       }
       @media screen and (min-width: 1024px) and (max-width: 1400px) {
+
         width: 28px;
         height: 28px;
         margin-left: 10px !important;
       }
+
       @media screen and (min-width: 1400px) and (max-width: 1600px) {
         width: 28px;
         height: 28px;
@@ -131,23 +142,6 @@
   font-weight: 700;
 }
 
-.InfoSection {
-  display: flex;
-  align-items: center;
-  justify-content: conter;
-  @media screen and (min-width: 768px) and (max-width: 1024px) {
-    width: 25%;
-  }
-  @media screen and (min-width: 1024px) and (max-width: 1400px) {
-    width: 20%;
-  }
-  @media screen and (min-width: 1400px) and (max-width: 1600px) {
-    width: 25%;
-  }
-  @media screen and (min-width: 1600px) and (max-width: 1920px) {
-    width: 10%;
-  }
-}
 
 // NAVBAR WITH SLIDE
 .navbarWihoutSlide {
@@ -218,23 +212,24 @@
   }
 
   .userInfo {
-    width: 50%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-around;
+
     align-items: center;
     cursor: pointer;
+    // border: 2px solid red;
     // position: relative;
     @media screen and (min-width: 768px) and (max-width: 1024px) {
-      width: 40%;
+      width: 18%;
     }
     @media screen and (min-width: 1024px) and (max-width: 1400px) {
-      width: 30%;
+      width: 16%;
     }
     @media screen and (min-width: 1400px) and (max-width: 1600px) {
-      width: 30%;
+      width: 10%;
     }
     @media screen and (min-width: 1600px) and (max-width: 1920px) {
-      width: 50%;
+      width: 10%;
     }
 
     & section {
@@ -315,16 +310,16 @@
 
       .logologcat {
         @media screen and (min-width: 768px) and (max-width: 1024px) {
-          width: 40px;
+          width: 60px;
         }
         @media screen and (min-width: 1024px) and (max-width: 1400px) {
           width: 70px;
         }
         @media screen and (min-width: 1400px) and (max-width: 1600px) {
-          width: 65px;
+          width: 60px;
         }
         @media screen and (min-width: 1600px) and (max-width: 1920px) {
-          width: 70px;
+          width: 60px;
         }
       }
     }
@@ -337,6 +332,8 @@
   .options {
     height: 100%;
     border-bottom: $borderBottom;
+    // border: 2px solid red;
+    margin-top: 10px;
 
     .option_active {
       background-color: $backgroundColor;
@@ -346,9 +343,10 @@
     }
   }
   .optionItems {
+    // border: red 2px solid;
     display: flex !important;
     align-items: center;
-    padding-left: 20px;
+    padding-left: 10px;
     text-decoration: none;
     align-items: center;
     color: $defaultTextColor;
@@ -363,16 +361,16 @@
     align-items: center;
     // width: 80%;
     & img {
-      width: 30%;
+      width: 20%;
     }
     & p {
       color: $defaultTextColor;
-      font-size: 1rem;
+      font-size: 0.7rem;
     }
   }
   @media screen and (min-width: 600px) and (max-width: 1200px) {
     .brandName > p {
-      font-size: 0.8rem;
+      font-size: 0.7rem;
     }
   }
 }
@@ -415,8 +413,8 @@
       display: flex;
       justify-content: center !important;
       align-items: center !important;
-
       .logologcatsmall {
+        width: 30px;
         @media screen and (min-width: 768px) and (max-width: 1024px) {
           width: 30px;
         }
@@ -427,7 +425,7 @@
           width: 35px;
         }
         @media screen and (min-width: 1600px) and (max-width: 1920px) {
-          width: 40px;
+          width: 35px;
         }
       }
     }
@@ -444,6 +442,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    // border: 2px solid red;
+    margin-top: 10px;
     .optionItems {
       text-decoration: none;
       width: 100%;

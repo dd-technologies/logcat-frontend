@@ -1,5 +1,5 @@
 import moment from "moment";
-import React, { PureComponent } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import {
   AreaChart,
@@ -26,7 +26,7 @@ const TrandDataGraph = () => {
   const getLogCountsByDateReducer = useSelector(
     (state) => state.getLogCountsByDateReducer
   );
-  const { loading, data } = getLogCountsByDateReducer;
+  const { data } = getLogCountsByDateReducer;
   const LineCount =
     data && data.data && data.data.response ? data.data.response : null;
 
@@ -74,7 +74,7 @@ const TrandDataGraph = () => {
                 <CartesianGrid vertical={false} strokeDasharray="0 0 4" />
                 <Tooltip />
                 <Area
-                  type="monotone"
+                  type="monotoneX"
                   dataKey="data"
                   stroke="#257d7c"
                   fill="#257d7c"

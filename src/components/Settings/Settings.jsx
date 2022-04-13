@@ -1,16 +1,16 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Navbar, SideBar } from "../../utils/NavSideBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDatabase, faWindowClose } from "@fortawesome/free-solid-svg-icons";
-import LogICon from "../../assets/icons/log.png";
 import Style from "./Settings.module.scss";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { addCrashEmail, getProjectByCodeSetting } from "../../redux/action/ProjectAction";
+import { addCrashEmail } from "../../redux/action/ProjectAction";
 import Spinner from "../../Container/Spinner";
 
 export default function Settings() {
+  // dark mood state
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -25,23 +25,26 @@ export default function Settings() {
     (state) => state.addCrashEmailReducer
   );
 
-  const getProjectByCodeSettingReducer = useSelector((state) => state.getProjectByCodeSettingReducer);
-  const { loading:ld,data:dt } = getProjectByCodeSettingReducer;
+  const getProjectByCodeSettingReducer = useSelector(
+    (state) => state.getProjectByCodeSettingReducer
+  );
+  const { loading: ld, data: dt } = getProjectByCodeSettingReducer;
 
-  const { loading:lnd,data:dat } = addCrashEmailReducer;
+  // console.log(`add email: ${dt}`);
 
-  const {
-    allProjectData: PorjectData,
-    loading,
-    allProjectData,
-  } = getAllProjectReducer;
-  
+  const { loading: lnd, data: dat } = addCrashEmailReducer;
+  // console.log(`crash email: ${dat && dat.reportEmail}`);
+
+  const { allProjectData } = getAllProjectReducer;
+
   let dataObj;
-  allProjectData && allProjectData.data && allProjectData.data.data.map((dt,idx)=>{
-    if(dt.code === code){
-      dataObj = dt;
-    }
-  })
+  allProjectData &&
+    allProjectData.data &&
+    allProjectData.data.data.map((dt, idx) => {
+      if (dt.code === code) {
+        dataObj = dt;
+      }
+    });
 
   const dispatch = useDispatch();
 
@@ -53,12 +56,12 @@ export default function Settings() {
   });
 
   const [emailstate, setEmail] = useState({
-    email:"",
-    error:null,
+    email: "",
+    error: null,
   });
   const [emailList, setEmailList] = useState([...dataObj.reportEmail]);
 
-  let deviceTypeArray = dataObj.device_types.map(type => type.typeName)
+  let deviceTypeArray = dataObj.device_types.map((type) => type.typeName);
 
   // Email error state
   const [emailError, setEmailError] = useState();
@@ -73,18 +76,16 @@ export default function Settings() {
   // Project name and description state
   const [nameAndDesc, setNameAndDesc] = useState({
     name: dt && dt.data.name,
-    desc:dt && dt.data.description
+    desc: dt && dt.data.description,
   });
 
   const [projectChip, setprojectChip] = useState("");
 
-
-  var dataOf
+  var dataOf;
 
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
   const { data } = slideWindowReducer;
-
 
   // NAVIGATION MENU HERE
   const navdetails = {
@@ -104,8 +105,8 @@ export default function Settings() {
     name: projectName,
     dashName: projectName,
     link1: {
-      iconName: LogICon,
-      linkName: "Logs",
+      iconName: null,
+      linkName: null,
       link: "",
     },
     link2: {
@@ -114,17 +115,14 @@ export default function Settings() {
     },
   };
 
-
-
   //   EMAIL CHIPS --------------------------------------------------------------------------------------------------
 
-
   const validateEmail = (email) => {
-    console.log("input chip validate")
+    // console.log("input chip validate");
     if (!email) {
       setEmailError("Please enter your email Id");
 
-      console.log("email validate function " + emailError);
+      // console.log("email validate function " + emailError);
       return false;
     }
 
@@ -147,20 +145,19 @@ export default function Settings() {
 
   //   HANDLE KEYDOWN FUNCTION
   const handleKeyDownEmail = (evt) => {
-    if (["Enter", "Tab", ","," "].includes(evt.key)) {
+    if (["Enter", "Tab", ",", " "].includes(evt.key)) {
       evt.preventDefault();
-      setEmail({...emailstate, error:null})
+      setEmail({ ...emailstate, error: null });
       let inputChips = emailstate.email.trim();
-      console.log(`input chip: ${inputChips}`)
+      // console.log(`input chip: ${inputChips}`);
       const emailValid = validateEmail(inputChips);
-      console.log(`input chip email: ${emailValid}`)
+      // console.log(`input chip email: ${emailValid}`);
       if (emailValid) {
         setEmailList([...emailList, inputChips]);
-        setEmail({email:""})
-        setEmailError(null)
-      }
-      else{
-        setEmailError("Check Email")
+        setEmail({ email: "" });
+        setEmailError(null);
+      } else {
+        setEmailError("Check Email");
       }
     }
   };
@@ -179,19 +176,15 @@ export default function Settings() {
       emailList.filter((it) => {
         return it !== item;
       })
-      );
+    );
   };
 
-
-
-  const handleSaveEmail = (e)=>{
-    e.preventDefault()
+  const handleSaveEmail = (e) => {
+    e.preventDefault();
     // setEmailList({email:""})
-    setEmailError(null)
-    if (emailList.email!==null) {
-      dispatch(
-        addCrashEmail(code,emailList)
-      );
+    setEmailError(null);
+    if (emailList.email !== null) {
+      dispatch(addCrashEmail(code, emailList));
     }
 
     if (!emailList.email.length) {
@@ -272,80 +265,90 @@ export default function Settings() {
             }
           >
             {/* SETTGINS COMPONENTS */}
-            {ld? <Spinner/> : <Row>
-              <Col xl={6} md={6} sm={12}>
-                <h4 className={Style.headingText}>Update project</h4>
-                <div className={`${Style.imputFields} mt-4`}>
-                  <input
-                    type="text"
-                    className="form-control LoginForminput "
-                    placeholder="Project Name"
-                    value = {nameAndDesc.name}
-                    onChange = {(e)=>setNameAndDesc({...nameAndDesc, name:e.target.value})}
-                  />
-                </div>
-                <div className={`${Style.imputFields} mt-4`}>
-                  <textarea
-                    placeholder="Project Description"
-                    rows="4"
-                    cols="50"
-                    value = {nameAndDesc.desc}
-                    onChange = {(e)=>setNameAndDesc({...nameAndDesc, desc:e.target.value})}
-                  />
-                </div>
+            {ld ? (
+              <Spinner />
+            ) : (
+              <Row>
+                <Col xl={6} md={6} sm={12} className="mt-4">
+                  <h4 className={`${Style.headingText} cpactiveText`}>
+                    Update project
+                  </h4>
+                  <div className={`${Style.imputFields} mt-4`}>
+                    <input
+                      type="text"
+                      className="form-control LoginForminput "
+                      placeholder="Project Name"
+                      value={nameAndDesc.name}
+                      onChange={(e) =>
+                        setNameAndDesc({ ...nameAndDesc, name: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div className={`${Style.imputFields} mt-4`}>
+                    <textarea
+                      placeholder="Project Description"
+                      rows="4"
+                      cols="50"
+                      value={nameAndDesc.desc}
+                      onChange={(e) =>
+                        setNameAndDesc({ ...nameAndDesc, desc: e.target.value })
+                      }
+                    />
+                  </div>
 
-                <Button
-                  style={{ fontWeight: 700 }}
-                  type="submit"
-                  className="mt-4"
-                >
-                  Save Changes
-                </Button>
-              </Col>
-              <Col xl={6} md={6} sm={12}>
-                <h4 className={Style.headingText}>Add project type</h4>
-                <div className={`${Style.imputFields} mt-4`}>
-                  <input
-                    type="text"
-                    className="form-control LoginForminput "
-                    id="exampleInputEmail1"
-                    placeholder="Project Type"
-                    aria-describedby="emailHelp"
-                    value={chipStateProject.value}
-                    onKeyDown={handleKeyDownPorject}
-                    onChange={handleChangeProject}
-                  />
-                </div>
-                {/* CHIP SECTION */}
+                  <Button
+                    style={{ fontWeight: 700 }}
+                    type="submit"
+                    className="mt-4"
+                  >
+                    Save Changes
+                  </Button>
+                </Col>
+                <Col xl={6} md={6} sm={12} className="mt-4">
+                  <h4 className={Style.headingText}>Add project type</h4>
+                  <div className={`${Style.imputFields} mt-4`}>
+                    <input
+                      type="text"
+                      className="form-control LoginForminput "
+                      id="exampleInputEmail1"
+                      placeholder="Project Type"
+                      aria-describedby="emailHelp"
+                      value={chipStateProject.value}
+                      onKeyDown={handleKeyDownPorject}
+                      onChange={handleChangeProject}
+                    />
+                  </div>
+                  {/* CHIP SECTION */}
 
-                <section className={Style.chipouter}>
-                  {chipStateProject.items &&
-                    chipStateProject.items.map((items) => {
-                      return (
-                        <>
-                          <section className={Style.chip}>
-                            <p style={{ color: "#fff" }} className="m-2">
-                              {items}
-                            </p>
-                            <FontAwesomeIcon
-                              icon={faWindowClose}
-                              onClick={() => hanldeOndeleteProject(items)}
-                            />
-                          </section>
-                        </>
-                      );
-                    })}
-                </section>
+                  <section className={Style.chipouter}>
+                    {chipStateProject.items &&
+                      chipStateProject.items.map((items) => {
+                        return (
+                          <>
+                            <section className={Style.chip}>
+                              <p style={{ color: "#fff" }} className="m-2">
+                                {items}
+                              </p>
+                              <FontAwesomeIcon
+                                icon={faWindowClose}
+                                onClick={() => hanldeOndeleteProject(items)}
+                              />
+                            </section>
+                          </>
+                        );
+                      })}
+                  </section>
 
-                <Button
-                  style={{ fontWeight: 700 }}
-                  type="submit"
-                  className="mt-4"
-                >
-                  Save Changes
-                </Button>
-              </Col>
-            </Row>}
+                  <Button
+                    style={{ fontWeight: 700 }}
+                    type="submit"
+                    className="mt-4"
+                  >
+                    Save Changes
+                  </Button>
+                </Col>
+              </Row>
+            )}
           </Container>
           <div className={Style.hrLine}></div>
 
@@ -371,18 +374,18 @@ export default function Settings() {
                     onKeyDown={(e) => {
                       handleKeyDownEmail(e);
                     }}
-                    onChange={(e) => setEmail({email:e.target.value})}
+                    onChange={(e) => setEmail({ email: e.target.value })}
                   />
                 </div>
-                  {
-                    emailError ? <small style={{color:'red'}}>
-                      {emailError}
-                    </small>:''
-                  }
+                {emailError ? (
+                  <small style={{ color: "red" }}>{emailError}</small>
+                ) : (
+                  ""
+                )}
                 {/* CHIP SECTION */}
                 <section className={Style.chipouter}>
-                  {
-                    emailList.length > 0 && emailList.map((items) => {
+                  {emailList.length > 0 &&
+                    emailList.map((items) => {
                       return (
                         <>
                           <section className={Style.chip}>
@@ -403,7 +406,9 @@ export default function Settings() {
                   style={{ fontWeight: 700 }}
                   // type="submit"
                   className="mt-4"
-                  onClick = {(e)=>{handleSaveEmail(e)}}
+                  onClick={(e) => {
+                    handleSaveEmail(e);
+                  }}
                 >
                   Save Emails
                 </Button>

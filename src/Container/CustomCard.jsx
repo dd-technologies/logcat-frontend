@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card } from "react-bootstrap";
 import Style from "./CustomeCard.module.scss";
 
@@ -9,10 +9,18 @@ const defaultStyle = {
 };
 
 export default function CustomCard(props) {
+  // dark mood state
+
+  const [darkMood, setDarkMood] = useState(
+    JSON.parse(localStorage.getItem("darkMood"))
+  );
+
   return (
     <>
       <Card
-        className={Style.CardCustomeOuter}
+        className={
+          darkMood ? `${Style.CardCustomeDark}` : `${Style.CardCustomeOuter}`
+        }
         style={{
           borderRadius: "10px",
           overflow: "hidden",

@@ -68,15 +68,13 @@ export default function Analytics() {
   let stackArray = urlParams.get("col") || "";
   let stackArrayNew = stackArray.split("at ") && stackArray.split(")");
 
-  console.log("first", stackArrayNew);
-
   const sidebarDetails = {
     name: projectName,
     dashName: projectName,
     link1: {
       iconName: AnalyticeIcon,
       linkName: "Analytics",
-      link: "",
+      link: null,
     },
     link2: {
       iconName: `./assets/icons/settings.png`,
@@ -121,7 +119,6 @@ export default function Analytics() {
             .replace(" ", " line ");
         setTitle(noCousedError);
         setSubTitle(mappedArraywithKey[1].concat(")"));
-        console.log("mappedArraywithKey", title);
       }
     }
   };
@@ -246,15 +243,29 @@ export default function Analytics() {
             {/* data from api */}
             <Col>
               {/* {console.log("title render", title)} */}
-              <h2 style={{ fontWeight: "600" }}>{title}</h2>
-              <p style={{ fontWeight: "600" }}>{subTitle}</p>
+              <h2
+                className="AYp"
+                style={{
+                  fontWeight: "600",
+                }}
+              >
+                {title}
+              </h2>
+              <p
+                className="AYp"
+                style={{
+                  fontWeight: "600",
+                }}
+              >
+                {subTitle}
+              </p>
             </Col>
 
             <Col className="my-4">
               {loading ? (
                 "Loading"
               ) : (
-                <p className={Style.paraTextIssue}>
+                <p className={`${Style.paraTextIssue} AYp`}>
                   This issue has{" "}
                   <strong style={{ color: "#0099a4" }}>
                     {totalCount} crash
@@ -277,8 +288,8 @@ export default function Analytics() {
 
             <Col className={`${Style.AnalyticsEvents} my-4 mt-5`}>
               <p
+                className="AYp"
                 style={{
-                  color: "black",
                   fontWeight: "600",
                   letterSpacing: "0.5px",
                 }}

@@ -8,14 +8,18 @@ import "./index.css";
 import store, { persistor } from "./redux/Store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import ThemeContextWrapper from "./utils/ThemeContextWrapper";
+
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <App />
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>,
+  <ThemeContextWrapper>
+    <React.StrictMode>
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <App />
+        </PersistGate>
+      </Provider>
+    </React.StrictMode>{" "}
+  </ThemeContextWrapper>,
   document.getElementById("root")
 );
 

@@ -3,10 +3,13 @@
 // body {
 //   background-image: url("../../assets/holiImage.jpg");
 
-  
 //   background-attachment: fixed;
 //   background-size: cover;
 // }
+
+.NavbarLogTable {
+  background-color: rgb(0, 0, 0) !important;
+}
 
 .stackErrorDropDown {
   background-color: $stackBackgroundColor;

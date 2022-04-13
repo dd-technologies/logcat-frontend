@@ -1,35 +1,34 @@
-import React,{useState} from "react";
-import { Button, Col, Container, Form } from "react-bootstrap";
-import { Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Button, Container } from "react-bootstrap";
 import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMailBulk, faLock } from "@fortawesome/free-solid-svg-icons";
-import {forgetPassword} from '../../redux/action/AdminAction';
+import { faMailBulk } from "@fortawesome/free-solid-svg-icons";
+import { forgetPassword } from "../../redux/action/AdminAction";
 import Style from "./Forgetpassword.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import {toast, Toaster} from 'react-hot-toast';
+import { toast, Toaster } from "react-hot-toast";
 import { useHistory } from "react-router-dom";
 
 export default function ForgetPassword() {
-
   const [forgetEmail, setForgetEmail] = useState(null);
 
   const dispatch = useDispatch();
-  const handleForgetPassword = ()=>{
+  const handleForgetPassword = () => {
     if (!forgetEmail) {
-      toast.error('Please provide valid email!!!')
-    }else{
-      dispatch(forgetPassword(forgetEmail))
+      toast.error("Please provide valid email!!!");
+    } else {
+      dispatch(forgetPassword(forgetEmail));
     }
-  }
-  const forgetPasswordReducer = useSelector(state => state.forgetPasswordReducer);
-  const {loading,forgetPasswordInfo} = forgetPasswordReducer;
-  const history = useHistory()
+  };
+  const forgetPasswordReducer = useSelector(
+    (state) => state.forgetPasswordReducer
+  );
+  const { loading, forgetPasswordInfo } = forgetPasswordReducer;
+  const history = useHistory();
   if (forgetPasswordInfo && forgetPasswordInfo.success) {
-    toast.success(forgetPasswordInfo.message)
-    localStorage.setItem('forgetEmail',JSON.stringify(forgetEmail))
-    history.push('/resetpassword')
+    toast.success(forgetPasswordInfo.message);
+    localStorage.setItem("forgetEmail", JSON.stringify(forgetEmail));
+    history.push("/resetpassword");
   }
 
   return (
@@ -57,7 +56,7 @@ export default function ForgetPassword() {
                   <input
                     type="email"
                     value={forgetEmail}
-                    onChange={e=>setForgetEmail(e.target.value)}
+                    onChange={(e) => setForgetEmail(e.target.value)}
                     className="form-control LoginForminput "
                     id="exampleInputEmail1"
                     placeholder="Enter your email"
@@ -65,9 +64,9 @@ export default function ForgetPassword() {
                   />
                 </div>
                 {/* <Link to="/resetpassword"> */}
-                  <Button className="mt-4 w-50" onClick={handleForgetPassword}>
-                    {loading?'Sending Email...':'Send an Email'}
-                  </Button>
+                <Button className="mt-4 w-50" onClick={handleForgetPassword}>
+                  {loading ? "Sending Email..." : "Send an Email"}
+                </Button>
                 {/* </Link> */}
               </form>
             </div>

@@ -19,7 +19,7 @@ export default function CarshFreeStaticsGraph() {
     (state) => state.getCrashFreeUsersReducer
   );
 
-  const { loading, data } = getCrashFreeUsersReducer;
+  const { data } = getCrashFreeUsersReducer;
 
   let dt = data && data.response;
   // let date = data && data.response.map((date) => date.date);
@@ -76,7 +76,7 @@ export default function CarshFreeStaticsGraph() {
                   fill="#257d7c"
                 /> */}
                 <Area
-                  type="monotone"
+                  type="monotoneY"
                   dataKey="data"
                   stroke="#257d7c"
                   fill="#257d7c"
