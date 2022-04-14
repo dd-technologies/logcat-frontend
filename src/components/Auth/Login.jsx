@@ -14,9 +14,6 @@ import { validateEmailHelper } from "../../helper/Emails";
 
 export default function Login() {
   const [loginForm, setLoginForm] = useState({
-    // isRemeberMe: localStorage.getItem("userIsRemember")
-    //   ? localStorage.getItem("userIsRemember")
-    //   : false,
     email: localStorage.getItem("adminUserName")
       ? JSON.parse(localStorage.getItem("adminUserName"))
       : null,
@@ -76,23 +73,9 @@ export default function Login() {
     return true;
   };
 
-  // const rememberMe = () => {
-  //   localStorage.setItem(
-  //     "adminUserName",
-  //     loginForm.isRemeberMe ? JSON.stringify(loginForm.email) : ""
-  //   );
-  //   localStorage.setItem(
-  //     "adminUserCredential",
-  //     loginForm.isRemeberMe ? JSON.stringify(loginForm.password) : ""
-  //   );
-  // };
-
   // HANDLE SUBMIT AND DISPATCH
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (loginForm.isRemeberMe) {
-    //   // rememberMe();
-    // }
     const email = validateEmail(loginForm.email);
     const password = validatePassword(loginForm.password);
 
@@ -101,7 +84,6 @@ export default function Login() {
         loginWithEmail(
           loginForm.email,
           loginForm.password,
-          // loginForm.isRemeberMe
         )
       );
     }

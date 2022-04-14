@@ -33,12 +33,6 @@ export default function TrandData() {
             >
               Trends
             </h5>
-            {/* <p>
-              <span className="p-2">
-                <FontAwesomeIcon icon={faRocket} />
-              </span>
-              Letest Release
-            </p> */}
           </Col>
           <Col xl={12} className={Style.TrandsDataTable}>
             <section className={Style.Outsection}>
@@ -56,32 +50,8 @@ export default function TrandData() {
                   <h4 style={{ fontWeight: 700 }}>0</h4>
                 )}
               </section>
-              <section>
-                {/* <p className="ps-3">Users</p>
-                <h4 className="ps-3">0</h4>
-                <p className="ps-3">0%</p> */}
-              </section>
+              <section></section>
             </section>
-            {/* <section className={Style.Outsection}>
-              <section>
-                <p className="ps-3">Non-fatals</p>
-                <h4 className="ps-3">0</h4>
-              </section>
-              <section>
-                <p className="ps-3">Users</p>
-                <h4 className="h3s-1">0</h4>
-              </section>
-            </section> */}
-            {/* <section className={Style.Outsection}>
-              <section>
-                <p className="ps-3">Arns</p>
-                <h4 className="ps-3">0</h4>
-              </section>
-              <section>
-                <p className="ps-3">Users</p>
-                <h4 className="ps-3">0</h4>
-              </section>
-            </section> */}
           </Col>
           <Col>
             <TrandDataGraph />

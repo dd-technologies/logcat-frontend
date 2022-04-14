@@ -20,9 +20,6 @@ import "../../utils/Theme.scss";
 function CreateProject() {
   const [modalShow, setModalShow] = useState(false);
   const [darkMode, setDarkMode] = React.useState(true);
-  // project data load or not
-  // console.log("first 23", props);
-
   const Dispatch = useDispatch();
   const getAllProjectReducer = useSelector(
     (state) => state.getAllProjectReducer
@@ -32,7 +29,7 @@ function CreateProject() {
     allProjectData,
   } = getAllProjectReducer;
 
-  // GETTGIN THE USER NAME TO PUT IN DOCUMENT
+  // GETTGING USER NAME 
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { adminInfo } = adminLoginReducer;
 
@@ -70,7 +67,7 @@ function CreateProject() {
 
   return (
     <>
-      {/* user name with logout functionalty */}
+      {/*Logout functionality */}
       {PorjectData && PorjectData.data && PorjectData.data.data ? (
         <>
           <section className={Style.backgroundSection}></section>

@@ -22,19 +22,10 @@ export default function Settings() {
     (state) => state.getAllProjectReducer
   );
 
-  const addCrashEmailReducer = useSelector(
-    (state) => state.addCrashEmailReducer
-  );
-
   const getProjectByCodeSettingReducer = useSelector(
     (state) => state.getProjectByCodeSettingReducer
   );
-  const { loading: ld, data: dt } = getProjectByCodeSettingReducer;
-
-  // console.log(`add email: ${dt}`);
-
-  const { loading: lnd, data: dat } = addCrashEmailReducer;
-  // console.log(`crash email: ${dat && dat.reportEmail}`);
+  const { loading: ld, data: dt } = getProjectByCodeSettingReducer;  
 
   const { allProjectData } = getAllProjectReducer;
 
@@ -48,13 +39,6 @@ export default function Settings() {
     });
 
   const dispatch = useDispatch();
-
-  // CHIP CREATING STATE EMAIL
-  const [chipState, setChipState] = useState({
-    items: [...dataObj.reportEmail],
-    value: "",
-    error: null,
-  });
 
   const [emailstate, setEmail] = useState({
     email: "",
@@ -79,10 +63,6 @@ export default function Settings() {
     name: dt && dt.data.name,
     desc: dt && dt.data.description,
   });
-
-  const [projectChip, setprojectChip] = useState("");
-
-  var dataOf;
 
   // SLIDEWINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
@@ -116,10 +96,7 @@ export default function Settings() {
     },
   };
 
-
-
-  //EMAIL CHIPS --------------------------------------------------------------------------------------------------
-
+  //EMAIL CHIPS
   const validateEmail = (email) => {
     
     // if (!email) {
@@ -161,9 +138,7 @@ export default function Settings() {
       evt.preventDefault();
       setEmail({ ...emailstate, error: null });
       let inputChips = emailstate.email.trim();
-      // console.log(`input chip: ${inputChips}`);
       const emailValid = validateEmail(inputChips);
-      // console.log(`input chip email: ${emailValid}`);
       if (emailValid) {
         setEmailList([...emailList, inputChips]);
         setEmail({ email: "" });
@@ -172,15 +147,6 @@ export default function Settings() {
         setEmailError("Check Email");
       }
     }
-  };
-
-  //   HANDLE CHANG FUNCTION
-  const handleChangeEmail = (evt) => {
-    setChipState({
-      ...chipState,
-      value: evt.target.value,
-      error: null,
-    });
   };
 
   const hanldeOndeleteEmail = (item) => {
@@ -204,29 +170,24 @@ export default function Settings() {
     }
   };
 
-  //   -----------------------------------------------------------------------------------------------------------------
+  //PROJECT TYPE CHIPS
 
-  //   PROJECT TYPE CHIPS --------------------------------------------------------------------------------------------------
-
-  //   HANDLE KEYDOWN FUNCTION
+  //ADD CHIPS ON CLICK
   const handleKeyDownPorject = (evt) => {
     if (["Enter", "Tab", ","].includes(evt.key)) {
       evt.preventDefault();
-
       var value = chipStateProject.value.trim();
-
       if (value) {
         setChipStateProject({
           ...chipStateProject,
           items: [...chipStateProject.items, chipStateProject.value],
-          // ...chipStateProject,
           value: "",
         });
       }
     }
   };
 
-  //   HANDLE CHANG FUNCTION
+  //UPDATE STATE ON CHANGE
   const handleChangeProject = (evt) => {
     setChipStateProject({
       ...chipStateProject,
@@ -235,17 +196,12 @@ export default function Settings() {
     });
   };
 
+  // DELETE PROJECT 
   const hanldeOndeleteProject = (item) => {
     setChipStateProject({
       items: chipStateProject.items.filter((i) => i !== item),
     });
   };
-
-  //   -----------------------------------------------------------------------------------------------------------------
-
-  useEffect(() => {
-    // dispatch(addCrashEmailReducer(code));
-  }, []);
 
   return (
     <>
@@ -276,7 +232,7 @@ export default function Settings() {
                 : Style.LogtableContaininerWithoutSlide
             }
           >
-            {/* SETTGINS COMPONENTS */}
+            {/* SETTINGS COMPONENTS */}
             {ld ? (
               <Spinner />
             ) : (
@@ -330,8 +286,8 @@ export default function Settings() {
                       onChange={handleChangeProject}
                     />
                   </div>
-                  {/* CHIP SECTION */}
 
+                  {/* CHIP SECTION */}
                   <section className={Style.chipouter}>
                     {chipStateProject.items &&
                       chipStateProject.items.map((items) => {
@@ -416,7 +372,6 @@ export default function Settings() {
 
                 <Button
                   style={{ fontWeight: 700 }}
-                  // type="submit"
                   className="mt-4"
                   onClick={(e) => {
                     handleSaveEmail(e);

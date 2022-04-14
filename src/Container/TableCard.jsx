@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Card } from "react-bootstrap";
 
 export default function TableCard(props) {
-  // dark mood state
-
+  
+  // dark mode state
   const [darkMood, setDarkMood] = useState(
     JSON.parse(localStorage.getItem("darkMood"))
   );

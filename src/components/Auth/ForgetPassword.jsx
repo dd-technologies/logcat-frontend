@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Button, Container } from "react-bootstrap";
 import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMailBulk, faLock } from "@fortawesome/free-solid-svg-icons";
-import {forgetPassword, resetForgetPassword, resetForgetPasswordState} from '../../redux/action/AdminAction';
+import { faMailBulk } from "@fortawesome/free-solid-svg-icons";
+import {forgetPassword, resetForgetPasswordState} from '../../redux/action/AdminAction';
 import Style from "./Forgetpassword.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, Toaster } from "react-hot-toast";
@@ -39,9 +39,9 @@ export default function ForgetPassword() {
   const {loading,forgetPasswordInfo} = forgetPasswordReducer;
   const history = useHistory()
   if (forgetPasswordInfo && forgetPasswordInfo.success) {
-    // Clear forgetPasswordReducer
     toast.success(forgetPasswordInfo.message)
     localStorage.setItem('forgetEmail',JSON.stringify(forgetEmail))
+    // clear forget password reducer
     dispatch(resetForgetPasswordState())
     history.push('/resetpassword')
   }
@@ -85,11 +85,9 @@ export default function ForgetPassword() {
                 ) : (
                   ""
                 )}
-                {/* <Link to="/resetpassword"> */}
                 <Button className="mt-4 w-50" onClick={handleForgetPassword}>
                   {loading ? "Sending Email..." : "Send an Email"}
                 </Button>
-                {/* </Link> */}
               </form>
             </div>
           </section>

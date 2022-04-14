@@ -20,18 +20,13 @@ import Spinner from "../../../../Container/Spinner";
 import toast, { Toaster } from "react-hot-toast";
 import TableCard from "../../../../Container/TableCard";
 import { useHistory } from "react-router-dom";
-// import useDrivePicker from "react-google-drive-picker";
-
-// import CustomeFilterTable from "./CustomeFilterTable";
 
 const { SearchBar } = Search;
 const { ExportCSVButton } = CSVExport;
 
-// ************************************************************************************************************************
 function TableData(props) {
   const code = props.code;
   let filedate = new Date();
-
   const [dateSectionSelect, setDateSectionSelect] = useState(true);
   const [StatusSectionSeclect, setStatusSectionSeclect] = useState(false);
   const [countPerPageSection, setCountPerPageSection] = useState(false);
@@ -41,7 +36,6 @@ function TableData(props) {
     record50: false,
     record100: false,
   });
-  const [title, setTitle] = useState([]);
 
   const [pageNo, setPageNo] = useState(1);
   localStorage.setItem("page_no", pageNo);
@@ -66,31 +60,7 @@ function TableData(props) {
     setCountPerPageSection(true);
   };
 
-  // let stackArray = urlParams.get("col") || "";
-
-  // let stackArrayNew = stackArray.split(" at ");
-  // const mappedArraywithKey = stackArrayNew.map((val, index) => {
-  //   // console.log("val", index, val)
-  //   return val;
-  // });
-  // useEffect(() => {
-  //   var headingTitle, headingTitleNew;
-  //   for (const key in mappedArraywithKey) {
-  //     console.log(`stackArrayNew`, stackArray);
-  //     if (mappedArraywithKey[key].includes("Caused by:")) {
-  //       headingTitle = mappedArraywithKey[parseInt(key) + 1];
-  //       console.log("headingTitle", headingTitle);
-  //       headingTitleNew = headingTitle.split("(");
-  //       setTitle(headingTitleNew[1].replace(":", " line ").split(")")[0]);
-  //     } else {
-  //       // setTitle("Halluu")
-  //     }
-  //   }
-  // }, []);
-
   var startDate, endDate;
-
-  // !LOGTABLE DATE STATE SL == selected date from logtable
 
   const [dateState, setdate] = useState({
     start: JSON.parse(localStorage.getItem("selected_date")).start,
@@ -117,10 +87,6 @@ function TableData(props) {
       ? JSON.parse(localStorage.getItem("selected_record"))
       : 25
   );
-
-
-  // GOOGLE DRIVE SAVE STATE
-  // const [openPicker, googleData, authResponse] = useDrivePicker();
 
   const ref = useRef();
 
@@ -171,9 +137,6 @@ function TableData(props) {
   );
 
   const { loading, data } = getAllLogByCodeReducer;
-  //   "getAllLogByCodeReducer",
-  //   data && data.data && data.data.logs[0].type
-  // );
 
   // porject code to analytics screen
   const projectCodeAnalytics =
@@ -343,11 +306,11 @@ function TableData(props) {
       logType.verbose
     ) {
       dispatch(
-        getProjectByCode(code, date, logType, pageNo, record, projectCode.code) //TODO: dispatch close
+        getProjectByCode(code, date, logType, pageNo, record, projectCode.code)
       );
     } else {
       dispatch(
-        getProjectByCode(code, date, null, pageNo, record, projectCode.code) //TODO: dispatch close
+        getProjectByCode(code, date, null, pageNo, record, projectCode.code)
       );
     }
   }, [pageNo, startDate, endDate, projectCode.code]);
@@ -356,7 +319,7 @@ function TableData(props) {
     setShowTableField(!showTableField);
   };
 
-  // columns *******************************
+  // Columns
   function errorFormatter(cell, row) {
     if (row.log.type) {
       return (
@@ -379,24 +342,9 @@ function TableData(props) {
     return <span>$ {cell} NTD</span>;
   }
 
-  const defaultSorted = [
-    {
-      dataField: "name",
-      order: "desc",
-    },
-  ];
-
-  var queryAllSting = { value1: "at", value2: "" };
-
-  const StackOptions = () => {
-    localStorage.setItem("queryAllSting", JSON.stringify(queryAllSting));
-  };
-
   const tableRowEvents = {
     onClick: (e, row, rowIndex, col) => {
       let version = row.version ? row.version : null;
-      let osArchitecture = row.osArchitecture ? row.osArchitecture : null;
-      let modelName = row.modelName ? row.modelName : null;
       history.push(
         `/analytics?code=${props.code}&name=${props.projectName}&col=${row.log.message}&rowlogGeneratedDate=${row.log.date}&version=${version}&osArchitecture=${row.device.os.name}&modelName=${row.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`
       );
@@ -408,7 +356,6 @@ function TableData(props) {
       dataField: "log.message",
       text: "Log Message",
       headerAlign: "center",
-      // width: "50",
       headerStyle: () => {
         return {
           backgroundColor: "#257d7c",
@@ -416,52 +363,28 @@ function TableData(props) {
         };
       },
       formatter: (col, row, rowIndex) => {
-        // const projectName = urlParams.get("name");
-        // let version = row.version ? row.version : null;
-        // let osArchitecture = row.osArchitecture ? row.osArchitecture : null;
-        // let modelName = row.modelName ? row.modelName : null;
-        // console.log("col", col);
         var title;
-
         var colData = col.split("at ");
-
-
-        // console.log("col");
         var colDataTOString = colData.toString();
         if (colData) {
-          // console.log("arrayTOString", arrayTOString);
           if (colDataTOString.includes("(")) {
             title = colData[0].split(")")[0].concat(")");
           } else {
             title = colData[0].split(")")[0];
           }
         }
-        // if coldata fiest index in java lang so [1] will be the title
         if (colDataTOString.includes("java.lang.RuntimeException")) {
           title = colData[1].split("(")[1].replace(":", " ").split(")")[0];
-
-          // title = colData[1];
         } else {
-          // title = colData;
           for (let key in colData) {
             if (colData[key].includes("Caused by:")) {
-              // console.log("causedError", causedError);
               title = colData[parseInt(key) + 1]
                 .split("(")[1]
                 .replace(":", " line ")
                 .split(")")[0];
-
-              // console.log("title new", title);
             }
           }
-          // if (!col.includes("Caused by:")) {
-          //   title = colData[1].split("(")[1].replace(":", " ").split(")")[0];
-
-          //   // title = colData[parseInt(key) + 1]
-          // }
         }
-
-
         return (
           <div className={Style.expandedRow}>
             {title.indexOf(")") ? title.split(")")[0] : title}
@@ -470,7 +393,6 @@ function TableData(props) {
       },
       sort: true,
     },
-
     {
       headerStyle: () => {
         return {
@@ -482,7 +404,6 @@ function TableData(props) {
       text: "MAC Address",
       sort: true,
     },
-
     {
       dataField: "log.type",
       text: "Log Type",
@@ -543,7 +464,7 @@ function TableData(props) {
   }, [showTableField]);
 
   useEffect(() => {
-    // 1) if record are 10 in localstorage
+    // 1) If record are 10 in localstorage
     if (localStorage.getItem("selected_record") == 10) {
       setRecords(10);
       setActiveRecord({
@@ -552,7 +473,7 @@ function TableData(props) {
       });
     }
 
-    // 2) if record are 25 in localstorage
+    // 2) If record are 25 in localstorage
     if (localStorage.getItem("selected_record") == 25) {
       setRecords(25);
       setActiveRecord({
@@ -560,7 +481,7 @@ function TableData(props) {
         record25: true,
       });
     }
-    // 3) if record are 50 in localstorage
+    // 3) If record are 50 in localstorage
     if (localStorage.getItem("selected_record") == 50) {
       setRecords(50);
       setActiveRecord({
@@ -569,7 +490,7 @@ function TableData(props) {
       });
     }
 
-    // 3) if record are 100 in localstorage
+    // 3) If record are 100 in localstorage
     if (localStorage.getItem("selected_record") == 100) {
       setRecords(100);
       setActiveRecord({
@@ -580,9 +501,7 @@ function TableData(props) {
   }, []);
 
   const closeChips = (items, index) => {
-    // if (index === 0) {
     setLogType({ ...logType, [items]: false });
-    // dispatch(getProjectByCode({code:code, date:date, filters:{ ...logType, [items]: false }, projectType:projectCodeAnalytics}));
     dispatch(
       getProjectByCode(
         code,
@@ -597,8 +516,6 @@ function TableData(props) {
       "selected_log",
       JSON.stringify({ ...logType, [items]: false })
     );
-    // }
-    // CHECKING IF INPUT BOX HIDE
   };
 
   // STATUS LOG TYPE CHIPS
@@ -616,7 +533,6 @@ function TableData(props) {
   ));
 
   // DATE CHIPS
-
   const closeDateChip = (index) => {
     if (index == 0) {
       setdate({
@@ -636,8 +552,7 @@ function TableData(props) {
         })
       );
     }
-    if (index == 1) {
-      // dispatch(getProjectByCode(code, null));
+    if (index === 1) {
       setdate({
         ...dateState,
         end: "",
@@ -669,7 +584,7 @@ function TableData(props) {
   ));
 
   useEffect(() => {
-    // this useEffect is providing data to the type-dropdown
+    // Providing data to the type-dropdown
     props.tableDataStateFun(
       code,
       date,
@@ -719,9 +634,7 @@ function TableData(props) {
                     <section className={Style.searchbar}>
                       <SearchBar {...props.searchProps} />
                     </section>
-                    {/* chip section */}
-                    {/* info: false, Warn: false, Error: false, Debug: false,
-                    Verbose: false, */}
+                    {/* Chips section */}
                     <section className={Style.chipOuter}>
                       {logType.info && chipsScetion[0]}
                       {logType.warn && chipsScetion[1]}
@@ -761,9 +674,6 @@ function TableData(props) {
                               <Button className="m-2" onClick={saveSearch}>
                                 Save Filter
                               </Button>
-                              {/* <Button className="m-2" onClick={applyFilter}>
-                                Apply Filter
-                              </Button> */}
                             </section>
                             <section>
                               <Row>

@@ -1,4 +1,3 @@
-// import "./styles.css";
 import moment from "moment";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -14,19 +13,14 @@ import {
 import Spinner from "../../../Container/Spinner";
 
 export default function CarshFreeStaticsGraph() {
-  // static demoUrl = 'https://codesandbox.io/s/area-chart-in-responsive-container-e6dx0';
   const getCrashFreeUsersReducer = useSelector(
     (state) => state.getCrashFreeUsersReducer
   );
-
   const { data } = getCrashFreeUsersReducer;
-
   let dt = data && data.response;
-  // let date = data && data.response.map((date) => date.date);
 
-  // CHANGING DATE FORMATE
+  // Date Formate
   const dateFormatter = (date) => {
-    // return moment(date).unix();
     return moment(date).format("DD-MM-YYYY");
   };
   return (
@@ -56,7 +50,6 @@ export default function CarshFreeStaticsGraph() {
                   bottom: 0,
                 }}
               >
-                {/* <CartesianGrid strokeDasharray="3 3" /> */}
                 <XAxis
                   dataKey="date"
                   tickCount={5}
@@ -66,15 +59,6 @@ export default function CarshFreeStaticsGraph() {
                 <YAxis interval={1} dataKey="data" axisLine={false} />
                 <CartesianGrid vertical={false} strokeDasharray="0 0 4" />
                 <Tooltip />
-                {/* <Line
-                  connectNulls
-                  type="date"
-                  dataKey="data"
-                  stroke="#257d7c"
-                  dot={false}
-                  // strokeWidth={1}
-                  fill="#257d7c"
-                /> */}
                 <Area
                   type="monotoneY"
                   dataKey="data"

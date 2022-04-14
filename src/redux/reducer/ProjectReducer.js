@@ -45,9 +45,6 @@ import {
   GET_PROJECT_BY_CODE_REQUEST,
   GET_PROJECT_BY_CODE_REQUEST_SUCCESS,
   GET_PROJECT_BY_CODE_REQUEST_FAIL,
-  UPDATE_PROFILE_REQUEST,
-  UPDATE_PROFILE_REQUEST_SUCCESS,
-  UPDATE_PROFILE_REQUEST_FAIL,
 } from "../types/ProjectConstants";
 
 export const getAllProjectReducer = (state = {}, action) => {
