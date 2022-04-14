@@ -2,22 +2,14 @@ import React, { useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import CustomCard from "../../../../Container/CustomCard";
 import Style from "./CustomeFilterTable.module.scss";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 
 export default function CustomeFilterTable(props) {
   const [dateSectionSelect, setDateSectionSelect] = useState(true);
   const [StatusSectionSeclect, setStatusSectionSeclect] = useState(false);
   const [countPerPageSection, setCountPerPageSection] = useState(false);
 
-  // const [date, setdate] = useState({
-  //   start: null,
-  //   end: null,
-  // });
-
   const [record, setRecords] = useState(25);
 
-  let history = useHistory();
   const [date, setdate] = useState({
     start: localStorage.getItem("selected_date")
       ? JSON.parse(localStorage.getItem("selected_date")).start
@@ -26,35 +18,6 @@ export default function CustomeFilterTable(props) {
       ? JSON.parse(localStorage.getItem("selected_date")).end
       : "",
   });
-  const [logType, setLogType] = useState({
-    error: localStorage.getItem("selected_log")
-      ? JSON.parse(localStorage.getItem("selected_log")).error
-      : false,
-    info: localStorage.getItem("selected_log")
-      ? JSON.parse(localStorage.getItem("selected_log")).info
-      : false,
-    warn: localStorage.getItem("selected_log")
-      ? JSON.parse(localStorage.getItem("selected_log")).warn
-      : false,
-    debug: localStorage.getItem("selected_log")
-      ? JSON.parse(localStorage.getItem("selected_log")).debug
-      : false,
-    verbose: localStorage.getItem("selected_log")
-      ? JSON.parse(localStorage.getItem("selected_log")).verbose
-      : false,
-  });
-
-  // const filterOnDate = ({ startDate = null, endDate = null, diff = 15 }) => {
-  //   if (diff != null) {
-  //     var dt = new Date();
-  //     const endd = dt.toISOString().slice(0, 10);
-  //     dt.setDate(dt.getDate() - diff);
-  //     setdate({ start: dt.toISOString().slice(0, 10), end: endd });
-  //   } else {
-  //   }
-  // };
-
-  const dispatch = useDispatch();
 
   // SHOW DATE SECTION FUNCTION
   const handleShowDate = () => {
@@ -75,22 +38,6 @@ export default function CustomeFilterTable(props) {
     setStatusSectionSeclect(false);
     setCountPerPageSection(true);
   };
-
-  // useEffect(() => {
-  //   if (
-  //     logType.error ||
-  //     logType.info ||
-  //     logType.warn ||
-  //     logType.debug ||
-  //     logType.verbose
-  //   ) {
-  //     dispatch(getProjectByCode(props.code, null, logType, props.page, record));
-  //   } else {
-  //     // setPageNo(0);
-  //     // dispatch(getProjectByCode(code, null, null, pageNo, record));
-  //   }
-  // }, []);
-  // // logType, pageNo, record
 
   return (
     <>

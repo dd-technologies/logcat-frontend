@@ -23,7 +23,6 @@ export default function ResetPassword() {
   const [stateErr, setStateErr] = useState({ err: null, inputErr: null });
   const [enableResendButton, setEnableResendButton] = useState(false);
 
-  const handleChange = (otp) => setState({ otp });
   const resetPasswordReducer = useSelector(
     (state) => state.resetPasswordReducer
   );
@@ -98,7 +97,6 @@ export default function ResetPassword() {
               {/*OTP section*/}
               <section>
                 <p>Enter your OTP</p>
-                {/* {stateErr.err !== null ? <small style={{color:'#F54827'}}>{stateErr.err}</small>:''} */}
                 <section className={Style.OPTTIMR}>
                   <OtpInput
                     value={state.otp}

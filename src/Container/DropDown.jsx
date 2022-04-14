@@ -14,7 +14,7 @@ export default function CustomeDropDown(props) {
         style={{
           width: props.width ? props.width : "auto",
           height: props.height ? props.height : "auto",
-          zIndex: props.zIndex ? props.zIndex : 8,
+          // zIndex: props.zIndex ? props.zIndex : 8,
           borderRadius: props.borderRadius ? props.borderRadius : "0px",
           padding: props.padding ? props.padding : "10px",
           boxShadow: props.boxShadow

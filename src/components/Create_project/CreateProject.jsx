@@ -20,9 +20,6 @@ import "../../utils/Theme.scss";
 function CreateProject() {
   const [modalShow, setModalShow] = useState(false);
   const [darkMode, setDarkMode] = React.useState(true);
-  // project data load or not
-  // console.log("first 23", props);
-
   const Dispatch = useDispatch();
   const getAllProjectReducer = useSelector(
     (state) => state.getAllProjectReducer
@@ -32,7 +29,7 @@ function CreateProject() {
     allProjectData,
   } = getAllProjectReducer;
 
-  // GETTGIN THE USER NAME TO PUT IN DOCUMENT
+  // GETTGING USER NAME 
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { adminInfo } = adminLoginReducer;
 
@@ -44,34 +41,17 @@ function CreateProject() {
     toast.success("Project Created Successfully");
     Dispatch(clearProjectData());
   }
-
-  // CHEKING IF USER IN NOT PRIME ADMIN
-
-  // const navbardetail = {
-  //   name: adminInfo.data.name,
-  //   dashName: "Welcome",
-  //   link1: {
-  //     iconName: faHome,
-  //     linkName: "Home",
-  //     link: `/`,
-  //   },
-  //   link2: {
-  //     iconName: faUserAlt,
-  //     linkName: "Profile",
-  //     link: `/`,
-  //   },
-  // };
   const history = useHistory();
 
   useEffect(() => {
     if (!localStorage.getItem("ddAdminToken")) {
       history.push("/");
     }
-    if(localStorage.getItem("project_type")){
-      localStorage.removeItem("project_type")
+    if (localStorage.getItem("project_type")) {
+      localStorage.removeItem("project_type");
     }
-    if(localStorage.getItem("selected_date")){
-      localStorage.removeItem("selected_date")
+    if (localStorage.getItem("selected_date")) {
+      localStorage.removeItem("selected_date");
     }
     Dispatch(getAllProject());
   }, []);
@@ -87,7 +67,7 @@ function CreateProject() {
 
   return (
     <>
-      {/* user name with logout functionalty */}
+      {/*Logout functionality */}
       {PorjectData && PorjectData.data && PorjectData.data.data ? (
         <>
           <section className={Style.backgroundSection}></section>

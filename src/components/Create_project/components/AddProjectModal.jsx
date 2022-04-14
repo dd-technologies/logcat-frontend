@@ -20,7 +20,6 @@ const AddProjectModal = (props) => {
   const { loading, data, error } = createNewProjectReducer;
   const deleteChips = (type) => {
     setModelType(
-      //    modelType.filter(idx => idx !== type)
       modelType.filter((item) => {
         return item !== type;
       })
@@ -52,12 +51,6 @@ const AddProjectModal = (props) => {
     if (!modelType.length) {
       setErrorMsg("Device type is required");
     }
-
-    // if (data) {
-    //   toast.success('Project Created Successfully')
-
-    // }
-
     if (createProject.name.length && modelType.length) {
       setErrorName("");
       setErrorMsg("");
@@ -68,7 +61,6 @@ const AddProjectModal = (props) => {
           createProject.description
         )
       );
-      // props.handleClose();
     }
   };
   return (
@@ -86,7 +78,6 @@ const AddProjectModal = (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* <h4>Centered Modal</h4> */}
           {error ? (
             <div style={{ fontSize: 12, color: "red" }}>{error}</div>
           ) : (
@@ -97,7 +88,6 @@ const AddProjectModal = (props) => {
               Porject Created Successfully...
             </h6>
           ) : (
-            // <Toaster/>
             ""
           )}
 

@@ -16,13 +16,15 @@ import { useDispatch, useSelector } from "react-redux";
 import TableData from "./components/Table/TableData";
 import PieChartSection from "./components/PieChartSection";
 import {
-  getLogTypeCounts,
-  getLogByDate,
   getProjectByCode,
-  getDeviceModelCode,
-  getCrashFreeUsers,
   getProjectByCodeSetting,
 } from "../../redux/action/ProjectAction";
+import {
+  getLogTypeCounts,
+  getLogByDate,
+  getDeviceModelCode,
+  getCrashFreeUsers
+} from "../../redux/action/LogsAction";
 import { useHistory } from "react-router-dom";
 import Spinner from "../../Container/Spinner";
 import DateIcons from "../../assets/icons/date.png";
@@ -32,10 +34,7 @@ import "../../utils/Theme.scss";
 
 export default function LogTable() {
   const history = useHistory();
-  // filter with crash free statics and trands
-  const [dropDownShow, setDropDownShow] = useState(false);
   const [dateDropDown, setDateDropDown] = useState(false);
-  const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
   const [diffDate, setDiffDate] = useState(
     localStorage.getItem("diffDate") || 90
   );
@@ -53,7 +52,6 @@ export default function LogTable() {
 
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { data: projectType } = getModelCodeReducer;
-  const { loading: ld, data: dt } = getModelCodeReducer;
 
   var projectCode = {
     code: localStorage.getItem("project_type")
@@ -67,19 +65,7 @@ export default function LogTable() {
         projectType.modelList &&
         projectType.modelList[0].typeName,
   };
-
-  const getAllLogByCodeReducer = useSelector(
-    (state) => state.getAllLogByCodeReducer
-  );
-
-  const { data: getallCode } = getAllLogByCodeReducer;
-
   const ref = useRef();
-
-  const [date, setdate] = useState({
-    start: null,
-    end: null,
-  });
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -87,7 +73,6 @@ export default function LogTable() {
   const projectName = urlParams.get("name");
 
   // navigation
-
   const navdetails = {
     name: projectName,
     dashName: projectName,
@@ -115,7 +100,7 @@ export default function LogTable() {
     },
   };
 
-  // filter crashfree statcis and trands with data filter
+  // Filter crashfree stastics & Trend wrt to date
   const DateFilter = () => {
     setDateDropDown(true);
     if (dateDropDown) {
@@ -125,35 +110,10 @@ export default function LogTable() {
 
   const dispatch = useDispatch();
 
-  //   const getModelCodeReducer = useSelector(
-  //     (state) => state.getModelCodeReducer
-  //   );
-
-  // let modelList;
-  //   if (getModelCodeReducer && getModelCodeReducer.data) {
-  //     modelList = getModelCodeReducer.data.modelList
-  //   }
-
-  // const dispatchmultiple = () => {
-  //   // dispatch(getLogTypeCounts(code));
-  //   // dispatch(getErrorWRTOS(code));
-  //   // dispatch(getProjectDetails(code));
-  //   // dispatch(getErrorWRTVersion(code));
-  //   // getProjectByCode()
-
-  //   // dispatch(getLogByDate(code, date));
-  //   // dispatch(getCrashFreeUsers({code,diffDate}));
-  // };
-  // useEffect(() => {
-  //   dispatchmultiple();
-  // }, [date]);
-
   useEffect(() => {
     dispatch(getDeviceModelCode(code));
     dispatch(getProjectByCodeSetting(code));
     const checkIfClickedOutside = (e) => {
-      // If the menu is open and the clicked target is not within the menu,
-      // then close the menu
       if (dateDropDown && ref.current && !ref.current.contains(e.target)) {
         setDateDropDown(false);
       }
@@ -162,7 +122,6 @@ export default function LogTable() {
     document.addEventListener("mousedown", checkIfClickedOutside);
 
     return () => {
-      // Cleanup the event listener
       document.removeEventListener("mousedown", checkIfClickedOutside);
     };
   }, []);
@@ -189,8 +148,6 @@ export default function LogTable() {
         code1: projectCode.code,
       })
     );
-
-    // dispatch(getLogByDate(code, date));
   };
 
   let filedate = new Date();
@@ -207,7 +164,7 @@ export default function LogTable() {
     multipleDispatchGraph();
   }, [diffDate, projectCode.code]);
 
-  // CHECKING IF USER IS NOT LOGIN AND REDIRECTION USER OT LOGIN PAGE
+  // CHECKING IF USER IS LOGIN OR NOT
   useEffect(() => {
     if (!localStorage.getItem("ddAdminToken")) {
       history.push("/");
@@ -217,8 +174,6 @@ export default function LogTable() {
     };
   }, [history]);
 
-  // dateDropDown : was dependency for the above useeffect
-
   // REFRESH ONLY TABLE
   const RefreshTableOnlyFun = () => {
     let logType = JSON.parse(localStorage.getItem("selected_log"));
@@ -227,41 +182,6 @@ export default function LogTable() {
     let end = JSON.parse(localStorage.getItem("selected_date")).end;
     let pgNo = JSON.parse(localStorage.getItem("page_no"));
 
-    // let date = JSON.parse(localStorage.getItem("selected_date"));
-
-    // // 1) code, logtype , start date, end date, records, page==null
-    // if (code && logType && date && record) {
-    //   return dispatch(getProjectByCode(code, logType, date, record));
-    // }
-
-    // // 2) code, logtype , start date, end date,
-    // if (code && logType && date) {
-    //   return dispatch(getProjectByCode(code, logType, date));
-    // }
-    // // 3) code, logtype
-    // if (code && logType) {
-    //   return dispatch(getProjectByCode(code, null, logType, null, record));
-    // }
-
-    // // --1) only logType
-    // if (code && logType) {
-    //   return dispatch(getProjectByCode(code, logType, null, null));
-    // }
-
-    // // --2) only date
-    // if (code && date) {
-    //   return dispatch(getProjectByCode(code, null, date, null));
-    // }
-    // // --3) only records
-    // if (code && record) {
-    //   return dispatch(getProjectByCode(code, null, null, record));
-    // }
-
-    // *) code
-    // let filedate = new Date();
-    // const endDate = filedate.toISOString().slice(0, 10);
-    // filedate.setDate(filedate.getDate() - diffDate);
-    // const startDate = filedate.toISOString().slice(0, 10);
     dispatch(
       getProjectByCode(
         code,
@@ -272,7 +192,6 @@ export default function LogTable() {
         projectCode.code
       )
     );
-    // dispatch(getProjectByCode({ code: code, date: { startDate, endDate } }));
   };
 
   const tableDataStateFun = (
@@ -295,7 +214,6 @@ export default function LogTable() {
 
   return (
     <>
-      {/* // {console.log("render is running logTable")} */}
       <div>
         <Row>
           <Col
@@ -311,7 +229,7 @@ export default function LogTable() {
           <Col xl={10} lg={10} md={10} sm={10} style={{ padding: "0px" }}>
             <Navbar navdetails={navdetails} />
 
-            {/* data inhere */}
+            {/* data here */}
             <Container
               className={
                 data.show
@@ -320,11 +238,7 @@ export default function LogTable() {
               }
             >
               <Row className="mt-4">
-                <Col
-                  xl={10}
-                  md={9}
-                  sm={9} /* className={Style.filterWithDate} */
-                >
+                <Col xl={10} md={9} sm={9}>
                   <TypeDropDown
                     tableDataState={tableDataState}
                     diffDate={diffDate}
@@ -378,7 +292,6 @@ export default function LogTable() {
                             darkMood ? "1px 1px 10px 2px rgba(0,0,0,0.45)" : ""
                           }
                         >
-                          {/* <p className="mt-1 LTp">10 days</p> */}
                           <p
                             style={{}}
                             className={`${Style.productVersion} mt-1 LTp `}
@@ -453,7 +366,7 @@ export default function LogTable() {
                 </Col>
               </Row>
 
-              {/* data chart and informantions */}
+              {/* Data chart */}
               <Row className="mt-3">
                 {/*toggle menus  */}
                 <Col xl={4} md={6} sm={12}>
@@ -482,7 +395,6 @@ export default function LogTable() {
                   >
                     Issues
                   </p>
-                  {/* <p className={Style.LinkActiveText}>Search By userId</p> */}
                 </Col>
                 <Col
                   xl={6}
@@ -499,20 +411,15 @@ export default function LogTable() {
                 </Col>
               </Row>
 
-              {/* data table */}
-
               <Row className="mt-3">
                 <Col>
-                  {/* table with toolkit provider */}
+                  {/* Table with toolkit provider */}
                   <TableData
                     code={code}
                     projectName={projectName}
                     diffDate={diffDate}
                     tableDataStateFun={tableDataStateFun}
                   />
-
-                  {/*Ag table  */}
-                  {/* <AgTable /> */}
                 </Col>
               </Row>
             </Container>

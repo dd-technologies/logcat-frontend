@@ -143,6 +143,7 @@ export function Navbar(props) {
           </h3>
         </section>
         <section className={Style.userInfo}>
+
           {/* light and dark mood */}
           <DarkLightMood />
           <section>
@@ -155,6 +156,7 @@ export function Navbar(props) {
               adminInfo.data.name
                 .split(" ")
                 .map((name) => name[0][0].toUpperCase())}
+
           </section>
           {/* <section style={{ fontWeight: "500" }} className="m-2">
             {adminInfo &&
