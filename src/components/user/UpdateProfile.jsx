@@ -14,10 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { passwordChangeAction } from "../../redux/action/UserProfileAction";
 import { toast, Toaster } from "react-hot-toast";
 import { updateProfile } from "../../redux/action/AdminAction";
-import ReactCrop from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
 // or scss:
-import "react-image-crop/src/ReactCrop.scss";
 import UpdatePassord from "./UpdatePassord";
 
 export default function UpdateProfile() {
@@ -196,17 +193,17 @@ export default function UpdateProfile() {
                       Update profile
                     </h3>
                     <section className={Style.Avtarunder}>
-                      <ReactCrop crop={crop} onChange={(c) => setCrop(c)}>
-                        {avatar ? (
-                          <img src={URL.createObjectURL(avatar)} alt="Avatar" />
-                        ) : (
-                          adminInfo &&
-                          adminInfo.data &&
-                          adminInfo.data.name
-                            .split(" ")
-                            .map((name) => name[0][0].toUpperCase())
-                        )}
-                      </ReactCrop>
+
+                      {avatar ? (
+                        <img src={URL.createObjectURL(avatar)} alt="Avatar" />
+                      ) : (
+                        adminInfo &&
+                        adminInfo.data &&
+                        adminInfo.data.name
+                          .split(" ")
+                          .map((name) => name[0][0].toUpperCase())
+                      )}
+
                     </section>
                     <section className={Style.editImage}>
                       <label for="image_upload">
