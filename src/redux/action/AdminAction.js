@@ -1,6 +1,4 @@
 import axios from "axios";
-import cookie from "react-cookies";
-import { useHistory } from "react-router";
 import {
 ADMIN_LOGIN_REQUEST,
 ADMIN_LOGIN_SUCCESS,
@@ -46,11 +44,6 @@ try {
     type: ADMIN_LOGIN_SUCCESS,
     payload: data,
     });
-    if (isRemeberMe) {
-    localStorage.setItem("adminUserName", JSON.stringify(email));
-    localStorage.setItem("userIsRemember", JSON.stringify(isRemeberMe));
-    localStorage.setItem("adminUserCredential", JSON.stringify(password));
-    }
     if (!isRemeberMe) {
     localStorage.removeItem("adminUserName");
     localStorage.removeItem("adminUserCredential");
