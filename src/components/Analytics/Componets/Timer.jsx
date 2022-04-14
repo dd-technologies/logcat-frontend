@@ -21,9 +21,8 @@ const Timer = (props) => {
         }, 1000)
         return ()=> {
             clearInterval(myInterval);
-          };
+        };
     });
-
     return (
         <div>
         { minutes === 0 && seconds === 0
@@ -33,5 +32,4 @@ const Timer = (props) => {
         </div>
     )
 }
-
 export default Timer

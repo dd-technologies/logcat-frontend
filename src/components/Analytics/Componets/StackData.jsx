@@ -10,7 +10,6 @@ import {
 import Text from "./stackCrashlitics/Text";
 
 export default function StackData() {
-  const [InnerParaShow, setInnerParaShow] = useState(true);
   const [innerParaShowDetails, setInnerParaShowDetails] = useState({});
   const [stackErrorFilter, setStackErrorFilter] = useState(false);
   const [stackErrorFilterTextFormate, setStackErrorFilterTextFormate] =
@@ -28,45 +27,23 @@ export default function StackData() {
   const colData = urlParams.get("col");
 
   // HEADING DATA ANALYTIC
-  const pattern = /(at).*/gm;
   const DataINRow = colData.split("at ") && colData.split(")").slice(0, -1);
 
   var grouped = DataINRow.reduce((result, word) => {
     var letter;
     if (word.split(".").length > 2) {
-      // get the first letter. (this assumes no empty words in the list)
       letter = `${word.split(".")[0]}.${word.split(".")[1]}.${
         word.split(".")[2]
       }`;
     } else letter = word.split(".")[0];
-
-    // ensure the result has an entry for this letter
     result[letter] = result[letter] || [];
-
-    // add the word to the letter index
     result[letter].push(word);
     return result;
   }, {});
 
-  // console.log("first", colData);
-
   const keys = Object.keys(grouped);
-  // {
-  //   console.log("key", keys);
-  // }
-
-  // INNER PARA SHOW FUNCTION
-  const innerParaShowFun = () => {
-    if (!InnerParaShow) {
-      setInnerParaShow(true);
-    }
-    if (InnerParaShow) {
-      setInnerParaShow(false);
-    }
-  };
 
   // FILTER FUNCTION FOR TOGGLE BUTTON
-
   const stackErrorFilterFun = () => {
     setStackErrorFilter(true);
     setStackErrorFilterTextFormate(false);
@@ -81,7 +58,6 @@ export default function StackData() {
 
   // INNER PARA DETAIL SECTION FUNCTION
   const innerParaShowDetailsFun = (index) => {
-    // setInnerParaShowDetails();
     let idx = index;
 
     if (innerParaShowDetails.hasOwnProperty(idx)) {
@@ -131,60 +107,40 @@ export default function StackData() {
         ) : null}
 
         {/* STACK FILTER STACK ERROR FIELD HERE */}
-
         {stackErrorFilterTextFormate ? (
           <>
             {!keys.length < 1 ? (
               <Col xl={12} className={`${Style.outerDiv} mt-4`}>
                 {
-                  // DataINRow.map((items,index)
                   !keys == [] &&
                     keys.map((key, idx) => {
-                      const fileName = key.slice(key.indexOf("/") + 1);
-                      if (fileName) {
-                        var fname = `${fileName.split(".")[0]}.${
-                          fileName.split(".")[1]
-                        }.${fileName.split(".")[2]}`;
-                      }
                       return (
                         <>
                           <section className={Style.outerDivinner}>
                             <section
                               className={
                                 innerParaShowDetails[idx]
-
                                   ? `${Style.StackInfoDiveWithToggle} SDb`
                                   : `${Style.StackInfoDive} SDb`
-
-                            
                               }
                               onClick={() => innerParaShowDetailsFun(idx)}
                             >
                               {idx == 0 ? (
                                 <p>
                                   {`${key.slice(key.indexOf("/") + 1)}`}{" "}
-                                  
-                                  {/* {console.log("key", colData)} */}
                                 </p>
                               ) : (
-                                <p className={`${Style.index0}`}>
-                                  {/* {console.log("key", colData)} */}
-                                 
+                                <p className={`${Style.index0}`}>                                 
                                   {`${key.slice(key.indexOf("/") + 1)}`}
                                 </p>
                               )}
-
                               <FontAwesomeIcon icon={faCaretDown} />
                             </section>
-
                             {
-                              // grouped[key].foreach((value,index)=>{
                               innerParaShowDetails[idx] && (
-
                                 <section
                                   className={`${Style.detailSection}  SDb1`}
                                 >
-
                                   {grouped[key].map((items, index) => {
                                     return (
                                       <>
@@ -216,9 +172,7 @@ export default function StackData() {
                                               }
                                             )}
                                           >
-
                                             {items.includes("at") ? null : "at"}
-
                                             {DataINRow.includes("Caused by:")
                                               ? items
                                               : items.concat(")")}
@@ -238,9 +192,7 @@ export default function StackData() {
               </Col>
             ) : (
               <Col xl={12} className={`${Style.outerDiv} mt-4`}>
-
                 <section className={`${Style.StackInfoDive}`}>
-
                   <p>{colData}</p>
                 </section>
               </Col>

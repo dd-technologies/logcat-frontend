@@ -5,19 +5,16 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomeDropDown from "../../../../Container/DropDown";
 import Style from "./TypeDropDown.module.scss";
 import {
-  getCrashFreeUsers,
-  getLogByDate,
-  getLogTypeCounts,
   getProjectByCode,
 } from "../../../../redux/action/ProjectAction";
+import {getCrashFreeUsers} from '../../../../redux/action/LogsAction'
+import {getLogTypeCounts,getLogByDate} from "../../../../redux/action/LogsAction"
 
 const TypeDropDown = (props) => {
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
 
-  // dark mood state
-
+  // dark-mode state
   const ref = useRef();
-  //   let modelList;
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { loading, data } = getModelCodeReducer;
 
@@ -27,9 +24,6 @@ const TypeDropDown = (props) => {
 
   const dispatch = useDispatch();
 
-  if (data) {
-    // modelList = getModelCodeReducer.data.modelList;
-  }
   const ProjectTypeFilter = () => {
     setProjectCodeDropDown(true);
     if (projectCodeDropDown) {
@@ -40,8 +34,7 @@ const TypeDropDown = (props) => {
   // CLICKING OUTSIDE THE VIEWPORT
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
-      // If the menu is open and the clicked target is not within the menu,
-      // then close the menu
+      // Close when click outside
       if (
         projectCodeDropDown &&
         ref.current &&
@@ -50,7 +43,6 @@ const TypeDropDown = (props) => {
         setProjectCodeDropDown(false);
       }
     };
-
     document.addEventListener("mousedown", checkIfClickedOutside);
 
     return () => {
@@ -83,11 +75,11 @@ const TypeDropDown = (props) => {
         code1: type.typeCode,
       })
     );
-    //
+    
     dispatch(
       getLogTypeCounts({ code, diffDate: props.diffDate, code1: type.typeCode })
     );
-    //
+    
     dispatch(
       getLogByDate({ code, diffDate: props.diffDate, code1: type.typeCode })
     );
@@ -102,7 +94,6 @@ const TypeDropDown = (props) => {
       ) : (
         <section ref={ref}>
           <section onClick={ProjectTypeFilter} className={Style.OuterDiv}>
-            {/* <Image src={DateIcons} /> */}
             <FontAwesomeIcon
               icon={faTasks}
               color="#2A9AA4"

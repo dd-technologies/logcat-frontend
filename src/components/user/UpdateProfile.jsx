@@ -2,12 +2,8 @@ import React, { useState } from "react";
 import {
   faUpload,
   faMailBulk,
-  faLock,
   faPersonBooth,
-  faEye,
-  faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
-import { useHistory } from "react-router-dom";
 import { Col, Container, Row, Button } from "react-bootstrap";
 import CustomeDropDown from "../../Container/DropDown";
 import { Navbar, SideBar } from "../../utils/NavSideBar";
@@ -30,7 +26,6 @@ export default function UpdateProfile() {
   const { data } = slideWindowReducer;
 
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
-  // const [navToggle, setNavToggle] = useState(true);
   const { adminInfo } = adminLoginReducer;
 
   // update profile reducer
@@ -50,8 +45,6 @@ export default function UpdateProfile() {
     adminInfo && adminInfo.image && adminInfo.image
   );
 
-  // console.log(`image ${avatar && avatar.name}`);
-
   const {
     loading: lnd,
     data: updatepasswordresponseData,
@@ -63,7 +56,6 @@ export default function UpdateProfile() {
   const [currentpassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewpassword, setConfirmNewPassword] = useState("");
-  const [toastMessage, setToastMessage] = useState(null);
   const [error, setError] = useState(null);
 
   if (
@@ -81,24 +73,13 @@ export default function UpdateProfile() {
       updatepasswordresponseData && updatepasswordresponseData.message
     );
   }
-  // const [error, setError] = useState({
-  //   currentpasswordError: null,
-  //   newPasswordError: null,
-  //   confirmNewpasswordError: null,
-  //   custome: null,
-  // });
+
 
   const [crop, setCrop] = useState();
 
-  // save update profile data
-
+  // Update profile data
   const handleSubmit = (e) => {
-    // e.preventDefault();
     dispatch(updateProfile(email, name, avatar));
-    // setToastMessage(null)
-    // setCurrentPassword(null)
-    // setNewPassword(null)
-    // setConfirmNewPassword(null)
   };
 
   // Upload Avatar
@@ -107,8 +88,7 @@ export default function UpdateProfile() {
     setAvatar(file[0]);
   };
 
-  // show password state
-
+  // Show password
   const [showPassword, setShowPassword] = useState({
     currentpasswordShow: false,
     newPasswordShow: false,
@@ -154,7 +134,6 @@ export default function UpdateProfile() {
       currentpassword === newPassword &&
       currentpassword === confirmNewpassword
     ) {
-      // toast.error("Check new password it should not be same to previous");
       toast.error("Check new password it should not be same to previous");
       return;
     }
@@ -164,9 +143,6 @@ export default function UpdateProfile() {
       return;
     }
     dispatch(passwordChangeAction(currentpassword, newPassword));
-    // setCurrentPassword(null)
-    // setNewPassword(null)
-    // setConfirmNewPassword(null)
   };
 
   return (
@@ -231,10 +207,8 @@ export default function UpdateProfile() {
                             .map((name) => name[0][0].toUpperCase())
                         )}
                       </ReactCrop>
-                      {/* src={URL.createObjectURL(image)} */}
                     </section>
                     <section className={Style.editImage}>
-                      {/* <FontAwesomeIcon icon={faMailBulk} /> */}
                       <label for="image_upload">
                         <FontAwesomeIcon icon={faUpload} />
                       </label>
@@ -256,7 +230,6 @@ export default function UpdateProfile() {
                         <input
                           type="email"
                           value={
-                            // adminInfo && adminInfo.data && adminInfo.data.name
                             name
                           }
                           className="form-control LoginForminput CPp "
@@ -299,7 +272,7 @@ export default function UpdateProfile() {
                   </CustomeDropDown>
                 </Col>
 
-                {/*********************************** password change section ********************************/}
+                {/*password change section*/}
                 <UpdatePassord
                   error={error}
                   currentpassword={currentpassword}
@@ -312,172 +285,6 @@ export default function UpdateProfile() {
                   setConfirmNewPassword={setConfirmNewPassword}
                   updatePasswordFun={updatePasswordFun}
                 />
-                {/* <Col xl={6} md={12} sm={12}>
-                  <CustomeDropDown
-                    padding="30px"
-                    marginRight="10px"
-                    top="0%"
-                    zIndex="8"
-                    height="600px"
-                  >
-                    <h3 className="mb-4 CPp">Change password</h3>
-                    {/* password field */}
-                {/* <section className="mt-4">
-                  <h5 className="CPp">Current Password</h5>
-
-                  <div
-                    className={
-                      error
-                        ? `${Style.imputFieldsError}`
-                        : `${Style.imputFields} mt-4`
-                    }
-                  >
-                    <span>
-                      <FontAwesomeIcon icon={faLock} />
-                    </span>
-                    <input
-                      type={
-                        showPassword.currentpasswordShow ? "text" : "password"
-                      }
-                      value={currentpassword}
-                      onChange={(e) => {
-                        setCurrentPassword(e.target.value);
-                      }}
-                      className="form-control LoginForminput  CPp"
-                      id="exampleInputEmail1"
-                      placeholder="Enter your current password"
-                      aria-describedby="emailHelp"
-                    />
-                    <span style={{ cursor: "pointer" }}>
-                      <FontAwesomeIcon
-                        icon={
-                          showPassword.currentpasswordShow ? faEye : faEyeSlash
-                        }
-                        onClick={() =>
-                          setShowPassword({
-                            ...showPassword,
-                            currentpasswordShow:
-                              !showPassword.currentpasswordShow,
-                          })
-                        }
-                      />
-                    </span>
-                  </div>
-                  <p style={{ color: "red", fontSize: ".8rem" }}>{error}</p>
-                </section> */}
-                {/* new password field ***
-                    <section className="mt-4">
-                      <h5 className="CPp">New Password</h5>
-                      <div
-                        className={
-                          error
-                            ? `${Style.imputFieldsError}`
-                            : `${Style.imputFields} mt-4`
-                        }
-                      >
-                        <span>
-                          <FontAwesomeIcon icon={faLock} />
-                        </span>
-                        <input
-                          type={
-                            showPassword.newPasswordShow ? "text" : "password"
-                          }
-                          value={newPassword}
-                          onChange={(e) => {
-                            setNewPassword(e.target.value);
-                          }}
-                          className="form-control LoginForminput  CPp"
-                          id="exampleInputEmail1"
-                          placeholder="Enter your new password"
-                          aria-describedby="emailHelp"
-                        />
-                        <span style={{ cursor: "pointer" }}>
-                          <FontAwesomeIcon
-                            icon={
-                              showPassword.newPasswordShow ? faEye : faEyeSlash
-                            }
-                            onClick={() =>
-                              setShowPassword({
-                                ...showPassword,
-                                newPasswordShow: !showPassword.newPasswordShow,
-                              })
-                            }
-                          />
-                        </span>
-                      </div>
-                      <p style={{ color: "red", fontSize: ".8rem" }}>
-                        {error}
-                      </p>
-                    </section>
-                    {/* confirme password field ***
-                    <section className="mt-4">
-                      <h5 className="CPp">Confirm New Password</h5>
-                      <div
-                        className={
-                          error
-                            ? `${Style.imputFieldsError}`
-                            : `${Style.imputFields} mt-4`
-                        }
-                      >
-                        <span>
-                          <FontAwesomeIcon icon={faLock} />
-                        </span>
-                        <input
-                          type={
-                            showPassword.confirmNewpasswordShow
-                              ? "text"
-                              : "password"
-                          }
-                          value={confirmNewpassword}
-                          onChange={(e) => {
-                            setConfirmNewPassword(e.target.value);
-                          }}
-                          className="form-control LoginForminput CPp"
-                          id="exampleInputEmail1"
-                          placeholder="Confirm your new password"
-                          aria-describedby="emailHelp"
-                        />
-                        <span style={{ cursor: "pointer" }}>
-                          <FontAwesomeIcon
-                            icon={
-                              showPassword.confirmNewpasswordShow
-                                ? faEye
-                                : faEyeSlash
-                            }
-                            onClick={() =>
-                              setShowPassword({
-                                ...showPassword,
-                                confirmNewpasswordShow:
-                                  !showPassword.confirmNewpasswordShow,
-                              })
-                            }
-                          />
-                        </span>
-                      </div>
-                      <p style={{ color: "red", fontSize: ".8rem" }}>
-                        {error}
-                      </p>
-                    </section>
-                    <p
-                      className="mt-4"
-                      style={{ color: "red", fontSize: ".8rem" }}
-                    >
-                      {console.log("error", error)}
-                      {error}
-                    </p>
-
-                    <Row className={Style.buttonbackground}>
-                      <Col className={Style.buttonbackground}>
-                        <Button
-                          className="mt-4 w-50"
-                          onClick={(e) => updatePasswordFun(e)}
-                        >
-                          Update
-                        </Button>
-                      </Col>
-                    </Row>
-                  </CustomeDropDown>
-                </Col> */}
               </Row>
             </section>
           </Container>

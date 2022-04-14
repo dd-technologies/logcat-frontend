@@ -107,7 +107,6 @@ export default function ToggleTabs() {
             <Col className="p-4">
               <section className={Style.DataTogleSection}>
                 {/*CHECKING FOR NOW IF NOT HAVING THE VALUE OF MAP */}
-
                 {!ld ? (
                   modelNamecnt.map((e) => (
                     <>

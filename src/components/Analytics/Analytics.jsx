@@ -6,10 +6,10 @@ import { Navbar, SideBar } from "../../utils/NavSideBar";
 import AnalyticsEventDataComp from "./Componets/AnalyticsEventDataComp";
 import EventByVersion from "./Componets/EventByVersion";
 import {
-  getLogMsgOccurenceWRTDate,
   getCrashAnalyticsData,
-  getCrashFreeUsersData,
 } from "../../redux/action/ProjectAction";
+import {getCrashFreeUsersData} from '../../redux/action/LogsAction'
+import {getLogMsgOccurenceWRTDate} from '../../redux/action/LogsAction'
 import { useDispatch, useSelector } from "react-redux";
 import AnalyticeIcon from "../../assets/icons/Analytics.png";
 
@@ -30,41 +30,13 @@ export default function Analytics() {
   dt.setDate(dt.getDate() - 90);
   date.start = dt.toISOString().slice(0, 10);
 
-  // const filterOnDate = ({ startDate = null, endDate = null, diff = 15 }) => {
-  //   if (diff != null) {
-  //     var dt = new Date();
-  //     const endd = dt.toISOString().slice(0, 10);
-  //     dt.setDate(dt.getDate() - diff);
-  //     setdate({ start: dt.toISOString().slice(0, 10), end: endd });
-  //   } else {
-  //   }
-  // };
-
-  // const navbardetail = {
-  //   name: projectName,
-  //   dashName: projectName,
-  //   link1: {
-  //     iconName: faDatabase,
-  //     linkName: "Logs",
-  //     link: `/logTable?code=${code}&name=${projectName}`,
-  //   },
-  //   link2: {
-  //     iconName: faChartPie,
-  //     linkName: "Analytics",
-  //     link: `/analytics?code=${code}&name=${projectName}`,
-  //   },
-  // };
-
   // URL STRING
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get("code");
-  // const logMsg = urlParams.get("col").split("at ");
-  // console.log("logMsg", logMsg);
 
   const projectName = urlParams.get("name");
   const projectCodeAnalytics = urlParams.get("projectCodeAnalytics");
-  // const analyticsURL = urlParams.get("pagetype") || "";
   let stackArray = urlParams.get("col") || "";
   let stackArrayNew = stackArray.split("at ") && stackArray.split(")");
 
@@ -87,10 +59,6 @@ export default function Analytics() {
     return val;
   });
 
-  // console.log("mappedArraywithKey", mappedArraywithKey);
-
-  //  when error has caused by -- function
-
   const stackErrorLine = () => {
     var causedError, noCousedError;
 
@@ -101,12 +69,10 @@ export default function Analytics() {
       for (let key in mappedArraywithKey) {
         if (mappedArraywithKey[key].includes("Caused by:")) {
           causedError = mappedArraywithKey[parseInt(key) + 1];
-          // console.log("causedError", causedError);
           setTitle(
             causedError.split("(")[1].replace(":", " line ").split(")")[0]
           );
           setSubTitle(causedError);
-          // console.log("mappedArraywithKey", causedError);
         }
       }
 
@@ -123,42 +89,9 @@ export default function Analytics() {
     }
   };
 
-  useEffect(() => {
-    stackErrorLine();
-  }, []);
-
-  // var headingTitle, headingTitleNew;
-  // useEffect(() => {
-  //   console.log("complete arr", mappedArraywithKey);
-  //   for (let i = 0; i < mappedArraywithKey.length; i++) {
-  //     console.log("test", mappedArraywithKey[1]);
-  //     if (mappedArraywithKey[i].includes(" Caused by: ")) {
-  //       console.log("test", mappedArraywithKey[i + 1]);
-  //     }
-  //   }
-  //   for (const key in mappedArraywithKey) {
-  //     console.log(`stackArrayNew`, mappedArraywithKey[key]);
-  //     if (mappedArraywithKey[key].indexOf("Caused by: ") == 1) {
-  //       headingTitle = mappedArraywithKey[parseInt(key) + 1];
-  //       console.log("headingTitle", headingTitle);
-  //       headingTitleNew = headingTitle.split("(")[1];
-  //       console.log("headingTitleNew", headingTitleNew);
-  //       setTitle(headingTitleNew.split(")"));
-  //       console.log("titile condition", title);
-  //     } else {
-  //       console.log("else part");
-  //     }
-  //   }
-  //   setTitle(headingTitleNew);
-  // }, []);
-
   const getCrashFreeUsersDataReducer = useSelector(
     (state) => state.getCrashFreeUsersDataReducer
   );
-
-  // const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
-  // const { loading: loadingPorjectType, data: projectType } =
-  //   getModelCodeReducer;
 
   const { loading, data } = getCrashFreeUsersDataReducer;
   let users = data && data.response ? data.response.length : 0;
@@ -170,32 +103,6 @@ export default function Analytics() {
   const dispatch = useDispatch();
 
   const dispatchmultiple = () => {
-    // if (true) {
-    //   console.log("condition running");
-    //   dispatch(
-    //     getCrashFreeUsersData(
-    //       code,
-    //       stackArrayNew[0].concat(")"),
-    //       projectCodeAnalytics
-    //     )
-    //   );
-    //   dispatch(
-    //     getCrashAnalyticsData(
-    //       code,
-    //       stackArrayNew[0].concat(")"),
-    //       projectCodeAnalytics
-    //     )
-    //   );
-    //   dispatch(
-    //     getLogMsgOccurenceWRTDate({
-    //       code,
-    //       startDate: date.start,
-    //       endDate: date.end,
-    //       logMsg: stackArrayNew[0].concat(")"),
-    //       code1: projectCodeAnalytics,
-    //     })
-    //   );
-    // } else {
     dispatch(
       getCrashFreeUsersData(code, stackArrayNew[0], projectCodeAnalytics)
     );
@@ -212,8 +119,12 @@ export default function Analytics() {
         code1: projectCodeAnalytics,
       })
     );
-    // }
   };
+  
+  useEffect(() => {
+    stackErrorLine();
+  }, []);
+
   useEffect(() => {
     dispatchmultiple();
   }, []);

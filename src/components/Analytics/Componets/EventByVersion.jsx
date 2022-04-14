@@ -11,9 +11,7 @@ export default function EventByVersion() {
     (state) => state.getCrashAnalyticsDataReducer
   );
   const { loading: ld, data: alldata } = getCrashAnalyticsDataReducer;
-
   let cnt = alldata && alldata.versionResponse ? alldata.versionResponse : null;
-
   let adds = 0;
   if (cnt) {
     cnt.map((e) => (adds += e.data));
@@ -36,8 +34,7 @@ export default function EventByVersion() {
               Total events by version
             </h6>
 
-            {/*CHECKING FOR NOW IF NOT HAVING THE VALUE OF MAP */}
-
+            {/*CHECKING FOR MAP VALUE */}
             {!ld ? (
               cnt.map((e) => (
                 <>

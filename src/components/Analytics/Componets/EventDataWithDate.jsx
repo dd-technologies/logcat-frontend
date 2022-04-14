@@ -11,26 +11,12 @@ import Style from "./EventDataWithDate.module.scss";
 import { useSelector } from "react-redux";
 
 export default function EventDataWithDate() {
-  const getAllLogByCodeReducer = useSelector(
-    (state) => state.getAllLogByCodeReducer
-  );
-
-  const {
-    data: {
-      data: { logs },
-    },
-  } = getAllLogByCodeReducer;
-
   // GETTGIN DATA FROM URL
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  // console.log("first", urlParams);
 
   // GETTIN ROW DATA
-  const rowdevice_types = urlParams.get("rowdevice_types");
-  const rowdid = urlParams.get("rowdid");
   let rowlogGeneratedDate = urlParams.get("rowlogGeneratedDate") || "";
-  // console.log("first 1", rowlogGeneratedDate);
   const version = urlParams.get("version");
   const osArchitecture = urlParams.get("osArchitecture");
   const modelName = urlParams.get("modelName");

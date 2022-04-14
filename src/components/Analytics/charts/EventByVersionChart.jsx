@@ -1,4 +1,3 @@
-// import "./styles.css";
 import moment from "moment";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -16,16 +15,10 @@ export default function EventByVersionChart() {
   const getLogMsgOccurenceWRTDateReducer = useSelector(
     (state) => state.getLogMsgOccurenceWRTDateReducer
   );
-
   const { data } = getLogMsgOccurenceWRTDateReducer;
-
-  
-
-  // let dataarray = data && data.response ? data.response : [];
 
   // CHANGING DATE FORMATE
   const dateFormatter = (date) => {
-    // return moment(date).unix();
     return moment(date).format("DD-MM-YYYY");
   };
   return (
@@ -40,7 +33,6 @@ export default function EventByVersionChart() {
             bottom: 20,
           }}
         >
-          {/* <CartesianGrid strokeDasharray="3 3" /> */}
           <XAxis
             dataKey="date"
             tickCount={5}
@@ -48,7 +40,7 @@ export default function EventByVersionChart() {
             tickFormatter={dateFormatter}
           />
           <YAxis dataKey="data" axisLine={true} />
-          <CartesianGrid vertical={false}  strokeDasharray="0 0 4"/>{/*strokeDasharray="0 0 4"*/}
+          <CartesianGrid vertical={false}  strokeDasharray="0 0 4"/>
           <Tooltip />
           <Line
             isAnimationActive={false}
