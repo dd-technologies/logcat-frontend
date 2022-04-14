@@ -1,26 +1,34 @@
-import axios from "axios";
-import cookie from "react-cookies";
-import {
-  ADMIN_LOGIN_REQUEST,
-  ADMIN_LOGIN_SUCCESS,
-  ADMIN_LOGIN_FAIL,
-  ADMIN_LOGOUT,
-  ADMIN_LOGOUT_FAIL,
-  ADMIN_REGISTER_REQUEST,
-  ADMIN_REGISTER_SUCCESS,
-  ADMIN_REGISTER_FAIL,
-  FORGET_PASSWORD_REQUEST,
-  FORGET_PASSWORD_REQUEST_SUCCESS,
-  FORGET_PASSWORD_REQUEST_FAIL,
-  RESET_PASSWORD_REQUEST,
-  RESET_PASSWORD_REQUEST_SUCCESS,
-  RESET_PASSWORD_REQUEST_FAIL,
-  UPDATE_PROFILE_REQUEST,
-  UPDATE_PROFILE_REQUEST_SUCCESS,
-  UPDATE_PROFILE_REQUEST_FAIL,
-} from "../types/AdminConstants";
+import axios from 'axios';
+import cookie from 'react-cookies';
+import { useHistory } from 'react-router';
+import { 
+    ADMIN_LOGIN_REQUEST,
+    ADMIN_LOGIN_SUCCESS,
+    ADMIN_LOGIN_FAIL,
+    ADMIN_LOGOUT,
+    ADMIN_LOGOUT_FAIL,
+    
+    ADMIN_REGISTER_REQUEST,
+    ADMIN_REGISTER_SUCCESS,
+    ADMIN_REGISTER_FAIL,
 
-import { persistor } from "../Store";
+    FORGET_PASSWORD_REQUEST,
+    FORGET_PASSWORD_REQUEST_SUCCESS,
+    FORGET_PASSWORD_REQUEST_FAIL,
+    FORGET_PASSWORD_RESET_STATE,
+
+    RESET_PASSWORD_REQUEST,
+    RESET_PASSWORD_REQUEST_SUCCESS,
+    RESET_PASSWORD_REQUEST_FAIL,
+
+    UPDATE_PROFILE_REQUEST,
+    UPDATE_PROFILE_REQUEST_SUCCESS,
+    UPDATE_PROFILE_REQUEST_FAIL,
+} from '../types/AdminConstants'
+
+
+
+import { persistor } from '../Store';
 // const dotenv = require('dotenv')
 
 // dotenv.config()
@@ -130,17 +138,118 @@ export const adminRegister =
         header: {
           "Content-type": "application/json",
         },
-      };
-      // https://insulink-backend.herokuapp.com
-      const { data } = await axios.post(
-        "https://logger-server.herokuapp.com/api/logger/register",
-        {
-          name,
-          email,
-          password,
-        },
-        config
-      );
+        config)
+
+        dispatch({
+            type: ADMIN_REGISTER_SUCCESS, 
+            payload:data
+        })
+
+        localStorage.setItem("adminInfo", data)
+        // cookie.save('token',data.user.token)
+        history.push('/')
+
+
+    } catch (error) {
+        dispatch({
+            type: ADMIN_REGISTER_FAIL,
+            payload:
+            error.response && error.response.data.errorMessage 
+            ? error.response.data.errorMessage : error.message,
+        })
+    }
+}
+
+export const forgetPassword = (email) => async (dispatch)=>{
+    
+    try {
+        dispatch({
+            type: FORGET_PASSWORD_REQUEST
+        })
+
+        const config = {
+            header: {
+                "Content-type": "application/json"
+            },
+        }
+        // https://insulink-backend.herokuapp.com
+        // https://logger-server.herokuapp.com
+        const {data} = await axios.post('http://localhost:5000/api/logger/forget',{
+            email,
+        })
+
+        dispatch({
+            type: FORGET_PASSWORD_REQUEST_SUCCESS, 
+            payload:data
+        })
+
+        // localStorage.setItem("adminInfo", data)
+        // cookie.save('token',data.user.token)
+        // history.push('/')
+
+
+    } catch (error) {
+        dispatch({
+            type: FORGET_PASSWORD_REQUEST_FAIL,
+            payload:
+            error.response && error.response.data.errorMessage 
+            ? error.response.data.errorMessage : error.message,
+        })
+    }
+}
+
+export const resetForgetPasswordState = () => async (dispatch)=>{
+    
+    try {
+        dispatch({
+            type: FORGET_PASSWORD_RESET_STATE
+        })
+
+    } catch (error) {
+        dispatch({
+            type: FORGET_PASSWORD_REQUEST_FAIL,
+            payload:
+            error.response && error.response.data.errorMessage 
+            ? error.response.data.errorMessage : error.message,
+        })
+    }
+}
+
+export const resetForgetPassword = ({email,resetData}) => async (dispatch)=>{
+    
+    try {
+        dispatch({
+            type: RESET_PASSWORD_REQUEST
+        })
+
+        const config = {
+            header: {
+                "Content-type": "application/json"
+            },
+        }
+        const otp=resetData.otp;
+        const password= resetData.newPass;
+        const passwordVerify = resetData.confirmPass;
+
+
+        // https://insulink-backend.herokuapp.com
+        // https://logger-server.herokuapp.com
+        
+        const {data} = await axios.post('http://localhost:5000/api/logger/resetPassword',{
+            otp,
+            password,
+            email,
+            passwordVerify
+        })
+
+        dispatch({
+            type: RESET_PASSWORD_REQUEST_SUCCESS, 
+            payload:data
+        })
+
+        // localStorage.setItem("adminInfo", data)
+        // cookie.save('token',data.user.token)
+        // history.push('/')
 
       dispatch({
         type: ADMIN_REGISTER_SUCCESS,

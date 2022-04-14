@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Button, Container } from "react-bootstrap";
 import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMailBulk } from "@fortawesome/free-solid-svg-icons";
-import { forgetPassword } from "../../redux/action/AdminAction";
+import { faMailBulk, faLock } from "@fortawesome/free-solid-svg-icons";
+import {forgetPassword, resetForgetPassword, resetForgetPasswordState} from '../../redux/action/AdminAction';
+
 import Style from "./Forgetpassword.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, Toaster } from "react-hot-toast";
@@ -26,9 +27,11 @@ export default function ForgetPassword() {
   const { loading, forgetPasswordInfo } = forgetPasswordReducer;
   const history = useHistory();
   if (forgetPasswordInfo && forgetPasswordInfo.success) {
-    toast.success(forgetPasswordInfo.message);
-    localStorage.setItem("forgetEmail", JSON.stringify(forgetEmail));
-    history.push("/resetpassword");
+    // Clear forgetPasswordReducer
+    toast.success(forgetPasswordInfo.message)
+    localStorage.setItem('forgetEmail',JSON.stringify(forgetEmail))
+    dispatch(resetForgetPasswordState())
+    history.push('/resetpassword')
   }
 
   return (
