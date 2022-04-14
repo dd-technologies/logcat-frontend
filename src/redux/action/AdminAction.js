@@ -74,8 +74,8 @@ export const loginWithEmail =
       dispatch({
         type: ADMIN_LOGIN_FAIL,
         payload:
-          error.response && error.response.data.data
-            ? error.response.data.data.err.msg
+          error.response && error.response.data
+            ? error.response.data.message
             : error.message,
       });
     }

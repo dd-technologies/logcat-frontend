@@ -31,6 +31,7 @@ export default function Login() {
   const dispatch = useDispatch();
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { loading, error, adminInfo } = adminLoginReducer;
+  console.log("adminLoginReducer",adminLoginReducer )
 
   const history = useHistory();
   useEffect(() => {
@@ -107,14 +108,18 @@ export default function Login() {
       dispatch(
         loginWithEmail(
           loginForm.email,
-          loginForm.password,
+          loginForm.password
           // loginForm.isRemeberMe
         )
       );
     }
   };
 
+  console.log("error", error);
+
   useEffect(() => {
+    console.log("error useeffect", error);
+
     setSetErrorPassword(error);
   }, [error]);
 
