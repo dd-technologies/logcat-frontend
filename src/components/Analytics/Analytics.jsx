@@ -5,10 +5,10 @@ import Style from "./Analytics.module.scss";
 import { Navbar, SideBar } from "../../utils/NavSideBar";
 import AnalyticsEventDataComp from "./Componets/AnalyticsEventDataComp";
 import EventByVersion from "./Componets/EventByVersion";
-import {
-  getCrashAnalyticsData,
-} from "../../redux/action/ProjectAction";
-import {getCrashFreeUsersData} from '../../redux/action/LogsAction'
+// import {
+//   getCrashAnalyticsData,
+// } from "../../redux/action/ProjectAction";
+import {getCrashFreeUsersData,getCrashAnalyticsData} from '../../redux/action/LogsAction'
 import {getLogMsgOccurenceWRTDate} from '../../redux/action/LogsAction'
 import { useDispatch, useSelector } from "react-redux";
 import AnalyticeIcon from "../../assets/icons/Analytics.png";

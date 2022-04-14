@@ -1,14 +1,5 @@
 import axios from "axios";
 import {
-GET_PROJECT_REQUEST,
-GET_PROJECT_REQUEST_SUCCESS,
-GET_PROJECT_REQUEST_FAIL,
-GET_ALL_LOG_BY_CODE_REQUEST,
-GET_ALL_LOG_BY_CODE_SUCCESS,
-GET_ALL_LOG_BY_CODE_FAIL,
-UPLOAD_NEW_PROJECT_REQUEST,
-UPLOAD_NEW_PROJECT_REQUEST_SUCCESS,
-UPLOAD_NEW_PROJECT_REQUEST_FAIL,
 GET_LOG_COUNT_REQUEST,
 GET_LOG_COUNT_SUCCESS,
 GET_LOG_COUNT_FAIL,
@@ -21,13 +12,9 @@ GET_ERROR_WRT_OS_REQUEST_FAIL,
 GET_ERROR_COUNT_BY_VERSION_REQUEST,
 GET_ERROR_COUNT_BY_VERSION_REQUEST_SUCCESS,
 GET_ERROR_COUNT_BY_VERSION_REQUEST_FAIL,
-GET_DEVICE_INFO_REQUEST,
-GET_DEVICE_INFO_REQUEST_SUCCESS,
-GET_DEVICE_INFO_REQUEST_FAIL,
 GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST,
 GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST_SUCCESS,
 GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST_FAIL,
-UPLOAD_NEW_PROJECT_REQUEST_RESET,
 GET_CRASH_FREE_USERS_REQUEST,
 GET_CRASH_FREE_USERS_REQUEST_SUCCESS,
 GET_CRASH_FREE_USERS_REQUEST_FAIL,
@@ -40,15 +27,9 @@ GET_CRASH_FREE_USERS_DATA_REQUEST_FAIL,
 GET_MODEL_CODE_REQUEST,
 GET_MODEL_CODE_SUCCESS,
 GET_MODEL_CODE_FAIL,
-ADD_CRASH_EMAIL_REQUEST,
-ADD_CRASH_EMAIL_REQUEST_SUCCESS,
-ADD_CRASH_EMAIL_REQUEST_FAIL,
-GET_PROJECT_BY_CODE_REQUEST,
-GET_PROJECT_BY_CODE_REQUEST_SUCCESS,
-GET_PROJECT_BY_CODE_REQUEST_FAIL,
 } from "../types/ProjectConstants";
 
-
+// LOG COUNT
 export const getLogTypeCounts =
 ({ code, diffDate, code1 }) =>
 async (dispatch) => {
@@ -89,6 +70,7 @@ try {
 }
 };
 
+// LOGS BY DATE FILTER
 export const getLogByDate =
 ({ code, diffDate, code1 }) =>
 async (dispatch) => {
@@ -121,70 +103,7 @@ try {
 } catch (error) {}
 };
 
-export const getErrorWRTOS = (code, projectType) => async (dispatch) => {
-try {
-dispatch({
-    type: GET_ERROR_WRT_OS_REQUEST,
-});
-const token = localStorage.getItem("ddAdminToken");
-const config = {
-    headers: {
-    "Content-type": "application/json",
-    Authorization: `Bearer ${token}`,
-    },
-};
-
-const { data } = await axios.get(
-    `${process.env.REACT_APP_BASE_URL}/api/logger/projects/getErrorCountByOSArchitecture/${code}?projectType=${projectType}`,
-    config
-);
-dispatch({
-    type: GET_ERROR_WRT_OS_REQUEST_SUCCESS,
-    payload: data.data,
-});
-} catch (error) {
-dispatch({
-    type: GET_ERROR_WRT_OS_REQUEST_FAIL,
-    payload:
-    error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message,
-});
-}
-};
-
-export const getErrorWRTVersion = (code, projectType) => async (dispatch) => {
-try {
-dispatch({
-    type: GET_ERROR_COUNT_BY_VERSION_REQUEST,
-});
-const token = localStorage.getItem("ddAdminToken");
-const config = {
-    headers: {
-    "Content-type": "application/json",
-    Authorization: `Bearer ${token}`,
-    },
-};
-
-const { data } = await axios.get(
-    `${process.env.REACT_APP_BASE_URL}/api/logger/projects/getErrorCountByVersion/${code}?projectType=${projectType}`,
-    config
-);
-dispatch({
-    type: GET_ERROR_COUNT_BY_VERSION_REQUEST_SUCCESS,
-    payload: data.data,
-});
-} catch (error) {
-dispatch({
-    type: GET_ERROR_COUNT_BY_VERSION_REQUEST_FAIL,
-    payload:
-    error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message,
-});
-}
-};
-
+// LOG MSG OCCURENCES
 export const getLogMsgOccurenceWRTDate =
 ({ code, startDate, endDate, logMsg, code1 }) =>
 async (dispatch) => {
@@ -235,6 +154,7 @@ try {
 }
 };
 
+// CRASH FREE USERS
 export const getCrashFreeUsers =
 ({ code, diffDate, code1 }) =>
 async (dispatch) => {
@@ -254,7 +174,6 @@ try {
         Authorization: `Bearer ${token}`,
     },
     };
-
     const { data } = await axios.get(
     `${process.env.REACT_APP_BASE_URL}/api/logger/projects/crashfree-users-datewise/${code}?startDate=${startDate}&endDate=${endDate}&projectType=${code1}`,
     config
@@ -263,8 +182,6 @@ try {
     type: GET_CRASH_FREE_USERS_REQUEST_SUCCESS,
     payload: data.data,
     });
-
-    // }
 } catch (error) {
     dispatch({
     type: GET_CRASH_FREE_USERS_REQUEST_FAIL,
@@ -276,6 +193,7 @@ try {
 }
 };
 
+// CRASH ANALYTICS DATA
 export const getCrashAnalyticsData =
 (code, logMsg, projectType) => async (dispatch) => {
 try {
@@ -316,6 +234,7 @@ try {
 }
 };
 
+// CRASH FREE USERS
 export const getCrashFreeUsersData =
 (code, logMsg, projectType) => async (dispatch) => {
 try {
@@ -355,6 +274,7 @@ try {
 }
 };
 
+// LISTED DEVICE WITH MODEL
 export const getDeviceModelCode = (code) => async (dispatch) => {
 try {
 dispatch({
@@ -384,5 +304,72 @@ dispatch({
         ? error.response.data.message
         : error.message,
 });
+}
+};
+
+
+// ERROR WITH OS ARCH.
+export const getErrorWRTOS = (code, projectType) => async (dispatch) => {
+try {
+    dispatch({
+    type: GET_ERROR_WRT_OS_REQUEST,
+    });
+    const token = localStorage.getItem("ddAdminToken");
+    const config = {
+    headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+    },
+    };
+
+    const { data } = await axios.get(
+    `${process.env.REACT_APP_BASE_URL}/api/logger/projects/getErrorCountByOSArchitecture/${code}?projectType=${projectType}`,
+    config
+    );
+    dispatch({
+    type: GET_ERROR_WRT_OS_REQUEST_SUCCESS,
+    payload: data.data,
+    });
+} catch (error) {
+    dispatch({
+    type: GET_ERROR_WRT_OS_REQUEST_FAIL,
+    payload:
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,
+    });
+}
+};
+
+// ERROR WITH VERSION
+export const getErrorWRTVersion = (code, projectType) => async (dispatch) => {
+try {
+    dispatch({
+    type: GET_ERROR_COUNT_BY_VERSION_REQUEST,
+    });
+    const token = localStorage.getItem("ddAdminToken");
+    const config = {
+    headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+    },
+    };
+
+    const { data } = await axios.get(
+    `${process.env.REACT_APP_BASE_URL}/api/logger/projects/getErrorCountByVersion/${code}?projectType=${projectType}`,
+    config
+    );
+    dispatch({
+    type: GET_ERROR_COUNT_BY_VERSION_REQUEST_SUCCESS,
+    payload: data.data,
+    });
+} catch (error) {
+    dispatch({
+    type: GET_ERROR_COUNT_BY_VERSION_REQUEST_FAIL,
+    payload:
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,
+    });
 }
 };
