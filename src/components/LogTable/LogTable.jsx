@@ -7,8 +7,6 @@ import {
   faSync,
 } from "@fortawesome/free-solid-svg-icons";
 import Style from "./LogTable.module.scss";
-import { Navbar, SideBar } from "../../utils/NavSideBar";
-import "../../css/theme.scss";
 import CrashFreeStatics from "./components/CrashFreeStatics";
 import TrandData from "./components/TrandData";
 import CustomeDropDown from "../../Container/DropDown";
@@ -23,7 +21,7 @@ import {
   getLogTypeCounts,
   getLogByDate,
   getDeviceModelCode,
-  getCrashFreeUsers
+  getCrashFreeUsers,
 } from "../../redux/action/LogsAction";
 import { useHistory } from "react-router-dom";
 import Spinner from "../../Container/Spinner";
@@ -31,6 +29,8 @@ import DateIcons from "../../assets/icons/date.png";
 import LogICon from "../../assets/icons/log.png";
 import TypeDropDown from "./components/Table/TypeDropDown";
 import "../../utils/Theme.scss";
+import { SideBar } from "../../utils/Sidebar";
+import { Navbar } from "../../utils/NavBar";
 
 export default function LogTable() {
   const history = useHistory();
@@ -39,16 +39,6 @@ export default function LogTable() {
     localStorage.getItem("diffDate") || 90
   );
   const [tableDataState, setTableDataState] = useState({});
-
-  // dark mood state
-
-  const [darkMood, setDarkMood] = useState(
-    JSON.parse(localStorage.getItem("darkMood"))
-  );
-
-  // SIDEBAR WINDOW STATE
-  const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
-  const { data } = slideWindowReducer;
 
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { data: projectType } = getModelCodeReducer;
@@ -216,28 +206,16 @@ export default function LogTable() {
     <>
       <div>
         <Row>
-          <Col
-            xl={2}
-            lg={2}
-            md={2}
-            sm={2}
-            className={data.show && `${Style.SidebarLogTable}`}
-            style={{ padding: "0px" }}
-          >
-            <SideBar sidebarDetails={sidebarDetails} />
+          <Col xl={2} lg={2} md={2} sm={2}>
+            <SideBar
+              sidebarDetails={sidebarDetails}
+              className={Style.SideBarColume}
+            />
           </Col>
-          <Col xl={10} lg={10} md={10} sm={10} style={{ padding: "0px" }}>
+          <Col xl={10} lg={10} md={10} sm={10} className={Style.NavbarColumn}>
             <Navbar navdetails={navdetails} />
-
-            {/* data here */}
-            <Container
-              className={
-                data.show
-                  ? Style.LogtableContaininer
-                  : Style.LogtableContaininerWithoutSlide
-              }
-            >
-              <Row className="mt-4">
+            <Container className={Style.mainContainer}>
+              <Row>
                 <Col xl={10} md={9} sm={9}>
                   <TypeDropDown
                     tableDataState={tableDataState}
@@ -285,13 +263,7 @@ export default function LogTable() {
 
                     <section>
                       {dateDropDown ? (
-                        <CustomeDropDown
-                          width="100%"
-                          zIndex="8"
-                          boxShadow={
-                            darkMood ? "1px 1px 10px 2px rgba(0,0,0,0.45)" : ""
-                          }
-                        >
+                        <CustomeDropDown width="100%" zIndex="8">
                           <p
                             style={{}}
                             className={`${Style.productVersion} mt-1 LTp `}
@@ -365,7 +337,6 @@ export default function LogTable() {
                   </section>
                 </Col>
               </Row>
-
               {/* Data chart */}
               <Row className="mt-3">
                 {/*toggle menus  */}
@@ -380,7 +351,6 @@ export default function LogTable() {
                   <TrandData />
                 </Col>
               </Row>
-
               {/* Events  */}
               <Row className="mt-5">
                 <Col xl={6} md={6} sm={6} className={Style.issuesTable}>
@@ -410,7 +380,6 @@ export default function LogTable() {
                   </section>
                 </Col>
               </Row>
-
               <Row className="mt-3">
                 <Col>
                   {/* Table with toolkit provider */}

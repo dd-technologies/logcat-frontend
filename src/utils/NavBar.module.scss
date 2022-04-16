@@ -1,0 +1,77 @@
+@import "../css/veriables.module.scss";
+
+.Navbar {
+  position: fixed;
+  z-index: 10;
+  background-color: $activehrefText;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3%;
+  height: max-content;
+
+  .detailSection {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .AvatarSection {
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+  }
+}
+
+.AvatarSectionDropDown {
+  width: 60px;
+  height: 60px;
+  background-color: $filterButtonBackgroundColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+}
+
+.manageAccount {
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 0.3s;
+  padding: 6px;
+  cursor: pointer;
+  &:hover {
+    background-color: $activehrefText;
+    color: #fff;
+  }
+}
+
+.logoutAccount {
+  margin-bottom: 10px;
+  width: 100%;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 0.3s;
+  padding: 6px;
+  cursor: pointer;
+  &:hover {
+    background-color: $activehrefText;
+    color: #fff;
+  }
+}
+
+.privacyPolicy {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  font-size: 0.8rem;
+}
+
+// changing in boot starp

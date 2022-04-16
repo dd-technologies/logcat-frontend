@@ -5,7 +5,6 @@ import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import Style from "./Login.module.scss";
-import "../../css/theme.scss";
 import { loginWithEmail } from "../../redux/action/AdminAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -28,28 +27,28 @@ export default function Login() {
   const dispatch = useDispatch();
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { loading, error, adminInfo } = adminLoginReducer;
-  console.log("adminLoginReducer",adminLoginReducer )
+  console.log("adminLoginReducer", adminLoginReducer);
 
   const history = useHistory();
 
   // VALIDATE EMAIL
   const validateEmail = (email) => {
     const isEmailValid = validateEmailHelper(email);
-    if(isEmailValid.isSuccess){
+    if (isEmailValid.isSuccess) {
       setLoginForm({
         ...loginForm,
         email,
       });
-      
-      return isEmailValid.isSuccess
+
+      return isEmailValid.isSuccess;
     }
-    if(!isEmailValid.isSuccess && !isEmailValid.isEmail){
+    if (!isEmailValid.isSuccess && !isEmailValid.isEmail) {
       setEmailError(isEmailValid.message);
-      return isEmailValid.isSuccess
+      return isEmailValid.isSuccess;
     }
     if (!isEmailValid.isSuccess && isEmailValid.isEmail) {
       setEmailError(isEmailValid.message);
-      return isEmailValid.isSuccess
+      return isEmailValid.isSuccess;
     }
     setEmailError(null);
     return true;
@@ -81,12 +80,7 @@ export default function Login() {
     const password = validatePassword(loginForm.password);
 
     if (email && password) {
-      dispatch(
-        loginWithEmail(
-          loginForm.email,
-          loginForm.password,
-        )
-      );
+      dispatch(loginWithEmail(loginForm.email, loginForm.password));
     }
   };
 

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { Navbar, SideBar } from "../../utils/NavSideBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDatabase, faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import Style from "./Settings.module.scss";
@@ -9,6 +8,8 @@ import { useState } from "react";
 import { addCrashEmail } from "../../redux/action/ProjectAction";
 import Spinner from "../../Container/Spinner";
 import { validateEmailHelper } from "../../helper/Emails";
+import { SideBar } from "../../utils/Sidebar";
+import { Navbar } from "../../utils/NavBar";
 
 export default function Settings() {
   // dark mood state
@@ -25,7 +26,7 @@ export default function Settings() {
   const getProjectByCodeSettingReducer = useSelector(
     (state) => state.getProjectByCodeSettingReducer
   );
-  const { loading: ld, data: dt } = getProjectByCodeSettingReducer;  
+  const { loading: ld, data: dt } = getProjectByCodeSettingReducer;
 
   const { allProjectData } = getAllProjectReducer;
 
@@ -64,10 +65,6 @@ export default function Settings() {
     desc: dt && dt.data.description,
   });
 
-  // SLIDEWINDOW STATE
-  const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
-  const { data } = slideWindowReducer;
-
   // NAVIGATION MENU HERE
   const navdetails = {
     name: projectName,
@@ -98,7 +95,6 @@ export default function Settings() {
 
   //EMAIL CHIPS
   const validateEmail = (email) => {
-    
     // if (!email) {
     //   setEmailError("Please enter your email Id");
 
@@ -117,16 +113,16 @@ export default function Settings() {
     // }
 
     const isEmailValid = validateEmailHelper(email);
-    if(isEmailValid.isSuccess){
-      return isEmailValid.isSuccess
+    if (isEmailValid.isSuccess) {
+      return isEmailValid.isSuccess;
     }
-    if(!isEmailValid.isSuccess && !isEmailValid.isEmail){
+    if (!isEmailValid.isSuccess && !isEmailValid.isEmail) {
       setEmailError(isEmailValid.message);
-      return isEmailValid.isSuccess
+      return isEmailValid.isSuccess;
     }
     if (!isEmailValid.isSuccess && isEmailValid.isEmail) {
       setEmailError(isEmailValid.message);
-      return isEmailValid.isSuccess
+      return isEmailValid.isSuccess;
     }
     setEmailError(null);
     return true;
@@ -196,7 +192,7 @@ export default function Settings() {
     });
   };
 
-  // DELETE PROJECT 
+  // DELETE PROJECT
   const hanldeOndeleteProject = (item) => {
     setChipStateProject({
       items: chipStateProject.items.filter((i) => i !== item),
@@ -206,32 +202,12 @@ export default function Settings() {
   return (
     <>
       <Row>
-        <Col
-          xl={2}
-          lg={2}
-          md={2}
-          sm={2}
-          style={{ padding: "0px" }}
-          className={data.show && `${Style.SidebarLogTable}`}
-        >
+        <Col xl={2} lg={2} md={2} sm={2}>
           <SideBar sidebarDetails={sidebarDetails} />
         </Col>
-        <Col
-          xl={10}
-          lg={10}
-          md={10}
-          sm={10}
-          style={{ padding: "0px" }}
-          className={data.show && `${Style.NavbarLogTable}`}
-        >
+        <Col xl={10} lg={10} md={10} sm={10}>
           <Navbar navdetails={navdetails} />
-          <Container
-            className={
-              data.show
-                ? Style.LogtableContaininer
-                : Style.LogtableContaininerWithoutSlide
-            }
-          >
+          <Container className={Style.mainContainer}>
             {/* SETTINGS COMPONENTS */}
             {ld ? (
               <Spinner />
@@ -317,18 +293,12 @@ export default function Settings() {
                 </Col>
               </Row>
             )}
-          </Container>
-          <div className={Style.hrLine}></div>
 
-          {/* CRASH FORWARDING */}
-          <Container
-            className={
-              data.show
-                ? Style.LogtableContaininer
-                : Style.LogtableContaininerWithoutSlide
-            }
-          >
-            <Row>
+            <div className={`${Style.hrLine} mt-2`}></div>
+
+            {/* CRASH FORWARDING */}
+
+            <Row className="mt-4">
               <Col xl={6} md={6} sm={12}>
                 <h4 className={Style.headingText}>Crash forwarding</h4>
                 <div className={`${Style.imputFields} mt-4`}>

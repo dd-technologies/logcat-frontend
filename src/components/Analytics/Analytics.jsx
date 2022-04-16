@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import ToggleTabs from "./Componets/ToggleTabs";
 import Style from "./Analytics.module.scss";
-import { Navbar, SideBar } from "../../utils/NavSideBar";
 import AnalyticsEventDataComp from "./Componets/AnalyticsEventDataComp";
 import EventByVersion from "./Componets/EventByVersion";
-import {
-  getCrashAnalyticsData,
-} from "../../redux/action/ProjectAction";
-import {getCrashFreeUsersData} from '../../redux/action/LogsAction'
-import {getLogMsgOccurenceWRTDate} from '../../redux/action/LogsAction'
+import { getCrashAnalyticsData } from "../../redux/action/ProjectAction";
+import { getCrashFreeUsersData } from "../../redux/action/LogsAction";
+import { getLogMsgOccurenceWRTDate } from "../../redux/action/LogsAction";
 import { useDispatch, useSelector } from "react-redux";
 import AnalyticeIcon from "../../assets/icons/Analytics.png";
+import { SideBar } from "../../utils/Sidebar";
+import { Navbar } from "../../utils/NavBar";
+import { faChartLine, faCog } from "@fortawesome/free-solid-svg-icons";
 
 export default function Analytics() {
   const [date, setDate] = useState({
@@ -20,10 +20,6 @@ export default function Analytics() {
   });
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
-
-  // SIDEBAR STATE
-  const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
-  const { data: slideView } = slideWindowReducer;
 
   var dt = new Date();
   date.end = dt.toISOString().slice(0, 10);
@@ -54,6 +50,18 @@ export default function Analytics() {
       link: `/settings?code=${code}&name=${projectName}&pagename=settings`,
     },
   };
+  const navdetails = {
+    name: projectName,
+    dashName: projectName,
+    link1: {
+      iconName: faChartLine,
+      linkName: "Analytics",
+    },
+    link2: {
+      iconName: faCog,
+      linkName: "Settings",
+    },
+  };
 
   let mapArrayKey = stackArrayNew.map((val, index) => {
     return val;
@@ -79,10 +87,7 @@ export default function Analytics() {
       if (!stackArray.includes("Caused by:")) {
         noCousedError =
           mapArrayKey[1].split("(")[1].replace(":", " ").split(")")[0] &&
-          mapArrayKey[1]
-            .split("(")[1]
-            .replace(":", " ")
-            .replace(" ", " line ");
+          mapArrayKey[1].split("(")[1].replace(":", " ").replace(" ", " line ");
         setTitle(noCousedError);
         setSubTitle(mapArrayKey[1].concat(")"));
       }
@@ -120,7 +125,7 @@ export default function Analytics() {
       })
     );
   };
-  
+
   useEffect(() => {
     stackErrorLine();
   }, []);
@@ -131,26 +136,12 @@ export default function Analytics() {
   return (
     <>
       <Row>
-        <Col xl={2} lg={2} md={2} sm={2} style={{ padding: "0px" }}>
+        <Col xl={2} lg={2} md={2} sm={2}>
           <SideBar sidebarDetails={sidebarDetails} />
         </Col>
-        <Col
-          xl={10}
-          lg={10}
-          s
-          md={10}
-          sm={10}
-          style={{ padding: "0px" }}
-          className={slideView.show && `${Style.AnalyticsNavigation}`}
-        >
-          <Navbar navdetails={sidebarDetails} />
-          <Container
-            className={
-              slideView.show
-                ? Style.AnalyticsContainer
-                : Style.AnalyticsContainerWithputSlide
-            }
-          >
+        <Col xl={10} lg={10} md={10} sm={10}>
+          <Navbar navdetails={navdetails} />
+          <Container className={Style.mainContainer}>
             {/* data from api */}
             <Col>
               {/* {console.log("title render", title)} */}
@@ -201,6 +192,7 @@ export default function Analytics() {
               <p
                 className="AYp"
                 style={{
+                  color: "#000",
                   fontWeight: "600",
                   letterSpacing: "0.5px",
                 }}

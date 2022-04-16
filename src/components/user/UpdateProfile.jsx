@@ -6,7 +6,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Col, Container, Row, Button } from "react-bootstrap";
 import CustomeDropDown from "../../Container/DropDown";
-import { Navbar, SideBar } from "../../utils/NavSideBar";
 import Style from "./UpdateProfile.module.scss";
 import LogICon from "../../assets/icons/log.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,12 +18,10 @@ import "react-image-crop/dist/ReactCrop.css";
 // or scss:
 import "react-image-crop/src/ReactCrop.scss";
 import UpdatePassord from "./UpdatePassord";
+import { SideBar } from "../../utils/Sidebar";
+import { Navbar } from "../../utils/NavBar";
 
 export default function UpdateProfile() {
-  // SLIDEWINDOW STATE
-  const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
-  const { data } = slideWindowReducer;
-
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { adminInfo } = adminLoginReducer;
 
@@ -73,7 +70,6 @@ export default function UpdateProfile() {
       updatepasswordresponseData && updatepasswordresponseData.message
     );
   }
-
 
   const [crop, setCrop] = useState();
 
@@ -148,32 +144,12 @@ export default function UpdateProfile() {
   return (
     <>
       <Row>
-        <Col
-          xl={2}
-          lg={2}
-          md={2}
-          sm={2}
-          className={data.show && `${Style.SidebarLogTable}`}
-          style={{ padding: "0px" }}
-        >
+        <Col xl={2} lg={2} md={2} sm={2}>
           <SideBar sidebarDetails={sidebarDetails} />
         </Col>
-        <Col
-          xl={10}
-          lg={10}
-          md={10}
-          sm={10}
-          className={data.show && `${Style.NavbarLogTable}`}
-          style={{ padding: "0px" }}
-        >
+        <Col xl={10} lg={10} md={10} sm={10}>
           <Navbar navdetails={navdetails} />
-          <Container
-            className={
-              data.show
-                ? Style.LogtableContaininer
-                : Style.LogtableContaininerWithoutSlide
-            }
-          >
+          <Container className={Style.mainContainer}>
             <section className={Style.OuterDiv}>
               <Toaster />
               <Row style={{ marginTop: "150px" }}>
@@ -229,9 +205,7 @@ export default function UpdateProfile() {
                         </span>
                         <input
                           type="email"
-                          value={
-                            name
-                          }
+                          value={name}
                           className="form-control LoginForminput CPp "
                           id="exampleInputEmail1"
                           placeholder="Enter your email"

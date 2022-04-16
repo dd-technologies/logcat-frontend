@@ -3,7 +3,6 @@ import { Button, Container } from "react-bootstrap";
 import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
-import "../../css/theme.scss";
 import Style from "./ResetPassword.module.scss";
 import OtpInput from "react-otp-input";
 import { toast, Toaster } from "react-hot-toast";

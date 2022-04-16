@@ -150,7 +150,8 @@ function TableData(props) {
   const selectRow = {
     mode: "checkbox",
     // clickToSelect: true,
-    style: { backgroundColor: "#0099a4", color: "#fff" },
+
+    style: { backgroundColor: "#0099a4" },
   };
 
   const dispatch = useDispatch();

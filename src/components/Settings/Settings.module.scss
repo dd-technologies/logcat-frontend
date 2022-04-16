@@ -1,4 +1,8 @@
 @import "../../css/veriables.module.scss";
+
+.mainContainer {
+  margin-top: 70px;
+}
 // SWIPE BAR REACT
 .SidebarLogTable {
   width: 100% !important;
@@ -61,7 +65,7 @@
   border-radius: $cardBorderRadius;
   padding: 5px;
   border: 1px solid $activehrefText;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   & span {
     margin-left: 5px;
   }
