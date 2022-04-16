@@ -3,7 +3,6 @@ import { Card } from "react-bootstrap";
 import Style from "./CustomeCard.module.scss";
 
 export default function CustomCard(props) {
-
   // dark mode state
   const [darkMood, setDarkMood] = useState(
     JSON.parse(localStorage.getItem("darkMood"))

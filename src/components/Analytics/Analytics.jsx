@@ -14,14 +14,14 @@ import { useDispatch, useSelector } from "react-redux";
 import AnalyticeIcon from "../../assets/icons/Analytics.png";
 
 export default function Analytics() {
-  const [date, setdate] = useState({
+  const [date, setDate] = useState({
     start: null,
     end: null,
   });
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
 
-  // SLIDEWINDOW STATE
+  // SIDEBAR STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
   const { data: slideView } = slideWindowReducer;
 
@@ -55,20 +55,20 @@ export default function Analytics() {
     },
   };
 
-  let mappedArraywithKey = stackArrayNew.map((val, index) => {
+  let mapArrayKey = stackArrayNew.map((val, index) => {
     return val;
   });
 
   const stackErrorLine = () => {
     var causedError, noCousedError;
 
-    if (mappedArraywithKey.length == 1) {
-      setTitle(mappedArraywithKey[0]);
+    if (mapArrayKey.length == 1) {
+      setTitle(mapArrayKey[0]);
       setSubTitle("");
     } else {
-      for (let key in mappedArraywithKey) {
-        if (mappedArraywithKey[key].includes("Caused by:")) {
-          causedError = mappedArraywithKey[parseInt(key) + 1];
+      for (let key in mapArrayKey) {
+        if (mapArrayKey[key].includes("Caused by:")) {
+          causedError = mapArrayKey[parseInt(key) + 1];
           setTitle(
             causedError.split("(")[1].replace(":", " line ").split(")")[0]
           );
@@ -78,13 +78,13 @@ export default function Analytics() {
 
       if (!stackArray.includes("Caused by:")) {
         noCousedError =
-          mappedArraywithKey[1].split("(")[1].replace(":", " ").split(")")[0] &&
-          mappedArraywithKey[1]
+          mapArrayKey[1].split("(")[1].replace(":", " ").split(")")[0] &&
+          mapArrayKey[1]
             .split("(")[1]
             .replace(":", " ")
             .replace(" ", " line ");
         setTitle(noCousedError);
-        setSubTitle(mappedArraywithKey[1].concat(")"));
+        setSubTitle(mapArrayKey[1].concat(")"));
       }
     }
   };

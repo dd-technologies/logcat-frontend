@@ -60,7 +60,7 @@ tr {
 }
 
 .order {
- padding-left: 3px !important; 
+  padding-left: 3px !important;
 }
 
 .sortable {
@@ -72,11 +72,23 @@ tr {
 }
 
 @media screen and (min-width: 600px) and (max-width: 1200px) {
- .trends-container {
-  margin-top: 1rem !important;
- }
- 
- .mm-2 {
-   margin: 0.19rem !important;
- }
+  .trends-container {
+    margin-top: 1rem !important;
+  }
+
+  .mm-2 {
+    margin: 0.19rem !important;
+  }
 }
+.modal-title {
+  color: #0099a4 !important;
+}
+
+input {
+  border-radius: 10px !important;
+}
+
+textarea {
+  border-radius: 10px !important;
+}
+

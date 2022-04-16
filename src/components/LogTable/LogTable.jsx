@@ -46,7 +46,7 @@ export default function LogTable() {
     JSON.parse(localStorage.getItem("darkMood"))
   );
 
-  // SLIDEWINDOW STATE
+  // SIDEBAR WINDOW STATE
   const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
   const { data } = slideWindowReducer;
 
@@ -100,7 +100,7 @@ export default function LogTable() {
     },
   };
 
-  // Filter crashfree stastics & Trend wrt to date
+  // Filter crash free STATICS & Trend wrt to date
   const DateFilter = () => {
     setDateDropDown(true);
     if (dateDropDown) {

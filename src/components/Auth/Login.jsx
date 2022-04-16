@@ -122,8 +122,8 @@ export default function Login() {
                 <div
                   className={
                     emailError
-                      ? `${Style.imputFieldsError}`
-                      : `${Style.imputFields} mt-4`
+                      ? `${Style.imputFieldsError} IFS`
+                      : `${Style.imputFields} mt-4 IFS`
                   }
                 >
                   <span>
@@ -149,8 +149,8 @@ export default function Login() {
                 <div
                   className={
                     passwordError
-                      ? `${Style.imputFieldsError} mt-4`
-                      : `${Style.imputFields} mt-4`
+                      ? `${Style.imputFieldsError} mt-4 IFS`
+                      : `${Style.imputFields} mt-4 IFS`
                   }
                 >
                   <span>

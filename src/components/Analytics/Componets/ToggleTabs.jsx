@@ -8,16 +8,16 @@ import Spinner from "../../../Container/Spinner";
 
 export default function ToggleTabs() {
   // toogling window
-  const [devieWindow, setdevieWindow] = useState(true);
-  const [opratingSystemWindow, setOpratingSystemWindow] = useState(false);
+  const [deviceWindow, setDeviceWindow] = useState(true);
+  const [operatingSystemWindow, setOperatingSystemWindow] = useState(false);
 
   const DeviceShowFun = () => {
-    setdevieWindow(true);
-    setOpratingSystemWindow(false);
+    setDeviceWindow(true);
+    setOperatingSystemWindow(false);
   };
-  const opratingSystemFun = () => {
-    setOpratingSystemWindow(true);
-    setdevieWindow(false);
+  const operatingSystemFun = () => {
+    setOperatingSystemWindow(true);
+    setDeviceWindow(false);
   };
 
   const getCrashAnalyticsDataReducer = useSelector(
@@ -69,7 +69,9 @@ export default function ToggleTabs() {
             md={6}
             sm={6}
             className={
-              devieWindow ? `${Style.ToggleTabs_active}` : `${Style.ToggleTabs}`
+              deviceWindow
+                ? `${Style.ToggleTabs_active}`
+                : `${Style.ToggleTabs}`
             }
             onClick={DeviceShowFun}
           >
@@ -85,11 +87,11 @@ export default function ToggleTabs() {
             md={6}
             sm={6}
             className={
-              opratingSystemWindow
+              operatingSystemWindow
                 ? `${Style.ToggleTabs_active}`
                 : `${Style.ToggleTabs}`
             }
-            onClick={opratingSystemFun}
+            onClick={operatingSystemFun}
           >
             <p
               style={{ fontWeight: "600", letterSpacing: "0.5px" }}
@@ -103,7 +105,7 @@ export default function ToggleTabs() {
         {/* data from toggle */}
         <Row>
           {/* DEVICE MENUS */}
-          {devieWindow ? (
+          {deviceWindow ? (
             <Col className="p-4">
               <section className={Style.DataTogleSection}>
                 {/*CHECKING FOR NOW IF NOT HAVING THE VALUE OF MAP */}
@@ -138,7 +140,7 @@ export default function ToggleTabs() {
                 )}
               </section>
             </Col>
-          ) : opratingSystemWindow ? (
+          ) : operatingSystemWindow ? (
             // OS MENUS
             <Col className="p-4">
               <section className={Style.DataTogleSection}>

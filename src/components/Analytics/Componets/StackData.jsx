@@ -16,12 +16,12 @@ export default function StackData() {
     useState(true);
 
   // ACTIVE CLASS FOR TOGGLE TEXT AND STACK BUTTON
-  const [activeClassToggle, setactiveClassToggle] = useState({
+  const [activeClassToggle, setActiveClassToggle] = useState({
     text: false,
     stack: true,
   });
 
-  // GETTGIN DATA FROM URL
+  // GETTING DATA FROM URL
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const colData = urlParams.get("col");
@@ -47,13 +47,13 @@ export default function StackData() {
   const stackErrorFilterFun = () => {
     setStackErrorFilter(true);
     setStackErrorFilterTextFormate(false);
-    setactiveClassToggle({ text: true, stack: false });
+    setActiveClassToggle({ text: true, stack: false });
   };
 
   const stackErrorFilterTextFormateFun = () => {
     setStackErrorFilterTextFormate(true);
     setStackErrorFilter(false);
-    setactiveClassToggle({ text: false, stack: true });
+    setActiveClassToggle({ text: false, stack: true });
   };
 
   // INNER PARA DETAIL SECTION FUNCTION
@@ -79,8 +79,8 @@ export default function StackData() {
             <section
               className={
                 activeClassToggle.stack
-                  ? `${Style.filterGraphFirstSctionActive}  `
-                  : `${Style.filterGraphFirstSction} `
+                  ? `${Style.filterGraphFirstSectionActive}  `
+                  : `${Style.filterGraphFirstSection} `
               }
               onClick={stackErrorFilterTextFormateFun}
             >
@@ -89,8 +89,8 @@ export default function StackData() {
             <section
               className={
                 activeClassToggle.text
-                  ? `${Style.filterGraphFirstSctionActive} `
-                  : `${Style.filterGraphFirstSction} `
+                  ? `${Style.filterGraphFirstSectionActive} `
+                  : `${Style.filterGraphFirstSection} `
               }
               onClick={stackErrorFilterFun}
             >
@@ -99,7 +99,7 @@ export default function StackData() {
           </section>
         </Col>
 
-        {/* TEXT ERROR  WITH  FILLTER BUTTON CLICK */}
+        {/* TEXT ERROR  WITH  FILTER BUTTON CLICK */}
         {stackErrorFilter ? (
           <Col xl={12} className={`${Style.outerDiv} SDbmt-4`}>
             <Text />
@@ -111,84 +111,72 @@ export default function StackData() {
           <>
             {!keys.length < 1 ? (
               <Col xl={12} className={`${Style.outerDiv} mt-4`}>
-                {
-                  !keys == [] &&
-                    keys.map((key, idx) => {
-                      return (
-                        <>
-                          <section className={Style.outerDivinner}>
-                            <section
-                              className={
-                                innerParaShowDetails[idx]
-                                  ? `${Style.StackInfoDiveWithToggle} SDb`
-                                  : `${Style.StackInfoDive} SDb`
-                              }
-                              onClick={() => innerParaShowDetailsFun(idx)}
-                            >
-                              {idx == 0 ? (
-                                <p>
-                                  {`${key.slice(key.indexOf("/") + 1)}`}{" "}
-                                </p>
-                              ) : (
-                                <p className={`${Style.index0}`}>                                 
-                                  {`${key.slice(key.indexOf("/") + 1)}`}
-                                </p>
-                              )}
-                              <FontAwesomeIcon icon={faCaretDown} />
-                            </section>
-                            {
-                              innerParaShowDetails[idx] && (
-                                <section
-                                  className={`${Style.detailSection}  SDb1`}
-                                >
-                                  {grouped[key].map((items, index) => {
-                                    return (
-                                      <>
-                                        {idx == 0 ? (
-                                          <p
-                                            className={grouped[key].map(
-                                              (items, index) => {
-                                                return items.includes(
-                                                  "Activity"
-                                                )
-                                                  ? Style.normalPara
-                                                  : Style.dynamicPara;
-                                              }
-                                            )}
-                                          >
-                                            {DataINRow.includes("Caused by:")
-                                              ? items
-                                              : items.concat(")")}
-                                          </p>
-                                        ) : (
-                                          <p
-                                            className={grouped[key].map(
-                                              (items, index) => {
-                                                return items.includes(
-                                                  "Activity"
-                                                )
-                                                  ? Style.normalPara
-                                                  : Style.dynamicPara;
-                                              }
-                                            )}
-                                          >
-                                            {items.includes("at") ? null : "at"}
-                                            {DataINRow.includes("Caused by:")
-                                              ? items
-                                              : items.concat(")")}
-                                          </p>
-                                        )}
-                                      </>
-                                    );
-                                  })}
-                                </section>
-                              )
+                {!keys == [] &&
+                  keys.map((key, idx) => {
+                    return (
+                      <>
+                        <section className={Style.outerDivinner}>
+                          <section
+                            className={
+                              innerParaShowDetails[idx]
+                                ? `${Style.StackInfoDiveWithToggle} SDb`
+                                : `${Style.StackInfoDive} SDb`
                             }
+                            onClick={() => innerParaShowDetailsFun(idx)}
+                          >
+                            {idx == 0 ? (
+                              <p>{`${key.slice(key.indexOf("/") + 1)}`} </p>
+                            ) : (
+                              <p className={`${Style.index0}`}>
+                                {`${key.slice(key.indexOf("/") + 1)}`}
+                              </p>
+                            )}
+                            <FontAwesomeIcon icon={faCaretDown} />
                           </section>
-                        </>
-                      );
-                    })
-                }
+                          {innerParaShowDetails[idx] && (
+                            <section className={`${Style.detailSection}  SDb1`}>
+                              {grouped[key].map((items, index) => {
+                                return (
+                                  <>
+                                    {idx == 0 ? (
+                                      <p
+                                        className={grouped[key].map(
+                                          (items, index) => {
+                                            return items.includes("Activity")
+                                              ? Style.normalPara
+                                              : Style.dynamicPara;
+                                          }
+                                        )}
+                                      >
+                                        {DataINRow.includes("Caused by:")
+                                          ? items
+                                          : items.concat(")")}
+                                      </p>
+                                    ) : (
+                                      <p
+                                        className={grouped[key].map(
+                                          (items, index) => {
+                                            return items.includes("Activity")
+                                              ? Style.normalPara
+                                              : Style.dynamicPara;
+                                          }
+                                        )}
+                                      >
+                                        {items.includes("at") ? null : "at"}
+                                        {DataINRow.includes("Caused by:")
+                                          ? items
+                                          : items.concat(")")}
+                                      </p>
+                                    )}
+                                  </>
+                                );
+                              })}
+                            </section>
+                          )}
+                        </section>
+                      </>
+                    );
+                  })}
               </Col>
             ) : (
               <Col xl={12} className={`${Style.outerDiv} mt-4`}>

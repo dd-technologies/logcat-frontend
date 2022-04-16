@@ -147,9 +147,9 @@ export default function ResetPassword() {
                   </span>
                   <input
                     type="password"
-                    className="form-control LoginForminput "
+                    className="form-control LoginForminput"
                     id="exampleInputEmail1"
-                    placeholder="confirme your new password"
+                    placeholder="confirm your new password"
                     aria-describedby="emailHelp"
                     onChange={(e) =>
                       setState({ ...state, confirmPass: e.target.value })

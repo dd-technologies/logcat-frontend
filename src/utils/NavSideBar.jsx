@@ -147,7 +147,7 @@ export function Navbar(props) {
           {/* light and dark mood */}
           <DarkLightMood />
           <section>
-            <FontAwesomeIcon icon={faBell} size="2x" />
+            <FontAwesomeIcon icon={faBell} size="2x" color="#fff" />
           </section>
 
           <section className={`${Style.Avtar}`} onClick={showUserInfoFun}>

@@ -24,12 +24,9 @@ function CreateProject() {
   const getAllProjectReducer = useSelector(
     (state) => state.getAllProjectReducer
   );
-  const {
-    allProjectData: PorjectData,
-    allProjectData,
-  } = getAllProjectReducer;
+  const { allProjectData: ProjectData, allProjectData } = getAllProjectReducer;
 
-  // GETTGING USER NAME 
+  // GETTING USER NAME
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { adminInfo } = adminLoginReducer;
 
@@ -68,7 +65,7 @@ function CreateProject() {
   return (
     <>
       {/*Logout functionality */}
-      {PorjectData && PorjectData.data && PorjectData.data.data ? (
+      {ProjectData && ProjectData.data && ProjectData.data.data ? (
         <>
           <section className={Style.backgroundSection}></section>
           <Container className={Style.MainContantainer}>
@@ -125,9 +122,9 @@ function CreateProject() {
 
               {allProjectData &&
                 allProjectData.data.data.length &&
-                allProjectData.data.data.map((datas) => (
+                allProjectData.data.data.map((data) => (
                   <>
-                    <ProjectCard data={datas} key={datas._id} />
+                    <ProjectCard data={data} key={data._id} />
                   </>
                 ))}
             </Row>
