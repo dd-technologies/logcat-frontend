@@ -1,54 +1,65 @@
 @import "../css/veriables.module.scss";
 
+.sidebarOuter {
+  position: fixed;
+  z-index: 10;
+  width: 17%;
   .Sidebar {
     background-image: url("../assets/images/background.jpg");
     background-repeat: repeat;
     background-size: 100% 100%;
     height: 100vh;
-    width: 100%;
     display: flex;
     flex-direction: column;
+
     .LogoSection {
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
       padding: 10px;
+
       & img {
         width: 15%;
         height: 15%;
       }
     }
+
     .linkSection {
       .linkActive {
         display: flex !important;
         padding: 0 10px;
         background-color: $activehrefText;
+
         .linkData {
           display: flex;
-          padding: 10px 0px;
+          padding: 10px 10px;
           text-decoration: none;
           color: #fff;
+
           & section {
             margin-left: 10px;
           }
         }
       }
+
       .linkInActive {
         display: flex !important;
         padding: 0 10px;
 
         .linkData {
           display: flex;
-          padding: 10px 0px;
+          padding: 10px 10px;
           text-decoration: none;
           color: #fff;
+
           & section {
             margin-left: 10px;
           }
         }
       }
     }
+
     .ClickSlideSection {
       flex: 1;
     }
@@ -57,12 +68,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
       & p {
         color: #fff;
       }
+
       & img {
         width: 30%;
       }
     }
   }
-
+}

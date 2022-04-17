@@ -778,7 +778,7 @@ function TableData(props) {
                                         className={Style.StatusInnerSecion}
                                       >
                                         <label
-                                          className="CPp"
+                                          className="darkModeColor"
                                           for="exampleFormControlFile1"
                                         >
                                           Info
@@ -798,7 +798,7 @@ function TableData(props) {
                                         className={Style.StatusInnerSecion}
                                       >
                                         <label
-                                          className="CPp"
+                                          className="darkModeColor"
                                           for="exampleFormControlFile1"
                                         >
                                           Warn
@@ -818,7 +818,7 @@ function TableData(props) {
                                         className={Style.StatusInnerSecion}
                                       >
                                         <label
-                                          className="CPp"
+                                          className="darkModeColor"
                                           for="exampleFormControlFile1"
                                         >
                                           Error
@@ -838,7 +838,7 @@ function TableData(props) {
                                         className={Style.StatusInnerSecion}
                                       >
                                         <label
-                                          className="CPp"
+                                          className="darkModeColor"
                                           for="exampleFormControlFile1"
                                         >
                                           Debug
@@ -858,7 +858,7 @@ function TableData(props) {
                                         className={Style.StatusInnerSecion}
                                       >
                                         <label
-                                          className="CPp"
+                                          className="darkModeColor"
                                           for="exampleFormControlFile1"
                                         >
                                           Verbose
@@ -885,8 +885,8 @@ function TableData(props) {
                                       <p
                                         className={
                                           activeRecord.record10
-                                            ? `${Style.perPagesectionInnerActive} CPp`
-                                            : `${Style.perPagesectionInner} CPp`
+                                            ? `${Style.perPagesectionInnerActive} darkModeColor`
+                                            : `${Style.perPagesectionInner} darkModeColor`
                                         }
                                         onClick={() => {
                                           setRecords(10);
@@ -900,8 +900,8 @@ function TableData(props) {
                                       <p
                                         className={
                                           activeRecord.record25 || record == 25
-                                            ? `${Style.perPagesectionInnerActive} CPp`
-                                            : `${Style.perPagesectionInner} CPp`
+                                            ? `${Style.perPagesectionInnerActive} darkModeColor`
+                                            : `${Style.perPagesectionInner} darkModeColor`
                                         }
                                         onClick={() => {
                                           setRecords(25);
@@ -915,8 +915,8 @@ function TableData(props) {
                                       <p
                                         className={
                                           activeRecord.record50
-                                            ? `${Style.perPagesectionInnerActive}CPp`
-                                            : `${Style.perPagesectionInner} CPp`
+                                            ? `${Style.perPagesectionInnerActive}darkModeColor`
+                                            : `${Style.perPagesectionInner} darkModeColor`
                                         }
                                         onClick={() => {
                                           setRecords(50);
@@ -930,8 +930,8 @@ function TableData(props) {
                                       <p
                                         className={
                                           activeRecord.record100
-                                            ? `${Style.perPagesectionInnerActive} CPp`
-                                            : `${Style.perPagesectionInner} CPp`
+                                            ? `${Style.perPagesectionInnerActive} darkModeColor`
+                                            : `${Style.perPagesectionInner} darkModeColor`
                                         }
                                         onClick={() => {
                                           setRecords(100);

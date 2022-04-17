@@ -71,12 +71,12 @@ const AddProjectModal = (props) => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header className="card CPp">
+        <Modal.Header className="card darkModeColor">
           <Modal.Title id="contained-modal-title-vcenterv">
             Add New Project
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="card CPp">
+        <Modal.Body className="card darkModeColor">
           {error ? (
             <div style={{ fontSize: 12, color: "red" }}>{error}</div>
           ) : (
@@ -93,7 +93,7 @@ const AddProjectModal = (props) => {
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label
               style={{ float: "left", color: "#212529" }}
-              className="CPp"
+              className="darkModeColor"
             >
               Project Name
             </Form.Label>
@@ -115,7 +115,7 @@ const AddProjectModal = (props) => {
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label
               style={{ float: "left", color: "#212529" }}
-              className="CPp"
+              className="darkModeColor"
             >
               Description
             </Form.Label>
@@ -135,7 +135,7 @@ const AddProjectModal = (props) => {
           <Form.Group className="mb-3  " controlId="formBasicPassword">
             <Form.Label
               style={{ float: "left", color: "#212529" }}
-              className="CPp"
+              className="darkModeColor"
             >
               Provide Device type
             </Form.Label>
@@ -172,7 +172,7 @@ const AddProjectModal = (props) => {
             ))}
           </section>
         </Modal.Body>
-        <Modal.Footer className="card CPp">
+        <Modal.Footer className="card darkModeColor">
           <section
             style={{
               display: "flex",

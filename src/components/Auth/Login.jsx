@@ -116,8 +116,8 @@ export default function Login() {
                 <div
                   className={
                     emailError
-                      ? `${Style.imputFieldsError} IFS`
-                      : `${Style.imputFields} mt-4 IFS`
+                      ? `${Style.imputFieldsError} darkBgColorSec`
+                      : `${Style.imputFields} mt-4 darkBgColorSec`
                   }
                 >
                   <span>
@@ -143,8 +143,8 @@ export default function Login() {
                 <div
                   className={
                     passwordError
-                      ? `${Style.imputFieldsError} mt-4 IFS`
-                      : `${Style.imputFields} mt-4 IFS`
+                      ? `${Style.imputFieldsError} mt-4 darkBgColorSec`
+                      : `${Style.imputFields} mt-4 darkBgColorSec`
                   }
                 >
                   <span>

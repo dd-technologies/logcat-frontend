@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Image } from "react-bootstrap";
+import { Container, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import CustomeDropDown from "../Container/DropDown";
@@ -57,88 +57,94 @@ export function Navbar(props) {
 
   return (
     <>
-      <nav className={Style.Navbar}>
-        <h3 style={{ color: "#fff", fontWeight: "500" }}>
-          {navdetails.dashName.charAt(0).toUpperCase() +
-            navdetails.dashName.slice(1)}
-        </h3>
+   <section className={`${Style.NavbarOuter} noSidebarNav`}>
+        <nav className={Style.Navbar}>
+          <h3 style={{ color: "#fff", fontWeight: "500" }}>
+            {navdetails.dashName.charAt(0).toUpperCase() +
+              navdetails.dashName.slice(1)}
+          </h3>
 
-        <section className={Style.detailSection}>
-          {/* light and dark mood */}
-          <DarkLightMood />
-          <section>
-            <FontAwesomeIcon icon={faBell} size="2x" color="#fff" />
-          </section>
+          <section className={Style.detailSection}>
+            {/* light and dark mood */}
+            <DarkLightMood />
+            <section>
+              <FontAwesomeIcon icon={faBell} size="2x" color="#fff" />
+            </section>
 
-          <section className={Style.AvatarSection} onClick={showUserInfoFun}>
-            {adminInfo &&
-              adminInfo.data &&
-              adminInfo.data.name
-                .split(" ")
-                .map((name) => name[0][0].toUpperCase())}
+            <section className={Style.AvatarSection} onClick={showUserInfoFun}>
+              {adminInfo &&
+                adminInfo.data &&
+                adminInfo.data.name
+                  .split(" ")
+                  .map((name) => name[0][0].toUpperCase())}
+            </section>
           </section>
-        </section>
-      </nav>
-      {userInfo && (
-        <CustomeDropDown
-          position="fixed"
-          right="0%"
-          top="6%"
-          width="400px"
-          zIndex="10"
-          marginRight="10px"
-        >
-          <section
-            className={Style.AvatarSectionDropDown}
-            onClick={showUserInfoFun}
+        </nav>
+        {userInfo && (
+          <CustomeDropDown
+            position="fixed"
+            right="0%"
+            top="6%"
+            width="400px"
+            zIndex="10"
+            marginRight="10px"
           >
-            {avatar ? (
-              <img src={URL.createObjectURL(avatar)} alt="Avatar" />
-            ) : (
-              adminInfo &&
-              adminInfo.data &&
-              adminInfo.data.name
-                .split(" ")
-                .map((name) => name[0][0].toUpperCase())
-            )}
-          </section>
+            <section
+              className={Style.AvatarSectionDropDown}
+              onClick={showUserInfoFun}
+            >
+              {avatar ? (
+                <img src={URL.createObjectURL(avatar)} alt="Avatar" />
+              ) : (
+                adminInfo &&
+                adminInfo.data &&
+                adminInfo.data.name
+                  .split(" ")
+                  .map((name) => name[0][0].toUpperCase())
+              )}
+            </section>
 
-          <p
-            style={{
-              fontSize: "1.3rem",
-            }}
-          >
-            {adminInfo && adminInfo.data && adminInfo.data.name}
-          </p>
-          <p
-            style={{
-              fontSize: "1rem",
-            }}
-          >
-            {adminInfo && adminInfo.data && adminInfo.data.email}
-          </p>
-          <section
-            onClick={() => history.push("/update")}
-            className={Style.manageAccount}
-          >
-            Manage your account
-          </section>
+            <p
+              style={{
+                fontSize: "1.3rem",
+              }}
+              className="darkModeColor"
+            >
+              {adminInfo && adminInfo.data && adminInfo.data.name}
+            </p>
+            <p
+              style={{
+                fontSize: "1rem",
+              }}
+            className="darkModeColor"
+            >
+              {adminInfo && adminInfo.data && adminInfo.data.email}
+            </p>
+            <section
+              onClick={() => history.push("/update")}
+              className={`${Style.manageAccount} darkModeColor`}
+              style={{border:"1px solid #fff"}}
+            >
+              Manage your account
+            </section>
 
-          <section
-            className={Style.logoutAccount}
-            onClick={(e) => {
-              handlelogout(e);
-            }}
-          >
-            Logout
-          </section>
+            <section
+             style={{border:"1px solid #fff", marginTop:"5px"}}
+              className={`${Style.logoutAccount} darkModeColor`}
+              onClick={(e) => {
+                handlelogout(e);
+              }}
+            >
+              Logout
+            </section>
 
-          <section className={Style.privacyPolicy}>
-            <p>Privacy policy</p>
-            <p>Terms of service</p>
-          </section>
-        </CustomeDropDown>
-      )}
+            <section className={Style.privacyPolicy}>
+              <p className="darkModeColor">Privacy policy</p>
+              <p className="darkModeColor">Terms of service</p>
+            </section>
+          </CustomeDropDown>
+        )}
+      </section>
     </>
   );
 }

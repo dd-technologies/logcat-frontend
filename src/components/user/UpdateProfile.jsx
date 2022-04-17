@@ -13,10 +13,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { passwordChangeAction } from "../../redux/action/UserProfileAction";
 import { toast, Toaster } from "react-hot-toast";
 import { updateProfile } from "../../redux/action/AdminAction";
-import ReactCrop from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
-// or scss:
-import "react-image-crop/src/ReactCrop.scss";
 import UpdatePassord from "./UpdatePassord";
 import { SideBar } from "../../utils/Sidebar";
 import { Navbar } from "../../utils/NavBar";
@@ -144,12 +140,12 @@ export default function UpdateProfile() {
   return (
     <>
       <Row>
-        <Col xl={2} lg={2} md={2} sm={2}>
+        <Col xl={2} lg={2} md={2} sm={2} className="noSidebar">
           <SideBar sidebarDetails={sidebarDetails} />
         </Col>
         <Col xl={10} lg={10} md={10} sm={10}>
           <Navbar navdetails={navdetails} />
-          <Container className={Style.mainContainer}>
+          <Container className={`${Style.mainContainer} container`}>
             <section className={Style.OuterDiv}>
               <Toaster />
               <Row style={{ marginTop: "150px" }}>
@@ -162,27 +158,21 @@ export default function UpdateProfile() {
                     height="600px"
                   >
                     <h3
-                      className="mb-4 CPp"
-                      style={{
-                        color: JSON.parse(localStorage.getItem("darkMood"))
-                          ? "#fff"
-                          : "#000",
-                      }}
+                      className="mb-4 darkModeColor"
+
                     >
                       Update profile
                     </h3>
                     <section className={Style.Avtarunder}>
-                      <ReactCrop crop={crop} onChange={(c) => setCrop(c)}>
-                        {avatar ? (
-                          <img src={URL.createObjectURL(avatar)} alt="Avatar" />
-                        ) : (
-                          adminInfo &&
-                          adminInfo.data &&
-                          adminInfo.data.name
-                            .split(" ")
-                            .map((name) => name[0][0].toUpperCase())
-                        )}
-                      </ReactCrop>
+                      {avatar ? (
+                        <img src={URL.createObjectURL(avatar)} alt="Avatar" />
+                      ) : (
+                        adminInfo &&
+                        adminInfo.data &&
+                        adminInfo.data.name
+                          .split(" ")
+                          .map((name) => name[0][0].toUpperCase())
+                      )}
                     </section>
                     <section className={Style.editImage}>
                       <label for="image_upload">
@@ -198,7 +188,7 @@ export default function UpdateProfile() {
                     </section>
                     {/*name field  */}
                     <section className="mt-4">
-                      <h5 className="CPp">Name</h5>
+                      <h5 className="darkModeColor">Name</h5>
                       <div className={`${Style.imputFields} mt-4`}>
                         <span>
                           <FontAwesomeIcon icon={faPersonBooth} />
@@ -206,7 +196,7 @@ export default function UpdateProfile() {
                         <input
                           type="email"
                           value={name}
-                          className="form-control LoginForminput CPp "
+                          className="form-control LoginForminput darkModeColor "
                           id="exampleInputEmail1"
                           placeholder="Enter your email"
                           aria-describedby="emailHelp"
@@ -219,7 +209,7 @@ export default function UpdateProfile() {
 
                     {/* email field */}
                     <section className="mt-4">
-                      <h5 className="CPp">Email</h5>
+                      <h5 className="darkModeColor">Email</h5>
                       <div className={`${Style.imputFields} mt-4`}>
                         <span>
                           <FontAwesomeIcon icon={faMailBulk} />
@@ -227,7 +217,7 @@ export default function UpdateProfile() {
                         <input
                           type="email"
                           value={email}
-                          className="form-control LoginForminput CPp "
+                          className="form-control LoginForminput darkModeColor "
                           id="exampleInputEmail1"
                           placeholder="Enter your email"
                           aria-describedby="emailHelp"

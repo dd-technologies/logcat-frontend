@@ -37,11 +37,11 @@ export default function TrandData() {
           <Col xl={12} className={Style.TrandsDataTable}>
             <section className={Style.Outsection}>
               <section>
-                <p className="LTp">Crashes</p>
+                <p className="darkModeColor">Crashes</p>
                 <h4 style={{ fontWeight: 700 }}>{add}</h4>
               </section>
               <section className="ms-4">
-                <p className="LTp">Users</p>
+                <p className="darkModeColor">Users</p>
                 {data && data.data && data.data.count ? (
                   <h4 style={{ fontWeight: 700 }}>
                     {data && data.data && data.data.count}

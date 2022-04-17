@@ -71,7 +71,7 @@ function CreateProject() {
           <Container className={Style.MainContantainer}>
             <Row>
               <Col xl={6} md={6} sm={6}>
-                <h5 className="CPp" style={{ color: "#fff" }}>
+                <h5 className="darkModeColor" style={{ color: "#fff" }}>
                   Your Projects
                 </h5>
               </Col>
@@ -81,7 +81,7 @@ function CreateProject() {
                 sm={6}
                 className="d-flex justify-content-end align-items-center"
               >
-                <p className="px-4 CPp" style={{ color: "#fff" }}>
+                <p className="px-4 darkModeColor" style={{ color: "#fff" }}>
                   {adminInfo.data.name}
                 </p>
                 <Button
@@ -109,7 +109,7 @@ function CreateProject() {
                         <p>
                           <FontAwesomeIcon icon={faPlus} />
                         </p>
-                        <p className="CPp">Add Project</p>
+                        <p className="darkModeColor">Add Project</p>
                       </section>
                     </section>
                   </CustomCard>

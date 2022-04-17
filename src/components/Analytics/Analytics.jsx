@@ -136,17 +136,17 @@ export default function Analytics() {
   return (
     <>
       <Row>
-        <Col xl={2} lg={2} md={2} sm={2}>
+        <Col xl={2} lg={2} md={2} sm={2} className="noSidebar">
           <SideBar sidebarDetails={sidebarDetails} />
         </Col>
         <Col xl={10} lg={10} md={10} sm={10}>
           <Navbar navdetails={navdetails} />
-          <Container className={Style.mainContainer}>
+          <Container className={`${Style.mainContainer} container`}>
             {/* data from api */}
             <Col>
               {/* {console.log("title render", title)} */}
               <h2
-                className="AYp"
+                className="darkModeColor"
                 style={{
                   fontWeight: "600",
                 }}
@@ -154,7 +154,7 @@ export default function Analytics() {
                 {title}
               </h2>
               <p
-                className="AYp"
+                className="darkModeColor"
                 style={{
                   fontWeight: "600",
                 }}
@@ -167,7 +167,7 @@ export default function Analytics() {
               {loading ? (
                 "Loading"
               ) : (
-                <p className={`${Style.paraTextIssue} AYp`}>
+                <p className={`${Style.paraTextIssue} darkModeColor`}>
                   This issue has{" "}
                   <strong style={{ color: "#0099a4" }}>
                     {totalCount} crash
@@ -190,7 +190,7 @@ export default function Analytics() {
 
             <Col className={`${Style.AnalyticsEvents} my-4 mt-5`}>
               <p
-                className="AYp"
+                className="darkModeColor"
                 style={{
                   color: "#000",
                   fontWeight: "600",

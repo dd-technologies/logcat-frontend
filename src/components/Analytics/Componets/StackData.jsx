@@ -101,7 +101,7 @@ export default function StackData() {
 
         {/* TEXT ERROR  WITH  FILTER BUTTON CLICK */}
         {stackErrorFilter ? (
-          <Col xl={12} className={`${Style.outerDiv} SDbmt-4`}>
+          <Col xl={12} className={`${Style.outerDiv} darkModebgColormt-4`}>
             <Text />
           </Col>
         ) : null}
@@ -119,8 +119,8 @@ export default function StackData() {
                           <section
                             className={
                               innerParaShowDetails[idx]
-                                ? `${Style.StackInfoDiveWithToggle} SDb`
-                                : `${Style.StackInfoDive} SDb`
+                                ? `${Style.StackInfoDiveWithToggle} darkModebgColor`
+                                : `${Style.StackInfoDive} darkModebgColor`
                             }
                             onClick={() => innerParaShowDetailsFun(idx)}
                           >
@@ -134,7 +134,7 @@ export default function StackData() {
                             <FontAwesomeIcon icon={faCaretDown} />
                           </section>
                           {innerParaShowDetails[idx] && (
-                            <section className={`${Style.detailSection}  SDb1`}>
+                            <section className={`${Style.detailSection}  darkModebgColor`}>
                               {grouped[key].map((items, index) => {
                                 return (
                                   <>

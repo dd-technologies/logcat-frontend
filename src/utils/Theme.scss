@@ -1,5 +1,7 @@
+// darkmode css
 .dark-content {
   background: #1a2035 !important;
+  overflow-X: hidden !important;
 
   .card {
     background-color: #243057;
@@ -9,42 +11,100 @@
   td {
     color: #fff !important;
   }
+
   // create project
-  .CPp {
+  .darkModeColor {
     color: #fff !important;
   }
+
   .cpactiveText {
     color: #0099a4 !important;
   }
 
-  // log table
-  .LTp {
-    color: #fff !important;
-  }
+
   // table data
   .TDsec {
     background-color: #0099a4 !important;
   }
+
   .TBSED {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 
   }
 
-  // analytics
-  .AYp {
-    color: #fff !important;
-  }
 
   // stack data
-  .SDb {
+  .darkModebgColor {
     background-color: #c6d3ff !important;
   }
-  .SDb1 {
-    background-color: #e2e8ff !important;
-  }
+
   // input
-  .IFS {
+  .darkBgColorSec {
     background-color: #fff;
   }
+}
+
+
+
+// sidebar css
+.sidebar {
+  margin-right: 0px;
+  overflow-X: hidden !important;
+
+
+  // sidebar
+  .noSidebar {
+    width: 4%;
+
+    @media only screen and (min-width: 300px) and (max-width: 900px) {
+      width: 5%;
+
+    }
+
+    .noSidbarInner {
+      .sidebarMenu {}
+
+      // background-color: red !important;
+    }
+
+    .noSideBarLink {
+      @media only screen and (min-width: 300px) and (max-width: 900px) {
+        padding: 10px 0px !important;
+      }
+    }
+
+    .sidebarMenu {
+      height: 6%;
+    }
+
+    .hidelinkName {
+      display: none;
+    }
+
+    .hideComponyName {
+      display: none;
+    }
+
+  }
+
+
+  // navbar
+  .noSidebarNav {
+    width: 96%;
+    margin-left: 0px;
+
+    @media only screen and (min-width: 300px) and (max-width: 900px) {
+      width: 95%;
+
+    }
+  }
+
+
+  // container
+  .container {
+    margin-left: 13%;
+  }
+
+
 }

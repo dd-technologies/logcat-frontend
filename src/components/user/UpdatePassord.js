@@ -35,9 +35,9 @@ const UpdatePassord = ({
         zIndex="8"
         height="600px"
       >
-        <h3 className="mb-4 CPp">Change password</h3>
+        <h3 className="mb-4 darkModeColor">Change password</h3>
         {/* password field */}
-        <section className="mt-4 CPp">
+        <section className="mt-4 darkModeColor">
           <h5>Current Password</h5>
 
           <div
@@ -54,7 +54,7 @@ const UpdatePassord = ({
               onChange={(e) => {
                 setCurrentPassword(e.target.value);
               }}
-              className="form-control LoginForminput CPp"
+              className="form-control LoginForminput darkModeColor"
               id="exampleInputEmail1"
               placeholder="Enter your current password"
               aria-describedby="emailHelp"
@@ -74,7 +74,7 @@ const UpdatePassord = ({
           <p style={{ color: "red", fontSize: ".8rem" }}>{error}</p>
         </section>
         {/* new password field */}
-        <section className="mt-4 CPp">
+        <section className="mt-4 darkModeColor">
           <h5>New Password</h5>
           <div
             className={
@@ -90,7 +90,7 @@ const UpdatePassord = ({
               onChange={(e) => {
                 setNewPassword(e.target.value);
               }}
-              className="form-control LoginForminput CPp"
+              className="form-control LoginForminput darkModeColor"
               id="exampleInputEmail1"
               placeholder="Enter your new password"
               aria-describedby="emailHelp"
@@ -110,7 +110,7 @@ const UpdatePassord = ({
           <p style={{ color: "red", fontSize: ".8rem" }}>{error}</p>
         </section>
         {/* confirme password field */}
-        <section className="mt-4 CPp">
+        <section className="mt-4 darkModeColor">
           <h5>Confirm New Password</h5>
           <div
             className={
@@ -126,7 +126,7 @@ const UpdatePassord = ({
               onChange={(e) => {
                 setConfirmNewPassword(e.target.value);
               }}
-              className="form-control LoginForminput CPp"
+              className="form-control LoginForminput darkModeColor"
               id="exampleInputEmail1"
               placeholder="Confirm your new password"
               aria-describedby="emailHelp"

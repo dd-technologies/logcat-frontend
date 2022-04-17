@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { ThemeContext, themes, sidebarTheme } from "./ThemeContext";
+import { ThemeContext, themes } from "./ThemeContext";
+import { sideMenus } from "./ThemeContext"
 
 export default function ThemeContextWrapper(props) {
   const [theme, setTheme] = useState(themes.dark);
-  const [sidebar, setSideBar] = useState(sidebarTheme.sidebarVisibility);
+  const [sideMenu, setSideMenu] = useState(sideMenus.menuShow)
 
-  // change theme
+
+  // change theme to dark
+
   function changeTheme(theme) {
     setTheme(theme);
   }
-
-  // change sidebar
-  function sidebarTheme(sideBar) {
-    setSideBar(sideBar);
-  }
-
-  // console.log("first 12", document.body);
 
   useEffect(() => {
     switch (theme) {
@@ -29,25 +25,34 @@ export default function ThemeContextWrapper(props) {
     }
   }, [theme]);
 
-  // SIDEBAR CHANGE
+  // change sidebar 
+  function changeSideMenu(sideMenu) {
+    setSideMenu(sideMenu);
+  }
   useEffect(() => {
-    switch (sidebar) {
-      case sidebarTheme.sidebarVisibility:
+    switch (sideMenu) {
+      case sideMenus.menuShow:
         document.body.classList.add("sidebar");
         break;
-      case themes.noSideBar:
+      case sideMenus.menuHide:
       default:
         document.body.classList.remove("sidebar");
         break;
     }
-  }, [sidebar]);
+  }, [sideMenu]);
+
+
+
+
 
   return (
     <ThemeContext.Provider
       value={{
         theme: theme,
         changeTheme: changeTheme,
-        sidebarTheme: sidebarTheme,
+        // sidemenu
+        sideMenu: sideMenu,
+        changeSideMenu: changeSideMenu
       }}
     >
       {props.children}

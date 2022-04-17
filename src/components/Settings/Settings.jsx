@@ -202,12 +202,12 @@ export default function Settings() {
   return (
     <>
       <Row>
-        <Col xl={2} lg={2} md={2} sm={2}>
+        <Col xl={2} lg={2} md={2} sm={2} className="noSidebar">
           <SideBar sidebarDetails={sidebarDetails} />
         </Col>
         <Col xl={10} lg={10} md={10} sm={10}>
           <Navbar navdetails={navdetails} />
-          <Container className={Style.mainContainer}>
+          <Container className={`${Style.mainContainer} container`}>
             {/* SETTINGS COMPONENTS */}
             {ld ? (
               <Spinner />

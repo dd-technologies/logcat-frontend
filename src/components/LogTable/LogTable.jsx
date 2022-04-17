@@ -47,13 +47,13 @@ export default function LogTable() {
     code: localStorage.getItem("project_type")
       ? JSON.parse(localStorage.getItem("project_type")).typeCode
       : projectType &&
-        projectType.modelList &&
-        projectType.modelList[0].typeCode,
+      projectType.modelList &&
+      projectType.modelList[0].typeCode,
     name: localStorage.getItem("project_type")
       ? JSON.parse(localStorage.getItem("project_type")).typeName
       : projectType &&
-        projectType.modelList &&
-        projectType.modelList[0].typeName,
+      projectType.modelList &&
+      projectType.modelList[0].typeName,
   };
   const ref = useRef();
 
@@ -206,7 +206,7 @@ export default function LogTable() {
     <>
       <div>
         <Row>
-          <Col xl={2} lg={2} md={2} sm={2}>
+          <Col xl={2} lg={2} md={2} sm={2} className="noSidebar">
             <SideBar
               sidebarDetails={sidebarDetails}
               className={Style.SideBarColume}
@@ -214,7 +214,7 @@ export default function LogTable() {
           </Col>
           <Col xl={10} lg={10} md={10} sm={10} className={Style.NavbarColumn}>
             <Navbar navdetails={navdetails} />
-            <Container className={Style.mainContainer}>
+            <Container className={`${Style.mainContainer} container`}>
               <Row>
                 <Col xl={10} md={9} sm={9}>
                   <TypeDropDown
@@ -232,23 +232,23 @@ export default function LogTable() {
                         style={{
                           fontSize: "1rem",
                         }}
-                        className="mm-2 LTp"
+                        className="m-2 darkModeColor"
                       >
                         {diffDate == 10
                           ? `last 10 days`
                           : diffDate == 7
-                          ? `last 7 days`
-                          : diffDate == 15
-                          ? `last 15 days`
-                          : diffDate == 30
-                          ? `last 30 days`
-                          : diffDate == 45
-                          ? `last 45 days`
-                          : diffDate == 60
-                          ? `last 60 days`
-                          : diffDate == 90
-                          ? `last 90 days`
-                          : null}
+                            ? `last 7 days`
+                            : diffDate == 15
+                              ? `last 15 days`
+                              : diffDate == 30
+                                ? `last 30 days`
+                                : diffDate == 45
+                                  ? `last 45 days`
+                                  : diffDate == 60
+                                    ? `last 60 days`
+                                    : diffDate == 90
+                                      ? `last 90 days`
+                                      : null}
                       </p>
                       <FontAwesomeIcon
                         icon={faCaretDown}
@@ -266,7 +266,7 @@ export default function LogTable() {
                         <CustomeDropDown width="100%" zIndex="8">
                           <p
                             style={{}}
-                            className={`${Style.productVersion} mt-1 LTp `}
+                            className={`${Style.productVersion} mt-1 darkModeColor `}
                             onClick={() => {
                               setDiffDate(7);
                               localStorage.setItem("diffDate", 7);
@@ -277,7 +277,7 @@ export default function LogTable() {
                           </p>
                           <p
                             style={{}}
-                            className={`${Style.productVersion} mt-1 LTp`}
+                            className={`${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(15);
                               localStorage.setItem("diffDate", 15);
@@ -289,7 +289,7 @@ export default function LogTable() {
 
                           <p
                             style={{}}
-                            className={`${Style.productVersion} mt-1 LTp`}
+                            className={`${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(30);
                               localStorage.setItem("diffDate", 30);
@@ -300,7 +300,7 @@ export default function LogTable() {
                           </p>
                           <p
                             style={{}}
-                            className={`${Style.productVersion} mt-1 LTp`}
+                            className={`${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(45);
                               localStorage.setItem("diffDate", 45);
@@ -311,7 +311,7 @@ export default function LogTable() {
                           </p>
                           <p
                             style={{}}
-                            className={`${Style.productVersion} mt-1 LTp`}
+                            className={`${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(60);
                               localStorage.setItem("diffDate", 60);
@@ -322,7 +322,7 @@ export default function LogTable() {
                           </p>
                           <p
                             style={{}}
-                            className={`${Style.productVersion} mt-1 LTp`}
+                            className={`${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(90);
                               localStorage.setItem("diffDate", 90);
@@ -355,7 +355,7 @@ export default function LogTable() {
               <Row className="mt-5">
                 <Col xl={6} md={6} sm={6} className={Style.issuesTable}>
                   <p
-                    className="LTp"
+                    className="darkModeColor"
                     style={{
                       fontWeight: "600",
                       fontSize: "0.9rem",

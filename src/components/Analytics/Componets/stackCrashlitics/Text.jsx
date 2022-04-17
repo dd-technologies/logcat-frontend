@@ -9,8 +9,8 @@ export default function Text() {
   // HEADING DATA ANALYTIC
 
   return (
-    <section className={`${Style.outerSection} SDb`}>
-      <p className="SDb">{colData}</p>
+    <section className={`${Style.outerSection} darkModebgColor`}>
+      <p className="darkModebgColor">{colData}</p>
       {/* <FontAwesomeIcon icon={faCaretDown} /> */}
     </section>
   );

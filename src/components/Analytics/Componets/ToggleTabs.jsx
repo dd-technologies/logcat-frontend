@@ -113,7 +113,7 @@ export default function ToggleTabs() {
                   modelNamecnt.map((e) => (
                     <>
                       <p
-                        className="mt-4 AYp"
+                        className="mt-4 darkModeColor"
                         style={{
                           color: JSON.parse(localStorage.getItem("darkMood"))
                             ? "#fff"
@@ -148,7 +148,7 @@ export default function ToggleTabs() {
                   osNamecnt.map((e) => (
                     <>
                       <p
-                        className="mt-4 AYp"
+                        className="mt-4 darkModeColor"
                         style={{
                           color: JSON.parse(localStorage.getItem("darkMood"))
                             ? "#fff"
