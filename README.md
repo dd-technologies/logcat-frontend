@@ -1,1 +1,1 @@
-# logcat-frontend
+# This is the frontend repository of LogCat
