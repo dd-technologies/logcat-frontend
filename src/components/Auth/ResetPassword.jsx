@@ -95,7 +95,7 @@ export default function ResetPassword() {
             <section className="mt-4">
               {/*OTP section*/}
               <section>
-                <p>Enter your OTP</p>
+                <p className="darkModeColor">Enter your OTP</p>
                 <section className={Style.OPTTIMR}>
                   <OtpInput
                     value={state.otp}
@@ -125,7 +125,7 @@ export default function ResetPassword() {
 
             <section className="Form-card">
               <form>
-                <section className={`${Style.imputFields} mt-4`}>
+                <section className={`${Style.imputFields} darkBgColorSec mt-4`}>
                   <span>
                     <FontAwesomeIcon icon={faLock} />
                   </span>
@@ -140,7 +140,7 @@ export default function ResetPassword() {
                     }
                   />
                 </section>
-                <section className={`${Style.imputFields} mt-4`}>
+                <section className={`${Style.imputFields} darkBgColorSec mt-4`}>
                   <span>
                     <FontAwesomeIcon icon={faLock} />
                   </span>
@@ -148,7 +148,7 @@ export default function ResetPassword() {
                     type="password"
                     className="form-control LoginForminput"
                     id="exampleInputEmail1"
-                    placeholder="confirm your new password"
+                    placeholder="Confirm your new password"
                     aria-describedby="emailHelp"
                     onChange={(e) =>
                       setState({ ...state, confirmPass: e.target.value })

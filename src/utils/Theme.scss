@@ -1,7 +1,7 @@
-// darkmode css
+// dark mode css
 .dark-content {
   background: #1a2035 !important;
-  overflow-X: hidden !important;
+  overflow-x: hidden !important;
 
   .card {
     background-color: #243057;
@@ -21,7 +21,6 @@
     color: #0099a4 !important;
   }
 
-
   // table data
   .TDsec {
     background-color: #0099a4 !important;
@@ -30,9 +29,7 @@
   .TBSED {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-
   }
-
 
   // stack data
   .darkModebgColor {
@@ -45,25 +42,53 @@
   }
 }
 
-
-
 // sidebar css
 .sidebar {
   margin-right: 0px;
-  overflow-X: hidden !important;
 
-
+  .sideBarDetailSection {
+    transition-duration: .3s;
+    @media only screen and (min-width: 300px) and (max-width: 900px) {
+      margin-right: 8% !important;
+      width: 20% !important;
+    }
+    @media only screen and (min-width: 900px) and (max-width: 1600px) {
+      margin-right: 6% !important;
+      width: 16% !important;
+    }
+    @media only screen and (min-width: 1600px) and (max-width: 1920px) {
+      margin-right: 4% !important;
+      width: 15% !important;
+    }
+  }
   // sidebar
   .noSidebar {
     width: 4%;
 
     @media only screen and (min-width: 300px) and (max-width: 900px) {
       width: 5%;
-
     }
 
     .noSidbarInner {
-      .sidebarMenu {}
+      .sidebarMenu {
+        height: 6%;
+        .noSideBarLogcatLogo {
+          & img {
+            @media only screen and (min-width: 300px) and (max-width: 900px) {
+              width: 25px !important;
+              height: 25px !important;
+            }
+            @media only screen and (min-width: 900px) and (max-width: 1600px) {
+              width: 28px !important;
+              height: 28px !important;
+            }
+            @media only screen and (min-width: 1600px) and (max-width: 1920px) {
+              width: 30px !important;
+              height: 30px !important;
+            }
+          }
+        }
+      }
 
       // background-color: red !important;
     }
@@ -86,25 +111,36 @@
       display: none;
     }
 
-  }
-
-
-  // navbar
-  .noSidebarNav {
-    width: 96%;
-    margin-left: 0px;
-
-    @media only screen and (min-width: 300px) and (max-width: 900px) {
-      width: 95%;
-
+    // compony logo
+    .componyLogo {
+      width: 100%;
+      height: 6%;
+      margin-bottom: 10%;
+      & img {
+        @media only screen and (min-width: 300px) and (max-width: 900px) {
+          width: 40px !important;
+          height: 40px !important;
+        }
+        @media only screen and (min-width: 900px) and (max-width: 1600px) {
+          width: 60px !important;
+          height: 60px !important;
+        }
+        @media only screen and (min-width: 1600px) and (max-width: 1920px) {
+          width: 70px !important;
+          height: 70px !important;
+        }
+      }
     }
   }
 
+  // navbar
+  .noSidebarNav {
+    margin-left: 0px;
+  }
 
   // container
   .container {
     margin-left: 13%;
+    transition-duration: .3s !important;
   }
-
-
 }

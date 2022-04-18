@@ -5,8 +5,11 @@ import CustomCard from "../../../Container/CustomCard";
 import { Line } from "rc-progress";
 import { useSelector } from "react-redux";
 import Spinner from "../../../Container/Spinner";
+import { ThemeContext } from "../../../utils/ThemeContext";
 
 export default function ToggleTabs() {
+  const { theme } = React.useContext(ThemeContext);
+
   // toogling window
   const [deviceWindow, setDeviceWindow] = useState(true);
   const [operatingSystemWindow, setOperatingSystemWindow] = useState(false);
@@ -112,14 +115,7 @@ export default function ToggleTabs() {
                 {!ld ? (
                   modelNamecnt.map((e) => (
                     <>
-                      <p
-                        className="mt-4 darkModeColor"
-                        style={{
-                          color: JSON.parse(localStorage.getItem("darkMood"))
-                            ? "#fff"
-                            : "#000",
-                        }}
-                      >
+                      <p className="mt-4 darkModeColor">
                         <span className="p-2">
                           {parseFloat((e.data / modelNameAdds) * 100).toFixed(
                             2
@@ -131,7 +127,9 @@ export default function ToggleTabs() {
                       <Line
                         percent={(e.data / modelNameAdds) * 100}
                         strokeWidth="4"
-                        strokeColor="#257d7c"
+                        strokeColor={
+                          theme == "dark-content" ? `#0099A4` : `#0099A4`
+                        }
                       />
                     </>
                   ))
@@ -147,14 +145,7 @@ export default function ToggleTabs() {
                 {!ld ? (
                   osNamecnt.map((e) => (
                     <>
-                      <p
-                        className="mt-4 darkModeColor"
-                        style={{
-                          color: JSON.parse(localStorage.getItem("darkMood"))
-                            ? "#fff"
-                            : "#666",
-                        }}
-                      >
+                      <p className="mt-4 darkModeColor">
                         <span className="p-2">
                           {parseFloat((e.data / osNameAdds) * 100).toFixed(2)}%
                         </span>
@@ -163,7 +154,9 @@ export default function ToggleTabs() {
                       <Line
                         percent={(e.data / osNameAdds) * 100}
                         strokeWidth="4"
-                        strokeColor="#257d7c"
+                        strokeColor={
+                          theme == "dark-content" ? `#0099A4` : `#0099A4`
+                        }
                       />
                     </>
                   ))

@@ -57,14 +57,14 @@ export function Navbar(props) {
 
   return (
     <>
-   <section className={`${Style.NavbarOuter} noSidebarNav`}>
+      <section className={`${Style.NavbarOuter} noSidebarNav`}>
         <nav className={Style.Navbar}>
           <h3 style={{ color: "#fff", fontWeight: "500" }}>
             {navdetails.dashName.charAt(0).toUpperCase() +
               navdetails.dashName.slice(1)}
           </h3>
 
-          <section className={Style.detailSection}>
+          <section className={`${Style.detailSection} sideBarDetailSection`}>
             {/* light and dark mood */}
             <DarkLightMood />
             <section>
@@ -104,7 +104,7 @@ export function Navbar(props) {
               )}
             </section>
 
-            <p
+            <p  
               style={{
                 fontSize: "1.3rem",
               }}
@@ -116,20 +116,20 @@ export function Navbar(props) {
               style={{
                 fontSize: "1rem",
               }}
-            className="darkModeColor"
+              className="darkModeColor"
             >
               {adminInfo && adminInfo.data && adminInfo.data.email}
             </p>
             <section
               onClick={() => history.push("/update")}
               className={`${Style.manageAccount} darkModeColor`}
-              style={{border:"1px solid #fff"}}
+              style={{ border: "1px solid #fff" }}
             >
               Manage your account
             </section>
 
             <section
-             style={{border:"1px solid #fff", marginTop:"5px"}}
+              style={{ border: "1px solid #fff", marginTop: "5px" }}
               className={`${Style.logoutAccount} darkModeColor`}
               onClick={(e) => {
                 handlelogout(e);

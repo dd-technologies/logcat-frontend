@@ -9,6 +9,7 @@ import settigns from "../assets/icons/settings.png";
 import Style from "./Sidebar.module.scss";
 import { ThemeContext, sideMenus } from "./ThemeContext";
 
+
 export function SideBar(props) {
   const { sidebarDetails } = props;
 
@@ -16,8 +17,7 @@ export function SideBar(props) {
   // const [navToggle, setNavToggle] = useState(true);
   const { loading, adminInfo } = adminLoginReducer;
 
-  const [sideBar, setSideBar] = useState(false)
-
+  const [sideBar, setSideBar] = useState(false);
 
   // URL STRING
   const queryString = window.location.search;
@@ -42,15 +42,11 @@ export function SideBar(props) {
                 textDecoration: "none",
               }}
             >
-              <section>
-                {true ? (
-                  <Image src={Logcat} alt="logcat" />
+              <section className={`${Style.LogcatLogo} noSideBarLogcatLogo`}>
+                {sideBar ? (
+                  <Image src={LogcatLarge} alt="logcat" />
                 ) : (
-                  <Image
-                    className={Style.logologcat}
-                    src={LogcatLarge}
-                    alt="logcat"
-                  />
+                  <Image src={Logcat} alt="logcat" />
                 )}
               </section>
             </Link>
@@ -65,7 +61,7 @@ export function SideBar(props) {
               <section
                 className={
                   logURLName.includes("logpage") ||
-                    logURLName.includes("analytics")
+                  logURLName.includes("analytics")
                     ? `${Style.linkActive}`
                     : `${Style.linkInActive} `
                 }
@@ -74,14 +70,16 @@ export function SideBar(props) {
                   className={`${Style.linkData} noSideBarLink`}
                   to={
                     sidebarDetails.link1 &&
-                      sidebarDetails.link1.link &&
-                      sidebarDetails.link1.link.length === 0
+                    sidebarDetails.link1.link &&
+                    sidebarDetails.link1.link.length === 0
                       ? ""
                       : sidebarDetails.link1.link
                   }
                 >
                   <Image src={sidebarDetails.link1.iconName} />
-                  <section className="hidelinkName">{sidebarDetails.link1.linkName}</section>
+                  <section className="hidelinkName">
+                    {sidebarDetails.link1.linkName}
+                  </section>
                 </Link>
               </section>
             )}
@@ -103,14 +101,16 @@ export function SideBar(props) {
                       className={`${Style.linkData} noSideBarLink`}
                       to={
                         sidebarDetails.link2 &&
-                          sidebarDetails.link2.link &&
-                          sidebarDetails.link2.link.length === 0
+                        sidebarDetails.link2.link &&
+                        sidebarDetails.link2.link.length === 0
                           ? ""
                           : sidebarDetails.link2.link
                       }
                     >
                       <Image src={settigns} />
-                      <section className="hidelinkName">{sidebarDetails.link2.linkName}</section>
+                      <section className="hidelinkName">
+                        {sidebarDetails.link2.linkName}
+                      </section>
                     </Link>
                   </section>
                 )}
@@ -119,18 +119,20 @@ export function SideBar(props) {
           </section>
           <ThemeContext.Consumer>
             {({ changeSideMenu }) => (
-              <section className={Style.ClickSlideSection}
-              style={{cursor:"pointer"}}
-              onClick={() => {
+              <section
+                className={Style.ClickSlideSection}
+                style={{ cursor: "pointer" }}
+                onClick={() => {
                   setSideBar(!sideBar);
-                  changeSideMenu(sideBar ? sideMenus.menuShow : sideMenus.menuHide);
+                  changeSideMenu(
+                    sideBar ? sideMenus.menuShow : sideMenus.menuHide
+                  );
                   // console.log("first", changeSidebar)
                 }}
-
               ></section>
             )}
           </ThemeContext.Consumer>
-          <section className={Style.ComponyLogo}>
+          <section className={`${Style.ComponyLogo} componyLogo`}>
             <Image src={logo} />
             <p className="hideComponyName">Technologies</p>
           </section>

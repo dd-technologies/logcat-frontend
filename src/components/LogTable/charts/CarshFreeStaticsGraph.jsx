@@ -11,6 +11,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import Spinner from "../../../Container/Spinner";
+import { ThemeContext } from "../../../utils/ThemeContext";
 
 export default function CarshFreeStaticsGraph() {
   const getCrashFreeUsersReducer = useSelector(
@@ -18,6 +19,9 @@ export default function CarshFreeStaticsGraph() {
   );
   const { data } = getCrashFreeUsersReducer;
   let dt = data && data.response;
+
+  const { theme } = React.useContext(ThemeContext);
+  console.log("first", theme);
 
   // Date Formate
   const dateFormatter = (date) => {
@@ -56,14 +60,23 @@ export default function CarshFreeStaticsGraph() {
                   minTickGap={10}
                   tickFormatter={dateFormatter}
                 />
-                <YAxis interval={1} dataKey="data" axisLine={false} />
-                <CartesianGrid vertical={false} strokeDasharray="0 0 4" />
+                <YAxis
+                  interval={1}
+                  dataKey="data"
+                  axisLine={false}
+                  stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+                />
+                <CartesianGrid
+                  stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+                  vertical={false}
+                  strokeDasharray="0 0 4"
+                />
                 <Tooltip />
                 <Area
                   type="monotoneY"
                   dataKey="data"
-                  stroke="#257d7c"
-                  fill="#257d7c"
+                  stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+                  fill={theme == "dark-content" ? `#fff` : `#257d7c`}
                 />
               </AreaChart>
             </ResponsiveContainer>

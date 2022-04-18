@@ -51,7 +51,7 @@ export default function EventByVersion() {
               style={{
                 float: "right",
               }}
-              className={`${Style.Last90days} darkModeColor`}
+              className={`${Style.Last90days} cpactiveText`}
             >
               from the last 90 days
             </p>

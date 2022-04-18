@@ -10,8 +10,10 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { ThemeContext } from "../../../utils/ThemeContext";
 
 export default function EventByVersionChart() {
+  const { theme } = React.useContext(ThemeContext);
   const getLogMsgOccurenceWRTDateReducer = useSelector(
     (state) => state.getLogMsgOccurenceWRTDateReducer
   );
@@ -39,8 +41,14 @@ export default function EventByVersionChart() {
             minTickGap={10}
             tickFormatter={dateFormatter}
           />
-          <YAxis dataKey="data" axisLine={true} />
-          <CartesianGrid vertical={false}  strokeDasharray="0 0 4"/>
+          <YAxis
+            dataKey="data"
+            axisLine={true}
+            stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+            fill={theme == "dark-content" ? `#fff` : `#257d7c`}
+          />
+          stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+          <CartesianGrid vertical={false} strokeDasharray="0 0 4" />
           <Tooltip />
           <Line
             isAnimationActive={false}
@@ -48,8 +56,8 @@ export default function EventByVersionChart() {
             type="monotoneX"
             dataKey="data"
             dot={false}
-            stroke="#257d7c"
-            fill="#257d7c"
+            stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+            fill={theme == "dark-content" ? `#fff` : `#257d7c`}
           />
         </LineChart>
       </ResponsiveContainer>

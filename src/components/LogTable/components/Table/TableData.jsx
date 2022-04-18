@@ -326,15 +326,25 @@ function TableData(props) {
       return (
         <span>
           {cell === "error" ? (
-            <p style={{ color: "red" }}>{cell.toUpperCase()}</p>
+            <p style={{ color: "red" }} className="darkModeColor">
+              {cell.toUpperCase()}
+            </p>
           ) : cell === "warn" ? (
-            <p style={{ color: "violet" }}>{cell.toUpperCase()}</p>
+            <p style={{ color: "violet" }} className="darkModeColor">
+              {cell.toUpperCase()}
+            </p>
           ) : cell === "info" ? (
-            <p style={{ color: "blue" }}>{cell.toUpperCase()}</p>
+            <p style={{ color: "blue" }} className="darkModeColor">
+              {cell.toUpperCase()}
+            </p>
           ) : cell === "verbose" ? (
-            <p style={{ color: "green" }}>{cell.toUpperCase()}</p>
+            <p style={{ color: "green" }} className="darkModeColor">
+              {cell.toUpperCase()}
+            </p>
           ) : (
-            <p style={{ color: "orange" }}>{cell.toUpperCase()}</p>
+            <p style={{ color: "orange" }} className="darkModeColor">
+              {cell.toUpperCase()}
+            </p>
           )}
         </span>
       );
