@@ -50,11 +50,13 @@ export default function CarshFreeStaticsGraph() {
                 margin={{
                   top: 10,
                   right: 0,
-                  left: -25,
+                  left: -10,
                   bottom: 0,
                 }}
               >
                 <XAxis
+                  stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+                  fill={theme == "dark-content" ? `#fff` : `#257d7c`}
                   dataKey="date"
                   tickCount={5}
                   minTickGap={10}

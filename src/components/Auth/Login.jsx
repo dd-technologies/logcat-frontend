@@ -183,6 +183,7 @@ export default function Login() {
                       color: "#257d7c",
                       fontWeight: 500,
                     }}
+                    className="cpactiveText"
                   >
                     Forget Password?
                   </Link>

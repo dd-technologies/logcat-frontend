@@ -9,7 +9,6 @@ import settigns from "../assets/icons/settings.png";
 import Style from "./Sidebar.module.scss";
 import { ThemeContext, sideMenus } from "./ThemeContext";
 
-
 export function SideBar(props) {
   const { sidebarDetails } = props;
 
@@ -62,8 +61,8 @@ export function SideBar(props) {
                 className={
                   logURLName.includes("logpage") ||
                   logURLName.includes("analytics")
-                    ? `${Style.linkActive}`
-                    : `${Style.linkInActive} `
+                    ? `${Style.linkActive} noSideBarLinkOuter`
+                    : `${Style.linkInActive} noSideBarLinkOuter`
                 }
               >
                 <Link
@@ -93,8 +92,8 @@ export function SideBar(props) {
                   <section
                     className={
                       settingUrl.includes("settings")
-                        ? `${Style.linkActive}`
-                        : `${Style.linkInActive} `
+                        ? `${Style.linkActive} noSideBarLinkOuter`
+                        : `${Style.linkInActive} noSideBarLinkOuter`
                     }
                   >
                     <Link

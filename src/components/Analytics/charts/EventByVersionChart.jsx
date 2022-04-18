@@ -36,6 +36,8 @@ export default function EventByVersionChart() {
           }}
         >
           <XAxis
+            stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+            fill={theme == "dark-content" ? `#fff` : `#257d7c`}
             dataKey="date"
             tickCount={5}
             minTickGap={10}

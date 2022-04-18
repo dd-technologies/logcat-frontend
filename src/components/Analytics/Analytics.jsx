@@ -135,11 +135,11 @@ export default function Analytics() {
   }, []);
   return (
     <>
-      <Row>
-        <Col xl={2} lg={2} md={2} sm={2} className="noSidebar">
+      <Row className="rowSection">
+        <Col xl={2} lg={2} md={2} sm={2} className="noSidebar colSection">
           <SideBar sidebarDetails={sidebarDetails} />
         </Col>
-        <Col xl={10} lg={10} md={10} sm={10}>
+        <Col xl={10} lg={10} md={10} sm={10} className="colSection">
           <Navbar navdetails={navdetails} />
           <Container className={`${Style.mainContainer} container`}>
             {/* data from api */}

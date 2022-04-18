@@ -70,30 +70,33 @@ function CreateProject() {
           <section className={Style.backgroundSection}></section>
           <Container className={Style.MainContantainer}>
             <Row>
-              <Col xl={6} md={6} sm={6}>
+              <Col xl={6} md={6} sm={12} className="mt-2">
                 <h5 className="darkModeColor" style={{ color: "#fff" }}>
                   Your Projects
                 </h5>
               </Col>
-              <Col
-                xl={6}
-                md={6}
-                sm={6}
-                className="d-flex justify-content-end align-items-center"
-              >
-                <p className="px-4 darkModeColor" style={{ color: "#fff" }}>
-                  {adminInfo.data.name}
-                </p>
-                <Button
-                  onClick={(e) => {
-                    handlelogout(e);
+              <Col xl={6} md={6} sm={12} className="mt-2">
+                <section
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "center",
                   }}
                 >
-                  Logout
-                </Button>
+                  <p className="mx-2 darkModeColor" style={{ color: "#fff" }}>
+                    {adminInfo.data.name}
+                  </p>
+                  <Button
+                    onClick={(e) => {
+                      handlelogout(e);
+                    }}
+                  >
+                    Logout
+                  </Button>
+                </section>
               </Col>
             </Row>
-            <Row>
+            <Row className="rowSection">
               {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin ? (
                 <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
                   <CustomCard

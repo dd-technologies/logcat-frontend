@@ -201,11 +201,20 @@ export default function Settings() {
 
   return (
     <>
-      <Row>
-        <Col xl={2} lg={2} md={2} sm={2} className="noSidebar">
-          <SideBar sidebarDetails={sidebarDetails} />
+      <Row className="rowSection">
+        <Col xl={2} lg={2} md={2} sm={2} className="noSidebar colSection">
+          <SideBar
+            sidebarDetails={sidebarDetails}
+            className={Style.SideBarColume}
+          />
         </Col>
-        <Col xl={10} lg={10} md={10} sm={10}>
+        <Col
+          xl={10}
+          lg={10}
+          md={10}
+          sm={10}
+          className={`${Style.NavbarColumn} colSection`}
+        >
           <Navbar navdetails={navdetails} />
           <Container className={`${Style.mainContainer} container`}>
             {/* SETTINGS COMPONENTS */}
@@ -294,7 +303,7 @@ export default function Settings() {
               </Row>
             )}
 
-            <div className={`${Style.hrLine} mt-2`}></div>
+            <div className={`${Style.hrLine} mt-4`}></div>
 
             {/* CRASH FORWARDING */}
 

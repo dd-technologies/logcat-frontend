@@ -95,7 +95,7 @@ export default function ResetPassword() {
             <section className="mt-4">
               {/*OTP section*/}
               <section>
-                <p className="darkModeColor">Enter your OTP</p>
+                <p className="darkModeColor my-3">Enter your OTP</p>
                 <section className={Style.OPTTIMR}>
                   <OtpInput
                     value={state.otp}

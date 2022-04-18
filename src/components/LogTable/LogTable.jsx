@@ -47,13 +47,13 @@ export default function LogTable() {
     code: localStorage.getItem("project_type")
       ? JSON.parse(localStorage.getItem("project_type")).typeCode
       : projectType &&
-      projectType.modelList &&
-      projectType.modelList[0].typeCode,
+        projectType.modelList &&
+        projectType.modelList[0].typeCode,
     name: localStorage.getItem("project_type")
       ? JSON.parse(localStorage.getItem("project_type")).typeName
       : projectType &&
-      projectType.modelList &&
-      projectType.modelList[0].typeName,
+        projectType.modelList &&
+        projectType.modelList[0].typeName,
   };
   const ref = useRef();
 
@@ -205,14 +205,20 @@ export default function LogTable() {
   return (
     <>
       <div>
-        <Row>
-          <Col xl={2} lg={2} md={2} sm={2} className="noSidebar">
+        <Row className="rowSection">
+          <Col xl={2} lg={2} md={2} sm={2} className="noSidebar colSection">
             <SideBar
               sidebarDetails={sidebarDetails}
               className={Style.SideBarColume}
             />
           </Col>
-          <Col xl={10} lg={10} md={10} sm={10} className={Style.NavbarColumn}>
+          <Col
+            xl={10}
+            lg={10}
+            md={10}
+            sm={10}
+            className={`${Style.NavbarColumn} colSection`}
+          >
             <Navbar navdetails={navdetails} />
             <Container className={`${Style.mainContainer} container`}>
               <Row>
@@ -237,18 +243,18 @@ export default function LogTable() {
                         {diffDate == 10
                           ? `last 10 days`
                           : diffDate == 7
-                            ? `last 7 days`
-                            : diffDate == 15
-                              ? `last 15 days`
-                              : diffDate == 30
-                                ? `last 30 days`
-                                : diffDate == 45
-                                  ? `last 45 days`
-                                  : diffDate == 60
-                                    ? `last 60 days`
-                                    : diffDate == 90
-                                      ? `last 90 days`
-                                      : null}
+                          ? `last 7 days`
+                          : diffDate == 15
+                          ? `last 15 days`
+                          : diffDate == 30
+                          ? `last 30 days`
+                          : diffDate == 45
+                          ? `last 45 days`
+                          : diffDate == 60
+                          ? `last 60 days`
+                          : diffDate == 90
+                          ? `last 90 days`
+                          : null}
                       </p>
                       <FontAwesomeIcon
                         icon={faCaretDown}
@@ -338,16 +344,16 @@ export default function LogTable() {
                 </Col>
               </Row>
               {/* Data chart */}
-              <Row className="mt-3">
+              <Row>
                 {/*toggle menus  */}
-                <Col xl={4} md={6} sm={12}>
+                <Col xl={4} md={6} sm={12} className=" mt-4">
                   <CrashFreeStatics />
                 </Col>
 
-                <Col xl={4} md={6} sm={12}>
+                <Col xl={4} md={6} sm={12} className=" mt-4">
                   <PieChartSection />
                 </Col>
-                <Col className="trends-container" xl={4} md={12} sm={12}>
+                <Col className="trends-container mt-4" xl={4} md={12} sm={12}>
                   <TrandData />
                 </Col>
               </Row>

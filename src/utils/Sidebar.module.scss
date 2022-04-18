@@ -3,12 +3,13 @@
 .sidebarOuter {
   position: fixed;
   z-index: 10;
-  width: 17%;
+  width: 16.7%;
+  height: 100vh;
   .Sidebar {
+    height: 100%;
     background-image: url("../assets/images/background.jpg");
     background-repeat: repeat;
     background-size: 100% 100%;
-    height: 100vh;
     display: flex;
     flex-direction: column;
 
@@ -28,6 +29,16 @@
       width: 100%;
       height: 6%;
       padding: 10px;
+
+      @media only screen and (min-width: 300px) and (max-width: 900px) {
+        height: 6% !important;
+      }
+      @media only screen and (min-width: 900px) and (max-width: 1600px) {
+        height: 8% !important;
+      }
+      @media only screen and (min-width: 1600px) and (max-width: 1920px) {
+        height: 8% !important;
+      }
 
       & img {
         @media only screen and (min-width: 300px) and (max-width: 900px) {

@@ -1,6 +1,7 @@
 @import "../../../css/veriables.module.scss";
 
 .outerDiv {
+  
   border-radius: $cardBorderRadius;
   margin-top: 10px;
   // background-color: red;
@@ -66,7 +67,7 @@
       align-items: center;
     }
   }
-  .index0{
+  .index0 {
     color: rgb(116, 116, 116) !important;
   }
 
