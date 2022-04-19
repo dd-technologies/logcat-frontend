@@ -17,10 +17,12 @@ export default function ForgetPassword() {
   const dispatch = useDispatch();
   const handleForgetPassword = ()=>{
     const isEmailValid = validateEmailHelper(forgetEmail)
+    console.log(`forget email ${forgetEmail}`)
     if(isEmailValid.isSuccess){
-      setForgetEmail({
-        forgetEmail,
-      });
+      setForgetEmail(
+        forgetEmail
+      );
+      dispatch(forgetPassword(forgetEmail))
       return isEmailValid.isSuccess
     }
     if(!isEmailValid.isSuccess && !isEmailValid.isEmail){
@@ -32,7 +34,7 @@ export default function ForgetPassword() {
       return isEmailValid.isSuccess
     }
     setForgetEmailErr(null);
-    dispatch(forgetPassword(forgetEmail))
+    
   }
 
   const forgetPasswordReducer = useSelector(state => state.forgetPasswordReducer);
