@@ -437,6 +437,27 @@ function TableData(props) {
       },
       sort: true,
     },
+    {
+      dataField: "log.date",
+      text: "Time",
+      width: "20",
+      headerStyle: () => {
+        return {
+          backgroundColor: "#257d7c",
+          color: "#fff",
+        };
+      },
+      formatter: (cell) => {
+        cell = cell.split("T")[1];
+        cell = cell.split(".")[0]
+        let  seconds = cell.split(":")[2];
+        let minutes = cell.split(":")[1];
+        let  hours = cell.split(":")[0];
+        cell = seconds !== '00' && hours !== '00' && minutes !== '00' ?`${hours}:${minutes}:${seconds}`:'NA';
+        return cell
+      },
+      sort: true,
+    },
   ];
 
   useEffect(() => {
