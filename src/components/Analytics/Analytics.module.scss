@@ -6,7 +6,7 @@
 
 .AnalyticsEvents {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
 
   & p {
     @include paraFontdasktopMixin;

@@ -79,6 +79,8 @@ export default function PieChartDataGraph() {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+              color:"#fff"
+
               }}
             >
               No data found

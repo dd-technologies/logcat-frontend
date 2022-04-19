@@ -179,16 +179,21 @@ export default function Analytics() {
             </Col>
             <Col>
               <Row>
-                <Col style={{ paddingLeft: "0" }} xl={8} md={8} sm={12}>
+                <Col xl={8} md={8} sm={12}>
                   <EventByVersion />
                 </Col>
-                <Col style={{ paddingRight: "0" }} xl={4} md={4} sm={12}>
+                <Col xl={4} md={4} sm={12}>
                   <ToggleTabs />
                 </Col>
               </Row>
             </Col>
 
-            <Col className={`${Style.AnalyticsEvents} my-4 mt-5`} xl={12} md={12} sm={12}>
+            <Col
+              className={`${Style.AnalyticsEvents}  my-4 mt-5`}
+              xl={12}
+              md={12}
+              sm={12}
+            >
               <p
                 className="darkModeColor"
                 style={{
@@ -202,7 +207,7 @@ export default function Analytics() {
             </Col>
 
             {/* data tables   */}
-            <Col xl={12} className="mt-4">
+            <Col>
               <AnalyticsEventDataComp />
             </Col>
           </Container>
