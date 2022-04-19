@@ -38,6 +38,7 @@ const TrandDataGraph = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              color: "#fff",
             }}
           >
             No data found

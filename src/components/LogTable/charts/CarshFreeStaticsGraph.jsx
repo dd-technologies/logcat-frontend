@@ -38,6 +38,7 @@ export default function CarshFreeStaticsGraph() {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              color:"#fff"
             }}
           >
             No data found
