@@ -101,7 +101,7 @@ export default function StackData() {
 
         {/* TEXT ERROR  WITH  FILTER BUTTON CLICK */}
         {stackErrorFilter ? (
-          <Col xl={12} className={`${Style.outerDiv} darkModebgColormt-4`}>
+          <Col xl={12} className={`${Style.outerDiv} darkModebgColormt-4 mt-4`}>
             <Text />
           </Col>
         ) : null}
