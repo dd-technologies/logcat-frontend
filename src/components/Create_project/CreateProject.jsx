@@ -24,12 +24,9 @@ function CreateProject() {
   const getAllProjectReducer = useSelector(
     (state) => state.getAllProjectReducer
   );
-  const {
-    allProjectData: PorjectData,
-    allProjectData,
-  } = getAllProjectReducer;
+  const { allProjectData: ProjectData, allProjectData } = getAllProjectReducer;
 
-  // GETTGING USER NAME 
+  // GETTING USER NAME
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { adminInfo } = adminLoginReducer;
 
@@ -68,35 +65,38 @@ function CreateProject() {
   return (
     <>
       {/*Logout functionality */}
-      {PorjectData && PorjectData.data && PorjectData.data.data ? (
+      {ProjectData && ProjectData.data && ProjectData.data.data ? (
         <>
           <section className={Style.backgroundSection}></section>
           <Container className={Style.MainContantainer}>
             <Row>
-              <Col xl={6} md={6} sm={6}>
-                <h5 className="CPp" style={{ color: "#fff" }}>
+              <Col xl={6} md={6} sm={12} className="mt-2">
+                <h5 className="darkModeColor" style={{ color: "#fff" }}>
                   Your Projects
                 </h5>
               </Col>
-              <Col
-                xl={6}
-                md={6}
-                sm={6}
-                className="d-flex justify-content-end align-items-center"
-              >
-                <p className="px-4 CPp" style={{ color: "#fff" }}>
-                  {adminInfo.data.name}
-                </p>
-                <Button
-                  onClick={(e) => {
-                    handlelogout(e);
+              <Col xl={6} md={6} sm={12} className="mt-2">
+                <section
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "center",
                   }}
                 >
-                  Logout
-                </Button>
+                  <p className="mx-2 darkModeColor" style={{ color: "#fff" }}>
+                    {adminInfo.data.name}
+                  </p>
+                  <Button
+                    onClick={(e) => {
+                      handlelogout(e);
+                    }}
+                  >
+                    Logout
+                  </Button>
+                </section>
               </Col>
             </Row>
-            <Row>
+            <Row className="rowSection">
               {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin ? (
                 <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
                   <CustomCard
@@ -112,7 +112,7 @@ function CreateProject() {
                         <p>
                           <FontAwesomeIcon icon={faPlus} />
                         </p>
-                        <p className="CPp">Add Project</p>
+                        <p className="darkModeColor">Add Project</p>
                       </section>
                     </section>
                   </CustomCard>
@@ -125,9 +125,9 @@ function CreateProject() {
 
               {allProjectData &&
                 allProjectData.data.data.length &&
-                allProjectData.data.data.map((datas) => (
+                allProjectData.data.data.map((data) => (
                   <>
-                    <ProjectCard data={datas} key={datas._id} />
+                    <ProjectCard data={data} key={data._id} />
                   </>
                 ))}
             </Row>

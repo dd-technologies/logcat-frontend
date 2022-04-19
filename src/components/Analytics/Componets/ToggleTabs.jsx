@@ -5,19 +5,22 @@ import CustomCard from "../../../Container/CustomCard";
 import { Line } from "rc-progress";
 import { useSelector } from "react-redux";
 import Spinner from "../../../Container/Spinner";
+import { ThemeContext } from "../../../utils/ThemeContext";
 
 export default function ToggleTabs() {
+  const { theme } = React.useContext(ThemeContext);
+
   // toogling window
-  const [devieWindow, setdevieWindow] = useState(true);
-  const [opratingSystemWindow, setOpratingSystemWindow] = useState(false);
+  const [deviceWindow, setDeviceWindow] = useState(true);
+  const [operatingSystemWindow, setOperatingSystemWindow] = useState(false);
 
   const DeviceShowFun = () => {
-    setdevieWindow(true);
-    setOpratingSystemWindow(false);
+    setDeviceWindow(true);
+    setOperatingSystemWindow(false);
   };
-  const opratingSystemFun = () => {
-    setOpratingSystemWindow(true);
-    setdevieWindow(false);
+  const operatingSystemFun = () => {
+    setOperatingSystemWindow(true);
+    setDeviceWindow(false);
   };
 
   const getCrashAnalyticsDataReducer = useSelector(
@@ -69,7 +72,9 @@ export default function ToggleTabs() {
             md={6}
             sm={6}
             className={
-              devieWindow ? `${Style.ToggleTabs_active}` : `${Style.ToggleTabs}`
+              deviceWindow
+                ? `${Style.ToggleTabs_active}`
+                : `${Style.ToggleTabs}`
             }
             onClick={DeviceShowFun}
           >
@@ -85,11 +90,11 @@ export default function ToggleTabs() {
             md={6}
             sm={6}
             className={
-              opratingSystemWindow
+              operatingSystemWindow
                 ? `${Style.ToggleTabs_active}`
                 : `${Style.ToggleTabs}`
             }
-            onClick={opratingSystemFun}
+            onClick={operatingSystemFun}
           >
             <p
               style={{ fontWeight: "600", letterSpacing: "0.5px" }}
@@ -103,21 +108,14 @@ export default function ToggleTabs() {
         {/* data from toggle */}
         <Row>
           {/* DEVICE MENUS */}
-          {devieWindow ? (
+          {deviceWindow ? (
             <Col className="p-4">
               <section className={Style.DataTogleSection}>
                 {/*CHECKING FOR NOW IF NOT HAVING THE VALUE OF MAP */}
                 {!ld ? (
                   modelNamecnt.map((e) => (
                     <>
-                      <p
-                        className="mt-4 AYp"
-                        style={{
-                          color: JSON.parse(localStorage.getItem("darkMood"))
-                            ? "#fff"
-                            : "#000",
-                        }}
-                      >
+                      <p className="mt-4 darkModeColor">
                         <span className="p-2">
                           {parseFloat((e.data / modelNameAdds) * 100).toFixed(
                             2
@@ -129,7 +127,9 @@ export default function ToggleTabs() {
                       <Line
                         percent={(e.data / modelNameAdds) * 100}
                         strokeWidth="4"
-                        strokeColor="#257d7c"
+                        strokeColor={
+                          theme == "dark-content" ? `#0099A4` : `#0099A4`
+                        }
                       />
                     </>
                   ))
@@ -138,21 +138,14 @@ export default function ToggleTabs() {
                 )}
               </section>
             </Col>
-          ) : opratingSystemWindow ? (
+          ) : operatingSystemWindow ? (
             // OS MENUS
             <Col className="p-4">
               <section className={Style.DataTogleSection}>
                 {!ld ? (
                   osNamecnt.map((e) => (
                     <>
-                      <p
-                        className="mt-4 AYp"
-                        style={{
-                          color: JSON.parse(localStorage.getItem("darkMood"))
-                            ? "#fff"
-                            : "#666",
-                        }}
-                      >
+                      <p className="mt-4 darkModeColor">
                         <span className="p-2">
                           {parseFloat((e.data / osNameAdds) * 100).toFixed(2)}%
                         </span>
@@ -161,7 +154,9 @@ export default function ToggleTabs() {
                       <Line
                         percent={(e.data / osNameAdds) * 100}
                         strokeWidth="4"
-                        strokeColor="#257d7c"
+                        strokeColor={
+                          theme == "dark-content" ? `#0099A4` : `#0099A4`
+                        }
                       />
                     </>
                   ))

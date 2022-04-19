@@ -24,7 +24,7 @@ export default function CrashFreeStatics() {
             >
               Crash free Users Statistics
             </h5>
-            <p className="LTp">Crash free users</p>
+            <p className="darkModeColor">Crash free users</p>
             <h4 style={{ fontWeight: 700 }}>{data && data.count}</h4>
           </Col>
           <Col xl={12}>

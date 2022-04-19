@@ -38,8 +38,8 @@ export default function EventByVersion() {
             {!ld ? (
               cnt.map((e) => (
                 <>
-                  <p className="AYp">{e._id ? e._id : null}</p>
-                  <h5 className="AYp">{e.data}</h5>
+                  <p className="darkModeColor">{e._id ? e._id : null}</p>
+                  <h5 className="darkModeColor">{e.data}</h5>
                 </>
               ))
             ) : (
@@ -51,7 +51,7 @@ export default function EventByVersion() {
               style={{
                 float: "right",
               }}
-              className={`${Style.Last90days} AYp`}
+              className={`${Style.Last90days} cpactiveText`}
             >
               from the last 90 days
             </p>

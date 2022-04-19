@@ -8,7 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faAndroid } from "@fortawesome/free-brands-svg-icons";
 import Style from "./EventDataWithDate.module.scss";
-import { useSelector } from "react-redux";
 
 export default function EventDataWithDate() {
   // GETTGIN DATA FROM URL

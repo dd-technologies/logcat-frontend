@@ -6,7 +6,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Col, Container, Row, Button } from "react-bootstrap";
 import CustomeDropDown from "../../Container/DropDown";
-import { Navbar, SideBar } from "../../utils/NavSideBar";
 import Style from "./UpdateProfile.module.scss";
 import LogICon from "../../assets/icons/log.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,14 +13,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { passwordChangeAction } from "../../redux/action/UserProfileAction";
 import { toast, Toaster } from "react-hot-toast";
 import { updateProfile } from "../../redux/action/AdminAction";
-// or scss:
 import UpdatePassord from "./UpdatePassord";
+import { SideBar } from "../../utils/Sidebar";
+import { Navbar } from "../../utils/NavBar";
 
 export default function UpdateProfile() {
-  // SLIDEWINDOW STATE
-  const slideWindowReducer = useSelector((state) => state.slideWindowReducer);
-  const { data } = slideWindowReducer;
-
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { adminInfo } = adminLoginReducer;
 
@@ -70,7 +66,6 @@ export default function UpdateProfile() {
       updatepasswordresponseData && updatepasswordresponseData.message
     );
   }
-
 
   const [crop, setCrop] = useState();
 
@@ -145,32 +140,12 @@ export default function UpdateProfile() {
   return (
     <>
       <Row>
-        <Col
-          xl={2}
-          lg={2}
-          md={2}
-          sm={2}
-          className={data.show && `${Style.SidebarLogTable}`}
-          style={{ padding: "0px" }}
-        >
+        <Col xl={2} lg={2} md={2} sm={2} className="noSidebar">
           <SideBar sidebarDetails={sidebarDetails} />
         </Col>
-        <Col
-          xl={10}
-          lg={10}
-          md={10}
-          sm={10}
-          className={data.show && `${Style.NavbarLogTable}`}
-          style={{ padding: "0px" }}
-        >
+        <Col xl={10} lg={10} md={10} sm={10}>
           <Navbar navdetails={navdetails} />
-          <Container
-            className={
-              data.show
-                ? Style.LogtableContaininer
-                : Style.LogtableContaininerWithoutSlide
-            }
-          >
+          <Container className={`${Style.mainContainer} container`}>
             <section className={Style.OuterDiv}>
               <Toaster />
               <Row style={{ marginTop: "150px" }}>
@@ -183,12 +158,8 @@ export default function UpdateProfile() {
                     height="600px"
                   >
                     <h3
-                      className="mb-4 CPp"
-                      style={{
-                        color: JSON.parse(localStorage.getItem("darkMood"))
-                          ? "#fff"
-                          : "#000",
-                      }}
+                      className="mb-4 darkModeColor"
+
                     >
                       Update profile
                     </h3>
@@ -219,17 +190,15 @@ export default function UpdateProfile() {
                     </section>
                     {/*name field  */}
                     <section className="mt-4">
-                      <h5 className="CPp">Name</h5>
+                      <h5 className="darkModeColor">Name</h5>
                       <div className={`${Style.imputFields} mt-4`}>
                         <span>
                           <FontAwesomeIcon icon={faPersonBooth} />
                         </span>
                         <input
                           type="email"
-                          value={
-                            name
-                          }
-                          className="form-control LoginForminput CPp "
+                          value={name}
+                          className="form-control LoginForminput darkModeColor "
                           id="exampleInputEmail1"
                           placeholder="Enter your email"
                           aria-describedby="emailHelp"
@@ -242,7 +211,7 @@ export default function UpdateProfile() {
 
                     {/* email field */}
                     <section className="mt-4">
-                      <h5 className="CPp">Email</h5>
+                      <h5 className="darkModeColor">Email</h5>
                       <div className={`${Style.imputFields} mt-4`}>
                         <span>
                           <FontAwesomeIcon icon={faMailBulk} />
@@ -250,7 +219,7 @@ export default function UpdateProfile() {
                         <input
                           type="email"
                           value={email}
-                          className="form-control LoginForminput CPp "
+                          className="form-control LoginForminput darkModeColor "
                           id="exampleInputEmail1"
                           placeholder="Enter your email"
                           aria-describedby="emailHelp"

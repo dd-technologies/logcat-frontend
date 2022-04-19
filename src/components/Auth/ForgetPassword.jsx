@@ -64,7 +64,7 @@ export default function ForgetPassword() {
             </div>
             <div className="Form-card">
               <form>
-                <div className={`${Style.imputFields} mt-4`}>
+                <div className={`${Style.imputFields} mt-4 darkBgColorSec`}>
                   <span>
                     <FontAwesomeIcon icon={faMailBulk} />
                   </span>

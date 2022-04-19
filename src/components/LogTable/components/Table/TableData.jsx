@@ -28,7 +28,7 @@ function TableData(props) {
   const code = props.code;
   let filedate = new Date();
   const [dateSectionSelect, setDateSectionSelect] = useState(true);
-  const [StatusSectionSeclect, setStatusSectionSeclect] = useState(false);
+  const [statusSectionSelect, setStatusSectionSelect] = useState(false);
   const [countPerPageSection, setCountPerPageSection] = useState(false);
   const [activeRecord, setActiveRecord] = useState({
     record10: false,
@@ -43,26 +43,26 @@ function TableData(props) {
   // SHOW DATE SECTION FUNCTION
   const handleShowDate = () => {
     setDateSectionSelect(true);
-    setStatusSectionSeclect(false);
+    setStatusSectionSelect(false);
     setCountPerPageSection(false);
   };
   // SHOW STATUS CODE SECTION FUNCTION
   const handleShowStatus = () => {
     setDateSectionSelect(false);
-    setStatusSectionSeclect(true);
+    setStatusSectionSelect(true);
     setCountPerPageSection(false);
   };
 
   // SHOW PAGE PER COUNT SECTION FUNCTION
   const handleShowPerPage = () => {
     setDateSectionSelect(false);
-    setStatusSectionSeclect(false);
+    setStatusSectionSelect(false);
     setCountPerPageSection(true);
   };
 
   var startDate, endDate;
 
-  const [dateState, setdate] = useState({
+  const [dateState, setDate] = useState({
     start: JSON.parse(localStorage.getItem("selected_date")).start,
     end: JSON.parse(localStorage.getItem("selected_date")).end,
   });
@@ -78,7 +78,7 @@ function TableData(props) {
   useEffect(() => {
     date.start = startDate;
     date.end = endDate;
-    setdate({ start: startDate, end: endDate });
+    setDate({ start: startDate, end: endDate });
   }, [props.diffDate]);
 
   // const [pageNo, setPageNo] = useState(0);
@@ -112,7 +112,7 @@ function TableData(props) {
   });
 
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
-  const { loading: loadingdata, data: typeWiseDate } = getModelCodeReducer;
+  const { data: typeWiseDate } = getModelCodeReducer;
 
   var projectCode = {
     code: localStorage.getItem("project_type")
@@ -127,7 +127,7 @@ function TableData(props) {
         typeWiseDate.modelList[0].typeName,
   };
 
-  let porjectCodeType = typeWiseDate && typeWiseDate.modelList[0].typeCode;
+  let projectCodeType = typeWiseDate && typeWiseDate.modelList[0].typeCode;
 
   //  1)  DIRECTION PAGE TO NEW PAGE
   let history = useHistory();
@@ -138,7 +138,7 @@ function TableData(props) {
 
   const { loading, data } = getAllLogByCodeReducer;
 
-  // porject code to analytics screen
+  // project code to analytics screen
   const projectCodeAnalytics =
     (data &&
       data.data &&
@@ -150,7 +150,8 @@ function TableData(props) {
   const selectRow = {
     mode: "checkbox",
     // clickToSelect: true,
-    style: { backgroundColor: "#0099a4", color: "#fff" },
+
+    style: { backgroundColor: "#0099a4" },
   };
 
   const dispatch = useDispatch();
@@ -227,7 +228,7 @@ function TableData(props) {
   }, [logType, date]);
 
   const resetFilter = () => {
-    setdate({
+    setDate({
       start: "",
       end: "",
     });
@@ -325,15 +326,25 @@ function TableData(props) {
       return (
         <span>
           {cell === "error" ? (
-            <p style={{ color: "red" }}>{cell.toUpperCase()}</p>
+            <p style={{ color: "red" }} className="darkModeColor">
+              {cell.toUpperCase()}
+            </p>
           ) : cell === "warn" ? (
-            <p style={{ color: "violet" }}>{cell.toUpperCase()}</p>
+            <p style={{ color: "violet" }} className="darkModeColor">
+              {cell.toUpperCase()}
+            </p>
           ) : cell === "info" ? (
-            <p style={{ color: "blue" }}>{cell.toUpperCase()}</p>
+            <p style={{ color: "blue" }} className="darkModeColor">
+              {cell.toUpperCase()}
+            </p>
           ) : cell === "verbose" ? (
-            <p style={{ color: "green" }}>{cell.toUpperCase()}</p>
+            <p style={{ color: "green" }} className="darkModeColor">
+              {cell.toUpperCase()}
+            </p>
           ) : (
-            <p style={{ color: "orange" }}>{cell.toUpperCase()}</p>
+            <p style={{ color: "orange" }} className="darkModeColor">
+              {cell.toUpperCase()}
+            </p>
           )}
         </span>
       );
@@ -464,7 +475,7 @@ function TableData(props) {
   }, [showTableField]);
 
   useEffect(() => {
-    // 1) If record are 10 in localstorage
+    // 1) If record are 10 in local storage
     if (localStorage.getItem("selected_record") == 10) {
       setRecords(10);
       setActiveRecord({
@@ -473,7 +484,7 @@ function TableData(props) {
       });
     }
 
-    // 2) If record are 25 in localstorage
+    // 2) If record are 25 in local storage
     if (localStorage.getItem("selected_record") == 25) {
       setRecords(25);
       setActiveRecord({
@@ -481,7 +492,7 @@ function TableData(props) {
         record25: true,
       });
     }
-    // 3) If record are 50 in localstorage
+    // 3) If record are 50 in local storage
     if (localStorage.getItem("selected_record") == 50) {
       setRecords(50);
       setActiveRecord({
@@ -490,7 +501,7 @@ function TableData(props) {
       });
     }
 
-    // 3) If record are 100 in localstorage
+    // 3) If record are 100 in local storage
     if (localStorage.getItem("selected_record") == 100) {
       setRecords(100);
       setActiveRecord({
@@ -522,7 +533,7 @@ function TableData(props) {
 
   const chipsArray = ["info", "warn", "error", "debug", "verbose"];
 
-  const chipsScetion = chipsArray.map((items, index) => (
+  const chipsSection = chipsArray.map((items, index) => (
     <section className={Style.chip}>
       <p style={{ color: "#fff" }}>{items.toUpperCase()}</p>
       <FontAwesomeIcon
@@ -535,7 +546,7 @@ function TableData(props) {
   // DATE CHIPS
   const closeDateChip = (index) => {
     if (index == 0) {
-      setdate({
+      setDate({
         ...dateState,
         start: "",
       });
@@ -553,7 +564,7 @@ function TableData(props) {
       );
     }
     if (index === 1) {
-      setdate({
+      setDate({
         ...dateState,
         end: "",
       });
@@ -591,7 +602,7 @@ function TableData(props) {
       logType,
       pageNo,
       record,
-      porjectCodeType
+      projectCodeType
     );
   }, []);
 
@@ -604,9 +615,10 @@ function TableData(props) {
             ? "1px 1px 10px 2px rgba(0,0,0,0.45)"
             : ""
         }
+        borderRadius="10px"
       >
         <Toaster />
-        <section className={`${Style.OuterTable}`} ref={ref}>
+        <section className={`${Style.OuterTable} `} ref={ref}>
           {data && data.data && data.data.logs ? (
             <ToolkitProvider
               keyField="_id"
@@ -622,7 +634,7 @@ function TableData(props) {
               {(props) => (
                 <>
                   <div
-                    className={Style.BootstrapTable}
+                    className={`${Style.BootstrapTable} TBSED`}
                     style={{
                       backgroundColor: JSON.parse(
                         localStorage.getItem("darkMood")
@@ -636,11 +648,11 @@ function TableData(props) {
                     </section>
                     {/* Chips section */}
                     <section className={Style.chipOuter}>
-                      {logType.info && chipsScetion[0]}
-                      {logType.warn && chipsScetion[1]}
-                      {logType.error && chipsScetion[2]}
-                      {logType.debug && chipsScetion[3]}
-                      {logType.verbose && chipsScetion[4]}
+                      {logType.info && chipsSection[0]}
+                      {logType.warn && chipsSection[1]}
+                      {logType.error && chipsSection[2]}
+                      {logType.debug && chipsSection[3]}
+                      {logType.verbose && chipsSection[4]}
 
                       {/* DATE CHIPS */}
                       {dateState.start && dateChips[0]}
@@ -678,7 +690,7 @@ function TableData(props) {
                             <section>
                               <Row>
                                 <Col xl={6} md={6} sm={6}>
-                                  <section className="m-2">
+                                  <section className={`m-2`}>
                                     <p
                                       className={
                                         dateSectionSelect
@@ -691,7 +703,7 @@ function TableData(props) {
                                     </p>
                                     <p
                                       className={
-                                        StatusSectionSeclect
+                                        statusSectionSelect
                                           ? `${Style.ActiveOption} mt-2`
                                           : `${Style.DefaultOption} mt-2`
                                       }
@@ -733,7 +745,7 @@ function TableData(props) {
                                               ).start
                                         }
                                         onChange={(e) => {
-                                          setdate({
+                                          setDate({
                                             ...dateState,
                                             start: e.target.value,
                                           });
@@ -757,7 +769,7 @@ function TableData(props) {
                                               ).end
                                         }
                                         onChange={(e) => {
-                                          setdate({
+                                          setDate({
                                             ...dateState,
                                             end: e.target.value,
                                           });
@@ -769,20 +781,14 @@ function TableData(props) {
                                 ) : null}
 
                                 {/* STATUS CODE SECTION START HERE */}
-                                {StatusSectionSeclect ? (
+                                {statusSectionSelect ? (
                                   <Col xl={6} md={6} sm={6}>
                                     <section className={Style.StatusSection}>
                                       <section
                                         className={Style.StatusInnerSecion}
                                       >
                                         <label
-                                          style={{
-                                            color: JSON.parse(
-                                              localStorage.getItem("darkMood")
-                                            )
-                                              ? "#fff"
-                                              : null,
-                                          }}
+                                          className="darkModeColor"
                                           for="exampleFormControlFile1"
                                         >
                                           Info
@@ -802,13 +808,7 @@ function TableData(props) {
                                         className={Style.StatusInnerSecion}
                                       >
                                         <label
-                                          style={{
-                                            color: JSON.parse(
-                                              localStorage.getItem("darkMood")
-                                            )
-                                              ? "#fff"
-                                              : null,
-                                          }}
+                                          className="darkModeColor"
                                           for="exampleFormControlFile1"
                                         >
                                           Warn
@@ -828,13 +828,7 @@ function TableData(props) {
                                         className={Style.StatusInnerSecion}
                                       >
                                         <label
-                                          style={{
-                                            color: JSON.parse(
-                                              localStorage.getItem("darkMood")
-                                            )
-                                              ? "#fff"
-                                              : null,
-                                          }}
+                                          className="darkModeColor"
                                           for="exampleFormControlFile1"
                                         >
                                           Error
@@ -854,13 +848,7 @@ function TableData(props) {
                                         className={Style.StatusInnerSecion}
                                       >
                                         <label
-                                          style={{
-                                            color: JSON.parse(
-                                              localStorage.getItem("darkMood")
-                                            )
-                                              ? "#fff"
-                                              : null,
-                                          }}
+                                          className="darkModeColor"
                                           for="exampleFormControlFile1"
                                         >
                                           Debug
@@ -880,13 +868,7 @@ function TableData(props) {
                                         className={Style.StatusInnerSecion}
                                       >
                                         <label
-                                          style={{
-                                            color: JSON.parse(
-                                              localStorage.getItem("darkMood")
-                                            )
-                                              ? "#fff"
-                                              : null,
-                                          }}
+                                          className="darkModeColor"
                                           for="exampleFormControlFile1"
                                         >
                                           Verbose
@@ -911,17 +893,10 @@ function TableData(props) {
                                   <Col xl={6} md={6} sm={6}>
                                     <section className={Style.perPageOuter}>
                                       <p
-                                        style={{
-                                          color: JSON.parse(
-                                            localStorage.getItem("darkMood")
-                                          )
-                                            ? "#fff"
-                                            : null,
-                                        }}
                                         className={
                                           activeRecord.record10
-                                            ? `${Style.perPagesectionInnerActive}`
-                                            : `${Style.perPagesectionInner}`
+                                            ? `${Style.perPagesectionInnerActive} darkModeColor`
+                                            : `${Style.perPagesectionInner} darkModeColor`
                                         }
                                         onClick={() => {
                                           setRecords(10);
@@ -933,17 +908,10 @@ function TableData(props) {
                                         10
                                       </p>
                                       <p
-                                        style={{
-                                          color: JSON.parse(
-                                            localStorage.getItem("darkMood")
-                                          )
-                                            ? "#fff"
-                                            : null,
-                                        }}
                                         className={
                                           activeRecord.record25 || record == 25
-                                            ? `${Style.perPagesectionInnerActive}`
-                                            : `${Style.perPagesectionInner}`
+                                            ? `${Style.perPagesectionInnerActive} darkModeColor`
+                                            : `${Style.perPagesectionInner} darkModeColor`
                                         }
                                         onClick={() => {
                                           setRecords(25);
@@ -955,17 +923,10 @@ function TableData(props) {
                                         25
                                       </p>
                                       <p
-                                        style={{
-                                          color: JSON.parse(
-                                            localStorage.getItem("darkMood")
-                                          )
-                                            ? "#fff"
-                                            : null,
-                                        }}
                                         className={
                                           activeRecord.record50
-                                            ? `${Style.perPagesectionInnerActive}`
-                                            : `${Style.perPagesectionInner}`
+                                            ? `${Style.perPagesectionInnerActive}darkModeColor`
+                                            : `${Style.perPagesectionInner} darkModeColor`
                                         }
                                         onClick={() => {
                                           setRecords(50);
@@ -977,17 +938,10 @@ function TableData(props) {
                                         50
                                       </p>
                                       <p
-                                        style={{
-                                          color: JSON.parse(
-                                            localStorage.getItem("darkMood")
-                                          )
-                                            ? "#fff"
-                                            : null,
-                                        }}
                                         className={
                                           activeRecord.record100
-                                            ? `${Style.perPagesectionInnerActive}`
-                                            : `${Style.perPagesectionInner}`
+                                            ? `${Style.perPagesectionInnerActive} darkModeColor`
+                                            : `${Style.perPagesectionInner} darkModeColor`
                                         }
                                         onClick={() => {
                                           setRecords(100);

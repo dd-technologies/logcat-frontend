@@ -12,8 +12,8 @@
   .imputFields {
     display: flex;
     align-items: center;
-    border: $border;
     border-radius: $cardBorderRadius;
+    border: solid rgb(226, 226, 226) 1px;
     padding: 5px;
 
     & span {

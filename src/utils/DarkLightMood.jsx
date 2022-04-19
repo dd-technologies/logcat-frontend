@@ -5,7 +5,7 @@ import Style from "./DarkLightMood.module.scss";
 import { ThemeContext, themes } from "./ThemeContext";
 
 export default function DarkLightMood() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(themes.dark);
 
   return (
     <ThemeContext.Consumer>

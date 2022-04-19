@@ -11,11 +11,13 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import Spinner from "../../../Container/Spinner";
+import { ThemeContext } from "../../../utils/ThemeContext";
 
 const TrandDataGraph = () => {
   const getLogCountsByDateReducer = useSelector(
     (state) => state.getLogCountsByDateReducer
   );
+  const { theme } = React.useContext(ThemeContext);
   const { data } = getLogCountsByDateReducer;
   const LineCount =
     data && data.data && data.data.response ? data.data.response : null;
@@ -48,24 +50,36 @@ const TrandDataGraph = () => {
                 margin={{
                   top: 10,
                   right: 0,
-                  left: -25,
+                  left: -10,
                   bottom: 0,
                 }}
               >
                 <XAxis
+                  stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+                  fill={theme == "dark-content" ? `#fff` : `#257d7c`}
                   dataKey="date"
                   tickCount={5}
                   minTickGap={10}
                   tickFormatter={dateFormatter}
                 />
-                <YAxis dataKey="data" interval={1} axisLine={false} />
-                <CartesianGrid vertical={false} strokeDasharray="0 0 4" />
+                <YAxis
+                  dataKey="data"
+                  interval={1}
+                  axisLine={false}
+                  stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+                  fill={theme == "dark-content" ? `#fff` : `#257d7c`}
+                />
+                <CartesianGrid
+                  stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+                  vertical={false}
+                  strokeDasharray="0 0 4"
+                />
                 <Tooltip />
                 <Area
                   type="monotoneX"
                   dataKey="data"
-                  stroke="#257d7c"
-                  fill="#257d7c"
+                  stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+                  fill={theme == "dark-content" ? `#fff` : `#257d7c`}
                 />
               </AreaChart>
             </ResponsiveContainer>

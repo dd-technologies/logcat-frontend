@@ -90,7 +90,7 @@ const TypeDropDown = (props) => {
   return (
     <>
       {loading ? (
-        <p>loading..</p>
+        <p className="darkModeColor">loading..</p>
       ) : (
         <section ref={ref}>
           <section onClick={ProjectTypeFilter} className={Style.OuterDiv}>
@@ -99,7 +99,7 @@ const TypeDropDown = (props) => {
               color="#2A9AA4"
               style={{ width: "22px", height: "25px" }}
             />
-            <p className="mm-2 LTp">
+            <p className="m-2 darkModeColor">
               {localStorage.getItem("project_type")
                 ? JSON.parse(localStorage.getItem("project_type")).typeName
                 : data && data.modelList && data.modelList[0].typeName}
@@ -123,7 +123,7 @@ const TypeDropDown = (props) => {
                   data.modelList.map((type) => {
                     return (
                       <p
-                        className={`${Style.productVersion} LTp`}
+                        className={`${Style.productVersion} darkModeColor`}
                         onClick={() => onSubmitFun(type)}
                       >
                         {type.typeName}
