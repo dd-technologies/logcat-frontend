@@ -451,7 +451,6 @@ function TableData(props) {
     {
       dataField: "log.date",
       text: "Time",
-      width: "20",
       headerStyle: () => {
         return {
           backgroundColor: "#257d7c",
