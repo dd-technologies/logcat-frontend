@@ -164,6 +164,7 @@ export default function UpdateProfile() {
                       Update profile
                     </h3>
                     <section className={Style.Avtarunder}>
+
                       {avatar ? (
                         <img src={URL.createObjectURL(avatar)} alt="Avatar" />
                       ) : (
@@ -173,6 +174,7 @@ export default function UpdateProfile() {
                           .split(" ")
                           .map((name) => name[0][0].toUpperCase())
                       )}
+
                     </section>
                     <section className={Style.editImage}>
                       <label for="image_upload">
