@@ -44,21 +44,6 @@
 
 // sidebar css
 .sidebar {
-  .sideBarDetailSection {
-    transition-duration: 0.3s;
-    @media only screen and (min-width: 300px) and (max-width: 900px) {
-      margin-right: 8% !important;
-      width: 20% !important;
-    }
-    @media only screen and (min-width: 900px) and (max-width: 1600px) {
-      margin-right: 6% !important;
-      width: 14% !important;
-    }
-    @media only screen and (min-width: 1600px) and (max-width: 1920px) {
-      margin-right: 4% !important;
-      width: 12% !important;
-    }
-  }
   // sidebar
   .noSidebar {
     transition-delay: 0.1s;
@@ -147,10 +132,20 @@
   }
 
   // navbar
-  .noSidebarNav {
-    margin-left: 0px;
+  .sideBarDetailSection{
+    @media only screen and (min-width: 300px) and (max-width: 900px) {
+      margin-right: 8% !important;
+      width: 20% !important;
+    }
+    @media only screen and (min-width: 900px) and (max-width: 1600px) {
+      margin-right: 6% !important;
+      width: 14% !important;
+    }
+    @media only screen and (min-width: 1600px) and (max-width: 1920px) {
+      margin-right: 6% !important;
+      width: 12% !important;
+    }
   }
-
   // container
   .container {
     margin-left: 13%;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Container } from "react-bootstrap";
 import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faLock } from "@fortawesome/free-solid-svg-icons";
 import Style from "./ResetPassword.module.scss";
 import OtpInput from "react-otp-input";
 import { toast, Toaster } from "react-hot-toast";
@@ -17,6 +17,11 @@ export default function ResetPassword() {
     otp: null,
     newPass: null,
     confirmPass: null,
+  });
+
+  const [showPassword, setShowPassword] = useState({
+    new: false,
+    confime: false,
   });
 
   const [stateErr, setStateErr] = useState({ err: null, inputErr: null });
@@ -130,7 +135,7 @@ export default function ResetPassword() {
                     <FontAwesomeIcon icon={faLock} />
                   </span>
                   <input
-                    type="password"
+                    type={showPassword.new ? "text" : "password"}
                     className="form-control LoginForminput "
                     id="exampleInputEmail1"
                     placeholder="Enter your new password"
@@ -139,13 +144,24 @@ export default function ResetPassword() {
                       setState({ ...state, newPass: e.target.value })
                     }
                   />
+                  <span className="px-2" style={{ cursor: "pointer" }}>
+                    <FontAwesomeIcon
+                      icon={showPassword.new ? faEye : faEyeSlash}
+                      onClick={() => {
+                        setShowPassword({
+                          ...showPassword,
+                          new: !showPassword.new,
+                        });
+                      }}
+                    />
+                  </span>
                 </section>
                 <section className={`${Style.imputFields} darkBgColorSec mt-4`}>
                   <span>
                     <FontAwesomeIcon icon={faLock} />
                   </span>
                   <input
-                    type="password"
+                    type={showPassword.confime ? "text" : "password"}
                     className="form-control LoginForminput"
                     id="exampleInputEmail1"
                     placeholder="Confirm your new password"
@@ -154,6 +170,17 @@ export default function ResetPassword() {
                       setState({ ...state, confirmPass: e.target.value })
                     }
                   />
+                  <span className="px-2" style={{ cursor: "pointer" }}>
+                    <FontAwesomeIcon
+                      icon={showPassword.confime ? faEye : faEyeSlash}
+                      onClick={() => {
+                        setShowPassword({
+                          ...showPassword,
+                          confime: !showPassword.confime,
+                        });
+                      }}
+                    />
+                  </span>
                 </section>
 
                 <Button className="mt-4" onClick={handleSubmit}>

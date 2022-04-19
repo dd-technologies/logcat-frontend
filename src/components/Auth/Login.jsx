@@ -3,7 +3,7 @@ import { Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faLock } from "@fortawesome/free-solid-svg-icons";
 import Style from "./Login.module.scss";
 import { loginWithEmail } from "../../redux/action/AdminAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,6 +23,7 @@ export default function Login() {
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
   const [setErrorPassword, setSetErrorPassword] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
@@ -151,7 +152,7 @@ export default function Login() {
                     <FontAwesomeIcon icon={faLock} />
                   </span>
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     className="form-control LoginForminput "
                     id="exampleInputEmail1"
                     placeholder="Enter your password"
@@ -161,6 +162,14 @@ export default function Login() {
                     }
                     value={loginForm.password}
                   />
+                  <span className="px-2" style={{ cursor: "pointer" }}>
+                    <FontAwesomeIcon
+                      icon={showPassword ? faEye : faEyeSlash}
+                      onClick={() => {
+                        setShowPassword(!showPassword);
+                      }}
+                    />
+                  </span>
                 </div>
                 {passwordError != null ? (
                   <small style={{ color: "red" }}>{passwordError}</small>

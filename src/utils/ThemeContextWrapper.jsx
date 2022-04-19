@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { ThemeContext, themes } from "./ThemeContext";
-import { sideMenus } from "./ThemeContext"
+import { sideMenus } from "./ThemeContext";
 
 export default function ThemeContextWrapper(props) {
   const [theme, setTheme] = useState(themes.dark);
-  const [sideMenu, setSideMenu] = useState(sideMenus.menuShow)
-
+  const [sideMenu, setSideMenu] = useState(sideMenus.menuShow);
 
   // change theme to dark
 
@@ -25,7 +24,7 @@ export default function ThemeContextWrapper(props) {
     }
   }, [theme]);
 
-  // change sidebar 
+  // change sidebar
   function changeSideMenu(sideMenu) {
     setSideMenu(sideMenu);
   }
@@ -41,10 +40,6 @@ export default function ThemeContextWrapper(props) {
     }
   }, [sideMenu]);
 
-
-
-
-
   return (
     <ThemeContext.Provider
       value={{
@@ -52,7 +47,7 @@ export default function ThemeContextWrapper(props) {
         changeTheme: changeTheme,
         // sidemenu
         sideMenu: sideMenu,
-        changeSideMenu: changeSideMenu
+        changeSideMenu: changeSideMenu,
       }}
     >
       {props.children}

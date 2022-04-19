@@ -6,20 +6,17 @@ export const themes = {
   light: "",
 };
 
-
 // implementing sidebar
 export const sideMenus = {
   menuShow: "sidebar",
-  menuHide: ""
-}
-
-
+  menuHide: "",
+};
 
 export const ThemeContext = createContext({
   theme: themes.light,
-  changeTheme: () => { },
+  changeTheme: () => {},
 
   // sidebar menu
   sideMenu: sideMenus.menuShow,
-  changeSideMenu: () => { }
+  changeSideMenu: () => {},
 });

@@ -57,7 +57,7 @@ export function Navbar(props) {
 
   return (
     <>
-      <section className={`${Style.NavbarOuter} noSidebarNav`}>
+      <section className={`${Style.NavbarOuter}`}>
         <nav className={Style.Navbar}>
           <h3 style={{ color: "#fff", fontWeight: "500" }}>
             {navdetails.dashName.charAt(0).toUpperCase() +
@@ -104,7 +104,7 @@ export function Navbar(props) {
               )}
             </section>
 
-            <p  
+            <p
               style={{
                 fontSize: "1.3rem",
               }}

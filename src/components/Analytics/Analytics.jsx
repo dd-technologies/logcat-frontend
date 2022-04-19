@@ -188,7 +188,7 @@ export default function Analytics() {
               </Row>
             </Col>
 
-            <Col className={`${Style.AnalyticsEvents} my-4 mt-5`}>
+            <Col className={`${Style.AnalyticsEvents} my-4 mt-5`} xl={12} md={12} sm={12}>
               <p
                 className="darkModeColor"
                 style={{

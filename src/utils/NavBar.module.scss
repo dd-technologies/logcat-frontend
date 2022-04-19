@@ -15,6 +15,20 @@
 
     .detailSection {
       // transition-duration: 0.3s;
+
+      @media only screen and (min-width: 300px) and (max-width: 900px) {
+        margin-right: 8%;
+        width: 20%;
+      }
+      @media only screen and (min-width: 900px) and (max-width: 1600px) {
+        margin-right: 6%;
+        width: 14%;
+      }
+      @media only screen and (min-width: 1600px) and (max-width: 1920px) {
+        margin-right: 18%;
+        width: 12%;
+      }
+
       display: flex;
       justify-content: space-around;
       align-items: center;
