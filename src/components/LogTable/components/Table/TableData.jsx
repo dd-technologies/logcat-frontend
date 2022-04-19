@@ -464,7 +464,7 @@ function TableData(props) {
         let  seconds = cell.split(":")[2];
         let minutes = cell.split(":")[1];
         let  hours = cell.split(":")[0];
-        cell = seconds !== '00' && hours !== '00' && minutes !== '00' ?`${hours}:${minutes}:${seconds}`:'NA';
+        cell = seconds !== '00' && hours !== '00' && minutes !== '00' ?`${hours}:${minutes}:${seconds}`:'N/A';
         return cell
       },
       sort: true,
