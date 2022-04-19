@@ -1,4 +1,9 @@
 @import "../../css/veriables.module.scss";
+
+.mainContainer {
+  margin-top: 70px;
+}
+
 // SWIPE BAR REACT
 .SidebarLogTable {
   width: 100% !important;
@@ -24,6 +29,7 @@
     margin-top: 14% !important;
     margin-left: 10% !important;
   }
+
   @media screen and (min-width: 1400px) and (max-width: 1600px) {
     margin-top: 8% !important;
     margin-left: 10% !important;
@@ -45,6 +51,7 @@
   @media screen and (min-width: 1024px) and (max-width: 1280px) {
     margin-top: 15% !important;
   }
+
   @media screen and (min-width: 1280px) and (max-width: 1400px) {
     margin-top: 10% !important;
   }
@@ -60,7 +67,10 @@
   border: $border;
   border-radius: $cardBorderRadius;
   padding: 5px;
-  border: 1px solid $activehrefText;
+  border: solid rgb(226, 226, 226) 1px;
+
+  background-color: #ffffff;
+
   & span {
     margin-left: 5px;
   }
@@ -103,6 +113,7 @@
   & p {
     font-size: 0.8rem !important;
   }
+
   & svg {
     color: #fff;
   }
@@ -114,10 +125,14 @@
   width: 100%;
   background-color: rgba(99, 99, 99, 0.241);
   height: 2px;
-  position: absolute;
 }
+
 .headingText {
   font-size: 1.3rem !important;
   color: $activehrefText;
   font-weight: 600;
+}
+
+.darkMood_outer {
+  background-color: black;
 }

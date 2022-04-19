@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadNewProject } from "../../../redux/action/ProjectAction";
@@ -9,7 +9,7 @@ const AddProjectModal = (props) => {
     name: "",
     description: "",
   });
-  const [chips, setchips] = useState("");
+  const [chips, setChips] = useState("");
   const [modelType, setModelType] = useState([]);
   const [errorName, setErrorName] = useState();
   const [errorMsg, setErrorMsg] = useState();
@@ -17,11 +17,9 @@ const AddProjectModal = (props) => {
   const createNewProjectReducer = useSelector(
     (state) => state.createNewProjectReducer
   );
-  const { loading, data, error } = createNewProjectReducer;
-  const Dispatch = useDispatch();
+  const { data, error } = createNewProjectReducer;
   const deleteChips = (type) => {
     setModelType(
-      //    modelType.filter(idx => idx !== type)
       modelType.filter((item) => {
         return item !== type;
       })
@@ -37,7 +35,7 @@ const AddProjectModal = (props) => {
         if (!modelType.includes(inputChips.toLowerCase())) {
           setModelType([...modelType, inputChips]);
         }
-        setchips("");
+        setChips("");
       }
     }
   };
@@ -53,12 +51,6 @@ const AddProjectModal = (props) => {
     if (!modelType.length) {
       setErrorMsg("Device type is required");
     }
-
-    // if (data) {
-    //   toast.success('Project Created Successfully')
-
-    // }
-
     if (createProject.name.length && modelType.length) {
       setErrorName("");
       setErrorMsg("");
@@ -69,7 +61,6 @@ const AddProjectModal = (props) => {
           createProject.description
         )
       );
-      // props.handleClose();
     }
   };
   return (
@@ -80,14 +71,12 @@ const AddProjectModal = (props) => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
+        <Modal.Header className="card darkModeColor">
+          <Modal.Title id="contained-modal-title-vcenterv">
             Add New Project
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          {/* <h4>Centered Modal</h4> */}
+        <Modal.Body className="card darkModeColor">
           {error ? (
             <div style={{ fontSize: 12, color: "red" }}>{error}</div>
           ) : (
@@ -98,12 +87,14 @@ const AddProjectModal = (props) => {
               Porject Created Successfully...
             </h6>
           ) : (
-            // <Toaster/>
             ""
           )}
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label style={{ float: "left", color: "#212529" }}>
+            <Form.Label
+              style={{ float: "left", color: "#212529" }}
+              className="darkModeColor"
+            >
               Project Name
             </Form.Label>
             <Form.Control
@@ -122,7 +113,10 @@ const AddProjectModal = (props) => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label style={{ float: "left", color: "#212529" }}>
+            <Form.Label
+              style={{ float: "left", color: "#212529" }}
+              className="darkModeColor"
+            >
               Description
             </Form.Label>
             <Form.Control
@@ -138,8 +132,11 @@ const AddProjectModal = (props) => {
               }
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label style={{ float: "left", color: "#212529" }}>
+          <Form.Group className="mb-3  " controlId="formBasicPassword">
+            <Form.Label
+              style={{ float: "left", color: "#212529" }}
+              className="darkModeColor"
+            >
               Provide Device type
             </Form.Label>
             <Form.Control
@@ -149,7 +146,7 @@ const AddProjectModal = (props) => {
               onKeyDown={(e) => {
                 addChips(e);
               }}
-              onChange={(e) => setchips(e.target.value)}
+              onChange={(e) => setChips(e.target.value)}
               required
             />
             {errorMsg ? (
@@ -159,29 +156,45 @@ const AddProjectModal = (props) => {
             )}
           </Form.Group>
 
-          {modelType.map((type) => (
-            <div className={Style.tag_item} key={type}>
-              {type}
-              <button
-                type="button"
-                onClick={() => {
-                  deleteChips(type);
-                }}
-              >
-                &times;
-              </button>
-            </div>
-          ))}
+          <section className={Style.tagItemsOuter}>
+            {modelType.map((type) => (
+              <div className={Style.tag_item} key={type}>
+                {type}
+                <button
+                  type="button"
+                  onClick={() => {
+                    deleteChips(type);
+                  }}
+                >
+                  &times;
+                </button>
+              </div>
+            ))}
+          </section>
         </Modal.Body>
-        <Modal.Footer>
-          <Button
-            style={{ backgroundColor: "#1a83ff" }}
-            onClick={(e) => {
-              handleSubmit(e);
+        <Modal.Footer className="card darkModeColor">
+          <section
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
             }}
           >
-            Create Project
-          </Button>
+            <Button
+              style={{ backgroundColor: "#1a83ff" }}
+              onClick={(e) => {
+                handleSubmit(e);
+              }}
+            >
+              Save
+            </Button>
+            <Button
+              onClick={props.onHide}
+              style={{ backgroundColor: "#1a83ff", marginLeft: "10px" }}
+            >
+              Cancel
+            </Button>
+          </section>
         </Modal.Footer>
       </Modal>
     </>

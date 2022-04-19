@@ -4,19 +4,15 @@ import { Pie } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import Spinner from "../../../Container/Spinner";
-
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function PieChartDataGraph() {
   const [countData, setCountData] = useState([]);
 
-  // LABELS
+  // LABEL
   const [lableData, setLableData] = useState([]);
-
   const getLogCountsReducer = useSelector((state) => state.getLogCountsReducer);
-
   const { data } = getLogCountsReducer;
-
   const fetchDetails = () => {
     if (data && data.data && data.data.typeWiseCount) {
       let logType = data.data.typeWiseCount.map((type) => type.logType);
@@ -25,8 +21,6 @@ export default function PieChartDataGraph() {
       setLableData(logType);
       setCountData(countData);
     }
-
-    // setting up labels
   };
 
   useEffect(() => {
@@ -75,8 +69,7 @@ export default function PieChartDataGraph() {
   return (
     <>
       <div style={{ height: "240px" }}>
-        {/* CHECKING IF DATA NOT FOUND */}
-        {/* {data && data.data && data.data.typeWiseCount ? (<Pie data={allData} />) : (<Spinner height="350px" />)} */}
+        {/* CHECKING DATA */}
         {data && data.data && data.data.typeWiseCount ? (
           countData.length == 0 ? (
             <p
@@ -86,12 +79,14 @@ export default function PieChartDataGraph() {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+              color:"#fff"
+
               }}
             >
               No data found
             </p>
           ) : data && data.data && data.data.typeWiseCount ? (
-            <Pie data={allData} options={options} />
+            <Pie data={allData} options={options}  />
           ) : (
             <Spinner height="350px" />
           )

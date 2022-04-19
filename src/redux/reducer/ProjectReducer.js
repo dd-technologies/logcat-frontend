@@ -1,5 +1,3 @@
-
-
 import {
   GET_PROJECT_REQUEST,
   GET_PROJECT_REQUEST_SUCCESS,
@@ -25,41 +23,28 @@ import {
   GET_DEVICE_INFO_REQUEST,
   GET_DEVICE_INFO_REQUEST_SUCCESS,
   GET_DEVICE_INFO_REQUEST_FAIL,
-
   GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST,
   GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST_SUCCESS,
   GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST_FAIL,
-
   UPLOAD_NEW_PROJECT_REQUEST_RESET,
-
   GET_CRASH_FREE_USERS_REQUEST,
   GET_CRASH_FREE_USERS_REQUEST_SUCCESS,
   GET_CRASH_FREE_USERS_REQUEST_FAIL,
-  
   GET_CRASH_ANALYTICS_DATA_REQUEST,
   GET_CRASH_ANALYTICS_DATA_REQUEST_SUCCESS,
   GET_CRASH_ANALYTICS_DATA_REQUEST_FAIL,
-
   GET_CRASH_FREE_USERS_DATA_REQUEST,
   GET_CRASH_FREE_USERS_DATA_REQUEST_SUCCESS,
   GET_CRASH_FREE_USERS_DATA_REQUEST_FAIL,
-
   GET_MODEL_CODE_REQUEST,
   GET_MODEL_CODE_SUCCESS,
   GET_MODEL_CODE_FAIL,
-
   ADD_CRASH_EMAIL_REQUEST,
   ADD_CRASH_EMAIL_REQUEST_SUCCESS,
   ADD_CRASH_EMAIL_REQUEST_FAIL,
-
   GET_PROJECT_BY_CODE_REQUEST,
   GET_PROJECT_BY_CODE_REQUEST_SUCCESS,
   GET_PROJECT_BY_CODE_REQUEST_FAIL,
-
-  UPDATE_PROFILE_REQUEST,
-  UPDATE_PROFILE_REQUEST_SUCCESS,
-  UPDATE_PROFILE_REQUEST_FAIL,
-
 } from "../types/ProjectConstants";
 
 export const getAllProjectReducer = (state = {}, action) => {
@@ -121,14 +106,13 @@ export const createNewProjectReducer = (state = {}, action) => {
       };
     case UPLOAD_NEW_PROJECT_REQUEST_RESET:
       return {
-        loading:false,
-        data:action.payload
-      }
+        loading: false,
+        data: action.payload,
+      };
     default:
       return state;
   }
 };
-
 
 export const getLogCountsReducer = (state = {}, action) => {
   switch (action.type) {
@@ -230,97 +214,17 @@ export const getDeviceInfoReducer = (state = {}, action) => {
   }
 };
 
-export const getLogMsgOccurenceWRTDateReducer = (state={},action)=>{
+export const getLogMsgOccurenceWRTDateReducer = (state = {}, action) => {
   switch (action.type) {
-    case   GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST:
+    case GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST:
       return { loading: true };
 
-    case   GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST_SUCCESS:
+    case GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST_SUCCESS:
       return {
         loading: false,
         data: action.payload,
       };
-    case   GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST_FAIL:
-      return {
-        loading: false,
-        error: action.payload,
-      };
-    default:
-      return state;
-}
-};
-
-export const getCrashFreeUsersReducer = (state={},action)=>{
-  switch (action.type) {
-    case   GET_CRASH_FREE_USERS_REQUEST:
-      return { loading: true };
-
-    case   GET_CRASH_FREE_USERS_REQUEST_SUCCESS:
-      return {
-        loading: false,
-        data: action.payload,
-      };
-    case   GET_CRASH_FREE_USERS_REQUEST_FAIL:
-      return {
-        loading: false,
-        error: action.payload,
-      };
-    default:
-      return state;
-}
-};
-
-export const getCrashAnalyticsDataReducer= (state={},action)=>{
-  switch (action.type) {
-    case   GET_CRASH_ANALYTICS_DATA_REQUEST:
-      return { loading: true };
-
-    case   GET_CRASH_ANALYTICS_DATA_REQUEST_SUCCESS:
-      return {
-        loading: false,
-        data: action.payload,
-      };
-    case   GET_CRASH_ANALYTICS_DATA_REQUEST_FAIL:
-      return {
-        loading: false,
-        error: action.payload,
-      };
-    default:
-      return state;
-}
-};
-
-export const getCrashFreeUsersDataReducer= (state={},action)=>{
-  switch (action.type) {
-    case   GET_CRASH_FREE_USERS_DATA_REQUEST:
-      return { loading: true };
-
-    case   GET_CRASH_FREE_USERS_DATA_REQUEST_SUCCESS:
-      return {
-        loading: false,
-        data: action.payload,
-      };
-    case   GET_CRASH_FREE_USERS_DATA_REQUEST_FAIL:
-      return {
-        loading: false,
-        error: action.payload,
-      };
-    default:
-      return state;
-}
-};
-
-export const getModelCodeReducer = (state={},action)=>{
-  switch (action.type) {
-    case  GET_MODEL_CODE_REQUEST :
-      return { loading: true };
-
-    case  GET_MODEL_CODE_SUCCESS :
-      return {
-        loading: false,
-        data: action.payload,
-      };
-    case  GET_MODEL_CODE_FAIL :
+    case GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST_FAIL:
       return {
         loading: false,
         error: action.payload,
@@ -328,20 +232,19 @@ export const getModelCodeReducer = (state={},action)=>{
     default:
       return state;
   }
-}
+};
 
-
-export const addCrashEmailReducer = (state={},action)=>{
+export const getCrashFreeUsersReducer = (state = {}, action) => {
   switch (action.type) {
-    case  ADD_CRASH_EMAIL_REQUEST :
+    case GET_CRASH_FREE_USERS_REQUEST:
       return { loading: true };
 
-    case  ADD_CRASH_EMAIL_REQUEST_SUCCESS :
+    case GET_CRASH_FREE_USERS_REQUEST_SUCCESS:
       return {
         loading: false,
         data: action.payload,
       };
-    case  ADD_CRASH_EMAIL_REQUEST_FAIL :
+    case GET_CRASH_FREE_USERS_REQUEST_FAIL:
       return {
         loading: false,
         error: action.payload,
@@ -349,19 +252,19 @@ export const addCrashEmailReducer = (state={},action)=>{
     default:
       return state;
   }
-}
+};
 
-export const getProjectByCodeSettingReducer = (state={},action)=>{
+export const getCrashAnalyticsDataReducer = (state = {}, action) => {
   switch (action.type) {
-    case  GET_PROJECT_BY_CODE_REQUEST :
+    case GET_CRASH_ANALYTICS_DATA_REQUEST:
       return { loading: true };
 
-    case  GET_PROJECT_BY_CODE_REQUEST_SUCCESS :
+    case GET_CRASH_ANALYTICS_DATA_REQUEST_SUCCESS:
       return {
         loading: false,
         data: action.payload,
       };
-    case  GET_PROJECT_BY_CODE_REQUEST_FAIL :
+    case GET_CRASH_ANALYTICS_DATA_REQUEST_FAIL:
       return {
         loading: false,
         error: action.payload,
@@ -369,5 +272,84 @@ export const getProjectByCodeSettingReducer = (state={},action)=>{
     default:
       return state;
   }
-}
+};
 
+export const getCrashFreeUsersDataReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_CRASH_FREE_USERS_DATA_REQUEST:
+      return { loading: true };
+
+    case GET_CRASH_FREE_USERS_DATA_REQUEST_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+      };
+    case GET_CRASH_FREE_USERS_DATA_REQUEST_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const getModelCodeReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_MODEL_CODE_REQUEST:
+      return { loading: true };
+
+    case GET_MODEL_CODE_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+      };
+    case GET_MODEL_CODE_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const addCrashEmailReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADD_CRASH_EMAIL_REQUEST:
+      return { loading: true };
+
+    case ADD_CRASH_EMAIL_REQUEST_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+      };
+    case ADD_CRASH_EMAIL_REQUEST_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const getProjectByCodeSettingReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_PROJECT_BY_CODE_REQUEST:
+      return { loading: true };
+
+    case GET_PROJECT_BY_CODE_REQUEST_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+      };
+    case GET_PROJECT_BY_CODE_REQUEST_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};

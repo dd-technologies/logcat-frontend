@@ -10,8 +10,14 @@ export default function PieChartSection(props) {
       <CustomCard>
         <Row className="p-3">
           <Col xl={12} md={12} className={Style.PieChartData}>
-            <h5 style={{ fontWeight: 700, color: "#535353", letterSpacing: "0.5px" }}>Chart Data</h5>
-            {/* <p>Data Info</p> */}
+            <h5
+              className="cpactiveText"
+              style={{
+                fontWeight: 700,
+              }}
+            >
+              Chart Data
+            </h5>
           </Col>
           <Col xl={12} md={12}>
             <PieChartDataGraph />

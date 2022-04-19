@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Container } from "react-bootstrap";
 import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
-import "../../css/theme.scss";
+import { faEye, faEyeSlash, faLock } from "@fortawesome/free-solid-svg-icons";
 import Style from "./ResetPassword.module.scss";
 import OtpInput from "react-otp-input";
 import { toast, Toaster } from "react-hot-toast";
@@ -20,10 +19,14 @@ export default function ResetPassword() {
     confirmPass: null,
   });
 
+  const [showPassword, setShowPassword] = useState({
+    new: false,
+    confime: false,
+  });
+
   const [stateErr, setStateErr] = useState({ err: null, inputErr: null });
   const [enableResendButton, setEnableResendButton] = useState(false);
 
-  const handleChange = (otp) => setState({ otp });
   const resetPasswordReducer = useSelector(
     (state) => state.resetPasswordReducer
   );
@@ -97,8 +100,7 @@ export default function ResetPassword() {
             <section className="mt-4">
               {/*OTP section*/}
               <section>
-                <p>Enter your OTP</p>
-                {/* {stateErr.err !== null ? <small style={{color:'#F54827'}}>{stateErr.err}</small>:''} */}
+                <p className="darkModeColor my-3">Enter your OTP</p>
                 <section className={Style.OPTTIMR}>
                   <OtpInput
                     value={state.otp}
@@ -128,12 +130,12 @@ export default function ResetPassword() {
 
             <section className="Form-card">
               <form>
-                <section className={`${Style.imputFields} mt-4`}>
+                <section className={`${Style.imputFields} darkBgColorSec mt-4`}>
                   <span>
                     <FontAwesomeIcon icon={faLock} />
                   </span>
                   <input
-                    type="password"
+                    type={showPassword.new ? "text" : "password"}
                     className="form-control LoginForminput "
                     id="exampleInputEmail1"
                     placeholder="Enter your new password"
@@ -142,21 +144,43 @@ export default function ResetPassword() {
                       setState({ ...state, newPass: e.target.value })
                     }
                   />
+                  <span className="px-2" style={{ cursor: "pointer" }}>
+                    <FontAwesomeIcon
+                      icon={showPassword.new ? faEye : faEyeSlash}
+                      onClick={() => {
+                        setShowPassword({
+                          ...showPassword,
+                          new: !showPassword.new,
+                        });
+                      }}
+                    />
+                  </span>
                 </section>
-                <section className={`${Style.imputFields} mt-4`}>
+                <section className={`${Style.imputFields} darkBgColorSec mt-4`}>
                   <span>
                     <FontAwesomeIcon icon={faLock} />
                   </span>
                   <input
-                    type="password"
-                    className="form-control LoginForminput "
+                    type={showPassword.confime ? "text" : "password"}
+                    className="form-control LoginForminput"
                     id="exampleInputEmail1"
-                    placeholder="confirme your new password"
+                    placeholder="Confirm your new password"
                     aria-describedby="emailHelp"
                     onChange={(e) =>
                       setState({ ...state, confirmPass: e.target.value })
                     }
                   />
+                  <span className="px-2" style={{ cursor: "pointer" }}>
+                    <FontAwesomeIcon
+                      icon={showPassword.confime ? faEye : faEyeSlash}
+                      onClick={() => {
+                        setShowPassword({
+                          ...showPassword,
+                          confime: !showPassword.confime,
+                        });
+                      }}
+                    />
+                  </span>
                 </section>
 
                 <Button className="mt-4" onClick={handleSubmit}>

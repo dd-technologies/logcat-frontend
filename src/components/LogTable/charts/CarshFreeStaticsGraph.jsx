@@ -1,4 +1,3 @@
-// import "./styles.css";
 import moment from "moment";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -12,21 +11,20 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import Spinner from "../../../Container/Spinner";
+import { ThemeContext } from "../../../utils/ThemeContext";
 
 export default function CarshFreeStaticsGraph() {
-  // static demoUrl = 'https://codesandbox.io/s/area-chart-in-responsive-container-e6dx0';
   const getCrashFreeUsersReducer = useSelector(
     (state) => state.getCrashFreeUsersReducer
   );
-
-  const { loading, data } = getCrashFreeUsersReducer;
-
+  const { data } = getCrashFreeUsersReducer;
   let dt = data && data.response;
-  // let date = data && data.response.map((date) => date.date);
 
-  // CHANGING DATE FORMATE
+  const { theme } = React.useContext(ThemeContext);
+  console.log("first", theme);
+
+  // Date Formate
   const dateFormatter = (date) => {
-    // return moment(date).unix();
     return moment(date).format("DD-MM-YYYY");
   };
   return (
@@ -40,6 +38,7 @@ export default function CarshFreeStaticsGraph() {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              color:"#fff"
             }}
           >
             No data found
@@ -52,34 +51,35 @@ export default function CarshFreeStaticsGraph() {
                 margin={{
                   top: 10,
                   right: 0,
-                  left: -25,
+                  left: -10,
                   bottom: 0,
                 }}
               >
-                {/* <CartesianGrid strokeDasharray="3 3" /> */}
                 <XAxis
+                  stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+                  fill={theme == "dark-content" ? `#fff` : `#257d7c`}
                   dataKey="date"
                   tickCount={5}
                   minTickGap={10}
                   tickFormatter={dateFormatter}
                 />
-                <YAxis interval={1} dataKey="data" axisLine={false} />
-                <CartesianGrid vertical={false} strokeDasharray="0 0 4" />
+                <YAxis
+                  interval={1}
+                  dataKey="data"
+                  axisLine={false}
+                  stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+                />
+                <CartesianGrid
+                  stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+                  vertical={false}
+                  strokeDasharray="0 0 4"
+                />
                 <Tooltip />
-                {/* <Line
-                  connectNulls
-                  type="date"
-                  dataKey="data"
-                  stroke="#257d7c"
-                  dot={false}
-                  // strokeWidth={1}
-                  fill="#257d7c"
-                /> */}
                 <Area
-                  type="monotone"
+                  type="monotoneY"
                   dataKey="data"
-                  stroke="#257d7c"
-                  fill="#257d7c"
+                  stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+                  fill={theme == "dark-content" ? `#fff` : `#257d7c`}
                 />
               </AreaChart>
             </ResponsiveContainer>

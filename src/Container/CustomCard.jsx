@@ -1,24 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card } from "react-bootstrap";
 import Style from "./CustomeCard.module.scss";
 
-const defaultStyle = {
-  borderRadius: "10px",
-  overflow: "hidden",
-  boxShadow: "4px 5px 18px 1px rgba(0, 0, 0, 0.07) !important",
-};
-
 export default function CustomCard(props) {
+  // dark mode state
+  const [darkMood, setDarkMood] = useState(
+    JSON.parse(localStorage.getItem("darkMood"))
+  );
+
   return (
     <>
       <Card
-        className={Style.CardCustomeOuter}
+        className={
+          darkMood ? `${Style.CardCustomeDark}` : `${Style.CardCustomeOuter}`
+        }
         style={{
           borderRadius: "10px",
           overflow: "hidden",
-          // boxShadow: props.boxShadow
-          //   ? props.boxShadow
-          //   : "4px 5px 18px 1px rgba(0, 0, 0, 0.07)",
           height: props.height ? props.height : "100%",
           width: props.width ? props.width : "100%",
           padding: props.padding ? props.padding : "0px",

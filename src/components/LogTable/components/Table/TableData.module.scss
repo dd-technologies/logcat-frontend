@@ -8,7 +8,7 @@
     padding-left: 10px;
     padding-right: 10px;
     background-color: $tableHaderBackgorundColor;
-    & input { 
+    & input {
       height: 35px !important;
     }
 
@@ -163,11 +163,34 @@
 }
 
 .StatusInnerSecion {
-  width: 40%;
+  width: 50%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 5px;
+
+ 
+  input[type='checkbox']:checked {
+    background-color: $activehrefText;
+  }
+  input[type='checkbox']:checked:after {
+    content: '\2713';
+    color:white;
+  }
+
+
+  input[type='checkbox']{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px !important;
+    height: 20px !important;
+    appearance:none;
+    border: 1px solid $activehrefText;
+    box-shadow: none;
+    font-size: 1em;
+  }
 }
 
 // react bootstrap table css
@@ -186,5 +209,12 @@
     width: 750px !important;
     height: 20px !important;
     overflow: hidden !important;
+  }
+}
+
+// updated css
+.dataSection {
+  & svg {
+    color: red !important;
   }
 }

@@ -1,5 +1,3 @@
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import Style from "./Text.module.scss";
 
@@ -9,13 +7,10 @@ export default function Text() {
   const urlParams = new URLSearchParams(queryString);
   const colData = urlParams.get("col");
   // HEADING DATA ANALYTIC
-  const pattern = /(at).*/gm;
-  let DataINRow = colData.split(" at");
-
 
   return (
-    <section className={Style.outerSection}>
-      <p>{colData}</p>
+    <section className={`${Style.outerSection} darkModebgColor`}>
+      <p className="darkModebgColor">{colData}</p>
       {/* <FontAwesomeIcon icon={faCaretDown} /> */}
     </section>
   );

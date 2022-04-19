@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faHome, faUserAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Style from "./CreateProject.module.scss";
 import CustomCard from "../../Container/CustomCard";
 import { Button, Row, Col, Container } from "react-bootstrap";
@@ -15,22 +15,18 @@ import { toast } from "react-hot-toast";
 import AddProjectModal from "./components/AddProjectModal";
 import Spinner from "../../Container/Spinner";
 import { adminLogout } from "../../redux/action/AdminAction";
+import "../../utils/Theme.scss";
 
 function CreateProject() {
   const [modalShow, setModalShow] = useState(false);
-  // project data load or not
-
+  const [darkMode, setDarkMode] = React.useState(true);
   const Dispatch = useDispatch();
   const getAllProjectReducer = useSelector(
     (state) => state.getAllProjectReducer
   );
-  const {
-    allProjectData: PorjectData,
-    loading,
-    allProjectData,
-  } = getAllProjectReducer;
+  const { allProjectData: ProjectData, allProjectData } = getAllProjectReducer;
 
-  // GETTGIN THE USER NAME TO PUT IN DOCUMENT
+  // GETTING USER NAME
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { adminInfo } = adminLoginReducer;
 
@@ -42,28 +38,17 @@ function CreateProject() {
     toast.success("Project Created Successfully");
     Dispatch(clearProjectData());
   }
-
-  // CHEKING IF USER IN NOT PRIME ADMIN
-
-  // const navbardetail = {
-  //   name: adminInfo.data.name,
-  //   dashName: "Welcome",
-  //   link1: {
-  //     iconName: faHome,
-  //     linkName: "Home",
-  //     link: `/`,
-  //   },
-  //   link2: {
-  //     iconName: faUserAlt,
-  //     linkName: "Profile",
-  //     link: `/`,
-  //   },
-  // };
   const history = useHistory();
 
   useEffect(() => {
     if (!localStorage.getItem("ddAdminToken")) {
       history.push("/");
+    }
+    if (localStorage.getItem("project_type")) {
+      localStorage.removeItem("project_type");
+    }
+    if (localStorage.getItem("selected_date")) {
+      localStorage.removeItem("selected_date");
     }
     Dispatch(getAllProject());
   }, []);
@@ -73,36 +58,45 @@ function CreateProject() {
     Dispatch(adminLogout(history));
   };
 
+  useEffect(() => {
+    setDarkMode(!darkMode);
+  }, []);
+
   return (
     <>
-      {/* user name with logout functionalty */}
-      {PorjectData && PorjectData.data && PorjectData.data.data ? (
+      {/*Logout functionality */}
+      {ProjectData && ProjectData.data && ProjectData.data.data ? (
         <>
           <section className={Style.backgroundSection}></section>
           <Container className={Style.MainContantainer}>
             <Row>
-              <Col xl={6} md={6} sm={6}>
-                <h5 style={{ color: "#fff" }}>Your Projects</h5>
+              <Col xl={6} md={6} sm={12} className="mt-2">
+                <h5 className="darkModeColor" style={{ color: "#fff" }}>
+                  Your Projects
+                </h5>
               </Col>
-              <Col
-                xl={6}
-                md={6}
-                sm={6}
-                className="d-flex justify-content-end align-items-center"
-              >
-                <p className="px-4" style={{ color: "#fff" }}>
-                  {adminInfo.data.name}
-                </p>
-                <Button
-                  onClick={(e) => {
-                    handlelogout(e);
+              <Col xl={6} md={6} sm={12} className="mt-2">
+                <section
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "center",
                   }}
                 >
-                  Logout
-                </Button>
+                  <p className="mx-2 darkModeColor" style={{ color: "#fff" }}>
+                    {adminInfo.data.name}
+                  </p>
+                  <Button
+                    onClick={(e) => {
+                      handlelogout(e);
+                    }}
+                  >
+                    Logout
+                  </Button>
+                </section>
               </Col>
             </Row>
-            <Row>
+            <Row className="rowSection">
               {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin ? (
                 <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
                   <CustomCard
@@ -118,7 +112,7 @@ function CreateProject() {
                         <p>
                           <FontAwesomeIcon icon={faPlus} />
                         </p>
-                        <p>Add Project</p>
+                        <p className="darkModeColor">Add Project</p>
                       </section>
                     </section>
                   </CustomCard>
@@ -131,9 +125,9 @@ function CreateProject() {
 
               {allProjectData &&
                 allProjectData.data.data.length &&
-                allProjectData.data.data.map((datas) => (
+                allProjectData.data.data.map((data) => (
                   <>
-                    <ProjectCard data={datas} key={datas._id} />
+                    <ProjectCard data={data} key={data._id} />
                   </>
                 ))}
             </Row>

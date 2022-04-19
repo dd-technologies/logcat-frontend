@@ -3,26 +3,12 @@
 // body {
 //   background-image: url("../../assets/holiImage.jpg");
 
-  
 //   background-attachment: fixed;
 //   background-size: cover;
 // }
 
-.stackErrorDropDown {
-  background-color: $stackBackgroundColor;
-}
-
-.deviceDetails {
-  background-color: $ActiveBackgroundColore;
-
-  & p {
-    @include activeparaFontdasktopMixin;
-  }
-}
-
-.EvnetGraphOuter {
-  height: 400px;
-  border-radius: $cardBorderRadius;
+.mainContainer {
+  margin-top: 70px;
 }
 
 .issuesTable {
@@ -143,3 +129,5 @@
     justify-content: center;
   }
 }
+
+

@@ -5,17 +5,16 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomeDropDown from "../../../../Container/DropDown";
 import Style from "./TypeDropDown.module.scss";
 import {
-  getCrashFreeUsers,
-  getLogByDate,
-  getLogTypeCounts,
   getProjectByCode,
 } from "../../../../redux/action/ProjectAction";
+import {getCrashFreeUsers} from '../../../../redux/action/LogsAction'
+import {getLogTypeCounts,getLogByDate} from "../../../../redux/action/LogsAction"
 
 const TypeDropDown = (props) => {
-
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
+
+  // dark-mode state
   const ref = useRef();
-  //   let modelList;
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { loading, data } = getModelCodeReducer;
 
@@ -25,9 +24,6 @@ const TypeDropDown = (props) => {
 
   const dispatch = useDispatch();
 
-  if (data) {
-    // modelList = getModelCodeReducer.data.modelList;
-  }
   const ProjectTypeFilter = () => {
     setProjectCodeDropDown(true);
     if (projectCodeDropDown) {
@@ -38,8 +34,7 @@ const TypeDropDown = (props) => {
   // CLICKING OUTSIDE THE VIEWPORT
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
-      // If the menu is open and the clicked target is not within the menu,
-      // then close the menu
+      // Close when click outside
       if (
         projectCodeDropDown &&
         ref.current &&
@@ -48,7 +43,6 @@ const TypeDropDown = (props) => {
         setProjectCodeDropDown(false);
       }
     };
-
     document.addEventListener("mousedown", checkIfClickedOutside);
 
     return () => {
@@ -61,7 +55,7 @@ const TypeDropDown = (props) => {
     ProjectTypeFilter();
 
     localStorage.setItem("page_no", 1);
-    localStorage.setItem("project_type",JSON.stringify(type))
+    localStorage.setItem("project_type", JSON.stringify(type));
 
     dispatch(
       getProjectByCode(
@@ -81,38 +75,34 @@ const TypeDropDown = (props) => {
         code1: type.typeCode,
       })
     );
-    //
+    
     dispatch(
       getLogTypeCounts({ code, diffDate: props.diffDate, code1: type.typeCode })
     );
-    //
+    
     dispatch(
       getLogByDate({ code, diffDate: props.diffDate, code1: type.typeCode })
     );
   };
-
-
 
   //  TODO: dispatch the code depanding the local storage
 
   return (
     <>
       {loading ? (
-        <p>loading..</p>
+        <p className="darkModeColor">loading..</p>
       ) : (
         <section ref={ref}>
           <section onClick={ProjectTypeFilter} className={Style.OuterDiv}>
-            {/* <Image src={DateIcons} /> */}
             <FontAwesomeIcon
               icon={faTasks}
               color="#2A9AA4"
               style={{ width: "22px", height: "25px" }}
             />
-            <p style={{ fontSize: "1rem" }} className="mm-2">
-
+            <p className="m-2 darkModeColor">
               {localStorage.getItem("project_type")
-    ? JSON.parse(localStorage.getItem("project_type")).typeName
-    : data && data.modelList && data.modelList[0].typeName}
+                ? JSON.parse(localStorage.getItem("project_type")).typeName
+                : data && data.modelList && data.modelList[0].typeName}
             </p>
             <FontAwesomeIcon
               icon={faCaretDown}
@@ -127,14 +117,13 @@ const TypeDropDown = (props) => {
                 width="15%"
                 position="absolute"
                 alignItems="flex-start"
-                zIndex="9"
+                zIndex="8"
               >
                 {data &&
                   data.modelList.map((type) => {
                     return (
                       <p
-                        style={{ fontSize: "1rem !important" }}
-                        className={Style.productVersion}
+                        className={`${Style.productVersion} darkModeColor`}
                         onClick={() => onSubmitFun(type)}
                       >
                         {type.typeName}

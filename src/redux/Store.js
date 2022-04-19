@@ -27,22 +27,10 @@ import {
   getCrashAnalyticsDataReducer,
   getCrashFreeUsersDataReducer,
   getModelCodeReducer,
-
   addCrashEmailReducer,
   getProjectByCodeSettingReducer,
-
 } from "./reducer/ProjectReducer";
-import slideWindowReducer from "./reducer/SliderReducer";
 import { passwordChangeReducer } from "./reducer/UserProfileReducer";
-
-// const rootReducer = combineReducers({
-//     adminLoginReducer,
-//     adminRegisterReducer,
-
-//     getAllProjectReducer,
-//     getAllLogByCodeReducer,
-//     createNewProjectReducer
-// })
 
 const appReducer = combineReducers({
   adminLoginReducer,
@@ -65,14 +53,11 @@ const appReducer = combineReducers({
   getCrashFreeUsersReducer,
   getCrashAnalyticsDataReducer,
   getCrashFreeUsersDataReducer,
-  slideWindowReducer,
 
   passwordChangeReducer,
 
-
   addCrashEmailReducer,
   getProjectByCodeSettingReducer,
-
 });
 
 const persistConf = {
@@ -90,16 +75,12 @@ const rootReducer = (state, action) => {
   }
   return appReducer(state, action);
 };
-
-// const initialState = {}
 const persistedReducer = persistReducer(persistConf, rootReducer);
 
 const middleware = [thunk];
 
 const store = createStore(
-  // rootReducer,
   persistedReducer,
-  // initialState,
   composeWithDevTools(applyMiddleware(...middleware))
 );
 

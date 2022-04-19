@@ -1,0 +1,112 @@
+@import "../css/veriables.module.scss";
+
+.NavbarOuter {
+  width: 100%;
+  position: fixed;
+  z-index: 10;
+  // border:1px solid red;
+
+  .Navbar {
+    background-color: $activehrefText;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3% 1%;
+    width: 100%;
+
+    .detailSection {
+      // transition-duration: 0.3s;
+
+      @media only screen and (min-width: 300px) and (max-width: 900px) {
+        margin-right: 8%;
+        width: 20%;
+      }
+      @media only screen and (min-width: 900px) and (max-width: 1600px) {
+        margin-right: 6%;
+        width: 14%;
+      }
+      @media only screen and (min-width: 1600px) and (max-width: 1920px) {
+        margin-right: 18%;
+        width: 12%;
+      }
+
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .AvatarSection {
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 100%;
+      cursor: pointer;
+      @media only screen and (min-width: 300px) and (max-width: 900px) {
+        width: 30px;
+        height: 30px;
+      }
+      @media only screen and (min-width: 900px) and (max-width: 1600px) {
+        width: 35px;
+        height: 35px;
+      }
+      @media only screen and (min-width: 1600px) and (max-width: 1920px) {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+
+  .AvatarSectionDropDown {
+    width: 60px;
+    height: 60px;
+    background-color: $filterButtonBackgroundColor;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+  }
+
+  .manageAccount {
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition-duration: 0.3s;
+    padding: 6px;
+    cursor: pointer;
+    border: solid rgb(226, 226, 226) 1px !important;
+
+    &:hover {
+      background-color: $activehrefText;
+      color: #fff;
+    }
+  }
+
+  .logoutAccount {
+    margin-bottom: 10px;
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition-duration: 0.3s;
+    padding: 6px;
+    cursor: pointer;
+    border: solid rgb(226, 226, 226) 1px !important;
+    &:hover {
+      background-color: $activehrefText;
+      color: #fff;
+    }
+  }
+
+  .privacyPolicy {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    font-size: 0.8rem;
+  }
+}
+
+// changing in boot starp

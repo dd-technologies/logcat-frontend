@@ -1,4 +1,3 @@
-// import "./styles.css";
 import moment from "moment";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -11,21 +10,17 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { ThemeContext } from "../../../utils/ThemeContext";
 
 export default function EventByVersionChart() {
+  const { theme } = React.useContext(ThemeContext);
   const getLogMsgOccurenceWRTDateReducer = useSelector(
     (state) => state.getLogMsgOccurenceWRTDateReducer
   );
-
   const { data } = getLogMsgOccurenceWRTDateReducer;
-
-  
-
-  // let dataarray = data && data.response ? data.response : [];
 
   // CHANGING DATE FORMATE
   const dateFormatter = (date) => {
-    // return moment(date).unix();
     return moment(date).format("DD-MM-YYYY");
   };
   return (
@@ -40,24 +35,31 @@ export default function EventByVersionChart() {
             bottom: 20,
           }}
         >
-          {/* <CartesianGrid strokeDasharray="3 3" /> */}
           <XAxis
+            stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+            fill={theme == "dark-content" ? `#fff` : `#257d7c`}
             dataKey="date"
             tickCount={5}
             minTickGap={10}
             tickFormatter={dateFormatter}
           />
-          <YAxis dataKey="data" axisLine={true} />
-          <CartesianGrid vertical={false}  strokeDasharray="0 0 4"/>{/*strokeDasharray="0 0 4"*/}
+          <YAxis
+            dataKey="data"
+            axisLine={true}
+            stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+            fill={theme == "dark-content" ? `#fff` : `#257d7c`}
+          />
+          stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+          <CartesianGrid vertical={false} strokeDasharray="0 0 4" />
           <Tooltip />
           <Line
             isAnimationActive={false}
             connectNulls
-            type="monotone"
+            type="monotoneX"
             dataKey="data"
             dot={false}
-            stroke="#257d7c"
-            fill="#257d7c"
+            stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+            fill={theme == "dark-content" ? `#fff` : `#257d7c`}
           />
         </LineChart>
       </ResponsiveContainer>
