@@ -18,7 +18,6 @@ import {
   GET_PROJECT_BY_CODE_REQUEST_FAIL,
 } from "../types/ProjectConstants";
 
-
 // ALL PROJECT
 export const getAllProject = () => async (dispatch) => {
   try {
@@ -62,12 +61,12 @@ export const addCrashEmail = (code, email) => async (dispatch) => {
     const config = {
       headers: {
         "Content-type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     };
 
     const { data } = await axios.put(
-      `${process.env.REACT_APP_BASE_URL}/api/logger/updateEmail/${code}`,
+      `${process.env.REACT_APP_BASE_URL}/api/logger/projects/updateEmail/${code}`,
       {
         email,
       },
@@ -139,7 +138,6 @@ export const getProjectByCode =
       });
     }
   };
-
 
 // UPLOAD PROJECT
 export const uploadNewProject = (name, modelList, desc) => async (dispatch) => {
@@ -219,6 +217,3 @@ export const getProjectByCodeSetting = (code) => async (dispatch) => {
     });
   }
 };
-
-
-

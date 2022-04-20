@@ -632,7 +632,7 @@ function TableData(props) {
   return (
     <>
       <TableCard
-        height={data && data.data && data.data.logs ? "100%" : "300px"}
+        height={data && data.data && data.data.logs ? "100%" : "400px"}
         boxShadow={
           JSON.parse(localStorage.getItem("darkMood"))
             ? "1px 1px 10px 2px rgba(0,0,0,0.45)"
