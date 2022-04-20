@@ -459,12 +459,15 @@ function TableData(props) {
       },
       formatter: (cell) => {
         cell = cell.split("T")[1];
-        cell = cell.split(".")[0]
-        let  seconds = cell.split(":")[2];
+        cell = cell.split(".")[0];
+        let seconds = cell.split(":")[2];
         let minutes = cell.split(":")[1];
-        let  hours = cell.split(":")[0];
-        cell = seconds !== '00' && hours !== '00' && minutes !== '00' ?`${hours}:${minutes}:${seconds}`:'N/A';
-        return cell
+        let hours = cell.split(":")[0];
+        cell =
+          seconds !== "00" && hours !== "00" && minutes !== "00"
+            ? `${hours}:${minutes}:${seconds}`
+            : "N/A";
+        return cell;
       },
       sort: true,
     },
@@ -629,7 +632,7 @@ function TableData(props) {
   return (
     <>
       <TableCard
-        height={data && data.data && data.data.logs ? "100%" : "400px"}
+        height={data && data.data && data.data.logs ? "100%" : "300px"}
         boxShadow={
           JSON.parse(localStorage.getItem("darkMood"))
             ? "1px 1px 10px 2px rgba(0,0,0,0.45)"
@@ -994,7 +997,15 @@ function TableData(props) {
           ) : loading ? (
             <Spinner height="400px" />
           ) : (
-            <h3 className="p-2">No Logs Found</h3>
+            <section
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <h3 className="p-2 darkModeColor">No Logs Found</h3>
+            </section>
           )}
 
           <section className="p-2">

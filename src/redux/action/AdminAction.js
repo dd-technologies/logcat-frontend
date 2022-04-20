@@ -33,7 +33,7 @@ export const loginWithEmail =
       };
       console.log(`env varibale: ${process.env.REACT_APP_BASE_URL}`);
       const { data } = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/login`,
+        `${process.env.REACT_APP_BASE_URL}/api/logger/auth/login`,
         {
           email,
           password,
@@ -72,7 +72,7 @@ export const adminLogout = (history) => async (dispatch) => {
     };
 
     await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/api/logger/logout`,
+      `${process.env.REACT_APP_BASE_URL}/api/logger/auth/logout`,
       config
     );
 
@@ -108,7 +108,7 @@ export const adminRegister =
         },
       };
       const { data } = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/register`,
+        `${process.env.REACT_APP_BASE_URL}/api/logger/auth/register`,
         {
           name,
           email,
@@ -148,7 +148,7 @@ export const forgetPassword = (email) => async (dispatch) => {
       },
     };
     const { data } = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/logger/forget`,
+      `${process.env.REACT_APP_BASE_URL}/api/logger/auth/forget`,
       {
         email,
       }
@@ -195,7 +195,7 @@ export const resetForgetPassword =
       const passwordVerify = resetData.confirmPass;
 
       const { data } = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/resetPassword`,
+        `${process.env.REACT_APP_BASE_URL}/api/logger/auth/resetPassword`,
         {
           otp,
           password,
@@ -241,7 +241,7 @@ export const updateProfile = (email, name, avatar) => async (dispatch) => {
       },
     };
     const { data } = await axios.put(
-      `${process.env.REACT_APP_BASE_URL}/api/logger/update`,
+      `${process.env.REACT_APP_BASE_URL}api/logger/users/update`,
       formData,
       config
     );

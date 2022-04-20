@@ -52,7 +52,7 @@ try {
     const start = dt.toISOString().slice(0, 10);
 
     const { data } = await axios.get(
-    `${process.env.REACT_APP_BASE_URL}/api/logger/projects/getLogsCount/${code}?startDate=${start}&endDate=${end}&projectType=${code1}`,
+    `${process.env.REACT_APP_BASE_URL}/api/logger/logs/getLogsCount/${code}?startDate=${start}&endDate=${end}&projectType=${code1}`,
     config
     );
     dispatch({
@@ -92,7 +92,7 @@ try {
     const start = dt.toISOString().slice(0, 10);
 
     response = await axios.get(
-    `${process.env.REACT_APP_BASE_URL}/api/logger/projects/datewiselogcount/${code}?startDate=${start}&endDate=${end}&projectType=${code1}`,
+    `${process.env.REACT_APP_BASE_URL}/api/logger/logs/datewiselogcount/${code}?startDate=${start}&endDate=${end}&projectType=${code1}`,
     config
     );
 
@@ -125,7 +125,7 @@ try {
     dt.setDate(dt.getDate() - 10);
     const startDate = dt.toISOString().slice(0, 10);
     const { data } = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/projects/log-occurrences-datewise/${code}?startDate=${startDate}&endDate=${endDate}&logMsg=${logMsg}&projectType=${code1}`,
+        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/log-occurrences-datewise/${code}?startDate=${startDate}&endDate=${endDate}&logMsg=${logMsg}&projectType=${code1}`,
 
         config
     );
@@ -135,7 +135,7 @@ try {
     });
     } else {
     const { data } = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/projects/log-occurrences-datewise/${code}?startDate=${startDate}&endDate=${endDate}&logMsg=${logMsg}&projectType=${code1}`,
+        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/log-occurrences-datewise/${code}?startDate=${startDate}&endDate=${endDate}&logMsg=${logMsg}&projectType=${code1}`,
         config
     );
     dispatch({
@@ -175,7 +175,7 @@ try {
     },
     };
     const { data } = await axios.get(
-    `${process.env.REACT_APP_BASE_URL}/api/logger/projects/crashfree-users-datewise/${code}?startDate=${startDate}&endDate=${endDate}&projectType=${code1}`,
+    `${process.env.REACT_APP_BASE_URL}/api/logger/logs/crashfree-users-datewise/${code}?startDate=${startDate}&endDate=${endDate}&projectType=${code1}`,
     config
     );
     dispatch({
@@ -214,7 +214,7 @@ try {
     };
 
     const { data } = await axios.get(
-    `${process.env.REACT_APP_BASE_URL}/api/logger/projects/get-crashlytics-data/${code}?&startDate=${startDate}&endDate=${endDate}&logMsg=${logMsg}&projectType=${projectType}`,
+    `${process.env.REACT_APP_BASE_URL}/api/logger/logs/get-crashlytics-data/${code}?&startDate=${startDate}&endDate=${endDate}&logMsg=${logMsg}&projectType=${projectType}`,
     config
     );
     dispatch({
@@ -255,7 +255,7 @@ try {
     };
 
     const { data } = await axios.get(
-    `${process.env.REACT_APP_BASE_URL}/api/logger/projects/logMsgOccurence/${code}?msg=${logMsg}&projectType=${projectType}`,
+    `${process.env.REACT_APP_BASE_URL}/api/logger/logs/logMsgOccurence/${code}?msg=${logMsg}&projectType=${projectType}`,
     config
     );
     dispatch({

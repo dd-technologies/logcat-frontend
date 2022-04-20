@@ -121,7 +121,7 @@ export const getProjectByCode =
         }
       }
       response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/projects/getDetail/${code}?startDate=${date.start}&endDate=${date.end}&limit=${record}&page=${page}&logType=${logString}&projectType=${projectType}`,
+        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/${code}?startDate=${date.start}&endDate=${date.end}&limit=${record}&page=${page}&logType=${logString}&projectType=${projectType}`,
         config
       );
 
