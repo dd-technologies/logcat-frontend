@@ -632,7 +632,7 @@ function TableData(props) {
   return (
     <>
       <TableCard
-        height={data && data.data && data.data.logs.length ? "100%" : "200px"}
+        height={data && data.data && data.data.logs ? "100%" : "400px"}
         boxShadow={
           JSON.parse(localStorage.getItem("darkMood"))
             ? "1px 1px 10px 2px rgba(0,0,0,0.45)"
@@ -642,7 +642,7 @@ function TableData(props) {
       >
         <Toaster />
         <section className={`${Style.OuterTable} `} ref={ref}>
-          {data && data.data && data.data.logs.length ? (
+          {data && data.data && data.data.logs ? (
             <ToolkitProvider
               keyField="_id"
               data={data.data.logs}
@@ -994,12 +994,9 @@ function TableData(props) {
                 </>
               )}
             </ToolkitProvider>
-          ) 
-          : loading ? (
-            <Spinner height="200px" />
-          ) 
-          :
-           (
+          ) : loading ? (
+            <Spinner height="400px" />
+          ) : (
             <section
               style={{
                 display: "flex",
