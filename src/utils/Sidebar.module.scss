@@ -1,0 +1,150 @@
+@import "../css/veriables.module.scss";
+
+.sidebarOuter {
+  position: fixed;
+  z-index: 10;
+  width: 16.7%;
+  height: 100vh;
+  .Sidebar {
+    height: 100%;
+    background-image: url("../assets/images/background.jpg");
+    background-repeat: repeat;
+    background-size: 100% 100%;
+    display: flex;
+    flex-direction: column;
+
+    .LogcatLogo {
+      width: 100%;
+      // background-color: red;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .LogoSection {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 6%;
+      padding: 10px;
+
+      @media only screen and (min-width: 300px) and (max-width: 900px) {
+        height: 6% !important;
+      }
+      @media only screen and (min-width: 900px) and (max-width: 1600px) {
+        height: 8% !important;
+      }
+      @media only screen and (min-width: 1600px) and (max-width: 1920px) {
+        height: 8% !important;
+      }
+
+      & img {
+        @media only screen and (min-width: 300px) and (max-width: 900px) {
+          width: 50px !important;
+          height: 50px !important;
+        }
+        @media only screen and (min-width: 900px) and (max-width: 1600px) {
+          width: 55px !important;
+          height: 55px !important;
+        }
+        @media only screen and (min-width: 1600px) and (max-width: 1920px) {
+          width: 60px !important;
+          height: 60px !important;
+        }
+      }
+    }
+
+    .linkSection {
+      .linkActive {
+        display: flex !important;
+        padding: 0px 10px;
+        background-color: $activehrefText;
+
+        @media only screen and (min-width: 300px) and (max-width: 900px) {
+          width: 100%;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+        }
+        @media only screen and (min-width: 900px) and (max-width: 1600px) {
+          width: 100%;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+        }
+        @media only screen and (min-width: 1600px) and (max-width: 1920px) {
+          width: 100%;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+        }
+
+        .linkData {
+          display: flex;
+          padding: 10px 10px;
+          text-decoration: none;
+          color: #fff;
+
+          & section {
+            margin-left: 10px;
+          }
+        }
+      }
+
+      .linkInActive {
+        display: flex !important;
+        padding: 0 10px;
+
+        @media only screen and (min-width: 300px) and (max-width: 900px) {
+          width: 100%;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+        }
+        @media only screen and (min-width: 900px) and (max-width: 1600px) {
+          width: 100%;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+        }
+        @media only screen and (min-width: 1600px) and (max-width: 1920px) {
+          width: 100%;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+        }
+
+        .linkData {
+          display: flex;
+          padding: 10px 10px;
+          text-decoration: none;
+          color: #fff;
+
+          & section {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+
+    .ClickSlideSection {
+      flex: 1;
+    }
+
+    .ComponyLogo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      & p {
+        color: #fff;
+      }
+
+      & img {
+        width: 30%;
+      }
+    }
+  }
+}

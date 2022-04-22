@@ -1,0 +1,117 @@
+@import "../../../css/veriables.module.scss";
+
+.outerDiv {
+  border-radius: $cardBorderRadius;
+  margin-top: 10px;
+
+  .StackInfoDive {
+    background-color: $filterButtonBackgroundColor;
+    border-top-left-radius: $cardBorderRadius;
+    border-top-right-radius: $cardBorderRadius;
+    // background-color: red;
+    margin: 0px;
+    border: $borderBottom;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    .ParaWithArrowDown {
+      color: $activehrefText;
+      cursor: pointer;
+    }
+    & p {
+      @include headingFontdasktopMixin;
+    }
+    & h3 {
+      cursor: pointer;
+      font-size: 1.3rem;
+    }
+    .innerSection {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .detailSection {
+    border: $borderBottom;
+    border-bottom-left-radius: $cardBorderRadius;
+    border-bottom-right-radius: $cardBorderRadius;
+    display: flex;
+    flex-direction: column;
+    background-color: $defaultTextColor;
+    font-size: 0.9rem;
+    padding: 10px;
+    .stackDetails {
+      @include headingFontdasktopMixin;
+    }
+
+    .pText {
+      @include paraFontdasktopMixin;
+      border-bottom: $borderBottom;
+    }
+
+    & p {
+      @include paraFontdasktopMixin;
+      color: $activehrefText;
+      margin-top: 10px;
+    }
+  }
+}
+
+.filterToggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $activehrefText;
+  border-radius: 55px;
+  overflow: hidden;
+
+  @media screen and (min-width: 600px) and (max-width: 1200px) {
+    width: 12%;
+  }
+
+  @media screen and (min-width: 1200px) and (max-width: 1600px) {
+    width: 8%;
+  }
+  @media screen and (min-width: 1600px) and (max-width: 1920px) {
+    width: 8%;
+  }
+
+  .filterGraphFirstSction {
+    width: 100%;
+    & p {
+      color: $defaultTextColor;
+      font-size: 0.8rem;
+    }
+    & svg {
+      color: $filterButtonBackgroundColor;
+    }
+    cursor: pointer;
+    margin-left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+    border-radius: 50px;
+  }
+
+  .filterGraphFirstSctionActive {
+    width: 100%;
+    & p {
+      color: $activehrefText;
+      font-size: 0.8rem;
+    }
+    & svg {
+      color: $activehrefText;
+    }
+    cursor: pointer;
+    background-color: $filterButtonBackgroundColor;
+    padding: 10px;
+    // margin-left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    height: 100%;
+  }
+}
