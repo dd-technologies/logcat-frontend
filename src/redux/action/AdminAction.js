@@ -128,12 +128,12 @@ try {
 //   localStorage.setItem("adminInfo", data);
     history.push("/");
 } catch (error) {
-    console.log(error)
+    console.log(error.response)
     dispatch({
     type: ADMIN_REGISTER_FAIL,
     payload:
         error.response && error.response.data.errorMessage
-        ? error.response.data.errorMessage
+        ? error.response.data.message
         : error.message,
     });
 }

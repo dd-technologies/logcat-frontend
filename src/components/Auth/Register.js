@@ -20,12 +20,15 @@ cpassword:null,
 });
 const [nameError, setNameError] = useState(null);
 const [emailError, setEmailError] = useState(null);
-const [passwordError, setPasswordError] = useState(null);
+const [passwordError, setPasswordError] = useState({
+    password:null,
+    cpassword:null
+});
 const [showPassword, setShowPassword] = useState({
     password:false,
     cpassword:false
 });
-const [setErrorPassword, setSetErrorPassword] = useState(null);
+const [responseError, setResponseError] = useState(null);
 
 const dispatch = useDispatch();
 const adminRegisterReducer = useSelector((state) => state.adminRegisterReducer);
@@ -39,7 +42,7 @@ if(isEmailValid.isSuccess){
     ...registerForm,
     email,
     });
-    
+    setEmailError(null);
     return isEmailValid.isSuccess
 }
 if(!isEmailValid.isSuccess && !isEmailValid.isEmail){
@@ -57,23 +60,48 @@ return true;
 // PASSWORD VALIDATE
 const validatePassword = (password,cpassword) => {
 if (!password) {
-    setPasswordError("Please enter your password.");
+    setPasswordError({...passwordError,password:"Please enter your password."});
     return false;
+}else{
+    setPasswordError({...passwordError,password:null});
 }
 if (!cpassword) {
-    setPasswordError("Please enter your Confirm password.");
+    setPasswordError({...passwordError,cpassword:"Please enter your Confirm password."});
     return false;
 }
-if (password !== null ) {
-    var pattern = new RegExp(
-    "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
-    );
+else{
+    console.log('cpassword available')
+    setPasswordError({...passwordError,cpassword:null});
 }
+if (password !== cpassword) {
+    setPasswordError({password:"Password does not match with confirm password.",cpassword:"Confirm password does not match with password."});
+    return false;
+}else{
+    setPasswordError({password:null,cpassword:null});
+}
+
+
+// var pattern = new RegExp(
+// "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+// );
+// const isPasswordValid = pattern.test(password)
+// console.log(isPasswordValid)
+
+// if (!isPasswordValid) {
+//     console.log("password not valid")
+//     setResponseError("Password should have Capital letter, special chars and length should be equal or more than 8 characters")
+//     return false
+// } else {
+//     setResponseError(null)
+// }
 setRegisterForm({
     ...registerForm,
     password: password,
 });
-setPasswordError(null);
+setPasswordError({
+    password:null,
+    cpassword:null
+});
 return true;
 };
 
@@ -86,8 +114,9 @@ const password = validatePassword(registerForm.password,registerForm.cpassword);
 if (!registerForm.name) {
     setNameError("Please check user name field")
     return false;
+}else{
+    setNameError(null)
 }
-nameError ?? setNameError(null)
 
 if (email && password) {
     dispatch(
@@ -108,7 +137,7 @@ if (localStorage.getItem("ddAdminToken")) {
 }, [history, adminRegInfo]);
 
 useEffect(() => {
-setSetErrorPassword(error);
+setResponseError(error);
 }, [error]);
 
 return (
@@ -121,12 +150,17 @@ return (
         height: "100vh",
     }}
     >
-    <CustomCard height="520px" width="500px">
+    <CustomCard height="560px" width="500px">
         <section className={Style.Login}>
         <div className="Login-title d-flex justify-content-start">
             <p className={Style.headerText}>Register</p>
         </div>
         <div className="Form-card">
+        {error ? (
+                <small style={{ color: "red" }}>Email already taken!</small>
+            ) : (
+                ""
+            )}
             <form>
             <div
                 className={
@@ -150,6 +184,11 @@ return (
                 value={registerForm.name}
                 />
             </div>
+            {nameError != null ? (
+                <small style={{ color: "red" }}>{nameError}</small>
+            ) : (
+                ""
+            )}
 
             <div
                 className={
@@ -180,7 +219,7 @@ return (
             )}
             <div
                 className={
-                passwordError
+                passwordError.password
                     ? `${Style.imputFieldsError} mt-4 darkModebgColor`
                     : `${Style.imputFields} mt-4 darkModebgColor`
                 }
@@ -199,18 +238,23 @@ return (
                 }
                 value={registerForm.password}
                 />
-                 <span className="px-2" style={{ cursor: "pointer" }}>
-                    <FontAwesomeIcon
-                      icon={showPassword.password ? faEye : faEyeSlash}
-                      onClick={() => {
-                        setShowPassword({...showPassword, password: !showPassword.password});
-                      }}
-                    />
-                  </span>
+                <span className="px-2" style={{ cursor: "pointer" }}>
+                <FontAwesomeIcon
+                    icon={showPassword.password ? faEye : faEyeSlash}
+                    onClick={() => {
+                    setShowPassword({...showPassword, password: !showPassword.password});
+                    }}
+                />
+                </span>
             </div>
+            {passwordError.password != null ? (
+                <small style={{ color: "red" }}>{passwordError.password}</small>
+            ) : (
+                ""
+            )}
             <div
                 className={
-                passwordError
+                passwordError.cpassword
                     ? `${Style.imputFieldsError} mt-4 darkModebgColor`
                     : `${Style.imputFields} mt-4 darkModebgColor`
                 }
@@ -229,23 +273,21 @@ return (
                 }
                 value={registerForm.cpassword}
                 />
-                 <span className="px-2" style={{ cursor: "pointer" }}>
-                    <FontAwesomeIcon
-                      icon={showPassword.cpassword ? faEye : faEyeSlash}
-                      onClick={() => {
-                        setShowPassword({...showPassword, cpassword: !showPassword.cpassword});
-                      }}
-                    />
-                  </span>
+                <span className="px-2" style={{ cursor: "pointer" }}>
+                <FontAwesomeIcon
+                    icon={showPassword.cpassword ? faEye : faEyeSlash}
+                    onClick={() => {
+                    setShowPassword({...showPassword, cpassword: !showPassword.cpassword});
+                    }}
+                />
+                </span>
             </div>
-
-            {passwordError != null ? (
-                <small style={{ color: "red" }}>{passwordError}</small>
-            ) : setErrorPassword ? (
-                <small style={{ color: "red" }}>{setErrorPassword}</small>
+            {passwordError.cpassword != null ? (
+                <small style={{ color: "red" }}>{passwordError.cpassword}</small>
             ) : (
                 ""
             )}
+            
             <section
                 style={{
                 marginTop: "20px",
