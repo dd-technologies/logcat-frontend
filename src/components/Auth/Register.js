@@ -3,7 +3,7 @@ import { Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import Style from "./Register.module.scss";
 import { adminRegister } from "../../redux/action/AdminAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,6 +21,10 @@ cpassword:null,
 const [nameError, setNameError] = useState(null);
 const [emailError, setEmailError] = useState(null);
 const [passwordError, setPasswordError] = useState(null);
+const [showPassword, setShowPassword] = useState({
+    password:false,
+    cpassword:false
+});
 const [setErrorPassword, setSetErrorPassword] = useState(null);
 
 const dispatch = useDispatch();
@@ -185,7 +189,7 @@ return (
                 <FontAwesomeIcon icon={faLock} />
                 </span>
                 <input
-                type="password"
+                type={showPassword.password ?"text":"password"}
                 className="form-control registerForminput "
                 id="exampleInputEmail1"
                 placeholder="Enter your password"
@@ -195,6 +199,14 @@ return (
                 }
                 value={registerForm.password}
                 />
+                 <span className="px-2" style={{ cursor: "pointer" }}>
+                    <FontAwesomeIcon
+                      icon={showPassword.password ? faEye : faEyeSlash}
+                      onClick={() => {
+                        setShowPassword({...showPassword, password: !showPassword.password});
+                      }}
+                    />
+                  </span>
             </div>
             <div
                 className={
@@ -207,7 +219,7 @@ return (
                 <FontAwesomeIcon icon={faLock} />
                 </span>
                 <input
-                type="password"
+                type={showPassword.cpassword ?"text":"password"}
                 className="form-control registerForminput "
                 id="exampleInputEmail1"
                 placeholder="Confirm your password"
@@ -217,6 +229,14 @@ return (
                 }
                 value={registerForm.cpassword}
                 />
+                 <span className="px-2" style={{ cursor: "pointer" }}>
+                    <FontAwesomeIcon
+                      icon={showPassword.cpassword ? faEye : faEyeSlash}
+                      onClick={() => {
+                        setShowPassword({...showPassword, cpassword: !showPassword.cpassword});
+                      }}
+                    />
+                  </span>
             </div>
 
             {passwordError != null ? (
