@@ -13,6 +13,7 @@ import Settings from "./components/Settings/Settings";
 import { useSelector } from "react-redux";
 import UpdateProfile from "./components/user/UpdateProfile";
 import "./utils/Theme.scss";
+import Register from "./components/Auth/Register";
 
 function App() {
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
@@ -23,6 +24,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={Login} />
+          <Route exact path="/register" component={Register} />
           <Route exact path="/resetpassword" component={ResetPassword} />
           <Route exact path="/forgetPassword" component={ForgetPassword} />
           <Protected exact path="/home" component={CreateProject} />
