@@ -105,8 +105,6 @@ export default function Login() {
           justifyContent: "center",
           alignItems: "center",
           height: "100vh",
-          marginLeft:"0px"
-
         }}
       >
         <CustomCard height="400px" width="500px">

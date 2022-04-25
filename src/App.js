@@ -13,6 +13,7 @@ import Settings from "./components/Settings/Settings";
 import { useSelector } from "react-redux";
 import UpdateProfile from "./components/user/UpdateProfile";
 import "./utils/Theme.scss";
+import Alarm from "./components/Alarm/Alarm";
 
 function App() {
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
@@ -29,6 +30,8 @@ function App() {
           <Protected exact path="/logtable" component={LogTable} />
           <Protected exact path="/analytics" component={Analytics} />
           <Protected exact path="/update" component={UpdateProfile} />
+          <Protected exact path="/alarm" component={Alarm} />
+
           {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
             <Protected exact path="/settings" component={Settings} />
           )}

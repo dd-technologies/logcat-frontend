@@ -79,7 +79,7 @@ export default function ResetPassword() {
     history.push("/login");
   }
 
-  useEffect(() => { }, [enableResendButton]);
+  useEffect(() => {}, [enableResendButton]);
   return (
     <>
       <Container
@@ -88,8 +88,6 @@ export default function ResetPassword() {
           justifyContent: "center",
           alignItems: "center",
           height: "100vh",
-          marginLeft: "0px"
-
         }}
       >
         <Toaster />

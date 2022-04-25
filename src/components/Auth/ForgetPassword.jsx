@@ -56,7 +56,6 @@ export default function ForgetPassword() {
           justifyContent: "center",
           alignItems: "center",
           height: "100vh",
-          marginLeft:"0px"
         }}
       >
         <Toaster />

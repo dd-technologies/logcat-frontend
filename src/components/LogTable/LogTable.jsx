@@ -3,6 +3,7 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCaretDown,
+  faClock,
   faDatabase,
   faSync,
 } from "@fortawesome/free-solid-svg-icons";
@@ -31,6 +32,7 @@ import TypeDropDown from "./components/Table/TypeDropDown";
 import "../../utils/Theme.scss";
 import { SideBar } from "../../utils/Sidebar";
 import { Navbar } from "../../utils/NavBar";
+import AlarmIcon from "../../assets/images/AlarmIcon.png"
 
 export default function LogTable() {
   const history = useHistory();
@@ -87,6 +89,11 @@ export default function LogTable() {
       iconName: `/assets/icons/settings.png`,
       linkName: "Settings",
       link: `/settings?code=${code}&name=${projectName}&pagename=settings`,
+    },
+    link3: {
+      iconName: AlarmIcon,
+      linkName: "Alarm",
+      link: `/alarm?code=${code}&name=${projectName}&pagename=alarm`,
     },
   };
 
@@ -328,7 +335,7 @@ export default function LogTable() {
                           </p>
                           <p
                             style={{}}
-                            className={`${Style.productVersion} mt-1 darkModeColor`}
+                            className={`faSync${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(90);
                               localStorage.setItem("diffDate", 90);
