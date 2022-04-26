@@ -4,11 +4,13 @@ import { faCaretDown, faTasks } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import CustomeDropDown from "../../../../Container/DropDown";
 import Style from "./TypeDropDown.module.scss";
+import { getProjectByCode } from "../../../../redux/action/ProjectAction";
+import { getCrashFreeUsers } from "../../../../redux/action/LogsAction";
 import {
-  getProjectByCode,
-} from "../../../../redux/action/ProjectAction";
-import {getCrashFreeUsers} from '../../../../redux/action/LogsAction'
-import {getLogTypeCounts,getLogByDate} from "../../../../redux/action/LogsAction"
+  getLogTypeCounts,
+  getLogByDate,
+} from "../../../../redux/action/LogsAction";
+import { alarmAction } from "../../../../redux/action/AlarmAction";
 
 const TypeDropDown = (props) => {
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
@@ -75,14 +77,17 @@ const TypeDropDown = (props) => {
         code1: type.typeCode,
       })
     );
-    
+
     dispatch(
       getLogTypeCounts({ code, diffDate: props.diffDate, code1: type.typeCode })
     );
-    
+
     dispatch(
       getLogByDate({ code, diffDate: props.diffDate, code1: type.typeCode })
     );
+
+    // alarm action dispatch
+    dispatch(alarmAction(type.typeCode, props.diffDate));
   };
 
   //  TODO: dispatch the code depanding the local storage

@@ -23,6 +23,7 @@ import AlarmIcon from "../../assets/images/AlarmIcon.png";
 import { alarmAction } from "../../redux/action/AlarmAction";
 import Spinner from "../../Container/Spinner";
 import TableCard from "../../Container/TableCard";
+import ReactPaginate from "react-paginate";
 
 export default function Alarm(props) {
   const [tableDataState, setTableDataState] = useState({});
@@ -35,12 +36,22 @@ export default function Alarm(props) {
   // filter data fields with table
   const [showTableField, setShowTableField] = useState(false);
 
+  const [record, setRecords] = useState(
+    localStorage.getItem("selected_record")
+      ? JSON.parse(localStorage.getItem("selected_record"))
+      : 25
+  );
+
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
+  const { data: projectType } = getModelCodeReducer;
 
   const alarmReducer = useSelector((state) => state.alarmReducer);
-  console.log("first", alarmReducer);
+  // console.log("first", alarmReducer);
   const { loading, data } = alarmReducer;
-  const products = data && data.data && data.data.alerts;
+  console.log("data", alarmReducer);
+
+  const products = (data && data.data && data.data.alerts) || [];
+
   console.log("first21", products);
   const dispatch = useDispatch();
 
@@ -48,9 +59,6 @@ export default function Alarm(props) {
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get("code");
   const projectName = urlParams.get("name");
-
-  const { SearchBar } = Search;
-  const { ExportCSVButton } = CSVExport;
 
   const ref = useRef();
 
@@ -63,6 +71,11 @@ export default function Alarm(props) {
     }
   };
 
+  let rowSelction = {
+    mode: "checkbox",
+    clickToSelect: true,
+  };
+
   // navigation
   const navdetails = {
     name: projectName,
@@ -70,6 +83,7 @@ export default function Alarm(props) {
     link1: {
       iconName: faDatabase,
       linkName: "Logs",
+      link: "/log",
     },
     link2: {
       iconName: faDatabase,
@@ -83,11 +97,17 @@ export default function Alarm(props) {
     link1: {
       iconName: LogICon,
       linkName: "Logs",
+      link: `/logtable?code=${code}&name=${projectName}&pagename=logtable`,
     },
     link2: {
       iconName: AlarmIcon,
       linkName: "alarm",
-      link: `/alarm?code=${code}&name=${projectName}&pagename=settings`,
+      link: `/settings?code=${code}&name=${projectName}&pagename=settings`,
+    },
+    link3: {
+      iconName: AlarmIcon,
+      linkName: "alarm",
+      link: `/alarm?code=${code}&name=${projectName}&pagename=alarm`,
     },
   };
 
@@ -96,32 +116,51 @@ export default function Alarm(props) {
     {
       dataField: "did",
       text: "Mac Address",
+      sort: true,
     },
 
     {
-      dataField: "ack",
-      text: "Mac Address",
+      dataField: "code",
+      text: "Code",
+      sort: true,
+    },
+    {
+      dataField: "msg",
+      text: "Message",
+      sort: true,
+    },
+    {
+      dataField: `timestamp`,
+      text: "Date",
+      sort: true,
       formatter: (cell) => {
-        console.log("cell", cell);
-
-        // Object.entries(cell).forEach(([key, value]) =>
-        //   console.log("cell", key, value)
-        // );
+        return (cell = cell.split("T")[0]);
+      },
+    },
+    {
+      dataField: `timestamp`,
+      text: "Time",
+      sort: true,
+      formatter: (cell) => {
+        return (cell = cell.split("T")[1].split(".")[0]);
       },
     },
   ];
 
-  const selectRow = {
-    mode: "checkbox",
-    // clickToSelect: true,
-
-    style: { backgroundColor: "#0099a4" },
-  };
-
   //   FIRST TIME ALRAM ACTION DISPATCH
   useEffect(() => {
-    dispatch(alarmAction("001"));
-  }, [dispatch]);
+    const projectTypeNew = localStorage.getItem("project_type")
+      ? JSON.parse(localStorage.getItem("project_type"))
+      : projectType;
+    const { typeCode } = projectTypeNew;
+    dispatch(alarmAction(typeCode, diffDate));
+  }, [dispatch, projectType, diffDate]);
+
+  // HANDLE PAGE CLICK
+  const handlePageClick = (data) => {};
+
+  const { SearchBar } = Search;
+  const { ExportCSVButton } = CSVExport;
 
   return (
     <div>
@@ -278,19 +317,52 @@ export default function Alarm(props) {
                       <ToolkitProvider
                         keyField="id"
                         data={products}
-                        search
                         columns={columns}
+                        search
+                        exportCSV
                       >
                         {(props) => (
-                          <div>
-                            <ExportCSVButton {...props.csvProps}>
-                              <FontAwesomeIcon icon={faDownload} />
-                            </ExportCSVButton>
-                            <BootstrapTable {...props.baseProps} />
-                          </div>
+                          <>
+                            {/* {console.log("props", props)} */}
+                            <section className={Style.searchBar}>
+                              <SearchBar
+                                placeholder="Search..."
+                                {...props.searchProps}
+                              />
+                              <ExportCSVButton {...props.csvProps}>
+                                <FontAwesomeIcon icon={faDownload} />
+                              </ExportCSVButton>
+                            </section>
+                            <BootstrapTable
+                              {...props.baseProps}
+                              // selectRow={rowSelction}
+                            />
+                          </>
                         )}
                       </ToolkitProvider>
                     )}
+                  </section>
+                  <section className="p-2">
+                    <ReactPaginate
+                      breakLabel=". . ."
+                      nextLabel="Next >"
+                      onPageChange={handlePageClick}
+                      pageRangeDisplayed={4}
+                      // pageCount={
+                      //   data && data.data && Math.ceil(data.data.count / record)
+                      // }
+                      pageCount={data && data.data && data.data.count / record}
+                      // previousLabel="< Previous"
+                      // initialPage={1}
+                      renderOnZeroPageCount={null}
+                      containerClassName={"pagination"}
+                      pageClassName={"page-item"}
+                      pageLinkClassName={"page-link"}
+                      previousClassName={"page-item"}
+                      nextClassName={"page-item"}
+                      previousLinkClassName={"page-link"}
+                      nextLinkClassName={"page-link"}
+                    />
                   </section>
                 </TableCard>
               </Col>

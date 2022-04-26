@@ -14,9 +14,8 @@
     flex-direction: column;
 
     .LogcatLogo {
-      width: 100%;
+      width: 100% !important;
       // background-color: red;
-      height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -27,17 +26,17 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      height: 6%;
       padding: 10px;
-
+      
       @media only screen and (min-width: 300px) and (max-width: 900px) {
-        height: 6% !important;
+        height: 7% !important;
       }
       @media only screen and (min-width: 900px) and (max-width: 1600px) {
-        height: 8% !important;
+       
+        height: 10% !important;
       }
       @media only screen and (min-width: 1600px) and (max-width: 1920px) {
-        height: 8% !important;
+        height: 12% !important;
       }
 
       & img {

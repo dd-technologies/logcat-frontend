@@ -8,8 +8,11 @@ import EventByVersion from "./Componets/EventByVersion";
 // import {
 //   getCrashAnalyticsData,
 // } from "../../redux/action/ProjectAction";
-import {getCrashFreeUsersData,getCrashAnalyticsData} from '../../redux/action/LogsAction'
-import {getLogMsgOccurenceWRTDate} from '../../redux/action/LogsAction'
+import {
+  getCrashFreeUsersData,
+  getCrashAnalyticsData,
+} from "../../redux/action/LogsAction";
+import { getLogMsgOccurenceWRTDate } from "../../redux/action/LogsAction";
 import { useDispatch, useSelector } from "react-redux";
 import AnalyticeIcon from "../../assets/icons/Analytics.png";
 import { SideBar } from "../../utils/Sidebar";
@@ -45,12 +48,17 @@ export default function Analytics() {
     link1: {
       iconName: AnalyticeIcon,
       linkName: "Analytics",
-      link: null,
+      link: "/",
     },
     link2: {
       iconName: `./assets/icons/settings.png`,
       linkName: "Settings",
       link: `/settings?code=${code}&name=${projectName}&pagename=settings`,
+    },
+    link3: {
+      iconName: `./assets/icons/settings.png`,
+      linkName: "Settings",
+      link: `/alarm?code=${code}&name=${projectName}&pagename=alarm`,
     },
   };
   const navdetails = {

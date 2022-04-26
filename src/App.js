@@ -32,6 +32,7 @@ function App() {
           <Protected exact path="/logtable" component={LogTable} />
           <Protected exact path="/analytics" component={Analytics} />
           <Protected exact path="/update" component={UpdateProfile} />
+
           <Protected exact path="/alarm" component={Alarm} />
 
           {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (

@@ -633,11 +633,6 @@ function TableData(props) {
     <>
       <TableCard
         height={data && data.data && data.data.logs.length ? "100%" : "200px"}
-        boxShadow={
-          JSON.parse(localStorage.getItem("darkMood"))
-            ? "1px 1px 10px 2px rgba(0,0,0,0.45)"
-            : ""
-        }
         borderRadius="10px"
       >
         <Toaster />
@@ -656,16 +651,7 @@ function TableData(props) {
             >
               {(props) => (
                 <>
-                  <div
-                    className={`${Style.BootstrapTable} TBSED`}
-                    style={{
-                      backgroundColor: JSON.parse(
-                        localStorage.getItem("darkMood")
-                      )
-                        ? "#202940"
-                        : null,
-                    }}
-                  >
+                  <div className={`${Style.BootstrapTable} TBSED`}>
                     <section className={Style.searchbar}>
                       <SearchBar {...props.searchProps} />
                     </section>
@@ -994,12 +980,9 @@ function TableData(props) {
                 </>
               )}
             </ToolkitProvider>
-          ) 
-          : loading ? (
+          ) : loading ? (
             <Spinner height="200px" />
-          ) 
-          :
-           (
+          ) : (
             <section
               style={{
                 display: "flex",

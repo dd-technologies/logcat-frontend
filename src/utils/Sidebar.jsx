@@ -6,6 +6,10 @@ import logo from "../assets/images/DDTECH.png";
 import Logcat from "../assets/images/lgnewsmall.png";
 import LogcatLarge from "../assets/images/logcarLarge.svg";
 import settigns from "../assets/icons/settings.png";
+import Analytics from "../assets/icons/analytics.png";
+
+import Log from "../assets/icons/log.png";
+
 import Style from "./Sidebar.module.scss";
 import { ThemeContext, sideMenus } from "./ThemeContext";
 import AlarmIcon from "../assets/images/AlarmIcon.png";
@@ -57,34 +61,32 @@ export function SideBar(props) {
           <section className={Style.linkSection}>
             {/* LINK FIRST  */}
 
-            {url.pathname == "/update" || url.pathname == "/settings" ? (
-              <></>
-            ) : (
-              <section
-                className={
-                  logURLName.includes("logpage") ||
-                  logURLName.includes("analytics")
-                    ? `${Style.linkActive} noSideBarLinkOuter`
-                    : `${Style.linkInActive} noSideBarLinkOuter`
+            <section
+              className={
+                logURLName.includes("logpage")
+                  ? `${Style.linkActive} noSideBarLinkOuter`
+                  : `${Style.linkInActive} noSideBarLinkOuter`
+              }
+            >
+              <Link
+                className={`${Style.linkData} noSideBarLink`}
+                to={
+                  sidebarDetails.link1 &&
+                  sidebarDetails.link1.link &&
+                  sidebarDetails.link1.link.length === 0
+                    ? ""
+                    : sidebarDetails.link1.link
                 }
               >
-                <Link
-                  className={`${Style.linkData} noSideBarLink`}
-                  to={
-                    sidebarDetails.link1 &&
-                    sidebarDetails.link1.link &&
-                    sidebarDetails.link1.link.length === 0
-                      ? ""
-                      : sidebarDetails.link1.link
-                  }
-                >
-                  <Image src={sidebarDetails.link1.iconName} />
-                  <section className="hidelinkName">
-                    {sidebarDetails.link1.linkName}
-                  </section>
-                </Link>
-              </section>
-            )}
+                <Image
+                  src={settingUrl.includes("analytics") ? Analytics : Log}
+                  width="28"
+                />
+                <section className="hidelinkName">
+                  {sidebarDetails.link2.linkName}
+                </section>
+              </Link>
+            </section>
 
             {/* LINK SECOND  */}
             {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
@@ -122,33 +124,21 @@ export function SideBar(props) {
             {/* ALARM LINK  */}
             {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
               <>
-                {url.pathname == "/alarm" ? (
-                  <></>
-                ) : (
-                  <section
-                    className={
-                      settingUrl.includes("alarm")
-                        ? `${Style.linkActive} noSideBarLinkOuter`
-                        : `${Style.linkInActive} noSideBarLinkOuter`
-                    }
+                <section
+                  className={
+                    settingUrl.includes("alarm")
+                      ? `${Style.linkActive} noSideBarLinkOuter`
+                      : `${Style.linkInActive} noSideBarLinkOuter`
+                  }
+                >
+                  <Link
+                    className={`${Style.linkData} noSideBarLink`}
+                    to={sidebarDetails.link3 && sidebarDetails.link3.link}
                   >
-                    <Link
-                      className={`${Style.linkData} noSideBarLink`}
-                      to={
-                        sidebarDetails.link3 &&
-                        sidebarDetails.link3.link &&
-                        sidebarDetails.link3.link.length === 0
-                          ? ""
-                          : sidebarDetails.link3.link
-                      }
-                    >
-                     <Image src={AlarmIcon} width="25"/>
-                      <section className="hidelinkName">
-                        {sidebarDetails.link3.linkName}
-                      </section>
-                    </Link>
-                  </section>
-                )}
+                    <Image src={AlarmIcon} width="25" />
+                    <section className="hidelinkName">Alarm</section>
+                  </Link>
+                </section>
               </>
             )}
           </section>
