@@ -213,7 +213,7 @@ export default function Login() {
                     }}
                     className="cpactiveText"
                   >
-                    Register
+                    Don't have an account? Click here
                   </Link>
                 </section>
                 <Button

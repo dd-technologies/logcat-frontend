@@ -303,7 +303,7 @@ return (
                     fontWeight: 500,
                 }}
                 >
-                Click here to Login...
+                Already have an account? Click here
                 </Link>
             </section>
             <Button
@@ -312,7 +312,7 @@ return (
                 className="mt-4"
                 onClick={(e) => handleSubmit(e)}
             >
-                {loading ? "Registering..." : "Register"}
+                {loading ? "Loading..." : "Register"}
             </Button>
             </form>
         </div>

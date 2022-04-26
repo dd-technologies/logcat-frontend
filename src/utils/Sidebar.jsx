@@ -8,6 +8,9 @@ import LogcatLarge from "../assets/images/logcarLarge.svg";
 import settigns from "../assets/icons/settings.png";
 import Style from "./Sidebar.module.scss";
 import { ThemeContext, sideMenus } from "./ThemeContext";
+import AlarmIcon from "../assets/images/AlarmIcon.png";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export function SideBar(props) {
   const { sidebarDetails } = props;
@@ -109,6 +112,39 @@ export function SideBar(props) {
                       <Image src={settigns} />
                       <section className="hidelinkName">
                         {sidebarDetails.link2.linkName}
+                      </section>
+                    </Link>
+                  </section>
+                )}
+              </>
+            )}
+
+            {/* ALARM LINK  */}
+            {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
+              <>
+                {url.pathname == "/alarm" ? (
+                  <></>
+                ) : (
+                  <section
+                    className={
+                      settingUrl.includes("alarm")
+                        ? `${Style.linkActive} noSideBarLinkOuter`
+                        : `${Style.linkInActive} noSideBarLinkOuter`
+                    }
+                  >
+                    <Link
+                      className={`${Style.linkData} noSideBarLink`}
+                      to={
+                        sidebarDetails.link3 &&
+                        sidebarDetails.link3.link &&
+                        sidebarDetails.link3.link.length === 0
+                          ? ""
+                          : sidebarDetails.link3.link
+                      }
+                    >
+                     <Image src={AlarmIcon} width="25"/>
+                      <section className="hidelinkName">
+                        {sidebarDetails.link3.linkName}
                       </section>
                     </Link>
                   </section>
