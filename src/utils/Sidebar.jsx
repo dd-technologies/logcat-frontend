@@ -74,7 +74,7 @@ export function SideBar(props) {
                   sidebarDetails.link1 &&
                   sidebarDetails.link1.link &&
                   sidebarDetails.link1.link.length === 0
-                    ? ""
+                    ? "/"
                     : sidebarDetails.link1.link
                 }
               >
@@ -107,7 +107,7 @@ export function SideBar(props) {
                         sidebarDetails.link2 &&
                         sidebarDetails.link2.link &&
                         sidebarDetails.link2.link.length === 0
-                          ? ""
+                          ? "/"
                           : sidebarDetails.link2.link
                       }
                     >

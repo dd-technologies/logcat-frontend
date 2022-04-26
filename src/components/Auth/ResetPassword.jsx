@@ -8,7 +8,7 @@ import OtpInput from "react-otp-input";
 import { toast, Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { resetForgetPassword } from "../../redux/action/AdminAction";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Timer from "../Analytics/Componets/Timer";
 import { forgetPassword } from "../../redux/action/AdminAction";
 
@@ -43,7 +43,7 @@ export default function ResetPassword() {
   };
 
   const { loading, data, error } = resetPasswordReducer;
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
@@ -76,7 +76,7 @@ export default function ResetPassword() {
   if (data && data.success) {
     toast.success("Password reset done");
     localStorage.removeItem("forgetEmail");
-    history.push("/login");
+    navigate("/login");
   }
 
   useEffect(() => {}, [enableResendButton]);

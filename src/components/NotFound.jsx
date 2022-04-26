@@ -2,17 +2,17 @@ import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Style from "./NotFound.module.scss";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 export default function NotFound() {
 
-  const history = useHistory();
+  const navigate = useNavigate();
   useEffect(() => {
     if (!localStorage.getItem("ddAdminToken")) {
-      history.push("/");
+      navigate("/");
     }
-  }, [history]);
+  }, [navigate]);
 
   return (
     <>

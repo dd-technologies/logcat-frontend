@@ -62,7 +62,7 @@ export const loginWithEmail =
   };
 
 // USER LOGOUT
-export const adminLogout = (history) => async (dispatch) => {
+export const adminLogout = (navigate) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -79,7 +79,7 @@ export const adminLogout = (history) => async (dispatch) => {
     localStorage.removeItem("ddAdminToken");
     await persistor.purge();
 
-    history.push("/");
+    navigate("/");
     dispatch({
       type: ADMIN_LOGOUT,
     });
@@ -96,7 +96,7 @@ export const adminLogout = (history) => async (dispatch) => {
 
 //  USER REGISTER ACTIONS
 export const adminRegister =
-  (email, password, name, history) => async (dispatch) => {
+  (email, password, name, navigate) => async (dispatch) => {
     try {
       dispatch({
         type: ADMIN_REGISTER_REQUEST,
@@ -123,7 +123,7 @@ export const adminRegister =
       });
 
       localStorage.setItem("adminInfo", data);
-      history.push("/");
+      navigate("/");
     } catch (error) {
       dispatch({
         type: ADMIN_REGISTER_FAIL,

@@ -24,7 +24,7 @@ import {
   getDeviceModelCode,
   getCrashFreeUsers,
 } from "../../redux/action/LogsAction";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Spinner from "../../Container/Spinner";
 import DateIcons from "../../assets/icons/date.png";
 import LogICon from "../../assets/icons/log.png";
@@ -32,10 +32,10 @@ import TypeDropDown from "./components/Table/TypeDropDown";
 import "../../utils/Theme.scss";
 import { SideBar } from "../../utils/Sidebar";
 import { Navbar } from "../../utils/NavBar";
-import AlarmIcon from "../../assets/images/AlarmIcon.png"
+import AlarmIcon from "../../assets/images/AlarmIcon.png";
 
 export default function LogTable() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [dateDropDown, setDateDropDown] = useState(false);
   const [diffDate, setDiffDate] = useState(
     localStorage.getItem("diffDate") || 90
@@ -84,6 +84,7 @@ export default function LogTable() {
     link1: {
       iconName: LogICon,
       linkName: "Logs",
+      link: `/logtable?code=${code}&name=${projectName}&pagename=logpage`,
     },
     link2: {
       iconName: `/assets/icons/settings.png`,
@@ -164,12 +165,12 @@ export default function LogTable() {
   // CHECKING IF USER IS LOGIN OR NOT
   useEffect(() => {
     if (!localStorage.getItem("ddAdminToken")) {
-      history.push("/");
+      navigate("/");
     }
     // return () => {
     //   <Spinner />;
     // };
-  }, [history]);
+  }, [navigate]);
 
   // REFRESH ONLY TABLE
   const RefreshTableOnlyFun = () => {

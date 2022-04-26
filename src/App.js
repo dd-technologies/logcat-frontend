@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.module.scss";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CreateProject from "./components/Create_project/CreateProject";
 import LogTable from "./components/LogTable/LogTable";
 import Analytics from "./components/Analytics/Analytics";
@@ -21,24 +21,24 @@ function App() {
 
   return (
     <>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/resetpassword" component={ResetPassword} />
-          <Route exact path="/forgetPassword" component={ForgetPassword} />
-          <Protected exact path="/home" component={CreateProject} />
-          <Protected exact path="/logtable" component={LogTable} />
-          <Protected exact path="/analytics" component={Analytics} />
-          <Protected exact path="/update" component={UpdateProfile} />
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<Login />} />
+          <Route exact path="/resetpassword" element={<ResetPassword />} />
+          <Route exact path="/forgetPassword" element={<ForgetPassword />} />
+          <Route exact path="/home" element={<CreateProject />} />
+          <Route exact path="/logtable" element={<LogTable />} />
+          <Route exact path="/analytics" element={<Analytics />} />
+          <Route exact path="/update" element={<UpdateProfile />} />
 
-          <Protected exact path="/alarm" component={Alarm} />
+          <Route exact path="/alarm" element={<Alarm />} />
 
           {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
-            <Protected exact path="/settings" component={Settings} />
+            <Route exact path="/settings" element={<Settings />} />
           )}
-          <Route exact path="*" component={NotFound} />
-        </Switch>
-      </Router>
+          <Route exact path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

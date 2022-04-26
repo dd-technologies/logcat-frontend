@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import CustomeDropDown from "../Container/DropDown";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { adminLogout } from "../redux/action/AdminAction";
 import Style from "./NavBar.module.scss";
 import DarkLightMood from "./DarkLightMood";
@@ -28,10 +28,10 @@ export function Navbar(props) {
   const ref = useRef();
 
   const dispatch = useDispatch();
-  let history = useHistory();
+  let navigate = useNavigate();
   const handlelogout = (e) => {
     e.preventDefault();
-    dispatch(adminLogout(history));
+    dispatch(adminLogout(navigate));
   };
 
   const showUserInfoFun = () => {
@@ -121,7 +121,7 @@ export function Navbar(props) {
               {adminInfo && adminInfo.data && adminInfo.data.email}
             </p>
             <section
-              onClick={() => history.push("/update")}
+              onClick={() => navigate("/update")}
               className={`${Style.manageAccount} darkModeColor`}
               style={{ border: "1px solid #fff" }}
             >
