@@ -166,9 +166,9 @@ export default function LogTable() {
     if (!localStorage.getItem("ddAdminToken")) {
       history.push("/");
     }
-    return () => {
-      <Spinner />;
-    };
+    // return () => {
+    //   <Spinner />;
+    // };
   }, [history]);
 
   // REFRESH ONLY TABLE

@@ -106,9 +106,15 @@ export default function UpdateProfile() {
     link1: {
       iconName: LogICon,
       linkName: "Logs",
+      link: ``,
     },
     link2: {
       iconName: `/assets/icons/settings.png`,
+      linkName: "Settings",
+      link: ``,
+    },
+    link3: {
+      iconName: `/assets/images/AlarmIcon.png`,
       linkName: "Settings",
       link: ``,
     },
@@ -157,14 +163,8 @@ export default function UpdateProfile() {
                     zIndex="8"
                     height="600px"
                   >
-                    <h3
-                      className="mb-4 darkModeColor"
-
-                    >
-                      Update profile
-                    </h3>
+                    <h3 className="mb-4 darkModeColor">Update profile</h3>
                     <section className={Style.Avtarunder}>
-
                       {avatar ? (
                         <img src={URL.createObjectURL(avatar)} alt="Avatar" />
                       ) : (
@@ -174,7 +174,6 @@ export default function UpdateProfile() {
                           .split(" ")
                           .map((name) => name[0][0].toUpperCase())
                       )}
-
                     </section>
                     <section className={Style.editImage}>
                       <label for="image_upload">

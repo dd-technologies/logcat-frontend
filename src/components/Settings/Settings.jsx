@@ -83,13 +83,19 @@ export default function Settings() {
     name: projectName,
     dashName: projectName,
     link1: {
-      iconName: null,
-      linkName: null,
-      link: "",
+      iconName: `/assets/icons/log.png`,
+      linkName: `logtable`,
+      link: `/logtable?code=${code}&name=${projectName}&pagename=logtable`,
     },
     link2: {
       iconName: `/assets/icons/settings.png`,
       linkName: "Settings",
+      link: "/",
+    },
+    link3: {
+      iconName: `/assets/icons/settings.png`,
+      linkName: "Settings",
+      link: `/alarm?code=${code}&name=${projectName}&pagename=alarm`,
     },
   };
 

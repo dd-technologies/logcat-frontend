@@ -55,16 +55,16 @@
         height: 6%;
 
         @media only screen and (min-width: 300px) and (max-width: 900px) {
-          height: 6% !important;
+          height: 8% !important;
           margin-top: -2px !important;
         }
         @media only screen and (min-width: 900px) and (max-width: 1600px) {
           margin-top: -3px !important;
-          height: 8% !important;
+          height: 10% !important;
         }
         @media only screen and (min-width: 1600px) and (max-width: 1920px) {
           margin-top: -4px !important;
-          height: 7% !important;
+          height: 12% !important;
         }
         .noSideBarLogcatLogo {
           & img {
