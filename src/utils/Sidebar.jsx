@@ -63,7 +63,8 @@ export function SideBar(props) {
 
             <section
               className={
-                logURLName.includes("logpage")
+                logURLName.includes("logpage") ||
+                logURLName.includes("analytics")
                   ? `${Style.linkActive} noSideBarLinkOuter`
                   : `${Style.linkInActive} noSideBarLinkOuter`
               }
@@ -152,7 +153,8 @@ export function SideBar(props) {
                   changeSideMenu(
                     sideBar ? sideMenus.menuShow : sideMenus.menuHide
                   );
-                  // console.log("first", changeSidebar)
+
+                  // console.log("first11111");
                 }}
               ></section>
             )}
