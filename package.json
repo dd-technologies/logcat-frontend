@@ -62,6 +62,7 @@
     ]
   },
   "devDependencies": {
+    "npm-check-updates": "^12.5.9",
     "sass": "^1.51.0"
   }
 }
