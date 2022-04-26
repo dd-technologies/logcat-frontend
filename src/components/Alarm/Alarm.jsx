@@ -101,7 +101,7 @@ export default function Alarm(props) {
     },
     link2: {
       iconName: AlarmIcon,
-      linkName: "alarm",
+      linkName: "Settings",
       link: `/settings?code=${code}&name=${projectName}&pagename=settings`,
     },
     link3: {

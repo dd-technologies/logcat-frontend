@@ -83,7 +83,7 @@ export function SideBar(props) {
                   width="28"
                 />
                 <section className="hidelinkName">
-                  {sidebarDetails.link2.linkName}
+                  {sidebarDetails.link1.linkName}
                 </section>
               </Link>
             </section>
