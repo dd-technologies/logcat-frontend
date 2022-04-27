@@ -8,7 +8,7 @@ import { useState } from "react";
 import { addCrashEmail } from "../../redux/action/ProjectAction";
 import Spinner from "../../Container/Spinner";
 import { validateEmailHelper } from "../../helper/Emails";
-import { SideBar } from "../../utils/Sidebar";
+import SideBar from "../../utils/Sidebar";
 import { Navbar } from "../../utils/NavBar";
 
 export default function Settings() {
