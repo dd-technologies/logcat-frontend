@@ -45,16 +45,17 @@ export default function Alarm(props) {
       ? JSON.parse(localStorage.getItem("selected_record"))
       : 25
   );
+  const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
+  const { data: projectType } = getModelCodeReducer;
+  console.log("project type", projectType);
 
   const [projectCode, setProjectCode] = useState(
     localStorage.getItem("project_type")
       ? JSON.parse(localStorage.getItem("project_type")).typeCode
-      : projectType.modelList[0].typeCode
+      : projectType &&
+          projectType.modelList[0] &&
+          projectType.modelList[0].typeCode
   );
-
-  const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
-  const { data: projectType } = getModelCodeReducer;
-  console.log("project type", projectType);
 
   const alarmReducer = useSelector((state) => state.alarmReducer);
   // console.log("first", alarmReducer);

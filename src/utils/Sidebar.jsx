@@ -28,7 +28,6 @@ function SideBar(props) {
   // URL STRING
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const settingUrl = urlParams.get("pagename") || "";
   const logURLName = urlParams.get("pagename") || "";
   // console.log("first", updatePage);
 
@@ -41,7 +40,7 @@ function SideBar(props) {
         <section className={`${Style.Sidebar} noSidbarInner`}>
           <section className={`${Style.LogoSection} sidebarMenu`}>
             <Link
-              to=""
+              to="/"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -80,7 +79,7 @@ function SideBar(props) {
                 }
               >
                 <Image
-                  src={settingUrl.includes("analytics") ? Analytics : Log}
+                  src={logURLName.includes("analytics") ? Analytics : Log}
                   width="25"
                 />
                 <section className="hidelinkName">
@@ -97,7 +96,7 @@ function SideBar(props) {
                 ) : (
                   <section
                     className={
-                      settingUrl.includes("settings")
+                      logURLName.includes("settings")
                         ? `${Style.linkActive} noSideBarLinkOuter`
                         : `${Style.linkInActive} noSideBarLinkOuter`
                     }
@@ -127,7 +126,7 @@ function SideBar(props) {
               <>
                 <section
                   className={
-                    settingUrl.includes("alarm")
+                    logURLName.includes("alarm")
                       ? `${Style.linkActive} noSideBarLinkOuter`
                       : `${Style.linkInActive} noSideBarLinkOuter`
                   }

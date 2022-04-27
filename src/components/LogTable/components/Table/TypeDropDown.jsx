@@ -23,6 +23,8 @@ const TypeDropDown = (props) => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get("code");
+  const logTablePageURL = urlParams.get("pagename");
+  console.log("logTablePageURL", logTablePageURL);
 
   const dispatch = useDispatch();
 
@@ -70,21 +72,27 @@ const TypeDropDown = (props) => {
       )
     );
     //
-    dispatch(
-      getCrashFreeUsers({
-        code,
-        diffDate: props.diffDate,
-        code1: type.typeCode,
-      })
-    );
+    if ((logTablePageURL === "logtable")) {
+      dispatch(
+        getCrashFreeUsers({
+          code,
+          diffDate: props.diffDate,
+          code1: type.typeCode,
+        })
+      );
 
-    dispatch(
-      getLogTypeCounts({ code, diffDate: props.diffDate, code1: type.typeCode })
-    );
+      dispatch(
+        getLogTypeCounts({
+          code,
+          diffDate: props.diffDate,
+          code1: type.typeCode,
+        })
+      );
 
-    dispatch(
-      getLogByDate({ code, diffDate: props.diffDate, code1: type.typeCode })
-    );
+      dispatch(
+        getLogByDate({ code, diffDate: props.diffDate, code1: type.typeCode })
+      );
+    }
 
     // alarm action dispatch
     dispatch(alarmAction(type.typeCode, props.diffDate));
