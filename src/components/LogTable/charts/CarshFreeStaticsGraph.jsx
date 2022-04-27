@@ -21,7 +21,7 @@ export default function CarshFreeStaticsGraph() {
   let dt = data && data.response;
 
   const { theme } = React.useContext(ThemeContext);
-  console.log("first", theme);
+  // console.log("first", theme);
 
   // Date Formate
   const dateFormatter = (date) => {
