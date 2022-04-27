@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { Image } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -16,7 +16,7 @@ import AlarmIcon from "../assets/images/AlarmIcon.png";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export function SideBar(props) {
+function SideBar(props) {
   const { sidebarDetails } = props;
 
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
@@ -168,3 +168,5 @@ export function SideBar(props) {
     </>
   );
 }
+
+export default SideBar;

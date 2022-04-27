@@ -30,7 +30,7 @@ import DateIcons from "../../assets/icons/date.png";
 import LogICon from "../../assets/icons/log.png";
 import TypeDropDown from "./components/Table/TypeDropDown";
 import "../../utils/Theme.scss";
-import { SideBar } from "../../utils/Sidebar";
+import SideBar from "../../utils/Sidebar";
 import { Navbar } from "../../utils/NavBar";
 import AlarmIcon from "../../assets/images/AlarmIcon.png";
 

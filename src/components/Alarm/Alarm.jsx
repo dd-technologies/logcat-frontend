@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { Navbar } from "../../utils/NavBar";
-import { SideBar } from "../../utils/Sidebar";
+import SideBar from "../../utils/Sidebar";
 import Style from "./Alarm.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TypeDropDown from "../LogTable/components/Table/TypeDropDown";
@@ -27,6 +27,7 @@ import Spinner from "../../Container/Spinner";
 import TableCard from "../../Container/TableCard";
 import ReactPaginate from "react-paginate";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import { getProjectByCode } from "../../redux/action/ProjectAction";
 
 export default function Alarm(props) {
   const [tableDataState, setTableDataState] = useState({});
@@ -43,6 +44,12 @@ export default function Alarm(props) {
     localStorage.getItem("selected_record")
       ? JSON.parse(localStorage.getItem("selected_record"))
       : 25
+  );
+
+  const [projectCode, setProjectCode] = useState(
+    localStorage.getItem("project_type")
+      ? JSON.parse(localStorage.getItem("project_type")).typeCode
+      : projectType.modelList[0].typeCode
   );
 
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
@@ -169,18 +176,17 @@ export default function Alarm(props) {
 
   //   FIRST TIME ALARM ACTION DISPATCH
   useEffect(() => {
-    const projectTypeNew = localStorage.getItem("project_type")
-
-
-
-      ? JSON.parse(localStorage.getItem("project_type")).typeCode
-      : projectType.modelList[0].typeCode;
-    dispatch(alarmAction(projectTypeNew, diffDate));
-
-  }, [dispatch, projectType, diffDate]);
+    console.log("projectCode", projectCode);
+    dispatch(alarmAction(projectCode, diffDate));
+  }, [dispatch, projectCode, diffDate]);
 
   // HANDLE PAGE CLICK
-  const handlePageClick = (data) => { };
+  const handlePageClick = (data) => {
+    console.log("pagination");
+    return dispatch(
+      alarmAction(projectCode, diffDate, data.selected + 1, record)
+    );
+  };
 
   const { SearchBar } = Search;
   const { ExportCSVButton } = CSVExport;
@@ -227,18 +233,18 @@ export default function Alarm(props) {
                       {diffDate == 10
                         ? `last 10 days`
                         : diffDate == 7
-                          ? `last 7 days`
-                          : diffDate == 15
-                            ? `last 15 days`
-                            : diffDate == 30
-                              ? `last 30 days`
-                              : diffDate == 45
-                                ? `last 45 days`
-                                : diffDate == 60
-                                  ? `last 60 days`
-                                  : diffDate == 90
-                                    ? `last 90 days`
-                                    : null}
+                        ? `last 7 days`
+                        : diffDate == 15
+                        ? `last 15 days`
+                        : diffDate == 30
+                        ? `last 30 days`
+                        : diffDate == 45
+                        ? `last 45 days`
+                        : diffDate == 60
+                        ? `last 60 days`
+                        : diffDate == 90
+                        ? `last 90 days`
+                        : null}
                     </p>
                     <FontAwesomeIcon
                       icon={faCaretDown}
@@ -364,7 +370,7 @@ export default function Alarm(props) {
                             </section>
                             <BootstrapTable
                               {...props.baseProps}
-                            // selectRow={selectRow}
+                              // selectRow={selectRow}
                             />
                           </>
                         )}

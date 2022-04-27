@@ -14,7 +14,7 @@ import { passwordChangeAction } from "../../redux/action/UserProfileAction";
 import { toast, Toaster } from "react-hot-toast";
 import { updateProfile } from "../../redux/action/AdminAction";
 import UpdatePassord from "./UpdatePassord";
-import { SideBar } from "../../utils/Sidebar";
+import SideBar from "../../utils/Sidebar";
 import { Navbar } from "../../utils/NavBar";
 
 export default function UpdateProfile() {
