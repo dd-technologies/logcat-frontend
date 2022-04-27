@@ -2,30 +2,21 @@
 
 .Outer_section {
   cursor: pointer;
-  @media screen and (min-width: 768px) and (max-width: 1024px) {
-    width: 28px;
-    height: 28px;
-    margin-left: 10px !important;
+  @media only screen and (min-width: 300px) and (max-width: 900px) {
+    width: 30px;
+    height: 30px;
   }
-  @media screen and (min-width: 1024px) and (max-width: 1400px) {
+  @media only screen and (min-width: 900px) and (max-width: 1600px) {
     width: 35px;
     height: 35px;
-    margin-left: 10px !important;
   }
-  @media screen and (min-width: 1400px) and (max-width: 1600px) {
-    width: 28px;
-    height: 28px;
-    margin-left: 10px !important;
-  }
-  @media screen and (min-width: 1600px) and (max-width: 1920px) {
+  @media only screen and (min-width: 1600px) and (max-width: 1920px) {
     width: 40px;
     height: 40px;
-    margin-left: 10px !important;
   }
   background-color: #fff;
   border-radius: 20px;
   padding: 5px;
-  margin-right: 10px;
   display: flex;
   justify-content: center;
   align-items: center;

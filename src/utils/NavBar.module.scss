@@ -4,12 +4,12 @@
   width: 100%;
   position: fixed;
   z-index: 10;
-  // border:1px solid red;
 
   .Navbar {
     background-color: $activehrefText;
     display: flex;
     justify-content: space-between;
+    align-items: center !important;
     padding: 0.3% 1%;
     width: 100%;
 
@@ -17,15 +17,15 @@
       // transition-duration: 0.3s;
 
       @media only screen and (min-width: 300px) and (max-width: 900px) {
-        margin-right: 8%;
+        margin-right: 6%;
         width: 20%;
       }
       @media only screen and (min-width: 900px) and (max-width: 1600px) {
-        margin-right: 6%;
+        margin-right: 7%;
         width: 14%;
       }
       @media only screen and (min-width: 1600px) and (max-width: 1920px) {
-        margin-right: 18%;
+        margin-right: 6%;
         width: 12%;
       }
 

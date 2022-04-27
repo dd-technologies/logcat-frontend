@@ -361,7 +361,7 @@ export default function LogTable() {
                 <Col xl={4} md={6} sm={12} className=" mt-4">
                   <PieChartSection />
                 </Col>
-                <Col className="trends-container mt-4" xl={4} md={12} sm={12}>
+                <Col className="mt-4" xl={4} md={12} sm={12}>
                   <TrandData />
                 </Col>
               </Row>

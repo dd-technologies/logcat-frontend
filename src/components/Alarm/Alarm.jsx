@@ -398,6 +398,7 @@ export default function Alarm(props) {
                       nextClassName={"page-item"}
                       previousLinkClassName={"page-link"}
                       nextLinkClassName={"page-link"}
+                      activeClassName={"active"}
                     />
                   </section>
                 </TableCard>

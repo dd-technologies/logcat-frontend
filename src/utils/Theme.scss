@@ -54,18 +54,6 @@
       .sidebarMenu {
         height: 6%;
 
-        @media only screen and (min-width: 300px) and (max-width: 900px) {
-          height: 8% !important;
-          margin-top: -2px !important;
-        }
-        @media only screen and (min-width: 900px) and (max-width: 1600px) {
-          margin-top: -3px !important;
-          height: 8% !important;
-        }
-        @media only screen and (min-width: 1600px) and (max-width: 1920px) {
-          margin-top: -4px !important;
-          height: 8% !important;
-        }
         .noSideBarLogcatLogo {
           & img {
             @media only screen and (min-width: 300px) and (max-width: 900px) {
@@ -132,23 +120,54 @@
   }
 
   // navbar
-  .sideBarDetailSection {
-    @media only screen and (min-width: 300px) and (max-width: 900px) {
-      margin-right: 8% !important;
-      width: 20% !important;
-    }
-    @media only screen and (min-width: 900px) and (max-width: 1600px) {
-      margin-right: 6% !important;
-      width: 14% !important;
-    }
-    @media only screen and (min-width: 1600px) and (max-width: 1920px) {
-      margin-right: 6% !important;
-      width: 12% !important;
-    }
-  }
+
   // container
   .container {
     margin-left: 13%;
     // transition-duration: .3s !important;
   }
+}
+
+// navbar with sidebar
+.navBarDetails {
+  @media only screen and (min-width: 300px) and (max-width: 900px) {
+    margin-right: 17%;
+    width: 20%;
+    background-color: red;
+  }
+  @media only screen and (min-width: 900px) and (max-width: 1600px) {
+    margin-right: 17%;
+    width: 14%;
+    // background-color: red;
+  }
+  @media only screen and (min-width: 1600px) and (max-width: 1920px) {
+    margin-right: 18%;
+    width: 12%;
+    // background-color: red;
+  }
+
+  .AvatarSectionSidbar {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    cursor: pointer;
+    @media only screen and (min-width: 300px) and (max-width: 900px) {
+      width: 30px;
+      height: 30px;
+    }
+    @media only screen and (min-width: 900px) and (max-width: 1600px) {
+      width: 35px;
+      height: 35px;
+    }
+    @media only screen and (min-width: 1600px) and (max-width: 1920px) {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
