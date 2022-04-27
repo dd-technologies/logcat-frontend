@@ -7,7 +7,7 @@ import { faEye, faEyeSlash, faLock, faUser } from "@fortawesome/free-solid-svg-i
 import Style from "./Register.module.scss";
 import { adminRegister } from "../../redux/action/AdminAction";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { validateEmailHelper } from "../../helper/Emails";
 
@@ -106,7 +106,7 @@ return true;
 };
 
 // HANDLE SUBMIT AND DISPATCH
-const history = useHistory();
+const history = useNavigate();
 const handleSubmit = async (e) => {
 e.preventDefault();
 const email = validateEmail(registerForm.email);
@@ -132,7 +132,7 @@ if (email && password) {
 
 useEffect(() => {
 if (localStorage.getItem("ddAdminToken")) {
-    history.push("/");
+    history("/");
 }
 }, [history, adminRegInfo]);
 

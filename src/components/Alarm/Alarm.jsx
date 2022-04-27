@@ -140,7 +140,12 @@ export default function Alarm(props) {
       text: "Date",
       sort: true,
       formatter: (cell) => {
-        return (cell = cell.split("T")[0]);
+        cell = cell.split("T")[0];
+        let day = cell.split("-")[2];
+        let month = cell.split("-")[1];
+        let year = cell.split("-")[0];
+        cell = `${day}-${month}-${year}`;
+        return cell.split("T")[0];
       },
     },
     {
@@ -148,7 +153,16 @@ export default function Alarm(props) {
       text: "Time",
       sort: true,
       formatter: (cell) => {
-        return (cell = cell.split("T")[1].split(".")[0]);
+        cell = cell.split("T")[1];
+        cell = cell.split(".")[0];
+        let seconds = cell.split(":")[2];
+        let minutes = cell.split(":")[1];
+        let hours = cell.split(":")[0];
+        cell =
+          seconds !== "00" && hours !== "00" && minutes !== "00"
+            ? `${hours}:${minutes}:${seconds}`
+            : "N/A";
+        return cell;
       },
     },
   ];
