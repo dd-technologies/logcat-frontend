@@ -197,6 +197,25 @@ export default function Login() {
                     Forget Password?
                   </Link>
                 </section>
+                <section
+                  style={{
+                    marginTop: "20px",
+                    display: "flex",
+                    justifyContent: "end ",
+                  }}
+                >
+                  <Link
+                    to="/register"
+                    style={{
+                      textDecoration: "none",
+                      color: "#257d7c",
+                      fontWeight: 500,
+                    }}
+                    className="cpactiveText"
+                  >
+                    Don't have an account? Click here
+                  </Link>
+                </section>
                 <Button
                   style={{ float: "right", width: "30%", fontWeight: 700 }}
                   type="submit"

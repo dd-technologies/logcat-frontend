@@ -13,6 +13,7 @@ import Settings from "./components/Settings/Settings";
 import { useSelector } from "react-redux";
 import UpdateProfile from "./components/user/UpdateProfile";
 import "./utils/Theme.scss";
+import Register from "./components/Auth/Register";
 import Alarm from "./components/Alarm/Alarm";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
 
   return (
     <>
+
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Login />} />
@@ -30,6 +32,7 @@ function App() {
           <Route exact path="/logtable" element={<LogTable />} />
           <Route exact path="/analytics" element={<Analytics />} />
           <Route exact path="/update" element={<UpdateProfile />} />
+
 
           <Route exact path="/alarm" element={<Alarm />} />
 

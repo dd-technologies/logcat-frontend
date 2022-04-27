@@ -121,7 +121,7 @@ export default function Alarm(props) {
   const columns = [
     {
       dataField: "did",
-      text: "Mac Address",
+      text: "MAC Address",
       sort: true,
     },
 
@@ -153,13 +153,16 @@ export default function Alarm(props) {
     },
   ];
 
-  //   FIRST TIME ALRAM ACTION DISPATCH
+  //   FIRST TIME ALARM ACTION DISPATCH
   useEffect(() => {
     const projectTypeNew = localStorage.getItem("project_type")
-      ? JSON.parse(localStorage.getItem("project_type"))
-      : projectType && projectType.modelList[0];
-    const { typeCode } = projectTypeNew;
-    dispatch(alarmAction(typeCode, diffDate));
+
+    
+
+      ? JSON.parse(localStorage.getItem("project_type")).typeCode
+      : projectType.modelList[0].typeCode;
+    dispatch(alarmAction(projectTypeNew, diffDate));
+
   }, [dispatch, projectType, diffDate]);
 
   // HANDLE PAGE CLICK
