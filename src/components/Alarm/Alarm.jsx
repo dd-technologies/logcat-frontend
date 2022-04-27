@@ -1,9 +1,11 @@
+import React, { useState, useRef, useEffect } from "react";
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+
 import {
   faCaretDown,
   faDatabase,
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
-import React, { useState, useRef, useEffect } from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { Navbar } from "../../utils/NavBar";
 import { SideBar } from "../../utils/Sidebar";
@@ -24,6 +26,7 @@ import { alarmAction } from "../../redux/action/AlarmAction";
 import Spinner from "../../Container/Spinner";
 import TableCard from "../../Container/TableCard";
 import ReactPaginate from "react-paginate";
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 
 export default function Alarm(props) {
   const [tableDataState, setTableDataState] = useState({});
@@ -44,6 +47,7 @@ export default function Alarm(props) {
 
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { data: projectType } = getModelCodeReducer;
+  console.log("project type", projectType);
 
   const alarmReducer = useSelector((state) => state.alarmReducer);
   // console.log("first", alarmReducer);
@@ -71,9 +75,11 @@ export default function Alarm(props) {
     }
   };
 
-  let rowSelction = {
+  const selectRow = {
     mode: "checkbox",
-    clickToSelect: true,
+    // clickToSelect: true,
+
+    style: { backgroundColor: "#0099a4" },
   };
 
   // navigation
@@ -83,7 +89,7 @@ export default function Alarm(props) {
     link1: {
       iconName: faDatabase,
       linkName: "Logs",
-      link: "/log",
+      link: `/logtable?code=${code}&name=${projectName}&pagename=logpage`,
     },
     link2: {
       iconName: faDatabase,
@@ -150,9 +156,13 @@ export default function Alarm(props) {
   //   FIRST TIME ALARM ACTION DISPATCH
   useEffect(() => {
     const projectTypeNew = localStorage.getItem("project_type")
+
+    
+
       ? JSON.parse(localStorage.getItem("project_type")).typeCode
       : projectType.modelList[0].typeCode;
     dispatch(alarmAction(projectTypeNew, diffDate));
+
   }, [dispatch, projectType, diffDate]);
 
   // HANDLE PAGE CLICK
@@ -314,7 +324,7 @@ export default function Alarm(props) {
                       <Spinner />
                     ) : (
                       <ToolkitProvider
-                        keyField="id"
+                        keyField="_id"
                         data={products}
                         columns={columns}
                         search
@@ -322,6 +332,7 @@ export default function Alarm(props) {
                       >
                         {(props) => (
                           <>
+                            {console.log("props", props)}
                             {/* {console.log("props", props)} */}
                             <section className={Style.searchBar}>
                               <SearchBar
@@ -334,7 +345,7 @@ export default function Alarm(props) {
                             </section>
                             <BootstrapTable
                               {...props.baseProps}
-                              // selectRow={rowSelction}
+                              // selectRow={selectRow}
                             />
                           </>
                         )}

@@ -48,7 +48,7 @@ export default function Analytics() {
     link1: {
       iconName: AnalyticeIcon,
       linkName: "Analytics",
-      link: "/",
+      link: `/logtable?code=${code}&name=${projectName}&pagename=logpage`,
     },
     link2: {
       iconName: `./assets/icons/settings.png`,

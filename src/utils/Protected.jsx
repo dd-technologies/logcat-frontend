@@ -1,16 +1,16 @@
-import React from 'react'
-import { Route, useHistory, Redirect } from "react-router-dom";
-// import { useHistory } from "react-router";
+import React from "react";
+import { Route, useNavigate, Navigate } from "react-router-dom";
+// import { useNavigate } from "react-router";
 
-const Protected = ({ component:Component, ...restOfProps }) => {
-  const history = useHistory();
+const Protected = ({ component: Component, ...restOfProps }) => {
+  const navigate = useNavigate();
   const isAuthenticated = localStorage.getItem("ddAdminToken");
 
   return (
     <Route
       {...restOfProps}
       render={(props) =>
-        isAuthenticated ? <Component {...props} /> : <Redirect to="/" />
+        isAuthenticated ? <Component {...props} /> : <Navigate to="/" />
       }
     />
   );

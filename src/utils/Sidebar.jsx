@@ -63,7 +63,8 @@ export function SideBar(props) {
 
             <section
               className={
-                logURLName.includes("logpage")
+                logURLName.includes("logpage") ||
+                logURLName.includes("analytics")
                   ? `${Style.linkActive} noSideBarLinkOuter`
                   : `${Style.linkInActive} noSideBarLinkOuter`
               }
@@ -74,7 +75,7 @@ export function SideBar(props) {
                   sidebarDetails.link1 &&
                   sidebarDetails.link1.link &&
                   sidebarDetails.link1.link.length === 0
-                    ? ""
+                    ? "/"
                     : sidebarDetails.link1.link
                 }
               >
@@ -107,7 +108,7 @@ export function SideBar(props) {
                         sidebarDetails.link2 &&
                         sidebarDetails.link2.link &&
                         sidebarDetails.link2.link.length === 0
-                          ? ""
+                          ? "/"
                           : sidebarDetails.link2.link
                       }
                     >
@@ -152,7 +153,8 @@ export function SideBar(props) {
                   changeSideMenu(
                     sideBar ? sideMenus.menuShow : sideMenus.menuHide
                   );
-                  // console.log("first", changeSidebar)
+
+                  // console.log("first11111");
                 }}
               ></section>
             )}

@@ -19,7 +19,7 @@ import { getProjectByCode } from "../../../../redux/action/ProjectAction";
 import Spinner from "../../../../Container/Spinner";
 import toast, { Toaster } from "react-hot-toast";
 import TableCard from "../../../../Container/TableCard";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const { SearchBar } = Search;
 const { ExportCSVButton } = CSVExport;
@@ -130,7 +130,7 @@ function TableData(props) {
   let projectCodeType = typeWiseDate && typeWiseDate.modelList[0].typeCode;
 
   //  1)  DIRECTION PAGE TO NEW PAGE
-  let history = useHistory();
+  let navigate = useNavigate();
 
   const getAllLogByCodeReducer = useSelector(
     (state) => state.getAllLogByCodeReducer
@@ -356,7 +356,7 @@ function TableData(props) {
   const tableRowEvents = {
     onClick: (e, row, rowIndex, col) => {
       let version = row.version ? row.version : null;
-      history.push(
+      navigate(
         `/analytics?code=${props.code}&name=${props.projectName}&col=${row.log.message}&rowlogGeneratedDate=${row.log.date}&version=${version}&osArchitecture=${row.device.os.name}&modelName=${row.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`
       );
     },
@@ -628,6 +628,8 @@ function TableData(props) {
       projectCodeType
     );
   }, []);
+
+  console.log("tabledata", data && data.data && data.data.logs);
 
   return (
     <>

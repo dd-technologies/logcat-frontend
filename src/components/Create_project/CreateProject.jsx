@@ -10,7 +10,7 @@ import {
   clearProjectData,
   getAllProject,
 } from "../../redux/action/ProjectAction";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import AddProjectModal from "./components/AddProjectModal";
 import Spinner from "../../Container/Spinner";
@@ -38,11 +38,11 @@ function CreateProject() {
     toast.success("Project Created Successfully");
     Dispatch(clearProjectData());
   }
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!localStorage.getItem("ddAdminToken")) {
-      history.push("/");
+      navigate("/");
     }
     if (localStorage.getItem("project_type")) {
       localStorage.removeItem("project_type");
@@ -55,7 +55,7 @@ function CreateProject() {
 
   const handlelogout = (e) => {
     e.preventDefault();
-    Dispatch(adminLogout(history));
+    Dispatch(adminLogout(navigate));
   };
 
   useEffect(() => {

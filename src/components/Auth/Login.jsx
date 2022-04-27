@@ -7,7 +7,7 @@ import { faEye, faEyeSlash, faLock } from "@fortawesome/free-solid-svg-icons";
 import Style from "./Login.module.scss";
 import { loginWithEmail } from "../../redux/action/AdminAction";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { validateEmailHelper } from "../../helper/Emails";
 
@@ -30,7 +30,7 @@ export default function Login() {
   const { loading, error, adminInfo } = adminLoginReducer;
   console.log("adminLoginReducer", adminLoginReducer);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   // VALIDATE EMAIL
   const validateEmail = (email) => {
@@ -89,9 +89,9 @@ export default function Login() {
 
   useEffect(() => {
     if (localStorage.getItem("ddAdminToken")) {
-      history.push("/home");
+      navigate("/home");
     }
-  }, [history, adminInfo]);
+  }, [navigate, adminInfo]);
 
   useEffect(() => {
     setSetErrorPassword(error);

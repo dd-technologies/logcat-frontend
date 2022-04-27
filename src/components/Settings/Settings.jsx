@@ -85,12 +85,12 @@ export default function Settings() {
     link1: {
       iconName: `/assets/icons/log.png`,
       linkName: `Logs`,
-      // link: `/`,
+      link: `/logtable?code=${code}&name=${projectName}&pagename=logpage`,
     },
     link2: {
       iconName: `/assets/icons/settings.png`,
       linkName: "Settings",
-      // link: "",
+      link: `/settings?code=${code}&name=${projectName}&pagename=settings`,
     },
     link3: {
       iconName: `/assets/icons/settings.png`,

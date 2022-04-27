@@ -7,7 +7,7 @@ import {forgetPassword, resetForgetPasswordState} from '../../redux/action/Admin
 import Style from "./Forgetpassword.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, Toaster } from "react-hot-toast";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { validateEmailHelper } from "../../helper/Emails";
 
 export default function ForgetPassword() {
@@ -39,13 +39,13 @@ export default function ForgetPassword() {
 
   const forgetPasswordReducer = useSelector(state => state.forgetPasswordReducer);
   const {loading,forgetPasswordInfo} = forgetPasswordReducer;
-  const history = useHistory()
+  const navigate = useNavigate()
   if (forgetPasswordInfo && forgetPasswordInfo.success) {
     toast.success(forgetPasswordInfo.message)
     localStorage.setItem('forgetEmail',JSON.stringify(forgetEmail))
     // clear forget password reducer
     dispatch(resetForgetPasswordState())
-    history.push('/resetpassword')
+    navigate('/resetpassword')
   }
 
   return (
