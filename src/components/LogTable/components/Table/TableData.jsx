@@ -118,13 +118,13 @@ function TableData(props) {
     code: localStorage.getItem("project_type")
       ? JSON.parse(localStorage.getItem("project_type")).typeCode
       : typeWiseDate &&
-      typeWiseDate.modelList &&
-      typeWiseDate.modelList[0].typeCode,
+        typeWiseDate.modelList &&
+        typeWiseDate.modelList[0].typeCode,
     name: localStorage.getItem("project_type")
       ? JSON.parse(localStorage.getItem("project_type")).typeName
       : typeWiseDate &&
-      typeWiseDate.modelList &&
-      typeWiseDate.modelList[0].typeName,
+        typeWiseDate.modelList &&
+        typeWiseDate.modelList[0].typeName,
   };
 
   let projectCodeType = typeWiseDate && typeWiseDate.modelList[0].typeCode;
@@ -372,8 +372,7 @@ function TableData(props) {
         return {
           backgroundColor: "#257d7c",
           color: "#fff",
-          width: "300px"
-
+          width: "300px",
         };
       },
       formatter: (col, row, rowIndex) => {
@@ -421,7 +420,7 @@ function TableData(props) {
         return {
           backgroundColor: "#257d7c",
           color: "#fff",
-          width: "100px"
+          width: "100px",
         };
       },
     },
@@ -432,7 +431,7 @@ function TableData(props) {
         return {
           backgroundColor: "#257d7c",
           color: "#fff",
-          width: "100px"
+          width: "100px",
         };
       },
       formatter: errorFormatter,
@@ -445,7 +444,7 @@ function TableData(props) {
         return {
           backgroundColor: "#257d7c",
           color: "#fff",
-          width: "100px"
+          width: "100px",
         };
       },
 
@@ -466,8 +465,7 @@ function TableData(props) {
         return {
           backgroundColor: "#257d7c",
           color: "#fff",
-          width: "100px"
-
+          width: "100px",
         };
       },
       formatter: (cell) => {
@@ -760,13 +758,13 @@ function TableData(props) {
                                           dateState && dateState.start
                                             ? dateState.start
                                             : localStorage.getItem(
-                                              "selected_date"
-                                            ) &&
-                                            JSON.parse(
-                                              localStorage.getItem(
                                                 "selected_date"
-                                              )
-                                            ).start
+                                              ) &&
+                                              JSON.parse(
+                                                localStorage.getItem(
+                                                  "selected_date"
+                                                )
+                                              ).start
                                         }
                                         onChange={(e) => {
                                           setDate({
@@ -784,13 +782,13 @@ function TableData(props) {
                                           dateState && dateState.end
                                             ? dateState.end
                                             : localStorage.getItem(
-                                              "selected_date"
-                                            ) &&
-                                            JSON.parse(
-                                              localStorage.getItem(
                                                 "selected_date"
-                                              )
-                                            ).end
+                                              ) &&
+                                              JSON.parse(
+                                                localStorage.getItem(
+                                                  "selected_date"
+                                                )
+                                              ).end
                                         }
                                         onChange={(e) => {
                                           setDate({
@@ -1029,6 +1027,7 @@ function TableData(props) {
               nextClassName={"page-item"}
               previousLinkClassName={"page-link"}
               nextLinkClassName={"page-link"}
+              activeClassName={"active"}
             />
           </section>
         </section>

@@ -20,12 +20,13 @@ h5,
 h6,
 p {
   font-family: "Poppins", sans-serif;
+  margin-bottom: 0px !important;
 }
 
 p {
   color: #0099a4;
 }
-span{
+span {
   color: #0099a4;
 }
 
@@ -68,4 +69,9 @@ hr {
 .colSection {
   padding-left: 0px !important;
   padding-right: 0px !important;
+}
+
+.page-item.active .page-link {
+  background-color: #0099a4 !important;
+  border: #0099a4 1px solid !important;
 }

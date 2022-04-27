@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Container, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import CustomeDropDown from "../Container/DropDown";
@@ -8,10 +7,13 @@ import { useNavigate } from "react-router-dom";
 import { adminLogout } from "../redux/action/AdminAction";
 import Style from "./NavBar.module.scss";
 import DarkLightMood from "./DarkLightMood";
+import { ThemeContext } from "./ThemeContext";
 
 export function Navbar(props) {
   const { navdetails } = props;
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
+  let { sideMenu } = React.useContext(ThemeContext);
+  console.log("sidemene", sideMenu);
   // const [navToggle, setNavToggle] = useState(true);
 
   // const [navToggle, setNavToggle] = useState(true);
@@ -64,14 +66,25 @@ export function Navbar(props) {
               navdetails.dashName.slice(1)}
           </h3>
 
-          <section className={`${Style.detailSection} sideBarDetailSection`}>
+          <section
+            className={
+              sideMenu == "sidebar" ? `${Style.detailSection}` : `navBarDetails`
+            }
+          >
             {/* light and dark mood */}
             <DarkLightMood />
             <section>
               <FontAwesomeIcon icon={faBell} size="2x" color="#fff" />
             </section>
 
-            <section className={Style.AvatarSection} onClick={showUserInfoFun}>
+            <section
+              className={
+                sideMenu == "sidebar"
+                  ? `${Style.AvatarSection}`
+                  : `AvatarSectionSidbar`
+              }
+              onClick={showUserInfoFun}
+            >
               {adminInfo &&
                 adminInfo.data &&
                 adminInfo.data.name

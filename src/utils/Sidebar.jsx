@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function SideBar(props) {
   const { sidebarDetails } = props;
+  let { sideMenu } = React.useContext(ThemeContext);
 
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   // const [navToggle, setNavToggle] = useState(true);
@@ -48,10 +49,10 @@ function SideBar(props) {
               }}
             >
               <section className={`${Style.LogcatLogo} noSideBarLogcatLogo`}>
-                {sideBar ? (
-                  <Image src={LogcatLarge} alt="logcat" />
+                {sideMenu == "sidebar" ? (
+                  <Image src={Logcat} alt="logcat" className="mt-1" />
                 ) : (
-                  <Image src={Logcat} alt="logcat" />
+                  <Image src={LogcatLarge} alt="logcat" className="mt-1" />
                 )}
               </section>
             </Link>
@@ -60,87 +61,89 @@ function SideBar(props) {
           <section className={Style.linkSection}>
             {/* LINK FIRST  */}
 
-            <section
-              className={
-                logURLName.includes("logpage") ||
-                logURLName.includes("analytics")
-                  ? `${Style.linkActive} noSideBarLinkOuter`
-                  : `${Style.linkInActive} noSideBarLinkOuter`
-              }
-            >
-              <Link
-                className={`${Style.linkData} noSideBarLink`}
-                to={
-                  sidebarDetails.link1 &&
-                  sidebarDetails.link1.link &&
-                  sidebarDetails.link1.link.length === 0
-                    ? ""
-                    : sidebarDetails.link1.link
+            <section className={Style.navMenuIcons}>
+              <section
+                className={
+                  logURLName.includes("logpage") ||
+                  logURLName.includes("analytics")
+                    ? `${Style.linkActive} noSideBarLinkOuter`
+                    : `${Style.linkInActive} noSideBarLinkOuter`
                 }
               >
-                <Image
-                  src={logURLName.includes("analytics") ? Analytics : Log}
-                  width="25"
-                />
-                <section className="hidelinkName">
-                  {sidebarDetails.link1.linkName}
-                </section>
-              </Link>
-            </section>
+                <Link
+                  className={`${Style.linkData} noSideBarLink`}
+                  to={
+                    sidebarDetails.link1 &&
+                    sidebarDetails.link1.link &&
+                    sidebarDetails.link1.link.length === 0
+                      ? ""
+                      : sidebarDetails.link1.link
+                  }
+                >
+                  <Image
+                    src={logURLName.includes("analytics") ? Analytics : Log}
+                    width="25"
+                  />
+                  <section className="hidelinkName">
+                    {sidebarDetails.link1.linkName}
+                  </section>
+                </Link>
+              </section>
 
-            {/* LINK SECOND  */}
-            {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
-              <>
-                {url.pathname == "/update" ? (
-                  <></>
-                ) : (
+              {/* LINK SECOND  */}
+              {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
+                <>
+                  {url.pathname == "/update" ? (
+                    <></>
+                  ) : (
+                    <section
+                      className={
+                        logURLName.includes("settings")
+                          ? `${Style.linkActive} noSideBarLinkOuter`
+                          : `${Style.linkInActive} noSideBarLinkOuter`
+                      }
+                    >
+                      <Link
+                        className={`${Style.linkData} noSideBarLink`}
+                        to={
+                          sidebarDetails.link2 &&
+                          sidebarDetails.link2.link &&
+                          sidebarDetails.link2.link.length === 0
+                            ? ""
+                            : sidebarDetails.link2.link
+                        }
+                      >
+                        <Image src={settigns} />
+                        <section className="hidelinkName">
+                          {sidebarDetails.link2.linkName}
+                        </section>
+                      </Link>
+                    </section>
+                  )}
+                </>
+              )}
+
+              {/* ALARM LINK  */}
+              {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
+                <>
                   <section
                     className={
-                      logURLName.includes("settings")
+                      logURLName.includes("alarm")
                         ? `${Style.linkActive} noSideBarLinkOuter`
                         : `${Style.linkInActive} noSideBarLinkOuter`
                     }
                   >
                     <Link
                       className={`${Style.linkData} noSideBarLink`}
-                      to={
-                        sidebarDetails.link2 &&
-                        sidebarDetails.link2.link &&
-                        sidebarDetails.link2.link.length === 0
-                          ? ""
-                          : sidebarDetails.link2.link
-                      }
+                      to={sidebarDetails.link3 && sidebarDetails.link3.link}
                     >
-                      <Image src={settigns} />
-                      <section className="hidelinkName">
-                        {sidebarDetails.link2.linkName}
-                      </section>
+                      <Image src={AlarmIcon} width="25" />
+                      <section className="hidelinkName">Alarm</section>
                     </Link>
                   </section>
-                )}
-              </>
-            )}
-
-            {/* ALARM LINK  */}
-            {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
-              <>
-                <section
-                  className={
-                    logURLName.includes("alarm")
-                      ? `${Style.linkActive} noSideBarLinkOuter`
-                      : `${Style.linkInActive} noSideBarLinkOuter`
-                  }
-                >
-                  <Link
-                    className={`${Style.linkData} noSideBarLink`}
-                    to={sidebarDetails.link3 && sidebarDetails.link3.link}
-                  >
-                    <Image src={AlarmIcon} width="25" />
-                    <section className="hidelinkName">Alarm</section>
-                  </Link>
-                </section>
-              </>
-            )}
+                </>
+              )}
+            </section>
           </section>
           <ThemeContext.Consumer>
             {({ changeSideMenu }) => (
