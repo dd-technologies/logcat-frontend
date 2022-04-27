@@ -41,7 +41,7 @@ export function SideBar(props) {
         <section className={`${Style.Sidebar} noSidbarInner`}>
           <section className={`${Style.LogoSection} sidebarMenu`}>
             <Link
-              to="/"
+              to=""
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -75,13 +75,13 @@ export function SideBar(props) {
                   sidebarDetails.link1 &&
                   sidebarDetails.link1.link &&
                   sidebarDetails.link1.link.length === 0
-                    ? "/"
+                    ? ""
                     : sidebarDetails.link1.link
                 }
               >
                 <Image
                   src={settingUrl.includes("analytics") ? Analytics : Log}
-                  width="28"
+                  width="25"
                 />
                 <section className="hidelinkName">
                   {sidebarDetails.link1.linkName}
@@ -108,7 +108,7 @@ export function SideBar(props) {
                         sidebarDetails.link2 &&
                         sidebarDetails.link2.link &&
                         sidebarDetails.link2.link.length === 0
-                          ? "/"
+                          ? ""
                           : sidebarDetails.link2.link
                       }
                     >

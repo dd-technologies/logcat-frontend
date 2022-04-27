@@ -126,17 +126,17 @@ export default function Alarm(props) {
     },
 
     {
-      dataField: "code",
+      dataField: "ack.code",
       text: "Code",
       sort: true,
     },
     {
-      dataField: "msg",
+      dataField: "ack.msg",
       text: "Message",
       sort: true,
     },
     {
-      dataField: `timestamp`,
+      dataField: `ack.timestamp`,
       text: "Date",
       sort: true,
       formatter: (cell) => {
@@ -149,7 +149,7 @@ export default function Alarm(props) {
       },
     },
     {
-      dataField: `timestamp`,
+      dataField: `ack.timestamp`,
       text: "Time",
       sort: true,
       formatter: (cell) => {
@@ -171,7 +171,7 @@ export default function Alarm(props) {
   useEffect(() => {
     const projectTypeNew = localStorage.getItem("project_type")
 
-    
+
 
       ? JSON.parse(localStorage.getItem("project_type")).typeCode
       : projectType.modelList[0].typeCode;
@@ -180,7 +180,7 @@ export default function Alarm(props) {
   }, [dispatch, projectType, diffDate]);
 
   // HANDLE PAGE CLICK
-  const handlePageClick = (data) => {};
+  const handlePageClick = (data) => { };
 
   const { SearchBar } = Search;
   const { ExportCSVButton } = CSVExport;
@@ -203,7 +203,8 @@ export default function Alarm(props) {
         >
           <Navbar navdetails={navdetails} />
           <Container className={`${Style.mainContainer} container`}>
-            <Row>
+            <h1 className=" darkModeColor">Alerts Summary</h1>
+            <Row className="mt-4">
               <Col xl={10} md={9} sm={9}>
                 <TypeDropDown
                   tableDataState={tableDataState}
@@ -226,18 +227,18 @@ export default function Alarm(props) {
                       {diffDate == 10
                         ? `last 10 days`
                         : diffDate == 7
-                        ? `last 7 days`
-                        : diffDate == 15
-                        ? `last 15 days`
-                        : diffDate == 30
-                        ? `last 30 days`
-                        : diffDate == 45
-                        ? `last 45 days`
-                        : diffDate == 60
-                        ? `last 60 days`
-                        : diffDate == 90
-                        ? `last 90 days`
-                        : null}
+                          ? `last 7 days`
+                          : diffDate == 15
+                            ? `last 15 days`
+                            : diffDate == 30
+                              ? `last 30 days`
+                              : diffDate == 45
+                                ? `last 45 days`
+                                : diffDate == 60
+                                  ? `last 60 days`
+                                  : diffDate == 90
+                                    ? `last 90 days`
+                                    : null}
                     </p>
                     <FontAwesomeIcon
                       icon={faCaretDown}
@@ -342,7 +343,11 @@ export default function Alarm(props) {
                         data={products}
                         columns={columns}
                         search
-                        exportCSV
+                        exportCSV={{
+                          fileName: `alert_${code}_${filedate.toISOString()}.csv`,
+                          onlyExportSelection: true,
+                          exportAll: true,
+                        }}
                       >
                         {(props) => (
                           <>
@@ -359,7 +364,7 @@ export default function Alarm(props) {
                             </section>
                             <BootstrapTable
                               {...props.baseProps}
-                              // selectRow={selectRow}
+                            // selectRow={selectRow}
                             />
                           </>
                         )}
