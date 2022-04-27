@@ -46,7 +46,7 @@ export const alarmAction =
       let response;
 
       response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/alerts/SBXMH?projectType=${projectType}&startDate=${startDate}&endDate=${endDate}&page=${page}&record=${record}`, //
+        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/alerts/SBXMH?projectType=${projectType}&startDate=${startDate}&endDate=${endDate}&page=${page}&limit=${record}`, //
         config
       );
 
