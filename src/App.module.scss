@@ -45,8 +45,6 @@ p {
   padding: 0%;
 }
 
-
-
 *:focus {
   outline: none !important;
   box-shadow: none !important;
@@ -96,15 +94,6 @@ tr {
   margin: 0.5rem !important;
 }
 
-@media screen and (min-width: 600px) and (max-width: 1200px) {
-  .trends-container {
-    margin-top: 1rem !important;
-  }
-
-  .mm-2 {
-    margin: 0.19rem !important;
-  }
-}
 .modal-title {
   color: #0099a4 !important;
 }
