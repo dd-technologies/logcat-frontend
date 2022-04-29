@@ -22,7 +22,6 @@ function App() {
 
   return (
     <>
-
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Login />} />
@@ -33,10 +32,7 @@ function App() {
           <Route exact path="/logtable" element={<LogTable />} />
           <Route exact path="/analytics" element={<Analytics />} />
           <Route exact path="/update" element={<UpdateProfile />} />
-
-
           <Route exact path="/alarm" element={<Alarm />} />
-
           {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
             <Route exact path="/settings" element={<Settings />} />
           )}
