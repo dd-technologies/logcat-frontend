@@ -4,13 +4,13 @@ import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash, faLock } from "@fortawesome/free-solid-svg-icons";
 import Style from "./ResetPassword.module.scss";
-import OtpInput from "react-otp-input";
 import { toast, Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { resetForgetPassword } from "../../redux/action/AdminAction";
 import { useNavigate } from "react-router-dom";
 import Timer from "../Analytics/Componets/Timer";
 import { forgetPassword } from "../../redux/action/AdminAction";
+import OtpInput from "./OtpInput";
 
 export default function ResetPassword() {
   const [state, setState] = useState({
@@ -102,19 +102,7 @@ export default function ResetPassword() {
               <section>
                 <p className="darkModeColor my-3">Enter your OTP</p>
                 <section className={Style.OPTTIMR}>
-                  <OtpInput
-                    value={state.otp}
-                    onChange={(e) => setState({ ...state, otp: e })}
-                    numInputs={6}
-                    inputStyle={{
-                      borderRadius: "10px",
-                      border: "2px solid #257d7c",
-                      width: "30px",
-                      height: "30px",
-                      margin: "2px",
-                    }}
-                    separator={<span></span>}
-                  />
+                  <OtpInput setState = {setState} state={state} />
                   {!enableResendButton ? (
                     <Timer
                       resetTimer={handleEnableButton}
