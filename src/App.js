@@ -8,7 +8,8 @@ import NotFound from "./components/NotFound";
 import Login from "./components/Auth/Login";
 import ResetPassword from "./components/Auth/ResetPassword";
 import ForgetPassword from "./components/Auth/ForgetPassword";
-import Protected from "./utils/Protected";
+// import {Protected} from './utils/Protected'
+import ProtectedRoute from "./utils/Protected"
 import Settings from "./components/Settings/Settings";
 import { useSelector } from "react-redux";
 import UpdateProfile from "./components/user/UpdateProfile";
@@ -28,14 +29,19 @@ function App() {
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/resetpassword" element={<ResetPassword />} />
           <Route exact path="/forgetPassword" element={<ForgetPassword />} />
-          <Route exact path="/home" element={<CreateProject />} />
-          <Route exact path="/logtable" element={<LogTable />} />
-          <Route exact path="/analytics" element={<Analytics />} />
-          <Route exact path="/update" element={<UpdateProfile />} />
-          <Route exact path="/alarm" element={<Alarm />} />
-          {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
-            <Route exact path="/settings" element={<Settings />} />
-          )}
+          {/* Protected Routes */}
+          <Route element={<ProtectedRoute/>}>
+
+            <Route exact path="/home" element={<CreateProject />} />
+            <Route exact path="/logtable" element={<LogTable />} />
+            <Route exact path="/analytics" element={<Analytics />} />
+            <Route exact path="/update" element={<UpdateProfile />} />
+            <Route exact path="/alarm" element={<Alarm />} />
+            {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
+              <Route exact path="/settings" element={<Settings />} />
+            )}
+            
+          </Route>
           <Route exact path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

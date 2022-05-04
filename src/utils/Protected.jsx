@@ -1,19 +1,9 @@
 import React from "react";
-import { Route, useNavigate, Navigate } from "react-router-dom";
-// import { useNavigate } from "react-router";
+import { Navigate, Outlet } from "react-router-dom";
 
-const Protected = ({ component: Component, ...restOfProps }) => {
-  const navigate = useNavigate();
+function ProtectedRoute({ component: Component, ...restOfProps }) {
   const isAuthenticated = localStorage.getItem("ddAdminToken");
+  return isAuthenticated ? <Outlet/> : <Navigate to="/" />;
+}
 
-  return (
-    <Route
-      {...restOfProps}
-      render={(props) =>
-        isAuthenticated ? <Component {...props} /> : <Navigate to="/" />
-      }
-    />
-  );
-};
-
-export default Protected;
+export default ProtectedRoute;
