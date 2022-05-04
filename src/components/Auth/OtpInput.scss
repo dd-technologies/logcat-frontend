@@ -1,0 +1,10 @@
+
+.otpContainer {
+	display: flex;
+	& input{
+		width: 10% !important;
+		height: 40px;
+		text-align: center;
+		
+	}
+}

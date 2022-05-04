@@ -29,17 +29,18 @@ function App() {
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/resetpassword" element={<ResetPassword />} />
           <Route exact path="/forgetPassword" element={<ForgetPassword />} />
-          <Route exact path="/home" element={<CreateProject />} />
-          <Route exact path="/logtable" element={<LogTable />} />
-          <Route exact path="/analytics" element={<Analytics />} />
-          <Route exact path="/update" element={<UpdateProfile />} />
 
-
-          <Route exact path="/alarm" element={<Alarm />} />
-
-          {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
-            <Route exact path="/settings" element={<Settings />} />
-          )}
+          {/* Protected Route */}
+          <Route element={<Protected/>}>
+              <Route exact path="/home" element={<CreateProject />} />
+              <Route exact path="/logtable" element={<LogTable />} />
+              <Route exact path="/analytics" element={<Analytics />} />
+              <Route exact path="/update" element={<UpdateProfile />} />
+              <Route exact path="/alarm" element={<Alarm />} />
+              {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
+                <Route exact path="/settings" element={<Settings />} />
+              )}
+          </Route>
           <Route exact path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
