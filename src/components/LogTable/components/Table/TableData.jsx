@@ -81,7 +81,6 @@ function TableData(props) {
     setDate({ start: startDate, end: endDate });
   }, [props.diffDate]);
 
-  // const [pageNo, setPageNo] = useState(0);
   const [record, setRecords] = useState(
     localStorage.getItem("selected_record")
       ? JSON.parse(localStorage.getItem("selected_record"))
@@ -149,8 +148,6 @@ function TableData(props) {
 
   const selectRow = {
     mode: "checkbox",
-    // clickToSelect: true,
-
     style: { backgroundColor: "#0099a4" },
   };
 
@@ -367,7 +364,6 @@ function TableData(props) {
       dataField: "log.message",
       text: "Log Message",
       headerAlign: "center",
-      // width: "200",
       headerStyle: () => {
         return {
           backgroundColor: "#257d7c",
@@ -1013,12 +1009,7 @@ function TableData(props) {
               nextLabel="Next >"
               onPageChange={handlePageClick}
               pageRangeDisplayed={4}
-              // pageCount={
-              //   data && data.data && Math.ceil(data.data.count / record)
-              // }
               pageCount={data && data.data && data.data.count / record}
-              // previousLabel="< Previous"
-              // initialPage={1}
               renderOnZeroPageCount={null}
               containerClassName={"pagination"}
               pageClassName={"page-item"}

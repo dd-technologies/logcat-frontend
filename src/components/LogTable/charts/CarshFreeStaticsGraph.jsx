@@ -19,9 +19,7 @@ export default function CarshFreeStaticsGraph() {
   );
   const { data } = getCrashFreeUsersReducer;
   let dt = data && data.response;
-
   const { theme } = React.useContext(ThemeContext);
-  // console.log("first", theme);
 
   // Date Formate
   const dateFormatter = (date) => {
