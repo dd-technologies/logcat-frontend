@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import CustomCard from "../../../../Container/CustomCard";
-import Style from "./CustomeFilterTable.module.scss";
+import Style from "./CustomeFilterTable.module.css";
 
 export default function CustomeFilterTable(props) {
   const [dateSectionSelect, setDateSectionSelect] = useState(true);

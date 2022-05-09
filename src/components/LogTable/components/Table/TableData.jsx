@@ -12,11 +12,11 @@ import ToolkitProvider, {
   Search,
   CSVExport,
 } from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit";
-import Style from "./TableData.module.scss";
+import Style from "./TableData.module.css";
 import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
 import { getProjectByCode } from "../../../../redux/action/ProjectAction";
-import Spinner from "../../../../Container/Spinner";
+import SpinnerCustome from "../../../../Container/SpinnerCustome";
 import toast, { Toaster } from "react-hot-toast";
 import TableCard from "../../../../Container/TableCard";
 import { useNavigate } from "react-router-dom";
@@ -990,7 +990,7 @@ function TableData(props) {
               )}
             </ToolkitProvider>
           ) : loading ? (
-            <Spinner height="200px" />
+            <SpinnerCustome height="200px" />
           ) : (
             <section
               style={{

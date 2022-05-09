@@ -12,7 +12,7 @@ import { Col, Container, Row, Button } from "react-bootstrap";
 import CustomeDropDown from "../../Container/DropDown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LogICon from "./../../assets/icons/log.png";
-import Style from "./UpdateProfile.module.scss";
+import Style from "./UpdateProfile.module.css";
 
 const UpdatePassord = ({
   error,

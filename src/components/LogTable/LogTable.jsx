@@ -7,7 +7,7 @@ import {
   faDatabase,
   faSync,
 } from "@fortawesome/free-solid-svg-icons";
-import Style from "./LogTable.module.scss";
+import Style from "./LogTable.module.css";
 import CrashFreeStatics from "./components/CrashFreeStatics";
 import TrandData from "./components/TrandData";
 import CustomeDropDown from "../../Container/DropDown";
@@ -29,7 +29,7 @@ import Spinner from "../../Container/Spinner";
 import DateIcons from "../../assets/icons/date.png";
 import LogICon from "../../assets/icons/log.png";
 import TypeDropDown from "./components/Table/TypeDropDown";
-import "../../utils/Theme.scss";
+import "../../utils/Theme.css";
 import SideBar from "../../utils/Sidebar";
 import { Navbar } from "../../utils/NavBar";
 import AlarmIcon from "../../assets/images/AlarmIcon.png";

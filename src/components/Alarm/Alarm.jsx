@@ -8,7 +8,7 @@ import {
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { Navbar } from "../../utils/NavBar";
 import SideBar from "../../utils/Sidebar";
-import Style from "./Alarm.module.scss";
+import Style from "./Alarm.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TypeDropDown from "../LogTable/components/Table/TypeDropDown";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +22,7 @@ import ToolkitProvider, {
 import BootstrapTable from "react-bootstrap-table-next/lib/src/bootstrap-table";
 import AlarmIcon from "../../assets/images/AlarmIcon.png";
 import { alarmAction } from "../../redux/action/AlarmAction";
-import Spinner from "../../Container/Spinner";
+import SpinnerCustome from "../../Container/SpinnerCustome";
 import TableCard from "../../Container/TableCard";
 import ReactPaginate from "react-paginate";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
@@ -357,7 +357,7 @@ export default function Alarm(props) {
                 <TableCard borderRadius="10px">
                   <section className={`${Style.OuterTable} `}>
                     {loading ? (
-                      <Spinner />
+                      <SpinnerCustome />
                     ) : (
                       <ToolkitProvider
                         keyField="_id"

@@ -1,6 +1,6 @@
 import React, { Component, ReactDOM } from "react";
 import Button from "react-bootstrap/Button";
-import "./OtpInput.scss";
+import "./OtpInput.css";
 class Otpinput extends React.Component {
   constructor(props) {
     super(props);

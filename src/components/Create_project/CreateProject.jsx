@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import Style from "./CreateProject.module.scss";
+import Style from "./CreateProject.module.css";
 import CustomCard from "../../Container/CustomCard";
 import { Button, Row, Col, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +15,7 @@ import { toast } from "react-hot-toast";
 import AddProjectModal from "./components/AddProjectModal";
 import Spinner from "../../Container/Spinner";
 import { adminLogout } from "../../redux/action/AdminAction";
-import "../../utils/Theme.scss";
+import "../../utils/Theme.css";
 
 function CreateProject() {
   const [modalShow, setModalShow] = useState(false);

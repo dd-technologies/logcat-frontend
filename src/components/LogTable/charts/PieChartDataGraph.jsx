@@ -3,7 +3,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import Spinner from "../../../Container/Spinner";
+import SpinnerCustome from "../../../Container/SpinnerCustome";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function PieChartDataGraph() {
@@ -88,10 +88,10 @@ export default function PieChartDataGraph() {
           ) : data && data.data && data.data.typeWiseCount ? (
             <Pie data={allData} options={options}  />
           ) : (
-            <Spinner height="350px" />
+            <SpinnerCustome height="350px" />
           )
         ) : (
-          <Spinner height="350px" />
+          <SpinnerCustome height="350px" />
         )}
       </div>
     </>

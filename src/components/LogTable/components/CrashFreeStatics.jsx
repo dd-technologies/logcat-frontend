@@ -1,5 +1,5 @@
 import React from "react";
-import Style from "./CrashFreeStatic.module.scss";
+import Style from "./CrashFreeStatic.module.css";
 import { Row, Col } from "react-bootstrap";
 import CarshFreeStaticsGraph from "../charts/CarshFreeStaticsGraph";
 import CustomCard from "../../../Container/CustomCard";

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faTasks } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import CustomeDropDown from "../../../../Container/DropDown";
-import Style from "./TypeDropDown.module.scss";
+import Style from "./TypeDropDown.module.css";
 import { getProjectByCode } from "../../../../redux/action/ProjectAction";
 import { getCrashFreeUsers } from "../../../../redux/action/LogsAction";
 import {

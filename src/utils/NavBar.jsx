@@ -5,7 +5,7 @@ import CustomeDropDown from "../Container/DropDown";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { adminLogout } from "../redux/action/AdminAction";
-import Style from "./NavBar.module.scss";
+import Style from "./NavBar.module.css";
 import DarkLightMood from "./DarkLightMood";
 import { ThemeContext } from "./ThemeContext";
 

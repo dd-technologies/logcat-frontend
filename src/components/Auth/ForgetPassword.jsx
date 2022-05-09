@@ -4,7 +4,7 @@ import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMailBulk } from "@fortawesome/free-solid-svg-icons";
 import {forgetPassword, resetForgetPasswordState} from '../../redux/action/AdminAction';
-import Style from "./Forgetpassword.module.scss";
+import Style from "./Forgetpassword.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";

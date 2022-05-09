@@ -12,10 +12,10 @@ import Protected from "./utils/Protected";
 import Settings from "./components/Settings/Settings";
 import { useSelector } from "react-redux";
 import UpdateProfile from "./components/user/UpdateProfile";
-import "./utils/Theme.scss";
+import "./utils/Theme.css";
 import Register from "./components/Auth/Register";
 import Alarm from "./components/Alarm/Alarm";
-import splash_screen2 from '../src/assets/images/Splash_screen2.gif'
+import ddLoader from '../src/assets/images/ddLoader.gif'
 
 function App() {
   const [splash, setSplash] = useState(true);
@@ -33,7 +33,7 @@ function App() {
       {
         splash?
           <div style={{display:"flex",height:"100vh", width:"100vw", justifyContent:"center", alignItems:'center'}}>
-            <img style={{  width:"350px", height:'350px', alignContent:'center'}} src={splash_screen2} alt="loading..." />
+            <img style={{  width:"80px", height:'80px', alignContent:'center'}} src={ddLoader} alt="loading..." />
           </div>
         :
       <BrowserRouter>

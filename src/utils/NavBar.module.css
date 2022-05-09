@@ -1,0 +1,165 @@
+.NavbarOuter {
+  width: 100%;
+  position: fixed;
+  z-index: 10;
+}
+
+.NavbarOuter .Navbar {
+  background-color: #0099a4;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center !important;
+      -ms-flex-align: center !important;
+          align-items: center !important;
+  padding: 0.3% 1%;
+  width: 100%;
+}
+
+.NavbarOuter .Navbar .detailSection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media only screen and (min-width: 300px) and (max-width: 900px) {
+  .NavbarOuter .Navbar .detailSection {
+    margin-right: 6%;
+    width: 20%;
+  }
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1600px) {
+  .NavbarOuter .Navbar .detailSection {
+    margin-right: 7%;
+    width: 14%;
+  }
+}
+
+@media only screen and (min-width: 1600px) and (max-width: 1920px) {
+  .NavbarOuter .Navbar .detailSection {
+    margin-right: 6%;
+    width: 12%;
+  }
+}
+
+.NavbarOuter .Navbar .AvatarSection {
+  background-color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 300px) and (max-width: 900px) {
+  .NavbarOuter .Navbar .AvatarSection {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1600px) {
+  .NavbarOuter .Navbar .AvatarSection {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media only screen and (min-width: 1600px) and (max-width: 1920px) {
+  .NavbarOuter .Navbar .AvatarSection {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.NavbarOuter .AvatarSectionDropDown {
+  width: 60px;
+  height: 60px;
+  background-color: #e2e2e2;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 100%;
+}
+
+.NavbarOuter .manageAccount {
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  padding: 6px;
+  cursor: pointer;
+  border: solid #e2e2e2 1px !important;
+}
+
+.NavbarOuter .manageAccount:hover {
+  background-color: #0099a4;
+  color: #fff;
+}
+
+.NavbarOuter .logoutAccount {
+  margin-bottom: 10px;
+  width: 100%;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  padding: 6px;
+  cursor: pointer;
+  border: solid #e2e2e2 1px !important;
+}
+
+.NavbarOuter .logoutAccount:hover {
+  background-color: #0099a4;
+  color: #fff;
+}
+
+.NavbarOuter .privacyPolicy {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  width: 100%;
+  font-size: 0.8rem;
+}
+/*# sourceMappingURL=NavBar.module.css.map */

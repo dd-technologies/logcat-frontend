@@ -10,7 +10,7 @@ import Analytics from "../assets/icons/analytics.png";
 
 import Log from "../assets/icons/log.png";
 
-import Style from "./Sidebar.module.scss";
+import Style from "./Sidebar.module.css";
 import { ThemeContext, sideMenus } from "./ThemeContext";
 import AlarmIcon from "../assets/images/AlarmIcon.png";
 
