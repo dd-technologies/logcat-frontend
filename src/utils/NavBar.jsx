@@ -14,9 +14,6 @@ export function Navbar(props) {
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   let { sideMenu } = React.useContext(ThemeContext);
   console.log("sidemene", sideMenu);
-  // const [navToggle, setNavToggle] = useState(true);
-
-  // const [navToggle, setNavToggle] = useState(true);
   const { adminInfo } = adminLoginReducer;
 
   const [avatar, setAvatar] = useState(
@@ -24,7 +21,6 @@ export function Navbar(props) {
   );
 
   // SHOW ACCOUNT DETAILS
-  // const [showTableDropDown, setShowTableDropDown] = useState(false);
 
   const [userInfo, setUserInfo] = useState(false);
   const ref = useRef();

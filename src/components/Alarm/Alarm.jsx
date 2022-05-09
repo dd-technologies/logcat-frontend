@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
-
 import {
   faCaretDown,
   faDatabase,
@@ -28,6 +27,11 @@ import TableCard from "../../Container/TableCard";
 import ReactPaginate from "react-paginate";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import { getProjectByCode } from "../../redux/action/ProjectAction";
+
+
+
+const { SearchBar } = Search;
+const { ExportCSVButton } = CSVExport;
 
 export default function Alarm(props) {
   const [tableDataState, setTableDataState] = useState({});
@@ -137,6 +141,12 @@ export default function Alarm(props) {
       dataField: "ack.code",
       text: "Code",
       sort: true,
+      headerStyle: () => {
+        return {
+          backgroundColor: "#257d7c",
+          color: "#fff",
+        };
+      },
     },
     {
       dataField: "ack.msg",
@@ -159,8 +169,15 @@ export default function Alarm(props) {
     {
       dataField: `ack.timestamp`,
       text: "Time",
-      sort: true,
+      headerStyle: () => {
+        return {
+          backgroundColor: "#257d7c",
+          color: "#fff",
+          width: "100px",
+        };
+      },
       formatter: (cell) => {
+        console.log(`Timme ${cell}`)
         cell = cell.split("T")[1];
         cell = cell.split(".")[0];
         let seconds = cell.split(":")[2];
@@ -172,6 +189,7 @@ export default function Alarm(props) {
             : "N/A";
         return cell;
       },
+      sort: true,
     },
   ];
 
@@ -188,9 +206,6 @@ export default function Alarm(props) {
       alarmAction(projectCode, diffDate, data.selected + 1, record)
     );
   };
-
-  const { SearchBar } = Search;
-  const { ExportCSVButton } = CSVExport;
 
   return (
     <div>
@@ -335,9 +350,7 @@ export default function Alarm(props) {
                 </section>
               </Col>
             </Row>
-
             {/* Events  */}
-
             <Row className="mt-4">
               <Col>
                 {/* Table with toolkit provider */}
@@ -359,20 +372,21 @@ export default function Alarm(props) {
                       >
                         {(props) => (
                           <>
-                            {console.log("props", props)}
-                            {/* {console.log("props", props)} */}
+                            {/* {console.log("props searchbar", props.searchProps)} */}
                             <section className={Style.searchBar}>
                               <SearchBar
                                 placeholder="Search..."
                                 {...props.searchProps}
                               />
-                              <ExportCSVButton {...props.csvProps}>
+                              {
+                                console.log(`csv props ${props.csvProps}`)
+                              }
+                              <ExportCSVButton {...props.csvProps} onClick={()=>console.log("export butto",props.csvProps)}>
                                 <FontAwesomeIcon icon={faDownload} />
                               </ExportCSVButton>
                             </section>
                             <BootstrapTable
                               {...props.baseProps}
-                              // selectRow={selectRow}
                             />
                           </>
                         )}
@@ -385,12 +399,7 @@ export default function Alarm(props) {
                       nextLabel="Next >"
                       onPageChange={handlePageClick}
                       pageRangeDisplayed={4}
-                      // pageCount={
-                      //   data && data.data && Math.ceil(data.data.count / record)
-                      // }
                       pageCount={data && data.data && data.data.count / record}
-                      // previousLabel="< Previous"
-                      // initialPage={1}
                       renderOnZeroPageCount={null}
                       containerClassName={"pagination"}
                       pageClassName={"page-item"}

@@ -45,7 +45,6 @@ export default function ThemeContextWrapper(props) {
       value={{
         theme: theme,
         changeTheme: changeTheme,
-        // sidemenu
         sideMenu: sideMenu,
         changeSideMenu: changeSideMenu,
       }}

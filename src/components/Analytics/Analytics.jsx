@@ -5,9 +5,6 @@ import Style from "./Analytics.module.scss";
 import AnalyticsEventDataComp from "./Componets/AnalyticsEventDataComp";
 import EventByVersion from "./Componets/EventByVersion";
 
-// import {
-//   getCrashAnalyticsData,
-// } from "../../redux/action/ProjectAction";
 import {
   getCrashFreeUsersData,
   getCrashAnalyticsData,
