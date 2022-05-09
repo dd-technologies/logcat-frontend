@@ -1,5 +1,5 @@
 import React from "react";
-import Style from "./Spinner.module.scss";
+import Style from "./Spinner.module.css";
 import DDLoader from "../assets/images/ddLoader.gif";
 export default function Spinner(props) {
   return (
