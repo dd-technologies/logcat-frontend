@@ -10,7 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import Spinner from "../../../Container/Spinner";
+import SpinnerCustome from "../../../Container/SpinnerCustome";
 import { ThemeContext } from "../../../utils/ThemeContext";
 
 const TrandDataGraph = () => {
@@ -86,10 +86,10 @@ const TrandDataGraph = () => {
             </ResponsiveContainer>
           </div>
         ) : (
-          <Spinner height="250px" />
+          <SpinnerCustome height="250px" />
         )
       ) : (
-        <Spinner height="250px" />
+        <SpinnerCustome height="250px" />
       )}
     </>
   );

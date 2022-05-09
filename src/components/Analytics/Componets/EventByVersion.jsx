@@ -3,7 +3,7 @@ import { Row, Col } from "react-bootstrap";
 import CustomCard from "../../../Container/CustomCard";
 import EventByVersionChart from "../charts/EventByVersionChart";
 import { useSelector } from "react-redux";
-import Spinner from "../../../Container/Spinner";
+import SpinnerCustome from "../../../Container/SpinnerCustome";
 import Style from "./EventByVersion.module.css";
 
 export default function EventByVersion() {
@@ -43,7 +43,7 @@ export default function EventByVersion() {
                 </>
               ))
             ) : (
-              <Spinner height="280px" />
+              <SpinnerCustome height="280px" />
             )}
           </Col>
           <Col xl={8} md={8} style={{ padding: "0px" }}>

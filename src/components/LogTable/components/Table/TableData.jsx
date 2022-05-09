@@ -16,7 +16,7 @@ import Style from "./TableData.module.css";
 import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
 import { getProjectByCode } from "../../../../redux/action/ProjectAction";
-import Spinner from "../../../../Container/Spinner";
+import SpinnerCustome from "../../../../Container/SpinnerCustome";
 import toast, { Toaster } from "react-hot-toast";
 import TableCard from "../../../../Container/TableCard";
 import { useNavigate } from "react-router-dom";
@@ -81,7 +81,6 @@ function TableData(props) {
     setDate({ start: startDate, end: endDate });
   }, [props.diffDate]);
 
-  // const [pageNo, setPageNo] = useState(0);
   const [record, setRecords] = useState(
     localStorage.getItem("selected_record")
       ? JSON.parse(localStorage.getItem("selected_record"))
@@ -149,8 +148,6 @@ function TableData(props) {
 
   const selectRow = {
     mode: "checkbox",
-    // clickToSelect: true,
-
     style: { backgroundColor: "#0099a4" },
   };
 
@@ -367,7 +364,6 @@ function TableData(props) {
       dataField: "log.message",
       text: "Log Message",
       headerAlign: "center",
-      // width: "200",
       headerStyle: () => {
         return {
           backgroundColor: "#257d7c",
@@ -994,7 +990,7 @@ function TableData(props) {
               )}
             </ToolkitProvider>
           ) : loading ? (
-            <Spinner height="200px" />
+            <SpinnerCustome height="200px" />
           ) : (
             <section
               style={{
@@ -1013,12 +1009,7 @@ function TableData(props) {
               nextLabel="Next >"
               onPageChange={handlePageClick}
               pageRangeDisplayed={4}
-              // pageCount={
-              //   data && data.data && Math.ceil(data.data.count / record)
-              // }
               pageCount={data && data.data && data.data.count / record}
-              // previousLabel="< Previous"
-              // initialPage={1}
               renderOnZeroPageCount={null}
               containerClassName={"pagination"}
               pageClassName={"page-item"}

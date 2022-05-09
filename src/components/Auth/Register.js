@@ -80,20 +80,6 @@ if (password !== cpassword) {
     setPasswordError({password:null,cpassword:null});
 }
 
-
-// var pattern = new RegExp(
-// "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
-// );
-// const isPasswordValid = pattern.test(password)
-// console.log(isPasswordValid)
-
-// if (!isPasswordValid) {
-//     console.log("password not valid")
-//     setResponseError("Password should have Capital letter, special chars and length should be equal or more than 8 characters")
-//     return false
-// } else {
-//     setResponseError(null)
-// }
 setRegisterForm({
     ...registerForm,
     password: password,

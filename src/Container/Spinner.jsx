@@ -1,6 +1,6 @@
 import React from "react";
-import Style from "./Spinner.module.css";
-
+import Style from "./Spinner.module.scss";
+import DDLoader from "../assets/images/ddLoader.gif";
 export default function Spinner(props) {
   return (
     <>
@@ -13,7 +13,11 @@ export default function Spinner(props) {
           alignItems: "center",
         }}
       >
-        <section className={Style.loader}></section>
+        <img
+          className={Style.loader}
+          /* style={{height:'100px', width:'100px'}} */ src={DDLoader}
+          alt="loading..."
+        />
       </section>
     </>
   );

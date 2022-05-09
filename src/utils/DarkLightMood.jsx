@@ -19,7 +19,6 @@ export default function DarkLightMood() {
           }}
         >
           <section>
-            {/*className={darkMood ? Style.darkMood_outer : null}*/}
 
             <FontAwesomeIcon
               icon={!darkMode ? faMoon : faSun}

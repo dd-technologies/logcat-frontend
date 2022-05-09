@@ -21,10 +21,8 @@ class Otpinput extends React.Component {
   handleChange(value1, event) {
     this.setState({ [value1]: event.target.value });
 	let st = this.state;
-	// if (st.otp1 && st.otp2 && st.otp3 && st.otp4 && st.otp5 && st.otp6) {
 		const otp = `${st.otp1}${st.otp2}${st.otp3}${st.otp4}${st.otp5}${event.target.value}`
 		this.props.setState({ ...this.props.state,otp: otp });
-	// }
   }
 
   handleSubmit(event) {
@@ -59,7 +57,6 @@ class Otpinput extends React.Component {
             autoComplete="off"
             className="otpInput"
             value={this.state.otp1}
-            // onKeyPress={this.keyPressed}
             onChange={(e) => this.handleChange("otp1", e)}
             tabIndex="1"
             maxLength="1"

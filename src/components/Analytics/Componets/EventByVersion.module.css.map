@@ -2,8 +2,8 @@
     "version": 3,
     "mappings": "AAEA,AACE,eADa,CACX,CAAC,CAAC;ECyDJ,SAAS,EAAE,iBAAiB;EAC5B,KAAK,EAAE,OAAO;CDxDb;;AAEH,AAAA,WAAW,CAAC;ECqDV,SAAS,EAAE,iBAAiB;EAC5B,KAAK,EAAE,OAAO;CDpDf",
     "sources": [
-        "EventByVersion.module.css",
-        "../../../css/veriables.module.css"
+        "EventByVersion.module.scss",
+        "../../../css/veriables.module.scss"
     ],
     "names": [],
     "file": "EventByVersion.module.css"

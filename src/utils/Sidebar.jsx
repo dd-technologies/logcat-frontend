@@ -21,7 +21,6 @@ function SideBar(props) {
   let { sideMenu } = React.useContext(ThemeContext);
 
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
-  // const [navToggle, setNavToggle] = useState(true);
   const { loading, adminInfo } = adminLoginReducer;
 
   const [sideBar, setSideBar] = useState(false);
@@ -30,7 +29,6 @@ function SideBar(props) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const logURLName = urlParams.get("pagename") || "";
-  // console.log("first", updatePage);
 
   var url_string = window.location.href;
   var url = new URL(url_string);
@@ -155,8 +153,6 @@ function SideBar(props) {
                   changeSideMenu(
                     sideBar ? sideMenus.menuShow : sideMenus.menuHide
                   );
-
-                  // console.log("first11111");
                 }}
               ></section>
             )}

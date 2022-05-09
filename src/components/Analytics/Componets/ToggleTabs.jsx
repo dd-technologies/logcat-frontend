@@ -4,7 +4,7 @@ import Style from "./ToggleTabs.module.css";
 import CustomCard from "../../../Container/CustomCard";
 import { Line } from "rc-progress";
 import { useSelector } from "react-redux";
-import Spinner from "../../../Container/Spinner";
+import SpinnerCustome from "../../../Container/SpinnerCustome";
 import { ThemeContext } from "../../../utils/ThemeContext";
 
 export default function ToggleTabs() {
@@ -134,7 +134,7 @@ export default function ToggleTabs() {
                     </>
                   ))
                 ) : (
-                  <Spinner height="200px" />
+                  <SpinnerCustome height="200px" />
                 )}
               </section>
             </Col>
@@ -161,7 +161,7 @@ export default function ToggleTabs() {
                     </>
                   ))
                 ) : (
-                  <Spinner height="200px" />
+                  <SpinnerCustome height="200px" />
                 )}
               </section>
             </Col>

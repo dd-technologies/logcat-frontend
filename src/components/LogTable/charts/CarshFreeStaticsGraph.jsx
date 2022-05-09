@@ -10,7 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import Spinner from "../../../Container/Spinner";
+import SpinnerCustome from "../../../Container/SpinnerCustome";
 import { ThemeContext } from "../../../utils/ThemeContext";
 
 export default function CarshFreeStaticsGraph() {
@@ -19,9 +19,7 @@ export default function CarshFreeStaticsGraph() {
   );
   const { data } = getCrashFreeUsersReducer;
   let dt = data && data.response;
-
   const { theme } = React.useContext(ThemeContext);
-  // console.log("first", theme);
 
   // Date Formate
   const dateFormatter = (date) => {
@@ -85,10 +83,10 @@ export default function CarshFreeStaticsGraph() {
             </ResponsiveContainer>
           </div>
         ) : (
-          <Spinner height="250px" />
+          <SpinnerCustome height="250px" />
         )
       ) : (
-        <Spinner height="250px" />
+        <SpinnerCustome height="250px" />
       )}
     </>
   );

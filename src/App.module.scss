@@ -1,4 +1,4 @@
-@import "./css/veriables.module.css";
+@import "./css/veriables.module.scss";
 table {
   & tr > th {
     background-color: $tableHaderBackgorundColor !important;
@@ -13,8 +13,6 @@ table {
 }
 
 table tr {
-  /*display: block;*/
-  // border-top: 2px solid red !important;
   border-bottom: $borderBottom !important;
   cursor: pointer !important;
 }

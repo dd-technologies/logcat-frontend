@@ -2,7 +2,7 @@
     "version": 3,
     "mappings": "",
     "sources": [
-        "veriables.module.css"
+        "veriables.module.scss"
     ],
     "names": [],
     "file": "veriables.module.css"
