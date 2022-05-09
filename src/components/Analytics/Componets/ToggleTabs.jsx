@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Row, Col } from "react-bootstrap";
-import Style from "./ToggleTabs.module.scss";
+import Style from "./ToggleTabs.module.css";
 import CustomCard from "../../../Container/CustomCard";
 import { Line } from "rc-progress";
 import { useSelector } from "react-redux";

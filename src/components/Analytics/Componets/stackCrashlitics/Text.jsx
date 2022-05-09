@@ -1,5 +1,5 @@
 import React from "react";
-import Style from "./Text.module.scss";
+import Style from "./Text.module.css";
 
 export default function Text() {
   // GETTGIN DATA FROM URL

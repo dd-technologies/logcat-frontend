@@ -1,0 +1,63 @@
+.TrandsDataTable {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.TrandsDataTable h4 {
+  color: #685af0;
+}
+
+.TrandsDataTable p {
+  font-size: 0.8rem;
+}
+
+.TrandsDataTable .Outsection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.TrandsDataTable .Outsection h4 {
+  font-size: 1rem !important;
+  color: #0099a4;
+  font-weight: 500;
+}
+
+.TrandsDataTable .Outsection p {
+  font-size: 0.9rem !important;
+  color: #646464;
+}
+
+.Trand {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.Trand h5 {
+  font-size: 1rem !important;
+  color: #0099a4;
+  font-weight: 500;
+}
+
+.Trand p {
+  font-size: 0.9rem !important;
+  color: #646464;
+}
+
+.Trand section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+/*# sourceMappingURL=TrandData.module.css.map */

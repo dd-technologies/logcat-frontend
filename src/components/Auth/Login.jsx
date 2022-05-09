@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash, faLock } from "@fortawesome/free-solid-svg-icons";
-import Style from "./Login.module.scss";
+import Style from "./Login.module.css";
 import { loginWithEmail } from "../../redux/action/AdminAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";

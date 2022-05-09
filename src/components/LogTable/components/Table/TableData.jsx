@@ -12,7 +12,7 @@ import ToolkitProvider, {
   Search,
   CSVExport,
 } from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit";
-import Style from "./TableData.module.scss";
+import Style from "./TableData.module.css";
 import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
 import { getProjectByCode } from "../../../../redux/action/ProjectAction";

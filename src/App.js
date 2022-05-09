@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.module.scss";
+import "./App.module.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CreateProject from "./components/Create_project/CreateProject";
 import LogTable from "./components/LogTable/LogTable";
@@ -12,7 +12,7 @@ import Protected from "./utils/Protected";
 import Settings from "./components/Settings/Settings";
 import { useSelector } from "react-redux";
 import UpdateProfile from "./components/user/UpdateProfile";
-import "./utils/Theme.scss";
+import "./utils/Theme.css";
 import Register from "./components/Auth/Register";
 import Alarm from "./components/Alarm/Alarm";
 

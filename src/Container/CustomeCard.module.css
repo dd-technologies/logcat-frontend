@@ -1,0 +1,36 @@
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .CardCustomeOuter {
+    top: 3% !important;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1280px) {
+  .CardCustomeOuter {
+    top: 3% !important;
+  }
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1400px) {
+  .CardCustomeOuter {
+    top: 4% !important;
+  }
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1600px) {
+  .CardCustomeOuter {
+    top: 4% !important;
+  }
+}
+
+@media screen and (min-width: 1600px) and (max-width: 1920px) {
+  .CardCustomeOuter {
+    top: 4% !important;
+  }
+}
+
+.CardCustomeDark {
+  background-color: #202940 !important;
+  -webkit-box-shadow: 1px 1px 10px 2px rgba(0, 0, 0, 0.45);
+          box-shadow: 1px 1px 10px 2px rgba(0, 0, 0, 0.45);
+}
+/*# sourceMappingURL=CustomeCard.module.css.map */

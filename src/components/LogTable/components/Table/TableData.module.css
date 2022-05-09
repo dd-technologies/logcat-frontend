@@ -1,0 +1,296 @@
+.OuterTable .BootstrapTable {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #efefef;
+  border-bottom: 1px solid rgba(90, 90, 90, 0.234);
+}
+
+.OuterTable .BootstrapTable input {
+  height: 35px !important;
+}
+
+.OuterTable .BootstrapTable .searchbar {
+  width: 100%;
+}
+
+.OuterTable .BootstrapTable .searchbar label {
+  width: 100%;
+}
+
+.OuterTable .BootstrapTable .searchbar input {
+  font-size: 0.9rem;
+}
+
+.OuterTable .BootstrapTable .chipOuter {
+  width: 50% !important;
+  height: auto !important;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto auto auto;
+      grid-template-columns: auto auto auto;
+  margin-right: 40px;
+  margin-left: 40px;
+}
+
+@media screen and (min-width: 600px) and (max-width: 1200px) {
+  .OuterTable .BootstrapTable .chipOuter {
+    width: 40% !important;
+    -ms-grid-columns: auto auto;
+        grid-template-columns: auto auto;
+  }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1600px) {
+  .OuterTable .BootstrapTable .chipOuter {
+    width: 60% !important;
+    -ms-grid-columns: auto auto auto;
+        grid-template-columns: auto auto auto;
+  }
+}
+
+.OuterTable .BootstrapTable .chip {
+  background-color: #0099a4;
+  border-radius: 20px;
+  padding: 10px;
+  height: 30px;
+  width: 120px;
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.OuterTable .BootstrapTable .chip p {
+  font-size: 0.8rem !important;
+}
+
+.OuterTable .BootstrapTable .chip svg {
+  color: #fff;
+}
+
+.OuterTable .BootstrapTable button {
+  color: #fff !important;
+  height: 35px !important;
+  font-weight: 500;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.OuterTable .BootstrapTable .GoogleDirve {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.OuterTable .BootstrapTable .filterOptions {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding-bottom: 20px;
+}
+
+.OuterTable .BootstrapTable .filterGraphFirstSction {
+  color: #0099a4 !important;
+  height: 35px !important;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-left: 10px;
+}
+
+.OuterTable .BootstrapTable .TopButton {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+.ViewButton {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+  border-radius: 50px !important;
+  color: #0099a4;
+}
+
+.ActiveOption {
+  background-color: #0099a4;
+  color: #fff;
+  border-radius: 10px;
+  padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.DateSection input {
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+}
+
+.perPageOuter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.perPageOuter .perPagesectionInner {
+  margin-top: 5px;
+}
+
+.perPageOuter .perPagesectionInnerActive {
+  background-color: #0099a4 !important;
+  color: #fff;
+  padding: 5px;
+  border-radius: 30px;
+  width: 30px;
+  height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.DefaultOption {
+  color: #0099a4;
+  padding: 5px;
+}
+
+.StatusInnerSecion {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 5px;
+}
+
+.StatusInnerSecion input[type="checkbox"]:checked {
+  background-color: #0099a4;
+}
+
+.StatusInnerSecion input[type="checkbox"]:checked:after {
+  content: "\2713";
+  color: white;
+}
+
+.StatusInnerSecion input[type="checkbox"] {
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 20px !important;
+  height: 20px !important;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: 1px solid #0099a4;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  font-size: 1em;
+}
+
+.expandedRow {
+  height: 20px !important;
+}
+
+@media screen and (min-width: 600px) and (max-width: 1200px) {
+  .expandedRow {
+    width: 150px !important;
+    overflow: hidden !important;
+  }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1600px) {
+  .expandedRow {
+    width: 110% !important;
+    overflow: hidden !important;
+  }
+}
+
+@media screen and (min-width: 1600px) and (max-width: 1920px) {
+  .expandedRow {
+    width: 110% !important;
+    overflow: hidden !important;
+  }
+}
+
+.dataSection svg {
+  color: red !important;
+}
+/*# sourceMappingURL=TableData.module.css.map */

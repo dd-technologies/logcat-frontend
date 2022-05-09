@@ -9,7 +9,7 @@ import {
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { Navbar } from "../../utils/NavBar";
 import SideBar from "../../utils/Sidebar";
-import Style from "./Alarm.module.scss";
+import Style from "./Alarm.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TypeDropDown from "../LogTable/components/Table/TypeDropDown";
 import { useDispatch, useSelector } from "react-redux";

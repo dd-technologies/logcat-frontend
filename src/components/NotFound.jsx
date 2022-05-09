@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Style from "./NotFound.module.scss";
+import Style from "./NotFound.module.css";
 import { useNavigate } from "react-router-dom";
 
 

@@ -3,10 +3,10 @@ import CustomCard from "../../Container/CustomCard";
 import { Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
-import Style from "./ProductCard.module.scss";
+import Style from "./ProductCard.module.css";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../../utils/ThemeContext";
-import "../../utils/Theme.scss";
+import "../../utils/Theme.css";
 
 const ProjectCard = (props) => {
   let newDate = props.data.createdAt.split("T")[0];

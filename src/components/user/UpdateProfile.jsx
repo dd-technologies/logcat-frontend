@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Col, Container, Row, Button } from "react-bootstrap";
 import CustomeDropDown from "../../Container/DropDown";
-import Style from "./UpdateProfile.module.scss";
+import Style from "./UpdateProfile.module.css";
 import LogICon from "../../assets/icons/log.png";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

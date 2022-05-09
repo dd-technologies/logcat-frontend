@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Style from "./DarkLightMood.module.scss";
+import Style from "./DarkLightMood.module.css";
 import { ThemeContext, themes } from "./ThemeContext";
 
 export default function DarkLightMood() {

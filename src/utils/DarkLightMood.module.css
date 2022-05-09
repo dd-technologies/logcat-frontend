@@ -1,0 +1,54 @@
+.Outer_section {
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media only screen and (min-width: 300px) and (max-width: 900px) {
+  .Outer_section {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1600px) {
+  .Outer_section {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media only screen and (min-width: 1600px) and (max-width: 1920px) {
+  .Outer_section {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.darkMood_outer {
+  background-color: #0099a4;
+  border-radius: 100%;
+  padding: 2px;
+  width: 25px;
+  height: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+/*# sourceMappingURL=DarkLightMood.module.css.map */

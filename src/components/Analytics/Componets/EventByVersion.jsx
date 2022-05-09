@@ -4,7 +4,7 @@ import CustomCard from "../../../Container/CustomCard";
 import EventByVersionChart from "../charts/EventByVersionChart";
 import { useSelector } from "react-redux";
 import Spinner from "../../../Container/Spinner";
-import Style from "./EventByVersion.module.scss";
+import Style from "./EventByVersion.module.css";
 
 export default function EventByVersion() {
   const getCrashAnalyticsDataReducer = useSelector(

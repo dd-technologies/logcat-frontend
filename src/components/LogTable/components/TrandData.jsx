@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import Style from "./TrandData.module.scss";
+import Style from "./TrandData.module.css";
 import CustomCard from "../../../Container/CustomCard";
 import TrandDataGraph from "../charts/TrandDataGraph";
 import { useSelector } from "react-redux";
