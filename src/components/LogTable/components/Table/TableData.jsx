@@ -636,7 +636,7 @@ function TableData(props) {
     );
   }, []);
 
-  console.log("tabledata", data && data.data && data.data.logs);
+  // console.log("tabledata", data && data.data && data.data.logs);
 
   return (
     <>
@@ -646,7 +646,7 @@ function TableData(props) {
       >
         <Toaster />
         <section className={`${Style.OuterTable} `} ref={ref}>
-          {data && data.data && data.data.logs.length ? (
+          {data && data.data && data.data.logs && (
             <ToolkitProvider
               keyField="_id"
               data={data.data.logs}
@@ -989,19 +989,13 @@ function TableData(props) {
                 </>
               )}
             </ToolkitProvider>
-          ) : loading ? (
-            <SpinnerCustome height="200px" />
-          ) : (
-            <section
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <h3 className="p-2 darkModeColor">No Logs Found</h3>
-            </section>
           )}
+
+          {data && data.data && data.data.logs.length < 0 && (
+            <p>No logs founds</p>
+          )}
+
+          {loading && <SpinnerCustome height="200px" />}
 
           <section className="p-2">
             <ReactPaginate
