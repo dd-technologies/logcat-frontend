@@ -2,7 +2,7 @@
     "version": 3,
     "mappings": "",
     "sources": [
-        "mediaQuery.css"
+        "mediaQuery.scss"
     ],
     "names": [],
     "file": "mediaQuery.css"

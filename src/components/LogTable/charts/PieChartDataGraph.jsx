@@ -12,7 +12,10 @@ export default function PieChartDataGraph() {
   // LABEL
   const [lableData, setLableData] = useState([]);
   const getLogCountsReducer = useSelector((state) => state.getLogCountsReducer);
-  const { data } = getLogCountsReducer;
+
+  console.log("getLogCountsReducer", getLogCountsReducer);
+
+  const { data, loading } = getLogCountsReducer;
   const fetchDetails = () => {
     if (data && data.data && data.data.typeWiseCount) {
       let logType = data.data.typeWiseCount.map((type) => type.logType);
@@ -69,30 +72,24 @@ export default function PieChartDataGraph() {
   return (
     <>
       <div style={{ height: "240px" }}>
-        {/* CHECKING DATA */}
-        {data && data.data && data.data.typeWiseCount ? (
-          countData.length == 0 ? (
-            <p
-              style={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              color:"#fff"
-
-              }}
-            >
-              No data found
-            </p>
-          ) : data && data.data && data.data.typeWiseCount ? (
-            <Pie data={allData} options={options}  />
-          ) : (
-            <SpinnerCustome height="350px" />
-          )
-        ) : (
-          <SpinnerCustome height="350px" />
+        {countData.length == 0 && (
+          <p
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "#fff",
+            }}
+          >
+            No data found
+          </p>
         )}
+        {data && data.data && data.data.typeWiseCount && (
+          <Pie data={allData} options={options} />
+        )}
+        {loading && <SpinnerCustome height="360px" />}
       </div>
     </>
   );
