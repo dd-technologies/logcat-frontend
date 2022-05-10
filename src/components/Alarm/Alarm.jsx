@@ -19,7 +19,8 @@ import ToolkitProvider, {
   Search,
   CSVExport,
 } from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit";
-import BootstrapTable from "react-bootstrap-table-next/lib/src/bootstrap-table";
+// import BootstrapTable from "react-bootstrap-table-next/lib/src/bootstrap-table";
+import BootstrapTable from "react-bootstrap-table-next";
 import AlarmIcon from "../../assets/images/AlarmIcon.png";
 import { alarmAction } from "../../redux/action/AlarmAction";
 import SpinnerCustome from "../../Container/SpinnerCustome";
@@ -57,8 +58,8 @@ export default function Alarm(props) {
     localStorage.getItem("project_type")
       ? JSON.parse(localStorage.getItem("project_type")).typeCode
       : projectType &&
-          projectType.modelList[0] &&
-          projectType.modelList[0].typeCode
+      projectType.modelList[0] &&
+      projectType.modelList[0].typeCode
   );
 
   const alarmReducer = useSelector((state) => state.alarmReducer);
@@ -89,8 +90,6 @@ export default function Alarm(props) {
 
   const selectRow = {
     mode: "checkbox",
-    // clickToSelect: true,
-
     style: { backgroundColor: "#0099a4" },
   };
 
@@ -154,7 +153,7 @@ export default function Alarm(props) {
       sort: true,
     },
     {
-      dataField: `ack.timestamp`,
+      dataField: `ack.date`,
       text: "Date",
       sort: true,
       formatter: (cell) => {
@@ -167,7 +166,7 @@ export default function Alarm(props) {
       },
     },
     {
-      dataField: `ack.timestamp`,
+      dataField: `ack.date`,
       text: "Time",
       headerStyle: () => {
         return {
@@ -195,13 +194,13 @@ export default function Alarm(props) {
 
   //   FIRST TIME ALARM ACTION DISPATCH
   useEffect(() => {
-    console.log('alarm error alarm useeffect ', projectCode )
+    console.log('alarm error alarm useeffect ', projectCode)
     dispatch(alarmAction(projectCode, diffDate));
   }, [dispatch, projectCode, diffDate]);
 
   // HANDLE PAGE CLICK
   const handlePageClick = (data) => {
-    console.log('alarm error alarm handle page click ', projectCode )
+    console.log('alarm error alarm handle page click ', projectCode)
     return dispatch(
       alarmAction(projectCode, diffDate, data.selected + 1, record)
     );
@@ -232,7 +231,7 @@ export default function Alarm(props) {
                   tableDataState={tableDataState}
                   diffDate={diffDate}
                   codeReducer={getModelCodeReducer}
-                  setProjectCode = {setProjectCode}
+                  setProjectCode={setProjectCode}
                 />
               </Col>
 
@@ -250,18 +249,18 @@ export default function Alarm(props) {
                       {diffDate == 10
                         ? `last 10 days`
                         : diffDate == 7
-                        ? `last 7 days`
-                        : diffDate == 15
-                        ? `last 15 days`
-                        : diffDate == 30
-                        ? `last 30 days`
-                        : diffDate == 45
-                        ? `last 45 days`
-                        : diffDate == 60
-                        ? `last 60 days`
-                        : diffDate == 90
-                        ? `last 90 days`
-                        : null}
+                          ? `last 7 days`
+                          : diffDate == 15
+                            ? `last 15 days`
+                            : diffDate == 30
+                              ? `last 30 days`
+                              : diffDate == 45
+                                ? `last 45 days`
+                                : diffDate == 60
+                                  ? `last 60 days`
+                                  : diffDate == 90
+                                    ? `last 90 days`
+                                    : null}
                     </p>
                     <FontAwesomeIcon
                       icon={faCaretDown}
@@ -381,11 +380,12 @@ export default function Alarm(props) {
                               {
                                 console.log(`csv props ${props.csvProps}`)
                               }
-                              <ExportCSVButton {...props.csvProps} onClick={()=>console.log("export butto",props.csvProps)}>
+                              <ExportCSVButton {...props.csvProps}>
                                 <FontAwesomeIcon icon={faDownload} />
                               </ExportCSVButton>
                             </section>
                             <BootstrapTable
+                              selectRow={selectRow}
                               {...props.baseProps}
                             />
                           </>
