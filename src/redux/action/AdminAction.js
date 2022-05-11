@@ -77,6 +77,16 @@ export const adminLogout = (navigate) => async (dispatch) => {
     );
 
     localStorage.removeItem("ddAdminToken");
+    localStorage.removeItem("selected_record");
+    localStorage.removeItem("forgetEmail");
+    localStorage.removeItem("mode");
+    localStorage.removeItem("selected_log");
+    localStorage.removeItem("diffDate");
+    localStorage.removeItem("project_type");
+    localStorage.removeItem("page_no");
+    localStorage.removeItem("selected_date");
+
+
     await persistor.purge();
 
     navigate("/");
