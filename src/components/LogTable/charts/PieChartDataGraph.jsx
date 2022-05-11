@@ -72,21 +72,23 @@ export default function PieChartDataGraph() {
   return (
     <>
       <div style={{ height: "240px" }}>
-        {countData.length == 0 && (
-          <p
-            style={{
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "#fff",
-            }}
-          >
-            No data found
-          </p>
-        )}
-        {data && data.data && data.data.typeWiseCount && (
+        {data &&
+          data.data &&
+          data.data.typeWiseCount == 0 && (
+              <p
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  color: "#fff",
+                }}
+              >
+                No data found
+              </p>
+            )}
+        {data && data.data && data.data.typeWiseCount.length > 0 && (
           <Pie data={allData} options={options} />
         )}
         {loading && <SpinnerCustome height="360px" />}

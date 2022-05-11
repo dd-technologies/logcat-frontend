@@ -1,10 +1,6 @@
 import React from "react";
 import {
-  faDatabase,
-  faUpload,
-  faMailBulk,
   faLock,
-  faPersonBooth,
   faEye,
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
@@ -147,7 +143,7 @@ const UpdatePassord = ({
           <p style={{ color: "red", fontSize: ".8rem" }}>{error}</p>
         </section>
         <p className="mt-4" style={{ color: "red", fontSize: ".8rem" }}>
-          {console.log("error", error)}
+          {/* {console.log("error", error)} */}
           {error}
         </p>
 

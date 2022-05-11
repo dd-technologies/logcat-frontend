@@ -27,7 +27,7 @@ class Otpinput extends React.Component {
 
   handleSubmit(event) {
     const data = new FormData(event.target);
-    console.log(this.state);
+    // console.log(this.state);
     event.preventDefault();
   }
 
@@ -38,7 +38,7 @@ class Otpinput extends React.Component {
         elmnt.target.form.elements[next].focus();
       }
     } else {
-      console.log("next");
+      // console.log("next");
 
       const next = elmnt.target.tabIndex;
       if (next < 6) {

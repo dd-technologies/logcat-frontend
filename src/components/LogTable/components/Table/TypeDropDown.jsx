@@ -24,7 +24,7 @@ const TypeDropDown = (props) => {
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get("code");
   const logTablePageURL = urlParams.get("pagename");
-  console.log("logTablePageURL", logTablePageURL);
+  // console.log("logTablePageURL", logTablePageURL);
 
   const dispatch = useDispatch();
 
@@ -57,7 +57,7 @@ const TypeDropDown = (props) => {
 
   const onSubmitFun = (type) => {
     ProjectTypeFilter();
-    console.log('alarm error typedrop down ', {...type} )
+    // console.log('alarm error typedrop down ', {...type} )
 
     localStorage.setItem("page_no", 1);
     localStorage.setItem("project_type", JSON.stringify(type));
@@ -72,34 +72,33 @@ const TypeDropDown = (props) => {
         type.typeCode
       )
     );
-    if ((logTablePageURL === "alarm")){
-      props.setProjectCode(type.typeCode)
+    if (logTablePageURL === "alarm") {
+      props.setProjectCode(type.typeCode);
     }
-    if ((logTablePageURL === "logtable")) {
-      dispatch(
-        getCrashFreeUsers({
-          code,
-          diffDate: props.diffDate,
-          code1: type.typeCode,
-        })
-      );
 
-      dispatch(
-        getLogTypeCounts({
-          code,
-          diffDate: props.diffDate,
-          code1: type.typeCode,
-        })
-      );
+    dispatch(
+      getCrashFreeUsers({
+        code,
+        diffDate: props.diffDate,
+        code1: type.typeCode,
+      })
+    );
 
-      dispatch(
-        getLogByDate({ code, diffDate: props.diffDate, code1: type.typeCode })
-      );
-    }
+    dispatch(
+      getLogTypeCounts({
+        code,
+        diffDate: props.diffDate,
+        code1: type.typeCode,
+      })
+    );
+
+    dispatch(
+      getLogByDate({ code, diffDate: props.diffDate, code1: type.typeCode })
+    );
 
     // alarm action dispatch
     dispatch(alarmAction(type.typeCode, props.diffDate));
-    console.log('alarm error neeraj ki baikaiti...')
+    // console.log('alarm error neeraj ki baikaiti...')
   };
 
   //  TODO: dispatch the code depanding the local storage

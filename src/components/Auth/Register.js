@@ -70,7 +70,7 @@ if (!cpassword) {
     return false;
 }
 else{
-    console.log('cpassword available')
+    // console.log('cpassword available')
     setPasswordError({...passwordError,cpassword:null});
 }
 if (password !== cpassword) {

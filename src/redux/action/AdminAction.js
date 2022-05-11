@@ -31,7 +31,7 @@ export const loginWithEmail =
           "Content-type": "application/json",
         },
       };
-      console.log(`env varibale: ${process.env.REACT_APP_BASE_URL}`);
+      // console.log(`env varibale: ${process.env.REACT_APP_BASE_URL}`);
       const { data } = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/api/logger/auth/login`,
         {
@@ -224,11 +224,11 @@ export const resetForgetPassword =
 // UPDATE PROFILE OF USER
 export const updateProfile = (email, name, avatar) => async (dispatch) => {
   try {
-    console.log("form data: ", email, name, avatar);
+    // console.log("form data: ", email, name, avatar);
     let formData = new FormData();
     formData.append("name", name);
     formData.append("image", avatar);
-    console.log([...formData]);
+    // console.log([...formData]);
     dispatch({
       type: UPDATE_PROFILE_REQUEST,
     });
