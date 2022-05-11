@@ -136,7 +136,7 @@ function SideBar(props) {
                       to={sidebarDetails.link3 && sidebarDetails.link3.link}
                     >
                       <Image src={AlarmIcon} width="25" />
-                      <section className="hidelinkName">Alarm</section>
+                      <section className="hidelinkName">Alerts</section>
                     </Link>
                   </section>
                 </>
