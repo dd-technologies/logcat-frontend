@@ -31,7 +31,7 @@ export const passwordChangeAction =
         type: USER_PASSWORD_CHANGE_SUCESS,
         payload: response.data,
       });
-      console.log("response data: ", response.data);
+      // console.log("response data: ", response.data);
       if (response.data) {
         return response.data;
       }

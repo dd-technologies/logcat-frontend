@@ -10,7 +10,7 @@ export const alarmAction =
   async (dispatch) => {
     try {
       // console.log("qqq", projectType, diffdate);
-      console.log('alarm error alarm action ', projectType, diffdate)
+      // console.log('alarm error alarm action ', projectType, diffdate)
       let date = new Date();
       let endDate = date.toLocaleDateString();
       endDate =
@@ -32,7 +32,7 @@ export const alarmAction =
         "/" +
         startDate.split("/")[0];
 
-      console.log("date", startDate, endDate, diffdate, projectType);
+      // console.log("date", startDate, endDate, diffdate, projectType);
       dispatch({
         type: ALARM_REQUEST,
       });

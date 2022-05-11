@@ -44,7 +44,7 @@ const TrandDataGraph = () => {
         </p>
       )}
 
-      {data && data.data && data.data.response && (
+      {data && data.data && data.data.response.length > 0 && (
         <div style={{ width: "100%", height: 180 }}>
           <ResponsiveContainer>
             <AreaChart

@@ -17,7 +17,7 @@ export default function ForgetPassword() {
   const dispatch = useDispatch();
   const handleForgetPassword = ()=>{
     const isEmailValid = validateEmailHelper(forgetEmail)
-    console.log(`forget email ${forgetEmail}`)
+    // console.log(`forget email ${forgetEmail}`)
     if(isEmailValid.isSuccess){
       setForgetEmail(
         forgetEmail

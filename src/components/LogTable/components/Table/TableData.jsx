@@ -646,7 +646,7 @@ function TableData(props) {
       >
         <Toaster />
         <section className={`${Style.OuterTable} `} ref={ref}>
-          {data && data.data && data.data.logs && (
+          {data && data.data && data.data.logs.length > 0 && (
             <ToolkitProvider
               keyField="_id"
               data={data.data.logs}
@@ -991,8 +991,20 @@ function TableData(props) {
             </ToolkitProvider>
           )}
 
-          {data && data.data && data.data.logs.length < 0 && (
-            <p>No logs founds</p>
+          {data && data.data && data.data.logs.length == 0 && (
+            <section
+              style={{
+                height:"200px",
+                textAlign: "center",
+                fontSize: "2rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color:"#1F99A4"
+              }}
+            >
+              No logs founds
+            </section>
           )}
 
           {loading && <SpinnerCustome height="200px" />}

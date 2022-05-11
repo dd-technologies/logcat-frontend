@@ -13,7 +13,7 @@ export function Navbar(props) {
   const { navdetails } = props;
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   let { sideMenu } = React.useContext(ThemeContext);
-  console.log("sidemene", sideMenu);
+  // console.log("sidemene", sideMenu);
   const { adminInfo } = adminLoginReducer;
 
   const [avatar, setAvatar] = useState(

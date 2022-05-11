@@ -18,7 +18,7 @@ export default function CarshFreeStaticsGraph() {
     (state) => state.getCrashFreeUsersReducer
   );
 
-  console.log("getCrashFreeUsersReducer", getCrashFreeUsersReducer);
+  // console.log("getCrashFreeUsersReducer", getCrashFreeUsersReducer);
   const { loading, data } = getCrashFreeUsersReducer;
   console.log("data1234", data);
   let dt = data && data.response;
@@ -30,7 +30,7 @@ export default function CarshFreeStaticsGraph() {
   };
   return (
     <>
-      {data && data.response == 0 && (
+      {data && data.count === 0 && (
         <p
           style={{
             width: "100%",
@@ -45,7 +45,7 @@ export default function CarshFreeStaticsGraph() {
         </p>
       )}
 
-      {data && data.response && (
+      {data && data.response.length > 0 && (
         <div style={{ width: "100%", height: 180 }}>
           <ResponsiveContainer>
             <AreaChart
