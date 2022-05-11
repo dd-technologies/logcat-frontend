@@ -19,7 +19,6 @@ import ToolkitProvider, {
   Search,
   CSVExport,
 } from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit";
-// import BootstrapTable from "react-bootstrap-table-next/lib/src/bootstrap-table";
 import BootstrapTable from "react-bootstrap-table-next";
 import AlarmIcon from "../../assets/images/AlarmIcon.png";
 import { alarmAction } from "../../redux/action/AlarmAction";

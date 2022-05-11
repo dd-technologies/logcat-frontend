@@ -4,10 +4,12 @@ import { Pie } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import SpinnerCustome from "../../../Container/SpinnerCustome";
+import { ThemeContext } from "../../../utils/ThemeContext";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function PieChartDataGraph() {
   const [countData, setCountData] = useState([]);
+  const { theme } = React.useContext(ThemeContext);
 
   // LABEL
   const [lableData, setLableData] = useState([]);
@@ -72,22 +74,20 @@ export default function PieChartDataGraph() {
   return (
     <>
       <div style={{ height: "240px" }}>
-        {data &&
-          data.data &&
-          data.data.typeWiseCount == 0 && (
-              <p
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  color: "#fff",
-                }}
-              >
-                No data found
-              </p>
-            )}
+        {data && data.data && data.data.typeWiseCount == 0 && (
+          <p
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: theme == "dark-content" ? `#fff` : `#000`,
+            }}
+          >
+            No data found
+          </p>
+        )}
         {data && data.data && data.data.typeWiseCount.length > 0 && (
           <Pie data={allData} options={options} />
         )}
