@@ -20,11 +20,13 @@ import SpinnerCustome from "../../../../Container/SpinnerCustome";
 import toast, { Toaster } from "react-hot-toast";
 import TableCard from "../../../../Container/TableCard";
 import { useNavigate } from "react-router-dom";
+import { ThemeContext } from "../../../../utils/ThemeContext";
 
 const { SearchBar } = Search;
 const { ExportCSVButton } = CSVExport;
 
 function TableData(props) {
+  const { theme } = React.useContext(ThemeContext);
   const code = props.code;
   let filedate = new Date();
   const [dateSectionSelect, setDateSectionSelect] = useState(true);
@@ -994,16 +996,16 @@ function TableData(props) {
           {data && data.data && data.data.logs.length == 0 && (
             <section
               style={{
-                height:"200px",
+                height: "200px",
                 textAlign: "center",
-                fontSize: "2rem",
+                fontSize: "1.7rem",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color:"#1F99A4"
+                color: theme == "dark-content" ? `#fff` : `#000`,
               }}
             >
-              No logs founds
+              No logs found
             </section>
           )}
 

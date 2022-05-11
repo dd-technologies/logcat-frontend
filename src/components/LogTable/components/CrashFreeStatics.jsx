@@ -5,6 +5,7 @@ import CarshFreeStaticsGraph from "../charts/CarshFreeStaticsGraph";
 import CustomCard from "../../../Container/CustomCard";
 import { useSelector } from "react-redux";
 export default function CrashFreeStatics() {
+  
   const getCrashFreeUsersReducer = useSelector(
     (state) => state.getCrashFreeUsersReducer
   );
