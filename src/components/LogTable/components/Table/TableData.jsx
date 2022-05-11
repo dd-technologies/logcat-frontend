@@ -1005,7 +1005,7 @@ function TableData(props) {
                 color: theme == "dark-content" ? `#fff` : `#000`,
               }}
             >
-              No logs found
+              No data found
             </section>
           )}
 

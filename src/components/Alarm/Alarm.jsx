@@ -27,13 +27,13 @@ import TableCard from "../../Container/TableCard";
 import ReactPaginate from "react-paginate";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import { getProjectByCode } from "../../redux/action/ProjectAction";
-
-
+import { ThemeContext } from "../../utils/ThemeContext";
 
 const { SearchBar } = Search;
 const { ExportCSVButton } = CSVExport;
 
 export default function Alarm(props) {
+  const { theme } = React.useContext(ThemeContext);
   const [tableDataState, setTableDataState] = useState({});
   const [diffDate, setDiffDate] = useState(
     localStorage.getItem("diffDate") || 90
@@ -57,8 +57,8 @@ export default function Alarm(props) {
     localStorage.getItem("project_type")
       ? JSON.parse(localStorage.getItem("project_type")).typeCode
       : projectType &&
-      projectType.modelList[0] &&
-      projectType.modelList[0].typeCode
+          projectType.modelList[0] &&
+          projectType.modelList[0].typeCode
   );
 
   const alarmReducer = useSelector((state) => state.alarmReducer);
@@ -175,7 +175,7 @@ export default function Alarm(props) {
         };
       },
       formatter: (cell) => {
-        console.log(`Timme ${cell}`)
+        console.log(`Timme ${cell}`);
         cell = cell.split("T")[1];
         cell = cell.split(".")[0];
         let seconds = cell.split(":")[2];
@@ -193,13 +193,13 @@ export default function Alarm(props) {
 
   //   FIRST TIME ALARM ACTION DISPATCH
   useEffect(() => {
-    console.log('alarm error alarm useeffect ', projectCode)
+    console.log("alarm error alarm useeffect ", projectCode);
     dispatch(alarmAction(projectCode, diffDate));
   }, [dispatch, projectCode, diffDate]);
 
   // HANDLE PAGE CLICK
   const handlePageClick = (data) => {
-    console.log('alarm error alarm handle page click ', projectCode)
+    console.log("alarm error alarm handle page click ", projectCode);
     return dispatch(
       alarmAction(projectCode, diffDate, data.selected + 1, record)
     );
@@ -248,18 +248,18 @@ export default function Alarm(props) {
                       {diffDate == 10
                         ? `last 10 days`
                         : diffDate == 7
-                          ? `last 7 days`
-                          : diffDate == 15
-                            ? `last 15 days`
-                            : diffDate == 30
-                              ? `last 30 days`
-                              : diffDate == 45
-                                ? `last 45 days`
-                                : diffDate == 60
-                                  ? `last 60 days`
-                                  : diffDate == 90
-                                    ? `last 90 days`
-                                    : null}
+                        ? `last 7 days`
+                        : diffDate == 15
+                        ? `last 15 days`
+                        : diffDate == 30
+                        ? `last 30 days`
+                        : diffDate == 45
+                        ? `last 45 days`
+                        : diffDate == 60
+                        ? `last 60 days`
+                        : diffDate == 90
+                        ? `last 90 days`
+                        : null}
                     </p>
                     <FontAwesomeIcon
                       icon={faCaretDown}
@@ -353,63 +353,82 @@ export default function Alarm(props) {
               <Col>
                 {/* Table with toolkit provider */}
                 <TableCard borderRadius="10px">
-                  <section className={`${Style.OuterTable} `}>
-                    {loading ? (
-                      <SpinnerCustome />
-                    ) : (
-                      <ToolkitProvider
-                        keyField="_id"
-                        data={products}
-                        columns={columns}
-                        search
-                        exportCSV={{
-                          fileName: `alert_${code}_${filedate.toISOString()}.csv`,
-                          onlyExportSelection: true,
-                          exportAll: true,
-                        }}
-                      >
-                        {(props) => (
-                          <>
-                            {/* {console.log("props searchbar", props.searchProps)} */}
-                            <section className={Style.searchBar}>
-                              <SearchBar
-                                placeholder="Search..."
-                                {...props.searchProps}
+                  {data && data.data && data.data.alerts.length > 0 && (
+                    <>
+                      <section className={`${Style.OuterTable} `}>
+                        <ToolkitProvider
+                          keyField="_id"
+                          data={products}
+                          columns={columns}
+                          search
+                          exportCSV={{
+                            fileName: `alert_${code}_${filedate.toISOString()}.csv`,
+                            onlyExportSelection: true,
+                            exportAll: true,
+                          }}
+                        >
+                          {(props) => (
+                            <>
+                              {/* {console.log("props searchbar", props.searchProps)} */}
+                              <section className={Style.searchBar}>
+                                <SearchBar
+                                  placeholder="Search..."
+                                  {...props.searchProps}
+                                />
+                                {console.log(`csv props ${props.csvProps}`)}
+                                <ExportCSVButton {...props.csvProps}>
+                                  <FontAwesomeIcon icon={faDownload} />
+                                </ExportCSVButton>
+                              </section>
+                              <BootstrapTable
+                                selectRow={selectRow}
+                                {...props.baseProps}
                               />
-                              {
-                                console.log(`csv props ${props.csvProps}`)
-                              }
-                              <ExportCSVButton {...props.csvProps}>
-                                <FontAwesomeIcon icon={faDownload} />
-                              </ExportCSVButton>
-                            </section>
-                            <BootstrapTable
-                              selectRow={selectRow}
-                              {...props.baseProps}
-                            />
-                          </>
-                        )}
-                      </ToolkitProvider>
-                    )}
-                  </section>
-                  <section className="p-2">
-                    <ReactPaginate
-                      breakLabel=". . ."
-                      nextLabel="Next >"
-                      onPageChange={handlePageClick}
-                      pageRangeDisplayed={4}
-                      pageCount={data && data.data && data.data.count / record}
-                      renderOnZeroPageCount={null}
-                      containerClassName={"pagination"}
-                      pageClassName={"page-item"}
-                      pageLinkClassName={"page-link"}
-                      previousClassName={"page-item"}
-                      nextClassName={"page-item"}
-                      previousLinkClassName={"page-link"}
-                      nextLinkClassName={"page-link"}
-                      activeClassName={"active"}
-                    />
-                  </section>
+                            </>
+                          )}
+                        </ToolkitProvider>
+                      </section>
+                      <section className="p-2">
+                        <ReactPaginate
+                          breakLabel=". . ."
+                          nextLabel="Next >"
+                          onPageChange={handlePageClick}
+                          pageRangeDisplayed={4}
+                          pageCount={
+                            data && data.data && data.data.count / record
+                          }
+                          renderOnZeroPageCount={null}
+                          containerClassName={"pagination"}
+                          pageClassName={"page-item"}
+                          pageLinkClassName={"page-link"}
+                          previousClassName={"page-item"}
+                          nextClassName={"page-item"}
+                          previousLinkClassName={"page-link"}
+                          nextLinkClassName={"page-link"}
+                          activeClassName={"active"}
+                        />
+                      </section>
+                    </>
+                  )}
+
+                  {data && data.data && data.data.alerts.length == 0 && (
+                    <p
+                      style={{
+                        width: "100%",
+                        height: "600%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        padding: "120px 0px",
+                        fontSize: "1.7rem",
+                        color: theme == "dark-content" ? `#fff` : `#000`,
+                      }}
+                    >
+                      No data found
+                    </p>
+                  )}
+
+                  {loading && <SpinnerCustome />}
                 </TableCard>
               </Col>
             </Row>
