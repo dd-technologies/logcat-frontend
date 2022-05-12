@@ -24,7 +24,7 @@ const TypeDropDown = (props) => {
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get("code");
   const logTablePageURL = urlParams.get("pagename");
-  // console.log("logTablePageURL", logTablePageURL);
+  console.log("logTablePageURL", logTablePageURL);
 
   const dispatch = useDispatch();
 
@@ -62,6 +62,34 @@ const TypeDropDown = (props) => {
     localStorage.setItem("page_no", 1);
     localStorage.setItem("project_type", JSON.stringify(type));
 
+    // alarm action dispatch
+
+    if (logTablePageURL === "alarm") {
+      dispatch(alarmAction(type.typeCode, props.diffDate));
+      props.setProjectCode(type.typeCode);
+    }
+
+    if (logTablePageURL === "logtable") {
+      dispatch(
+        getCrashFreeUsers({
+          code,
+          diffDate: props.diffDate,
+          code1: type.typeCode,
+        })
+      );
+
+      dispatch(
+        getLogTypeCounts({
+          code,
+          diffDate: props.diffDate,
+          code1: type.typeCode,
+        })
+      );
+      dispatch(
+        getLogByDate({ code, diffDate: props.diffDate, code1: type.typeCode })
+      );
+    }
+
     dispatch(
       getProjectByCode(
         props.tableDataState.code,
@@ -72,32 +100,6 @@ const TypeDropDown = (props) => {
         type.typeCode
       )
     );
-    if (logTablePageURL === "alarm") {
-      props.setProjectCode(type.typeCode);
-    }
-
-    dispatch(
-      getCrashFreeUsers({
-        code,
-        diffDate: props.diffDate,
-        code1: type.typeCode,
-      })
-    );
-
-    dispatch(
-      getLogTypeCounts({
-        code,
-        diffDate: props.diffDate,
-        code1: type.typeCode,
-      })
-    );
-
-    dispatch(
-      getLogByDate({ code, diffDate: props.diffDate, code1: type.typeCode })
-    );
-
-    // alarm action dispatch
-    dispatch(alarmAction(type.typeCode, props.diffDate));
     // console.log('alarm error neeraj ki baikaiti...')
   };
 

@@ -64,7 +64,7 @@ export default function Alarm(props) {
   const alarmReducer = useSelector((state) => state.alarmReducer);
   // console.log("first", alarmReducer);
   const { loading, data } = alarmReducer;
-  console.log("data", alarmReducer);
+  // console.log("dataalarm", alarmReducer);
 
   const products = (data && data.data && data.data.alerts) || [];
 
@@ -194,14 +194,14 @@ export default function Alarm(props) {
   //   FIRST TIME ALARM ACTION DISPATCH
   useEffect(() => {
     console.log("alarm error alarm useeffect ", projectCode);
-    dispatch(alarmAction(projectCode, diffDate));
+    dispatch(alarmAction(code, projectCode, diffDate));
   }, [dispatch, projectCode, diffDate]);
 
   // HANDLE PAGE CLICK
   const handlePageClick = (data) => {
     console.log("alarm error alarm handle page click ", projectCode);
     return dispatch(
-      alarmAction(projectCode, diffDate, data.selected + 1, record)
+      alarmAction(code, projectCode, diffDate, data.selected + 1, record)
     );
   };
 
