@@ -6,7 +6,7 @@ import {
 } from "../types/AlarmConstants";
 
 export const alarmAction =
-  (projectType = null, diffdate = null, page = 1, record = 25) =>
+  (code=null,projectType = null, diffdate = null, page = 1, record = 25) =>
   async (dispatch) => {
     try {
       // console.log("qqq", projectType, diffdate);
@@ -47,7 +47,7 @@ export const alarmAction =
       let response;
 
       response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/alerts/SBXMH?projectType=${projectType}&startDate=${startDate}&endDate=${endDate}&page=${page}&limit=${record}`, //
+        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/alerts/${code}?projectType=${projectType}&startDate=${startDate}&endDate=${endDate}&page=${page}&limit=${record}`, //
         config
       );
 
