@@ -1,4 +1,4 @@
-@import "../../../css/veriables.module..css";
+@import "../../../css/veriables.module.scss";
 
 .outerDiv {
   border-radius: $cardBorderRadius;
@@ -106,7 +106,24 @@
   background-color: $activehrefText;
   border-radius: 55px;
   overflow: hidden;
-  width: 8%;
+  @media screen and (min-width: 300px) and (max-width: 768px) {
+    width: 10% !important;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: 12% !important;
+  }
+
+  @media screen and (min-width: 1024px) and (max-width: 1280px) {
+    width: 10% !important;
+  }
+  @media screen and (min-width: 1280px) and (max-width: 1400px) {
+    width: 8% !important;
+  }
+
+  @media screen and (min-width: 1400px) and (max-width: 1600px) {
+    width: 8% !important;
+  }
 
   .filterGraphFirstSection {
     width: 100%;

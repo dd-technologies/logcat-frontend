@@ -370,7 +370,7 @@ function TableData(props) {
         return {
           backgroundColor: "#257d7c",
           color: "#fff",
-          width: "300px",
+          width: "100%",
         };
       },
       formatter: (col, row, rowIndex) => {
@@ -418,7 +418,7 @@ function TableData(props) {
         return {
           backgroundColor: "#257d7c",
           color: "#fff",
-          width: "100px",
+          width: "40%",
         };
       },
     },
@@ -429,7 +429,7 @@ function TableData(props) {
         return {
           backgroundColor: "#257d7c",
           color: "#fff",
-          width: "100px",
+          width: "40%",
         };
       },
       formatter: errorFormatter,
@@ -442,7 +442,7 @@ function TableData(props) {
         return {
           backgroundColor: "#257d7c",
           color: "#fff",
-          width: "100px",
+          width: "40%",
         };
       },
 
@@ -463,7 +463,7 @@ function TableData(props) {
         return {
           backgroundColor: "#257d7c",
           color: "#fff",
-          width: "100px",
+          width: "40%",
         };
       },
       formatter: (cell) => {

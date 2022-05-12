@@ -265,10 +265,6 @@
   font-size: 1em;
 }
 
-.expandedRow {
-  height: 20px !important;
-}
-
 @media screen and (min-width: 600px) and (max-width: 1200px) {
   .expandedRow {
     width: 150px !important;

@@ -7,7 +7,7 @@ import { Col, Row } from "react-bootstrap";
 export default function PieChartSection(props) {
   return (
     <>
-      <CustomCard>
+      <CustomCard height="300px">
         <Row className="p-3">
           <Col xl={12} md={12} className={Style.PieChartData}>
             <h5

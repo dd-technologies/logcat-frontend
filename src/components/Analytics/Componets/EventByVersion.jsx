@@ -11,6 +11,10 @@ export default function EventByVersion() {
     (state) => state.getCrashAnalyticsDataReducer
   );
   const { loading: ld, data: alldata } = getCrashAnalyticsDataReducer;
+  // console.log(
+  //   "datafield",
+  //   alldata && alldata.versionResponse[0].data
+  // );
   let cnt = alldata && alldata.versionResponse ? alldata.versionResponse : null;
   let adds = 0;
   if (cnt) {
@@ -55,7 +59,12 @@ export default function EventByVersion() {
             >
               from the last 90 days
             </p>
-            <EventByVersionChart height="200px" />
+            {alldata &&
+              alldata.versionResponse[0] &&
+              alldata.versionResponse[0].data && (
+                <EventByVersionChart height="200px" />
+              )}
+            {ld && <SpinnerCustome height="280px" />}
           </Col>
         </Row>
       </CustomCard>

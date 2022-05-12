@@ -20,7 +20,7 @@ export default function TrandData() {
 
   return (
     <>
-      <CustomCard>
+      <CustomCard height="300px">
         <Row className="p-3">
           <Col xl={12} className={Style.Trand}>
             <h5
