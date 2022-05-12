@@ -1,4 +1,4 @@
-@import "../../../../css/veriables.module.css";
+@import "../../../../css/veriables.module.scss";
 
 .OuterTable {
   .BootstrapTable {
@@ -193,7 +193,7 @@
 
 // react bootstrap table css
 .expandedRow {
-  height: 20px !important;
+  // height: 20px !important;
   @media screen and (min-width: 600px) and (max-width: 1200px) {
     width: 150px !important;
     overflow: hidden !important;

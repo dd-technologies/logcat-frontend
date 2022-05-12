@@ -87,7 +87,7 @@ const TrandDataGraph = () => {
           </ResponsiveContainer>
         </div>
       )}
-      {loading && <SpinnerCustome height="300px" />}
+      {loading && <SpinnerCustome height="200px" />}
     </>
   );
 };

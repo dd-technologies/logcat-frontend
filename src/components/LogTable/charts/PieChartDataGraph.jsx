@@ -91,7 +91,7 @@ export default function PieChartDataGraph() {
         {data && data.data && data.data.typeWiseCount.length > 0 && (
           <Pie data={allData} options={options} />
         )}
-        {loading && <SpinnerCustome height="360px" />}
+        {loading && <SpinnerCustome height="260px" />}
       </div>
     </>
   );

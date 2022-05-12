@@ -148,7 +148,36 @@
   background-color: #0099a4;
   border-radius: 55px;
   overflow: hidden;
-  width: 8%;
+}
+
+@media screen and (min-width: 300px) and (max-width: 768px) {
+  .filterToggle {
+    width: 10% !important;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .filterToggle {
+    width: 12% !important;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1280px) {
+  .filterToggle {
+    width: 10% !important;
+  }
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1400px) {
+  .filterToggle {
+    width: 8% !important;
+  }
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1600px) {
+  .filterToggle {
+    width: 8% !important;
+  }
 }
 
 .filterToggle .filterGraphFirstSection {
