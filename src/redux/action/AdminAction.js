@@ -86,7 +86,6 @@ export const adminLogout = (navigate) => async (dispatch) => {
     localStorage.removeItem("page_no");
     localStorage.removeItem("selected_date");
 
-
     await persistor.purge();
 
     navigate("/");
@@ -106,7 +105,7 @@ export const adminLogout = (navigate) => async (dispatch) => {
 
 //  USER REGISTER ACTIONS
 export const adminRegister =
-  (email, password, name, navigate) => async (dispatch) => {
+  (name, email, password, navigate) => async (dispatch) => {
     try {
       dispatch({
         type: ADMIN_REGISTER_REQUEST,
@@ -127,6 +126,8 @@ export const adminRegister =
         config
       );
 
+      console.log("Data", data);
+
       dispatch({
         type: ADMIN_REGISTER_SUCCESS,
         payload: data,
@@ -137,10 +138,7 @@ export const adminRegister =
     } catch (error) {
       dispatch({
         type: ADMIN_REGISTER_FAIL,
-        payload:
-          error.response && error.response.data.errorMessage
-            ? error.response.data.errorMessage
-            : error.message,
+        payload: error.response,
       });
     }
   };
