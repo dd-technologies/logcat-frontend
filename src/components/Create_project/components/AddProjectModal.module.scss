@@ -1,7 +1,9 @@
 @import "../../../css/veriables.module.scss";
 
 .tagItemsOuter {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  height: max-content;
   .tag_item {
     color: $defaultTextColor;
     background-color: $activehrefText;

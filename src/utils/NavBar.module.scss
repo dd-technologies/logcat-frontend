@@ -1,4 +1,5 @@
 @import "../css/veriables.module.scss";
+@import "../css/mediaQuery.scss";
 
 .NavbarOuter {
   width: 100%;
@@ -22,45 +23,114 @@
     padding: 0.3% 1%;
     width: 100%;
 
-    .detailSection {
-      // transition-duration: 0.3s;
-
-      @media only screen and (min-width: 300px) and (max-width: 900px) {
-        margin-right: 5%;
-        width: 20%;
+    // detail section media query
+    @include sm {
+      .detailSection {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-right: 60px !important;
+        width: 120px !important;
+        .AvatarSection {
+          background-color: #fff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 100%;
+          width: 25px;
+          height: 25px;
+        }
       }
-      @media only screen and (min-width: 900px) and (max-width: 1600px) {
-        margin-right: 3%;
-        width: 14%;
-      }
-      @media only screen and (min-width: 1600px) and (max-width: 1920px) {
-        margin-right: 4%;
-        width: 12%;
-      }
-
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
     }
+    @include md {
+      .detailSection {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-right: 80px !important;
+        width: 130px !important;
 
-    .AvatarSection {
-      background-color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 100%;
-      cursor: pointer;
-      @media only screen and (min-width: 300px) and (max-width: 900px) {
-        width: 25px;
-        height: 25px;
+        .AvatarSection {
+          background-color: #fff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 100%;
+          width: 30px;
+          height: 30px;
+        }
       }
-      @media only screen and (min-width: 900px) and (max-width: 1600px) {
-        width: 30px;
-        height: 30px;
+    }
+    @include lg {
+      .detailSection {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-right: 200px !important;
+        .AvatarSection {
+          background-color: #fff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 100%;
+          width: 30px;
+          height: 30px;
+        }
       }
-      @media only screen and (min-width: 1600px) and (max-width: 1920px) {
-        width: 40px;
-        height: 40px;
+    }
+    @include lg-md {
+      .detailSection {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-right: 80px !important;
+        width: 130px !important;
+        .AvatarSection {
+          background-color: #fff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 100%;
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
+    @include lg-xl {
+      .detailSection {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-right: 100px !important;
+        width: 140px !important;
+        .AvatarSection {
+          background-color: #fff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 100%;
+          width: 38px;
+          height: 38px;
+        }
+      }
+    }
+    @include xl {
+      .detailSection {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 150px;
+        display: flex;
+        margin-right: 100px !important;
+        .AvatarSection {
+          background-color: #fff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 100%;
+          width: 40px;
+          height: 40px;
+        }
       }
     }
   }
