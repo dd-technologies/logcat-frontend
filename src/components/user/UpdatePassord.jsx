@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  faLock,
-  faEye,
-  faEyeSlash,
-} from "@fortawesome/free-solid-svg-icons";
+import { faLock, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Col, Container, Row, Button } from "react-bootstrap";
 import CustomeDropDown from "../../Container/DropDown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -42,7 +38,7 @@ const UpdatePassord = ({
             }
           >
             <span className="ms-2">
-              <FontAwesomeIcon icon={faLock} />
+              <FontAwesomeIcon icon={faLock} size="lg" />
             </span>
             <input
               type={showPassword.currentpasswordShow ? "text" : "password"}
@@ -78,7 +74,7 @@ const UpdatePassord = ({
             }
           >
             <span className="ms-2">
-              <FontAwesomeIcon icon={faLock} />
+              <FontAwesomeIcon icon={faLock} size="lg" />
             </span>
             <input
               type={showPassword.newPasswordShow ? "text" : "password"}
@@ -114,7 +110,7 @@ const UpdatePassord = ({
             }
           >
             <span className="ms-2">
-              <FontAwesomeIcon icon={faLock} />
+              <FontAwesomeIcon icon={faLock} size="lg" />
             </span>
             <input
               type={showPassword.confirmNewpasswordShow ? "text" : "password"}

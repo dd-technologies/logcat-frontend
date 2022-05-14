@@ -99,137 +99,146 @@ export default function Login() {
 
   return (
     <>
-      <CustomCard height="max-content" width="500px">
-        <section className={Style.Login}>
-          <div className="Login-title d-flex justify-content-start">
-            <p className={Style.headerText}>Login</p>
-          </div>
-          <div className="Form-card">
-            <form>
-              <div
-                className={
-                  emailError
-                    ? `${Style.imputFieldsError} darkBgColorSec`
-                    : `${Style.imputFields} mt-4 darkBgColorSec`
-                }
-              >
-                <span className="ms-2">
-                  <FontAwesomeIcon icon={faEnvelope} size="lg" />
-                </span>
-                <input
-                  type="email"
-                  className="form-control LoginForminput "
-                  id="exampleInputEmail1"
-                  placeholder="Enter your email"
-                  aria-describedby="emailHelp"
-                  onChange={(e) =>
-                    setLoginForm({ ...loginForm, email: e.target.value })
+      <section
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height:"100vh",
+        }}
+      >
+        <CustomCard height="max-content" width="500px">
+          <section className={Style.Login}>
+            <div className="Login-title d-flex justify-content-start">
+              <p className={Style.headerText}>Login</p>
+            </div>
+            <div className="Form-card">
+              <form>
+                <div
+                  className={
+                    emailError
+                      ? `${Style.imputFieldsError} darkBgColorSec`
+                      : `${Style.imputFields} mt-4 darkBgColorSec`
                   }
-                  value={loginForm.email}
-                />
-              </div>
-              {emailError != null ? (
-                <small style={{ color: "red" }}>{emailError}</small>
-              ) : (
-                ""
-              )}
-              <div
-                className={
-                  passwordError
-                    ? `${Style.imputFieldsError} mt-4 darkBgColorSec`
-                    : `${Style.imputFields} mt-4 darkBgColorSec`
-                }
-              >
-                <span className="ms-2">
-                  <FontAwesomeIcon icon={faLock} size="lg" />
-                </span>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  className="form-control LoginForminput "
-                  id="exampleInputEmail1"
-                  placeholder="Enter your password"
-                  aria-describedby="emailHelp"
-                  onChange={(e) =>
-                    setLoginForm({ ...loginForm, password: e.target.value })
-                  }
-                  value={loginForm.password}
-                />
-                <span className="px-2" style={{ cursor: "pointer" }}>
-                  <FontAwesomeIcon
-                    icon={showPassword ? faEye : faEyeSlash}
-                    onClick={() => {
-                      setShowPassword(!showPassword);
-                    }}
+                >
+                  <span className="ms-2">
+                    <FontAwesomeIcon icon={faEnvelope} size="lg" />
+                  </span>
+                  <input
+                    type="email"
+                    className="form-control LoginForminput "
+                    id="exampleInputEmail1"
+                    placeholder="Enter your email"
+                    aria-describedby="emailHelp"
+                    onChange={(e) =>
+                      setLoginForm({ ...loginForm, email: e.target.value })
+                    }
+                    value={loginForm.email}
                   />
-                </span>
-              </div>
-              {passwordError != null ? (
-                <small style={{ color: "red" }}>{passwordError}</small>
-              ) : setErrorPassword ? (
-                <small style={{ color: "red" }}>{setErrorPassword}</small>
-              ) : (
-                ""
-              )}
-              <section
-                style={{
-                  marginTop: "20px",
-                  display: "flex",
-                  justifyContent: "end ",
-                }}
-              >
-                <Link
-                  to="/forgetPassword"
-                  style={{
-                    // textDecoration: "none",
-                    color: "#257d7c",
-                    fontWeight: 500,
-                  }}
-                  className="cpactiveText"
+                </div>
+                {emailError != null ? (
+                  <small style={{ color: "red" }}>{emailError}</small>
+                ) : (
+                  ""
+                )}
+                <div
+                  className={
+                    passwordError
+                      ? `${Style.imputFieldsError} mt-4 darkBgColorSec`
+                      : `${Style.imputFields} mt-4 darkBgColorSec`
+                  }
                 >
-                  Forget Password?
-                </Link>
-              </section>
-              <section
-                style={{
-                  marginTop: "20px",
-                  display: "flex",
-                  justifyContent: "center ",
-                }}
-              >
-                <Link
-                  to="/register"
+                  <span className="ms-2">
+                    <FontAwesomeIcon icon={faLock} size="lg" />
+                  </span>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className="form-control LoginForminput "
+                    id="exampleInputEmail1"
+                    placeholder="Enter your password"
+                    aria-describedby="emailHelp"
+                    onChange={(e) =>
+                      setLoginForm({ ...loginForm, password: e.target.value })
+                    }
+                    value={loginForm.password}
+                  />
+                  <span className="px-2" style={{ cursor: "pointer" }}>
+                    <FontAwesomeIcon
+                      icon={showPassword ? faEye : faEyeSlash}
+                      onClick={() => {
+                        setShowPassword(!showPassword);
+                      }}
+                    />
+                  </span>
+                </div>
+                {passwordError != null ? (
+                  <small style={{ color: "red" }}>{passwordError}</small>
+                ) : setErrorPassword ? (
+                  <small style={{ color: "red" }}>{setErrorPassword}</small>
+                ) : (
+                  ""
+                )}
+                <section
                   style={{
-                    // textDecoration: "none",
-                    color: "#257d7c",
-                    fontWeight: 500,
+                    marginTop: "20px",
+                    display: "flex",
+                    justifyContent: "end ",
                   }}
-                  className="cpactiveText"
                 >
-                  Register
-                </Link>
-              </section>
-              <section
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Button
+                  <Link
+                    to="/forgetPassword"
+                    style={{
+                      // textDecoration: "none",
+                      color: "#257d7c",
+                      fontWeight: 500,
+                    }}
+                    className="cpactiveText"
+                  >
+                    Forget Password?
+                  </Link>
+                </section>
+                <section
                   style={{
-                    width: "30%",
-                    fontWeight: 700,
+                    marginTop: "20px",
+                    display: "flex",
+                    justifyContent: "center ",
                   }}
-                  type="submit"
-                  className="mt-4"
-                  onClick={(e) => handleSubmit(e)}
                 >
-                  {loading ? "Loading..." : "Login"}
-                </Button>
-              </section>
-            </form>
-          </div>
-        </section>
-      </CustomCard>
+                  <Link
+                    to="/register"
+                    style={{
+                      // textDecoration: "none",
+                      color: "#257d7c",
+                      fontWeight: 500,
+                    }}
+                    className="cpactiveText"
+                  >
+                    Register
+                  </Link>
+                </section>
+                <section
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Button
+                    style={{
+                      width: "30%",
+                      fontWeight: 700,
+                    }}
+                    type="submit"
+                    className="mt-4"
+                    onClick={(e) => handleSubmit(e)}
+                  >
+                    {loading ? "Loading..." : "Login"}
+                  </Button>
+                </section>
+              </form>
+            </div>
+          </section>
+        </CustomCard>
+      </section>
     </>
   );
 }

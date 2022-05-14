@@ -53,55 +53,64 @@ export default function ForgetPassword() {
   return (
     <>
       <Toaster />
-      <CustomCard height="max-content" width="500px">
-        <section className={Style.forget}>
-          <div className="Login-title">
-            <p className={Style.headerText}>Forgot Password</p>
-          </div>
-          <div className="Form-card">
-            <form>
-              <div className={`${Style.imputFields} mt-4 darkBgColorSec`}>
-                <span className="ms-2">
-                  <FontAwesomeIcon icon={faMailBulk} size="lg" />
-                </span>
-                <input
-                  type="email"
-                  value={forgetEmail}
-                  onChange={(e) => setForgetEmail(e.target.value)}
-                  className="form-control LoginForminput "
-                  id="exampleInputEmail1"
-                  placeholder="Enter your email"
-                  aria-describedby="emailHelp"
-                />
-              </div>
-              {forgetEmailErr != null ? (
-                <small style={{ color: "red" }}>{forgetEmailErr}</small>
-              ) : forgetEmailErr ? (
-                <small style={{ color: "red" }}>{forgetEmailErr}</small>
-              ) : (
-                ""
-              )}
-              <section
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Button
+      <section
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <CustomCard height="max-content" width="500px">
+          <section className={Style.forget}>
+            <div className="Login-title">
+              <p className={Style.headerText}>Forgot Password</p>
+            </div>
+            <div className="Form-card">
+              <form>
+                <div className={`${Style.imputFields} mt-4 darkBgColorSec`}>
+                  <span className="ms-2">
+                    <FontAwesomeIcon icon={faMailBulk} size="lg" />
+                  </span>
+                  <input
+                    type="email"
+                    value={forgetEmail}
+                    onChange={(e) => setForgetEmail(e.target.value)}
+                    className="form-control LoginForminput "
+                    id="exampleInputEmail1"
+                    placeholder="Enter your email"
+                    aria-describedby="emailHelp"
+                  />
+                </div>
+                {forgetEmailErr != null ? (
+                  <small style={{ color: "red" }}>{forgetEmailErr}</small>
+                ) : forgetEmailErr ? (
+                  <small style={{ color: "red" }}>{forgetEmailErr}</small>
+                ) : (
+                  ""
+                )}
+                <section
                   style={{
-                    width: "30%",
-                    fontWeight: 700,
+                    display: "flex",
+                    justifyContent: "center",
                   }}
-                  className="mt-4"
-                  onClick={handleForgetPassword}
                 >
-                  {loading ? "Sending Email..." : "Send Email"}
-                </Button>
-              </section>
-            </form>
-          </div>
-        </section>
-      </CustomCard>
+                  <Button
+                    style={{
+                      width: "30%",
+                      fontWeight: 700,
+                    }}
+                    className="mt-4"
+                    onClick={handleForgetPassword}
+                  >
+                    {loading ? "Sending Email..." : "Send Email"}
+                  </Button>
+                </section>
+              </form>
+            </div>
+          </section>
+        </CustomCard>
+      </section>
     </>
   );
 }

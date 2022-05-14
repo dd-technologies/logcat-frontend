@@ -18,14 +18,11 @@ export default function DarkLightMood() {
             localStorage.setItem("mode", darkMode);
           }}
         >
-          <section>
-
-            <FontAwesomeIcon
-              icon={!darkMode ? faMoon : faSun}
-              size="1x"
-              color={darkMode ? "#0099a4" : "#0099a4"}
-            />
-          </section>
+          <FontAwesomeIcon
+            icon={!darkMode ? faMoon : faSun}
+            // size="1x"
+            color={darkMode ? "#0099a4" : "#0099a4"}
+          />
         </section>
       )}
     </ThemeContext.Consumer>

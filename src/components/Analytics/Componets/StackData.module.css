@@ -135,6 +135,30 @@
   color: #8f8f8f;
 }
 
+@media screen and (min-width: 600px) and (max-width: 959px) {
+  .filterToggle {
+    width: 12% !important;
+  }
+}
+
+@media screen and (min-width: 960px) and (max-width: 1279px) {
+  .filterToggle {
+    width: 12% !important;
+  }
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1919px) {
+  .filterToggle {
+    width: 10% !important;
+  }
+}
+
+@media screen and (min-width: 1920px) and (max-width: 5000px) {
+  .filterToggle {
+    width: 10% !important;
+  }
+}
+
 .filterToggle {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -148,36 +172,6 @@
   background-color: #0099a4;
   border-radius: 55px;
   overflow: hidden;
-}
-
-@media screen and (min-width: 300px) and (max-width: 768px) {
-  .filterToggle {
-    width: 10% !important;
-  }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-  .filterToggle {
-    width: 12% !important;
-  }
-}
-
-@media screen and (min-width: 1024px) and (max-width: 1280px) {
-  .filterToggle {
-    width: 10% !important;
-  }
-}
-
-@media screen and (min-width: 1280px) and (max-width: 1400px) {
-  .filterToggle {
-    width: 8% !important;
-  }
-}
-
-@media screen and (min-width: 1400px) and (max-width: 1600px) {
-  .filterToggle {
-    width: 8% !important;
-  }
 }
 
 .filterToggle .filterGraphFirstSection {

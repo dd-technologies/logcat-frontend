@@ -2,6 +2,7 @@
 $screen-sm-min: 600px;
 $screen-md-min: 960px;
 $screen-lg-min: 1280px;
+$screen-lg-maxx: 1480px;
 $screen-xl-min: 1920px;
 
 $screen-xs-max: 599px;
@@ -25,6 +26,18 @@ $screen-xl-max: 5000px;
 
 @mixin md {
   @media screen and (min-width: #{$screen-md-min}) and (max-width: #{$screen-md-max}) {
+    @content;
+  }
+}
+
+@mixin lg-md {
+  @media screen and (min-width: #{$screen-lg-min}) and (max-width: #{$screen-lg-maxx}) {
+    @content;
+  }
+}
+
+@mixin lg-xl {
+  @media screen and (min-width: #{$screen-lg-maxx}) and (max-width: #{$screen-lg-max}) {
     @content;
   }
 }

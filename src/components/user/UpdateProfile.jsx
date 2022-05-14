@@ -145,11 +145,17 @@ export default function UpdateProfile() {
 
   return (
     <>
-      <Row>
-        <Col xl={2} lg={2} md={2} sm={2} className="noSidebar">
+      <Row className="rowSection">
+        <Col xl={2} lg={2} md={2} sm={2} className="noSidebar colSection">
           <SideBar sidebarDetails={sidebarDetails} />
         </Col>
-        <Col xl={10} lg={10} md={10} sm={10}>
+        <Col
+          xl={10}
+          lg={10}
+          md={10}
+          sm={10}
+          className={`${Style.NavbarColumn} colSection`}
+        >
           <Navbar navdetails={navdetails} />
           <Container className={Style.mainContainer}>
             <section className={Style.OuterDiv}>
@@ -177,7 +183,7 @@ export default function UpdateProfile() {
                     </section>
                     <section className={Style.editImage}>
                       <label for="image_upload">
-                        <FontAwesomeIcon icon={faUpload} />
+                        <FontAwesomeIcon icon={faUpload} size="lg" />
                       </label>
                       <input
                         type="file"
@@ -192,7 +198,7 @@ export default function UpdateProfile() {
                       <h5 className="darkModeColor">Name</h5>
                       <div className={`${Style.imputFields} mt-4`}>
                         <span className="ms-2">
-                          <FontAwesomeIcon icon={faUser} />
+                          <FontAwesomeIcon icon={faUser} size="lg" />
                         </span>
                         <input
                           type="email"
@@ -213,7 +219,7 @@ export default function UpdateProfile() {
                       <h5 className="darkModeColor">Email</h5>
                       <div className={`${Style.imputFields} mt-4`}>
                         <span className="ms-2">
-                          <FontAwesomeIcon icon={faSquareEnvelope} />
+                          <FontAwesomeIcon icon={faSquareEnvelope} size="lg" />
                         </span>
                         <input
                           type="email"

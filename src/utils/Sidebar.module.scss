@@ -184,6 +184,45 @@
           }
         }
       }
+      @include lg-md {
+        .linkActive {
+          padding: 0px 14px;
+          display: flex !important;
+          justify-content: start;
+          align-items: center;
+          background-color: $activehrefText;
+          .linkData {
+            display: flex;
+            padding: 10px 10px;
+            text-decoration: none;
+            color: #fff;
+
+            & section {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+
+      @include lg-xl {
+        .linkActive {
+          padding: 0px 25px;
+          display: flex !important;
+          justify-content: start;
+          align-items: center;
+          background-color: $activehrefText;
+          .linkData {
+            display: flex;
+            padding: 10px 10px;
+            text-decoration: none;
+            color: #fff;
+
+            & section {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
 
       @include xl {
         .linkActive {
@@ -262,6 +301,47 @@
           }
         }
       }
+
+      @include lg-md {
+        .linkInActive {
+          padding: 0px 14px;
+          display: flex !important;
+          justify-content: start;
+          align-items: center;
+
+          .linkData {
+            display: flex;
+            padding: 10px 10px;
+            text-decoration: none;
+            color: #fff;
+
+            & section {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+
+      @include lg-xl {
+        .linkInActive {
+          padding: 0px 25px;
+          display: flex !important;
+          justify-content: start;
+          align-items: center;
+
+          .linkData {
+            display: flex;
+            padding: 10px 10px;
+            text-decoration: none;
+            color: #fff;
+
+            & section {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+
       @include xl {
         .linkInActive {
           padding: 0px 25px;

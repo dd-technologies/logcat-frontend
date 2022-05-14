@@ -153,184 +153,200 @@ const Register = () => {
 
   return (
     <>
-      <CustomCard height="max-content" width="500px">
-        <section className={Style.Login}>
-          <div className="Login-title d-flex justify-content-start">
-            <p className={Style.headerText}>Register</p>
-          </div>
-          {error && error.data && error.data.message && (
-            <p style={{ color: "red" }}>{error.data.message}</p>
-          )}
+      <section
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <CustomCard height="max-content" width="500px">
+          <section className={Style.Login}>
+            <div className="Login-title d-flex justify-content-start">
+              <p className={Style.headerText}>Register</p>
+            </div>
+            {error && error.data && error.data.message && (
+              <p style={{ color: "red" }}>{error.data.message}</p>
+            )}
 
-          {data && data.data && data.data.message && (
-            <p style={{ color: "#1F99A4" }}>{data.data.message}</p>
-          )}
+            {data && data.data && data.data.message && (
+              <p style={{ color: "#1F99A4" }}>{data.data.message}</p>
+            )}
 
-          <div className="Form-card">
-            <form>
-              <div
-                className={
-                  nameError
-                    ? `${Style.imputFieldsError} darkModebgColor`
-                    : `${Style.imputFields} mt-4 darkModebgColor`
-                }
-              >
-                <span className="ms-2">
-                  <FontAwesomeIcon size="lg" icon={faUser} />
-                </span>
-                <input
-                  type="text"
-                  className="form-control registerForminput "
-                  id="exampleInputEmail1"
-                  placeholder="Enter your full name"
-                  aria-describedby="emailHelp"
-                  onChange={(e) =>
-                    setRegisterForm({ ...registerForm, name: e.target.value })
+            <div className="Form-card">
+              <form>
+                <div
+                  className={
+                    nameError
+                      ? `${Style.imputFieldsError} darkModebgColor`
+                      : `${Style.imputFields} mt-4 darkModebgColor`
                   }
-                  value={registerForm.name}
-                />
-              </div>
-
-              <div
-                className={
-                  emailError
-                    ? `${Style.imputFieldsError} mt-4 darkModebgColor`
-                    : `${Style.imputFields} mt-4 darkModebgColor`
-                }
-              >
-                <span className="ms-2">
-                  <FontAwesomeIcon size="lg" icon={faEnvelope} />
-                </span>
-                <input
-                  type="email"
-                  className="form-control registerForminput "
-                  id="exampleInputEmail1"
-                  placeholder="Enter your email"
-                  aria-describedby="emailHelp"
-                  onChange={(e) =>
-                    setRegisterForm({
-                      ...registerForm,
-                      email: e.target.value,
-                    })
-                  }
-                  value={registerForm.email}
-                />
-              </div>
-
-              <div
-                className={
-                  passwordError.password
-                    ? `${Style.imputFieldsError} mt-4 darkModebgColor`
-                    : `${Style.imputFields} mt-4 darkModebgColor`
-                }
-              >
-                <span className="ms-2">
-                  <FontAwesomeIcon size="lg" icon={faLock} />
-                </span>
-                <input
-                  type={showPassword.password ? "text" : "password"}
-                  className="form-control registerForminput "
-                  id="exampleInputEmail1"
-                  placeholder="Enter your password"
-                  aria-describedby="emailHelp"
-                  onChange={(e) =>
-                    setRegisterForm({
-                      ...registerForm,
-                      password: e.target.value,
-                    })
-                  }
-                  value={registerForm.password}
-                />
-                <span className="px-2" style={{ cursor: "pointer" }}>
-                  <FontAwesomeIcon
-                    size="lg"
-                    icon={showPassword.password ? faEye : faEyeSlash}
-                    onClick={() => {
-                      setShowPassword({
-                        ...showPassword,
-                        password: !showPassword.password,
-                      });
-                    }}
+                >
+                  <span className="ms-2">
+                    <FontAwesomeIcon size="lg" icon={faUser} />
+                  </span>
+                  <input
+                    type="text"
+                    className="form-control registerForminput "
+                    id="exampleInputEmail1"
+                    placeholder="Enter your full name"
+                    aria-describedby="emailHelp"
+                    onChange={(e) =>
+                      setRegisterForm({ ...registerForm, name: e.target.value })
+                    }
+                    value={registerForm.name}
                   />
-                </span>
-              </div>
+                </div>
+                {nameError && <p style={{ color: "red" }}>{nameError}</p>}
 
-              <div
-                className={
-                  passwordError.cpassword
-                    ? `${Style.imputFieldsError} mt-4 darkModebgColor`
-                    : `${Style.imputFields} mt-4 darkModebgColor`
-                }
-              >
-                <span className="ms-2">
-                  <FontAwesomeIcon size="lg" icon={faLock} />
-                </span>
-                <input
-                  type={showPassword.cpassword ? "text" : "password"}
-                  className="form-control registerForminput "
-                  id="exampleInputEmail1"
-                  placeholder="Confirm your password"
-                  aria-describedby="emailHelp"
-                  onChange={(e) =>
-                    setRegisterForm({
-                      ...registerForm,
-                      cpassword: e.target.value,
-                    })
+                <div
+                  className={
+                    emailError
+                      ? `${Style.imputFieldsError} mt-4 darkModebgColor`
+                      : `${Style.imputFields} mt-4 darkModebgColor`
                   }
-                  value={registerForm.cpassword}
-                />
-                <span className="px-2" style={{ cursor: "pointer" }}>
-                  <FontAwesomeIcon
-                    size="lg"
-                    icon={showPassword.cpassword ? faEye : faEyeSlash}
-                    onClick={() => {
-                      setShowPassword({
-                        ...showPassword,
-                        cpassword: !showPassword.cpassword,
-                      });
-                    }}
+                >
+                  <span className="ms-2">
+                    <FontAwesomeIcon size="lg" icon={faEnvelope} />
+                  </span>
+                  <input
+                    type="email"
+                    className="form-control registerForminput "
+                    id="exampleInputEmail1"
+                    placeholder="Enter your email"
+                    aria-describedby="emailHelp"
+                    onChange={(e) =>
+                      setRegisterForm({
+                        ...registerForm,
+                        email: e.target.value,
+                      })
+                    }
+                    value={registerForm.email}
                   />
-                </span>
-              </div>
+                </div>
+                {emailError && <p style={{ color: "red" }}>{emailError}</p>}
+                <div
+                  className={
+                    passwordError.password
+                      ? `${Style.imputFieldsError} mt-4 darkModebgColor`
+                      : `${Style.imputFields} mt-4 darkModebgColor`
+                  }
+                >
+                  <span className="ms-2">
+                    <FontAwesomeIcon size="lg" icon={faLock} />
+                  </span>
+                  <input
+                    type={showPassword.password ? "text" : "password"}
+                    className="form-control registerForminput "
+                    id="exampleInputEmail1"
+                    placeholder="Enter your password"
+                    aria-describedby="emailHelp"
+                    onChange={(e) =>
+                      setRegisterForm({
+                        ...registerForm,
+                        password: e.target.value,
+                      })
+                    }
+                    value={registerForm.password}
+                  />
+                  <span className="px-2" style={{ cursor: "pointer" }}>
+                    <FontAwesomeIcon
+                      size="lg"
+                      icon={showPassword.password ? faEye : faEyeSlash}
+                      onClick={() => {
+                        setShowPassword({
+                          ...showPassword,
+                          password: !showPassword.password,
+                        });
+                      }}
+                    />
+                  </span>
+                </div>
+                {passwordError.password && (
+                  <p style={{ color: "red" }}>{passwordError.password}</p>
+                )}
 
-              <section
-                style={{
-                  marginTop: "20px",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Link
-                  to="/"
+                <div
+                  className={
+                    passwordError.cpassword
+                      ? `${Style.imputFieldsError} mt-4 darkModebgColor`
+                      : `${Style.imputFields} mt-4 darkModebgColor`
+                  }
+                >
+                  <span className="ms-2">
+                    <FontAwesomeIcon size="lg" icon={faLock} />
+                  </span>
+                  <input
+                    type={showPassword.cpassword ? "text" : "password"}
+                    className="form-control registerForminput "
+                    id="exampleInputEmail1"
+                    placeholder="Confirm your password"
+                    aria-describedby="emailHelp"
+                    onChange={(e) =>
+                      setRegisterForm({
+                        ...registerForm,
+                        cpassword: e.target.value,
+                      })
+                    }
+                    value={registerForm.cpassword}
+                  />
+                  <span className="px-2" style={{ cursor: "pointer" }}>
+                    <FontAwesomeIcon
+                      size="lg"
+                      icon={showPassword.cpassword ? faEye : faEyeSlash}
+                      onClick={() => {
+                        setShowPassword({
+                          ...showPassword,
+                          cpassword: !showPassword.cpassword,
+                        });
+                      }}
+                    />
+                  </span>
+                </div>
+
+                {passwordError.cpassword && (
+                  <p style={{ color: "red" }}>{passwordError.cpassword}</p>
+                )}
+                <section
                   style={{
-                    // textDecoration: "none",
-                    color: "#257d7c",
-                    fontWeight: 500,
-                    // textAlign: "center",
+                    marginTop: "20px",
+                    display: "flex",
+                    justifyContent: "center",
                   }}
                 >
-                  Already have an account? Click here
-                </Link>
-              </section>
-              <section
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Button
-                  style={{ float: "right", width: "30%", fontWeight: 700 }}
-                  type="submit"
-                  className="mt-4"
-                  onClick={(e) => handleSubmit(e)}
+                  <Link
+                    to="/"
+                    style={{
+                      // textDecoration: "none",
+                      color: "#257d7c",
+                      fontWeight: 500,
+                      // textAlign: "center",
+                    }}
+                  >
+                    Already have an account? Click here
+                  </Link>
+                </section>
+                <section
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
                 >
-                  {loading ? "Loading..." : "Register"}
-                </Button>
-              </section>
-            </form>
-          </div>
-        </section>
-      </CustomCard>
+                  <Button
+                    style={{ float: "right", width: "30%", fontWeight: 700 }}
+                    type="submit"
+                    className="mt-4"
+                    onClick={(e) => handleSubmit(e)}
+                  >
+                    {loading ? "Loading..." : "Register"}
+                  </Button>
+                </section>
+              </form>
+            </div>
+          </section>
+        </CustomCard>
+      </section>
     </>
   );
 };

@@ -251,6 +251,60 @@
   }
 }
 
+@media screen and (min-width: 1280px) and (max-width: 1480px) {
+  .sidebarOuter .Sidebar .linkSection .linkActive {
+    padding: 0px 14px;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background-color: #0099a4;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData section {
+    margin-left: 10px;
+  }
+}
+
+@media screen and (min-width: 1480px) and (max-width: 1919px) {
+  .sidebarOuter .Sidebar .linkSection .linkActive {
+    padding: 0px 25px;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background-color: #0099a4;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData section {
+    margin-left: 10px;
+  }
+}
+
 @media screen and (min-width: 1920px) and (max-width: 5000px) {
   .sidebarOuter .Sidebar .linkSection .linkActive {
     padding: 0px 25px;
@@ -333,6 +387,58 @@
 @media screen and (min-width: 1280px) and (max-width: 1919px) {
   .sidebarOuter .Sidebar .linkSection .linkInActive {
     padding: 0px 14px;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData section {
+    margin-left: 10px;
+  }
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1480px) {
+  .sidebarOuter .Sidebar .linkSection .linkInActive {
+    padding: 0px 14px;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData section {
+    margin-left: 10px;
+  }
+}
+
+@media screen and (min-width: 1480px) and (max-width: 1919px) {
+  .sidebarOuter .Sidebar .linkSection .linkInActive {
+    padding: 0px 25px;
     display: -webkit-box !important;
     display: -ms-flexbox !important;
     display: flex !important;

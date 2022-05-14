@@ -127,6 +127,58 @@
       }
     }
 
+    @include lg {
+      .noSidbarInner {
+        // background-color: red !important;
+
+        // logcat logo without sidebar context----------------------
+
+        .sidebarMenu {
+          padding: 14px 0px;
+          // background-color: red;
+          // logcat logo without sidebar ----------------------------------------------
+          .noSideBarLogcatLogo {
+            img {
+              width: 25px !important;
+              height: 30px !important;
+            }
+          }
+        }
+      }
+      .componyLogo {
+        & img {
+          width: 50px !important;
+          height: 50px !important;
+        }
+      }
+    }
+
+      @include lg {
+      .noSidbarInner {
+        // background-color: red !important;
+
+        // logcat logo without sidebar context----------------------
+
+        .sidebarMenu {
+          padding: 14px 0px;
+          // background-color: red;
+          // logcat logo without sidebar ----------------------------------------------
+          .noSideBarLogcatLogo {
+            img {
+              width: 25px !important;
+              height: 30px !important;
+            }
+          }
+        }
+      }
+      .componyLogo {
+        & img {
+          width: 50px !important;
+          height: 50px !important;
+        }
+      }
+    }
+
     @include xl {
       .noSidbarInner {
         // background-color: red !important;
@@ -197,15 +249,30 @@
       // transition-duration: .3s !important;
     }
   }
+
   @include lg {
     .container {
       margin-left: 8%;
       // transition-duration: .3s !important;
     }
   }
+
+  @include lg-md {
+    .container {
+      margin-left: 8%;
+      // transition-duration: .3s !important;
+    }
+  }
+  @include lg-xl {
+    .container {
+      margin-left: 12%;
+      // transition-duration: .3s !important;
+    }
+  }
+
   @include xl {
     .container {
-      margin-left: 10%;
+      margin-left: 15%;
       // transition-duration: .3s !important;
     }
   }

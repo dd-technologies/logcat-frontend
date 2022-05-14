@@ -1,8 +1,7 @@
 .Outer_section {
   cursor: pointer;
   background-color: #fff;
-  border-radius: 20px;
-  padding: 5px;
+  border-radius: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

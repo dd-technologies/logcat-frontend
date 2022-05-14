@@ -89,6 +89,34 @@
   }
 }
 
+@media screen and (min-width: 1280px) and (max-width: 1919px) {
+  .sidebar .noSidebar .noSidbarInner .sidebarMenu {
+    padding: 14px 0px;
+  }
+  .sidebar .noSidebar .noSidbarInner .sidebarMenu .noSideBarLogcatLogo img {
+    width: 25px !important;
+    height: 30px !important;
+  }
+  .sidebar .noSidebar .componyLogo img {
+    width: 50px !important;
+    height: 50px !important;
+  }
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1919px) {
+  .sidebar .noSidebar .noSidbarInner .sidebarMenu {
+    padding: 14px 0px;
+  }
+  .sidebar .noSidebar .noSidbarInner .sidebarMenu .noSideBarLogcatLogo img {
+    width: 25px !important;
+    height: 30px !important;
+  }
+  .sidebar .noSidebar .componyLogo img {
+    width: 50px !important;
+    height: 50px !important;
+  }
+}
+
 @media screen and (min-width: 1920px) and (max-width: 5000px) {
   .sidebar .noSidebar .noSidbarInner .sidebarMenu {
     padding: 15px 0px;
@@ -147,9 +175,21 @@
   }
 }
 
+@media screen and (min-width: 1280px) and (max-width: 1480px) {
+  .sidebar .container {
+    margin-left: 8%;
+  }
+}
+
+@media screen and (min-width: 1480px) and (max-width: 1919px) {
+  .sidebar .container {
+    margin-left: 12%;
+  }
+}
+
 @media screen and (min-width: 1920px) and (max-width: 5000px) {
   .sidebar .container {
-    margin-left: 10%;
+    margin-left: 15%;
   }
 }
 

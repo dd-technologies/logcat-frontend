@@ -1,4 +1,5 @@
 @import "../../../css/veriables.module.scss";
+@import "../../../css/mediaQuery.scss";
 
 .outerDiv {
   border-radius: $cardBorderRadius;
@@ -99,6 +100,27 @@
   }
 }
 
+@include sm {
+  .filterToggle {
+    width: 12% !important;
+  }
+}
+@include md {
+  .filterToggle {
+    width: 12% !important;
+  }
+}
+@include lg {
+  .filterToggle {
+    width: 10% !important;
+  }
+}
+@include xl {
+  .filterToggle {
+    width: 10% !important;
+  }
+}
+
 .filterToggle {
   display: flex;
   justify-content: space-between;
@@ -106,24 +128,6 @@
   background-color: $activehrefText;
   border-radius: 55px;
   overflow: hidden;
-  @media screen and (min-width: 300px) and (max-width: 768px) {
-    width: 10% !important;
-  }
-
-  @media screen and (min-width: 768px) and (max-width: 1024px) {
-    width: 12% !important;
-  }
-
-  @media screen and (min-width: 1024px) and (max-width: 1280px) {
-    width: 10% !important;
-  }
-  @media screen and (min-width: 1280px) and (max-width: 1400px) {
-    width: 8% !important;
-  }
-
-  @media screen and (min-width: 1400px) and (max-width: 1600px) {
-    width: 8% !important;
-  }
 
   .filterGraphFirstSection {
     width: 100%;
