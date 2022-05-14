@@ -81,9 +81,9 @@ export default function Analytics() {
 
     if (mapArrayKey.length == 1) {
       setTitle(mapArrayKey[0]);
-      titleVal = mapArrayKey[0]
+      titleVal = mapArrayKey[0];
       setSubTitle("");
-      subTitleVal = ""
+      subTitleVal = "";
     } else {
       for (let key in mapArrayKey) {
         if (mapArrayKey[key].includes("Caused by:")) {
@@ -91,7 +91,10 @@ export default function Analytics() {
           setTitle(
             causedError.split("(")[1].replace(":", " line ").split(")")[0]
           );
-          titleVal = causedError.split("(")[1].replace(":", " line ").split(")")[0]
+          titleVal = causedError
+            .split("(")[1]
+            .replace(":", " line ")
+            .split(")")[0];
           setSubTitle(causedError);
           subTitleVal = causedError;
         }
@@ -102,9 +105,9 @@ export default function Analytics() {
           mapArrayKey[1].split("(")[1].replace(":", " ").split(")")[0] &&
           mapArrayKey[1].split("(")[1].replace(":", " ").replace(" ", " line ");
         setTitle(noCousedError);
-        titleVal = noCousedError
+        titleVal = noCousedError;
         setSubTitle(mapArrayKey[1].concat(")"));
-        subTitleVal = mapArrayKey[1].concat(")")
+        subTitleVal = mapArrayKey[1].concat(")");
       }
     }
   };
@@ -124,23 +127,30 @@ export default function Analytics() {
 
   const dispatchmultiple = () => {
     dispatch(
-      getCrashFreeUsersData(code, stackArrayNew[0], projectCodeAnalytics)
+      getCrashFreeUsersData(
+        code,
+        subTitleVal ? subTitleVal : titleVal,
+        projectCodeAnalytics
+      )
     );
 
     dispatch(
-      getCrashAnalyticsData(code, stackArrayNew[0], projectCodeAnalytics)
+      getCrashAnalyticsData(
+        code,
+        subTitleVal ? subTitleVal : titleVal,
+        projectCodeAnalytics
+      )
     );
     dispatch(
       getLogMsgOccurenceWRTDate({
         code,
         startDate: date.start,
         endDate: date.end,
-        logMsg: stackArrayNew[0],
+        logMsg: subTitleVal ? subTitleVal : titleVal,
         code1: projectCodeAnalytics,
       })
     );
   };
-
 
   useEffect(() => {
     stackErrorLine();

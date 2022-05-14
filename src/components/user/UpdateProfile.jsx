@@ -239,7 +239,7 @@ export default function UpdateProfile() {
 
                     <Row className={Style.buttonbackground}>
                       <Col className={Style.buttonbackground}>
-                        <Button className="mt-4 w-50" onClick={handleSubmit}>
+                        <Button className="mt-4" onClick={handleSubmit}>
                           Save
                         </Button>
                       </Col>

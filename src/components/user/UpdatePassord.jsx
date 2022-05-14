@@ -151,7 +151,7 @@ const UpdatePassord = ({
 
         <Row className={Style.buttonbackground}>
           <Col className={Style.buttonbackground}>
-            <Button className="mt-4 w-50" onClick={(e) => updatePasswordFun(e)}>
+            <Button className="mt-4" onClick={(e) => updatePasswordFun(e)}>
               Update
             </Button>
           </Col>
