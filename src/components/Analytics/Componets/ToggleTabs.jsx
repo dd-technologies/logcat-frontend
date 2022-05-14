@@ -27,8 +27,10 @@ export default function ToggleTabs() {
     (state) => state.getCrashAnalyticsDataReducer
   );
   const { loading: ld, data: alldata } = getCrashAnalyticsDataReducer;
+  // console.log("alldataone", );
   let modelNamecnt =
     alldata && alldata.modelNameResponse ? alldata.modelNameResponse : null;
+
   let modelNameAdds = 0;
   if (modelNamecnt) {
     modelNamecnt.map((e) => (modelNameAdds += e.data));
@@ -112,7 +114,7 @@ export default function ToggleTabs() {
             <Col className="p-4">
               <section className={Style.DataTogleSection}>
                 {/*CHECKING FOR NOW IF NOT HAVING THE VALUE OF MAP */}
-                {!ld ? (
+                {!ld &&
                   modelNamecnt.map((e) => (
                     <>
                       <p className="mt-4 darkModeColor">
@@ -132,9 +134,23 @@ export default function ToggleTabs() {
                         }
                       />
                     </>
-                  ))
-                ) : (
-                  <SpinnerCustome height="200px" />
+                  ))}
+
+                {ld && <SpinnerCustome height="250px" />}
+
+                {alldata && alldata.versionResponse.length == 0 && (
+                  <p
+                    style={{
+                      width: "100%",
+                      height: "180px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      color: theme == "dark-content" ? `#fff` : `#000`,
+                    }}
+                  >
+                    No data found
+                  </p>
                 )}
               </section>
             </Col>
@@ -142,7 +158,7 @@ export default function ToggleTabs() {
             // OS MENUS
             <Col className="p-4">
               <section className={Style.DataTogleSection}>
-                {!ld ? (
+                {!ld &&
                   osNamecnt.map((e) => (
                     <>
                       <p className="mt-4 darkModeColor">
@@ -159,9 +175,21 @@ export default function ToggleTabs() {
                         }
                       />
                     </>
-                  ))
-                ) : (
-                  <SpinnerCustome height="200px" />
+                  ))}
+                {ld && <SpinnerCustome height="250px" />}
+                {alldata && alldata.versionResponse.length == 0 && (
+                  <p
+                    style={{
+                      width: "100%",
+                      height: "180px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      color: theme == "dark-content" ? `#fff` : `#000`,
+                    }}
+                  >
+                    No data found
+                  </p>
                 )}
               </section>
             </Col>

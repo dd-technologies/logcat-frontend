@@ -19,17 +19,137 @@
           flex-direction: column;
 }
 
-.sidebarOuter .Sidebar .LogcatLogo {
-  width: 100% !important;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+@media screen and (min-width: 600px) and (max-width: 959px) {
+  .sidebarOuter .Sidebar .LogcatLogo {
+    padding: 9px 0px;
+    width: 250px !important;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo p {
+    color: #fff;
+    font-size: 0.7rem;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo img {
+    width: 30%;
+  }
+}
+
+@media screen and (min-width: 960px) and (max-width: 1279px) {
+  .sidebarOuter .Sidebar .LogcatLogo {
+    padding: 9px 0px;
+    width: 250px !important;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo p {
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo img {
+    width: 30%;
+  }
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1919px) {
+  .sidebarOuter .Sidebar .LogcatLogo {
+    padding: 11px 0px;
+    width: 250px !important;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo p {
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo img {
+    width: 30%;
+  }
+}
+
+@media screen and (min-width: 1920px) and (max-width: 5000px) {
+  .sidebarOuter .Sidebar .LogcatLogo {
+    padding: 11px 0px;
+    width: 250px !important;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo p {
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo img {
+    width: 30%;
+  }
 }
 
 .sidebarOuter .Sidebar .LogoSection {
@@ -50,135 +170,216 @@
   height: 20% !important;
 }
 
-.sidebarOuter .Sidebar .linkSection .linkActive {
-  display: -webkit-box !important;
-  display: -ms-flexbox !important;
-  display: flex !important;
-  padding: 0px 10px;
-  background-color: #0099a4;
-}
-
-@media only screen and (min-width: 300px) and (max-width: 900px) {
+@media screen and (min-width: 600px) and (max-width: 959px) {
   .sidebarOuter .Sidebar .linkSection .linkActive {
-    width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+    padding: 0px 4px;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
     -webkit-box-pack: start;
         -ms-flex-pack: start;
-            justify-content: flex-start;
+            justify-content: start;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    background-color: #0099a4;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData section {
+    margin-left: 10px;
   }
 }
 
-@media only screen and (min-width: 900px) and (max-width: 1600px) {
+@media screen and (min-width: 960px) and (max-width: 1279px) {
   .sidebarOuter .Sidebar .linkSection .linkActive {
-    width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+    padding: 0px 10px;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
     -webkit-box-pack: start;
         -ms-flex-pack: start;
-            justify-content: flex-start;
+            justify-content: start;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    background-color: #0099a4;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData section {
+    margin-left: 10px;
   }
 }
 
-@media only screen and (min-width: 1600px) and (max-width: 1920px) {
+@media screen and (min-width: 1280px) and (max-width: 1919px) {
   .sidebarOuter .Sidebar .linkSection .linkActive {
-    width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+    padding: 0px 14px;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
     -webkit-box-pack: start;
         -ms-flex-pack: start;
-            justify-content: flex-start;
+            justify-content: start;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    background-color: #0099a4;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData section {
+    margin-left: 10px;
   }
 }
 
-.sidebarOuter .Sidebar .linkSection .linkActive .linkData {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 10px 10px;
-  text-decoration: none;
-  color: #fff;
+@media screen and (min-width: 1920px) and (max-width: 5000px) {
+  .sidebarOuter .Sidebar .linkSection .linkActive {
+    padding: 0px 25px;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background-color: #0099a4;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData section {
+    margin-left: 10px;
+  }
 }
 
-.sidebarOuter .Sidebar .linkSection .linkActive .linkData section {
-  margin-left: 10px;
-}
-
-.sidebarOuter .Sidebar .linkSection .linkInActive {
-  display: -webkit-box !important;
-  display: -ms-flexbox !important;
-  display: flex !important;
-  padding: 0 10px;
-}
-
-@media only screen and (min-width: 300px) and (max-width: 900px) {
+@media screen and (min-width: 600px) and (max-width: 959px) {
   .sidebarOuter .Sidebar .linkSection .linkInActive {
-    width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+    padding: 0px 4px;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
     -webkit-box-pack: start;
         -ms-flex-pack: start;
-            justify-content: flex-start;
+            justify-content: start;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
   }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData section {
+    margin-left: 10px;
+  }
 }
 
-@media only screen and (min-width: 900px) and (max-width: 1600px) {
+@media screen and (min-width: 960px) and (max-width: 1279px) {
   .sidebarOuter .Sidebar .linkSection .linkInActive {
-    width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+    padding: 0px 10px;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
     -webkit-box-pack: start;
         -ms-flex-pack: start;
-            justify-content: flex-start;
+            justify-content: start;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
   }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData section {
+    margin-left: 10px;
+  }
 }
 
-@media only screen and (min-width: 1600px) and (max-width: 1920px) {
+@media screen and (min-width: 1280px) and (max-width: 1919px) {
   .sidebarOuter .Sidebar .linkSection .linkInActive {
-    width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+    padding: 0px 14px;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
     -webkit-box-pack: start;
         -ms-flex-pack: start;
-            justify-content: flex-start;
+            justify-content: start;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
   }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData section {
+    margin-left: 10px;
+  }
 }
 
-.sidebarOuter .Sidebar .linkSection .linkInActive .linkData {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 10px 10px;
-  text-decoration: none;
-  color: #fff;
-}
-
-.sidebarOuter .Sidebar .linkSection .linkInActive .linkData section {
-  margin-left: 10px;
+@media screen and (min-width: 1920px) and (max-width: 5000px) {
+  .sidebarOuter .Sidebar .linkSection .linkInActive {
+    padding: 0px 25px;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData section {
+    margin-left: 10px;
+  }
 }
 
 .sidebarOuter .Sidebar .ClickSlideSection {
@@ -187,28 +388,7 @@
           flex: 1;
 }
 
-.sidebarOuter .Sidebar .ComponyLogo {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.sidebarOuter .Sidebar .ComponyLogo p {
-  color: #fff;
-}
-
-.sidebarOuter .Sidebar .ComponyLogo img {
-  width: 30%;
-}
-
 .navMenuIcons {
   height: 100%;
-  margin-top: 5% !important;
 }
 /*# sourceMappingURL=Sidebar.module.css.map */

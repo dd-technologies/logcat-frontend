@@ -2,8 +2,8 @@
     "version": 3,
     "mappings": "AAEA,AAAA,cAAc,CAAC;EACb,UAAU,EAAE,IAAI;CACjB;;AAED,AAAA,gBAAgB,CAAC;EACf,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,UAAU;CAoB5B;;AAtBD,AAIE,gBAJc,CAIZ,CAAC,CAAC;ECkDJ,SAAS,EAAE,iBAAiB;EAC5B,KAAK,EAAE,OAAO;CDjDb;;AANH,AAQE,gBARc,CAQd,SAAS,CAAC;EACR,OAAO,EAAE,IAAI;CAYd;;AArBH,AAWI,gBAXY,CAQd,SAAS,CAGL,OAAO,CAAC;EACR,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI;EACZ,gBAAgB,ECZQ,OAAO;EDa/B,MAAM,EAAE,IAAI;EACZ,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,MAAM;EACvB,WAAW,EAAE,MAAM;EACnB,aAAa,ECbA,IAAI,CAAC,UAAU;CDc7B;;AAIL,AAAA,oBAAoB,CAAC;EACnB,KAAK,EAAE,eAAe;CACvB;;AAED,AAAA,cAAc,CAAC;EC0Bb,SAAS,EAAE,iBAAiB;EAC5B,KAAK,EAAE,OAAO;EDzBd,KAAK,EAAE,IAAI;CAEZ",
     "sources": [
-        "Analytics.module..css",
-        "../../css/veriables.module..css"
+        "Analytics.module.scss",
+        "../../css/veriables.module.scss"
     ],
     "names": [],
     "file": "Analytics.module.css"

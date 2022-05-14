@@ -41,7 +41,7 @@ const UpdatePassord = ({
               error ? `${Style.imputFieldsError}` : `${Style.imputFields} mt-4`
             }
           >
-            <span>
+            <span className="ms-2">
               <FontAwesomeIcon icon={faLock} />
             </span>
             <input
@@ -55,7 +55,7 @@ const UpdatePassord = ({
               placeholder="Enter your current password"
               aria-describedby="emailHelp"
             />
-            <span>
+            <span className="ms-2">
               <FontAwesomeIcon
                 icon={showPassword.currentpasswordShow ? faEye : faEyeSlash}
                 onClick={() =>
@@ -77,7 +77,7 @@ const UpdatePassord = ({
               error ? `${Style.imputFieldsError}` : `${Style.imputFields} mt-4`
             }
           >
-            <span>
+            <span className="ms-2">
               <FontAwesomeIcon icon={faLock} />
             </span>
             <input
@@ -91,7 +91,7 @@ const UpdatePassord = ({
               placeholder="Enter your new password"
               aria-describedby="emailHelp"
             />
-            <span>
+            <span className="ms-2">
               <FontAwesomeIcon
                 icon={showPassword.newPasswordShow ? faEye : faEyeSlash}
                 onClick={() =>
@@ -113,7 +113,7 @@ const UpdatePassord = ({
               error ? `${Style.imputFieldsError}` : `${Style.imputFields} mt-4`
             }
           >
-            <span>
+            <span className="ms-2">
               <FontAwesomeIcon icon={faLock} />
             </span>
             <input
@@ -127,7 +127,7 @@ const UpdatePassord = ({
               placeholder="Confirm your new password"
               aria-describedby="emailHelp"
             />
-            <span>
+            <span className="ms-2">
               <FontAwesomeIcon
                 icon={showPassword.confirmNewpasswordShow ? faEye : faEyeSlash}
                 onClick={() =>

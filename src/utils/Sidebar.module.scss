@@ -1,5 +1,5 @@
-@import "../css/veriables.module.css";
-@import "../css/mediaQuery.css";
+@import "../css/veriables.module.scss";
+@import "../css/mediaQuery.scss";
 
 .sidebarOuter {
   position: fixed;
@@ -14,12 +14,105 @@
     display: flex;
     flex-direction: column;
 
-    .LogcatLogo {
-      width: 100% !important;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    // media query for logcat logo -------------------------- with sidebar
+    @include sm {
+      .LogcatLogo {
+        padding: 9px 0px;
+
+        width: 250px !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .ComponyLogo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        & p {
+          color: #fff;
+          font-size: 0.7rem;
+        }
+
+        & img {
+          width: 30%;
+        }
+      }
     }
+
+    @include md {
+      .LogcatLogo {
+        padding: 9px 0px;
+
+        width: 250px !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .ComponyLogo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        & p {
+          color: #fff;
+        }
+
+        & img {
+          width: 30%;
+        }
+      }
+    }
+
+    @include lg {
+      .LogcatLogo {
+        padding: 11px 0px;
+
+        width: 250px !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .ComponyLogo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        & p {
+          color: #fff;
+        }
+
+        & img {
+          width: 30%;
+        }
+      }
+    }
+
+    @include xl {
+      .LogcatLogo {
+        padding: 11px 0px;
+
+        width: 250px !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .ComponyLogo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        & p {
+          color: #fff;
+        }
+
+        & img {
+          width: 30%;
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------------------------------------
 
     .LogoSection {
       width: 100%;
@@ -34,73 +127,157 @@
     }
 
     .linkSection {
-      .linkActive {
-        display: flex !important;
-        padding: 0px 10px;
-        background-color: $activehrefText;
-
-        @media only screen and (min-width: 300px) and (max-width: 900px) {
-          width: 100%;
-          display: flex;
-          justify-content: flex-start;
+      @include sm {
+        .linkActive {
+          padding: 0px 4px;
+          display: flex !important;
+          justify-content: start;
           align-items: center;
-        }
-        @media only screen and (min-width: 900px) and (max-width: 1600px) {
-          width: 100%;
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
-        }
-        @media only screen and (min-width: 1600px) and (max-width: 1920px) {
-          width: 100%;
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
-        }
+          background-color: $activehrefText;
+          .linkData {
+            display: flex;
+            padding: 10px 10px;
+            text-decoration: none;
+            color: #fff;
 
-        .linkData {
-          display: flex;
-          padding: 10px 10px;
-          text-decoration: none;
-          color: #fff;
+            & section {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+      @include md {
+        .linkActive {
+          padding: 0px 10px;
+          display: flex !important;
+          justify-content: start;
+          align-items: center;
+          background-color: $activehrefText;
+          .linkData {
+            display: flex;
+            padding: 10px 10px;
+            text-decoration: none;
+            color: #fff;
 
-          & section {
-            margin-left: 10px;
+            & section {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+      @include lg {
+        .linkActive {
+          padding: 0px 14px;
+          display: flex !important;
+          justify-content: start;
+          align-items: center;
+          background-color: $activehrefText;
+          .linkData {
+            display: flex;
+            padding: 10px 10px;
+            text-decoration: none;
+            color: #fff;
+
+            & section {
+              margin-left: 10px;
+            }
           }
         }
       }
 
-      .linkInActive {
-        display: flex !important;
-        padding: 0 10px;
-
-        @media only screen and (min-width: 300px) and (max-width: 900px) {
-          width: 100%;
-          display: flex;
-          justify-content: flex-start;
+      @include xl {
+        .linkActive {
+          padding: 0px 25px;
+          display: flex !important;
+          justify-content: start;
           align-items: center;
-        }
-        @media only screen and (min-width: 900px) and (max-width: 1600px) {
-          width: 100%;
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
-        }
-        @media only screen and (min-width: 1600px) and (max-width: 1920px) {
-          width: 100%;
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
-        }
+          background-color: $activehrefText;
+          .linkData {
+            display: flex;
+            padding: 10px 10px;
+            text-decoration: none;
+            color: #fff;
 
-        .linkData {
-          display: flex;
-          padding: 10px 10px;
-          text-decoration: none;
-          color: #fff;
+            & section {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
 
-          & section {
-            margin-left: 10px;
+      @include sm {
+        .linkInActive {
+          padding: 0px 4px;
+          display: flex !important;
+          justify-content: start;
+          align-items: center;
+
+          .linkData {
+            display: flex;
+            padding: 10px 10px;
+            text-decoration: none;
+            color: #fff;
+
+            & section {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+      @include md {
+        .linkInActive {
+          padding: 0px 10px;
+          display: flex !important;
+          justify-content: start;
+          align-items: center;
+
+          .linkData {
+            display: flex;
+            padding: 10px 10px;
+            text-decoration: none;
+            color: #fff;
+
+            & section {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+      @include lg {
+        .linkInActive {
+          padding: 0px 14px;
+          display: flex !important;
+          justify-content: start;
+          align-items: center;
+
+          .linkData {
+            display: flex;
+            padding: 10px 10px;
+            text-decoration: none;
+            color: #fff;
+
+            & section {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+      @include xl {
+        .linkInActive {
+          padding: 0px 25px;
+          display: flex !important;
+          justify-content: start;
+          align-items: center;
+
+          .linkData {
+            display: flex;
+            padding: 10px 10px;
+            text-decoration: none;
+            color: #fff;
+
+            & section {
+              margin-left: 10px;
+            }
           }
         }
       }
@@ -109,24 +286,9 @@
     .ClickSlideSection {
       flex: 1;
     }
-
-    .ComponyLogo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      & p {
-        color: #fff;
-      }
-
-      & img {
-        width: 30%;
-      }
-    }
   }
 }
 
 .navMenuIcons {
   height: 100%;
-  margin-top: 5% !important;
 }

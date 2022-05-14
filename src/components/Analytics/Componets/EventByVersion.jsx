@@ -5,16 +5,15 @@ import EventByVersionChart from "../charts/EventByVersionChart";
 import { useSelector } from "react-redux";
 import SpinnerCustome from "../../../Container/SpinnerCustome";
 import Style from "./EventByVersion.module.css";
+import { ThemeContext } from "../../../utils/ThemeContext";
 
 export default function EventByVersion() {
   const getCrashAnalyticsDataReducer = useSelector(
     (state) => state.getCrashAnalyticsDataReducer
   );
+  const { theme } = React.useContext(ThemeContext);
   const { loading: ld, data: alldata } = getCrashAnalyticsDataReducer;
-  // console.log(
-  //   "datafield",
-  //   alldata && alldata.versionResponse[0].data
-  // );
+  console.log("datafield", getCrashAnalyticsDataReducer);
   let cnt = alldata && alldata.versionResponse ? alldata.versionResponse : null;
   let adds = 0;
   if (cnt) {
@@ -39,16 +38,31 @@ export default function EventByVersion() {
             </h6>
 
             {/*CHECKING FOR MAP VALUE */}
-            {!ld ? (
+            {alldata &&
+              alldata.versionResponse &&
+              alldata.versionResponse.length == 0 && (
+                <p
+                  style={{
+                    width: "100%",
+                    height: "200px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    color: theme == "dark-content" ? `#fff` : `#000`,
+                  }}
+                >
+                  No data found
+                </p>
+              )}
+            {!ld &&
               cnt.map((e) => (
                 <>
                   <p className="darkModeColor">{e._id ? e._id : null}</p>
                   <h5 className="darkModeColor">{e.data}</h5>
                 </>
-              ))
-            ) : (
-              <SpinnerCustome height="280px" />
-            )}
+              ))}
+
+            {ld && <SpinnerCustome height="270px" />}
           </Col>
           <Col xl={8} md={8} style={{ padding: "0px" }}>
             <p
@@ -64,6 +78,24 @@ export default function EventByVersion() {
               alldata.versionResponse[0].data && (
                 <EventByVersionChart height="200px" />
               )}
+
+            {alldata &&
+              alldata.versionResponse &&
+              alldata.versionResponse.length == 0 && (
+                <p
+                  style={{
+                    width: "100%",
+                    height: "200px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    color: theme == "dark-content" ? `#fff` : `#000`,
+                  }}
+                >
+                  No data found
+                </p>
+              )}
+
             {ld && <SpinnerCustome height="280px" />}
           </Col>
         </Row>

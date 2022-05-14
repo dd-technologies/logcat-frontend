@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMailBulk } from "@fortawesome/free-solid-svg-icons";
-import {forgetPassword, resetForgetPasswordState} from '../../redux/action/AdminAction';
+import {
+  forgetPassword,
+  resetForgetPasswordState,
+} from "../../redux/action/AdminAction";
 import Style from "./Forgetpassword.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, Toaster } from "react-hot-toast";
@@ -12,89 +15,93 @@ import { validateEmailHelper } from "../../helper/Emails";
 
 export default function ForgetPassword() {
   const [forgetEmail, setForgetEmail] = useState(null);
-  const [forgetEmailErr,setForgetEmailErr] = useState(null)
+  const [forgetEmailErr, setForgetEmailErr] = useState(null);
 
   const dispatch = useDispatch();
-  const handleForgetPassword = ()=>{
-    const isEmailValid = validateEmailHelper(forgetEmail)
+  const handleForgetPassword = () => {
+    const isEmailValid = validateEmailHelper(forgetEmail);
     // console.log(`forget email ${forgetEmail}`)
-    if(isEmailValid.isSuccess){
-      setForgetEmail(
-        forgetEmail
-      );
-      dispatch(forgetPassword(forgetEmail))
-      return isEmailValid.isSuccess
+    if (isEmailValid.isSuccess) {
+      setForgetEmail(forgetEmail);
+      dispatch(forgetPassword(forgetEmail));
+      return isEmailValid.isSuccess;
     }
-    if(!isEmailValid.isSuccess && !isEmailValid.isEmail){
+    if (!isEmailValid.isSuccess && !isEmailValid.isEmail) {
       setForgetEmailErr(isEmailValid.message);
-      return isEmailValid.isSuccess
+      return isEmailValid.isSuccess;
     }
     if (!isEmailValid.isSuccess && isEmailValid.isEmail) {
       setForgetEmailErr(isEmailValid.message);
-      return isEmailValid.isSuccess
+      return isEmailValid.isSuccess;
     }
     setForgetEmailErr(null);
-    
-  }
+  };
 
-  const forgetPasswordReducer = useSelector(state => state.forgetPasswordReducer);
-  const {loading,forgetPasswordInfo} = forgetPasswordReducer;
-  const navigate = useNavigate()
+  const forgetPasswordReducer = useSelector(
+    (state) => state.forgetPasswordReducer
+  );
+  const { loading, forgetPasswordInfo } = forgetPasswordReducer;
+  const navigate = useNavigate();
   if (forgetPasswordInfo && forgetPasswordInfo.success) {
-    toast.success(forgetPasswordInfo.message)
-    localStorage.setItem('forgetEmail',JSON.stringify(forgetEmail))
+    toast.success(forgetPasswordInfo.message);
+    localStorage.setItem("forgetEmail", JSON.stringify(forgetEmail));
     // clear forget password reducer
-    dispatch(resetForgetPasswordState())
-    navigate('/resetpassword')
+    dispatch(resetForgetPasswordState());
+    navigate("/resetpassword");
   }
 
   return (
     <>
-      <Container
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
-        <Toaster />
-        <CustomCard height="300px" width="500px">
-          <section className={Style.forget}>
-            <div className="Login-title">
-              <p className={Style.headerText}>Forgot Password</p>
-            </div>
-            <div className="Form-card">
-              <form>
-                <div className={`${Style.imputFields} mt-4 darkBgColorSec`}>
-                  <span>
-                    <FontAwesomeIcon icon={faMailBulk} />
-                  </span>
-                  <input
-                    type="email"
-                    value={forgetEmail}
-                    onChange={(e) => setForgetEmail(e.target.value)}
-                    className="form-control LoginForminput "
-                    id="exampleInputEmail1"
-                    placeholder="Enter your email"
-                    aria-describedby="emailHelp"
-                  />
-                </div>
-                  {forgetEmailErr != null ? (
-                  <small style={{ color: "red" }}>{forgetEmailErr}</small>
-                ) : forgetEmailErr ? (
-                  <small style={{ color: "red" }}>{forgetEmailErr}</small>
-                ) : (
-                  ""
-                )}
-                <Button className="mt-4 w-50" onClick={handleForgetPassword}>
-                  {loading ? "Sending Email..." : "Send an Email"}
+      <Toaster />
+      <CustomCard height="max-content" width="500px">
+        <section className={Style.forget}>
+          <div className="Login-title">
+            <p className={Style.headerText}>Forgot Password</p>
+          </div>
+          <div className="Form-card">
+            <form>
+              <div className={`${Style.imputFields} mt-4 darkBgColorSec`}>
+                <span className="ms-2">
+                  <FontAwesomeIcon icon={faMailBulk} size="lg" />
+                </span>
+                <input
+                  type="email"
+                  value={forgetEmail}
+                  onChange={(e) => setForgetEmail(e.target.value)}
+                  className="form-control LoginForminput "
+                  id="exampleInputEmail1"
+                  placeholder="Enter your email"
+                  aria-describedby="emailHelp"
+                />
+              </div>
+              {forgetEmailErr != null ? (
+                <small style={{ color: "red" }}>{forgetEmailErr}</small>
+              ) : forgetEmailErr ? (
+                <small style={{ color: "red" }}>{forgetEmailErr}</small>
+              ) : (
+                ""
+              )}
+              <section
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Button
+                  style={{
+                    width: "30%",
+                    fontWeight: 700,
+                  }}
+                  className="mt-4"
+                  onClick={handleForgetPassword}
+                >
+                  {loading ? "Sending Email..." : "Send Email"}
                 </Button>
-              </form>
-            </div>
-          </section>
-        </CustomCard>
-      </Container>
+              </section>
+            </form>
+          </div>
+        </section>
+      </CustomCard>
     </>
   );
 }

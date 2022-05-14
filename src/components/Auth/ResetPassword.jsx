@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash, faLock } from "@fortawesome/free-solid-svg-icons";
@@ -82,111 +82,110 @@ export default function ResetPassword() {
   useEffect(() => {}, [enableResendButton]);
   return (
     <>
-      <Container
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
-        <Toaster />
-        <CustomCard height="500px" width="500px">
-          <section className={Style.Reset}>
-            <section className="Login-title">
-              <p className={Style.headerText}>Reset Password</p>
-            </section>
+      <Toaster />
+      <CustomCard height="max-content" width="500px">
+        <section className={Style.Reset}>
+          <section className="Login-title">
+            <p className={Style.headerText}>Reset Password</p>
+          </section>
 
-            <section className="mt-4">
-              {/*OTP section*/}
-              <section>
-                <p className="darkModeColor my-3">Enter your OTP</p>
-                <section className={Style.OPTTIMR}>
-                  <OtpInput setState = {setState} state={state} />
-                  {!enableResendButton ? (
-                    <Timer
-                      resetTimer={handleEnableButton}
-                      initialMinute={4}
-                      initialSeconds={59}
-                    />
-                  ) : (
-                    ""
-                  )}
-                </section>
+          <section className="mt-4">
+            {/*OTP section*/}
+            <section>
+              <p className="darkModeColor my-3">Enter your OTP</p>
+              <section className={Style.OPTTIMR}>
+                <OtpInput setState={setState} state={state} />
+                {!enableResendButton ? (
+                  <Timer
+                    resetTimer={handleEnableButton}
+                    initialMinute={4}
+                    initialSeconds={59}
+                  />
+                ) : (
+                  ""
+                )}
               </section>
             </section>
+          </section>
 
-            <section className="Form-card">
-              <form>
-                <section className={`${Style.imputFields} darkBgColorSec mt-4`}>
-                  <span>
-                    <FontAwesomeIcon icon={faLock} />
-                  </span>
-                  <input
-                    type={showPassword.new ? "text" : "password"}
-                    className="form-control LoginForminput "
-                    id="exampleInputEmail1"
-                    placeholder="Enter your new password"
-                    aria-describedby="emailHelp"
-                    onChange={(e) =>
-                      setState({ ...state, newPass: e.target.value })
-                    }
+          <section className="Form-card">
+            <form>
+              <section className={`${Style.imputFields} darkBgColorSec mt-4`}>
+                <span className="ms-2">
+                  <FontAwesomeIcon size="lg" icon={faLock} />
+                </span>
+                <input
+                  type={showPassword.new ? "text" : "password"}
+                  className="form-control LoginForminput "
+                  id="exampleInputEmail1"
+                  placeholder="Enter your new password"
+                  aria-describedby="emailHelp"
+                  onChange={(e) =>
+                    setState({ ...state, newPass: e.target.value })
+                  }
+                />
+                <span className="px-2" style={{ cursor: "pointer" }}>
+                  <FontAwesomeIcon
+                    icon={showPassword.new ? faEye : faEyeSlash}
+                    onClick={() => {
+                      setShowPassword({
+                        ...showPassword,
+                        new: !showPassword.new,
+                      });
+                    }}
                   />
-                  <span className="px-2" style={{ cursor: "pointer" }}>
-                    <FontAwesomeIcon
-                      icon={showPassword.new ? faEye : faEyeSlash}
-                      onClick={() => {
-                        setShowPassword({
-                          ...showPassword,
-                          new: !showPassword.new,
-                        });
-                      }}
-                    />
-                  </span>
-                </section>
-                <section className={`${Style.imputFields} darkBgColorSec mt-4`}>
-                  <span>
-                    <FontAwesomeIcon icon={faLock} />
-                  </span>
-                  <input
-                    type={showPassword.confime ? "text" : "password"}
-                    className="form-control LoginForminput"
-                    id="exampleInputEmail1"
-                    placeholder="Confirm your new password"
-                    aria-describedby="emailHelp"
-                    onChange={(e) =>
-                      setState({ ...state, confirmPass: e.target.value })
-                    }
+                </span>
+              </section>
+              <section className={`${Style.imputFields} darkBgColorSec mt-4`}>
+                <span className="ms-2">
+                  <FontAwesomeIcon icon={faLock} size="lg" />
+                </span>
+                <input
+                  type={showPassword.confime ? "text" : "password"}
+                  className="form-control LoginForminput"
+                  id="exampleInputEmail1"
+                  placeholder="Confirm your new password"
+                  aria-describedby="emailHelp"
+                  onChange={(e) =>
+                    setState({ ...state, confirmPass: e.target.value })
+                  }
+                />
+                <span className="px-2" style={{ cursor: "pointer" }}>
+                  <FontAwesomeIcon
+                    icon={showPassword.confime ? faEye : faEyeSlash}
+                    onClick={() => {
+                      setShowPassword({
+                        ...showPassword,
+                        confime: !showPassword.confime,
+                      });
+                    }}
                   />
-                  <span className="px-2" style={{ cursor: "pointer" }}>
-                    <FontAwesomeIcon
-                      icon={showPassword.confime ? faEye : faEyeSlash}
-                      onClick={() => {
-                        setShowPassword({
-                          ...showPassword,
-                          confime: !showPassword.confime,
-                        });
-                      }}
-                    />
-                  </span>
-                </section>
-
-                <Button className="mt-4" onClick={handleSubmit}>
-                  Reset Password
-                </Button>
-
-                <Button
-                  className="mt-4  ms-2"
+                </span>
+              </section>
+              <section className="mt-4">
+                <a
+                  style={{
+                    // textDecoration: "none",
+                    color: "#257d7c",
+                    fontWeight: 500,
+                  }}
+                  className="cpactiveText"
                   onClick={handleResendButton}
                   disabled={!enableResendButton ? true : false}
                 >
-                  Resend Otp
+                  Resend OTP
+                </a>
+              </section>
+
+              <section style={{ display: "flex", justifyContent: "center" }}>
+                <Button className="mt-4" onClick={handleSubmit}>
+                  Reset Password
                 </Button>
-              </form>
-            </section>
+              </section>
+            </form>
           </section>
-        </CustomCard>
-      </Container>
+        </section>
+      </CustomCard>
     </>
   );
 }

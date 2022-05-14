@@ -19,6 +19,24 @@
   width: 100%;
 }
 
+@media only screen and (min-width: 300px) and (max-width: 700px) {
+  .NavbarOuter .Navbar {
+    height: 50px;
+  }
+}
+
+@media only screen and (min-width: 700px) and (max-width: 1600px) {
+  .NavbarOuter .Navbar {
+    height: 55px;
+  }
+}
+
+@media only screen and (min-width: 1600px) and (max-width: 1920px) {
+  .NavbarOuter .Navbar {
+    height: 60px;
+  }
+}
+
 .NavbarOuter .Navbar .detailSection {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -32,21 +50,21 @@
 
 @media only screen and (min-width: 300px) and (max-width: 900px) {
   .NavbarOuter .Navbar .detailSection {
-    margin-right: 6%;
+    margin-right: 5%;
     width: 20%;
   }
 }
 
 @media only screen and (min-width: 900px) and (max-width: 1600px) {
   .NavbarOuter .Navbar .detailSection {
-    margin-right: 7%;
+    margin-right: 3%;
     width: 14%;
   }
 }
 
 @media only screen and (min-width: 1600px) and (max-width: 1920px) {
   .NavbarOuter .Navbar .detailSection {
-    margin-right: 6%;
+    margin-right: 4%;
     width: 12%;
   }
 }
@@ -68,15 +86,15 @@
 
 @media only screen and (min-width: 300px) and (max-width: 900px) {
   .NavbarOuter .Navbar .AvatarSection {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
   }
 }
 
 @media only screen and (min-width: 900px) and (max-width: 1600px) {
   .NavbarOuter .Navbar .AvatarSection {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
   }
 }
 

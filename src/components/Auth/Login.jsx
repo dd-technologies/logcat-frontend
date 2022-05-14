@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -99,136 +99,137 @@ export default function Login() {
 
   return (
     <>
-      <Container
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
-        <CustomCard height="400px" width="500px">
-          <section className={Style.Login}>
-            <div className="Login-title d-flex justify-content-start">
-              <p className={Style.headerText}>Login</p>
-            </div>
-            <div className="Form-card">
-              <form>
-                <div
-                  className={
-                    emailError
-                      ? `${Style.imputFieldsError} darkBgColorSec`
-                      : `${Style.imputFields} mt-4 darkBgColorSec`
+      <CustomCard height="max-content" width="500px">
+        <section className={Style.Login}>
+          <div className="Login-title d-flex justify-content-start">
+            <p className={Style.headerText}>Login</p>
+          </div>
+          <div className="Form-card">
+            <form>
+              <div
+                className={
+                  emailError
+                    ? `${Style.imputFieldsError} darkBgColorSec`
+                    : `${Style.imputFields} mt-4 darkBgColorSec`
+                }
+              >
+                <span className="ms-2">
+                  <FontAwesomeIcon icon={faEnvelope} size="lg" />
+                </span>
+                <input
+                  type="email"
+                  className="form-control LoginForminput "
+                  id="exampleInputEmail1"
+                  placeholder="Enter your email"
+                  aria-describedby="emailHelp"
+                  onChange={(e) =>
+                    setLoginForm({ ...loginForm, email: e.target.value })
                   }
-                >
-                  <span>
-                    <FontAwesomeIcon icon={faEnvelope} />
-                  </span>
-                  <input
-                    type="email"
-                    className="form-control LoginForminput "
-                    id="exampleInputEmail1"
-                    placeholder="Enter your email"
-                    aria-describedby="emailHelp"
-                    onChange={(e) =>
-                      setLoginForm({ ...loginForm, email: e.target.value })
-                    }
-                    value={loginForm.email}
-                  />
-                </div>
-                {emailError != null ? (
-                  <small style={{ color: "red" }}>{emailError}</small>
-                ) : (
-                  ""
-                )}
-                <div
-                  className={
-                    passwordError
-                      ? `${Style.imputFieldsError} mt-4 darkBgColorSec`
-                      : `${Style.imputFields} mt-4 darkBgColorSec`
+                  value={loginForm.email}
+                />
+              </div>
+              {emailError != null ? (
+                <small style={{ color: "red" }}>{emailError}</small>
+              ) : (
+                ""
+              )}
+              <div
+                className={
+                  passwordError
+                    ? `${Style.imputFieldsError} mt-4 darkBgColorSec`
+                    : `${Style.imputFields} mt-4 darkBgColorSec`
+                }
+              >
+                <span className="ms-2">
+                  <FontAwesomeIcon icon={faLock} size="lg" />
+                </span>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="form-control LoginForminput "
+                  id="exampleInputEmail1"
+                  placeholder="Enter your password"
+                  aria-describedby="emailHelp"
+                  onChange={(e) =>
+                    setLoginForm({ ...loginForm, password: e.target.value })
                   }
-                >
-                  <span>
-                    <FontAwesomeIcon icon={faLock} />
-                  </span>
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    className="form-control LoginForminput "
-                    id="exampleInputEmail1"
-                    placeholder="Enter your password"
-                    aria-describedby="emailHelp"
-                    onChange={(e) =>
-                      setLoginForm({ ...loginForm, password: e.target.value })
-                    }
-                    value={loginForm.password}
+                  value={loginForm.password}
+                />
+                <span className="px-2" style={{ cursor: "pointer" }}>
+                  <FontAwesomeIcon
+                    icon={showPassword ? faEye : faEyeSlash}
+                    onClick={() => {
+                      setShowPassword(!showPassword);
+                    }}
                   />
-                  <span className="px-2" style={{ cursor: "pointer" }}>
-                    <FontAwesomeIcon
-                      icon={showPassword ? faEye : faEyeSlash}
-                      onClick={() => {
-                        setShowPassword(!showPassword);
-                      }}
-                    />
-                  </span>
-                </div>
-                {passwordError != null ? (
-                  <small style={{ color: "red" }}>{passwordError}</small>
-                ) : setErrorPassword ? (
-                  <small style={{ color: "red" }}>{setErrorPassword}</small>
-                ) : (
-                  ""
-                )}
-                <section
+                </span>
+              </div>
+              {passwordError != null ? (
+                <small style={{ color: "red" }}>{passwordError}</small>
+              ) : setErrorPassword ? (
+                <small style={{ color: "red" }}>{setErrorPassword}</small>
+              ) : (
+                ""
+              )}
+              <section
+                style={{
+                  marginTop: "20px",
+                  display: "flex",
+                  justifyContent: "end ",
+                }}
+              >
+                <Link
+                  to="/forgetPassword"
                   style={{
-                    marginTop: "20px",
-                    display: "flex",
-                    justifyContent: "end ",
+                    // textDecoration: "none",
+                    color: "#257d7c",
+                    fontWeight: 500,
                   }}
+                  className="cpactiveText"
                 >
-                  <Link
-                    to="/forgetPassword"
-                    style={{
-                      textDecoration: "none",
-                      color: "#257d7c",
-                      fontWeight: 500,
-                    }}
-                    className="cpactiveText"
-                  >
-                    Forget Password?
-                  </Link>
-                </section>
-                <section
+                  Forget Password?
+                </Link>
+              </section>
+              <section
+                style={{
+                  marginTop: "20px",
+                  display: "flex",
+                  justifyContent: "center ",
+                }}
+              >
+                <Link
+                  to="/register"
                   style={{
-                    marginTop: "20px",
-                    display: "flex",
-                    justifyContent: "end ",
+                    // textDecoration: "none",
+                    color: "#257d7c",
+                    fontWeight: 500,
                   }}
+                  className="cpactiveText"
                 >
-                  <Link
-                    to="/register"
-                    style={{
-                      textDecoration: "none",
-                      color: "#257d7c",
-                      fontWeight: 500,
-                    }}
-                    className="cpactiveText"
-                  >
-                    Don't have an account? Click here
-                  </Link>
-                </section>
+                  Register
+                </Link>
+              </section>
+              <section
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
                 <Button
-                  style={{ float: "right", width: "30%", fontWeight: 700 }}
+                  style={{
+                    width: "30%",
+                    fontWeight: 700,
+                  }}
                   type="submit"
                   className="mt-4"
                   onClick={(e) => handleSubmit(e)}
                 >
                   {loading ? "Loading..." : "Login"}
                 </Button>
-              </form>
-            </div>
-          </section>
-        </CustomCard>
-      </Container>
+              </section>
+            </form>
+          </div>
+        </section>
+      </CustomCard>
     </>
   );
 }

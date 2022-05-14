@@ -72,7 +72,10 @@ const AddProjectModal = (props) => {
         centered
       >
         <Modal.Header className="card darkModeColor">
-          <Modal.Title id="contained-modal-title-vcenterv">
+          <Modal.Title
+            id="contained-modal-title-vcenterv"
+            style={{ color: "#1F99A4" }}
+          >
             Add New Project
           </Modal.Title>
         </Modal.Header>
@@ -91,13 +94,9 @@ const AddProjectModal = (props) => {
           )}
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label
-              style={{ float: "left", color: "#212529" }}
-              className="darkModeColor"
-            >
-              Project Name
-            </Form.Label>
+            <Form.Label className="darkModeColor">Project Name</Form.Label>
             <Form.Control
+              className={Style.inputFields}
               type="text"
               placeholder="Please Enter Project Name"
               onChange={(e) =>
@@ -113,13 +112,9 @@ const AddProjectModal = (props) => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label
-              style={{ float: "left", color: "#212529" }}
-              className="darkModeColor"
-            >
-              Description
-            </Form.Label>
+            <Form.Label className="darkModeColor">Description</Form.Label>
             <Form.Control
+              className={Style.inputFields}
               as="textarea"
               rows={3}
               type="textarea"
@@ -133,13 +128,11 @@ const AddProjectModal = (props) => {
             />
           </Form.Group>
           <Form.Group className="mb-3  " controlId="formBasicPassword">
-            <Form.Label
-              style={{ float: "left", color: "#212529" }}
-              className="darkModeColor"
-            >
+            <Form.Label className="darkModeColor">
               Provide Device type
             </Form.Label>
             <Form.Control
+              className={Style.inputFields}
               type="text"
               placeholder="Device type"
               value={chips}
@@ -181,18 +174,18 @@ const AddProjectModal = (props) => {
             }}
           >
             <Button
+              onClick={props.onHide}
+              style={{ backgroundColor: "#1a83ff", marginLeft: "10px" }}
+            >
+              Cancel
+            </Button>
+            <Button
               style={{ backgroundColor: "#1a83ff" }}
               onClick={(e) => {
                 handleSubmit(e);
               }}
             >
               Save
-            </Button>
-            <Button
-              onClick={props.onHide}
-              style={{ backgroundColor: "#1a83ff", marginLeft: "10px" }}
-            >
-              Cancel
             </Button>
           </section>
         </Modal.Footer>

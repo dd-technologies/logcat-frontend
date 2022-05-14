@@ -1,6 +1,5 @@
 import React, { Component, ReactDOM } from "react";
-import Button from "react-bootstrap/Button";
-import "./OtpInput.css";
+import Style from "./OtpInput.module.css";
 class Otpinput extends React.Component {
   constructor(props) {
     super(props);
@@ -11,7 +10,7 @@ class Otpinput extends React.Component {
       otp3: "",
       otp4: "",
       otp5: "",
-	  otp6:"",
+      otp6: "",
       disable: true,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -20,9 +19,9 @@ class Otpinput extends React.Component {
 
   handleChange(value1, event) {
     this.setState({ [value1]: event.target.value });
-	let st = this.state;
-		const otp = `${st.otp1}${st.otp2}${st.otp3}${st.otp4}${st.otp5}${event.target.value}`
-		this.props.setState({ ...this.props.state,otp: otp });
+    let st = this.state;
+    const otp = `${st.otp1}${st.otp2}${st.otp3}${st.otp4}${st.otp5}${event.target.value}`;
+    this.props.setState({ ...this.props.state, otp: otp });
   }
 
   handleSubmit(event) {
@@ -50,12 +49,12 @@ class Otpinput extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="otpContainer">
+        <div className={Style.otpContainer}>
           <input
             name="otp1"
             type="text"
             autoComplete="off"
-            className="otpInput"
+            className={Style.optInput}
             value={this.state.otp1}
             onChange={(e) => this.handleChange("otp1", e)}
             tabIndex="1"
@@ -66,7 +65,7 @@ class Otpinput extends React.Component {
             name="otp2"
             type="text"
             autoComplete="off"
-            className="otpInput"
+            className={Style.optInput}
             value={this.state.otp2}
             onChange={(e) => this.handleChange("otp2", e)}
             tabIndex="2"
@@ -77,7 +76,7 @@ class Otpinput extends React.Component {
             name="otp3"
             type="text"
             autoComplete="off"
-            className="otpInput"
+            className={Style.optInput}
             value={this.state.otp3}
             onChange={(e) => this.handleChange("otp3", e)}
             tabIndex="3"
@@ -88,7 +87,7 @@ class Otpinput extends React.Component {
             name="otp4"
             type="text"
             autoComplete="off"
-            className="otpInput"
+            className={Style.optInput}
             value={this.state.otp4}
             onChange={(e) => this.handleChange("otp4", e)}
             tabIndex="4"
@@ -100,7 +99,7 @@ class Otpinput extends React.Component {
             name="otp5"
             type="text"
             autoComplete="off"
-            className="otpInput"
+            className={Style.optInput}
             value={this.state.otp5}
             onChange={(e) => this.handleChange("otp5", e)}
             tabIndex="5"
@@ -112,7 +111,7 @@ class Otpinput extends React.Component {
             name="otp6"
             type="text"
             autoComplete="off"
-            className="otpInput"
+            className={Style.optInput}
             value={this.state.otp6}
             onChange={(e) => this.handleChange("otp6", e)}
             tabIndex="6"

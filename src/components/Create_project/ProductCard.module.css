@@ -39,13 +39,27 @@
   font-weight: 500;
 }
 
-.Outer_InfoRow .InfoDetails p {
-  float: right;
-  font-size: 0.9rem !important;
-  color: #646464;
+.Outer_InfoRow .InfoDetails {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.Outer_InfoRow .InfoDetails p span {
-  margin-right: 10px;
+.Outer_InfoRow .InfoDetails img {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+
+.Outer_InfoRow .InfoDetails p {
+  font-size: 0.9rem !important;
+  color: #646464;
+  margin-top: 3px;
 }
 /*# sourceMappingURL=ProductCard.module.css.map */

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import {
   faUpload,
-  faMailBulk,
-  faPersonBooth,
+  faSquareEnvelope,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { Col, Container, Row, Button } from "react-bootstrap";
 import CustomeDropDown from "../../Container/DropDown";
@@ -151,7 +151,7 @@ export default function UpdateProfile() {
         </Col>
         <Col xl={10} lg={10} md={10} sm={10}>
           <Navbar navdetails={navdetails} />
-          <Container className={`${Style.mainContainer} container`}>
+          <Container className={Style.mainContainer}>
             <section className={Style.OuterDiv}>
               <Toaster />
               <Row style={{ marginTop: "150px" }}>
@@ -191,8 +191,8 @@ export default function UpdateProfile() {
                     <section className="mt-4">
                       <h5 className="darkModeColor">Name</h5>
                       <div className={`${Style.imputFields} mt-4`}>
-                        <span>
-                          <FontAwesomeIcon icon={faPersonBooth} />
+                        <span className="ms-2">
+                          <FontAwesomeIcon icon={faUser} />
                         </span>
                         <input
                           type="email"
@@ -212,8 +212,8 @@ export default function UpdateProfile() {
                     <section className="mt-4">
                       <h5 className="darkModeColor">Email</h5>
                       <div className={`${Style.imputFields} mt-4`}>
-                        <span>
-                          <FontAwesomeIcon icon={faMailBulk} />
+                        <span className="ms-2">
+                          <FontAwesomeIcon icon={faSquareEnvelope} />
                         </span>
                         <input
                           type="email"

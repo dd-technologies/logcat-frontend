@@ -230,7 +230,7 @@ export default function LogTable() {
             className={`${Style.NavbarColumn} colSection`}
           >
             <Navbar navdetails={navdetails} />
-            <Container className={`${Style.mainContainer} container`}>
+            <Container className={Style.mainContainer}>
               <Row>
                 <Col xl={10} md={9} sm={9}>
                   <TypeDropDown

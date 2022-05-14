@@ -46,11 +46,17 @@ function SideBar(props) {
                 textDecoration: "none",
               }}
             >
-              <section className={`${Style.LogcatLogo} noSideBarLogcatLogo`}>
+              <section
+                className={
+                  sideMenu === "sidebar"
+                    ? `noSideBarLogcatLogo`
+                    : `${Style.LogcatLogo}`
+                }
+              >
                 {sideMenu == "sidebar" ? (
-                  <Image src={Logcat} alt="logcat" className="mt-1" />
+                  <Image src={Logcat} alt="logcat" />
                 ) : (
-                  <Image src={LogcatLarge} alt="logcat" className="mt-1" />
+                  <Image src={LogcatLarge} alt="logcat" />
                 )}
               </section>
             </Link>
@@ -64,8 +70,8 @@ function SideBar(props) {
                 className={
                   logURLName.includes("logpage") ||
                   logURLName.includes("analytics")
-                    ? `${Style.linkActive} noSideBarLinkOuter`
-                    : `${Style.linkInActive} noSideBarLinkOuter`
+                    ? `${Style.linkActive} `
+                    : `${Style.linkInActive} `
                 }
               >
                 <Link
@@ -97,8 +103,8 @@ function SideBar(props) {
                     <section
                       className={
                         logURLName.includes("settings")
-                          ? `${Style.linkActive} noSideBarLinkOuter`
-                          : `${Style.linkInActive} noSideBarLinkOuter`
+                          ? `${Style.linkActive} `
+                          : `${Style.linkInActive} `
                       }
                     >
                       <Link
@@ -127,8 +133,8 @@ function SideBar(props) {
                   <section
                     className={
                       logURLName.includes("alarm")
-                        ? `${Style.linkActive} noSideBarLinkOuter`
-                        : `${Style.linkInActive} noSideBarLinkOuter`
+                        ? `${Style.linkActive} `
+                        : `${Style.linkInActive} `
                     }
                   >
                     <Link

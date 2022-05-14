@@ -222,16 +222,16 @@ export default function Settings() {
           className={`${Style.NavbarColumn} colSection`}
         >
           <Navbar navdetails={navdetails} />
-          <Container className={`${Style.mainContainer} container`}>
+          <Container className={Style.mainContainer}>
             {/* SETTINGS COMPONENTS */}
             {ld ? (
               <Spinner />
             ) : (
               <Row>
                 <Col xl={6} md={6} sm={12} className="mt-4">
-                  <h4 className={`${Style.headingText} cpactiveText`}>
+                  <h5 className={`${Style.headingText} cpactiveText`}>
                     Update project
-                  </h4>
+                  </h5>
                   <div className={`${Style.imputFields} mt-4`}>
                     <input
                       type="text"

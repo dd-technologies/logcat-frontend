@@ -7,6 +7,7 @@
   background-color: #1a2035;
   -webkit-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.45) !important;
           box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.45) !important;
+  border-radius: 0px;
 }
 
 .dark-content td {
@@ -46,28 +47,59 @@
           transition-duration: 0.3s;
 }
 
-.sidebar .noSidebar .noSidbarInner .sidebarMenu {
-  height: 6%;
-}
-
-@media only screen and (min-width: 300px) and (max-width: 900px) {
+@media screen and (min-width: 600px) and (max-width: 959px) {
+  .sidebar .noSidebar .noSidbarInner .sidebarMenu {
+    padding: 12px 0px;
+  }
   .sidebar .noSidebar .noSidbarInner .sidebarMenu .noSideBarLogcatLogo img {
     width: 25px !important;
     height: 30px !important;
   }
-}
-
-@media only screen and (min-width: 900px) and (max-width: 1600px) {
-  .sidebar .noSidebar .noSidbarInner .sidebarMenu .noSideBarLogcatLogo img {
-    width: 28px !important;
-    height: 32px !important;
+  .sidebar .noSidebar .componyLogo img {
+    width: 40px !important;
+    height: 40px !important;
   }
 }
 
-@media only screen and (min-width: 1600px) and (max-width: 1920px) {
+@media screen and (min-width: 960px) and (max-width: 1279px) {
+  .sidebar .noSidebar .noSidbarInner .sidebarMenu {
+    padding: 12px 0px;
+  }
   .sidebar .noSidebar .noSidbarInner .sidebarMenu .noSideBarLogcatLogo img {
-    width: 30px !important;
-    height: 35px !important;
+    width: 25px !important;
+    height: 30px !important;
+  }
+  .sidebar .noSidebar .componyLogo img {
+    width: 45px !important;
+    height: 45px !important;
+  }
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1919px) {
+  .sidebar .noSidebar .noSidbarInner .sidebarMenu {
+    padding: 14px 0px;
+  }
+  .sidebar .noSidebar .noSidbarInner .sidebarMenu .noSideBarLogcatLogo img {
+    width: 25px !important;
+    height: 30px !important;
+  }
+  .sidebar .noSidebar .componyLogo img {
+    width: 50px !important;
+    height: 50px !important;
+  }
+}
+
+@media screen and (min-width: 1920px) and (max-width: 5000px) {
+  .sidebar .noSidebar .noSidbarInner .sidebarMenu {
+    padding: 15px 0px;
+  }
+  .sidebar .noSidebar .noSidbarInner .sidebarMenu .noSideBarLogcatLogo img {
+    width: 25px !important;
+    height: 30px !important;
+  }
+  .sidebar .noSidebar .componyLogo img {
+    width: 70px !important;
+    height: 70px !important;
   }
 }
 
@@ -86,7 +118,7 @@
 }
 
 .sidebar .noSidebar .sidebarMenu {
-  height: 6%;
+  padding: 12px 0px;
 }
 
 .sidebar .noSidebar .hidelinkName {
@@ -97,35 +129,28 @@
   display: none;
 }
 
-.sidebar .noSidebar .componyLogo {
-  width: 100%;
-  height: 6%;
-  margin-bottom: 10%;
-}
-
-@media only screen and (min-width: 300px) and (max-width: 900px) {
-  .sidebar .noSidebar .componyLogo img {
-    width: 40px !important;
-    height: 40px !important;
+@media screen and (min-width: 600px) and (max-width: 959px) {
+  .sidebar .container {
+    margin-left: 7%;
   }
 }
 
-@media only screen and (min-width: 900px) and (max-width: 1600px) {
-  .sidebar .noSidebar .componyLogo img {
-    width: 60px !important;
-    height: 60px !important;
+@media screen and (min-width: 960px) and (max-width: 1279px) {
+  .sidebar .container {
+    margin-left: 7%;
   }
 }
 
-@media only screen and (min-width: 1600px) and (max-width: 1920px) {
-  .sidebar .noSidebar .componyLogo img {
-    width: 70px !important;
-    height: 70px !important;
+@media screen and (min-width: 1280px) and (max-width: 1919px) {
+  .sidebar .container {
+    margin-left: 8%;
   }
 }
 
-.sidebar .container {
-  margin-left: 13%;
+@media screen and (min-width: 1920px) and (max-width: 5000px) {
+  .sidebar .container {
+    margin-left: 10%;
+  }
 }
 
 .navBarDetails {
@@ -143,7 +168,6 @@
   .navBarDetails {
     margin-right: 17%;
     width: 20%;
-    /* background-color: red; */
   }
 }
 
@@ -178,15 +202,15 @@
 
 @media only screen and (min-width: 300px) and (max-width: 900px) {
   .navBarDetails .AvatarSectionSidbar {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
   }
 }
 
 @media only screen and (min-width: 900px) and (max-width: 1600px) {
   .navBarDetails .AvatarSectionSidbar {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
   }
 }
 

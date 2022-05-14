@@ -18,7 +18,7 @@
           align-items: center;
   background-color: #fff !important;
   border: 1px solid rgba(141, 141, 141, 0.72);
-  border-radius: 15px !important;
+  border-radius: 5px;
   padding: 5px;
 }
 
@@ -43,7 +43,7 @@
       -ms-flex-align: center;
           align-items: center;
   border: 2px solid red;
-  border-radius: 15px !important;
+  border-radius: 5px;
   padding: 5px;
 }
 

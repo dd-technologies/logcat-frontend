@@ -1,12 +1,13 @@
 import React from "react";
 import CustomCard from "../../Container/CustomCard";
-import { Col } from "react-bootstrap";
+import { Col, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import Style from "./ProductCard.module.css";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../../utils/ThemeContext";
 import "../../utils/Theme.css";
+import DateIcons from "../../assets/icons/date.png";
 
 const ProjectCard = (props) => {
   let newDate = props.data.createdAt.split("T")[0];
@@ -32,21 +33,24 @@ const ProjectCard = (props) => {
                 >
                   <section className={Style.Outer_InfoRow}>
                     <section className={Style.InfoColumn}>
-                      <h5 className="cpactiveText">{props.data.name}</h5>
+                      <h5
+                        className="cpactiveText mb-1"
+                        style={{ fontWeight: "600" }}
+                      >
+                        {props.data.name}
+                      </h5>
                       <p className="darkModeColor">
                         {props.data.description && props.data.description}
                       </p>
                     </section>
                     <section className={Style.InfoDetails}>
+                      <Image src={DateIcons} />
                       <p
                         className="darkModeColor"
                         style={{
                           opacity: "70%",
                         }}
                       >
-                        <span>
-                          <FontAwesomeIcon icon={faCalendar} />
-                        </span>
                         {newDate}
                       </p>
                     </section>

@@ -7,75 +7,6 @@
   padding: 0px !important;
 }
 
-.LogtableContaininer {
-  margin-top: 5% !important;
-  margin-left: 20% !important;
-  margin-bottom: 2% !important;
-}
-
-@media screen and (min-width: 300px) and (max-width: 768px) {
-  .LogtableContaininer {
-    margin-top: 10% !important;
-    margin-left: 18% !important;
-  }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-  .LogtableContaininer {
-    margin-top: 12% !important;
-    margin-left: 12% !important;
-  }
-}
-
-@media screen and (min-width: 1024px) and (max-width: 1400px) {
-  .LogtableContaininer {
-    margin-top: 14% !important;
-    margin-left: 10% !important;
-  }
-}
-
-@media screen and (min-width: 1400px) and (max-width: 1600px) {
-  .LogtableContaininer {
-    margin-top: 8% !important;
-    margin-left: 10% !important;
-  }
-}
-
-.LogtableContaininerWithoutSlide {
-  margin-top: 5% !important;
-  margin-bottom: 2% !important;
-}
-
-@media screen and (min-width: 300px) and (max-width: 768px) {
-  .LogtableContaininerWithoutSlide {
-    margin-top: 10% !important;
-  }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-  .LogtableContaininerWithoutSlide {
-    margin-top: 12% !important;
-  }
-}
-
-@media screen and (min-width: 1024px) and (max-width: 1280px) {
-  .LogtableContaininerWithoutSlide {
-    margin-top: 15% !important;
-  }
-}
-
-@media screen and (min-width: 1280px) and (max-width: 1400px) {
-  .LogtableContaininerWithoutSlide {
-    margin-top: 10% !important;
-  }
-}
-
-@media screen and (min-width: 1400px) and (max-width: 1600px) {
-  .LogtableContaininerWithoutSlide {
-    margin-top: 8% !important;
-  }
-}
-
 .imputFields {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -84,7 +15,7 @@
       -ms-flex-align: center;
           align-items: center;
   border: 1px solid rgba(141, 141, 141, 0.72);
-  border-radius: 15px !important;
+  border-radius: 5px;
   padding: 5px;
   border: solid #e2e2e2 1px;
   background-color: #ffffff;
@@ -111,11 +42,9 @@
 }
 
 .chipouter {
-  width: 100% !important;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: auto auto auto auto;
-      grid-template-columns: auto auto auto auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .chip {

@@ -1,7 +1,8 @@
-@import "../../css/veriables.module..css";
+@import "../../css/veriables.module.scss";
 
 .mainContainer {
   margin-top: 70px;
+  // margin-left: 100%;
 }
 
 .issuesTable {
@@ -39,55 +40,6 @@
   padding: 0px !important;
 }
 
-.LogtableContaininer {
-  margin-top: 5% !important;
-  margin-left: 20% !important;
-  margin-bottom: 2% !important;
-
-  @media screen and (min-width: 300px) and (max-width: 768px) {
-    margin-top: 10% !important;
-    margin-left: 18% !important;
-  }
-
-  @media screen and (min-width: 768px) and (max-width: 1024px) {
-    margin-top: 12% !important;
-    margin-left: 12% !important;
-  }
-
-  @media screen and (min-width: 1024px) and (max-width: 1400px) {
-    margin-top: 14% !important;
-    margin-left: 10% !important;
-  }
-  @media screen and (min-width: 1400px) and (max-width: 1600px) {
-    margin-top: 8% !important;
-    margin-left: 10% !important;
-  }
-}
-
-.LogtableContaininerWithoutSlide {
-  margin-top: 5% !important;
-  margin-bottom: 2% !important;
-
-  @media screen and (min-width: 300px) and (max-width: 768px) {
-    margin-top: 10% !important;
-  }
-
-  @media screen and (min-width: 768px) and (max-width: 1024px) {
-    margin-top: 12% !important;
-  }
-
-  @media screen and (min-width: 1024px) and (max-width: 1280px) {
-    margin-top: 15% !important;
-  }
-  @media screen and (min-width: 1280px) and (max-width: 1400px) {
-    margin-top: 10% !important;
-  }
-
-  @media screen and (min-width: 1400px) and (max-width: 1600px) {
-    margin-top: 8% !important;
-  }
-}
-
 .filterGraphFirstSction {
   cursor: pointer;
   background-color: $filterButtonBackgroundColor;
@@ -122,5 +74,3 @@
     justify-content: center;
   }
 }
-
-

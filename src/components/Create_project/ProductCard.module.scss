@@ -1,4 +1,4 @@
-@import "../../css/veriables.module..css";
+@import "../../css/veriables.module.scss";
 
 .addProject {
   height: 100%;
@@ -26,12 +26,17 @@
   }
 
   .InfoDetails {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    & img {
+      width: 15px;
+      height: 15px;
+      margin-right: 5px;
+    }
     & p {
-      float: right;
       @include paraFontdasktopMixin;
-      & span {
-        margin-right: $margin;
-      }
+      margin-top: 3px;
     }
   }
 }

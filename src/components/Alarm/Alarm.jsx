@@ -113,7 +113,7 @@ export default function Alarm(props) {
     link1: {
       iconName: LogICon,
       linkName: "Logs",
-      link: `/logtable?code=${code}&name=${projectName}&pagename=logtable`,
+      link: `/logtable?code=${code}&name=${projectName}&pagename=logpage`,
     },
     link2: {
       iconName: AlarmIcon,
@@ -222,7 +222,7 @@ export default function Alarm(props) {
           className={`${Style.NavbarColumn} colSection`}
         >
           <Navbar navdetails={navdetails} />
-          <Container className={`${Style.mainContainer} container`}>
+          <Container className={Style.mainContainer}>
             <h1 className=" darkModeColor">Alerts Summary</h1>
             <Row className="mt-4">
               <Col xl={10} md={9} sm={9}>

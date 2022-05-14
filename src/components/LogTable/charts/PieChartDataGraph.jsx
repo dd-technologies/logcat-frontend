@@ -37,6 +37,7 @@ export default function PieChartDataGraph() {
     datasets: [
       {
         data: countData ? countData : null,
+
         backgroundColor: [
           "rgba(54, 162, 235)",
           "rgba(255, 159, 64)",
@@ -53,6 +54,7 @@ export default function PieChartDataGraph() {
   const options = {
     maintainAspectRatio: false,
     responsive: true,
+
     scales: {
       yAxes: [
         {
