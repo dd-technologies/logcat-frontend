@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
   faUpload,
-  faSquareEnvelope,
+  faEnvelope,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { Col, Container, Row, Button } from "react-bootstrap";
@@ -196,14 +196,16 @@ export default function UpdateProfile() {
                     {/*name field  */}
                     <section className="mt-4">
                       <h5 className="darkModeColor">Name</h5>
-                      <div className={`${Style.imputFields} mt-4`}>
+                      <div
+                        className={`${Style.imputFields} darkBgColorSec mt-2`}
+                      >
                         <span className="ms-2">
                           <FontAwesomeIcon icon={faUser} size="lg" />
                         </span>
                         <input
                           type="email"
                           value={name}
-                          className="form-control LoginForminput darkModeColor "
+                          className="form-control LoginForminput"
                           id="exampleInputEmail1"
                           placeholder="Enter your email"
                           aria-describedby="emailHelp"
@@ -217,14 +219,16 @@ export default function UpdateProfile() {
                     {/* email field */}
                     <section className="mt-4">
                       <h5 className="darkModeColor">Email</h5>
-                      <div className={`${Style.imputFields} mt-4`}>
+                      <div
+                        className={`${Style.imputFields} darkBgColorSec mt-2 `}
+                      >
                         <span className="ms-2">
-                          <FontAwesomeIcon icon={faSquareEnvelope} size="lg" />
+                          <FontAwesomeIcon icon={faEnvelope} size="lg" />
                         </span>
                         <input
                           type="email"
                           value={email}
-                          className="form-control LoginForminput darkModeColor "
+                          className="form-control LoginForminput"
                           id="exampleInputEmail1"
                           placeholder="Enter your email"
                           aria-describedby="emailHelp"

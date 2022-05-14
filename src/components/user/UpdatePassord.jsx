@@ -34,7 +34,9 @@ const UpdatePassord = ({
 
           <div
             className={
-              error ? `${Style.imputFieldsError}` : `${Style.imputFields} mt-4`
+              error
+                ? `${Style.imputFieldsError} darkBgColorSec`
+                : `${Style.imputFields} mt-2 darkBgColorSec`
             }
           >
             <span className="ms-2">
@@ -46,7 +48,7 @@ const UpdatePassord = ({
               onChange={(e) => {
                 setCurrentPassword(e.target.value);
               }}
-              className="form-control LoginForminput darkModeColor"
+              className="form-control LoginForminput "
               id="exampleInputEmail1"
               placeholder="Enter your current password"
               aria-describedby="emailHelp"
@@ -70,7 +72,9 @@ const UpdatePassord = ({
           <h5>New Password</h5>
           <div
             className={
-              error ? `${Style.imputFieldsError}` : `${Style.imputFields} mt-4`
+              error
+                ? `${Style.imputFieldsError} darkBgColorSec`
+                : `${Style.imputFields} mt-2 darkBgColorSec`
             }
           >
             <span className="ms-2">
@@ -82,7 +86,7 @@ const UpdatePassord = ({
               onChange={(e) => {
                 setNewPassword(e.target.value);
               }}
-              className="form-control LoginForminput darkModeColor"
+              className="form-control LoginForminput "
               id="exampleInputEmail1"
               placeholder="Enter your new password"
               aria-describedby="emailHelp"
@@ -106,7 +110,9 @@ const UpdatePassord = ({
           <h5>Confirm New Password</h5>
           <div
             className={
-              error ? `${Style.imputFieldsError}` : `${Style.imputFields} mt-4`
+              error
+                ? `${Style.imputFieldsError} darkBgColorSec`
+                : `${Style.imputFields} mt-2 darkBgColorSec`
             }
           >
             <span className="ms-2">
@@ -118,7 +124,7 @@ const UpdatePassord = ({
               onChange={(e) => {
                 setConfirmNewPassword(e.target.value);
               }}
-              className="form-control LoginForminput darkModeColor"
+              className="form-control LoginForminput "
               id="exampleInputEmail1"
               placeholder="Confirm your new password"
               aria-describedby="emailHelp"

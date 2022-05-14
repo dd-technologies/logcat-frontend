@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMailBulk } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import {
   forgetPassword,
   resetForgetPasswordState,
@@ -70,7 +70,7 @@ export default function ForgetPassword() {
               <form>
                 <div className={`${Style.imputFields} mt-4 darkBgColorSec`}>
                   <span className="ms-2">
-                    <FontAwesomeIcon icon={faMailBulk} size="lg" />
+                    <FontAwesomeIcon icon={faEnvelope} size="lg" />
                   </span>
                   <input
                     type="email"

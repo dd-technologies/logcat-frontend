@@ -54,7 +54,13 @@ export default function PieChartDataGraph() {
   const options = {
     maintainAspectRatio: false,
     responsive: true,
-
+    plugins: { 
+      legend: {
+        labels: {
+          color: theme == "dark-content" ? `#fff` : `#646464` 
+        }
+      }
+    },
     scales: {
       yAxes: [
         {

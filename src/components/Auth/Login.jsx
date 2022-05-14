@@ -104,7 +104,7 @@ export default function Login() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height:"100vh",
+          height: "100vh",
         }}
       >
         <CustomCard height="max-content" width="500px">

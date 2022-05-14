@@ -10,6 +10,7 @@ import "../../utils/Theme.css";
 import DateIcons from "../../assets/icons/date.png";
 
 const ProjectCard = (props) => {
+  const { theme } = React.useContext(ThemeContext);
   let newDate = props.data.createdAt.split("T")[0];
   let year = newDate.split("-")[0];
   let month = newDate.split("-")[1];
@@ -39,7 +40,13 @@ const ProjectCard = (props) => {
                       >
                         {props.data.name}
                       </h5>
-                      <p className="darkModeColor">
+                      <p
+                        className={
+                          theme == "dark-content"
+                            ? "darkModeColor"
+                            : "text-dark"
+                        }
+                      >
                         {props.data.description && props.data.description}
                       </p>
                     </section>
