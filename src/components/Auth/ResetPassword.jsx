@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash, faLock } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEye,
+  faEyeSlash,
+  faLock,
+  faUnderline,
+} from "@fortawesome/free-solid-svg-icons";
 import Style from "./ResetPassword.module.css";
 import { toast, Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,7 +44,9 @@ export default function ResetPassword() {
 
   const handleResendButton = () => {
     setEnableResendButton(false);
-    dispatch(forgetPassword(email));
+    if (enableResendButton) {
+      dispatch(forgetPassword(email));
+    }
   };
 
   const { loading, data, error } = resetPasswordReducer;
@@ -106,7 +113,7 @@ export default function ResetPassword() {
                   {!enableResendButton ? (
                     <Timer
                       resetTimer={handleEnableButton}
-                      initialMinute={4}
+                      initialMinute={1}
                       initialSeconds={59}
                     />
                   ) : (
@@ -173,13 +180,15 @@ export default function ResetPassword() {
                 <section className="mt-4">
                   <a
                     style={{
-                      // textDecoration: "none",
-                      color: "#257d7c",
+                      textDecoration: "underline",
+                      cursor: enableResendButton ? "pointer" : null,
+                      color: enableResendButton
+                        ? "#257d7c"
+                        : "rgb(56, 56, 56, 0.5)",
                       fontWeight: 500,
                     }}
-                    className="cpactiveText"
+                    className={enableResendButton ? "cpactiveText" : null}
                     onClick={handleResendButton}
-                    disabled={!enableResendButton ? true : false}
                   >
                     Resend OTP
                   </a>
