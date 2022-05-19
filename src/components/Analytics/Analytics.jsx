@@ -11,7 +11,7 @@ import {
 } from "../../redux/action/LogsAction";
 import { getLogMsgOccurenceWRTDate } from "../../redux/action/LogsAction";
 import { useDispatch, useSelector } from "react-redux";
-import AnalyticeIcon from "../../assets/icons/Analytics.png";
+import AnalyticeIcon from "../../assets/icons/analyticIcon.png";
 import SideBar from "../../utils/Sidebar";
 import { Navbar } from "../../utils/NavBar";
 import { faChartLine, faCog } from "@fortawesome/free-solid-svg-icons";

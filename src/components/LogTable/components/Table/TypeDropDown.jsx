@@ -24,7 +24,7 @@ const TypeDropDown = (props) => {
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get("code");
   const logTablePageURL = urlParams.get("pagename");
-  console.log("logTablePageURL", logTablePageURL);
+  // console.log("logTablePageURL", logTablePageURL);
 
   const dispatch = useDispatch();
 
@@ -117,7 +117,7 @@ const TypeDropDown = (props) => {
               color="#2A9AA4"
               style={{ width: "22px", height: "25px" }}
             />
-            <p className="m-2 darkModeColor">
+            <p className="m-2 darkModeColor" style={{ fontSize: ".9rem" }}>
               {localStorage.getItem("project_type")
                 ? JSON.parse(localStorage.getItem("project_type")).typeName
                 : data && data.modelList && data.modelList[0].typeName}
@@ -141,6 +141,7 @@ const TypeDropDown = (props) => {
                   data.modelList.map((type) => {
                     return (
                       <p
+                        style={{ fontSize: ".8rem" }}
                         className={`${Style.productVersion} darkModeColor`}
                         onClick={() => onSubmitFun(type)}
                       >

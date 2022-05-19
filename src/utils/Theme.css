@@ -1,10 +1,10 @@
 .dark-content {
-  background: #1a2035 !important;
+  background: #212121 !important;
   overflow-x: hidden !important;
 }
 
 .dark-content .card {
-  background-color: #1a2035;
+  background-color: #262626;
   -webkit-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.45) !important;
           box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.45) !important;
   border-radius: 0px;
@@ -19,7 +19,7 @@
 }
 
 .dark-content .cpactiveText {
-  color: #0099a4 !important;
+  color: #0099a4;
 }
 
 .dark-content .TDsec {
@@ -209,6 +209,7 @@
   }
   .navBarDetails .AvatarSectionSidbar {
     background-color: #fff !important;
+    color: #000;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -241,6 +242,7 @@
   }
   .navBarDetails .AvatarSectionSidbar {
     background-color: #fff !important;
+    color: #000;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -273,6 +275,7 @@
   }
   .navBarDetails .AvatarSectionSidbar {
     background-color: #fff !important;
+    color: #000;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -305,6 +308,7 @@
   }
   .navBarDetails .AvatarSectionSidbar {
     background-color: #fff !important;
+    color: #000;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -337,6 +341,7 @@
   }
   .navBarDetails .AvatarSectionSidbar {
     background-color: #fff !important;
+    color: #000;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -369,6 +374,7 @@
   }
   .navBarDetails .AvatarSectionSidbar {
     background-color: #fff !important;
+    color: #000;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

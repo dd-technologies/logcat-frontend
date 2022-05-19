@@ -41,7 +41,7 @@ const Register = () => {
   );
   const { loading, error, data } = adminRegisterReducer;
 
-  console.log("adminRegisterReducer", adminRegisterReducer);
+  // console.log("adminRegisterReducer", adminRegisterReducer);
 
   // VALIDATE EMAIL
   const validateEmail = (email) => {
@@ -112,7 +112,7 @@ const Register = () => {
   const history = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("registerForm", registerForm);
+    // console.log("registerForm", registerForm);
     const email = validateEmail(registerForm.email);
     const password = validatePassword(
       registerForm.password,
@@ -137,7 +137,7 @@ const Register = () => {
     }
   };
 
-  console.log("registerForm", registerForm);
+  // console.log("registerForm", registerForm);
 
   useEffect(() => {
     if (localStorage.getItem("ddAdminToken")) {
@@ -320,7 +320,6 @@ const Register = () => {
                     style={{
                       // textDecoration: "none",
                       color: "#257d7c",
-                      fontWeight: 500,
                       // textAlign: "center",
                     }}
                   >
@@ -334,7 +333,7 @@ const Register = () => {
                   }}
                 >
                   <Button
-                    style={{ float: "right", width: "30%", fontWeight: 700 }}
+                    style={{ float: "right", width: "30%" }}
                     type="submit"
                     className="mt-4"
                     onClick={(e) => handleSubmit(e)}

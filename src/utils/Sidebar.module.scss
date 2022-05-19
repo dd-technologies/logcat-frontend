@@ -8,7 +8,7 @@
   height: 100vh;
   .Sidebar {
     height: 100%;
-    background-image: url("../assets/images/background.jpg");
+    background-image: url("../assets/images/background.png");
     background-repeat: repeat;
     background-size: 100% 100%;
     display: flex;
@@ -22,11 +22,11 @@
         width: 250px !important;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: center !important;
       }
       .ComponyLogo {
         display: flex;
-        align-items: center;
+        align-items: center !important;
         justify-content: center;
 
         & p {
@@ -47,11 +47,11 @@
         width: 250px !important;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: center !important;
       }
       .ComponyLogo {
         display: flex;
-        align-items: center;
+        align-items: center !important;
         justify-content: center;
 
         & p {
@@ -71,11 +71,11 @@
         width: 250px !important;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: center !important;
       }
       .ComponyLogo {
         display: flex;
-        align-items: center;
+        align-items: center !important;
         justify-content: center;
 
         & p {
@@ -95,11 +95,11 @@
         width: 250px !important;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: center !important;
       }
       .ComponyLogo {
         display: flex;
-        align-items: center;
+        align-items: center !important;
         justify-content: center;
 
         & p {
@@ -119,7 +119,7 @@
       // height: 100%;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: center !important;
       & img {
         width: 20% !important;
         height: 20% !important;
@@ -131,17 +131,20 @@
         .linkActive {
           padding: 0px 4px;
           display: flex !important;
-          justify-content: start;
-          align-items: center;
+          justify-content: flex-start !important;
+          align-items: center !important;
           background-color: $activehrefText;
+          margin-bottom: 5px;
           .linkData {
             display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 10px 10px;
             text-decoration: none;
             color: #fff;
 
             & section {
-              margin-left: 10px;
+              margin-left: 12px;
             }
           }
         }
@@ -150,17 +153,20 @@
         .linkActive {
           padding: 0px 10px;
           display: flex !important;
-          justify-content: start;
-          align-items: center;
+          justify-content: flex-start !important;
+          align-items: center !important;
           background-color: $activehrefText;
+          margin-bottom: 5px;
           .linkData {
             display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 10px 10px;
             text-decoration: none;
             color: #fff;
 
             & section {
-              margin-left: 10px;
+              margin-left: 12px;
             }
           }
         }
@@ -169,36 +175,42 @@
         .linkActive {
           padding: 0px 14px;
           display: flex !important;
-          justify-content: start;
-          align-items: center;
+          justify-content: flex-start !important;
+          align-items: center !important;
           background-color: $activehrefText;
+          margin-bottom: 5px;
           .linkData {
             display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 10px 10px;
             text-decoration: none;
             color: #fff;
 
             & section {
-              margin-left: 10px;
+              margin-left: 12px;
             }
           }
         }
       }
       @include lg-md {
         .linkActive {
-          padding: 0px 14px;
+          padding: 0px 18px;
           display: flex !important;
-          justify-content: start;
-          align-items: center;
+          justify-content: flex-start !important;
+          align-items: center !important;
           background-color: $activehrefText;
+          margin-bottom: 5px;
           .linkData {
             display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 10px 10px;
             text-decoration: none;
             color: #fff;
 
             & section {
-              margin-left: 10px;
+              margin-left: 12px;
             }
           }
         }
@@ -208,17 +220,20 @@
         .linkActive {
           padding: 0px 25px;
           display: flex !important;
-          justify-content: start;
-          align-items: center;
+          justify-content: flex-start !important;
+          align-items: center !important;
           background-color: $activehrefText;
+          margin-bottom: 5px;
           .linkData {
             display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 10px 10px;
             text-decoration: none;
             color: #fff;
 
             & section {
-              margin-left: 10px;
+              margin-left: 12px;
             }
           }
         }
@@ -228,17 +243,19 @@
         .linkActive {
           padding: 0px 25px;
           display: flex !important;
-          justify-content: start;
-          align-items: center;
+          justify-content: flex-start !important;
+          align-items: center !important;
           background-color: $activehrefText;
           .linkData {
             display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 10px 10px;
             text-decoration: none;
             color: #fff;
 
             & section {
-              margin-left: 10px;
+              margin-left: 12px;
             }
           }
         }
@@ -248,17 +265,20 @@
         .linkInActive {
           padding: 0px 4px;
           display: flex !important;
-          justify-content: start;
-          align-items: center;
+          justify-content: flex-start !important;
+          align-items: center !important;
+          margin-bottom: 5px;
 
           .linkData {
             display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 10px 10px;
             text-decoration: none;
             color: #fff;
 
             & section {
-              margin-left: 10px;
+              margin-left: 12px;
             }
           }
         }
@@ -267,17 +287,19 @@
         .linkInActive {
           padding: 0px 10px;
           display: flex !important;
-          justify-content: start;
-          align-items: center;
-
+          justify-content: flex-start !important;
+          align-items: center !important;
+          margin-bottom: 5px;
           .linkData {
             display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 10px 10px;
             text-decoration: none;
             color: #fff;
 
             & section {
-              margin-left: 10px;
+              margin-left: 12px;
             }
           }
         }
@@ -286,17 +308,20 @@
         .linkInActive {
           padding: 0px 14px;
           display: flex !important;
-          justify-content: start;
-          align-items: center;
+          justify-content: flex-start !important;
+          align-items: center !important;
+          margin-bottom: 5px;
 
           .linkData {
             display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 10px 10px;
             text-decoration: none;
             color: #fff;
 
             & section {
-              margin-left: 10px;
+              margin-left: 12px;
             }
           }
         }
@@ -304,19 +329,22 @@
 
       @include lg-md {
         .linkInActive {
-          padding: 0px 14px;
+          padding: 0px 18px;
           display: flex !important;
-          justify-content: start;
-          align-items: center;
+          justify-content: flex-start !important;
+          align-items: center !important;
 
+          margin-bottom: 5px;
           .linkData {
             display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 10px 10px;
             text-decoration: none;
             color: #fff;
 
             & section {
-              margin-left: 10px;
+              margin-left: 12px;
             }
           }
         }
@@ -326,17 +354,19 @@
         .linkInActive {
           padding: 0px 25px;
           display: flex !important;
-          justify-content: start;
-          align-items: center;
-
+          justify-content: flex-start !important;
+          align-items: center !important;
+          margin-bottom: 5px;
           .linkData {
             display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 10px 10px;
             text-decoration: none;
             color: #fff;
 
             & section {
-              margin-left: 10px;
+              margin-left: 12px;
             }
           }
         }
@@ -346,17 +376,19 @@
         .linkInActive {
           padding: 0px 25px;
           display: flex !important;
-          justify-content: start;
-          align-items: center;
-
+          justify-content: flex-start !important;
+          align-items: center !important;
+          margin-bottom: 5px;
           .linkData {
             display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 10px 10px;
             text-decoration: none;
             color: #fff;
 
             & section {
-              margin-left: 10px;
+              margin-left: 12px;
             }
           }
         }

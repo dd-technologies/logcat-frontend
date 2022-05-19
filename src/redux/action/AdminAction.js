@@ -126,7 +126,7 @@ export const adminRegister =
         config
       );
 
-      console.log("Data", data);
+      // console.log("Data", data);
 
       dispatch({
         type: ADMIN_REGISTER_SUCCESS,

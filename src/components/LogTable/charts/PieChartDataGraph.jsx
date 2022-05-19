@@ -15,7 +15,7 @@ export default function PieChartDataGraph() {
   const [lableData, setLableData] = useState([]);
   const getLogCountsReducer = useSelector((state) => state.getLogCountsReducer);
 
-  console.log("getLogCountsReducer", getLogCountsReducer);
+  // console.log("getLogCountsReducer", getLogCountsReducer);
 
   const { data, loading } = getLogCountsReducer;
   const fetchDetails = () => {
@@ -54,12 +54,13 @@ export default function PieChartDataGraph() {
   const options = {
     maintainAspectRatio: false,
     responsive: true,
-    plugins: { 
+    plugins: {
       legend: {
+        position: "right",
         labels: {
-          color: theme == "dark-content" ? `#fff` : `#646464` 
-        }
-      }
+          color: theme == "dark-content" ? `#fff` : `#646464`,
+        },
+      },
     },
     scales: {
       yAxes: [

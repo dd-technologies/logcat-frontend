@@ -98,7 +98,6 @@ export default function ForgetPassword() {
                   <Button
                     style={{
                       width: "30%",
-                      fontWeight: 700,
                     }}
                     className="mt-4"
                     onClick={handleForgetPassword}

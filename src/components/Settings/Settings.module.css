@@ -41,13 +41,6 @@
   padding: 10px;
 }
 
-.chipouter {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: auto auto auto;
-      grid-template-columns: auto auto auto;
-}
-
 .chip {
   background-color: #8e8e8e;
   border-radius: 20px;

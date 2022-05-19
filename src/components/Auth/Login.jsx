@@ -61,11 +61,11 @@ export default function Login() {
       setPasswordError("Please enter your password.");
       return false;
     }
-    if (password !== null) {
-      var pattern = new RegExp(
-        "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
-      );
-    }
+    // if (password !== null) {
+    //   var pattern = new RegExp(
+    //     "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+    //   );
+    // }
     setLoginForm({
       ...loginForm,
       password: password,
@@ -190,7 +190,6 @@ export default function Login() {
                     style={{
                       // textDecoration: "none",
                       color: "#257d7c",
-                      fontWeight: 500,
                     }}
                     className="cpactiveText"
                   >
@@ -209,7 +208,6 @@ export default function Login() {
                     style={{
                       // textDecoration: "none",
                       color: "#257d7c",
-                      fontWeight: 500,
                     }}
                     className="cpactiveText"
                   >
@@ -225,7 +223,6 @@ export default function Login() {
                   <Button
                     style={{
                       width: "30%",
-                      fontWeight: 700,
                     }}
                     type="submit"
                     className="mt-4"

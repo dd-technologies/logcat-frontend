@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { useState } from "react";
 import { Image } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -6,7 +6,7 @@ import logo from "../assets/images/DDTECH.png";
 import Logcat from "../assets/images/lgnewsmall.png";
 import LogcatLarge from "../assets/images/logcarLarge.svg";
 import settigns from "../assets/icons/settings.png";
-import Analytics from "../assets/icons/analytics.png";
+import Analytics from "../assets/icons/analyticIcon.png";
 
 import Log from "../assets/icons/log.png";
 
@@ -14,14 +14,12 @@ import Style from "./Sidebar.module.css";
 import { ThemeContext, sideMenus } from "./ThemeContext";
 import AlarmIcon from "../assets/images/AlarmIcon.png";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 function SideBar(props) {
   const { sidebarDetails } = props;
   let { sideMenu } = React.useContext(ThemeContext);
 
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
-  const { loading, adminInfo } = adminLoginReducer;
+  const { adminInfo } = adminLoginReducer;
 
   const [sideBar, setSideBar] = useState(false);
 
@@ -86,7 +84,8 @@ function SideBar(props) {
                 >
                   <Image
                     src={logURLName.includes("analytics") ? Analytics : Log}
-                    width="25"
+                    width="18"
+                    height="18"
                   />
                   <section className="hidelinkName">
                     {sidebarDetails.link1.linkName}
@@ -117,7 +116,7 @@ function SideBar(props) {
                             : sidebarDetails.link2.link
                         }
                       >
-                        <Image src={settigns} />
+                        <Image src={settigns} width="18" height="18" />
                         <section className="hidelinkName">
                           {sidebarDetails.link2.linkName}
                         </section>
@@ -141,7 +140,7 @@ function SideBar(props) {
                       className={`${Style.linkData} noSideBarLink`}
                       to={sidebarDetails.link3 && sidebarDetails.link3.link}
                     >
-                      <Image src={AlarmIcon} width="25" />
+                      <Image src={AlarmIcon} width="20" height="20" />
                       <section className="hidelinkName">Alerts</section>
                     </Link>
                   </section>

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+
 import {
   faCaretDown,
   faDatabase,
@@ -51,7 +51,7 @@ export default function Alarm(props) {
   );
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { data: projectType } = getModelCodeReducer;
-  console.log("project type", projectType);
+  // console.log("project type", projectType);
 
   const [projectCode, setProjectCode] = useState(
     localStorage.getItem("project_type")
@@ -68,7 +68,7 @@ export default function Alarm(props) {
 
   const products = (data && data.data && data.data.alerts) || [];
 
-  console.log("first21", products);
+  // console.log("first21", products);
   const dispatch = useDispatch();
 
   const queryString = window.location.search;
@@ -175,7 +175,7 @@ export default function Alarm(props) {
         };
       },
       formatter: (cell) => {
-        console.log(`Timme ${cell}`);
+        // console.log(`Timme ${cell}`);
         cell = cell.split("T")[1];
         cell = cell.split(".")[0];
         let seconds = cell.split(":")[2];
@@ -193,13 +193,13 @@ export default function Alarm(props) {
 
   //   FIRST TIME ALARM ACTION DISPATCH
   useEffect(() => {
-    console.log("alarm error alarm useeffect ", projectCode);
+    // console.log("alarm error alarm useeffect ", projectCode);
     dispatch(alarmAction(code, projectCode, diffDate));
   }, [dispatch, projectCode, diffDate]);
 
   // HANDLE PAGE CLICK
   const handlePageClick = (data) => {
-    console.log("alarm error alarm handle page click ", projectCode);
+    // console.log("alarm error alarm handle page click ", projectCode);
     return dispatch(
       alarmAction(code, projectCode, diffDate, data.selected + 1, record)
     );
@@ -367,22 +367,24 @@ export default function Alarm(props) {
                             exportAll: true,
                           }}
                         >
-                          {(props) => (
+                          {(toolkitProps) => (
                             <>
                               {/* {console.log("props searchbar", props.searchProps)} */}
                               <section className={Style.searchBar}>
                                 <SearchBar
                                   placeholder="Search..."
-                                  {...props.searchProps}
+                                  {...toolkitProps.searchProps}
                                 />
-                                {console.log(`csv props ${props.csvProps}`)}
+                                {console.log(
+                                  `csv props ${toolkitProps.csvProps}`
+                                )}
                                 <ExportCSVButton {...props.csvProps}>
                                   <FontAwesomeIcon icon={faDownload} />
                                 </ExportCSVButton>
                               </section>
                               <BootstrapTable
                                 selectRow={selectRow}
-                                {...props.baseProps}
+                                {...toolkitProps.baseProps}
                               />
                             </>
                           )}

@@ -13,7 +13,7 @@ export default function EventByVersion() {
   );
   const { theme } = React.useContext(ThemeContext);
   const { loading: ld, data: alldata } = getCrashAnalyticsDataReducer;
-  console.log("datafield", getCrashAnalyticsDataReducer);
+  // console.log("datafield", getCrashAnalyticsDataReducer);
   let cnt = alldata && alldata.versionResponse ? alldata.versionResponse : null;
   let adds = 0;
   if (cnt) {

@@ -185,7 +185,6 @@ export default function ResetPassword() {
                       color: enableResendButton
                         ? "#257d7c"
                         : "rgb(56, 56, 56, 0.5)",
-                      fontWeight: 500,
                     }}
                     className={enableResendButton ? "cpactiveText" : null}
                     onClick={handleResendButton}

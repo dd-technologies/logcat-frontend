@@ -24,7 +24,7 @@ export default function TrandData() {
         <Row className="p-3">
           <Col xl={12} className={Style.Trand}>
             <h5
-              className="cpactiveText"
+              className="cpactiveText mb-2"
               style={{
                 fontWeight: 700,
 
@@ -34,14 +34,14 @@ export default function TrandData() {
               Trends
             </h5>
           </Col>
-          <Col xl={12} className={Style.TrandsDataTable}>
+          <Col xl={12} className={`${Style.TrandsDataTable} mb-2`}>
             <section className={Style.Outsection}>
               <section>
-                <p className="darkModeColor">Crashes</p>
+                <p className="darkModeColor mb-2">Crashes</p>
                 <h4 style={{ fontWeight: 700 }}>{add}</h4>
               </section>
               <section className="ms-4">
-                <p className="darkModeColor">Users</p>
+                <p className="darkModeColor mb-2">Users</p>
                 {data && data.data && data.data.count ? (
                   <h4 style={{ fontWeight: 700 }}>
                     {data && data.data && data.data.count}

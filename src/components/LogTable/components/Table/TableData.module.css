@@ -29,30 +29,15 @@
 }
 
 .OuterTable .BootstrapTable .chipOuter {
-  width: 50% !important;
-  height: auto !important;
+  width: 40% !important;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: auto auto auto;
-      grid-template-columns: auto auto auto;
-  margin-right: 40px;
-  margin-left: 40px;
-}
-
-@media screen and (min-width: 600px) and (max-width: 1200px) {
-  .OuterTable .BootstrapTable .chipOuter {
-    width: 40% !important;
-    -ms-grid-columns: auto auto;
-        grid-template-columns: auto auto;
-  }
-}
-
-@media screen and (min-width: 1200px) and (max-width: 1600px) {
-  .OuterTable .BootstrapTable .chipOuter {
-    width: 60% !important;
-    -ms-grid-columns: auto auto auto;
-        grid-template-columns: auto auto auto;
-  }
+  height: auto !important;
+  /* define the number of grid columns */
+  -ms-grid-columns: (minmax(125px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .OuterTable .BootstrapTable .chip {
@@ -71,7 +56,7 @@
       -ms-flex-align: center;
           align-items: center;
   cursor: pointer;
-  margin: 5px;
+  margin: 2px;
 }
 
 .OuterTable .BootstrapTable .chip p {
@@ -132,7 +117,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-left: 10px;
+  margin-right: 12px;
 }
 
 .OuterTable .BootstrapTable .TopButton {
@@ -152,7 +137,7 @@
   display: flex;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
-          justify-content: end;
+          justify-content: flex-end;
   border-radius: 50px !important;
   color: #0099a4;
 }

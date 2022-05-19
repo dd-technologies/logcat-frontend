@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDatabase, faWindowClose } from "@fortawesome/free-solid-svg-icons";
@@ -227,145 +227,143 @@ export default function Settings() {
             {ld ? (
               <Spinner />
             ) : (
-              <Row>
-                <Col xl={6} md={6} sm={12} className="mt-4">
-                  <h5 className={`${Style.headingText} cpactiveText`}>
-                    Update project
-                  </h5>
-                  <div className={`${Style.imputFields} mt-4`}>
-                    <input
-                      type="text"
-                      className="form-control LoginForminput "
-                      placeholder="Project Name"
-                      value={nameAndDesc.name}
-                      onChange={(e) =>
-                        setNameAndDesc({ ...nameAndDesc, name: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className={`${Style.imputFields} mt-4`}>
-                    <textarea
-                      placeholder="Project Description"
-                      rows="4"
-                      cols="50"
-                      value={nameAndDesc.desc}
-                      onChange={(e) =>
-                        setNameAndDesc({ ...nameAndDesc, desc: e.target.value })
-                      }
-                    />
-                  </div>
+              <>
+                <Row>
+                  <Col xl={6} md={6} sm={12} className="mt-4">
+                    <h5 className={`${Style.headingText} cpactiveText`}>
+                      Update project
+                    </h5>
+                    <div className={`${Style.imputFields} mt-4`}>
+                      <input
+                        type="text"
+                        className="form-control LoginForminput "
+                        placeholder="Project Name"
+                        value={nameAndDesc.name}
+                        onChange={(e) =>
+                          setNameAndDesc({
+                            ...nameAndDesc,
+                            name: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+                    <div className={`${Style.imputFields} mt-4`}>
+                      <textarea
+                        placeholder="Project Description"
+                        rows="4"
+                        cols="50"
+                        value={nameAndDesc.desc}
+                        onChange={(e) =>
+                          setNameAndDesc({
+                            ...nameAndDesc,
+                            desc: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
 
-                  <Button
-                    style={{ fontWeight: 700 }}
-                    type="submit"
-                    className="mt-4"
-                  >
-                    Save Changes
-                  </Button>
-                </Col>
-                <Col xl={6} md={6} sm={12} className="mt-4">
-                  <h4 className={Style.headingText}>Add project type</h4>
-                  <div className={`${Style.imputFields} mt-4`}>
-                    <input
-                      type="text"
-                      className="form-control LoginForminput "
-                      id="exampleInputEmail1"
-                      placeholder="Project Type"
-                      aria-describedby="emailHelp"
-                      value={chipStateProject.value}
-                      onKeyDown={handleKeyDownPorject}
-                      onChange={handleChangeProject}
-                    />
-                  </div>
+                    <Button type="submit" className="mt-4">
+                      Save Changes
+                    </Button>
+                  </Col>
+                  <Col xl={6} md={6} sm={12} className="mt-4">
+                    <h4 className={Style.headingText}>Add project type</h4>
+                    <div className={`${Style.imputFields} mt-4`}>
+                      <input
+                        type="text"
+                        className="form-control LoginForminput "
+                        id="exampleInputEmail1"
+                        placeholder="Project Type"
+                        aria-describedby="emailHelp"
+                        value={chipStateProject.value}
+                        onKeyDown={handleKeyDownPorject}
+                        onChange={handleChangeProject}
+                      />
+                    </div>
 
-                  {/* CHIP SECTION */}
-                  <section className={Style.chipouter}>
-                    {chipStateProject.items &&
-                      chipStateProject.items.map((items) => {
-                        return (
-                          <>
-                            <section className={Style.chip}>
-                              <p style={{ color: "#fff" }} className="m-2">
-                                {items}
-                              </p>
-                              <FontAwesomeIcon
-                                icon={faWindowClose}
-                                onClick={() => hanldeOndeleteProject(items)}
-                              />
-                            </section>
-                          </>
-                        );
-                      })}
-                  </section>
+                    {/* CHIP SECTION */}
+                    <section className={Style.chipouter}>
+                      {chipStateProject.items &&
+                        chipStateProject.items.map((items) => {
+                          return (
+                            <>
+                              <section className={Style.chip}>
+                                <p style={{ color: "#fff" }} className="m-2">
+                                  {items}
+                                </p>
+                                <FontAwesomeIcon
+                                  icon={faWindowClose}
+                                  onClick={() => hanldeOndeleteProject(items)}
+                                />
+                              </section>
+                            </>
+                          );
+                        })}
+                    </section>
 
-                  <Button
-                    style={{ fontWeight: 700 }}
-                    type="submit"
-                    className="mt-4"
-                  >
-                    Save Changes
-                  </Button>
-                </Col>
-              </Row>
+                    <Button type="submit" className="mt-4">
+                      Save Changes
+                    </Button>
+                  </Col>
+                </Row>
+                <div className={`${Style.hrLine} mt-4`}></div>
+
+                {/* CRASH FORWARDING */}
+
+                <Row className="mt-4">
+                  <Col xl={6} md={6} sm={12}>
+                    <h4 className={Style.headingText}>Crash forwarding</h4>
+                    <div className={`${Style.imputFields} mt-4`}>
+                      <input
+                        type="email"
+                        className="form-control LoginForminput "
+                        id="exampleInputEmail1"
+                        placeholder="Enter Email"
+                        value={emailstate.email}
+                        aria-describedby="emailHelp"
+                        onKeyDown={(e) => {
+                          handleKeyDownEmail(e);
+                        }}
+                        onChange={(e) => setEmail({ email: e.target.value })}
+                      />
+                    </div>
+                    {emailError ? (
+                      <small style={{ color: "red" }}>{emailError}</small>
+                    ) : (
+                      ""
+                    )}
+                    {/* CHIP SECTION */}
+                    <section className={Style.chipouter}>
+                      {emailList.length > 0 &&
+                        emailList.map((items) => {
+                          return (
+                            <>
+                              <section className={Style.chip}>
+                                <p style={{ color: "#fff" }} className="m-2">
+                                  {items}
+                                </p>
+                                <FontAwesomeIcon
+                                  icon={faWindowClose}
+                                  onClick={() => hanldeOndeleteEmail(items)}
+                                />
+                              </section>
+                            </>
+                          );
+                        })}
+                    </section>
+
+                    <Button
+                      className="mt-4"
+                      onClick={(e) => {
+                        handleSaveEmail(e);
+                      }}
+                    >
+                      Save Emails
+                    </Button>
+                  </Col>
+                </Row>
+              </>
             )}
-
-            <div className={`${Style.hrLine} mt-4`}></div>
-
-            {/* CRASH FORWARDING */}
-
-            <Row className="mt-4">
-              <Col xl={6} md={6} sm={12}>
-                <h4 className={Style.headingText}>Crash forwarding</h4>
-                <div className={`${Style.imputFields} mt-4`}>
-                  <input
-                    type="email"
-                    className="form-control LoginForminput "
-                    id="exampleInputEmail1"
-                    placeholder="Enter Email"
-                    value={emailstate.email}
-                    aria-describedby="emailHelp"
-                    onKeyDown={(e) => {
-                      handleKeyDownEmail(e);
-                    }}
-                    onChange={(e) => setEmail({ email: e.target.value })}
-                  />
-                </div>
-                {emailError ? (
-                  <small style={{ color: "red" }}>{emailError}</small>
-                ) : (
-                  ""
-                )}
-                {/* CHIP SECTION */}
-                <section className={Style.chipouter}>
-                  {emailList.length > 0 &&
-                    emailList.map((items) => {
-                      return (
-                        <>
-                          <section className={Style.chip}>
-                            <p style={{ color: "#fff" }} className="m-2">
-                              {items}
-                            </p>
-                            <FontAwesomeIcon
-                              icon={faWindowClose}
-                              onClick={() => hanldeOndeleteEmail(items)}
-                            />
-                          </section>
-                        </>
-                      );
-                    })}
-                </section>
-
-                <Button
-                  style={{ fontWeight: 700 }}
-                  className="mt-4"
-                  onClick={(e) => {
-                    handleSaveEmail(e);
-                  }}
-                >
-                  Save Emails
-                </Button>
-              </Col>
-            </Row>
           </Container>
         </Col>
       </Row>

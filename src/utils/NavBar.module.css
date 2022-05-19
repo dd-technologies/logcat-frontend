@@ -5,7 +5,7 @@
 }
 
 .NavbarOuter .Navbar {
-  background-color: #0099a4;
+  background-color: #21969d;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -53,6 +53,7 @@
   }
   .NavbarOuter .Navbar .detailSection .AvatarSection {
     background-color: #fff;
+    color: #000;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -85,6 +86,7 @@
   }
   .NavbarOuter .Navbar .detailSection .AvatarSection {
     background-color: #fff;
+    color: #000;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -116,6 +118,7 @@
   }
   .NavbarOuter .Navbar .detailSection .AvatarSection {
     background-color: #fff;
+    color: #000;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -148,6 +151,7 @@
   }
   .NavbarOuter .Navbar .detailSection .AvatarSection {
     background-color: #fff;
+    color: #000;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -180,6 +184,7 @@
   }
   .NavbarOuter .Navbar .detailSection .AvatarSection {
     background-color: #fff;
+    color: #000;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -213,6 +218,7 @@
   }
   .NavbarOuter .Navbar .detailSection .AvatarSection {
     background-color: #fff;
+    color: #000;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

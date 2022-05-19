@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
 import CustomeDropDown from "../Container/DropDown";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -8,11 +6,12 @@ import { adminLogout } from "../redux/action/AdminAction";
 import Style from "./NavBar.module.css";
 import DarkLightMood from "./DarkLightMood";
 import { ThemeContext } from "./ThemeContext";
+import Bell from "../assets/images/BellIcon.png";
 
 export function Navbar(props) {
   const { navdetails } = props;
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
-  let { sideMenu } = React.useContext(ThemeContext);
+  let { theme, sideMenu } = React.useContext(ThemeContext);
   // console.log("sidemene", sideMenu);
   const { adminInfo } = adminLoginReducer;
 
@@ -36,6 +35,13 @@ export function Navbar(props) {
     setUserInfo(!userInfo);
   };
 
+  // console.log(
+  //   "first",
+  //   adminInfo &&
+  //     adminInfo.data &&
+  //     adminInfo.data.name.split(" ")[0].split("")[0]
+  // );
+
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
       // If the menu is open and the clicked target is not within the menu,
@@ -57,10 +63,10 @@ export function Navbar(props) {
     <>
       <section className={`${Style.NavbarOuter}`}>
         <nav className={Style.Navbar}>
-          <h3 style={{ color: "#fff", fontWeight: "500" }}>
+          <h5 style={{ color: "#fff" }}>
             {navdetails.dashName.charAt(0).toUpperCase() +
               navdetails.dashName.slice(1)}
-          </h3>
+          </h5>
 
           <section
             className={
@@ -69,9 +75,14 @@ export function Navbar(props) {
           >
             {/* light and dark mood */}
             <DarkLightMood />
-            <section>
-              <FontAwesomeIcon icon={faBell} size="2x" color="#fff" />
-            </section>
+            <img
+              style={{
+                width: "20%",
+                filter: "invert(1)",
+              }}
+              src={Bell}
+              alt="bell-icon"
+            />
 
             <section
               className={
@@ -83,9 +94,7 @@ export function Navbar(props) {
             >
               {adminInfo &&
                 adminInfo.data &&
-                adminInfo.data.name
-                  .split(" ")
-                  .map((name) => name[0][0].toUpperCase())}
+                adminInfo.data.name.split(" ")[0].split("")[0]}
             </section>
           </section>
         </nav>
@@ -107,9 +116,7 @@ export function Navbar(props) {
               ) : (
                 adminInfo &&
                 adminInfo.data &&
-                adminInfo.data.name
-                  .split(" ")
-                  .map((name) => name[0][0].toUpperCase())
+                adminInfo.data.name.split(" ")[0].split("")[0]
               )}
             </section>
 

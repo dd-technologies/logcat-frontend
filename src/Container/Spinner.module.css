@@ -1,6 +1,11 @@
 .loader {
   width: 100px;
   height: 100px;
+  -webkit-filter: brightness(1.75);
+          filter: brightness(1.75);
+  image-rendering: optimizeQuality;
+  -webkit-filter: saturate(1);
+          filter: saturate(1);
 }
 
 /* Safari */

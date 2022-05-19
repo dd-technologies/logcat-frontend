@@ -20,7 +20,7 @@ export default function CarshFreeStaticsGraph() {
 
   // console.log("getCrashFreeUsersReducer", getCrashFreeUsersReducer);
   const { loading, data } = getCrashFreeUsersReducer;
-  console.log("data1234", data);
+  // console.log("data1234", data);
   let dt = data && data.response;
   const { theme } = React.useContext(ThemeContext);
 

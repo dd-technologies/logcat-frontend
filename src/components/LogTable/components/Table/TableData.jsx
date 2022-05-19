@@ -21,6 +21,7 @@ import toast, { Toaster } from "react-hot-toast";
 import TableCard from "../../../../Container/TableCard";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../../../utils/ThemeContext";
+import "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css";
 
 const { SearchBar } = Search;
 const { ExportCSVButton } = CSVExport;
@@ -150,6 +151,8 @@ function TableData(props) {
 
   const selectRow = {
     mode: "checkbox",
+    clickToSelect: true,
+
     style: { backgroundColor: "#0099a4" },
   };
 
@@ -325,25 +328,15 @@ function TableData(props) {
       return (
         <span>
           {cell === "error" ? (
-            <p style={{ color: "red" }} className="darkModeColor">
-              {cell.toUpperCase()}
-            </p>
+            <p style={{ color: "red" }}>{cell.toUpperCase()}</p>
           ) : cell === "warn" ? (
-            <p style={{ color: "violet" }} className="darkModeColor">
-              {cell.toUpperCase()}
-            </p>
+            <p style={{ color: "violet" }}>{cell.toUpperCase()}</p>
           ) : cell === "info" ? (
-            <p style={{ color: "blue" }} className="darkModeColor">
-              {cell.toUpperCase()}
-            </p>
+            <p style={{ color: "blue" }}>{cell.toUpperCase()}</p>
           ) : cell === "verbose" ? (
-            <p style={{ color: "green" }} className="darkModeColor">
-              {cell.toUpperCase()}
-            </p>
+            <p style={{ color: "green" }}>{cell.toUpperCase()}</p>
           ) : (
-            <p style={{ color: "orange" }} className="darkModeColor">
-              {cell.toUpperCase()}
-            </p>
+            <p style={{ color: "orange" }}>{cell.toUpperCase()}</p>
           )}
         </span>
       );
@@ -352,14 +345,16 @@ function TableData(props) {
     return <span>$ {cell} NTD</span>;
   }
 
-  const tableRowEvents = {
-    onClick: (e, row, rowIndex, col) => {
-      let version = row.version ? row.version : null;
-      navigate(
-        `/analytics?code=${props.code}&name=${props.projectName}&col=${row.log.message}&rowlogGeneratedDate=${row.log.date}&version=${version}&osArchitecture=${row.device.os.name}&modelName=${row.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`
-      );
-    },
-  };
+  // const tableRowEvents = {
+  //   onClick: (e, row, rowIndex, col) => {
+  //     console.log("col", rowIndex);
+  //     let version = row.version ? row.version : null;
+
+  //     navigate(
+  //       `/analytics?code=${props.code}&name=${props.projectName}&col=${row.log.message}&rowlogGeneratedDate=${row.log.date}&version=${version}&osArchitecture=${row.device.os.name}&modelName=${row.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`
+  //     );
+  //   },
+  // };
 
   const columns = [
     {
@@ -372,6 +367,14 @@ function TableData(props) {
           color: "#fff",
           width: "100%",
         };
+      },
+      events: {
+        onClick: (e, column, columnIndex, row, rowIndex) => {
+          let version = row.version ? row.version : null;
+          navigate(
+            `/analytics?code=${props.code}&name=${props.projectName}&col=${row.log.message}&rowlogGeneratedDate=${row.log.date}&version=${version}&osArchitecture=${row.device.os.name}&modelName=${row.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`
+          );
+        },
       },
       formatter: (col, row, rowIndex) => {
         var title;
@@ -421,6 +424,14 @@ function TableData(props) {
           width: "40%",
         };
       },
+      events: {
+        onClick: (e, column, columnIndex, row, rowIndex) => {
+          let version = row.version ? row.version : null;
+          navigate(
+            `/analytics?code=${props.code}&name=${props.projectName}&col=${row.log.message}&rowlogGeneratedDate=${row.log.date}&version=${version}&osArchitecture=${row.device.os.name}&modelName=${row.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`
+          );
+        },
+      },
     },
     {
       dataField: "log.type",
@@ -431,6 +442,14 @@ function TableData(props) {
           color: "#fff",
           width: "40%",
         };
+      },
+      events: {
+        onClick: (e, column, columnIndex, row, rowIndex) => {
+          let version = row.version ? row.version : null;
+          navigate(
+            `/analytics?code=${props.code}&name=${props.projectName}&col=${row.log.message}&rowlogGeneratedDate=${row.log.date}&version=${version}&osArchitecture=${row.device.os.name}&modelName=${row.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`
+          );
+        },
       },
       formatter: errorFormatter,
       sort: true,
@@ -444,6 +463,14 @@ function TableData(props) {
           color: "#fff",
           width: "40%",
         };
+      },
+      events: {
+        onClick: (e, column, columnIndex, row, rowIndex) => {
+          let version = row.version ? row.version : null;
+          navigate(
+            `/analytics?code=${props.code}&name=${props.projectName}&col=${row.log.message}&rowlogGeneratedDate=${row.log.date}&version=${version}&osArchitecture=${row.device.os.name}&modelName=${row.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`
+          );
+        },
       },
 
       formatter: (cell) => {
@@ -465,6 +492,14 @@ function TableData(props) {
           color: "#fff",
           width: "40%",
         };
+      },
+      events: {
+        onClick: (e, column, columnIndex, row, rowIndex) => {
+          let version = row.version ? row.version : null;
+          navigate(
+            `/analytics?code=${props.code}&name=${props.projectName}&col=${row.log.message}&rowlogGeneratedDate=${row.log.date}&version=${version}&osArchitecture=${row.device.os.name}&modelName=${row.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`
+          );
+        },
       },
       formatter: (cell) => {
         cell = cell.split("T")[1];
@@ -655,16 +690,17 @@ function TableData(props) {
               columns={columns}
               search
               exportCSV={{
+                exportAll: false,
                 fileName: `${code}_${filedate.toISOString()}.csv`,
                 onlyExportSelection: true,
-                exportAll: true,
               }}
-            >
-              {(props) => (
+              >
+              {(toolkitProps) => (
                 <>
+                {/* {console.log("first", toolkitProps.csvProps)} */}
                   <div className={`${Style.BootstrapTable} TBSED`}>
                     <section className={Style.searchbar}>
-                      <SearchBar {...props.searchProps} />
+                      <SearchBar {...toolkitProps.searchProps} />
                     </section>
                     {/* Chips section */}
                     <section className={Style.chipOuter}>
@@ -685,9 +721,12 @@ function TableData(props) {
                       >
                         <FontAwesomeIcon icon={faFilter} />
                       </section>
-                      <ExportCSVButton {...props.csvProps}>
+                      {/* {console.log("props.csvProps", props)} */}
+
+                      <ExportCSVButton {...toolkitProps.csvProps}>
                         <FontAwesomeIcon icon={faDownload} />
                       </ExportCSVButton>
+
                       <section>
                         {showTableField ? (
                           <CustomCard
@@ -984,9 +1023,8 @@ function TableData(props) {
                   </div>
 
                   <BootstrapTable
-                    {...props.baseProps}
+                    {...toolkitProps.baseProps}
                     selectRow={selectRow}
-                    rowEvents={tableRowEvents}
                   />
                 </>
               )}
@@ -1017,7 +1055,9 @@ function TableData(props) {
               nextLabel="Next >"
               onPageChange={handlePageClick}
               pageRangeDisplayed={4}
-              pageCount={data && data.data && data.data.count / record}
+              pageCount={Math.ceil(
+                data && data.data && data.data.count / record
+              )}
               renderOnZeroPageCount={null}
               containerClassName={"pagination"}
               pageClassName={"page-item"}

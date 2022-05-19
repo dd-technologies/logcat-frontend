@@ -2,11 +2,11 @@
 
 // dark mode css
 .dark-content {
-  background: #1a2035 !important;
+  background: #212121 !important;
   overflow-x: hidden !important;
 
   .card {
-    background-color: #1a2035;
+    background-color: #262626;
     box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.45) !important;
     border-radius: 0px;
   }
@@ -289,6 +289,7 @@
     width: 120px;
     .AvatarSectionSidbar {
       background-color: #fff !important;
+      color: #000;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -308,6 +309,7 @@
     width: 130px;
     .AvatarSectionSidbar {
       background-color: #fff !important;
+      color: #000;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -327,6 +329,7 @@
     width: 120px;
     .AvatarSectionSidbar {
       background-color: #fff !important;
+      color: #000;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -346,6 +349,7 @@
     width: 130px;
     .AvatarSectionSidbar {
       background-color: #fff !important;
+      color: #000;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -365,6 +369,7 @@
     width: 140px;
     .AvatarSectionSidbar {
       background-color: #fff !important;
+      color: #000;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -384,6 +389,7 @@
     width: 150px;
     .AvatarSectionSidbar {
       background-color: #fff !important;
+      color: #000;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -394,3 +400,5 @@
     }
   }
 }
+
+

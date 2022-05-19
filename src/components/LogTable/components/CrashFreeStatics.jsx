@@ -5,7 +5,6 @@ import CarshFreeStaticsGraph from "../charts/CarshFreeStaticsGraph";
 import CustomCard from "../../../Container/CustomCard";
 import { useSelector } from "react-redux";
 export default function CrashFreeStatics() {
-  
   const getCrashFreeUsersReducer = useSelector(
     (state) => state.getCrashFreeUsersReducer
   );
@@ -15,9 +14,9 @@ export default function CrashFreeStatics() {
     <>
       <CustomCard height="300px">
         <Row className="p-3">
-          <Col xl={12} className={Style.Statics}>
+          <Col xl={12} className={`${Style.Statics} mb-2`}>
             <h5
-              className="cpactiveText"
+              className="cpactiveText mb-2"
               style={{
                 fontWeight: 700,
                 letterSpacing: "0.5px",
@@ -25,7 +24,7 @@ export default function CrashFreeStatics() {
             >
               Crash free Users Statistics
             </h5>
-            <p className="darkModeColor">Crash free users</p>
+            <p className="darkModeColor mb-2">Crash free users</p>
             <h4 style={{ fontWeight: 700 }}>{data && data.count}</h4>
           </Col>
           <Col xl={12}>

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Style from "./CreateProject.module.css";
 import CustomCard from "../../Container/CustomCard";
-import { Button, Row, Col, Container } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import ProjectCard from "./ProjectCard";
 import {
@@ -16,10 +16,14 @@ import AddProjectModal from "./components/AddProjectModal";
 import Spinner from "../../Container/Spinner";
 import { adminLogout } from "../../redux/action/AdminAction";
 import "../../utils/Theme.css";
+import CustomeDropDown from "../../Container/DropDown";
+import { ThemeContext } from "../../utils/ThemeContext";
 
 function CreateProject() {
   const [modalShow, setModalShow] = useState(false);
   const [darkMode, setDarkMode] = React.useState(true);
+  const [userInfo, setUserInfo] = useState(false);
+  let { sideMenu } = React.useContext(ThemeContext);
   const Dispatch = useDispatch();
   const getAllProjectReducer = useSelector(
     (state) => state.getAllProjectReducer
@@ -29,6 +33,10 @@ function CreateProject() {
   // GETTING USER NAME
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { adminInfo } = adminLoginReducer;
+
+  const [avatar, setAvatar] = useState(
+    adminInfo && adminInfo.image && adminInfo.image
+  );
 
   const createNewProjectReducer = useSelector(
     (state) => state.createNewProjectReducer
@@ -62,6 +70,10 @@ function CreateProject() {
     setDarkMode(!darkMode);
   }, []);
 
+  const showUserInfoFun = () => {
+    setUserInfo(!userInfo);
+  };
+
   return (
     <>
       {/*Logout functionality */}
@@ -75,25 +87,75 @@ function CreateProject() {
                   Your Projects
                 </h5>
               </Col>
-              <Col xl={6} md={6} sm={12} className="mt-2">
+              <Col
+                xl={6}
+                md={6}
+                sm={12}
+                className="mt-2 d-flex justify-content-end"
+              >
                 <section
-                  style={{
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    alignItems: "center",
-                  }}
+                  className={`${Style.AvatarSection}`}
+                  onClick={showUserInfoFun}
                 >
-                  <p className="mx-2 darkModeColor" style={{ color: "#fff" }}>
-                    {adminInfo.data.name}
-                  </p>
-                  <Button
-                    onClick={(e) => {
-                      handlelogout(e);
-                    }}
-                  >
-                    Logout
-                  </Button>
+                  {adminInfo &&
+                    adminInfo.data &&
+                    adminInfo.data.name.split(" ")[0].split("")[0]}
                 </section>
+                {userInfo && (
+                  <CustomeDropDown
+                    position="fixed"
+                    right="0%"
+                    top="14%"
+                    width="400px"
+                    zIndex="10"
+                    marginRight="10px"
+                  >
+                    <section
+                      className={Style.AvatarSectionDropDown}
+                      onClick={showUserInfoFun}
+                    >
+                      {avatar ? (
+                        <img src={URL.createObjectURL(avatar)} alt="Avatar" />
+                      ) : (
+                        adminInfo &&
+                        adminInfo.data &&
+                        adminInfo.data.name.split(" ")[0].split("")[0]
+                      )}
+                    </section>
+
+                    <p
+                      style={{
+                        fontSize: "1.3rem",
+                      }}
+                      className="darkModeColor"
+                    >
+                      {adminInfo && adminInfo.data && adminInfo.data.name}
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "1rem",
+                      }}
+                      className="darkModeColor"
+                    >
+                      {adminInfo && adminInfo.data && adminInfo.data.email}
+                    </p>
+
+                    <section
+                      style={{ border: "1px solid #fff", marginTop: "5px" }}
+                      className={`${Style.logoutAccount} darkModeColor`}
+                      onClick={(e) => {
+                        handlelogout(e);
+                      }}
+                    >
+                      Logout
+                    </section>
+
+                    <section className={Style.privacyPolicy}>
+                      <p className="darkModeColor">Privacy policy</p>
+                      <p className="darkModeColor">Terms of service</p>
+                    </section>
+                  </CustomeDropDown>
+                )}
               </Col>
             </Row>
             <Row className="rowSection">

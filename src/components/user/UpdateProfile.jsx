@@ -181,7 +181,7 @@ export default function UpdateProfile() {
                           .map((name) => name[0][0].toUpperCase())
                       )}
                     </section>
-                    <section className={Style.editImage}>
+                    {/* <section className={Style.editImage}>
                       <label for="image_upload">
                         <FontAwesomeIcon icon={faUpload} size="lg" />
                       </label>
@@ -192,7 +192,7 @@ export default function UpdateProfile() {
                         style={{ display: "none", visibility: "none" }}
                         onChange={(e) => handleUpload(e)}
                       />
-                    </section>
+                    </section> */}
                     {/*name field  */}
                     <section className="mt-4">
                       <h5 className="darkModeColor">Name</h5>
@@ -212,6 +212,7 @@ export default function UpdateProfile() {
                           onChange={(e) => {
                             setname(e.target.value);
                           }}
+                          disabled="disabled"
                         />
                       </div>
                     </section>
@@ -232,7 +233,7 @@ export default function UpdateProfile() {
                           id="exampleInputEmail1"
                           placeholder="Enter your email"
                           aria-describedby="emailHelp"
-                          disabled
+                          disabled="disabled"
                         />
                       </div>
                     </section>

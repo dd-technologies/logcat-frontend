@@ -4,6 +4,11 @@
   // border-top: 8px solid #257d7c;
   width: 100px;
   height: 100px;
+
+  filter: brightness(1.75);
+  image-rendering:optimizeQuality;
+  filter: saturate(1);
+
   // -webkit-animation: spin 2s linear infinite; /* Safari */
   // animation: spin 2s linear infinite;
 }
