@@ -28,10 +28,11 @@ export default function EventByVersion() {
         <Row className="p-4">
           <Col xl={4} md={4} className={Style.EventByVersion}>
             <h6
-              className="cpactiveText"
+              className="cpactiveText mb-1"
               style={{
                 fontWeight: "600",
                 letterSpacing: "0.5px",
+                color: "#0099a4",
               }}
             >
               Total events by version
@@ -42,6 +43,7 @@ export default function EventByVersion() {
               alldata.versionResponse &&
               alldata.versionResponse.length == 0 && (
                 <p
+                  className="mb-1"
                   style={{
                     width: "100%",
                     height: "200px",
@@ -57,8 +59,8 @@ export default function EventByVersion() {
             {!ld &&
               cnt.map((e) => (
                 <>
-                  <p className="darkModeColor">{e._id ? e._id : null}</p>
-                  <h5 className="darkModeColor">{e.data}</h5>
+                  <p className="darkModeColor mb-1">{e._id ? e._id : null}</p>
+                  <h5 className="darkModeColor mb-1">{e.data}</h5>
                 </>
               ))}
 

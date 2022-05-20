@@ -82,7 +82,7 @@ export default function PieChartDataGraph() {
 
   return (
     <>
-      <div style={{ height: "240px" }}>
+      <div style={{ height: "200px", marginTop: "25px" }}>
         {data && data.data && data.data.typeWiseCount == 0 && (
           <p
             style={{

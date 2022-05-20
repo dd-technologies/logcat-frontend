@@ -203,6 +203,7 @@ export default function UpdateProfile() {
                           <FontAwesomeIcon icon={faUser} size="lg" />
                         </span>
                         <input
+                          style={{ color: "#212529", opacity: ".7" }}
                           type="email"
                           value={name}
                           className="form-control LoginForminput"
@@ -227,6 +228,7 @@ export default function UpdateProfile() {
                           <FontAwesomeIcon icon={faEnvelope} size="lg" />
                         </span>
                         <input
+                          style={{ color: "#212529", opacity: ".7" }}
                           type="email"
                           value={email}
                           className="form-control LoginForminput"

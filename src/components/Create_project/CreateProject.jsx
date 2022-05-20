@@ -82,8 +82,13 @@ function CreateProject() {
           <section className={Style.backgroundSection}></section>
           <Container className={Style.MainContantainer}>
             <Row>
-              <Col xl={6} md={6} sm={12} className="mt-2">
-                <h5 className="darkModeColor" style={{ color: "#fff" }}>
+              <Col xl={6} md={6} sm={12} className="mt-2 d-flex align-self-center">
+                <h5
+                  className="darkModeColor"
+                  style={{
+                    color: "#fff",
+                  }}
+                >
                   Your Projects
                 </h5>
               </Col>
