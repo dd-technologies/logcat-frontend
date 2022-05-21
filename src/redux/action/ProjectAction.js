@@ -43,7 +43,9 @@ export const getAllProject = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_PROJECT_REQUEST_FAIL,
-      payload: error,
+      payload:  error.response && error.response.data.message
+      ? error.response.data.message
+      : error.message,
     });
   }
 };
@@ -128,7 +130,9 @@ export const getProjectByCode =
     } catch (error) {
       dispatch({
         type: GET_ALL_LOG_BY_CODE_FAIL,
-        payload: error,
+        payload: error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,
       });
     }
   };

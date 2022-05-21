@@ -38,6 +38,9 @@ export default function Analytics() {
   const projectName = urlParams.get("name");
   const projectCodeAnalytics = urlParams.get("projectCodeAnalytics");
   let stackArray = urlParams.get("col") || "";
+
+  console.log("stack array", stackArray);
+
   let stackArrayNew = stackArray.split("at ") && stackArray.split(")");
 
   const sidebarDetails = {
@@ -98,6 +101,7 @@ export default function Analytics() {
           setSubTitle(causedError);
           subTitleVal = causedError;
         }
+        console.log("values", titleVal, subTitleVal);
       }
 
       if (!stackArray.includes("Caused by:")) {
@@ -108,6 +112,8 @@ export default function Analytics() {
         titleVal = noCousedError;
         setSubTitle(mapArrayKey[1].concat(")"));
         subTitleVal = mapArrayKey[1].concat(")");
+
+        console.log("values", titleVal, subTitleVal);
       }
     }
   };
