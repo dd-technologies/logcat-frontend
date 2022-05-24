@@ -12,7 +12,6 @@ table thead {
 
 table tr {
   border-bottom: 1px solid rgba(90, 90, 90, 0.234) !important;
-  cursor: pointer !important;
 }
 
 tspan {

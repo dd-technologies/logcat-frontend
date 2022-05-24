@@ -40,6 +40,24 @@
   padding: 0px !important;
 }
 
+.filterGraphFirstSctionTop {
+  cursor: pointer;
+  background-color: $filterButtonBackgroundColor;
+  padding: 10px;
+  border-radius: $buttonBorderRaduous;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: auto !important;
+  margin-right: 20px;
+  & svg {
+    &:hover {
+      color: $backgroundColor;
+    }
+  }
+}
+
 .filterGraphFirstSction {
   cursor: pointer;
   background-color: $filterButtonBackgroundColor;

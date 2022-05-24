@@ -38,6 +38,7 @@ export default function Alarm(props) {
   const [diffDate, setDiffDate] = useState(
     localStorage.getItem("diffDate") || 90
   );
+  const [disableButton, setDisableButton] = useState(false);
 
   let filedate = new Date();
   const [dateDropDown, setDateDropDown] = useState(false);
@@ -60,6 +61,8 @@ export default function Alarm(props) {
           projectType.modelList[0] &&
           projectType.modelList[0].typeCode
   );
+
+  const bootstrapTableRef = useRef();
 
   const alarmReducer = useSelector((state) => state.alarmReducer);
   // console.log("first", alarmReducer);
@@ -87,8 +90,46 @@ export default function Alarm(props) {
     }
   };
 
+  let arrayOfObjectIndex = [];
+
   const selectRow = {
     mode: "checkbox",
+    clickToSelect: true,
+    onSelect: (row, isSelect, rowIndex, e) => {
+      var objOfRowIndex = { [rowIndex]: isSelect };
+
+      arrayOfObjectIndex.push(objOfRowIndex);
+
+      // looping object of an array
+      for (var key in arrayOfObjectIndex) {
+        var obj = arrayOfObjectIndex[key];
+        for (var prop in obj) {
+          if (obj.hasOwnProperty(prop)) {
+            // console.log("first obj", prop + " = " + !obj[prop]);
+            if (!obj[prop]) {
+              arrayOfObjectIndex.pop();
+            }
+          }
+        }
+      }
+
+      // console.log("first", arrayOfObjectIndex);
+
+      if (
+        bootstrapTableRef &&
+        bootstrapTableRef.current &&
+        bootstrapTableRef.current.selectionContext &&
+        !bootstrapTableRef.current.selectionContext.selected
+      ) {
+        setDisableButton(true);
+      } else {
+        setDisableButton(false);
+      }
+    },
+    onSelectAll: (row, isSelect, rowIndex, e) => {
+      if (isSelect.length > 0) setDisableButton(false);
+      if (!row) setDisableButton(true);
+    },
     style: { backgroundColor: "#0099a4" },
   };
 
@@ -373,14 +414,18 @@ export default function Alarm(props) {
                                   placeholder="Search..."
                                   {...toolkitProps.searchProps}
                                 />
-                                {console.log(
+                                {/* {console.log(
                                   `csv props ${toolkitProps.csvProps}`
-                                )}
-                                <ExportCSVButton {...toolkitProps.csvProps}>
+                                )} */}
+                                <ExportCSVButton
+                                  {...toolkitProps.csvProps}
+                                  disabled={!disableButton ? "disabled" : ""}
+                                >
                                   <FontAwesomeIcon icon={faDownload} />
                                 </ExportCSVButton>
                               </section>
                               <BootstrapTable
+                                ref={bootstrapTableRef}
                                 selectRow={selectRow}
                                 {...toolkitProps.baseProps}
                               />

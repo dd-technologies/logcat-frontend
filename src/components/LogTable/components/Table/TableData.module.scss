@@ -81,24 +81,12 @@
       justify-content: space-between;
       padding-bottom: 20px;
     }
-    .filterGraphFirstSction {
-      color: $activehrefText !important;
-      height: 35px !important;
-      cursor: pointer;
-      padding: 10px;
-      border-radius: $buttonBorderRaduous;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-right: 12px;
-    }
-
-    .TopButton {
-      display: flex !important;
-      justify-content: space-between;
-      padding-left: 10px !important;
-      padding-right: 10px !important;
-    }
+  }
+  .TopButton {
+    display: flex !important;
+    justify-content: space-between;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
   }
 }
 
@@ -185,6 +173,7 @@
 // react bootstrap table css
 .expandedRow {
   // height: 20px !important;
+  cursor: pointer;
   @media screen and (min-width: 600px) and (max-width: 1200px) {
     width: 150px !important;
     overflow: hidden !important;

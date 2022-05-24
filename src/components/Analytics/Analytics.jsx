@@ -39,7 +39,7 @@ export default function Analytics() {
   const projectCodeAnalytics = urlParams.get("projectCodeAnalytics");
   let stackArray = urlParams.get("col") || "";
 
-  console.log("stack array", stackArray);
+  // console.log("stack array", stackArray);
 
   let stackArrayNew = stackArray.split("at ") && stackArray.split(")");
 
@@ -101,7 +101,7 @@ export default function Analytics() {
           setSubTitle(causedError);
           subTitleVal = causedError;
         }
-        console.log("values", titleVal, subTitleVal);
+        // console.log("values", titleVal, subTitleVal);
       }
 
       if (!stackArray.includes("Caused by:")) {
@@ -113,7 +113,7 @@ export default function Analytics() {
         setSubTitle(mapArrayKey[1].concat(")"));
         subTitleVal = mapArrayKey[1].concat(")");
 
-        console.log("values", titleVal, subTitleVal);
+        // console.log("values", titleVal, subTitleVal);
       }
     }
   };
@@ -132,10 +132,11 @@ export default function Analytics() {
   const dispatch = useDispatch();
 
   const dispatchmultiple = () => {
+    console.log("subTitleVal", subTitleVal)
     dispatch(
       getCrashFreeUsersData(
         code,
-        subTitleVal ? subTitleVal : titleVal,
+        subTitleVal ? subTitleVal.replace(" at ", "") : titleVal,
         projectCodeAnalytics
       )
     );
@@ -143,7 +144,7 @@ export default function Analytics() {
     dispatch(
       getCrashAnalyticsData(
         code,
-        subTitleVal ? subTitleVal : titleVal,
+        subTitleVal ? subTitleVal.replace(" at ", "") : titleVal,
         projectCodeAnalytics
       )
     );
@@ -152,7 +153,7 @@ export default function Analytics() {
         code,
         startDate: date.start,
         endDate: date.end,
-        logMsg: subTitleVal ? subTitleVal : titleVal,
+        logMsg: subTitleVal ? subTitleVal.replace(" at ", "") : titleVal,
         code1: projectCodeAnalytics,
       })
     );

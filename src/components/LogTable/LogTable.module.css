@@ -55,6 +55,29 @@
   padding: 0px !important;
 }
 
+.filterGraphFirstSctionTop {
+  cursor: pointer;
+  background-color: #e2e2e2;
+  padding: 10px;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 40px;
+  height: auto !important;
+  margin-right: 20px;
+}
+
+.filterGraphFirstSctionTop svg:hover {
+  color: #0099a4;
+}
+
 .filterGraphFirstSction {
   cursor: pointer;
   background-color: #e2e2e2;

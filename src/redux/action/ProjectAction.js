@@ -41,11 +41,10 @@ export const getAllProject = () => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
+    console.log("error", error);
     dispatch({
       type: GET_PROJECT_REQUEST_FAIL,
-      payload:  error.response && error.response.data.message
-      ? error.response.data.message
-      : error.message,
+      payload: error && error.message,
     });
   }
 };
@@ -101,6 +100,7 @@ export const getProjectByCode =
       dispatch({
         type: GET_ALL_LOG_BY_CODE_REQUEST,
       });
+      console.log("filter", filters);
       const token = localStorage.getItem("ddAdminToken");
       const config = {
         headers: {
@@ -115,6 +115,7 @@ export const getProjectByCode =
         for (const [key, value] of Object.entries(filters)) {
           if (value) {
             logString += `${key}-`;
+            console.log("logstring", logString);
           }
         }
       }
@@ -130,9 +131,10 @@ export const getProjectByCode =
     } catch (error) {
       dispatch({
         type: GET_ALL_LOG_BY_CODE_FAIL,
-        payload: error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
       });
     }
   };

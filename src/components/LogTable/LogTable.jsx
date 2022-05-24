@@ -5,6 +5,7 @@ import {
   faCaretDown,
   faClock,
   faDatabase,
+  faFilter,
   faSync,
 } from "@fortawesome/free-solid-svg-icons";
 import Style from "./LogTable.module.css";
@@ -16,7 +17,7 @@ import TableData from "./components/Table/TableData";
 import PieChartSection from "./components/PieChartSection";
 import {
   getProjectByCode,
-  getProjectByCodeSetting,
+  // getProjectByCodeSetting,
 } from "../../redux/action/ProjectAction";
 import {
   getLogTypeCounts,
@@ -40,7 +41,10 @@ export default function LogTable() {
   const [diffDate, setDiffDate] = useState(
     localStorage.getItem("diffDate") || 90
   );
+
   const [tableDataState, setTableDataState] = useState({});
+  // filter data fields with table
+  const [showTableField, setShowTableField] = useState(false);
 
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { data: projectType } = getModelCodeReducer;
@@ -109,8 +113,6 @@ export default function LogTable() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getDeviceModelCode(code));
-    dispatch(getProjectByCodeSetting(code));
     const checkIfClickedOutside = (e) => {
       if (dateDropDown && ref.current && !ref.current.contains(e.target)) {
         setDateDropDown(false);
@@ -125,6 +127,8 @@ export default function LogTable() {
   }, []);
 
   const multipleDispatchGraph = () => {
+    dispatch(getDeviceModelCode(code));
+    // dispatch(getProjectByCodeSetting(code));
     dispatch(
       getLogTypeCounts({
         code,
@@ -160,7 +164,7 @@ export default function LogTable() {
 
   useEffect(() => {
     multipleDispatchGraph();
-  }, [diffDate, projectCode.code]);
+  }, [dispatch]);
 
   // CHECKING IF USER IS LOGIN OR NOT
   useEffect(() => {
@@ -210,6 +214,11 @@ export default function LogTable() {
       records,
       projectType,
     });
+  };
+
+  const showTableFieldFunc = () => {
+    setShowTableField(!showTableField);
+    console.log("setShowTableField", showTableField);
   };
 
   return (
@@ -281,7 +290,7 @@ export default function LogTable() {
                       {dateDropDown ? (
                         <CustomeDropDown width="100%" zIndex="8">
                           <p
-                            style={{fontSize:".8rem"}}
+                            style={{ fontSize: ".8rem" }}
                             className={`${Style.productVersion} mt-1 darkModeColor `}
                             onClick={() => {
                               setDiffDate(7);
@@ -292,7 +301,7 @@ export default function LogTable() {
                             7 days
                           </p>
                           <p
-                            style={{fontSize:".8rem"}}
+                            style={{ fontSize: ".8rem" }}
                             className={`${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(15);
@@ -304,7 +313,7 @@ export default function LogTable() {
                           </p>
 
                           <p
-                            style={{fontSize:".8rem"}}
+                            style={{ fontSize: ".8rem" }}
                             className={`${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(30);
@@ -315,7 +324,7 @@ export default function LogTable() {
                             30 days
                           </p>
                           <p
-                            style={{fontSize:".8rem"}}
+                            style={{ fontSize: ".8rem" }}
                             className={`${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(45);
@@ -326,7 +335,7 @@ export default function LogTable() {
                             45 days
                           </p>
                           <p
-                            style={{fontSize:".8rem"}}
+                            style={{ fontSize: ".8rem" }}
                             className={`${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(60);
@@ -337,7 +346,7 @@ export default function LogTable() {
                             60 days
                           </p>
                           <p
-                            style={{fontSize:".8rem"}}
+                            style={{ fontSize: ".8rem" }}
                             className={`faSync${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(90);
@@ -388,6 +397,14 @@ export default function LogTable() {
                   sm={6}
                   style={{ display: "flex", justifyContent: "flex-end" }}
                 >
+                  {/* section lifed from table data */}
+                  <section
+                    className={Style.filterGraphFirstSctionTop}
+                    onClick={showTableFieldFunc}
+                  >
+                    <FontAwesomeIcon icon={faFilter} />
+                  </section>
+
                   <section
                     className={Style.filterGraphFirstSction}
                     onClick={RefreshTableOnlyFun}
@@ -404,6 +421,8 @@ export default function LogTable() {
                     projectName={projectName}
                     diffDate={diffDate}
                     tableDataStateFun={tableDataStateFun}
+                    showTableField={showTableField}
+                    setShowTableField={setShowTableField}
                   />
                 </Col>
               </Row>
