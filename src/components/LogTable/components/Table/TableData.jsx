@@ -3,11 +3,7 @@ import CustomCard from "../../../../Container/CustomCard";
 import BootstrapTable from "react-bootstrap-table-next";
 import { Button, Col, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFilter,
-  faWindowClose,
-  faDownload,
-} from "@fortawesome/free-solid-svg-icons";
+import { faWindowClose, faDownload } from "@fortawesome/free-solid-svg-icons";
 import ToolkitProvider, {
   Search,
   CSVExport,
@@ -22,6 +18,8 @@ import TableCard from "../../../../Container/TableCard";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../../../utils/ThemeContext";
 import "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css";
+// import TablePaginationN from "./TablePaginationN";
+import Pagination from "react-js-pagination";
 
 const { SearchBar } = Search;
 const { ExportCSVButton } = CSVExport;
@@ -119,6 +117,7 @@ function TableData(props) {
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { data: typeWiseDate } = getModelCodeReducer;
 
+  const [activePage, setActivePage] = useState({ activePage: 1 });
   var projectCode = {
     code: localStorage.getItem("project_type")
       ? JSON.parse(localStorage.getItem("project_type")).typeCode
@@ -317,7 +316,9 @@ function TableData(props) {
     localStorage.removeItem("selected_date");
     localStorage.removeItem("selected_record");
     props.setShowTableField(false);
-    dispatch(getProjectByCode(code, null, null, null, null, projectCode.code));
+    dispatch(
+      getProjectByCode(code, date, logType, null, record, projectCode.code)
+    );
     // toast.success("Filter has been reset");
   };
 
@@ -361,10 +362,22 @@ function TableData(props) {
   // FIRST DISPATCH OF TABLE DATA
 
   useEffect(() => {
-    dispatch(
-      getProjectByCode(code, date, logType, pageNo, record, projectCode.code)
-    );
-  }, [dispatch]);
+    if (
+      logType.error ||
+      logType.info ||
+      logType.warn ||
+      logType.debug ||
+      logType.verbose
+    ) {
+      dispatch(
+        getProjectByCode(code, date, logType, pageNo, record, projectCode.code)
+      );
+    } else {
+      dispatch(
+        getProjectByCode(code, date, null, pageNo, record, projectCode.code)
+      );
+    }
+  }, [pageNo, startDate, endDate]);
 
   // Columns
   function errorFormatter(cell, row) {
@@ -694,13 +707,28 @@ function TableData(props) {
     );
   }, []);
 
-  console.log(
-    "tabledata",
-    bootstrapTableRef &&
-      bootstrapTableRef.current &&
-      bootstrapTableRef.current.selectionContext &&
-      bootstrapTableRef.current.selectionContext.selected.length === 0
-  );
+  // console.log(
+  //   "tabledata",
+  //   bootstrapTableRef &&
+  //     bootstrapTableRef.current &&
+  //     bootstrapTableRef.current.selectionContext &&
+  //     bootstrapTableRef.current.selectionContext.selected.length === 0
+  // );
+
+  const handlePageChange = (pageNumber) => {
+    // console.log(`active page is ${pageNumber}`);
+    setActivePage({ activePage: pageNumber });
+    dispatch(
+      getProjectByCode(
+        code,
+        date,
+        logType,
+        pageNumber,
+        record,
+        projectCode.code
+      )
+    );
+  };
 
   return (
     <>
@@ -766,18 +794,24 @@ function TableData(props) {
                       ref={bootstrapTableRef}
                       {...toolkitProps.baseProps}
                       selectRow={selectRow}
+
                       // rowEvents={tableRowEvents}
                     />
                   </>
                 )}
               </ToolkitProvider>
               <section className="p-2">
-                <ReactPaginate
+                {/* <ReactPaginate
                   breakLabel=". . ."
                   nextLabel="Next >"
                   onPageChange={handlePageClick}
                   pageRangeDisplayed={4}
+                  // pageCount={
+                  //   data && data.data && Math.ceil(data.data.count / record)
+                  // }
                   pageCount={data && data.data && data.data.count / record}
+                  // previousLabel="< Previous"
+                  // initialPage={1}
                   renderOnZeroPageCount={null}
                   containerClassName={"pagination"}
                   pageClassName={"page-item"}
@@ -787,6 +821,20 @@ function TableData(props) {
                   previousLinkClassName={"page-link"}
                   nextLinkClassName={"page-link"}
                   activeClassName={"active"}
+                /> */}
+                {/* <TablePaginationN
+                  code={code}
+                  date={date}
+                  logType={logType}
+                  record={record}
+                /> */}
+
+                <Pagination
+                  activePage={activePage.activePage}
+                  itemsCountPerPage={record}
+                  totalItemsCount={data && data.data && data.data.count}
+                  pageRangeDisplayed={5}
+                  onChange={handlePageChange}
                 />
               </section>
             </>

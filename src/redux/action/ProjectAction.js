@@ -93,8 +93,7 @@ export const getProjectByCode =
     filters = null,
     page = null,
     record = 25,
-    projectType = null,
-    sortTable = null
+    projectType = null
   ) =>
   async (dispatch) => {
     try {
@@ -121,7 +120,7 @@ export const getProjectByCode =
         }
       }
       response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/${code}?startDate=${date.start}&endDate=${date.end}&limit=${record}&page=${page}&logType=${logString}&projectType=${projectType}&sort=${sortTable}`,
+        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/${code}?startDate=${date.start}&endDate=${date.end}&limit=${record}&page=${page}&logType=${logString}&projectType=${projectType}`,
         config
       );
 
@@ -132,7 +131,7 @@ export const getProjectByCode =
     } catch (error) {
       dispatch({
         type: GET_ALL_LOG_BY_CODE_FAIL,
-        payload: error,
+        payload: error && error.message,
       });
     }
   };

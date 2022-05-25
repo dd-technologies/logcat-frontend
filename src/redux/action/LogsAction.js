@@ -148,10 +148,7 @@ export const getLogMsgOccurenceWRTDate =
     } catch (error) {
       dispatch({
         type: GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error && error.message,
       });
     }
   };

@@ -1,0 +1,28 @@
+@import "../../../../css/veriables.module.scss";
+
+.PaginationOuter {
+  //   background-color: $activehrefText;
+  padding: 5px;
+
+  //   border: 1px solid red;
+  display: flex;
+
+  .Pages {
+    width: max-content;
+    padding: 0px 10px;
+    height: 30px;
+    border: 1px solid $activehrefText;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3px;
+    border-radius: 5px;
+    & p {
+      color: $activehrefText;
+    }
+    &:hover {
+      background-color: $defaultTextColor;
+      cursor: pointer;
+    }
+  }
+}

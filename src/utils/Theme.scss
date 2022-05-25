@@ -1,4 +1,5 @@
 @import "../css/mediaQuery.scss";
+@import "../css/veriables.module.scss";
 
 // dark mode css
 .dark-content {
@@ -421,6 +422,57 @@
       width: 40px;
       height: 40px;
       cursor: pointer;
+    }
+  }
+}
+
+// pagination
+.dark-content {
+  .pagination {
+    .active {
+      width: fit-content;
+      padding: 4px 14px;
+      background-color: $activehrefText;
+      border-radius: 5px;
+      & a {
+        text-decoration: none;
+        color: $defaultTextColor;
+      }
+    }
+    & li {
+      margin: 0px 2px;
+      width: fit-content;
+      padding: 4px 14px;
+      border: $defaultTextColor 1px solid;
+      border-radius: 5px;
+      & a {
+        text-decoration: none;
+        color: $activehrefText;
+      }
+    }
+  }
+}
+
+.pagination {
+  .active {
+    width: fit-content;
+    padding: 4px 14px;
+    background-color: $activehrefText;
+    border-radius: 5px;
+    & a {
+      text-decoration: none;
+      color: $defaultTextColor;
+    }
+  }
+  & li {
+    margin: 0px 2px;
+    width: fit-content;
+    padding: 4px 14px;
+    border: $activehrefText 1px solid;
+    border-radius: 5px;
+    & a {
+      text-decoration: none;
+      color: $activehrefText;
     }
   }
 }
