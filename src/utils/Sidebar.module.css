@@ -172,7 +172,7 @@
 
 @media screen and (min-width: 600px) and (max-width: 959px) {
   .sidebarOuter .Sidebar .linkSection .linkActive {
-    padding: 0px 4px;
+    padding: 0px 12px;
     display: -webkit-box !important;
     display: -ms-flexbox !important;
     display: flex !important;
@@ -375,7 +375,7 @@
 
 @media screen and (min-width: 600px) and (max-width: 959px) {
   .sidebarOuter .Sidebar .linkSection .linkInActive {
-    padding: 0px 4px;
+    padding: 0px 12px;
     display: -webkit-box !important;
     display: -ms-flexbox !important;
     display: flex !important;

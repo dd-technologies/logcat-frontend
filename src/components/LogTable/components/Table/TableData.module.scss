@@ -82,12 +82,12 @@
       padding-bottom: 20px;
     }
   }
-  .TopButton {
-    display: flex !important;
-    justify-content: space-between;
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-  }
+}
+.TopButton {
+  display: flex !important;
+  justify-content: space-between !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
 }
 
 .ViewButton {
@@ -147,32 +147,15 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 5px;
-
-  input[type="checkbox"]:checked {
-    background-color: $activehrefText;
-  }
-  input[type="checkbox"]:checked:after {
-    content: "\2713";
-    color: white;
-  }
-
-  input[type="checkbox"] {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 20px !important;
-    height: 20px !important;
-    appearance: none;
-    border: 1px solid $activehrefText;
-    box-shadow: none;
-    font-size: 1em;
-  }
 }
 
 // react bootstrap table css
 .expandedRow {
   // height: 20px !important;
+  &:hover {
+    color: $activehrefText;
+    text-decoration: underline;
+  }
   cursor: pointer;
   @media screen and (min-width: 600px) and (max-width: 1200px) {
     width: 150px !important;

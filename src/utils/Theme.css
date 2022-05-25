@@ -39,10 +39,33 @@
   background-color: #fff;
 }
 
+@media screen and (min-width: 600px) and (max-width: 959px) {
+  .sidebar .noSidebar {
+    width: 6% !important;
+  }
+}
+
+@media screen and (min-width: 960px) and (max-width: 1279px) {
+  .sidebar .noSidebar {
+    width: 4% !important;
+  }
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1919px) {
+  .sidebar .noSidebar {
+    width: 4% !important;
+  }
+}
+
+@media screen and (min-width: 1920px) and (max-width: 5000px) {
+  .sidebar .noSidebar {
+    width: 4% !important;
+  }
+}
+
 .sidebar .noSidebar {
   -webkit-transition-delay: 0.1s;
           transition-delay: 0.1s;
-  width: 4% !important;
   -webkit-transition-duration: 0.3s;
           transition-duration: 0.3s;
 }
@@ -89,7 +112,7 @@
   }
 }
 
-@media screen and (min-width: 1280px) and (max-width: 1919px) {
+@media screen and (min-width: 1280px) and (max-width: 1480px) {
   .sidebar .noSidebar .noSidbarInner .sidebarMenu {
     padding: 14px 0px;
   }
@@ -103,7 +126,7 @@
   }
 }
 
-@media screen and (min-width: 1280px) and (max-width: 1919px) {
+@media screen and (min-width: 1480px) and (max-width: 1919px) {
   .sidebar .noSidebar .noSidbarInner .sidebarMenu {
     padding: 14px 0px;
   }
@@ -205,7 +228,6 @@
         -ms-flex-align: center !important;
             align-items: center !important;
     margin-right: 155px;
-    width: 120px;
   }
   .navBarDetails .AvatarSectionSidbar {
     background-color: #fff !important;

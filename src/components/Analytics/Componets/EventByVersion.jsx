@@ -28,7 +28,7 @@ export default function EventByVersion() {
         <Row className="p-4">
           <Col xl={4} md={4} className={Style.EventByVersion}>
             <h6
-              className="cpactiveText mb-1"
+              className="cpactiveText mb-2"
               style={{
                 fontWeight: "600",
                 letterSpacing: "0.5px",
@@ -59,8 +59,10 @@ export default function EventByVersion() {
             {!ld &&
               cnt.map((e) => (
                 <>
-                  <p className="darkModeColor mb-1">{e._id ? e._id : null}</p>
-                  <h5 className="darkModeColor mb-1">{e.data}</h5>
+                  <section className="mb-2">
+                    <p className="darkModeColor">{e._id ? e._id : null}</p>
+                    <h5 className="darkModeColor">{e.data}</h5>
+                  </section>
                 </>
               ))}
 

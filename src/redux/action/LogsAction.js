@@ -62,10 +62,7 @@ export const getLogTypeCounts =
     } catch (error) {
       dispatch({
         type: GET_LOG_COUNT_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error && error.message,
       });
     }
   };
@@ -190,10 +187,7 @@ export const getCrashFreeUsers =
     } catch (error) {
       dispatch({
         type: GET_CRASH_FREE_USERS_REQUEST_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error && error.message,
       });
     }
   };
@@ -303,10 +297,7 @@ export const getDeviceModelCode = (code) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_MODEL_CODE_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error && error.message,
     });
   }
 };

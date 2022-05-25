@@ -48,9 +48,34 @@
 // sidebar css
 .sidebar {
   // sidebar
+
+  @include sm {
+    .noSidebar {
+      width: 6% !important;
+    }
+  }
+
+  @include md {
+    .noSidebar {
+      width: 4% !important;
+    }
+  }
+
+  @include lg {
+    .noSidebar {
+      width: 4% !important;
+    }
+  }
+
+  @include xl {
+    .noSidebar {
+      width: 4% !important;
+    }
+  }
+
   .noSidebar {
+    // background-color: red;
     transition-delay: 0.1s;
-    width: 4% !important;
     transition-duration: 0.3s;
 
     @include sm {
@@ -127,7 +152,7 @@
       }
     }
 
-    @include lg {
+    @include lg-md {
       .noSidbarInner {
         // background-color: red !important;
 
@@ -153,7 +178,7 @@
       }
     }
 
-    @include lg {
+    @include lg-xl {
       .noSidbarInner {
         // background-color: red !important;
 
@@ -286,7 +311,6 @@
     justify-content: space-between !important;
     align-items: center !important;
     margin-right: 155px;
-    width: 120px;
     .AvatarSectionSidbar {
       background-color: #fff !important;
       color: #000;
@@ -400,5 +424,3 @@
     }
   }
 }
-
-

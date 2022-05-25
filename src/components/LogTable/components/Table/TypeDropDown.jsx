@@ -69,7 +69,7 @@ const TypeDropDown = (props) => {
       props.setProjectCode(type.typeCode);
     }
 
-    if (logTablePageURL === "logtable") {
+    if (logTablePageURL === "logpage") {
       dispatch(
         getCrashFreeUsers({
           code,

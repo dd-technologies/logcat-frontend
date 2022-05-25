@@ -151,37 +151,50 @@ function TableData(props) {
       data.data.logs[0] &&
       data.data.logs[0].type) ||
     [];
-
   let arrayOfObjectIndex = [];
 
   const selectRow = {
     mode: "checkbox",
     clickToSelect: true,
     onSelect: (row, isSelect, rowIndex, e) => {
-      var objOfRowIndex = { [rowIndex]: isSelect };
-
-      arrayOfObjectIndex.push(objOfRowIndex);
-      // looping object of an array
-      for (var key in arrayOfObjectIndex) {
-        var obj = arrayOfObjectIndex[key];
-        // console.log("first", obj);
-        for (var prop in obj) {
-          if (obj.hasOwnProperty(prop)) {
-            // console.log("first obj", prop + " = " + obj[prop]);
-            if (!obj[prop]) {
-              arrayOfObjectIndex.pop();
-              arrayOfObjectIndex.splice(arrayOfObjectIndex[prop], 1);
-            }
-          }
-        }
-      }
-
-      // console.log("first array length", arrayOfObjectIndex.length);
-      // console.log("first condition", arrayOfObjectIndex.length < 0);
-      if (arrayOfObjectIndex.length > 0) setDisableButton(false);
-      if (arrayOfObjectIndex.length < 0) setDisableButton(true);
+      if (isSelect) setDisableButton(true);
+      // var obj = { [rowIndex]: isSelect };
+      // // console.log("bootstrapRef", row);
+      // if (
+      //   bootstrapTableRef &&
+      //   bootstrapTableRef.current &&
+      //   bootstrapTableRef.current.selectionContext &&
+      //   bootstrapTableRef.current.selectionContext.selected.length !== 0
+      // ) {
+      //   setDisableButton(false);
+      // } else {
+      //   setDisableButton(true);
+      // }
+      //   var objOfRowIndex = { [rowIndex]: isSelect };
+      //   arrayOfObjectIndex.push(objOfRowIndex);
+      //   // looping object of an array
+      //   for (var key in arrayOfObjectIndex) {
+      //     var obj = arrayOfObjectIndex[key];
+      //     // console.log("first", obj);
+      //     for (var prop in obj) {
+      //       if (obj.hasOwnProperty(prop)) {
+      //         // console.log("first obj", prop + " = " + obj[prop]);
+      //         if (!obj[prop]) {
+      //           arrayOfObjectIndex.pop();
+      //           arrayOfObjectIndex.splice(arrayOfObjectIndex[prop], 1);
+      //         }
+      //       }
+      //     }
+      //   }
+      //   console.log("arrayOfObjectIndex", arrayOfObjectIndex);
+      //   console.log("first array length", arrayOfObjectIndex.length);
+      //   console.log("first condition", arrayOfObjectIndex.length < 0);
+      //   if (arrayOfObjectIndex.length > 0) setDisableButton(false);
+      //   if (arrayOfObjectIndex.length < 0) setDisableButton(true);
     },
     onSelectAll: (row, isSelect, rowIndex, e) => {
+      console.log("row", row, isSelect, rowIndex);
+
       if (isSelect.length > 0) setDisableButton(false);
       if (!row) setDisableButton(true);
     },
@@ -255,6 +268,10 @@ function TableData(props) {
       logType.verbose ||
       logType.debug
     ) {
+      dispatch(
+        getProjectByCode(code, date, logType, pageNo, record, projectCode.code)
+      );
+    } else {
       dispatch(
         getProjectByCode(code, date, logType, pageNo, record, projectCode.code)
       );
@@ -543,6 +560,8 @@ function TableData(props) {
   //   };
   // }, [showTableField]);
 
+  console.log("bootstrapRef", bootstrapTableRef && bootstrapTableRef.current);
+
   useEffect(() => {
     // 1) If record are 10 in local storage
     if (localStorage.getItem("selected_record") == 10) {
@@ -675,7 +694,13 @@ function TableData(props) {
     );
   }, []);
 
-  // console.log("tabledata", data && data.data && data.data.logs);
+  console.log(
+    "tabledata",
+    bootstrapTableRef &&
+      bootstrapTableRef.current &&
+      bootstrapTableRef.current.selectionContext &&
+      bootstrapTableRef.current.selectionContext.selected.length === 0
+  );
 
   return (
     <>
@@ -686,57 +711,85 @@ function TableData(props) {
         <Toaster />
         <section className={`${Style.OuterTable} `} ref={ref}>
           {data && data.data && data.data.logs.length > 0 && (
-            <ToolkitProvider
-              keyField="_id"
-              data={data.data.logs}
-              columns={columns}
-              search
-              exportCSV={{
-                exportAll: false,
-                fileName: `${code}_${filedate.toISOString()}.csv`,
-                onlyExportSelection: true,
-              }}
-            >
-              {(toolkitProps) => (
-                <>
-                  {/* {console.log("first", toolkitProps.csvProps)} */}
-                  <div className={`${Style.BootstrapTable} TBSED`}>
-                    <section className={Style.searchbar}>
-                      <SearchBar {...toolkitProps.searchProps} />
-                    </section>
-                    {/* Chips section */}
-                    <section className={Style.chipOuter}>
-                      {logType.info && chipsSection[0]}
-                      {logType.warn && chipsSection[1]}
-                      {logType.error && chipsSection[2]}
-                      {logType.debug && chipsSection[3]}
-                      {logType.verbose && chipsSection[4]}
+            <>
+              <ToolkitProvider
+                keyField="_id"
+                data={data.data.logs}
+                columns={columns}
+                search
+                exportCSV={{
+                  exportAll: false,
+                  fileName: `${code}_${filedate.toISOString()}.csv`,
+                  onlyExportSelection: true,
+                }}
+              >
+                {(toolkitProps) => (
+                  <>
+                    {/* {console.log("first", toolkitProps.csvProps)} */}
+                    <div className={`${Style.BootstrapTable} TBSED`}>
+                      <section className={Style.searchbar}>
+                        <SearchBar {...toolkitProps.searchProps} />
+                      </section>
+                      {/* Chips section */}
+                      <section className={Style.chipOuter}>
+                        {/* DATE CHIPS */}
+                        {dateState.start && dateChips[0]}
+                        {dateState.end && dateChips[1]}
 
-                      {/* DATE CHIPS */}
-                      {dateState.start && dateChips[0]}
-                      {dateState.end && dateChips[1]}
-                    </section>
-                    <section className={Style.filterOptions}>
-                      {/* {console.log("props.csvProps", props)} */}
+                        {logType.info && chipsSection[0]}
+                        {logType.warn && chipsSection[1]}
+                        {logType.error && chipsSection[2]}
+                        {logType.debug && chipsSection[3]}
+                        {logType.verbose && chipsSection[4]}
+                      </section>
+                      <section className={Style.filterOptions}>
+                        {/* {console.log("props.csvProps", props)} */}
 
-                      <ExportCSVButton
-                        {...toolkitProps.csvProps}
-                        disabled={disableButton ? "disabled" : ""}
-                      >
-                        <FontAwesomeIcon icon={faDownload} />
-                      </ExportCSVButton>
-                    </section>
-                  </div>
+                        <ExportCSVButton
+                          {...toolkitProps.csvProps}
+                          disabled={
+                            bootstrapTableRef &&
+                            bootstrapTableRef.current &&
+                            bootstrapTableRef.current.selectionContext &&
+                            bootstrapTableRef.current.selectionContext.selected
+                              .length === 0
+                              ? "disabled"
+                              : ""
+                          }
+                        >
+                          <FontAwesomeIcon icon={faDownload} />
+                        </ExportCSVButton>
+                      </section>
+                    </div>
 
-                  <BootstrapTable
-                    ref={bootstrapTableRef}
-                    {...toolkitProps.baseProps}
-                    selectRow={selectRow}
-                    // rowEvents={tableRowEvents}
-                  />
-                </>
-              )}
-            </ToolkitProvider>
+                    <BootstrapTable
+                      ref={bootstrapTableRef}
+                      {...toolkitProps.baseProps}
+                      selectRow={selectRow}
+                      // rowEvents={tableRowEvents}
+                    />
+                  </>
+                )}
+              </ToolkitProvider>
+              <section className="p-2">
+                <ReactPaginate
+                  breakLabel=". . ."
+                  nextLabel="Next >"
+                  onPageChange={handlePageClick}
+                  pageRangeDisplayed={4}
+                  pageCount={data && data.data && data.data.count / record}
+                  renderOnZeroPageCount={null}
+                  containerClassName={"pagination"}
+                  pageClassName={"page-item"}
+                  pageLinkClassName={"page-link"}
+                  previousClassName={"page-item"}
+                  nextClassName={"page-item"}
+                  previousLinkClassName={"page-link"}
+                  nextLinkClassName={"page-link"}
+                  activeClassName={"active"}
+                />
+              </section>
+            </>
           )}
 
           {data && data.data && data.data.logs.length == 0 && (
@@ -756,302 +809,279 @@ function TableData(props) {
           )}
 
           {loading && <SpinnerCustome height="200px" />}
+        </section>
+        <section>
+          {props.showTableField ? (
+            <CustomCard
+              position="absolute"
+              height="auto"
+              width="450px"
+              right="0%"
+              padding="10px"
+              boxShadow="0px 0px 4px -2px rgba(0,0,0,0.75)"
+            >
+              <section className={Style.TopButton}>
+                <Button className="m-2" onClick={resetFilter}>
+                  Reset Filter
+                </Button>
+                <Button className="m-2" onClick={saveSearch}>
+                  Save Filter
+                </Button>
+              </section>
+              <section>
+                <Row>
+                  <Col xl={6} md={6} sm={6}>
+                    <section className={`m-2`}>
+                      <p
+                        className={
+                          dateSectionSelect
+                            ? `${Style.ActiveOption} mt-2`
+                            : `${Style.DefaultOption} mt-2`
+                        }
+                        onClick={handleShowDate}
+                      >
+                        Date
+                      </p>
+                      <p
+                        className={
+                          statusSectionSelect
+                            ? `${Style.ActiveOption} mt-2`
+                            : `${Style.DefaultOption} mt-2`
+                        }
+                        onClick={handleShowStatus}
+                      >
+                        Select Log Type
+                      </p>
+                      <p
+                        className={
+                          countPerPageSection
+                            ? `${Style.ActiveOption} mt-2`
+                            : `${Style.DefaultOption} mt-2`
+                        }
+                        onClick={handleShowPerPage}
+                      >
+                        Record per page
+                      </p>
+                    </section>
+                  </Col>
 
-          <section className="p-2">
-            <ReactPaginate
-              breakLabel=". . ."
-              nextLabel="Next >"
-              onPageChange={handlePageClick}
-              pageRangeDisplayed={4}
-              pageCount={Math.ceil(
-                data && data.data && data.data.count / record
-              )}
-              renderOnZeroPageCount={null}
-              containerClassName={"pagination"}
-              pageClassName={"page-item"}
-              pageLinkClassName={"page-link"}
-              previousClassName={"page-item"}
-              nextClassName={"page-item"}
-              previousLinkClassName={"page-link"}
-              nextLinkClassName={"page-link"}
-              activeClassName={"active"}
-            />
+                  {/* DATA CHANGE SECTION START FROM HERE */}
+                  {dateSectionSelect ? (
+                    <Col xl={6} md={6} sm={6}>
+                      <section className={Style.DateSection}>
+                        <input
+                          type="date"
+                          min={date.start}
+                          max={date.end}
+                          value={
+                            dateState && dateState.start
+                              ? dateState.start
+                              : localStorage.getItem("selected_date") &&
+                                JSON.parse(
+                                  localStorage.getItem("selected_date")
+                                ).start
+                          }
+                          onChange={(e) => {
+                            setDate({
+                              ...dateState,
+                              start: e.target.value,
+                            });
+                            date.start = e.target.value;
+                          }}
+                        />
+                        <input
+                          type="date"
+                          min={date.start}
+                          max={date.end}
+                          value={
+                            dateState && dateState.end
+                              ? dateState.end
+                              : localStorage.getItem("selected_date") &&
+                                JSON.parse(
+                                  localStorage.getItem("selected_date")
+                                ).end
+                          }
+                          onChange={(e) => {
+                            setDate({
+                              ...dateState,
+                              end: e.target.value,
+                            });
+                            date.end = e.target.value;
+                          }}
+                        />
+                      </section>
+                    </Col>
+                  ) : null}
 
-            <section>
-              {props.showTableField ? (
-                <CustomCard
-                  position="absolute"
-                  height="auto"
-                  width="450px"
-                  top="5%"
-                  right="3%"
-                  padding="10px"
-                  boxShadow="0px 0px 4px -2px rgba(0,0,0,0.75)"
-                >
-                  <section className={Style.TopButton}>
-                    <Button className="m-2" onClick={resetFilter}>
-                      Reset Filter
-                    </Button>
-                    <Button className="m-2" onClick={saveSearch}>
-                      Save Filter
-                    </Button>
-                  </section>
-                  <section>
-                    <Row>
-                      <Col xl={6} md={6} sm={6}>
-                        <section className={`m-2`}>
-                          <p
-                            className={
-                              dateSectionSelect
-                                ? `${Style.ActiveOption} mt-2`
-                                : `${Style.DefaultOption} mt-2`
-                            }
-                            onClick={handleShowDate}
+                  {/* STATUS CODE SECTION START HERE */}
+                  {statusSectionSelect ? (
+                    <Col xl={6} md={6} sm={6}>
+                      <section className={Style.StatusSection}>
+                        <section className={Style.StatusInnerSecion}>
+                          <label
+                            className="darkModeColor"
+                            for="exampleFormControlFile1"
                           >
-                            Date
-                          </p>
-                          <p
-                            className={
-                              statusSectionSelect
-                                ? `${Style.ActiveOption} mt-2`
-                                : `${Style.DefaultOption} mt-2`
-                            }
-                            onClick={handleShowStatus}
-                          >
-                            Select Log Type
-                          </p>
-                          <p
-                            className={
-                              countPerPageSection
-                                ? `${Style.ActiveOption} mt-2`
-                                : `${Style.DefaultOption} mt-2`
-                            }
-                            onClick={handleShowPerPage}
-                          >
-                            Record per page
-                          </p>
+                            Info
+                          </label>
+                          <input
+                            type="checkbox"
+                            checked={logType.info}
+                            onClick={(e) => {
+                              setLogType({
+                                ...logType,
+                                info: !logType.info,
+                              });
+                            }}
+                          />
                         </section>
-                      </Col>
+                        <section className={Style.StatusInnerSecion}>
+                          <label
+                            className="darkModeColor"
+                            for="exampleFormControlFile1"
+                          >
+                            Warn
+                          </label>
+                          <input
+                            type="checkbox"
+                            checked={logType.warn}
+                            onClick={(e) => {
+                              setLogType({
+                                ...logType,
+                                warn: !logType.warn,
+                              });
+                            }}
+                          />
+                        </section>
+                        <section className={Style.StatusInnerSecion}>
+                          <label
+                            className="darkModeColor"
+                            for="exampleFormControlFile1"
+                          >
+                            Error
+                          </label>
+                          <input
+                            type="checkbox"
+                            checked={logType.error}
+                            onClick={(e) => {
+                              setLogType({
+                                ...logType,
+                                error: !logType.error,
+                              });
+                            }}
+                          />
+                        </section>
+                        <section className={Style.StatusInnerSecion}>
+                          <label
+                            className="darkModeColor"
+                            for="exampleFormControlFile1"
+                          >
+                            Debug
+                          </label>
+                          <input
+                            type="checkbox"
+                            checked={logType.debug}
+                            onClick={(e) => {
+                              setLogType({
+                                ...logType,
+                                debug: !logType.debug,
+                              });
+                            }}
+                          />
+                        </section>
+                        <section className={Style.StatusInnerSecion}>
+                          <label
+                            className="darkModeColor"
+                            for="exampleFormControlFile1"
+                          >
+                            Verbose
+                          </label>
+                          <input
+                            type="checkbox"
+                            checked={logType.verbose}
+                            onClick={(e) => {
+                              setLogType({
+                                ...logType,
+                                verbose: !logType.verbose,
+                              });
+                            }}
+                          />
+                        </section>
+                      </section>
+                    </Col>
+                  ) : null}
 
-                      {/* DATA CHANGE SECTION START FROM HERE */}
-                      {dateSectionSelect ? (
-                        <Col xl={6} md={6} sm={6}>
-                          <section className={Style.DateSection}>
-                            <input
-                              type="date"
-                              min={date.start}
-                              max={date.end}
-                              value={
-                                dateState && dateState.start
-                                  ? dateState.start
-                                  : localStorage.getItem("selected_date") &&
-                                    JSON.parse(
-                                      localStorage.getItem("selected_date")
-                                    ).start
-                              }
-                              onChange={(e) => {
-                                setDate({
-                                  ...dateState,
-                                  start: e.target.value,
-                                });
-                                date.start = e.target.value;
-                              }}
-                            />
-                            <input
-                              type="date"
-                              min={date.start}
-                              max={date.end}
-                              value={
-                                dateState && dateState.end
-                                  ? dateState.end
-                                  : localStorage.getItem("selected_date") &&
-                                    JSON.parse(
-                                      localStorage.getItem("selected_date")
-                                    ).end
-                              }
-                              onChange={(e) => {
-                                setDate({
-                                  ...dateState,
-                                  end: e.target.value,
-                                });
-                                date.end = e.target.value;
-                              }}
-                            />
-                          </section>
-                        </Col>
-                      ) : null}
-
-                      {/* STATUS CODE SECTION START HERE */}
-                      {statusSectionSelect ? (
-                        <Col xl={6} md={6} sm={6}>
-                          <section className={Style.StatusSection}>
-                            <section className={Style.StatusInnerSecion}>
-                              <label
-                                className="darkModeColor"
-                                for="exampleFormControlFile1"
-                              >
-                                Info
-                              </label>
-                              <input
-                                type="checkbox"
-                                checked={logType.info}
-                                onClick={(e) => {
-                                  setLogType({
-                                    ...logType,
-                                    info: !logType.info,
-                                  });
-                                }}
-                              />
-                            </section>
-                            <section className={Style.StatusInnerSecion}>
-                              <label
-                                className="darkModeColor"
-                                for="exampleFormControlFile1"
-                              >
-                                Warn
-                              </label>
-                              <input
-                                type="checkbox"
-                                checked={logType.warn}
-                                onClick={(e) => {
-                                  setLogType({
-                                    ...logType,
-                                    warn: !logType.warn,
-                                  });
-                                }}
-                              />
-                            </section>
-                            <section className={Style.StatusInnerSecion}>
-                              <label
-                                className="darkModeColor"
-                                for="exampleFormControlFile1"
-                              >
-                                Error
-                              </label>
-                              <input
-                                type="checkbox"
-                                checked={logType.error}
-                                onClick={(e) => {
-                                  setLogType({
-                                    ...logType,
-                                    error: !logType.error,
-                                  });
-                                }}
-                              />
-                            </section>
-                            <section className={Style.StatusInnerSecion}>
-                              <label
-                                className="darkModeColor"
-                                for="exampleFormControlFile1"
-                              >
-                                Debug
-                              </label>
-                              <input
-                                type="checkbox"
-                                checked={logType.debug}
-                                onClick={(e) => {
-                                  setLogType({
-                                    ...logType,
-                                    debug: !logType.debug,
-                                  });
-                                }}
-                              />
-                            </section>
-                            <section className={Style.StatusInnerSecion}>
-                              <label
-                                className="darkModeColor"
-                                for="exampleFormControlFile1"
-                              >
-                                Verbose
-                              </label>
-                              <input
-                                type="checkbox"
-                                checked={logType.verbose}
-                                onClick={(e) => {
-                                  setLogType({
-                                    ...logType,
-                                    verbose: !logType.verbose,
-                                  });
-                                }}
-                              />
-                            </section>
-                          </section>
-                        </Col>
-                      ) : null}
-
-                      {/* COUNT PER PAGE SECTION START FOM HERE   */}
-                      {countPerPageSection ? (
-                        <Col xl={6} md={6} sm={6}>
-                          <section className={Style.perPageOuter}>
-                            <p
-                              className={
-                                activeRecord.record10
-                                  ? `${Style.perPagesectionInnerActive} darkModeColor`
-                                  : `${Style.perPagesectionInner} darkModeColor`
-                              }
-                              onClick={() => {
-                                setRecords(10);
-                                setActiveRecord({
-                                  record10: true,
-                                });
-                              }}
-                            >
-                              10
-                            </p>
-                            <p
-                              className={
-                                activeRecord.record25 || record == 25
-                                  ? `${Style.perPagesectionInnerActive} darkModeColor`
-                                  : `${Style.perPagesectionInner} darkModeColor`
-                              }
-                              onClick={() => {
-                                setRecords(25);
-                                setActiveRecord({
-                                  record25: true,
-                                });
-                              }}
-                            >
-                              25
-                            </p>
-                            <p
-                              className={
-                                activeRecord.record50
-                                  ? `${Style.perPagesectionInnerActive}darkModeColor`
-                                  : `${Style.perPagesectionInner} darkModeColor`
-                              }
-                              onClick={() => {
-                                setRecords(50);
-                                setActiveRecord({
-                                  record50: true,
-                                });
-                              }}
-                            >
-                              50
-                            </p>
-                            <p
-                              className={
-                                activeRecord.record100
-                                  ? `${Style.perPagesectionInnerActive} darkModeColor`
-                                  : `${Style.perPagesectionInner} darkModeColor`
-                              }
-                              onClick={() => {
-                                setRecords(100);
-                                setActiveRecord({
-                                  record100: true,
-                                });
-                              }}
-                            >
-                              100
-                            </p>
-                          </section>
-                        </Col>
-                      ) : null}
-                    </Row>
-                  </section>
-                </CustomCard>
-              ) : null}
-            </section>
-          </section>
+                  {/* COUNT PER PAGE SECTION START FOM HERE   */}
+                  {countPerPageSection ? (
+                    <Col xl={6} md={6} sm={6}>
+                      <section className={Style.perPageOuter}>
+                        <p
+                          className={
+                            activeRecord.record10
+                              ? `${Style.perPagesectionInnerActive} darkModeColor`
+                              : `${Style.perPagesectionInner} darkModeColor`
+                          }
+                          onClick={() => {
+                            setRecords(10);
+                            setActiveRecord({
+                              record10: true,
+                            });
+                          }}
+                        >
+                          10
+                        </p>
+                        <p
+                          className={
+                            activeRecord.record25 || record == 25
+                              ? `${Style.perPagesectionInnerActive} darkModeColor`
+                              : `${Style.perPagesectionInner} darkModeColor`
+                          }
+                          onClick={() => {
+                            setRecords(25);
+                            setActiveRecord({
+                              record25: true,
+                            });
+                          }}
+                        >
+                          25
+                        </p>
+                        <p
+                          className={
+                            activeRecord.record50
+                              ? `${Style.perPagesectionInnerActive} darkModeColor`
+                              : `${Style.perPagesectionInner} darkModeColor`
+                          }
+                          onClick={() => {
+                            setRecords(50);
+                            setActiveRecord({
+                              record50: true,
+                            });
+                          }}
+                        >
+                          50
+                        </p>
+                        <p
+                          className={
+                            activeRecord.record100
+                              ? `${Style.perPagesectionInnerActive} darkModeColor`
+                              : `${Style.perPagesectionInner} darkModeColor`
+                          }
+                          onClick={() => {
+                            setRecords(100);
+                            setActiveRecord({
+                              record100: true,
+                            });
+                          }}
+                        >
+                          100
+                        </p>
+                      </section>
+                    </Col>
+                  ) : null}
+                </Row>
+              </section>
+            </CustomCard>
+          ) : null}
         </section>
       </TableCard>
     </>

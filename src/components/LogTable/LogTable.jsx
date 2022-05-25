@@ -34,6 +34,7 @@ import "../../utils/Theme.css";
 import SideBar from "../../utils/Sidebar";
 import { Navbar } from "../../utils/NavBar";
 import AlarmIcon from "../../assets/images/AlarmIcon.png";
+import TableDataN from "./components/Table/TableDataN";
 
 export default function LogTable() {
   const navigate = useNavigate();
@@ -164,7 +165,7 @@ export default function LogTable() {
 
   useEffect(() => {
     multipleDispatchGraph();
-  }, [dispatch]);
+  }, [dispatch, diffDate]);
 
   // CHECKING IF USER IS LOGIN OR NOT
   useEffect(() => {
@@ -424,6 +425,13 @@ export default function LogTable() {
                     showTableField={showTableField}
                     setShowTableField={setShowTableField}
                   />
+                  {/* <TableDataN
+                    code={code}
+                    projectName={projectName}
+                    diffDate={diffDate}
+                    showTableField={showTableField}
+                    setShowTableField={setShowTableField}
+                  /> */}
                 </Col>
               </Row>
             </Container>

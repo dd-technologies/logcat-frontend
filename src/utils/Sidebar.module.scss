@@ -129,7 +129,7 @@
     .linkSection {
       @include sm {
         .linkActive {
-          padding: 0px 4px;
+          padding: 0px 12px;
           display: flex !important;
           justify-content: flex-start !important;
           align-items: center !important;
@@ -263,7 +263,7 @@
 
       @include sm {
         .linkInActive {
-          padding: 0px 4px;
+          padding: 0px 12px;
           display: flex !important;
           justify-content: flex-start !important;
           align-items: center !important;

@@ -16,8 +16,8 @@ export default function CustomCard(props) {
           width: props.width ? props.width : "100%",
           padding: props.padding ? props.padding : "0px",
           position: props.position ? props.position : "relative",
-          right: props.right ? props.right : "inherit",
-          top: props.top ? props.top : "inherit",
+          right: props.right ? props.right : "0%",
+          top: props.top ? props.top : "0%",
           zIndex: props.zIndex ? props.zIndex : "1",
         }}
       >
