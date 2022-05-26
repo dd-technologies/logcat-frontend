@@ -28,7 +28,6 @@ import ReactPaginate from "react-paginate";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import { getProjectByCode } from "../../redux/action/ProjectAction";
 import { ThemeContext } from "../../utils/ThemeContext";
-import Pagination from "react-js-pagination";
 
 const { SearchBar } = Search;
 const { ExportCSVButton } = CSVExport;
@@ -39,8 +38,6 @@ export default function Alarm(props) {
   const [diffDate, setDiffDate] = useState(
     localStorage.getItem("diffDate") || 90
   );
-  const [activePage, setActivePage] = useState({ activePage: 1 });
-
   const [disableButton, setDisableButton] = useState(false);
 
   let filedate = new Date();
@@ -241,18 +238,12 @@ export default function Alarm(props) {
     dispatch(alarmAction(code, projectCode, diffDate));
   }, [dispatch, projectCode, diffDate]);
 
-  // // HANDLE PAGE CLICK
-  // const handlePageClick = (data) => {
-  //   // console.log("alarm error alarm handle page click ", projectCode);
-  //   return dispatch(
-  //     alarmAction(code, projectCode, diffDate, data.selected + 1, record)
-  //   );
-  // };
-
-  const handlePageChange = (pageNumber) => {
-    // console.log(`active page is ${pageNumber}`);
-    setActivePage({ activePage: pageNumber });
-    dispatch(alarmAction(code, projectCode, diffDate, pageNumber, record));
+  // HANDLE PAGE CLICK
+  const handlePageClick = (data) => {
+    // console.log("alarm error alarm handle page click ", projectCode);
+    return dispatch(
+      alarmAction(code, projectCode, diffDate, data.selected + 1, record)
+    );
   };
 
   return (
@@ -443,7 +434,7 @@ export default function Alarm(props) {
                         </ToolkitProvider>
                       </section>
                       <section className="p-2">
-                        {/* <ReactPaginate
+                        <ReactPaginate
                           breakLabel=". . ."
                           nextLabel="Next >"
                           onPageChange={handlePageClick}
@@ -460,13 +451,6 @@ export default function Alarm(props) {
                           previousLinkClassName={"page-link"}
                           nextLinkClassName={"page-link"}
                           activeClassName={"active"}
-                        /> */}
-                        <Pagination
-                          activePage={activePage.activePage}
-                          itemsCountPerPage={record}
-                          totalItemsCount={data && data.data && data.data.count}
-                          pageRangeDisplayed={5}
-                          onChange={handlePageChange}
                         />
                       </section>
                     </>

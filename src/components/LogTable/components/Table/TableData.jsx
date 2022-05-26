@@ -19,7 +19,6 @@ import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../../../utils/ThemeContext";
 import "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css";
 // import TablePaginationN from "./TablePaginationN";
-import Pagination from "react-js-pagination";
 
 const { SearchBar } = Search;
 const { ExportCSVButton } = CSVExport;
@@ -110,6 +109,14 @@ function TableData(props) {
       : false,
   });
 
+  // We start with an empty list of items.
+  const [currentItems, setCurrentItems] = useState(
+    data && data.data && data.data.logs
+  );
+  // Here we use item offsets; we could also use page offsets
+  // following the API or data you're working with.
+  const [itemOffset, setItemOffset] = useState(0);
+
   console.log("showTableField", logType);
 
   const bootstrapTableRef = useRef();
@@ -150,6 +157,8 @@ function TableData(props) {
       data.data.logs[0] &&
       data.data.logs[0].type) ||
     [];
+
+  console.log("Loading items from", data && data.data && data.data.logs);
   let arrayOfObjectIndex = [];
 
   const selectRow = {
@@ -319,44 +328,7 @@ function TableData(props) {
     dispatch(
       getProjectByCode(code, date, logType, null, record, projectCode.code)
     );
-    // toast.success("Filter has been reset");
-  };
-
-  const handlePageClick = (data) => {
-    if (
-      logType.error ||
-      logType.info ||
-      logType.warn ||
-      logType.debug ||
-      logType.verbose
-    ) {
-      props.setShowTableField(false);
-      setPageNo(data.selected + 1);
-      localStorage.setItem("page_no", data.selected + 1);
-      return dispatch(
-        getProjectByCode(
-          code,
-          null,
-          logType,
-          data.selected + 1,
-          record,
-          projectCode.code
-        )
-      );
-    }
-
-    setPageNo(data.selected + 1);
-    localStorage.setItem("page_no", data.selected + 1);
-    dispatch(
-      getProjectByCode(
-        code,
-        null,
-        null,
-        data.selected + 1,
-        record,
-        projectCode.code
-      )
-    );
+    toast.success("Filter has been reset");
   };
 
   // FIRST DISPATCH OF TABLE DATA
@@ -707,23 +679,43 @@ function TableData(props) {
     );
   }, []);
 
-  // console.log(
-  //   "tabledata",
-  //   bootstrapTableRef &&
-  //     bootstrapTableRef.current &&
-  //     bootstrapTableRef.current.selectionContext &&
-  //     bootstrapTableRef.current.selectionContext.selected.length === 0
-  // );
+  console.log(
+    `Loading items from ${itemOffset} to type  ${typeof record} ${
+      data && data.data && data.data.logs.length
+    }`
+  );
 
-  const handlePageChange = (pageNumber) => {
-    // console.log(`active page is ${pageNumber}`);
-    setActivePage({ activePage: pageNumber });
+  const handlePageClick = (data) => {
+    if (
+      logType.error ||
+      logType.info ||
+      logType.warn ||
+      logType.debug ||
+      logType.verbose
+    ) {
+      props.setShowTableField(false);
+      setPageNo(data.selected + 1);
+      localStorage.setItem("page_no", data.selected + 1);
+      return dispatch(
+        getProjectByCode(
+          code,
+          null,
+          logType,
+          data.selected + 1,
+          record,
+          projectCode.code
+        )
+      );
+    }
+
+    setPageNo(data.selected);
+    localStorage.setItem("page_no", data.selected);
     dispatch(
       getProjectByCode(
         code,
-        date,
-        logType,
-        pageNumber,
+        null,
+        null,
+        data.selected,
         record,
         projectCode.code
       )
@@ -801,17 +793,15 @@ function TableData(props) {
                 )}
               </ToolkitProvider>
               <section className="p-2">
-                {/* <ReactPaginate
-                  breakLabel=". . ."
-                  nextLabel="Next >"
+                <ReactPaginate
+                  breakLabel="..."
+                  previousLabel={"Prev"}
+                  nextLabel={"Next"}
                   onPageChange={handlePageClick}
                   pageRangeDisplayed={4}
-                  // pageCount={
-                  //   data && data.data && Math.ceil(data.data.count / record)
-                  // }
-                  pageCount={data && data.data && data.data.count / record}
-                  // previousLabel="< Previous"
-                  // initialPage={1}
+                  pageCount={Math.ceil(
+                    data && data.data && data.data.count / record
+                  )}
                   renderOnZeroPageCount={null}
                   containerClassName={"pagination"}
                   pageClassName={"page-item"}
@@ -821,21 +811,11 @@ function TableData(props) {
                   previousLinkClassName={"page-link"}
                   nextLinkClassName={"page-link"}
                   activeClassName={"active"}
-                /> */}
-                {/* <TablePaginationN
-                  code={code}
-                  date={date}
-                  logType={logType}
-                  record={record}
-                /> */}
-
-                <Pagination
-                  activePage={activePage.activePage}
-                  itemsCountPerPage={record}
-                  totalItemsCount={data && data.data && data.data.count}
-                  pageRangeDisplayed={5}
-                  onChange={handlePageChange}
+                  marginPagesDisplayed={1}
+                  forcePage={pageNo}
                 />
+
+             
               </section>
             </>
           )}
