@@ -27,6 +27,7 @@ function App() {
       setSplash(false);
     }, 3500);
   }, []);
+  
   return (
     <>
       {splash ? (

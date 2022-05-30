@@ -3,7 +3,7 @@ import { ThemeContext, themes } from "./ThemeContext";
 import { sideMenus } from "./ThemeContext";
 
 export default function ThemeContextWrapper(props) {
-  const [theme, setTheme] = useState(themes.dark);
+  const [theme, setTheme] = useState(themes.light);
   const [sideMenu, setSideMenu] = useState(sideMenus.menuShow);
 
   // change theme to dark

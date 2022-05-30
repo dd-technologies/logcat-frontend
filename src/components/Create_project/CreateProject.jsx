@@ -17,13 +17,11 @@ import Spinner from "../../Container/Spinner";
 import { adminLogout } from "../../redux/action/AdminAction";
 import "../../utils/Theme.css";
 import CustomeDropDown from "../../Container/DropDown";
-import { ThemeContext } from "../../utils/ThemeContext";
 
 function CreateProject() {
   const [modalShow, setModalShow] = useState(false);
   const [darkMode, setDarkMode] = React.useState(true);
   const [userInfo, setUserInfo] = useState(false);
-  let { sideMenu } = React.useContext(ThemeContext);
   const Dispatch = useDispatch();
   const getAllProjectReducer = useSelector(
     (state) => state.getAllProjectReducer

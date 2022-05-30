@@ -1,6 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { getProjectByCode } from "../redux/action/ProjectAction";
 import ReactPaginate from "react-paginate";
 
 export default function Pagination({
