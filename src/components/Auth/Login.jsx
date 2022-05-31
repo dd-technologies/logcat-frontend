@@ -28,7 +28,7 @@ export default function Login() {
   const dispatch = useDispatch();
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { loading, error, adminInfo } = adminLoginReducer;
-  // console.log("adminLoginReducer", adminLoginReducer);
+  console.log("adminLoginReducer", adminLoginReducer);
 
   const navigate = useNavigate();
 

@@ -50,6 +50,9 @@ export default function ResetPassword() {
   };
 
   const { loading, data, error } = resetPasswordReducer;
+
+  console.log("resetPasswordReducer", resetPasswordReducer);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

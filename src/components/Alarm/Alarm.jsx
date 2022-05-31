@@ -451,6 +451,7 @@ export default function Alarm(props) {
                           previousLinkClassName={"page-link"}
                           nextLinkClassName={"page-link"}
                           activeClassName={"active"}
+                          marginPagesDisplayed={1}
                         />
                       </section>
                     </>

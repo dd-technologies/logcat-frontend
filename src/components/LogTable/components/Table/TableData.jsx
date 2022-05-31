@@ -109,10 +109,6 @@ function TableData(props) {
       : false,
   });
 
-  // We start with an empty list of items.
-  const [currentItems, setCurrentItems] = useState(
-    data && data.data && data.data.logs
-  );
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
@@ -166,39 +162,6 @@ function TableData(props) {
     clickToSelect: true,
     onSelect: (row, isSelect, rowIndex, e) => {
       if (isSelect) setDisableButton(true);
-      // var obj = { [rowIndex]: isSelect };
-      // // console.log("bootstrapRef", row);
-      // if (
-      //   bootstrapTableRef &&
-      //   bootstrapTableRef.current &&
-      //   bootstrapTableRef.current.selectionContext &&
-      //   bootstrapTableRef.current.selectionContext.selected.length !== 0
-      // ) {
-      //   setDisableButton(false);
-      // } else {
-      //   setDisableButton(true);
-      // }
-      //   var objOfRowIndex = { [rowIndex]: isSelect };
-      //   arrayOfObjectIndex.push(objOfRowIndex);
-      //   // looping object of an array
-      //   for (var key in arrayOfObjectIndex) {
-      //     var obj = arrayOfObjectIndex[key];
-      //     // console.log("first", obj);
-      //     for (var prop in obj) {
-      //       if (obj.hasOwnProperty(prop)) {
-      //         // console.log("first obj", prop + " = " + obj[prop]);
-      //         if (!obj[prop]) {
-      //           arrayOfObjectIndex.pop();
-      //           arrayOfObjectIndex.splice(arrayOfObjectIndex[prop], 1);
-      //         }
-      //       }
-      //     }
-      //   }
-      //   console.log("arrayOfObjectIndex", arrayOfObjectIndex);
-      //   console.log("first array length", arrayOfObjectIndex.length);
-      //   console.log("first condition", arrayOfObjectIndex.length < 0);
-      //   if (arrayOfObjectIndex.length > 0) setDisableButton(false);
-      //   if (arrayOfObjectIndex.length < 0) setDisableButton(true);
     },
     onSelectAll: (row, isSelect, rowIndex, e) => {
       console.log("row", row, isSelect, rowIndex);
@@ -388,13 +351,24 @@ function TableData(props) {
       },
       events: {
         onClick: (e, column, columnIndex, row, rowIndex) => {
+          console.log("row link", row);
+
           let version = row.version ? row.version : null;
           navigate(
-            `/analytics?code=${props.code}&name=${props.projectName}&col=${row.log.message}&rowlogGeneratedDate=${row.log.date}&version=${version}&osArchitecture=${row.device.os.name}&modelName=${row.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`
+            `/analytics?code=${props.code}&name=${props.projectName}&col=${
+              row.log.filePath ? row.log.filePath : row.log.message
+            }&rowlogGeneratedDate=${
+              row.log.date
+            }&version=${version}&osArchitecture=${
+              row.device.os.name
+            }&modelName=${
+              row.device.name
+            }&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`
           );
         },
       },
       formatter: (col, row, rowIndex) => {
+        console.log("col", row);
         var title;
         var colData = col.split("at ");
         var colDataTOString = colData.toString();
@@ -419,7 +393,9 @@ function TableData(props) {
         }
         return (
           <div className={Style.expandedRow}>
-            {title.indexOf(")") ? title.split(")")[0] : title}
+            {console.log("title", row && row.log && row.log.filePath)}
+            {title && title.indexOf(")") ? title.split(")")[0] : title}
+            {row && row.log && row.log.filePath}
           </div>
         );
       },
@@ -511,39 +487,6 @@ function TableData(props) {
       sort: true,
     },
   ];
-
-  // useEffect(() => {
-  //   const checkIfClickedOutside = (e) => {
-  //     if (showTableField && ref.current && !ref.current.contains(e.target)) {
-  //       props.setShowTableField(false);
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", checkIfClickedOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", checkIfClickedOutside);
-  //     console.log(
-  //       "showTableField",
-  //       code,
-  //       date,
-  //       logType,
-  //       pageNo,
-  //       record,
-  //       projectCode.code
-  //     );
-  //     if (showTableField) {
-  //       dispatch(
-  //         getProjectByCode(
-  //           code,
-  //           date,
-  //           logType,
-  //           pageNo,
-  //           record,
-  //           projectCode.code
-  //         )
-  //       );
-  //     }
-  //   };
-  // }, [showTableField]);
 
   console.log("bootstrapRef", bootstrapTableRef && bootstrapTableRef.current);
 
@@ -722,6 +665,8 @@ function TableData(props) {
     );
   };
 
+  console.log("log data", data && data?.data && data?.data?.logs);
+
   return (
     <>
       <TableCard
@@ -814,8 +759,6 @@ function TableData(props) {
                   marginPagesDisplayed={1}
                   forcePage={pageNo}
                 />
-
-             
               </section>
             </>
           )}

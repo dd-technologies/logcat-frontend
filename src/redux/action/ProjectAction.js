@@ -44,7 +44,13 @@ export const getAllProject = () => async (dispatch) => {
     console.log("error", error);
     dispatch({
       type: GET_PROJECT_REQUEST_FAIL,
-      payload: error && error.message,
+      payload:
+        error &&
+        error?.response &&
+        error?.response?.data &&
+        error?.response?.data?.data &&
+        error?.response?.data?.data?.err &&
+        error?.response?.data?.data?.msg,
     });
   }
 };
@@ -78,9 +84,12 @@ export const addCrashEmail = (code, email) => async (dispatch) => {
     dispatch({
       type: ADD_CRASH_EMAIL_REQUEST_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+        error &&
+        error?.response &&
+        error?.response?.data &&
+        error?.response?.data?.data &&
+        error?.response?.data?.data?.err &&
+        error?.response?.data?.data?.msg,
     });
   }
 };
@@ -131,7 +140,13 @@ export const getProjectByCode =
     } catch (error) {
       dispatch({
         type: GET_ALL_LOG_BY_CODE_FAIL,
-        payload: error && error.message,
+        payload:
+          error &&
+          error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.data &&
+          error?.response?.data?.data?.err &&
+          error?.response?.data?.data?.msg,
       });
     }
   };
@@ -167,9 +182,12 @@ export const uploadNewProject = (name, modelList, desc) => async (dispatch) => {
     dispatch({
       type: UPLOAD_NEW_PROJECT_REQUEST_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+        error &&
+        error?.response &&
+        error?.response?.data &&
+        error?.response?.data?.data &&
+        error?.response?.data?.data?.err &&
+        error?.response?.data?.data?.msg,
     });
   }
 };
@@ -208,9 +226,12 @@ export const getProjectByCodeSetting = (code) => async (dispatch) => {
     dispatch({
       type: GET_PROJECT_BY_CODE_REQUEST_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+        error &&
+        error?.response &&
+        error?.response?.data &&
+        error?.response?.data?.data &&
+        error?.response?.data?.data?.err &&
+        error?.response?.data?.data?.msg,
     });
   }
 };

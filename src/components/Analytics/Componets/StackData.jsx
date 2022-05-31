@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import Style from "./StackData.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -25,6 +25,9 @@ export default function StackData() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const colData = urlParams.get("col");
+
+  const fileExtention = colData.split(".").pop();
+  console.log("colData", fileExtention);
 
   // HEADING DATA ANALYTIC
   const DataINRow = colData.split("at ") && colData.split(")").slice(0, -1);
@@ -70,34 +73,51 @@ export default function StackData() {
     }
   };
 
+  // DOWNLAOD IMAGE FORM DATABSE
+  const download = (file) => {
+    var link = document.createElement("a");
+    var urlType = `https://591f-2401-4900-1c5c-4fda-fd6c-ca17-773a-8063.in.ngrok.io${
+      file.split("/public")[1]
+    }`;
+
+    link.href = urlType;
+    link.download = urlType;
+
+    console.log("link", file);
+    document.body.appendChild(link);
+    link.click();
+  };
+
   return (
     <>
       <Row className="p-4">
-        <Col xl={12}>
-          {/* TEXT AND COE TOGGLE SECTION */}
-          <section className={Style.filterToggle}>
-            <section
-              className={
-                activeClassToggle.stack
-                  ? `${Style.filterGraphFirstSectionActive}  `
-                  : `${Style.filterGraphFirstSection} `
-              }
-              onClick={stackErrorFilterTextFormateFun}
-            >
-              <FontAwesomeIcon icon={faTasks} />
+        {!fileExtention && (
+          <Col xl={12}>
+            {/* TEXT AND COE TOGGLE SECTION */}
+            <section className={Style.filterToggle}>
+              <section
+                className={
+                  activeClassToggle.stack
+                    ? `${Style.filterGraphFirstSectionActive}  `
+                    : `${Style.filterGraphFirstSection} `
+                }
+                onClick={stackErrorFilterTextFormateFun}
+              >
+                <FontAwesomeIcon icon={faTasks} />
+              </section>
+              <section
+                className={
+                  activeClassToggle.text
+                    ? `${Style.filterGraphFirstSectionActive} `
+                    : `${Style.filterGraphFirstSection} `
+                }
+                onClick={stackErrorFilterFun}
+              >
+                <FontAwesomeIcon icon={faTextHeight} />
+              </section>
             </section>
-            <section
-              className={
-                activeClassToggle.text
-                  ? `${Style.filterGraphFirstSectionActive} `
-                  : `${Style.filterGraphFirstSection} `
-              }
-              onClick={stackErrorFilterFun}
-            >
-              <FontAwesomeIcon icon={faTextHeight} />
-            </section>
-          </section>
-        </Col>
+          </Col>
+        )}
 
         {/* TEXT ERROR  WITH  FILTER BUTTON CLICK */}
         {stackErrorFilter ? (
@@ -134,7 +154,9 @@ export default function StackData() {
                             <FontAwesomeIcon icon={faCaretDown} />
                           </section>
                           {innerParaShowDetails[idx] && (
-                            <section className={`${Style.detailSection}  darkModebgColor`}>
+                            <section
+                              className={`${Style.detailSection}  darkModebgColor`}
+                            >
                               {grouped[key].map((items, index) => {
                                 return (
                                   <>
@@ -182,6 +204,13 @@ export default function StackData() {
               <Col xl={12} className={`${Style.outerDiv} mt-4`}>
                 <section className={`${Style.StackInfoDive}`}>
                   <p>{colData}</p>
+                  {fileExtention.includes("jpg") ||
+                  fileExtention.includes("png") ||
+                  fileExtention.includes("jpeg") ? (
+                    <Button onClick={() => download(colData)} className="m-2">
+                      Download image
+                    </Button>
+                  ) : null}
                 </section>
               </Col>
             )}

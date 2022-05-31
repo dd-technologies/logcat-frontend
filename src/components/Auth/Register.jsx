@@ -41,7 +41,7 @@ const Register = () => {
   );
   const { loading, error, data } = adminRegisterReducer;
 
-  // console.log("adminRegisterReducer", adminRegisterReducer);
+  console.log("adminRegisterReducer", adminRegisterReducer);
 
   // VALIDATE EMAIL
   const validateEmail = (email) => {
@@ -123,6 +123,7 @@ const Register = () => {
       return false;
     } else {
       setNameError(null);
+      setNameError(null);
     }
 
     if (email && password) {
@@ -147,6 +148,12 @@ const Register = () => {
 
   useEffect(() => {
     setResponseError(error);
+
+    // @@ CLEANING UP ALL ERROR RESPONSE AND CUSTOM ERROR WITH API HIT
+    return () => {
+      setResponseError(null);
+      setEmailError(null);
+    };
   }, [error]);
 
   // console.log("error", error);
@@ -166,9 +173,7 @@ const Register = () => {
             <div className="Login-title d-flex justify-content-start">
               <p className={Style.headerText}>Register</p>
             </div>
-            {error && error.data && error.data.message && (
-              <p style={{ color: "red" }}>{error.data.message}</p>
-            )}
+            {error && <p style={{ color: "red" }}>{error}</p>}
 
             {data && data.data && data.data.message && (
               <p style={{ color: "#1F99A4" }}>{data.data.message}</p>

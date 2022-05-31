@@ -72,6 +72,11 @@ function CreateProject() {
     setUserInfo(!userInfo);
   };
 
+  // @@ REMOVING PROJECT TYPE FROM LOCALHOST ----
+  useEffect(() => {
+    localStorage.removeItem("project_type");
+  }, []);
+
   return (
     <>
       {/*Logout functionality */}
@@ -80,7 +85,12 @@ function CreateProject() {
           <section className={Style.backgroundSection}></section>
           <Container className={Style.MainContantainer}>
             <Row>
-              <Col xl={6} md={6} sm={12} className="mt-2 d-flex align-self-center">
+              <Col
+                xl={6}
+                md={6}
+                sm={12}
+                className="mt-2 d-flex align-self-center"
+              >
                 <h5
                   className="darkModeColor"
                   style={{

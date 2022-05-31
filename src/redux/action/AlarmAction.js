@@ -6,7 +6,7 @@ import {
 } from "../types/AlarmConstants";
 
 export const alarmAction =
-  (code=null,projectType = null, diffdate = null, page = 1, record = 25) =>
+  (code = null, projectType = null, diffdate = null, page = 1, record = 25) =>
   async (dispatch) => {
     try {
       // console.log("qqq", projectType, diffdate);
@@ -56,9 +56,16 @@ export const alarmAction =
         payload: response.data,
       });
     } catch (error) {
+      console.log("alarm error", error);
       dispatch({
         type: ALARM_FAIL,
-        payload: error,
+        payload:
+          error &&
+          error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.data &&
+          error?.response?.data?.data?.err &&
+          error?.response?.data?.data?.err?.msg,
       });
     }
   };

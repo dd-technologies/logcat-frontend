@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import CustomCard from "../../Container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -40,8 +40,16 @@ export default function ForgetPassword() {
   const forgetPasswordReducer = useSelector(
     (state) => state.forgetPasswordReducer
   );
-  const { loading, forgetPasswordInfo } = forgetPasswordReducer;
+
+  console.log("forgetPasswordReducer", forgetPasswordReducer);
+
+  const { loading, error, forgetPasswordInfo } = forgetPasswordReducer;
   const navigate = useNavigate();
+
+  if (error) {
+    toast.error(error);
+  }
+
   if (forgetPasswordInfo && forgetPasswordInfo.success) {
     toast.success(forgetPasswordInfo.message);
     localStorage.setItem("forgetEmail", JSON.stringify(forgetEmail));

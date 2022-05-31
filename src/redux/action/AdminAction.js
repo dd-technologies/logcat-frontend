@@ -51,12 +51,16 @@ export const loginWithEmail =
       }
       localStorage.setItem("ddAdminToken", data.data.token);
     } catch (error) {
+      console.log("login error", error);
       dispatch({
         type: ADMIN_LOGIN_FAIL,
         payload:
-          error.response && error.response.data
-            ? error.response.data.message
-            : error.message,
+          error &&
+          error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.data &&
+          error?.response?.data?.data?.err &&
+          error?.response?.data?.data?.err?.msg,
       });
     }
   };
@@ -96,9 +100,12 @@ export const adminLogout = (navigate) => async (dispatch) => {
     dispatch({
       type: ADMIN_LOGOUT_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+        error &&
+        error?.response &&
+        error?.response?.data &&
+        error?.response?.data?.data &&
+        error?.response?.data?.data?.err &&
+        error?.response?.data?.data?.err?.msg,
     });
   }
 };
@@ -136,9 +143,16 @@ export const adminRegister =
       localStorage.setItem("adminInfo", data);
       navigate("/");
     } catch (error) {
+      console.log("reigster error", error);
       dispatch({
         type: ADMIN_REGISTER_FAIL,
-        payload: error.response,
+        payload:
+          error &&
+          error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.data &&
+          error?.response?.data?.data?.err &&
+          error?.response?.data?.data?.err?.msg,
       });
     }
   };
@@ -167,12 +181,17 @@ export const forgetPassword = (email) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
+    console.log("forget password", error);
+
     dispatch({
       type: FORGET_PASSWORD_REQUEST_FAIL,
       payload:
-        error.response && error.response.data.errorMessage
-          ? error.response.data.errorMessage
-          : error.message,
+        error &&
+        error?.response &&
+        error?.response?.data &&
+        error?.response?.data?.data &&
+        error?.response?.data?.data?.err &&
+        error?.response?.data?.data?.err?.msg,
     });
   }
 };
@@ -217,14 +236,16 @@ export const resetForgetPassword =
         payload: data,
       });
     } catch (error) {
+      console.log("reset password", error);
       dispatch({
         type: RESET_PASSWORD_REQUEST_FAIL,
         payload:
-          error.response &&
-          error.response.data &&
-          error.response.data.errorMessage
-            ? error.response.data.errorMessage
-            : error.message,
+          error &&
+          error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.data &&
+          error?.response?.data?.data?.err &&
+          error?.response?.data?.data?.err?.msg,
       });
     }
   };
@@ -259,12 +280,16 @@ export const updateProfile = (email, name, avatar) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
+    console.log("update profile", error);
     dispatch({
       type: UPDATE_PROFILE_REQUEST_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+        error &&
+        error?.response &&
+        error?.response?.data &&
+        error?.response?.data?.data &&
+        error?.response?.data?.data?.err &&
+        error?.response?.data?.data?.err?.msg,
     });
   }
 };

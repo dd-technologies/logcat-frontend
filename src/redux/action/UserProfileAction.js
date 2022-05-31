@@ -38,7 +38,13 @@ export const passwordChangeAction =
     } catch (error) {
       dispatch({
         type: USER_PASSWORD_CHANGE_FAIL,
-        payload: error,
+        payload:
+          error &&
+          error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.data &&
+          error?.response?.data?.data?.err &&
+          error?.response?.data?.data?.err?.msg,
       });
     }
   };

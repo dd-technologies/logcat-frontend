@@ -132,7 +132,7 @@ export default function Analytics() {
   const dispatch = useDispatch();
 
   const dispatchmultiple = () => {
-    console.log("subTitleVal", subTitleVal)
+    console.log("subTitleVal", subTitleVal);
     dispatch(
       getCrashFreeUsersData(
         code,

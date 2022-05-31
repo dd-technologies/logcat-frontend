@@ -12,9 +12,9 @@ import {
   GET_ERROR_COUNT_BY_VERSION_REQUEST,
   GET_ERROR_COUNT_BY_VERSION_REQUEST_SUCCESS,
   GET_ERROR_COUNT_BY_VERSION_REQUEST_FAIL,
-  GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST,
-  GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST_SUCCESS,
-  GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST_FAIL,
+  GET_LOG_MSG_OCCURRENCE_COUNT_WRT_DATE_REQUEST,
+  GET_LOG_MSG_OCCURRENCE_COUNT_WRT_DATE_REQUEST_SUCCESS,
+  GET_LOG_MSG_OCCURRENCE_COUNT_WRT_DATE_REQUEST_FAIL,
   GET_CRASH_FREE_USERS_REQUEST,
   GET_CRASH_FREE_USERS_REQUEST_SUCCESS,
   GET_CRASH_FREE_USERS_REQUEST_FAIL,
@@ -60,9 +60,17 @@ export const getLogTypeCounts =
         payload: data,
       });
     } catch (error) {
+      console.log("get log count api error", error);
+
       dispatch({
         type: GET_LOG_COUNT_FAIL,
-        payload: error && error.message,
+        payload:
+          error &&
+          error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.data &&
+          error?.response?.data?.data?.err &&
+          error?.response?.data?.data?.err?.msg,
       });
     }
   };
@@ -100,18 +108,24 @@ export const getLogByDate =
     } catch (error) {
       dispatch({
         type: GET_LOG_COUNT_BY_DATE_FAIL,
-        payload: error,
+        payload:
+          error &&
+          error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.data &&
+          error?.response?.data?.data?.err &&
+          error?.response?.data?.data?.err?.msg,
       });
     }
   };
 
-// LOG MSG OCCURENCES
+// LOG MSG OCCURRENCES
 export const getLogMsgOccurenceWRTDate =
   ({ code, startDate, endDate, logMsg, code1 }) =>
   async (dispatch) => {
     try {
       dispatch({
-        type: GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST,
+        type: GET_LOG_MSG_OCCURRENCE_COUNT_WRT_DATE_REQUEST,
       });
       const token = localStorage.getItem("ddAdminToken");
       const config = {
@@ -132,7 +146,7 @@ export const getLogMsgOccurenceWRTDate =
           config
         );
         dispatch({
-          type: GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST_SUCCESS,
+          type: GET_LOG_MSG_OCCURRENCE_COUNT_WRT_DATE_REQUEST_SUCCESS,
           payload: data.data,
         });
       } else {
@@ -141,14 +155,20 @@ export const getLogMsgOccurenceWRTDate =
           config
         );
         dispatch({
-          type: GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST_SUCCESS,
+          type: GET_LOG_MSG_OCCURRENCE_COUNT_WRT_DATE_REQUEST_SUCCESS,
           payload: data.data,
         });
       }
     } catch (error) {
       dispatch({
-        type: GET_LOG_MSG_OCCURENCE_COUNT_WRT_DATE_REQUEST_FAIL,
-        payload: error && error.message,
+        type: GET_LOG_MSG_OCCURRENCE_COUNT_WRT_DATE_REQUEST_FAIL,
+        payload:
+          error &&
+          error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.data &&
+          error?.response?.data?.data?.err &&
+          error?.response?.data?.data?.err?.msg,
       });
     }
   };
@@ -184,7 +204,13 @@ export const getCrashFreeUsers =
     } catch (error) {
       dispatch({
         type: GET_CRASH_FREE_USERS_REQUEST_FAIL,
-        payload: error && error.message,
+        payload:
+          error &&
+          error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.data &&
+          error?.response?.data?.data?.err &&
+          error?.response?.data?.data?.err?.msg,
       });
     }
   };
@@ -223,9 +249,12 @@ export const getCrashAnalyticsData =
       dispatch({
         type: GET_CRASH_ANALYTICS_DATA_REQUEST_FAIL,
         payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+          error &&
+          error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.data &&
+          error?.response?.data?.data?.err &&
+          error?.response?.data?.data?.err?.msg,
       });
     }
   };
@@ -234,11 +263,6 @@ export const getCrashAnalyticsData =
 export const getCrashFreeUsersData =
   (code, logMsg, projectType) => async (dispatch) => {
     try {
-      var dt = new Date();
-      const endDate = dt.toISOString().slice(0, 10);
-      dt.setDate(dt.getDate() - 90);
-      const startDate = dt.toISOString().slice(0, 10);
-
       dispatch({
         type: GET_CRASH_FREE_USERS_DATA_REQUEST,
       });
@@ -262,9 +286,12 @@ export const getCrashFreeUsersData =
       dispatch({
         type: GET_CRASH_FREE_USERS_DATA_REQUEST_FAIL,
         payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+          error &&
+          error?.response &&
+          error?.response?.data &&
+          error?.response?.data?.data &&
+          error?.response?.data?.data?.err &&
+          error?.response?.data?.data?.err?.msg,
       });
     }
   };
@@ -294,7 +321,13 @@ export const getDeviceModelCode = (code) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_MODEL_CODE_FAIL,
-      payload: error && error.message,
+      payload:
+        error &&
+        error?.response &&
+        error?.response?.data &&
+        error?.response?.data?.data &&
+        error?.response?.data?.data?.err &&
+        error?.response?.data?.data?.err?.msg,
     });
   }
 };
@@ -325,9 +358,12 @@ export const getErrorWRTOS = (code, projectType) => async (dispatch) => {
     dispatch({
       type: GET_ERROR_WRT_OS_REQUEST_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+        error &&
+        error?.response &&
+        error?.response?.data &&
+        error?.response?.data?.data &&
+        error?.response?.data?.data?.err &&
+        error?.response?.data?.data?.err?.msg,
     });
   }
 };
@@ -358,9 +394,12 @@ export const getErrorWRTVersion = (code, projectType) => async (dispatch) => {
     dispatch({
       type: GET_ERROR_COUNT_BY_VERSION_REQUEST_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+        error &&
+        error?.response &&
+        error?.response?.data &&
+        error?.response?.data?.data &&
+        error?.response?.data?.data?.err &&
+        error?.response?.data?.data?.err?.msg,
     });
   }
 };
