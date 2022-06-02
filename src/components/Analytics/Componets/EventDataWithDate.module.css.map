@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AACE,QADM,CACN,SAAS,CAAC;EACR,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,UAAU;EAC3B,KAAK,EAAE,GAAG;CACX;;AALH,AAOE,QAPM,CAOJ,CAAC,CAAC;ECWJ,SAAS,EAAE,iBAAiB;EAC5B,WAAW,EAAE,GAAG;EAChB,KAAK,EAbU,OAAO;CDKrB;;AAZH,AASI,QATI,CAOJ,CAAC,CAEC,IAAI,CAAC;EACL,OAAO,EAAE,GAAG;CACb",
+    "sources": [
+        "EventDataWithDate.module.scss",
+        "../../../css/veriables.module.scss"
+    ],
+    "names": [],
+    "file": "EventDataWithDate.module.css"
+}

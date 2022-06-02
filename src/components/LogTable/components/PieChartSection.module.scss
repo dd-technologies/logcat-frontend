@@ -1,0 +1,19 @@
+@import "../../../css/veriables.module.scss";
+
+.PieChartData {
+  display: flex;
+  justify-content: space-between;
+  & h5 {
+    @include activeparaFontdasktopMixin;
+  }
+
+  & p {
+    color: $activehrefText;
+    font-size: 0.8rem;
+  }
+
+  & section {
+    display: flex;
+  }
+}
+

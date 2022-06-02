@@ -1,0 +1,114 @@
+.ToggleTabs {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 52px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  background-color: #e2e2e2;
+}
+
+.ToggleTabs p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .ToggleTabs p {
+    font-size: 0.7rem !important;
+    font-weight: 500;
+    color: #0099a4;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1400px) {
+  .ToggleTabs p {
+    font-size: 0.8rem !important;
+    font-weight: 500;
+    color: #0099a4;
+  }
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1920px) {
+  .ToggleTabs p {
+    font-size: 0.9rem !important;
+    font-weight: 500;
+    color: #0099a4;
+  }
+}
+
+.ToggleTabs_active {
+  cursor: pointer;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #0099a4;
+}
+
+.ToggleTabs_active p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100%;
+  color: #fff;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .ToggleTabs_active p {
+    font-size: 0.7rem !important;
+    font-weight: 500;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1400px) {
+  .ToggleTabs_active p {
+    font-size: 0.8rem !important;
+    font-weight: 500;
+  }
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1920px) {
+  .ToggleTabs_active p {
+    font-size: 0.9rem !important;
+    font-weight: 500;
+  }
+}
+
+.DataTogleSection {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.DataTogleSection p {
+  font-size: 0.9rem !important;
+  color: #646464;
+}
+/*# sourceMappingURL=ToggleTabs.module.css.map */

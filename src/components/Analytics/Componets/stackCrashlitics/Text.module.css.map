@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAGA,AAAA,aAAa,CAAC;EACZ,aAAa,EAAE,IAAI;EAEnB,UAAU,EAAE,IAAI;EAChB,OAAO,EAAE,IAAI;EACb,OAAO,EAAE,KAAK;EACd,eAAe,EAAE,aAAa;EAC9B,gBAAgB,EAAE,OAAO;CAI1B;;AAXD,AAQE,aARW,CAQT,CAAC,CAAC;ECSJ,SAAS,EAAE,iBAAiB;EAC5B,WAAW,EAAE,GAAG;EAChB,KAAK,EAbU,OAAO;CDIrB",
+    "sources": [
+        "Text.module.scss",
+        "../../../../css/veriables.module.scss"
+    ],
+    "names": [],
+    "file": "Text.module.css"
+}

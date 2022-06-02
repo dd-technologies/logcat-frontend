@@ -1,0 +1,20 @@
+.MainDiv .outerSec {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 80%;
+}
+
+.MainDiv p {
+  font-size: 0.9rem !important;
+  font-weight: 500;
+  color: #0099a4;
+}
+
+.MainDiv p span {
+  padding: 7px;
+}
+/*# sourceMappingURL=EventDataWithDate.module.css.map */
