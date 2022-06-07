@@ -386,6 +386,7 @@ export default function LogTable() {
                       fontSize: "0.9rem",
                       lineHeight: "2.2rem",
                       letterSpacing: "0.5px",
+                      color :"#000"
                     }}
                   >
                     Issues

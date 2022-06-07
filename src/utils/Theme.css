@@ -1,41 +1,41 @@
-.dark-content {
+.ligth-theme {
   background: #212121 !important;
   overflow-x: hidden !important;
 }
 
-.dark-content .card {
+.ligth-theme .card {
   background-color: #262626;
   -webkit-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.45) !important;
           box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.45) !important;
   border-radius: 0px;
 }
 
-.dark-content td {
+.ligth-theme td {
   color: #fff !important;
 }
 
-.dark-content .darkModeColor {
+.ligth-theme .darkModeColor {
   color: #fff !important;
 }
 
-.dark-content .cpactiveText {
+.ligth-theme .cpactiveText {
   color: #0099a4;
 }
 
-.dark-content .TDsec {
+.ligth-theme .TDsec {
   background-color: #0099a4 !important;
 }
 
-.dark-content .TBSED {
+.ligth-theme .TBSED {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
 
-.dark-content .darkModebgColor {
+.ligth-theme .darkModebgColor {
   background-color: #c6d3ff !important;
 }
 
-.dark-content .darkBgColorSec {
+.ligth-theme .darkBgColorSec {
   background-color: #fff;
 }
 
@@ -412,5 +412,14 @@
     height: 40px;
     cursor: pointer;
   }
+}
+
+.pagination li {
+  border-radius: 5px;
+}
+
+.pagination li a {
+  text-decoration: none;
+  color: #0099a4;
 }
 /*# sourceMappingURL=Theme.css.map */

@@ -2,7 +2,7 @@
 @import "../css/veriables.module.scss";
 
 // dark mode css
-.dark-content {
+.ligth-theme {
   background: #212121 !important;
   overflow-x: hidden !important;
 
@@ -429,52 +429,15 @@
 }
 
 // // pagination
-// .dark-content {
-//   .previous  {
-//     .active {
-//       width: fit-content;
-//       padding: 4px 14px;
-//       background-color: $activehrefText;
-//       border-radius: 5px;
-//       & a {
-//         text-decoration: none;
-//         color: $defaultTextColor;
-//       }
-//     }
-//     & li {
-//       margin: 0px 2px;
-//       width: fit-content;
-//       padding: 4px 14px;
-//       border: $defaultTextColor 1px solid;
-//       border-radius: 5px;
-//       & a {
-//         text-decoration: none;
-//         color: $activehrefText;
-//       }
-//     }
-//   }
-// }
 
-// .pagination {
-//   .previous {
-//     width: fit-content;
-//     padding: 4px 14px;
-//     background-color: $activehrefText;
-//     border-radius: 5px;
-//     & a {
-//       text-decoration: none;
-//       color: $defaultTextColor;
-//     }
-//   }
-//   & li {
-//     margin: 0px 2px;
-//     width: fit-content;
-//     padding: 4px 14px;
-//     border: $activehrefText 1px solid;
-//     border-radius: 5px;
-//     & a {
-//       text-decoration: none;
-//       color: $activehrefText;
-//     }
-//   }
-// }
+.pagination {
+  & li {
+    border-radius: 5px;
+    & a {
+      text-decoration: none;
+      color: $active_text_color;
+    }
+  }
+}
+
+

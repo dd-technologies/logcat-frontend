@@ -20,7 +20,7 @@
     display: flex;
     justify-content: space-between;
     .ParaWithArrowDown {
-      color: $activehrefText;
+      color: $active_text_color;
       cursor: pointer;
     }
     & p {
@@ -50,7 +50,7 @@
     display: flex;
     justify-content: space-between;
     .ParaWithArrowDown {
-      color: $activehrefText;
+      color: $active_text_color;
       cursor: pointer;
     }
     & p {
@@ -91,7 +91,7 @@
       color: #000 !important;
     }
     .normalPara {
-      color: $activehrefText !important;
+      color: $active_text_color !important;
       font-size: 0.8rem !important;
     }
     & p {
@@ -125,7 +125,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: $activehrefText;
+  background-color: $active_text_color;
   border-radius: 55px;
   overflow: hidden;
 
@@ -150,11 +150,11 @@
   .filterGraphFirstSectionActive {
     width: 100%;
     & p {
-      color: $activehrefText;
+      color: $active_text_color;
       font-size: 0.8rem;
     }
     & svg {
-      color: $activehrefText;
+      color: $active_text_color;
     }
     cursor: pointer;
     background-color: $filterButtonBackgroundColor;

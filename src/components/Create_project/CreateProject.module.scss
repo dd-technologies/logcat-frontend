@@ -42,7 +42,7 @@
       & svg {
         width: 100% !important;
         height: 30px !important;
-        color: $activehrefText;
+        color: $active_text_color;
       }
     }
   }
@@ -99,7 +99,7 @@
   cursor: pointer;
   border: solid rgb(226, 226, 226) 1px !important;
   &:hover {
-    background-color: $activehrefText;
+    background-color: $active_text_color;
     color: #fff;
   }
 }

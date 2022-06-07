@@ -10,11 +10,14 @@ export default function CrashFreeStatics() {
   );
   const { data } = getCrashFreeUsersReducer;
 
-  const getAllLogByCodeReducer = useSelector(
-    (state) => state.getAllLogByCodeReducer
-  );
+  const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
+  const { data: deviceData } = getModelCodeReducer;
 
-  const { data: userCode } = getAllLogByCodeReducer;
+  // const getAllLogByCodeReducer = useSelector(
+  //   (state) => state.getAllLogByCodeReducer
+  // );
+
+  // const { data: userCode } = getAllLogByCodeReducer;
 
   return (
     <>
@@ -38,7 +41,8 @@ export default function CrashFreeStatics() {
               <section className="ps-4">
                 <p className="darkModeColor mb-2">Total Users</p>
                 <h4 style={{ fontWeight: 700 }}>
-                  {userCode && userCode.data && userCode && userCode.data.count}
+                  {deviceData && deviceData.deviceCount}
+                  {/* {userCode && userCode.data && userCode && userCode.data.count} */}
                 </h4>
               </section>
             </section>

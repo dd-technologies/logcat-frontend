@@ -17,7 +17,7 @@ import TableCard from "../../../../Container/TableCard";
 import { Link, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../../../utils/ThemeContext";
 import "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css";
-import CustomPagination from "../../../../common/CustomePagination";
+import CustomPaginationTableData from "../../../../common/CustomPaginationTableData";
 
 const { SearchBar } = Search;
 const { ExportCSVButton } = CSVExport;
@@ -26,6 +26,7 @@ function TableData(props) {
   const { theme } = React.useContext(ThemeContext);
   const code = props.code;
   let filedate = new Date();
+  const [selectionCount, setSelectionCount] = useState(0);
   const [dateSectionSelect, setDateSectionSelect] = useState(true);
   const [statusSectionSelect, setStatusSectionSelect] = useState(false);
   const [countPerPageSection, setCountPerPageSection] = useState(false);
@@ -40,6 +41,11 @@ function TableData(props) {
 
   const [pageNo, setPageNo] = useState(1);
 
+  function setSelectionCountSync(state) {
+    return new Promise((resolve) => {
+      setSelectionCount(state, resolve);
+    });
+  }
   // SHOW DATE SECTION FUNCTION
   const handleShowDate = () => {
     setDateSectionSelect(true);
@@ -155,14 +161,14 @@ function TableData(props) {
   const selectRow = {
     mode: "checkbox",
     clickToSelect: selectTableState,
+    classes: "selected-row",
     onSelect: (row, isSelect, rowIndex, e) => {
-      if (isSelect) setDisableButton(true);
+      setSelectionCount(document.querySelectorAll(".selected-row").length);
+      console.log("length A: ", selectionCount);
     },
-    onSelectAll: (row, isSelect, rowIndex, e) => {
-      console.log("row", row, isSelect, rowIndex);
-
-      if (isSelect.length > 0) setDisableButton(false);
-      if (!row) setDisableButton(true);
+    onSelectAll: (isSelect, rows, e) => {
+      setSelectionCount(document.querySelectorAll(".selected-row").length);
+      console.log("length B: ", selectionCount);
     },
   };
 
@@ -287,6 +293,10 @@ function TableData(props) {
   // FIRST DISPATCH OF TABLE DATA
 
   useEffect(() => {
+    console.log("length", document.querySelectorAll(".selected-row").length);
+  }, [selectionCount]);
+
+  useEffect(() => {
     dispatch(
       getProjectByCode(code, date, logType, pageNo, record, projectCode.code)
     );
@@ -321,7 +331,8 @@ function TableData(props) {
     // console.log("download function", row);
 
     var a = document.createElement("a");
-    a.href = `https://2dc9-2401-4900-1c5c-4fda-6c10-3574-5f91-7599.in.ngrok.io/uploads/${row.log.filePath}`;
+    a.target = "_blank";
+    a.href = `https://3321-2401-4900-1c5b-ba7-754f-7b5d-261b-f250.in.ngrok.io/${row.log.filePath}`;
     a.setAttribute("download", row.log.filePath);
     a.click();
   };
@@ -394,7 +405,7 @@ function TableData(props) {
                   alignItems: "center",
                 }}
               >
-                <p style={{ cursor: "not-allowed" }}>{row.log.filePath}</p>
+                <p style={{ cursor: "not-allowed" }}>{row.log.file}</p>
                 <section
                   style={{
                     backgroundColor: "#0099A4",
@@ -627,6 +638,7 @@ function TableData(props) {
     );
   }, []);
 
+
   return (
     <>
       <TableCard
@@ -672,15 +684,16 @@ function TableData(props) {
 
                         <ExportCSVButton
                           {...toolkitProps.csvProps}
-                          disabled={
-                            bootstrapTableRef &&
-                            bootstrapTableRef.current &&
-                            bootstrapTableRef.current.selectionContext &&
-                            bootstrapTableRef.current.selectionContext.selected
-                              .length == 0
-                              ? "disabled"
-                              : ""
-                          }
+                          // disabled={
+                          //   bootstrapTableRef &&
+                          //   bootstrapTableRef.current &&
+                          //   bootstrapTableRef.current.selectionContext &&
+                          //   bootstrapTableRef.current.selectionContext.selected
+                          //     .length == 0
+                          //     ? "disabled"
+                          //     : ""
+                          // }
+                          disabled={selectionCount}
                         >
                           <FontAwesomeIcon icon={faDownload} />
                         </ExportCSVButton>
@@ -691,22 +704,19 @@ function TableData(props) {
                       ref={bootstrapTableRef}
                       {...toolkitProps.baseProps}
                       selectRow={selectRow}
-
                       // rowEvents={tableRowEvents}
                     />
                   </>
                 )}
               </ToolkitProvider>
               <section className="p-2">
-                <CustomPagination
-                  itemsPerPage={record}
-                  items={data && data.data && data.data.logs}
-                  pageCount={data && data.data && data.data.count}
-                  actionType="getProjectByCode"
+                <CustomPaginationTableData
+                  data={data && data.data && data.data.count}
                   code={code}
-                  projectType={projectCode.code}
                   date={date}
                   logType={logType}
+                  record={record}
+                  projectType={projectCode.code}
                 />
               </section>
             </>

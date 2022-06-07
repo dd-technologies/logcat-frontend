@@ -21,7 +21,7 @@
 
   .InfoColumn {
     width: 100%;
-    color: $activehrefText;
+    color: $active_text_color;
     @include ActiveheadingFontdasktopMixin;
   }
 

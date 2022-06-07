@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Style from "./DarkLightMood.module.css";
 import { ThemeContext, themes } from "./ThemeContext";
+import faSun from "../assets/images/sunIcon.png";
+import faMoon from "../assets/images/faMoon.png";
+
+import { Image } from "react-bootstrap";
 
 export default function DarkLightMood() {
   const [darkMode, setDarkMode] = useState(themes.dark);
@@ -15,14 +18,15 @@ export default function DarkLightMood() {
           onClick={() => {
             setDarkMode(!darkMode);
             changeTheme(darkMode ? themes.light : themes.dark);
-            localStorage.setItem("mode", darkMode);
           }}
         >
-          <FontAwesomeIcon
-            icon={!darkMode ? faMoon : faSun}
+          {/* <FontAwesomeIcon
+            icon={!darkMode ? faSun : faMoon}
             // size="1x"
             color={darkMode ? "#0099a4" : "#0099a4"}
-          />
+          /> */}
+
+          <Image src={!darkMode ? faSun : faMoon} width="20px" />
         </section>
       )}
     </ThemeContext.Consumer>

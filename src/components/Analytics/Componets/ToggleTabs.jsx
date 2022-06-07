@@ -130,7 +130,7 @@ export default function ToggleTabs() {
                         percent={(e.data / modelNameAdds) * 100}
                         strokeWidth="4"
                         strokeColor={
-                          theme == "dark-content" ? `#0099A4` : `#0099A4`
+                          theme == "ligth-theme" ? `#0099A4` : `#0099A4`
                         }
                       />
                     </>
@@ -146,7 +146,7 @@ export default function ToggleTabs() {
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-                      color: theme == "dark-content" ? `#fff` : `#000`,
+                      color: theme == "ligth-theme" ?  `#000` : `#fff`,
                     }}
                   >
                     No data found
@@ -171,7 +171,7 @@ export default function ToggleTabs() {
                         percent={(e.data / osNameAdds) * 100}
                         strokeWidth="4"
                         strokeColor={
-                          theme == "dark-content" ? `#0099A4` : `#0099A4`
+                          theme == "ligth-theme" ? `#0099A4` : `#0099A4`
                         }
                       />
                     </>
@@ -185,7 +185,7 @@ export default function ToggleTabs() {
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-                      color: theme == "dark-content" ? `#fff` : `#000`,
+                      color: theme == "ligth-theme" ?  `#000` : `#fff`,
                     }}
                   >
                     No data found
