@@ -24,10 +24,9 @@ import AlarmIcon from "../../assets/images/AlarmIcon.png";
 import { alarmAction } from "../../redux/action/AlarmAction";
 import SpinnerCustom from "../../Container/SpinnerCustom";
 import TableCard from "../../Container/TableCard";
-import ReactPaginate from "react-paginate";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import { ThemeContext } from "../../utils/ThemeContext";
-import CustomPagination from "../../common/CustomePagination";
+import CustomePaginationAlarm from "../../common/CustomePaginationAlarm";
 
 const { SearchBar } = Search;
 const { ExportCSVButton } = CSVExport;
@@ -232,9 +231,9 @@ export default function Alarm(props) {
     },
   ];
 
+  console.log("alarm error alarm side effect ", data);
   //   FIRST TIME ALARM ACTION DISPATCH
   useEffect(() => {
-    // console.log("alarm error alarm side effect ", projectCode);
     dispatch(alarmAction(code, projectCode, diffDate));
   }, [dispatch, projectCode, diffDate]);
 
@@ -426,14 +425,12 @@ export default function Alarm(props) {
                         </ToolkitProvider>
                       </section>
                       <section className="p-2">
-                        <CustomPagination
-                          itemsPerPage={record}
-                          items={data && data.data && data.data.alerts}
-                          pageCount={data && data.data && data.data.count}
-                          actionType="alarmAction"
+                        <CustomePaginationAlarm
+                          data={data && data.data && data.data.count}
                           code={code}
-                          projectType={projectCode}
                           date={diffDate}
+                          record={record}
+                          projectType={projectCode}
                         />
                       </section>
                     </>
@@ -449,7 +446,7 @@ export default function Alarm(props) {
                         alignItems: "center",
                         padding: "120px 0px",
                         fontSize: "1.7rem",
-                        color: theme == "dark-content" ? `#fff` : `#000`,
+                        color: theme == "ligth-theme" ? `#000` : `#fff`,
                       }}
                     >
                       No data found

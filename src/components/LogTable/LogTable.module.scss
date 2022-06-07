@@ -10,7 +10,7 @@
   justify-content: space-between;
   @include paraFontdasktopMixin;
   .LinkActiveText {
-    color: $activehrefText;
+    color: $active_text_color;
     font-weight: $activeLinkTextFontWeight;
   }
 }

@@ -6,7 +6,7 @@
   .headerText {
     font-size: 2rem;
     font-weight: 500;
-    color: $activehrefText;
+    color: $active_text_color;
   }
 
   .imputFields {
@@ -27,7 +27,7 @@
     }
 
     & svg {
-      color: $activehrefText;
+      color: $active_text_color;
     }
   }
 
@@ -45,7 +45,7 @@
     }
 
     & svg {
-      color: $activehrefText;
+      color: $active_text_color;
     }
   }
 }

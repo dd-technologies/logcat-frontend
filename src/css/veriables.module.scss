@@ -7,7 +7,7 @@ $padding: 10px;
 $h3colorText: #685af0;
 $margin: 10px;
 $filterButtonBackgroundColor: #e2e2e2;
-$activehrefText: #0099a4;
+$active_text_color: #0099a4;
 $backgroundColor: #0099a4;
 $defaultTextColor: #fff;
 $cardBorderRadius: 15px !important;
@@ -20,20 +20,20 @@ $tableHaderBackgorundColor: #efefef;
 @mixin headingFontdasktopMixin {
   font-size: 0.9rem !important;
   font-weight: 500;
-  color: $activehrefText;
+  color: $active_text_color;
 }
 
 // laptop
 @mixin headingFontLaptopMixin {
   font-size: 0.8rem !important;
   font-weight: 500;
-  color: $activehrefText;
+  color: $active_text_color;
 }
 // tablet
 @mixin headingFonttabletMixin {
   font-size: 0.7rem !important;
   font-weight: 500;
-  color: $activehrefText;
+  color: $active_text_color;
 }
 //* heading font ***************************************
 
@@ -75,18 +75,18 @@ $tableHaderBackgorundColor: #efefef;
 // *active paraFont font **********************************
 @mixin activeparaFontdasktopMixin {
   font-size: 1rem !important;
-  color: $activehrefText;
+  color: $active_text_color;
   font-weight: 500;
 }
 
 // laptop
 @mixin activeparaFontLaptopMixin {
   font-size: 0.9rem !important;
-  color: $activehrefText;
+  color: $active_text_color;
 }
 // tablet
 @mixin activeparaFonttabletMixin {
   font-size: 0.9rem !important;
-  color: $activehrefText;
+  color: $active_text_color;
 }
 // *active paraFont font **********************************

@@ -50,7 +50,7 @@ export default function EventByVersion() {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    color: theme == "dark-content" ? `#fff` : `#000`,
+                    color: theme == "ligth-theme" ?  `#000` : `#fff`,
                   }}
                 >
                   No data found
@@ -93,7 +93,7 @@ export default function EventByVersion() {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    color: theme == "dark-content" ? `#fff` : `#000`,
+                    color: theme == "ligth-theme" ?  `#000` : `#fff`,
                   }}
                 >
                   No data found

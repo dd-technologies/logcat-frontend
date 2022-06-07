@@ -49,7 +49,7 @@ const ProjectCard = (props) => {
                       </h5>
                       <p
                         className={
-                          theme == "dark-content"
+                          theme == "ligth-theme"
                             ? "darkModeColor"
                             : "text-dark"
                         }

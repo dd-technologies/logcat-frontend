@@ -30,7 +30,7 @@
   }
 
   & svg {
-    color: $activehrefText;
+    color: $active_text_color;
   }
 
   & textarea {
@@ -75,7 +75,7 @@
 
 .headingText {
   font-size: 1.3rem !important;
-  color: $activehrefText;
+  color: $active_text_color;
   font-weight: 600;
 }
 

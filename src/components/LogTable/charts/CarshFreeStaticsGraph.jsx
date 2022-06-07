@@ -24,6 +24,8 @@ export default function CarshFreeStaticsGraph() {
   let dt = data && data.response;
   const { theme } = React.useContext(ThemeContext);
 
+  console.log("theme", theme);
+
   // Date Formate
   const dateFormatter = (date) => {
     return moment(date).format("DD-MM-YYYY");
@@ -38,7 +40,7 @@ export default function CarshFreeStaticsGraph() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            color: theme == "dark-content" ? `#fff` : `#000`,
+            color: theme == "ligth-theme" ? `#000` : `#fff`,
           }}
         >
           No data found
@@ -58,8 +60,8 @@ export default function CarshFreeStaticsGraph() {
               }}
             >
               <XAxis
-                stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
-                fill={theme == "dark-content" ? `#fff` : `#257d7c`}
+                stroke={theme == "ligth-theme" ? `#257d7c` : `#fff`}
+                fill={theme == "ligth-theme" ? `#257d7c` : `#fff`}
                 dataKey="date"
                 tickCount={5}
                 minTickGap={10}
@@ -69,10 +71,10 @@ export default function CarshFreeStaticsGraph() {
                 interval={1}
                 dataKey="data"
                 axisLine={false}
-                stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+                stroke={theme == "ligth-theme" ? `#257d7c` : `#fff`}
               />
               <CartesianGrid
-                stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
+                stroke={theme == "ligth-theme" ? `#257d7c` : `#fff`}
                 vertical={false}
                 strokeDasharray="0 0 4"
               />
@@ -80,8 +82,8 @@ export default function CarshFreeStaticsGraph() {
               <Area
                 type="monotoneY"
                 dataKey="data"
-                stroke={theme == "dark-content" ? `#fff` : `#257d7c`}
-                fill={theme == "dark-content" ? `#fff` : `#257d7c`}
+                stroke={theme == "ligth-theme" ? `#257d7c` : `#fff`}
+                fill={theme == "ligth-theme" ? `#257d7c` : `#fff`}
               />
             </AreaChart>
           </ResponsiveContainer>
