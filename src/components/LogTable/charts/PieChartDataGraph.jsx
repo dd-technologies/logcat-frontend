@@ -58,7 +58,7 @@ export default function PieChartDataGraph() {
       legend: {
         position: "right",
         labels: {
-          color: theme == "ligth-theme" ? `#000` : `#fff`,
+          color: theme == "light-theme" ? `#000` : `#fff`,
         },
       },
     },
@@ -91,7 +91,7 @@ export default function PieChartDataGraph() {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              color: theme == "ligth-theme" ?  `#000` : `#fff`,
+              color: theme == "light-theme" ?  `#000` : `#fff`,
             }}
           >
             No data found

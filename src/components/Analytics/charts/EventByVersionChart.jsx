@@ -36,8 +36,8 @@ export default function EventByVersionChart() {
           }}
         >
           <XAxis
-            stroke={theme == "ligth-theme" ? `#257d7c` : `#fff`}
-            fill={theme == "ligth-theme" ? `#257d7c` : `#fff`}
+            stroke={theme == "light-theme" ? `#257d7c` : `#fff`}
+            fill={theme == "light-theme" ? `#257d7c` : `#fff`}
             dataKey="date"
             tickCount={5}
             minTickGap={10}
@@ -46,10 +46,10 @@ export default function EventByVersionChart() {
           <YAxis
             dataKey="data"
             axisLine={true}
-            stroke={theme == "ligth-theme" ? `#257d7c` : `#fff`}
-            fill={theme == "ligth-theme" ? `#257d7c` : `#fff`}
+            stroke={theme == "light-theme" ? `#257d7c` : `#fff`}
+            fill={theme == "light-theme" ? `#257d7c` : `#fff`}
           />
-          stroke={theme == "ligth-theme" ? `#257d7c` : `#fff`}
+          stroke={theme == "light-theme" ? `#257d7c` : `#fff`}
           <CartesianGrid vertical={false} strokeDasharray="0 0 4" />
           <Tooltip />
           <Line
@@ -58,8 +58,8 @@ export default function EventByVersionChart() {
             type="monotoneX"
             dataKey="data"
             dot={false}
-            stroke={theme == "ligth-theme" ? `#257d7c` : `#fff`}
-            fill={theme == "ligth-theme" ? `#257d7c` : `#fff`}
+            stroke={theme == "light-theme" ? `#257d7c` : `#fff`}
+            fill={theme == "light-theme" ? `#257d7c` : `#fff`}
           />
         </LineChart>
       </ResponsiveContainer>

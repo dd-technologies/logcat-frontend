@@ -81,7 +81,7 @@ export default function CustomePaginationAlarm({
     breakItemFun: () => {
       var popIndexFromLocal = localStorage.getItem("pop_index")
         ? localStorage.getItem("pop_index")
-        : 0;
+        : 4;
       localStorage.setItem("pop_index", parseInt(popIndexFromLocal) + 4);
 
       pageCountArray = pageCountArray.slice(parseInt(popIndexFromLocal));

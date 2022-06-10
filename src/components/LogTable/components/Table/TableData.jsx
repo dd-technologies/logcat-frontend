@@ -228,6 +228,9 @@ function TableData(props) {
     // LOG TYPE
     logTypeFun();
 
+    localStorage.setItem("page_no", 1);
+    var pageNofromLocalStrg = localStorage.getItem("page_no");
+
     // DATE CHIPS
     dateChipFun();
 
@@ -332,7 +335,7 @@ function TableData(props) {
 
     var a = document.createElement("a");
     a.target = "_blank";
-    a.href = `https://3321-2401-4900-1c5b-ba7-754f-7b5d-261b-f250.in.ngrok.io/${row.log.filePath}`;
+    a.href = `https://0942-2401-4900-1f39-34dc-385b-1069-1819-5282.in.ngrok.io/${row.log.filePath}`;
     a.setAttribute("download", row.log.filePath);
     a.click();
   };
@@ -504,7 +507,6 @@ function TableData(props) {
     },
   ];
 
-  console.log("bootstrapRef", bootstrapTableRef && bootstrapTableRef.current);
 
   useEffect(() => {
     // 1) If record are 10 in local storage
@@ -638,7 +640,6 @@ function TableData(props) {
     );
   }, []);
 
-
   return (
     <>
       <TableCard
@@ -680,8 +681,8 @@ function TableData(props) {
                         {logType.verbose && chipsSection[4]}
                       </section>
                       <section className={Style.filterOptions}>
-                        {/* {console.log("props.csvProps", props)} */}
 
+                        {console.log("props.csvProps", toolkitProps)}
                         <ExportCSVButton
                           {...toolkitProps.csvProps}
                           // disabled={
@@ -693,7 +694,7 @@ function TableData(props) {
                           //     ? "disabled"
                           //     : ""
                           // }
-                          disabled={selectionCount}
+                          // disabled={selectionCount}
                         >
                           <FontAwesomeIcon icon={faDownload} />
                         </ExportCSVButton>

@@ -446,7 +446,7 @@ export default function Alarm(props) {
                         alignItems: "center",
                         padding: "120px 0px",
                         fontSize: "1.7rem",
-                        color: theme == "ligth-theme" ? `#000` : `#fff`,
+                        color: theme == "light-theme" ? `#000` : `#fff`,
                       }}
                     >
                       No data found

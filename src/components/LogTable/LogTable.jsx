@@ -29,6 +29,7 @@ import "../../utils/Theme.css";
 import SideBar from "../../utils/Sidebar";
 import { Navbar } from "../../utils/NavBar";
 import AlarmIcon from "../../assets/images/AlarmIcon.png";
+import TableDataN from "./components/Table/TableDataN";
 
 export default function LogTable() {
   const queryString = window.location.search;
@@ -386,7 +387,7 @@ export default function LogTable() {
                       fontSize: "0.9rem",
                       lineHeight: "2.2rem",
                       letterSpacing: "0.5px",
-                      color :"#000"
+                      color: "#000",
                     }}
                   >
                     Issues
@@ -417,7 +418,16 @@ export default function LogTable() {
               <Row className="mt-3">
                 <Col>
                   {/* Table with toolkit provider */}
-                  <TableData
+                  {/* <TableData
+                    code={code}
+                    projectName={projectName}
+                    diffDate={diffDate}
+                    tableDataStateFun={tableDataStateFun}
+                    showTableField={showTableField}
+                    setShowTableField={setShowTableField}
+                  /> */}
+
+                  <TableDataN
                     code={code}
                     projectName={projectName}
                     diffDate={diffDate}
@@ -425,13 +435,6 @@ export default function LogTable() {
                     showTableField={showTableField}
                     setShowTableField={setShowTableField}
                   />
-                  {/* <TableDataN
-                    code={code}
-                    projectName={projectName}
-                    diffDate={diffDate}
-                    showTableField={showTableField}
-                    setShowTableField={setShowTableField}
-                  /> */}
                 </Col>
               </Row>
             </Container>

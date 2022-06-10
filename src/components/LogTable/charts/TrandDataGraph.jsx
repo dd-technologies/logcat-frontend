@@ -37,7 +37,7 @@ const TrandDataGraph = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            color: theme == "ligth-theme" ?  `#000` : `#fff`,
+            color: theme == "light-theme" ?  `#000` : `#fff`,
           }}
         >
           No data found
@@ -57,8 +57,8 @@ const TrandDataGraph = () => {
               }}
             >
               <XAxis
-                stroke={theme == "ligth-theme" ? `#257d7c`: `#fff` }
-                fill={theme == "ligth-theme" ? `#257d7c`: `#fff` }
+                stroke={theme == "light-theme" ? `#257d7c`: `#fff` }
+                fill={theme == "light-theme" ? `#257d7c`: `#fff` }
                 dataKey="date"
                 tickCount={5}
                 minTickGap={10}
@@ -68,11 +68,11 @@ const TrandDataGraph = () => {
                 dataKey="data"
                 interval={1}
                 axisLine={false}
-                stroke={theme == "ligth-theme" ? `#257d7c`: `#fff` }
-                fill={theme == "ligth-theme" ? `#257d7c`: `#fff` }
+                stroke={theme == "light-theme" ? `#257d7c`: `#fff` }
+                fill={theme == "light-theme" ? `#257d7c`: `#fff` }
               />
               <CartesianGrid
-                stroke={theme == "ligth-theme" ? `#257d7c`: `#fff` }
+                stroke={theme == "light-theme" ? `#257d7c`: `#fff` }
                 vertical={false}
                 strokeDasharray="0 0 4"
               />
@@ -80,8 +80,8 @@ const TrandDataGraph = () => {
               <Area
                 type="monotoneX"
                 dataKey="data"
-                stroke={theme == "ligth-theme" ? `#257d7c`: `#fff` }
-                fill={theme == "ligth-theme" ? `#257d7c`: `#fff` }
+                stroke={theme == "light-theme" ? `#257d7c`: `#fff` }
+                fill={theme == "light-theme" ? `#257d7c`: `#fff` }
               />
             </AreaChart>
           </ResponsiveContainer>

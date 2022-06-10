@@ -11,8 +11,6 @@ export default function CustomPaginationTableData({
   record,
   projectType,
 }) {
-  console.log("arraypop data", data);
-
   //CURRENT PAGE NUMBER
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const dispatch = useDispatch();
@@ -102,13 +100,12 @@ export default function CustomPaginationTableData({
     breakItemFun: () => {
       var popIndexFromLocal = localStorage.getItem("pop_index")
         ? localStorage.getItem("pop_index")
-        : 0;
+        : 4;
       localStorage.setItem("pop_index", parseInt(popIndexFromLocal) + 4);
 
       pageCountArray = pageCountArray.splice(parseInt(popIndexFromLocal));
       localStorage.setItem("pagination_array", JSON.stringify(pageCountArray));
       localStorage.setItem("page_no", pageCountArray[0]);
-      console.log("arraypop final", pageCountArray);
 
       dispatch(
         getProjectByCode(
@@ -128,8 +125,6 @@ export default function CustomPaginationTableData({
       localStorage.getItem("page_no") ? localStorage.getItem("page_no") : 1
     );
   }, []);
-
-  console.log("first", JSON.parse(localStorage.getItem("pagination_array")));
 
   return (
     <>
@@ -153,7 +148,6 @@ export default function CustomPaginationTableData({
                   (items, index) => {
                     return (
                       <>
-                        {console.log("arraypop items", items, index)}
                         {/* FIRST FOUR INDEXES */}
                         {index <= 4 && (
                           <Pagination.Item
@@ -174,7 +168,6 @@ export default function CustomPaginationTableData({
               : pageCountArray.map((items, index) => {
                   return (
                     <>
-                      {console.log("arraypop items", items, index)}
                       {/* FIRST FOUR INDEXES */}
                       {index <= 4 && (
                         <Pagination.Item
