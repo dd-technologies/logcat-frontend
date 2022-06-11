@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Pagination } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { alarmAction } from "../redux/action/AlarmAction";
+import { alarmAction } from "../store/action/AlarmAction";
 
 export default function CustomePaginationAlarm({
   data,
@@ -10,7 +10,7 @@ export default function CustomePaginationAlarm({
   record,
   projectType,
 }) {
-  console.log("arraypop data", data);
+  // console.log("arraypop data", data);
 
   //CURRENT PAGE NUMBER
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
@@ -72,7 +72,7 @@ export default function CustomePaginationAlarm({
       localStorage.setItem("page_no", parseInt(currentPageNumber) - 1);
     },
     currentPageFun: (index) => {
-      console.log("index", index);
+      // console.log("index", index);
 
       dispatch(alarmAction(code, projectType, date, index, record));
       setCurrentPageNumber(index);
@@ -87,7 +87,7 @@ export default function CustomePaginationAlarm({
       pageCountArray = pageCountArray.slice(parseInt(popIndexFromLocal));
       localStorage.setItem("pagination_array", JSON.stringify(pageCountArray));
 
-      console.log("arraypop final", pageCountArray);
+      // console.log("arraypop final", pageCountArray);
       localStorage.setItem("page_no", pageCountArray[0]);
 
       dispatch(alarmAction(code, projectType, date, pageCountArray[0], record));
@@ -100,7 +100,7 @@ export default function CustomePaginationAlarm({
     );
   }, []);
 
-  console.log("first", JSON.parse(localStorage.getItem("pagination_array")));
+  // console.log("first", JSON.parse(localStorage.getItem("pagination_array")));
 
   return (
     <>
@@ -124,7 +124,7 @@ export default function CustomePaginationAlarm({
                   (items, index) => {
                     return (
                       <>
-                        {console.log("arraypop items", items, index)}
+                        {/* {console.log("arraypop items", items, index)} */}
                         {/* FIRST FOUR INDEXES */}
                         {index <= 4 && (
                           <Pagination.Item
@@ -145,7 +145,7 @@ export default function CustomePaginationAlarm({
               : pageCountArray.map((items, index) => {
                   return (
                     <>
-                      {console.log("arraypop items", items, index)}
+                      {/* {console.log("arraypop items", items, index)} */}
                       {/* FIRST FOUR INDEXES */}
                       {index <= 4 && (
                         <Pagination.Item

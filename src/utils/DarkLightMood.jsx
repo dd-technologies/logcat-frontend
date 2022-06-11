@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Style from "./DarkLightMood.module.css";
 import { ThemeContext, themes } from "./ThemeContext";
-import faSun from "../assets/images/sunIcon.png";
-import faMoon from "../assets/images/faMoon.png";
+import faSun from "../assets/icons/sunIcon.png";
+import faMoon from "../assets/icons/faMoon.png";
 
 import { Image } from "react-bootstrap";
 

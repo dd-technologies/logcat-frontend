@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import CustomeDropDown from "../Container/DropDown";
+import CustomeDropDown from "../container/DropDown";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { adminLogout } from "../redux/action/AdminAction";
+import { adminLogout } from "../store/action/AdminAction";
 import Style from "./NavBar.module.css";
 import DarkLightMood from "./DarkLightMood";
 import { ThemeContext } from "./ThemeContext";
@@ -42,22 +42,7 @@ export function Navbar(props) {
   //     adminInfo.data.name.split(" ")[0].split("")[0]
   // );
 
-  useEffect(() => {
-    const checkIfClickedOutside = (e) => {
-      // If the menu is open and the clicked target is not within the menu,
-      // then close the menu
-      if (userInfo && ref.current && !ref.current.contains(e.target)) {
-        setUserInfo(false);
-      }
-    };
 
-    document.addEventListener("mousedown", checkIfClickedOutside);
-
-    return () => {
-      // Cleanup the event listener
-      document.removeEventListener("mousedown", checkIfClickedOutside);
-    };
-  }, [userInfo]);
 
   return (
     <>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Pagination } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { getProjectByCode } from "../redux/action/ProjectAction";
+import { getProjectByCode } from "../store/action/ProjectAction";
 
 export default function CustomPaginationTableData({
   data,
@@ -89,7 +89,7 @@ export default function CustomPaginationTableData({
       localStorage.setItem("page_no", parseInt(currentPageNumber) - 1);
     },
     currentPageFun: (index) => {
-      console.log("index", index);
+      // console.log("index", index);
 
       dispatch(
         getProjectByCode(code, date, logType, index, record, projectType)
