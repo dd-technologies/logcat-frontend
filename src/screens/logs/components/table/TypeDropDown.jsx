@@ -37,7 +37,6 @@ const TypeDropDown = (props) => {
     }
   };
 
- 
   const onSubmitFun = (type) => {
     ProjectTypeFilter();
     // console.log('alarm error typedrop down ', {...type} )
@@ -71,6 +70,16 @@ const TypeDropDown = (props) => {
         getLogByDate({ code, diffDate: props.diffDate, code1: type.typeCode })
       );
     }
+
+    console.log(
+      "props",
+      props.tableDataState.code,
+      props.tableDataState.date,
+      props.tableDataState.logtype,
+      props.tableDataState.pageNo,
+      props.tableDataState.records,
+      type.typeCode
+    );
 
     dispatch(
       getProjectByCode(

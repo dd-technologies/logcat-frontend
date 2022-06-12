@@ -12,6 +12,17 @@ export default function CustomPaginationTableData({
   projectType,
 }) {
   //CURRENT PAGE NUMBER
+
+  console.log(
+    "pagination data",
+    data,
+    code,
+    date,
+    logType,
+    record,
+    projectType
+  );
+
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const dispatch = useDispatch();
 

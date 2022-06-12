@@ -26,7 +26,10 @@ import {
   RECORDS,
   LOGTYPE,
   SORT_ICON_FILTER,
-  ALL_CHECKBOX_SELECTED,
+  SINGLE_CHECKBOX_SELECTION,
+  ALL_CHECkBOX,
+  RECORD_PER_PAGE_SECTION,
+  ACTIVE_RECORDS,
 } from "./store/Type";
 
 export default function TableDataN(props) {
@@ -44,6 +47,7 @@ export default function TableDataN(props) {
     (state) => state.getAllLogByCodeReducer
   );
   const { loading, data, error } = getAllLogByCodeReducer;
+  console.log("getAllLogByCodeReducer", getAllLogByCodeReducer);
   // ============================================
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { data: typeWiseDate } = getModelCodeReducer;
@@ -59,11 +63,10 @@ export default function TableDataN(props) {
   
   */
   const initailState = {
-    singleCheckbox: false,
-    multiCheckbx: false,
     pageNo: 1,
     dateSection: true,
     statusSection: false,
+    recordPerPageSection: false,
     countPerPage: false,
     logType: {
       error: localStorage.getItem("selected_log")
@@ -93,12 +96,20 @@ export default function TableDataN(props) {
       ? JSON.parse(localStorage.getItem("selected_record"))
       : 25,
 
+    activeRecord: {
+      record10: false,
+      record25: false,
+      record50: false,
+      record100: false,
+    },
+
     dateState: {
       start: JSON.parse(localStorage.getItem("selected_date")).start,
       end: JSON.parse(localStorage.getItem("selected_date")).end,
     },
     searchField: null,
     allCheckBox: false,
+    singleCheckbox: false,
   };
 
   const [currentStateTableData, dispatchTableData] = useReducer(
@@ -121,15 +132,21 @@ export default function TableDataN(props) {
   // SHOW DATE SECTION FUNCTION
   const handleShowDate = () => {
     hadnleMulteDispatch(DATE_SELECTION, true);
+    hadnleMulteDispatch(STATUS_SELECTION, false);
+    hadnleMulteDispatch(RECORD_PER_PAGE_SECTION, false);
   };
   // SHOW STATUS CODE SECTION FUNCTION
   const handleShowStatus = () => {
+    hadnleMulteDispatch(DATE_SELECTION, false);
     hadnleMulteDispatch(STATUS_SELECTION, true);
+    hadnleMulteDispatch(RECORD_PER_PAGE_SECTION, false);
   };
 
   // SHOW PAGE PER COUNT SECTION FUNCTION
   const handleShowPerPage = () => {
-    hadnleMulteDispatch(COUNT_PER_PAGE, true);
+    hadnleMulteDispatch(DATE_SELECTION, false);
+    hadnleMulteDispatch(STATUS_SELECTION, false);
+    hadnleMulteDispatch(RECORD_PER_PAGE_SECTION, true);
   };
 
   // =============================================================================
@@ -172,15 +189,12 @@ export default function TableDataN(props) {
   let projectCodeType = typeWiseDate && typeWiseDate.modelList[0].typeCode;
 
   // DOWNLOAD CSV FILE FUNCTION
+  var allData = [];
   const downloadCSVFun = ({ data, fileName, fileType }) => {
-    // console.log("file details", data, fileName, fileType);
-    var allData = [];
     data.forEach((o) => {
-      allData.push(`\n ${o._id}`);
+      allData.push(`\n ${Object.entries(o)}`);
+      return allData;
     });
-
-    // console.log("alldata", allData);
-
     const blob = new Blob([allData], { type: fileType });
     const a = document.createElement("a");
     a.download = fileName;
@@ -206,13 +220,15 @@ export default function TableDataN(props) {
     multpleDispatch(RECORDS, currentStateTableData.record);
     multpleDispatch(SELECT_PAGE_NO, 1);
     multpleDispatch(SELECT_PAGE_NO, 1);
-
-    // setActiveRecord({
-    //   record10: false,
-    //   record25: false,
-    //   record50: false,
-    //   record100: false,
-    // }); ----------------******
+    multpleDispatch({
+      type: ACTIVE_RECORDS,
+      data: {
+        record10: false,
+        record25: false,
+        record50: false,
+        record100: false,
+      },
+    });
 
     localStorage.removeItem("selected_log");
     localStorage.removeItem("selected_date");
@@ -230,7 +246,7 @@ export default function TableDataN(props) {
     dispatch(
       getProjectByCode(
         code,
-        currentStateTableData.date,
+        date,
         null,
         null,
         currentStateTableData.record,
@@ -256,11 +272,17 @@ export default function TableDataN(props) {
 
   // close chips
   const closeChips = (items, index) => {
-    // setLogType({ ...currentStateTableData.logType, [items]: false }) ----------------*****;
+    dispatchTableData({
+      type: LOGTYPE,
+      data: {
+        ...currentStateTableData.logType,
+        [items]: false,
+      },
+    });
     dispatch(
       getProjectByCode(
         code,
-        currentStateTableData.date,
+        date,
         { ...currentStateTableData.logType, [items]: false },
         currentStateTableData.pageNo,
         currentStateTableData.record,
@@ -291,34 +313,13 @@ export default function TableDataN(props) {
   // SAVE SEARCH FUNCTION
   const saveSearch = () => {
     // LOG TYPE
-    if (currentStateTableData.logType.info) {
+    if (currentStateTableData.logType) {
       localStorage.setItem(
         "selected_log",
-        JSON.stringify({ ...currentStateTableData.logType, info: true })
-      );
-    }
-    if (currentStateTableData.logType.error) {
-      localStorage.setItem(
-        "selected_log",
-        JSON.stringify({ ...currentStateTableData.logType, error: true })
-      );
-    }
-    if (currentStateTableData.logType.warn) {
-      localStorage.setItem(
-        "selected_log",
-        JSON.stringify({ ...currentStateTableData.logType, warn: true })
-      );
-    }
-    if (currentStateTableData.logType.debug) {
-      localStorage.setItem(
-        "selected_log",
-        JSON.stringify({ ...currentStateTableData.logType, debug: true })
-      );
-    }
-    if (currentStateTableData.logType.verbos) {
-      localStorage.setItem(
-        "selected_log",
-        JSON.stringify({ ...currentStateTableData.logType, verbos: true })
+        JSON.stringify({
+          ...currentStateTableData.logType,
+          [currentStateTableData.logType]: true,
+        })
       );
     }
 
@@ -341,7 +342,7 @@ export default function TableDataN(props) {
       dispatch(
         getProjectByCode(
           code,
-          currentStateTableData.date,
+          date,
           currentStateTableData.logType,
           currentStateTableData.pageNo,
           currentStateTableData.record,
@@ -352,7 +353,7 @@ export default function TableDataN(props) {
       dispatch(
         getProjectByCode(
           code,
-          currentStateTableData.date,
+          date,
           currentStateTableData.logType,
           currentStateTableData.pageNo,
           currentStateTableData.record,
@@ -404,7 +405,6 @@ export default function TableDataN(props) {
 
   // SORTING FUNCTION
   // multple dispatch function for sorting
-
   const multpleDispatchSort = (type, data) => {
     return dispatchTableData({
       type: type,
@@ -514,7 +514,61 @@ export default function TableDataN(props) {
 
   const allCheckBoxFun = () => {
     // @@ FOR SELECTION ITEMS IS TRITE AS THE EVENT  items == e
-    dispatchTableData(ALL_CHECKBOX_SELECTED, true);
+    dispatchTableData({
+      type: ALL_CHECkBOX,
+      data: !currentStateTableData.allCheckBox,
+    });
+  };
+
+  let newItemsArray = [];
+  let uniqueChars;
+  const singleChecboxFun = (event, item, index) => {
+    newItemsArray.push(item);
+
+    var downloadbuttonId = document.getElementById("download_button");
+    var singlitemSelect = document.getElementById(`singleItem ${index}`);
+
+    console.log("downloadbuttonId", event);
+
+    if (newItemsArray.length >= 2) {
+      // @@ conditions---
+      /*
+      sorting array for removing last tow duplicate indexs
+     */
+      newItemsArray = newItemsArray.sort((a, b) => {
+        const firstObjectKey = parseInt(Object.keys(a));
+        const secondObjectKey = parseInt(Object.keys(b));
+        // console.log("first array", parseInt(firstObjectKey))
+        if (firstObjectKey < secondObjectKey) return -1;
+        if (firstObjectKey > secondObjectKey) return 1;
+        return 0;
+      });
+    }
+
+    // @@ re-rendering is stop pussing array next element ---??
+    // if (newItemsArray.length) {
+    //   dispatchTableData({ type: SINGLE_CHECKBOX_SELECTION, data: true });
+    // }
+
+    // if (selectedCheckoxsLocal.length) {
+    //   dispatchTableData({ type: SINGLE_CHECKBOX_SELECTION, data: true });
+    // }
+
+    if (newItemsArray.length) {
+      downloadbuttonId.style.opacity = "100%";
+    }
+
+    let arrayLastIndex = newItemsArray.slice(-1)[0]._id;
+    let arraySecondLastIndex =
+      newItemsArray.length >= 2 ? newItemsArray.slice(-2, -1)[0]._id : null;
+
+    if (arrayLastIndex == arraySecondLastIndex) {
+      newItemsArray.pop();
+      newItemsArray.pop();
+    }
+    if (!newItemsArray.length) downloadbuttonId.style.opacity = "30%";
+
+    console.log("first array", newItemsArray);
   };
 
   // @@ DOWNLOAD FUNCTION
@@ -542,13 +596,15 @@ export default function TableDataN(props) {
   }, [currentStateTableData.pageNo, startDate, endDate]);
 
   useEffect(() => {
-    dispatch(getProjectByCode(props.code, null, null, null, null, projectCode));
+    dispatch(
+      getProjectByCode(props.code, null, null, null, null, projectCode.code)
+    );
   }, []);
   useEffect(() => {
     // Providing data to the type-dropdown
     props.tableDataStateFun(
       code,
-      currentStateTableData.date,
+      date,
       currentStateTableData.logType,
       currentStateTableData.pageNo,
       currentStateTableData.record,
@@ -585,16 +641,20 @@ export default function TableDataN(props) {
             {currentStateTableData.dateState.end && dateChips[1]}
           </section>
           <section
+            id="download_button"
             style={{
-              opacity: currentStateTableData.allCheckBox ? "100%" : "30%",
-              cursor: currentStateTableData.allCheckBox
-                ? "pointer"
-                : "not-allowed",
+              opacity:
+                currentStateTableData.allCheckBox ||
+                currentStateTableData.singleCheckbox
+                  ? "100%"
+                  : "30%",
             }}
             onClick={() =>
-              currentStateTableData.allCheckBox &&
+              (currentStateTableData.allCheckBox || newItemsArray.length) &&
               downloadCSVFun({
-                data: currentStateTableData.allCheckBox ? tableData : [],
+                data: currentStateTableData.allCheckBox
+                  ? tableData
+                  : newItemsArray,
                 fileName: `${props.code}.csv`,
                 fileType: "text/csv;charset=utf-8;",
               })
@@ -612,11 +672,7 @@ export default function TableDataN(props) {
           <thead>
             <tr>
               <th>
-                <input
-                  type="checkbox"
-                  id="all-check"
-                  onChange={(e) => allCheckBoxFun(e)}
-                />
+                <input type="checkbox" onChange={allCheckBoxFun} />
               </th>
               <th>
                 <section
@@ -633,6 +689,13 @@ export default function TableDataN(props) {
                         icon={faSortDown}
                         onClick={() => {
                           // setSortIconFilter({ ...sortIconFilter, LM: false });
+                          dispatchTableData({
+                            type: SORT_ICON_FILTER,
+                            data: {
+                              ...currentStateTableData.sortIconFilter,
+                              LM: false,
+                            },
+                          });
                         }}
                       />
                     ) : (
@@ -640,7 +703,13 @@ export default function TableDataN(props) {
                         className="ps-1"
                         icon={faSortUp}
                         onClick={() => {
-                          // setSortIconFilter({ ...sortIconFilter, LM: true });
+                          dispatchTableData({
+                            type: SORT_ICON_FILTER,
+                            data: {
+                              ...currentStateTableData.sortIconFilter,
+                              LM: true,
+                            },
+                          });
                         }}
                       />
                     )}
@@ -661,7 +730,13 @@ export default function TableDataN(props) {
                         className="ps-1"
                         icon={faSortDown}
                         onClick={() => {
-                          // setSortIconFilter({ ...sortIconFilter, AD: false });
+                          dispatchTableData({
+                            type: SORT_ICON_FILTER,
+                            data: {
+                              ...currentStateTableData.sortIconFilter,
+                              AD: false,
+                            },
+                          });
                         }}
                       />
                     ) : (
@@ -669,7 +744,13 @@ export default function TableDataN(props) {
                         className="ps-1"
                         icon={faSortUp}
                         onClick={() => {
-                          // setSortIconFilter({ ...sortIconFilter, AD: true });
+                          dispatchTableData({
+                            type: SORT_ICON_FILTER,
+                            data: {
+                              ...currentStateTableData.sortIconFilter,
+                              AD: true,
+                            },
+                          });
                         }}
                       />
                     )}
@@ -690,7 +771,13 @@ export default function TableDataN(props) {
                         className="ps-1"
                         icon={faSortDown}
                         onClick={() => {
-                          // setSortIconFilter({ ...sortIconFilter, LT: false });
+                          dispatchTableData({
+                            type: SORT_ICON_FILTER,
+                            data: {
+                              ...currentStateTableData.sortIconFilter,
+                              LT: false,
+                            },
+                          });
                         }}
                       />
                     ) : (
@@ -698,7 +785,13 @@ export default function TableDataN(props) {
                         className="ps-1"
                         icon={faSortUp}
                         onClick={() => {
-                          // setSortIconFilter({ ...sortIconFilter, LT: true });
+                          dispatchTableData({
+                            type: SORT_ICON_FILTER,
+                            data: {
+                              ...currentStateTableData.sortIconFilter,
+                              LT: true,
+                            },
+                          });
                         }}
                       />
                     )}
@@ -719,7 +812,13 @@ export default function TableDataN(props) {
                         className="ps-1"
                         icon={faSortDown}
                         onClick={() => {
-                          // setSortIconFilter({ ...sortIconFilter, DA: false });
+                          dispatchTableData({
+                            type: SORT_ICON_FILTER,
+                            data: {
+                              ...currentStateTableData.sortIconFilter,
+                              DA: false,
+                            },
+                          });
                         }}
                       />
                     ) : (
@@ -727,7 +826,13 @@ export default function TableDataN(props) {
                         className="ps-1"
                         icon={faSortUp}
                         onClick={() => {
-                          // setSortIconFilter({ ...sortIconFilter, DA: true });
+                          dispatchTableData({
+                            type: SORT_ICON_FILTER,
+                            data: {
+                              ...currentStateTableData.sortIconFilter,
+                              DA: true,
+                            },
+                          });
                         }}
                       />
                     )}
@@ -748,7 +853,13 @@ export default function TableDataN(props) {
                         className="ps-1"
                         icon={faSortDown}
                         onClick={() => {
-                          // setSortIconFilter({ ...sortIconFilter, TI: false });
+                          dispatchTableData({
+                            type: SORT_ICON_FILTER,
+                            data: {
+                              ...currentStateTableData.sortIconFilter,
+                              TI: false,
+                            },
+                          });
                         }}
                       />
                     ) : (
@@ -756,7 +867,13 @@ export default function TableDataN(props) {
                         className="ps-1"
                         icon={faSortUp}
                         onClick={() => {
-                          // setSortIconFilter({ ...sortIconFilter, TI: true });
+                          dispatchTableData({
+                            type: SORT_ICON_FILTER,
+                            data: {
+                              ...currentStateTableData.sortIconFilter,
+                              TI: true,
+                            },
+                          });
                         }}
                       />
                     )}
@@ -770,14 +887,19 @@ export default function TableDataN(props) {
               tableData.map((item, index) => {
                 return (
                   <>
-                    <tr>
+                    <tr key={item._id}>
                       <td>
+                        {console.log(
+                          "first",
+                          currentStateTableData.allCheckBox
+                        )}
                         <input
-                          id={item._id}
+                          id={`singleItem ${index}`}
                           type="checkbox"
                           checked={
                             currentStateTableData.allCheckBox ? "checked" : null
                           }
+                          onChange={(e) => singleChecboxFun(e, item, index)}
                         />
                       </td>
                       <td>
@@ -903,7 +1025,7 @@ export default function TableDataN(props) {
                       </p>
                       <p
                         className={
-                          currentStateTableData.countPerPage
+                          currentStateTableData.recordPerPageSection
                             ? `${Style.ActiveOption} mt-2`
                             : `${Style.DefaultOption} mt-2`
                         }
@@ -978,11 +1100,14 @@ export default function TableDataN(props) {
                           <input
                             type="checkbox"
                             checked={currentStateTableData.logType.info}
-                            onClick={(e) => {
-                              // setLogType({
-                              //   ...currentStateTableData.logType,
-                              //   info: !logType.info,
-                              // }); -------****
+                            onChange={(e) => {
+                              dispatchTableData({
+                                type: LOGTYPE,
+                                data: {
+                                  ...currentStateTableData.logType,
+                                  info: !currentStateTableData.logType.info,
+                                },
+                              });
                             }}
                           />
                         </section>
@@ -997,10 +1122,13 @@ export default function TableDataN(props) {
                             type="checkbox"
                             checked={currentStateTableData.logType.warn}
                             onClick={(e) => {
-                              // setLogType({
-                              //   ...currentStateTableData.logType,
-                              //   warn: !logType.warn,
-                              // }); -----****
+                              dispatchTableData({
+                                type: LOGTYPE,
+                                data: {
+                                  ...currentStateTableData.logType,
+                                  warn: !currentStateTableData.logType.warn,
+                                },
+                              });
                             }}
                           />
                         </section>
@@ -1015,10 +1143,13 @@ export default function TableDataN(props) {
                             type="checkbox"
                             checked={currentStateTableData.logType.error}
                             onClick={(e) => {
-                              // setLogType({
-                              //   ...currentStateTableData.logType,
-                              //   error: !logType.error,
-                              // }); -------**
+                              dispatchTableData({
+                                type: LOGTYPE,
+                                data: {
+                                  ...currentStateTableData.logType,
+                                  error: !currentStateTableData.logType.error,
+                                },
+                              });
                             }}
                           />
                         </section>
@@ -1032,12 +1163,15 @@ export default function TableDataN(props) {
                           <input
                             type="checkbox"
                             checked={currentStateTableData.logType.debug}
-                            // onClick={(e) => {
-                            //   setLogType({
-                            //     ...currentStateTableData.logType,
-                            //     debug: !logType.debug,
-                            //   });
-                            // }} -------****
+                            onClick={(e) => {
+                              dispatchTableData({
+                                type: LOGTYPE,
+                                data: {
+                                  ...currentStateTableData.logType,
+                                  debug: !currentStateTableData.logType.debug,
+                                },
+                              });
+                            }}
                           />
                         </section>
                         <section className={Style.StatusInnerSecion}>
@@ -1050,12 +1184,16 @@ export default function TableDataN(props) {
                           <input
                             type="checkbox"
                             checked={currentStateTableData.logType.verbose}
-                            // onClick={(e) => {
-                            //   setLogType({
-                            //     ...currentStateTableData.logType,
-                            //     verbose: !logType.verbose,
-                            //   });
-                            // }} ------****
+                            onClick={(e) => {
+                              dispatchTableData({
+                                type: LOGTYPE,
+                                data: {
+                                  ...currentStateTableData.logType,
+                                  verbose:
+                                    !currentStateTableData.logType.verbose,
+                                },
+                              });
+                            }}
                           />
                         </section>
                       </section>
@@ -1063,7 +1201,7 @@ export default function TableDataN(props) {
                   ) : null}
 
                   {/* COUNT PER PAGE SECTION START FOM HERE   */}
-                  {currentStateTableData.countPerPage ? (
+                  {currentStateTableData.recordPerPageSection ? (
                     <Col xl={6} md={6} sm={6}>
                       <section className={Style.perPageOuter}>
                         <p
@@ -1073,10 +1211,13 @@ export default function TableDataN(props) {
                               : `${Style.perPagesectionInner} darkModeColor`
                           }
                           onClick={() => {
-                            // setRecords(10);
-                            // setActiveRecord({
-                            //   record10: true,
-                            // });--------*****
+                            dispatchTableData(RECORDS, 10);
+                            dispatchTableData({
+                              type: ACTIVE_RECORDS,
+                              data: {
+                                record10: true,
+                              },
+                            });
                           }}
                         >
                           10
@@ -1089,10 +1230,13 @@ export default function TableDataN(props) {
                               : `${Style.perPagesectionInner} darkModeColor`
                           }
                           onClick={() => {
-                            // setRecords(25);
-                            // setActiveRecord({
-                            //   record25: true,
-                            // }); --------****
+                            dispatchTableData(RECORDS, 25);
+                            dispatchTableData({
+                              type: ACTIVE_RECORDS,
+                              data: {
+                                record25: true,
+                              },
+                            });
                           }}
                         >
                           25
@@ -1100,14 +1244,17 @@ export default function TableDataN(props) {
                         <p
                           className={
                             currentStateTableData.activeRecord.record50
-                              ? `${Style.perPagesectionInnerActive}darkModeColor`
+                              ? `${Style.perPagesectionInnerActive} darkModeColor`
                               : `${Style.perPagesectionInner} darkModeColor`
                           }
                           onClick={() => {
-                            // setRecords(50);
-                            // setActiveRecord({
-                            //   record50: true,
-                            // }); ----****
+                            dispatchTableData(RECORDS, 50);
+                            dispatchTableData({
+                              type: ACTIVE_RECORDS,
+                              data: {
+                                record50: true,
+                              },
+                            });
                           }}
                         >
                           50
@@ -1119,10 +1266,13 @@ export default function TableDataN(props) {
                               : `${Style.perPagesectionInner} darkModeColor`
                           }
                           onClick={() => {
-                            // setRecords(100);
-                            // setActiveRecord({
-                            //   record100: true,
-                            // });------***
+                            dispatchTableData(RECORDS, 100);
+                            dispatchTableData({
+                              type: ACTIVE_RECORDS,
+                              data: {
+                                record100: true,
+                              },
+                            });
                           }}
                         >
                           100
@@ -1147,7 +1297,7 @@ export default function TableDataN(props) {
             <CustomPaginationTableData
               data={data && data.data && data.data.count}
               code={code}
-              date={currentStateTableData.date}
+              date={date}
               logType={currentStateTableData.logType}
               record={currentStateTableData.record}
               projectType={projectCode.code}

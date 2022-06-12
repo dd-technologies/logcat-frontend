@@ -3,18 +3,19 @@ import {
   DATE_SELECTION,
   DATE,
   LOGTYPE,
-  MULTY_CHECKBOX_SELECTION,
   RECORDS,
   SEARCH_FIELD,
   SELECT_PAGE_NO,
-  SINGLE_CHECKBOX_SELECTION,
+  ALL_CHECkBOX,
   SORT_ICON_FILTER,
   STATUS_SELECTION,
-  ALL_CHECKBOX_SELECTED,
+  SINGLE_CHECKBOX_SELECTION,
+  RECORD_PER_PAGE_SECTION,
+  ACTIVE_RECORDS,
 } from "./Type";
 
 export const checkBoxReducer = (state, action) => {
-  console.log("data action", action.data);
+  console.log("data action", action.type);
 
   switch (action.type) {
     //CHECKBOX SECTION
@@ -22,14 +23,14 @@ export const checkBoxReducer = (state, action) => {
       return {
         ...state,
         type: action.type,
-        pageNo: action.data,
+        singleCheckbox: action.data,
       };
 
-    case MULTY_CHECKBOX_SELECTION:
+    case ALL_CHECkBOX:
       return {
         ...state,
         type: action.type,
-        pageNo: action.data,
+        allCheckBox: action.data,
       };
 
     //PAGE SECTION
@@ -40,12 +41,12 @@ export const checkBoxReducer = (state, action) => {
         pageNo: action.data,
       };
 
-    //PAGINATION SECTION
+    //dropdone SECTION ----------
     case DATE_SELECTION:
       return {
         ...state,
         type: action.type,
-        pageNo: action.data,
+        dateSection: action.data,
       };
 
     case STATUS_SELECTION:
@@ -55,11 +56,11 @@ export const checkBoxReducer = (state, action) => {
         statusSection: action.data,
       };
 
-    case COUNT_PER_PAGE:
+    case RECORD_PER_PAGE_SECTION:
       return {
         ...state,
         type: action.type,
-        countPerPage: action.data,
+        recordPerPageSection: action.data,
       };
 
     //LOGTYPE SECTION
@@ -86,6 +87,13 @@ export const checkBoxReducer = (state, action) => {
         record: action.data,
       };
 
+    case ACTIVE_RECORDS:
+      return {
+        ...state,
+        type: action.type,
+        activeRecord: action.data,
+      };
+
     //DATE SECTION
     case DATE:
       return {
@@ -100,14 +108,6 @@ export const checkBoxReducer = (state, action) => {
         ...state,
         type: action.type,
         searchField: action.data,
-      };
-
-    // ALL CHECKBOX SELECTION
-    case ALL_CHECKBOX_SELECTED:
-      return {
-        ...state,
-        type: action.type,
-        allCheckBox: action.data,
       };
 
     default:
