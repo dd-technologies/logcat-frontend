@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./App.module.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import CreateProject from "./components/Create_project/CreateProject";
-import LogTable from "./components/LogTable/LogTable";
-import Analytics from "./components/Analytics/Analytics";
-import NotFound from "./components/NotFound";
-import Login from "./components/Auth/Login";
-import ResetPassword from "./components/Auth/ResetPassword";
-import ForgetPassword from "./components/Auth/ForgetPassword";
+import CreateProject from "./screens/projects/CreateProject";
+import LogTable from "./screens/logs/LogTable";
+import Analytics from "./screens/analytics/Analytics";
+import NotFound from "./screens/NotFound";
+import Login from "./screens/auth/Login";
+import ResetPassword from "./screens/auth/ResetPassword";
+import ForgetPassword from "./screens/auth/ForgetPassword";
 import Protected from "./utils/Protected";
-import Settings from "./components/Settings/Settings";
+import Settings from "./screens/settings/Settings";
 import { useSelector } from "react-redux";
-import UpdateProfile from "./components/user/UpdateProfile";
+import UpdateProfile from "./screens/user/UpdateProfile";
 import "./utils/Theme.css";
-import Register from "./components/Auth/Register";
-import Alarm from "./components/Alarm/Alarm";
+import Register from "./screens/auth/Register";
+import AlarmNew from "./screens/alerts/AlertsNew";
 import ddLoader from "../src/assets/images/ddLoader.gif";
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
       setSplash(false);
     }, 3500);
   }, []);
-  
+
   return (
     <>
       {splash ? (
@@ -59,7 +59,7 @@ function App() {
               <Route exact path="/log_table" element={<LogTable />} />
               <Route exact path="/analytics" element={<Analytics />} />
               <Route exact path="/update" element={<UpdateProfile />} />
-              <Route exact path="/alarm" element={<Alarm />} />
+              <Route exact path="/alarm" element={<AlarmNew />} />
               {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
                 <Route exact path="/settings" element={<Settings />} />
               )}

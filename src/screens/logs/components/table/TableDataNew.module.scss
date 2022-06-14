@@ -1,0 +1,218 @@
+
+@import "../../../../css/veriables.module.scss";
+@import "../../../../css/mediaQuery.scss";
+
+.LinkSection {
+  text-decoration: none;
+  color: #fff;
+  &:hover {
+    color: $active_text_color;
+    transition-duration: 0.3s;
+    text-decoration: underline;
+  }
+}
+
+input[type="checkbox"]:checked {
+  background-color: $active_text_color;
+}
+input[type="checkbox"]:checked:after {
+  content: "\2713";
+  color: white;
+}
+
+input[type="checkbox"] {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px !important;
+  height: 20px !important;
+  appearance: none;
+  border: 1px solid $active_text_color;
+  box-shadow: none;
+  font-size: 1em;
+}
+
+.searchSection {
+  background-color: #efefef;
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
+
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.224);
+
+  & input {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    border: solid rgb(226, 226, 226) 1px;
+    padding: 5px;
+    width: 60%;
+    height: 40px;
+  }
+}
+
+.filterGraphFirstSection {
+  cursor: pointer;
+  background-color: $active_text_color;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: auto !important;
+
+  & svg {
+    color: $defaultTextColor;
+    transition-duration: 0.5s;
+  }
+}
+
+.noDataFound {
+  width: 100%;
+  height: 100px;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  font-size: 1.3rem;
+}
+
+.sortIcons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.chipOuter {
+  width: 40% !important;
+  height: auto !important;
+  margin-right: 5px;
+  margin-left: 5px;
+  display: grid;
+  grid-gap: 0px;
+}
+
+@include sm {
+  .chipOuter {
+    // border: 1px solid red;
+    grid-template-columns: auto;
+  }
+}
+@include md {
+  .chipOuter {
+    // border: 1px solid red;
+    grid-template-columns: auto auto;
+  }
+}
+
+@include lg-md {
+  .chipOuter {
+    // border: 1px solid red;
+    grid-template-columns: auto auto auto;
+  }
+}
+
+@include lg-xl {
+  .chipOuter {
+    // border: 1px solid red;
+    grid-template-columns: auto auto auto;
+  }
+}
+
+@include lg {
+  .chipOuter {
+    // border: 1px solid red;
+    grid-template-columns: auto auto auto;
+  }
+}
+@include xl {
+  .chipOuter {
+    // border: 1px solid red;
+    grid-template-columns: auto auto auto auto;
+    gap: 0;
+  }
+}
+
+.chip {
+  background-color: $backgroundColor;
+  border-radius: 20px;
+  padding: 10px;
+  height: 30px;
+  width: 120px;
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  margin: 2px;
+
+  & p {
+    font-size: 0.8rem !important;
+  }
+  & svg {
+    color: #fff;
+  }
+}
+
+// css copy from table data
+
+.TopButton {
+  display: flex !important;
+  justify-content: space-between !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+.ActiveOption {
+  background-color: $backgroundColor;
+  color: $defaultTextColor;
+  border-radius: 10px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.DateSection {
+  & input {
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.6);
+  }
+}
+
+.perPageOuter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .perPagesectionInner {
+    margin-top: 5px;
+  }
+  .perPagesectionInnerActive {
+    background-color: $backgroundColor !important;
+    color: $defaultTextColor;
+    padding: 5px;
+    border-radius: 30px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.DefaultOption {
+  color: $active_text_color;
+  padding: 5px;
+}
+
+.StatusInnerSecion {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}

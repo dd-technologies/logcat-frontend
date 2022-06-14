@@ -1,41 +1,41 @@
-.ligth-theme {
+.light-theme {
   background: #212121 !important;
   overflow-x: hidden !important;
 }
 
-.ligth-theme .card {
+.light-theme .card {
   background-color: #262626;
   -webkit-box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.45) !important;
           box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.45) !important;
   border-radius: 0px;
 }
 
-.ligth-theme td {
+.light-theme td {
   color: #fff !important;
 }
 
-.ligth-theme .darkModeColor {
+.light-theme .darkModeColor {
   color: #fff !important;
 }
 
-.ligth-theme .cpactiveText {
+.light-theme .cpactiveText {
   color: #0099a4;
 }
 
-.ligth-theme .TDsec {
+.light-theme .TDsec {
   background-color: #0099a4 !important;
 }
 
-.ligth-theme .TBSED {
+.light-theme .TBSED {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
 
-.ligth-theme .darkModebgColor {
+.light-theme .darkModebgColor {
   background-color: #c6d3ff !important;
 }
 
-.ligth-theme .darkBgColorSec {
+.light-theme .darkBgColorSec {
   background-color: #fff;
 }
 

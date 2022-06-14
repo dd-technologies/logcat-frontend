@@ -3,7 +3,7 @@ import { createContext } from "react";
 // implementing dark theme light theme by context api
 export const themes = {
   dark: "",
-  light: "ligth-theme",
+  light: "light-theme",
 };
 
 // implementing sidebar

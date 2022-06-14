@@ -1,0 +1,73 @@
+@import "../../css/veriables.module.scss";
+
+.searchSection {
+  background-color: #efefef;
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
+
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.224);
+
+  & input {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    border: solid rgb(226, 226, 226) 1px;
+    padding: 5px;
+    width: 60%;
+    height: 40px;
+  }
+
+  .filterGraphFirstSection {
+    cursor: pointer;
+    background-color: $active_text_color;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: auto !important;
+
+    & svg {
+      color: $defaultTextColor;
+      transition-duration: 0.5s;
+    }
+  }
+}
+
+.filterWithDate {
+  display: flex;
+  justify-content: flex-end;
+  height: 40px;
+
+  .filterwithDate {
+    @include paraFontdasktopMixin;
+    cursor: pointer;
+    .datafilter {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    & input {
+      margin-left: 10px;
+    }
+  }
+}
+
+.productVersion {
+  padding: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: $backgroundColor;
+    width: 100%;
+    padding: 5px;
+    color: $defaultTextColor;
+    transition-duration: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

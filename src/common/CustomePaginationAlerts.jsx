@@ -1,28 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Pagination } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { getProjectByCode } from "../store/action/ProjectAction";
+import { alarmAction } from "../store/action/AlarmAction";
 
-export default function CustomPaginationTableData({
+export default function CustomePaginationAlerts({
   data,
   code,
   date,
-  logType,
   record,
   projectType,
 }) {
+  // console.log("arraypop data", data);
+
   //CURRENT PAGE NUMBER
-
-  console.log(
-    "pagination data",
-    data,
-    code,
-    date,
-    logType,
-    record,
-    projectType
-  );
-
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const dispatch = useDispatch();
 
@@ -35,16 +25,7 @@ export default function CustomPaginationTableData({
   //@@ ALL FUNCTION WARPER OBJECT
   const allPaginationFunctionObj = {
     firstPageFun: () => {
-      dispatch(
-        getProjectByCode(
-          code,
-          date,
-          logType,
-          pageCountArray[0],
-          record,
-          projectType
-        )
-      );
+      dispatch(alarmAction(code, projectType, date, pageCountArray[0], record));
       setCurrentPageNumber(pageCountArray[0]);
       localStorage.setItem("page_no", pageCountArray[0]);
 
@@ -53,14 +34,7 @@ export default function CustomPaginationTableData({
     },
     lastPageFun: () => {
       dispatch(
-        getProjectByCode(
-          code,
-          date,
-          logType,
-          pageCountArray.at(-1),
-          record,
-          projectType
-        )
+        alarmAction(code, projectType, date, pageCountArray.at(-1), record)
       );
       setCurrentPageNumber(pageCountArray.at(-1));
       localStorage.setItem("page_no", pageCountArray.at(-1));
@@ -73,13 +47,12 @@ export default function CustomPaginationTableData({
     // @@ NEXT PAGE FUNCTION HERE-------------
     nextPageFunc: () => {
       dispatch(
-        getProjectByCode(
+        alarmAction(
           code,
+          projectType,
           date,
-          logType,
           parseInt(currentPageNumber) + 1,
-          record,
-          projectType
+          record
         )
       );
       setCurrentPageNumber(parseInt(currentPageNumber) + 1);
@@ -87,13 +60,12 @@ export default function CustomPaginationTableData({
     },
     pervPageFunc: () => {
       dispatch(
-        getProjectByCode(
+        alarmAction(
           code,
+          projectType,
           date,
-          logType,
           parseInt(currentPageNumber) - 1,
-          record,
-          projectType
+          record
         )
       );
       setCurrentPageNumber(parseInt(currentPageNumber) - 1);
@@ -102,9 +74,7 @@ export default function CustomPaginationTableData({
     currentPageFun: (index) => {
       // console.log("index", index);
 
-      dispatch(
-        getProjectByCode(code, date, logType, index, record, projectType)
-      );
+      dispatch(alarmAction(code, projectType, date, index, record));
       setCurrentPageNumber(index);
       localStorage.setItem("page_no", index);
     },
@@ -114,23 +84,33 @@ export default function CustomPaginationTableData({
         : 4;
       localStorage.setItem("pop_index", parseInt(popIndexFromLocal) + 4);
 
-      pageCountArray = pageCountArray.splice(parseInt(popIndexFromLocal));
+      pageCountArray = pageCountArray.slice(parseInt(popIndexFromLocal));
       localStorage.setItem("pagination_array", JSON.stringify(pageCountArray));
+
+      // console.log("arraypop final", pageCountArray);
       localStorage.setItem("page_no", pageCountArray[0]);
 
       dispatch(
-        getProjectByCode(
+        alarmAction(
           code,
+          localStorage.getItem("project_type")
+            ? JSON.parse(localStorage.getItem("project_type")).typeCode
+            : projectType,
           date,
-          logType,
           pageCountArray[0],
-          record,
-          projectType
+          record
         )
       );
     },
   };
 
+  useEffect(() => {
+    setCurrentPageNumber(
+      localStorage.getItem("page_no") ? localStorage.getItem("page_no") : 1
+    );
+  }, []);
+
+  // console.log("first", JSON.parse(localStorage.getItem("pagination_array")));
   let newArray = [];
   let arrayOfLocal = localStorage.getItem("pagination_array")
     ? JSON.parse(localStorage.getItem("pagination_array"))
@@ -139,12 +119,6 @@ export default function CustomPaginationTableData({
   newArray =
     arrayOfLocal &&
     arrayOfLocal.filter((element, index) => index < arrayOfLocal.length - 4);
-
-  useEffect(() => {
-    setCurrentPageNumber(
-      localStorage.getItem("page_no") ? localStorage.getItem("page_no") : 1
-    );
-  }, []);
 
   return (
     <>
@@ -167,6 +141,7 @@ export default function CustomPaginationTableData({
               ? newArray.map((items, index) => {
                   return (
                     <>
+                      {console.log("arraypop items", items, index)}
                       {/* FIRST FOUR INDEXES */}
                       {index <= 4 && (
                         <Pagination.Item
@@ -186,6 +161,7 @@ export default function CustomPaginationTableData({
               : pageCountArray.map((items, index) => {
                   return (
                     <>
+                      {/* {console.log("arraypop items", items, index)} */}
                       {/* FIRST FOUR INDEXES */}
                       {index <= 4 && (
                         <Pagination.Item

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/DDTECH.png";
 import Logcat_small from "../assets/images/lgnewsmall.png";
-import LogcatLarge from "../assets/images/logcarLarge.svg";
+import LogcatLarge from "../assets/images/LgLargeIcon.png";
 import settigns from "../assets/icons/settings.png";
 import Analytics from "../assets/icons/analyticIcon.png";
 
