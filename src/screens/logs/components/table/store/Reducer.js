@@ -15,7 +15,7 @@ import {
 } from "./Type";
 
 export const checkBoxReducer = (state, action) => {
-  console.log("data action", action.type);
+  console.log("data action", action);
 
   switch (action.type) {
     //CHECKBOX SECTION

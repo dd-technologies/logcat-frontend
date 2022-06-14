@@ -10,14 +10,14 @@ import ToolkitProvider, {
 } from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit";
 import Style from "./TableData.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getProjectByCode } from "../../../../store/action/ProjectAction";
+import { getProjectByCode } from "../store/action/ProjectAction";
 import SpinnerCustom from "../../../../Container/SpinnerCustom";
 import toast, { Toaster } from "react-hot-toast";
 import TableCard from "../../../../Container/TableCard";
 import { Link, useNavigate } from "react-router-dom";
-import { ThemeContext } from "../../../../utils/ThemeContext";
+import { ThemeContext } from "../utils/ThemeContext";
 import "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css";
-import CustomPaginationTableData from "../../../../common/CustomPaginationTableData";
+import CustomPaginationTableData from "../common/CustomPaginationTableData";
 
 const { SearchBar } = Search;
 const { ExportCSVButton } = CSVExport;

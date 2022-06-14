@@ -13,6 +13,8 @@ import {
 import { alarmAction } from "../../../../store/action/AlarmAction";
 
 const TypeDropDown = (props) => {
+  console.log("props alerts", props);
+
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
 
   // dark-mode state

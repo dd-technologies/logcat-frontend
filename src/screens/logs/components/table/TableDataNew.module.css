@@ -69,7 +69,7 @@ input[type="checkbox"] {
   height: 40px;
 }
 
-.filterGraphFirstSction {
+.filterGraphFirstSection {
   cursor: pointer;
   background-color: #0099a4;
   padding: 10px;
@@ -87,7 +87,7 @@ input[type="checkbox"] {
   height: auto !important;
 }
 
-.filterGraphFirstSction svg {
+.filterGraphFirstSection svg {
   color: #fff;
   -webkit-transition-duration: 0.5s;
           transition-duration: 0.5s;
@@ -106,10 +106,6 @@ input[type="checkbox"] {
       -ms-flex-align: center !important;
           align-items: center !important;
   font-size: 1.3rem;
-}
-
-.noDataFound p {
-  color: #fff !important;
 }
 
 .sortIcons {

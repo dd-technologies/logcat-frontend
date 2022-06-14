@@ -30,6 +30,7 @@ import {
   ALL_CHECkBOX,
   RECORD_PER_PAGE_SECTION,
   ACTIVE_RECORDS,
+  DATE,
 } from "./store/Type";
 
 export default function TableDataN(props) {
@@ -39,7 +40,7 @@ export default function TableDataN(props) {
   const code = props.code;
   let filedate = new Date();
 
-  // ======================================Reduder from Redux===================================
+  // ======================================Reducer from Redux===================================
   // ===========================================================================================
   // ===========================================================================================
 
@@ -53,16 +54,16 @@ export default function TableDataN(props) {
   const { data: typeWiseDate } = getModelCodeReducer;
   const dispatch = useDispatch();
 
-  // ======================================New State manangement================================
+  // ======================================New State management================================
   // ===========================================================================================
   // ===========================================================================================
   // @@  STATE MANAGEMENT WITH USE REDUCER STARTS ------
   /*
   useReducer --> to manage single checkbox and all checkbox state and export data by conditionally
-  initailState == checbox selection state, pageno state, date state, countperpage state
+  initialState == checkbox selection state, page number state, date state,counter page state
   
   */
-  const initailState = {
+  const initialState = {
     pageNo: 1,
     dateSection: true,
     statusSection: false,
@@ -114,12 +115,12 @@ export default function TableDataN(props) {
 
   const [currentStateTableData, dispatchTableData] = useReducer(
     checkBoxReducer,
-    initailState
+    initialState
   );
 
   console.log("currentStateTableData", currentStateTableData);
 
-  // CHECKBOX STATE MANAGEMENT WITH USEREDUCER END ---------------------------------------------
+  // CHECKBOX STATE MANAGEMENT WITH User REDUCER END ---------------------------------------------
   // ===========================================================================================
   // ===========================================================================================
   // ===========================================================================================
@@ -211,16 +212,15 @@ export default function TableDataN(props) {
   // RESET FILTER FUNCTION
   const resetFilter = () => {
     // multy dispatch for resetfilter
-    const multpleDispatch = (type, data) => {
+    const multipleDispatch = (type, data) => {
       // console.log("data here", type, data);
 
       return dispatchTableData(type, data);
     };
 
-    multpleDispatch(RECORDS, currentStateTableData.record);
-    multpleDispatch(SELECT_PAGE_NO, 1);
-    multpleDispatch(SELECT_PAGE_NO, 1);
-    multpleDispatch({
+    multipleDispatch({ type: RECORDS, data: currentStateTableData.record });
+    multipleDispatch({ type: SELECT_PAGE_NO, data: 1 });
+    multipleDispatch({
       type: ACTIVE_RECORDS,
       data: {
         record10: false,
@@ -234,7 +234,7 @@ export default function TableDataN(props) {
     localStorage.removeItem("selected_date");
     localStorage.removeItem("selected_record");
 
-    multpleDispatch(LOGTYPE, {
+    multipleDispatch(LOGTYPE, {
       error: null,
       info: null,
       warn: null,
@@ -389,7 +389,7 @@ export default function TableDataN(props) {
 
   // ========================================
 
-  const callBackfunctionDispatchGetAllData = (sortType) => {
+  const callbackfnDispatchGetAllData = (sortType) => {
     return dispatch(
       getProjectByCode(
         code,
@@ -521,14 +521,10 @@ export default function TableDataN(props) {
   };
 
   let newItemsArray = [];
-  let uniqueChars;
-  const singleChecboxFun = (event, item, index) => {
+  const singleCheckboxFun = (event, item, index) => {
     newItemsArray.push(item);
 
-    var downloadbuttonId = document.getElementById("download_button");
-    var singlitemSelect = document.getElementById(`singleItem ${index}`);
-
-    console.log("downloadbuttonId", event);
+    var downloadButtonId = document.getElementById("download_button");
 
     if (newItemsArray.length >= 2) {
       // @@ conditions---
@@ -545,17 +541,8 @@ export default function TableDataN(props) {
       });
     }
 
-    // @@ re-rendering is stop pussing array next element ---??
-    // if (newItemsArray.length) {
-    //   dispatchTableData({ type: SINGLE_CHECKBOX_SELECTION, data: true });
-    // }
-
-    // if (selectedCheckoxsLocal.length) {
-    //   dispatchTableData({ type: SINGLE_CHECKBOX_SELECTION, data: true });
-    // }
-
     if (newItemsArray.length) {
-      downloadbuttonId.style.opacity = "100%";
+      downloadButtonId.style.opacity = "100%";
     }
 
     let arrayLastIndex = newItemsArray.slice(-1)[0]._id;
@@ -566,7 +553,7 @@ export default function TableDataN(props) {
       newItemsArray.pop();
       newItemsArray.pop();
     }
-    if (!newItemsArray.length) downloadbuttonId.style.opacity = "30%";
+    if (!newItemsArray.length) downloadButtonId.style.opacity = "30%";
 
     console.log("first array", newItemsArray);
   };
@@ -660,7 +647,7 @@ export default function TableDataN(props) {
               })
             }
           >
-            <section className={Style.filterGraphFirstSction}>
+            <section className={Style.filterGraphFirstSection}>
               <FontAwesomeIcon icon={faDownload} />
             </section>
           </section>
@@ -675,20 +662,18 @@ export default function TableDataN(props) {
                 <input type="checkbox" onChange={allCheckBoxFun} />
               </th>
               <th>
-                <section
-                  className={Style.sortIcons}
-                  onClick={() =>
-                    sortTableFunLM(callBackfunctionDispatchGetAllData)
-                  }
-                >
+                <section className={Style.sortIcons}>
                   Log Message
-                  <span className="ps-2">
+                  <span
+                    style={{ cursor: "pointer" }}
+                    className="ps-2"
+                    onClick={() => sortTableFunLM(callbackfnDispatchGetAllData)}
+                  >
                     {currentStateTableData.sortIconFilter.LM ? (
                       <FontAwesomeIcon
                         className="ps-1"
                         icon={faSortDown}
                         onClick={() => {
-                          // setSortIconFilter({ ...sortIconFilter, LM: false });
                           dispatchTableData({
                             type: SORT_ICON_FILTER,
                             data: {
@@ -717,14 +702,13 @@ export default function TableDataN(props) {
                 </section>
               </th>
               <th>
-                <section
-                  className={Style.sortIcons}
-                  onClick={() =>
-                    sortTableFunAD(callBackfunctionDispatchGetAllData)
-                  }
-                >
+                <section className={Style.sortIcons}>
                   Mac Address
-                  <span className="ps-2">
+                  <span
+                    style={{ cursor: "pointer" }}
+                    className="ps-2"
+                    onClick={() => sortTableFunAD(callbackfnDispatchGetAllData)}
+                  >
                     {currentStateTableData.sortIconFilter.AD ? (
                       <FontAwesomeIcon
                         className="ps-1"
@@ -758,14 +742,13 @@ export default function TableDataN(props) {
                 </section>
               </th>
               <th>
-                <section
-                  className={Style.sortIcons}
-                  onClick={() =>
-                    sortTableFunLT(callBackfunctionDispatchGetAllData)
-                  }
-                >
+                <section className={Style.sortIcons}>
                   Log Type
-                  <span className="ps-2">
+                  <span
+                    style={{ cursor: "pointer" }}
+                    className="ps-2"
+                    onClick={() => sortTableFunLT(callbackfnDispatchGetAllData)}
+                  >
                     {currentStateTableData.sortIconFilter.LT ? (
                       <FontAwesomeIcon
                         className="ps-1"
@@ -799,14 +782,13 @@ export default function TableDataN(props) {
                 </section>
               </th>
               <th>
-                <section
-                  className={Style.sortIcons}
-                  onClick={() =>
-                    sortTableFunDT(callBackfunctionDispatchGetAllData)
-                  }
-                >
+                <section className={Style.sortIcons}>
                   Date
-                  <span className="ps-2">
+                  <span
+                    style={{ cursor: "pointer" }}
+                    className="ps-2"
+                    onClick={() => sortTableFunDT(callbackfnDispatchGetAllData)}
+                  >
                     {currentStateTableData.sortIconFilter.DA ? (
                       <FontAwesomeIcon
                         className="ps-1"
@@ -840,14 +822,13 @@ export default function TableDataN(props) {
                 </section>
               </th>
               <th>
-                <section
-                  className={Style.sortIcons}
-                  onClick={() =>
-                    sortTableFunDT(callBackfunctionDispatchGetAllData)
-                  }
-                >
+                <section className={Style.sortIcons}>
                   Time
-                  <span className="ps-2">
+                  <span
+                    style={{ cursor: "pointer" }}
+                    className="ps-2"
+                    onClick={() => sortTableFunDT(callbackfnDispatchGetAllData)}
+                  >
                     {currentStateTableData.sortIconFilter.TI ? (
                       <FontAwesomeIcon
                         className="ps-1"
@@ -899,7 +880,7 @@ export default function TableDataN(props) {
                           checked={
                             currentStateTableData.allCheckBox ? "checked" : null
                           }
-                          onChange={(e) => singleChecboxFun(e, item, index)}
+                          onChange={(e) => singleCheckboxFun(e, item, index)}
                         />
                       </td>
                       <td>
@@ -1054,10 +1035,14 @@ export default function TableDataN(props) {
                                 ).start
                           }
                           onChange={(e) => {
-                            // setDate({
-                            //   ...currentStateTableData.dateState,
-                            //   start: e.target.value,
-                            // });------****
+                            dispatchTableData({
+                              type: DATE,
+                              data: {
+                                ...currentStateTableData.dateState,
+                                start: e.target.value,
+                              },
+                            });
+
                             date.start = e.target.value;
                           }}
                         />
@@ -1075,10 +1060,14 @@ export default function TableDataN(props) {
                                 ).end
                           }
                           onChange={(e) => {
-                            // setDate({
-                            //   ...currentStateTableData.dateState,
-                            //   end: e.target.value,
-                            // }); ------****
+                            dispatchTableData({
+                              type: DATE,
+                              data: {
+                                ...currentStateTableData.dateState,
+                                end: e.target.value,
+                              },
+                            });
+
                             currentStateTableData.date.end = e.target.value;
                           }}
                         />
@@ -1211,7 +1200,7 @@ export default function TableDataN(props) {
                               : `${Style.perPagesectionInner} darkModeColor`
                           }
                           onClick={() => {
-                            dispatchTableData(RECORDS, 10);
+                            dispatchTableData({ type: RECORDS, data: 10 });
                             dispatchTableData({
                               type: ACTIVE_RECORDS,
                               data: {
@@ -1230,7 +1219,7 @@ export default function TableDataN(props) {
                               : `${Style.perPagesectionInner} darkModeColor`
                           }
                           onClick={() => {
-                            dispatchTableData(RECORDS, 25);
+                            dispatchTableData({ type: RECORDS, data: 25 });
                             dispatchTableData({
                               type: ACTIVE_RECORDS,
                               data: {
@@ -1248,7 +1237,7 @@ export default function TableDataN(props) {
                               : `${Style.perPagesectionInner} darkModeColor`
                           }
                           onClick={() => {
-                            dispatchTableData(RECORDS, 50);
+                            dispatchTableData({ type: RECORDS, data: 50 });
                             dispatchTableData({
                               type: ACTIVE_RECORDS,
                               data: {
@@ -1266,7 +1255,7 @@ export default function TableDataN(props) {
                               : `${Style.perPagesectionInner} darkModeColor`
                           }
                           onClick={() => {
-                            dispatchTableData(RECORDS, 100);
+                            dispatchTableData({ type: RECORDS, data: 100 });
                             dispatchTableData({
                               type: ACTIVE_RECORDS,
                               data: {
@@ -1287,8 +1276,11 @@ export default function TableDataN(props) {
         </section>
 
         {loading && <SpinnerCustom height="200px" />}
-        {error && (
-          <section className={Style.noDataFound}>
+        {data && data.data && !data.data.count && (
+          <section
+            className={Style.noDataFound}
+            style={{ color: theme == "light-theme" ? `#000` : `#fff` }}
+          >
             <p>No Data Found</p>
           </section>
         )}

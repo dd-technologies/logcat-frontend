@@ -6,8 +6,8 @@ import {
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
 import { Container, Row, Col, Image } from "react-bootstrap";
-import { Navbar } from "../../utils/NavBar";
-import SideBar from "../../utils/Sidebar";
+import { Navbar } from "../utils/NavBar";
+import SideBar from "../utils/Sidebar";
 import Style from "./AlertsOld.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TypeDropDown from "../logs/screens/Table/TypeDropDown";
@@ -21,12 +21,12 @@ import ToolkitProvider, {
 } from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit";
 import BootstrapTable from "react-bootstrap-table-next";
 import AlarmIcon from "../../assets/images/AlarmIcon.png";
-import { alarmAction } from "../../store/action/AlarmAction";
+import { alarmAction } from "../store/action/AlarmAction";
 import SpinnerCustom from "../../Container/SpinnerCustom";
 import TableCard from "../../Container/TableCard";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
-import { ThemeContext } from "../../utils/ThemeContext";
-import CustomePaginationAlarm from "../../common/CustomePaginationAlarm";
+import { ThemeContext } from "../utils/ThemeContext";
+import CustomePaginationAlarm from "../common/CustomePaginationAlarm";
 
 const { SearchBar } = Search;
 const { ExportCSVButton } = CSVExport;

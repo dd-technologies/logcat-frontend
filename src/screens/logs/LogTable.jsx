@@ -393,7 +393,7 @@ export default function LogTable() {
                   </section>
 
                   <section
-                    className={Style.filterGraphFirstSction}
+                    className={Style.filterGraphFirstSection}
                     onClick={RefreshTableOnlyFun}
                   >
                     <FontAwesomeIcon icon={faSync} />

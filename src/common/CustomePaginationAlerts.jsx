@@ -3,7 +3,7 @@ import { Pagination } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { alarmAction } from "../store/action/AlarmAction";
 
-export default function CustomePaginationAlarm({
+export default function CustomePaginationAlerts({
   data,
   code,
   date,

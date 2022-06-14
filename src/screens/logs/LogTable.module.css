@@ -78,7 +78,7 @@
   color: #0099a4;
 }
 
-.filterGraphFirstSction {
+.filterGraphFirstSection {
   cursor: pointer;
   background-color: #e2e2e2;
   padding: 10px;
@@ -96,7 +96,7 @@
   height: auto !important;
 }
 
-.filterGraphFirstSction svg:hover {
+.filterGraphFirstSection svg:hover {
   -webkit-transform: rotate(180deg) !important;
           transform: rotate(180deg) !important;
   -webkit-transition-duration: 0.5s;

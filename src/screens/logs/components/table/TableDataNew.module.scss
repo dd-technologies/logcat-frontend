@@ -1,3 +1,4 @@
+
 @import "../../../../css/veriables.module.scss";
 @import "../../../../css/mediaQuery.scss";
 
@@ -53,7 +54,7 @@ input[type="checkbox"] {
   }
 }
 
-.filterGraphFirstSction {
+.filterGraphFirstSection {
   cursor: pointer;
   background-color: $active_text_color;
   padding: 10px;
@@ -77,9 +78,6 @@ input[type="checkbox"] {
   justify-content: center !important;
   align-items: center !important;
   font-size: 1.3rem;
-  & p {
-    color: $defaultTextColor !important;
-  }
 }
 
 .sortIcons {
@@ -95,7 +93,6 @@ input[type="checkbox"] {
   margin-left: 5px;
   display: grid;
   grid-gap: 0px;
-
 }
 
 @include sm {
