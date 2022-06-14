@@ -165,21 +165,35 @@ export default function LogTable() {
   // REFRESH ONLY TABLE
   const RefreshTableOnlyFun = () => {
     let logType = JSON.parse(localStorage.getItem("selected_log"));
-    let record = JSON.parse(localStorage.getItem("selected_record"));
+    let record = localStorage.getItem("selected_record")
+      ? JSON.parse(localStorage.getItem("selected_record"))
+      : 25;
     let start = JSON.parse(localStorage.getItem("selected_date")).start;
     let end = JSON.parse(localStorage.getItem("selected_date")).end;
     let pgNo = JSON.parse(localStorage.getItem("page_no"));
 
     // console.log("refresh data", logType, record, start, end, pgNo);
 
+    // console.log(
+    //   "records",
+    //   code,
+    //   null,
+    //   null,
+    //   pgNo,
+    //   null,
+    //   projectCode.code,
+    //   null
+    // );
+
     dispatch(
       getProjectByCode(
         code,
         { start, end },
-        logType,
+        null,
         pgNo,
         record,
-        projectCode.code
+        projectCode.code,
+        null
       )
     );
   };

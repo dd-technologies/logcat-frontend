@@ -131,6 +131,15 @@ export default function CustomPaginationTableData({
     },
   };
 
+  let newArray = [];
+  let arrayOfLocal = localStorage.getItem("pagination_array")
+    ? JSON.parse(localStorage.getItem("pagination_array"))
+    : "";
+
+  newArray =
+    arrayOfLocal &&
+    arrayOfLocal.filter((element, index) => index < arrayOfLocal.length - 4);
+
   useEffect(() => {
     setCurrentPageNumber(
       localStorage.getItem("page_no") ? localStorage.getItem("page_no") : 1
@@ -154,28 +163,26 @@ export default function CustomPaginationTableData({
         {pageCountArray.length > 8 ? (
           <>
             {/* // MAPPING FIRST 4 PAGE NUMBER  */}
-            {localStorage.getItem("pagination_array")
-              ? JSON.parse(localStorage.getItem("pagination_array")).map(
-                  (items, index) => {
-                    return (
-                      <>
-                        {/* FIRST FOUR INDEXES */}
-                        {index <= 4 && (
-                          <Pagination.Item
-                            onClick={() =>
-                              allPaginationFunctionObj.currentPageFun(items)
-                            }
-                            active={items == currentPageNumber}
-                          >
-                            {items}
-                          </Pagination.Item>
-                        )}
+            {newArray
+              ? newArray.map((items, index) => {
+                  return (
+                    <>
+                      {/* FIRST FOUR INDEXES */}
+                      {index <= 4 && (
+                        <Pagination.Item
+                          onClick={() =>
+                            allPaginationFunctionObj.currentPageFun(items)
+                          }
+                          active={items == currentPageNumber}
+                        >
+                          {items}
+                        </Pagination.Item>
+                      )}
 
-                        {/*LAST FOUR INDEXS  */}
-                      </>
-                    );
-                  }
-                )
+                      {/*LAST FOUR INDEXS  */}
+                    </>
+                  );
+                })
               : pageCountArray.map((items, index) => {
                   return (
                     <>

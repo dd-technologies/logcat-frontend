@@ -41,15 +41,13 @@ const TypeDropDown = (props) => {
 
   const onSubmitFun = (type) => {
     ProjectTypeFilter();
-    // console.log('alarm error typedrop down ', {...type} )
 
     localStorage.setItem("project_type", JSON.stringify(type));
-
+    let projectDetails = JSON.parse(localStorage.getItem("project_type"));
     // alarm action dispatch
-
     if (url.href.includes("alarm")) {
-      dispatch(alarmAction(type.typeCode, props.diffDate));
-      props.setProjectCode(type.typeCode);
+      dispatch(alarmAction(code, projectDetails.typeCode, props.diffDate));
+      // props.projectCode(type.typeCode);
     }
 
     if (url.href.includes("log_table")) {
@@ -72,16 +70,6 @@ const TypeDropDown = (props) => {
         getLogByDate({ code, diffDate: props.diffDate, code1: type.typeCode })
       );
     }
-
-    console.log(
-      "props",
-      props.tableDataState.code,
-      props.tableDataState.date,
-      props.tableDataState.logtype,
-      props.tableDataState.pageNo,
-      props.tableDataState.records,
-      type.typeCode
-    );
 
     dispatch(
       getProjectByCode(

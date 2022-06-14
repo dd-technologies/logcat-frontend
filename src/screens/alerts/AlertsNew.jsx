@@ -526,7 +526,7 @@ export default function AlertsNew() {
                               </th>
                               <th>
                                 <section className={Style.sortIcons}>
-                                  Log Message
+                                  MAC Address
                                   <span
                                     style={{ cursor: "pointer" }}
                                     className="ps-2"
@@ -545,7 +545,7 @@ export default function AlertsNew() {
                               </th>
                               <th>
                                 <section className={Style.sortIcons}>
-                                  Log Message
+                                  Code
                                   <span
                                     style={{ cursor: "pointer" }}
                                     className="ps-2"
@@ -584,7 +584,7 @@ export default function AlertsNew() {
                               </th>
                               <th>
                                 <section className={Style.sortIcons}>
-                                  Log Message
+                                  Date
                                   <span
                                     style={{ cursor: "pointer" }}
                                     className="ps-2"
@@ -603,7 +603,7 @@ export default function AlertsNew() {
                               </th>
                               <th>
                                 <section className={Style.sortIcons}>
-                                  Log Message
+                                  Time
                                   <span
                                     style={{ cursor: "pointer" }}
                                     className="ps-2"
@@ -640,8 +640,8 @@ export default function AlertsNew() {
                                     />
                                   </td>
                                   <td>{items.did}</td>
-                                  <td>{items.ack.msg}</td>
                                   <td>{items.ack.code}</td>
+                                  <td>{items.ack.msg}</td>
                                   <td>{items.ack.date.split("T")[0]}</td>
                                   <td>
                                     {items.ack.date.split("T")[1].split(".")[0]}

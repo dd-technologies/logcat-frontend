@@ -243,14 +243,16 @@ export default function TableDataN(props) {
     });
 
     props.setShowTableField(false);
+
     dispatch(
       getProjectByCode(
         code,
         date,
-        null,
-        null,
+        currentStateTableData.logType,
         currentStateTableData.record,
-        projectCode.code
+        currentStateTableData.pageNo,
+        projectCode.code,
+        null
       )
     );
     toast.success("Filter has been reset");

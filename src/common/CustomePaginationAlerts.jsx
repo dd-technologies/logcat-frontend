@@ -90,7 +90,17 @@ export default function CustomePaginationAlerts({
       // console.log("arraypop final", pageCountArray);
       localStorage.setItem("page_no", pageCountArray[0]);
 
-      dispatch(alarmAction(code, projectType, date, pageCountArray[0], record));
+      dispatch(
+        alarmAction(
+          code,
+          localStorage.getItem("project_type")
+            ? JSON.parse(localStorage.getItem("project_type")).typeCode
+            : projectType,
+          date,
+          pageCountArray[0],
+          record
+        )
+      );
     },
   };
 
@@ -101,6 +111,14 @@ export default function CustomePaginationAlerts({
   }, []);
 
   // console.log("first", JSON.parse(localStorage.getItem("pagination_array")));
+  let newArray = [];
+  let arrayOfLocal = localStorage.getItem("pagination_array")
+    ? JSON.parse(localStorage.getItem("pagination_array"))
+    : "";
+
+  newArray =
+    arrayOfLocal &&
+    arrayOfLocal.filter((element, index) => index < arrayOfLocal.length - 4);
 
   return (
     <>
@@ -119,29 +137,27 @@ export default function CustomePaginationAlerts({
         {pageCountArray.length > 8 ? (
           <>
             {/* // MAPPING FIRST 4 PAGE NUMBER  */}
-            {localStorage.getItem("pagination_array")
-              ? JSON.parse(localStorage.getItem("pagination_array")).map(
-                  (items, index) => {
-                    return (
-                      <>
-                        {/* {console.log("arraypop items", items, index)} */}
-                        {/* FIRST FOUR INDEXES */}
-                        {index <= 4 && (
-                          <Pagination.Item
-                            onClick={() =>
-                              allPaginationFunctionObj.currentPageFun(items)
-                            }
-                            active={items == currentPageNumber}
-                          >
-                            {items}
-                          </Pagination.Item>
-                        )}
+            {newArray
+              ? newArray.map((items, index) => {
+                  return (
+                    <>
+                      {console.log("arraypop items", items, index)}
+                      {/* FIRST FOUR INDEXES */}
+                      {index <= 4 && (
+                        <Pagination.Item
+                          onClick={() =>
+                            allPaginationFunctionObj.currentPageFun(items)
+                          }
+                          active={items == currentPageNumber}
+                        >
+                          {items}
+                        </Pagination.Item>
+                      )}
 
-                        {/*LAST FOUR INDEXS  */}
-                      </>
-                    );
-                  }
-                )
+                      {/*LAST FOUR INDEXS  */}
+                    </>
+                  );
+                })
               : pageCountArray.map((items, index) => {
                   return (
                     <>
