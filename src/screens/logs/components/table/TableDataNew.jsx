@@ -190,13 +190,29 @@ export default function TableDataN(props) {
   let projectCodeType = typeWiseDate && typeWiseDate.modelList[0].typeCode;
 
   // DOWNLOAD CSV FILE FUNCTION
-  var allData = [];
   const downloadCSVFun = ({ data, fileName, fileType }) => {
-    data.forEach((o) => {
-      allData.push(`\n ${Object.entries(o)}`);
-      return allData;
-    });
-    const blob = new Blob([allData], { type: fileType });
+    var csv = "Log Message";
+    csv += "\t Mac Address";
+    csv += "\t Log Type";
+    csv += "\t Date";
+    csv += "\t Time";
+    csv += "\n";
+    for (var i = 0; i < data.length; i++) {
+      var row = Object.values(data[i]);
+      for (var j = 0; j < data.length; j++) {
+        var val = "";
+        val = row[j];
+
+        console.log("val", val);
+
+        if (j > 0) csv += "\t";
+
+        csv += val;
+      }
+
+      csv += "\n";
+    }
+    const blob = new Blob([csv], { type: fileType });
     const a = document.createElement("a");
     a.download = fileName;
     a.href = window.URL.createObjectURL(blob);
@@ -219,7 +235,10 @@ export default function TableDataN(props) {
     };
 
     multipleDispatch({ type: RECORDS, data: currentStateTableData.record });
-    multipleDispatch({ type: SELECT_PAGE_NO, data: 1 });
+    multipleDispatch({
+      type: SELECT_PAGE_NO,
+      data: currentStateTableData.pageNo,
+    });
     multipleDispatch({
       type: ACTIVE_RECORDS,
       data: {
@@ -233,13 +252,17 @@ export default function TableDataN(props) {
     localStorage.removeItem("selected_log");
     localStorage.removeItem("selected_date");
     localStorage.removeItem("selected_record");
+    localStorage.removeItem("page_no");
 
-    multipleDispatch(LOGTYPE, {
-      error: null,
-      info: null,
-      warn: null,
-      debug: null,
-      verbose: null,
+    multipleDispatch({
+      type: LOGTYPE,
+      data: {
+        error: null,
+        info: null,
+        warn: null,
+        debug: null,
+        verbose: null,
+      },
     });
 
     props.setShowTableField(false);
@@ -248,9 +271,9 @@ export default function TableDataN(props) {
       getProjectByCode(
         code,
         date,
-        currentStateTableData.logType,
-        currentStateTableData.record,
+        null,
         currentStateTableData.pageNo,
+        currentStateTableData.record,
         projectCode.code,
         null
       )
@@ -397,7 +420,9 @@ export default function TableDataN(props) {
         code,
         date,
         currentStateTableData.logType,
-        currentStateTableData.pageNo,
+        localStorage.getItem("page_no")
+          ? JSON.parse(localStorage.getItem("page_no"))
+          : currentStateTableData.pageNo,
         currentStateTableData.record,
         projectCode.code,
         sortType
@@ -502,14 +527,14 @@ export default function TableDataN(props) {
   if (search.length > 0) {
     tableData = tableData.filter(function (item) {
       return (
-        item.log.date.split("T")[0].toLowerCase().match(search) ||
-        item.log.date.split("T")[1].toLowerCase().match(search) ||
-        item.log.file.toLowerCase().match(search) ||
-        item.log.message.toLowerCase().match(search) ||
-        item.log.type.toLowerCase().match(search) ||
-        item.device.did.toLowerCase().match(search) ||
-        item.type.toLowerCase().match(search) ||
-        item.version.match(search)
+        item.log.date.split("T")[0].toLowerCase().includes(search) ||
+        item.log.date.split("T")[1].toLowerCase().includes(search) ||
+        item.log.file.toLowerCase().includes(search) ||
+        item.log.message.toLowerCase().includes(search) ||
+        item.log.type.toLowerCase().includes(search) ||
+        item.device.did.toLowerCase().includes(search) ||
+        item.type.toLowerCase().includes(search) ||
+        item.version.includes(search)
       );
     });
   }
@@ -1296,6 +1321,7 @@ export default function TableDataN(props) {
               record={currentStateTableData.record}
               projectType={projectCode.code}
             />
+        
           </section>
         )}
       </section>

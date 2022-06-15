@@ -168,9 +168,9 @@ export default function AlertsNew() {
   if (search.length > 0) {
     alertsFilter = alertsFilter.filter((item) => {
       return (
-        item.did.toLowerCase().match(search) ||
-        item.ack.msg.toLowerCase().match(search) ||
-        item.createdAt.toLowerCase().match(search)
+        item.did.toLowerCase().includes(search) ||
+        item.ack.msg.toLowerCase().includes(search) ||
+        item.createdAt.toLowerCase().includes(search)
       );
     });
   }
@@ -246,13 +246,29 @@ export default function AlertsNew() {
   };
 
   // DOWNLOAD CSV FILE FUNCTION
-  var allData = [];
   const downloadCSVFun = ({ data, fileName, fileType }) => {
-    data.forEach((o) => {
-      allData.push(`\n ${Object.entries(o)}`);
-      return allData;
-    });
-    const blob = new Blob([allData], { type: fileType });
+    var csv = "Mac Address";
+    csv += "\t Code";
+    csv += "\t Log Message";
+    csv += "\t Date";
+    csv += "\t Time";
+    csv += "\n";
+    for (var i = 0; i < data.length; i++) {
+      var row = Object.values(data[i]);
+      for (var j = 0; j < data.length; j++) {
+        var val = "";
+        val = row[j];
+        if (j > 0) csv += "\t";
+        csv += val;
+        console.log("row data cvs", csv);
+      }
+
+      console.log("row data", val);
+
+      csv += "\n";
+    }
+
+    const blob = new Blob([csv], { type: fileType });
     const a = document.createElement("a");
     a.download = fileName;
     a.href = window.URL.createObjectURL(blob);

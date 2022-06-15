@@ -172,28 +172,14 @@ export default function LogTable() {
     let end = JSON.parse(localStorage.getItem("selected_date")).end;
     let pgNo = JSON.parse(localStorage.getItem("page_no"));
 
-    // console.log("refresh data", logType, record, start, end, pgNo);
-
-    // console.log(
-    //   "records",
-    //   code,
-    //   null,
-    //   null,
-    //   pgNo,
-    //   null,
-    //   projectCode.code,
-    //   null
-    // );
-
     dispatch(
       getProjectByCode(
         code,
         { start, end },
-        null,
+        logType,
         pgNo,
         record,
-        projectCode.code,
-        null
+        projectCode.code
       )
     );
   };
