@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useReducer } from "react";
+import React, { useRef, useEffect, useReducer, useMemo, useState } from "react";
 import {
   faCaretDown,
   faDatabase,
@@ -16,7 +16,6 @@ import AlarmIcon from "../../assets/images/AlarmIcon.png";
 import CustomeDropDown from "../../container/DropDown";
 import SpinnerCustom from "../../container/SpinnerCustom";
 import TableCard from "../../container/TableCard";
-import CustomePaginationAlerts from "../../common/CustomePaginationAlerts";
 import TypeDropDown from "../logs/components/table/TypeDropDown";
 import { alarmAction } from "../../store/action/AlarmAction";
 import { Navbar } from "../../utils/NavBar";
@@ -30,6 +29,7 @@ import {
   SEARCH_FIELD,
   SORT_ICONS,
 } from "./store/Types";
+import Pagination from "../../common/Pagination";
 
 export default function AlertsNew() {
   const { theme } = React.useContext(ThemeContext);
@@ -94,6 +94,16 @@ export default function AlertsNew() {
     alertDataReducer,
     initialState
   );
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * currentStateAlerts.record;
+    const lastPageIndex = firstPageIndex + currentStateAlerts.record;
+    return (
+      data && data.data && data.data.alerts.slice(firstPageIndex, lastPageIndex)
+    );
+  }, [currentPage]);
 
   const ref = useRef();
 
@@ -669,12 +679,22 @@ export default function AlertsNew() {
                         </Table>
                       </section>
                       <section className="p-2">
-                        <CustomePaginationAlerts
+                        {/* <CustomePaginationAlerts
                           data={data && data.data && data.data.count}
                           code={code}
                           date={currentStateAlerts.diffDate}
                           record={currentStateAlerts.record}
                           projectType={currentStateAlerts.projectCode}
+                        /> */}
+
+                        <Pagination
+                          code={code}
+                          projectType={currentStateAlerts.projectCode}
+                          diffdate={currentStateAlerts.diffDate}
+                          currentPage={currentPage}
+                          totalCount={data && data.data && data.data.count}
+                          pageSize={currentStateAlerts.record}
+                          onPageChange={(page) => setCurrentPage(page)}
                         />
                       </section>
                     </>

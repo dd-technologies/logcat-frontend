@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useMemo, useReducer, useState } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,7 +15,6 @@ import CustomCard from "../../../../container/CustomCard";
 import { ThemeContext } from "../../../../utils/ThemeContext";
 import toast from "react-hot-toast";
 import SpinnerCustom from "../../../../container/SpinnerCustom";
-import CustomPaginationTableData from "../../../../common/CustomPaginationTableData";
 import { checkBoxReducer } from "./store/Reducer";
 import {
   SEARCH_FIELD,
@@ -32,6 +31,7 @@ import {
   ACTIVE_RECORDS,
   DATE,
 } from "./store/Type";
+import Pagination from "../../../../common/Pagination";
 
 export default function TableDataN(props) {
   // ALL CHECKED BOX CHECK STATE
@@ -117,6 +117,16 @@ export default function TableDataN(props) {
     checkBoxReducer,
     initialState
   );
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * currentStateTableData.record;
+    const lastPageIndex = firstPageIndex + currentStateTableData.record;
+    return (
+      data && data.data && data.data.logs.slice(firstPageIndex, lastPageIndex)
+    );
+  }, [currentPage]);
 
   console.log("currentStateTableData", currentStateTableData);
 
@@ -1313,15 +1323,26 @@ export default function TableDataN(props) {
         )}
         {tableData && (
           <section className="p-2">
-            <CustomPaginationTableData
+            {/* <CustomPaginationTableData
               data={data && data.data && data.data.count}
               code={code}
               date={date}
               logType={currentStateTableData.logType}
               record={currentStateTableData.record}
               projectType={projectCode.code}
+            /> */}
+
+            <Pagination
+              code={code}
+              date={date}
+              filters={currentStateTableData.logType}
+              projectType={projectCode.code}
+              // className="pagination-bar"
+              currentPage={currentPage}
+              totalCount={data && data.data && data.data.count}
+              pageSize={currentStateTableData.record}
+              onPageChange={(page) => setCurrentPage(page)}
             />
-        
           </section>
         )}
       </section>
