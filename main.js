@@ -7,6 +7,9 @@ const a = [
 
 var product = "";
 for (var i = 0; i < a.length; i++) {
-  product += " " + i;
-  console.log("product i", product);
+  product += " " + a[i];
+
+  product.map((element) => {
+    console.log("element", element.name);
+  });
 }

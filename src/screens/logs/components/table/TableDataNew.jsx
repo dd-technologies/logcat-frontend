@@ -201,27 +201,24 @@ export default function TableDataN(props) {
 
   // DOWNLOAD CSV FILE FUNCTION
   const downloadCSVFun = ({ data, fileName, fileType }) => {
-    var csv = "Log Message";
+    var csv = " Log Message";
     csv += "\t Mac Address";
     csv += "\t Log Type";
     csv += "\t Date";
     csv += "\t Time";
     csv += "\n";
     for (var i = 0; i < data.length; i++) {
-      var row = Object.values(data[i]);
-      for (var j = 0; j < data.length; j++) {
-        var val = "";
-        val = row[j];
+      let logMsg = data[i].log.message;
+      logMsg = logMsg.replaceAll("\n\t", "");
+      csv += `${logMsg}\t${data[i].device.did}\t${data[i].log.type}\t${
+        data[i].ack.date.split("T")[0]
+      }\t${data[i].ack.date.split("T")[1].split(".")[0]}`;
 
-        console.log("val", val);
-
-        if (j > 0) csv += "\t";
-
-        csv += val;
-      }
-
+      console.log("value", data[i]);
+      // }
       csv += "\n";
     }
+
     const blob = new Blob([csv], { type: fileType });
     const a = document.createElement("a");
     a.download = fileName;

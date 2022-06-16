@@ -257,24 +257,19 @@ export default function AlertsNew() {
 
   // DOWNLOAD CSV FILE FUNCTION
   const downloadCSVFun = ({ data, fileName, fileType }) => {
-    var csv = "Mac Address";
+    var csv = " MAC address";
     csv += "\t Code";
     csv += "\t Log Message";
     csv += "\t Date";
     csv += "\t Time";
+
     csv += "\n";
     for (var i = 0; i < data.length; i++) {
-      var row = Object.values(data[i]);
-      for (var j = 0; j < data.length; j++) {
-        var val = "";
-        val = row[j];
-        if (j > 0) csv += "\t";
-        csv += val;
-        console.log("row data cvs", csv);
-      }
+      csv += `${data[i].did}\t${data[i].ack.code}\t${data[i].ack.msg}\t${
+        data[i].ack.date.split("T")[0]
+      }\t${data[i].ack.date.split("T")[1].split(".")[0]}`;
 
-      console.log("row data", val);
-
+      console.log("value", data[i]);
       csv += "\n";
     }
 
