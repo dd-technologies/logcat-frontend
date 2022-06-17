@@ -353,6 +353,7 @@ export default function AlertsNew() {
                         : null}
                     </p>
                     <FontAwesomeIcon
+                      color="#0099a4"
                       icon={faCaretDown}
                       color="#2A9AA4"
                       style={{
@@ -496,7 +497,6 @@ export default function AlertsNew() {
             {/* Events  */}
             <Row className="mt-4">
               <Col>
-                {/* Table with toolkit provider */}
                 <TableCard borderRadius="10px">
                   {data && data.data && data.data.alerts.length > 0 && (
                     <>
@@ -530,158 +530,165 @@ export default function AlertsNew() {
                             }
                           >
                             <section className={Style.filterGraphFirstSection}>
-                              <FontAwesomeIcon icon={faDownload} />
+                              <FontAwesomeIcon
+                                color="#0099a4"
+                                icon={faDownload}
+                              />
                             </section>
                           </section>
                         </section>
 
                         {/* TABLE HERE */}
-                        <Table>
-                          <thead>
-                            <tr>
-                              <th>
-                                <input
-                                  type="checkbox"
-                                  onChange={allCheckBoxSelectFn}
-                                />
-                              </th>
-                              <th>
-                                <section className={Style.sortIcons}>
-                                  MAC Address
-                                  <span
-                                    style={{ cursor: "pointer" }}
-                                    className="ps-2"
-                                  >
-                                    <FontAwesomeIcon
-                                      className="ps-1"
-                                      icon={
-                                        currentStateAlerts.sortIcons.MA
-                                          ? faSortDown
-                                          : faSortUp
-                                      }
-                                      onClick={() => sortIconsFunc("MA")}
-                                    />
-                                  </span>
+                        <section className={Style.tableDataAlerts}>
+                          <section>
+                            <section>
+                              <section className={Style.header}>
+                                <section className={Style.header_inner}>
+                                  <input
+                                    type="checkbox"
+                                    onChange={allCheckBoxSelectFn}
+                                  />
                                 </section>
-                              </th>
-                              <th>
-                                <section className={Style.sortIcons}>
-                                  Code
-                                  <span
-                                    style={{ cursor: "pointer" }}
-                                    className="ps-2"
-                                  >
-                                    <FontAwesomeIcon
-                                      className="ps-1"
-                                      icon={
-                                        currentStateAlerts.sortIcons.LM
-                                          ? faSortDown
-                                          : faSortUp
-                                      }
-                                      onClick={() => sortIconsFunc("LM")}
-                                    />
-                                  </span>
+                                <section>
+                                  <section className={Style.header_inner}>
+                                    <section style={{ width: "200px" }}>
+                                      MAC Address
+                                    </section>
+                                    <section>
+                                      <FontAwesomeIcon
+                                        color="#0099a4"
+                                        className="ps-1"
+                                        icon={
+                                          currentStateAlerts.sortIcons.MA
+                                            ? faSortDown
+                                            : faSortUp
+                                        }
+                                        onClick={() => sortIconsFunc("MA")}
+                                      />
+                                    </section>
+                                  </section>
                                 </section>
-                              </th>
+                                <section>
+                                  <section className={Style.header_inner}>
+                                    <section style={{ width: "200px" }}>
+                                      Code
+                                    </section>
 
-                              <th>
-                                <section className={Style.sortIcons}>
-                                  Log Message
-                                  <span
-                                    style={{ cursor: "pointer" }}
-                                    className="ps-2"
-                                  >
-                                    <FontAwesomeIcon
-                                      className="ps-1"
-                                      icon={
-                                        currentStateAlerts.sortIcons.ET
-                                          ? faSortDown
-                                          : faSortUp
-                                      }
-                                      onClick={() => sortIconsFunc("ET")}
-                                    />
-                                  </span>
+                                    <section>
+                                      <FontAwesomeIcon
+                                        color="#0099a4"
+                                        className="ps-1"
+                                        icon={
+                                          currentStateAlerts.sortIcons.LM
+                                            ? faSortDown
+                                            : faSortUp
+                                        }
+                                        onClick={() => sortIconsFunc("LM")}
+                                      />
+                                    </section>
+                                  </section>
                                 </section>
-                              </th>
-                              <th>
-                                <section className={Style.sortIcons}>
-                                  Date
-                                  <span
-                                    style={{ cursor: "pointer" }}
-                                    className="ps-2"
-                                  >
-                                    <FontAwesomeIcon
-                                      className="ps-1"
-                                      icon={
-                                        currentStateAlerts.sortIcons.DT
-                                          ? faSortDown
-                                          : faSortUp
-                                      }
-                                      onClick={() => sortIconsFunc("DT")}
-                                    />
-                                  </span>
+
+                                <section>
+                                  <section className={Style.header_inner}>
+                                    <section style={{ width: "200px" }}>
+                                      Log Message
+                                    </section>
+
+                                    <section>
+                                      <FontAwesomeIcon
+                                        color="#0099a4"
+                                        className="ps-1"
+                                        icon={
+                                          currentStateAlerts.sortIcons.ET
+                                            ? faSortDown
+                                            : faSortUp
+                                        }
+                                        onClick={() => sortIconsFunc("ET")}
+                                      />
+                                    </section>
+                                  </section>
                                 </section>
-                              </th>
-                              <th>
-                                <section className={Style.sortIcons}>
-                                  Time
-                                  <span
-                                    style={{ cursor: "pointer" }}
-                                    className="ps-2"
-                                  >
-                                    <FontAwesomeIcon
-                                      className="ps-1"
-                                      icon={
-                                        currentStateAlerts.sortIcons.TI
-                                          ? faSortDown
-                                          : faSortUp
-                                      }
-                                      onClick={() => sortIconsFunc("TI")}
-                                    />
-                                  </span>
+                                <section>
+                                  <section className={Style.header_inner}>
+                                    <section style={{ width: "200px" }}>
+                                      Date
+                                    </section>
+
+                                    <section>
+                                      <FontAwesomeIcon
+                                        color="#0099a4"
+                                        className="ps-1"
+                                        icon={
+                                          currentStateAlerts.sortIcons.DT
+                                            ? faSortDown
+                                            : faSortUp
+                                        }
+                                        onClick={() => sortIconsFunc("DT")}
+                                      />
+                                    </section>
+                                  </section>
                                 </section>
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {alertsFilter.map((items, index) => {
-                              return (
-                                <tr>
-                                  <td>
-                                    <input
-                                      type="checkbox"
-                                      checked={
-                                        currentStateAlerts.allRowSelect
-                                          ? "checked"
-                                          : null
+                                <section>
+                                  <section className={Style.header_inner}>
+                                    <section style={{ width: "200px" }}>
+                                      Time
+                                    </section>
+
+                                    <section>
+                                      <FontAwesomeIcon
+                                        color="#0099a4"
+                                        className="ps-1"
+                                        icon={
+                                          currentStateAlerts.sortIcons.TI
+                                            ? faSortDown
+                                            : faSortUp
+                                        }
+                                        onClick={() => sortIconsFunc("TI")}
+                                      />
+                                    </section>
+                                  </section>
+                                </section>
+                              </section>
+                            </section>
+                            <section>
+                              {alertsFilter.map((items, index) => {
+                                return (
+                                  <section className={Style.bodyStyle}>
+                                    <section className={Style.bodyStyle_inner}>
+                                      <input
+                                        type="checkbox"
+                                        checked={
+                                          currentStateAlerts.allRowSelect
+                                            ? "checked"
+                                            : null
+                                        }
+                                        onChange={(e) =>
+                                          singleCheckboxFun(e, items, index)
+                                        }
+                                      />
+                                    </section>
+                                    <section>{items.did}</section>
+                                    <section>{items.ack.code}</section>
+                                    <section>{items.ack.msg}</section>
+                                    <section>
+                                      {items.ack.date.split("T")[0]}
+                                    </section>
+                                    <section>
+                                      {
+                                        items.ack.date
+                                          .split("T")[1]
+                                          .split(".")[0]
                                       }
-                                      onChange={(e) =>
-                                        singleCheckboxFun(e, items, index)
-                                      }
-                                    />
-                                  </td>
-                                  <td>{items.did}</td>
-                                  <td>{items.ack.code}</td>
-                                  <td>{items.ack.msg}</td>
-                                  <td>{items.ack.date.split("T")[0]}</td>
-                                  <td>
-                                    {items.ack.date.split("T")[1].split(".")[0]}
-                                  </td>
-                                </tr>
-                              );
-                            })}
-                          </tbody>
-                        </Table>
+                                    </section>
+                                  </section>
+                                );
+                              })}
+                            </section>
+                          </section>
+                        </section>
                       </section>
                       <section className="p-2">
-                        {/* <CustomePaginationAlerts
-                          data={data && data.data && data.data.count}
-                          code={code}
-                          date={currentStateAlerts.diffDate}
-                          record={currentStateAlerts.record}
-                          projectType={currentStateAlerts.projectCode}
-                        /> */}
-
                         <Pagination
                           code={code}
                           projectType={currentStateAlerts.projectCode}
