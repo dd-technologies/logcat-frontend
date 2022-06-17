@@ -154,7 +154,9 @@ export default function CustomPaginationTableData({
           disabled={currentPageNumber == 1 ? "disabled" : ""}
         />
 
+        {/* IF WE ARE IN FIRST PAGE OF LAST 4 INDEX ITEMS NEED TO DISAPPEAR THE PREVIOUS PAGE  */}
         {/* PREVIOUS PAGE */}
+
         <Pagination.Prev
           onClick={allPaginationFunctionObj.pervPageFunc}
           disabled={currentPageNumber == 1 ? "disabled" : ""}
@@ -202,9 +204,13 @@ export default function CustomPaginationTableData({
                     </>
                   );
                 })}
+
+            {/* IF WE ARE IN FIRST PAGE OF LAST 4 INDEX ITEMS NEED TO DISAPPEAR THE BREAKPOINT  ----** */}
+
             <Pagination.Item onClick={allPaginationFunctionObj.breakItemFun}>
               ...
             </Pagination.Item>
+
             {/* need to fix with dispatch value ------------------------------- */}
             {/*LAST FOUR INDEXS  */}
             {pageCountArray.slice(-4).map((items, index) => {

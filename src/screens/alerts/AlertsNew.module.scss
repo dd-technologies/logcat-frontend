@@ -1,4 +1,5 @@
 @import "../../css/veriables.module.scss";
+@import "../../css/mediaQuery.scss";
 
 .searchSection {
   background-color: #efefef;
@@ -69,5 +70,196 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+.tableDataAlerts {
+  .header {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    background-color: #efefef;
+
+    .header_inner {
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+  }
+  @include sm {
+    .header :nth-child(1) {
+      width: 40px;
+    }
+    .header :nth-child(2) {
+      width: 160px;
+    }
+    .header :nth-child(3) {
+      width: 80px;
+    }
+    .header :nth-child(4) {
+      width: 150px;
+    }
+    .header :nth-child(5) {
+      width: 90px;
+    }
+    .header :nth-child(6) {
+      width: 90px;
+    }
+  }
+  @include md {
+    .header :nth-child(1) {
+      width: 40px;
+    }
+    .header :nth-child(2) {
+      width: 220px;
+    }
+    .header :nth-child(3) {
+      width: 120px;
+    }
+    .header :nth-child(4) {
+      width: 180px;
+    }
+    .header :nth-child(5) {
+      width: 120px;
+    }
+    .header :nth-child(6) {
+      width: 120px;
+    }
+  }
+  @include lg-md {
+    .header :nth-child(1) {
+      width: 40px;
+    }
+    .header :nth-child(2) {
+      width: 280px;
+    }
+    .header :nth-child(3) {
+      width: 160px;
+    }
+    .header :nth-child(4) {
+      width: 260px;
+    }
+    .header :nth-child(5) {
+      width: 140px;
+    }
+    .header :nth-child(6) {
+      width: 140px;
+    }
+  }
+
+  @include xl {
+    .header :nth-child(1) {
+      width: 40px;
+    }
+    .header :nth-child(2) {
+      width: 500px;
+    }
+    .header :nth-child(3) {
+      width: 160px;
+    }
+    .header :nth-child(4) {
+      width: 360px;
+    }
+    .header :nth-child(5) {
+      width: 140px;
+    }
+    .header :nth-child(6) {
+      width: 140px;
+    }
+  }
+
+  .bodyStyle {
+    display: flex;
+    align-items: center;
+    border-bottom: #efefef 1px solid;
+    font-size: 0.9rem;
+
+    .bodyStyle_inner {
+      padding: 5px;
+      display: flex;
+    }
+  }
+  @include sm {
+    .bodyStyle :nth-child(1) {
+      width: 40px;
+    }
+    .bodyStyle :nth-child(2) {
+      width: 160px;
+    }
+    .bodyStyle :nth-child(3) {
+      width: 80px;
+    }
+    .bodyStyle :nth-child(4) {
+      width: 150px;
+    }
+    .bodyStyle :nth-child(5) {
+      width: 90px;
+    }
+    .bodyStyle :nth-child(6) {
+      width: 90px;
+    }
+  }
+  @include md {
+    .bodyStyle :nth-child(1) {
+      width: 40px;
+    }
+    .bodyStyle :nth-child(2) {
+      width: 220px;
+    }
+    .bodyStyle :nth-child(3) {
+      width: 120px;
+    }
+    .bodyStyle :nth-child(4) {
+      width: 180px;
+    }
+    .bodyStyle :nth-child(5) {
+      width: 120px;
+    }
+    .bodyStyle :nth-child(6) {
+      width: 120px;
+    }
+  }
+  @include lg-md {
+    .bodyStyle :nth-child(1) {
+      width: 40px;
+    }
+    .bodyStyle :nth-child(2) {
+      width: 280px;
+    }
+    .bodyStyle :nth-child(3) {
+      width: 160px;
+    }
+    .bodyStyle :nth-child(4) {
+      width: 260px;
+    }
+    .bodyStyle :nth-child(5) {
+      width: 140px;
+    }
+    .bodyStyle :nth-child(6) {
+      width: 140px;
+    }
+  }
+  @include xl {
+    .bodyStyle :nth-child(1) {
+      width: 40px;
+    }
+    .bodyStyle :nth-child(2) {
+      width: 500px;
+    }
+    .bodyStyle :nth-child(3) {
+      width: 160px;
+    }
+    .bodyStyle :nth-child(4) {
+      width: 360px;
+    }
+    .bodyStyle :nth-child(5) {
+      width: 140px;
+    }
+    .bodyStyle :nth-child(6) {
+      width: 140px;
+    }
   }
 }

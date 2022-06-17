@@ -25,6 +25,8 @@ export default function CustomePaginationAlerts({
   //@@ ALL FUNCTION WARPER OBJECT
   const allPaginationFunctionObj = {
     firstPageFun: () => {
+      console.log("code", code, projectType, date, pageCountArray[0], record);
+
       dispatch(alarmAction(code, projectType, date, pageCountArray[0], record));
       setCurrentPageNumber(pageCountArray[0]);
       localStorage.setItem("page_no", pageCountArray[0]);
@@ -74,7 +76,15 @@ export default function CustomePaginationAlerts({
     currentPageFun: (index) => {
       // console.log("index", index);
 
-      dispatch(alarmAction(code, projectType, date, index, record));
+      dispatch(
+        alarmAction(
+          code,
+          JSON.parse(localStorage.getItem("project_type")).typeCode,
+          date,
+          index,
+          record
+        )
+      );
       setCurrentPageNumber(index);
       localStorage.setItem("page_no", index);
     },
@@ -120,6 +130,11 @@ export default function CustomePaginationAlerts({
     arrayOfLocal &&
     arrayOfLocal.filter((element, index) => index < arrayOfLocal.length - 4);
 
+  console.log(
+    "pagination",
+    arrayOfLocal.length == pageCountArray.slice(-4).length
+  );
+
   return (
     <>
       <Pagination>
@@ -128,7 +143,9 @@ export default function CustomePaginationAlerts({
           disabled={currentPageNumber == 1 ? "disabled" : ""}
         />
 
+        {/* IF WE ARE IN FIRST PAGE OF LAST 4 INDEX ITEMS NEED TO DISAPPEAR THE PREVIOUS PAGE  */}
         {/* PREVIOUS PAGE */}
+
         <Pagination.Prev
           onClick={allPaginationFunctionObj.pervPageFunc}
           disabled={currentPageNumber == 1 ? "disabled" : ""}
@@ -178,9 +195,13 @@ export default function CustomePaginationAlerts({
                     </>
                   );
                 })}
+
+            {/* IF WE ARE IN FIRST PAGE OF LAST 4 INDEX ITEMS NEED TO DISAPPEAR THE BREAKPOINT  ----** */}
+
             <Pagination.Item onClick={allPaginationFunctionObj.breakItemFun}>
               ...
             </Pagination.Item>
+
             {/* need to fix with dispatch value ------------------------------- */}
             {/*LAST FOUR INDEXS  */}
             {pageCountArray.slice(-4).map((items, index) => {
