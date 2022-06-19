@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,SAAS,CAAC;EACR,OAAO,EAAE,IAAI;EACb,WAAW,EAAE,MAAM;EACnB,eAAe,EAAE,UAAU;EAC3B,MAAM,EAAE,OAAO;EACf,KAAK,EAAE,WAAW;CACnB;;AAED,AAAA,eAAe,CAAC;EACd,OAAO,EAAE,GAAG;EACZ,MAAM,EAAE,OAAO;CAQhB;;AAVD,AAGE,eAHa,AAGZ,MAAM,CAAC;EACN,gBAAgB,ECJF,OAAO;EDKrB,KAAK,EAAE,IAAI;EACX,OAAO,EAAE,GAAG;EACZ,KAAK,ECNU,IAAI;EDOnB,mBAAmB,EAAE,IAAI;CAC1B",
+    "sources": [
+        "TypeDropDown.module.scss",
+        "veriables.module.scss"
+    ],
+    "names": [],
+    "file": "TypeDropDown.module.css"
+}
