@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import CustomCard from "../../../container/CustomCard";
@@ -50,20 +52,20 @@ export default function EventByVersion() {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    color: theme == "light-theme" ?  `#000` : `#fff`,
+                    color: theme == "light-theme" ? `#000` : `#fff`,
                   }}
                 >
                   No data found
                 </p>
               )}
             {!ld &&
-              cnt.map((e) => (
-                <>
+              cnt.map((e, i) => (
+                <React.Fragment key={i}>
                   <section className="mb-2">
                     <p className="darkModeColor">{e._id ? e._id : null}</p>
                     <h5 className="darkModeColor">{e.data}</h5>
                   </section>
-                </>
+                </React.Fragment>
               ))}
 
             {ld && <SpinnerCustom height="270px" />}
@@ -93,7 +95,7 @@ export default function EventByVersion() {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    color: theme == "light-theme" ?  `#000` : `#fff`,
+                    color: theme == "light-theme" ? `#000` : `#fff`,
                   }}
                 >
                   No data found

@@ -231,7 +231,6 @@ export default function Alarm(props) {
     },
   ];
 
-  console.log("alarm error alarm side effect ", data);
   //   FIRST TIME ALARM ACTION DISPATCH
   useEffect(() => {
     dispatch(alarmAction(code, projectCode, diffDate));
@@ -399,15 +398,12 @@ export default function Alarm(props) {
                         >
                           {(toolkitProps) => (
                             <>
-                              {/* {console.log("props searchbar", props.searchProps)} */}
                               <section className={Style.searchBar}>
                                 <SearchBar
                                   placeholder="Search..."
                                   {...toolkitProps.searchProps}
                                 />
-                                {/* {console.log(
-                                  `csv props ${toolkitProps.csvProps}`
-                                )} */}
+                               
                                 <ExportCSVButton
                                   {...toolkitProps.csvProps}
                                   disabled={!disableButton ? "disabled" : ""}

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useRef, useEffect, useReducer, useMemo, useState } from "react";
 import {
   faCaretDown,
@@ -6,7 +8,7 @@ import {
   faSortDown,
   faSortUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { Container, Row, Col, Image, Table } from "react-bootstrap";
+import { Container, Row, Col, Image } from "react-bootstrap";
 import Style from "../../css/AlertsNew.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
@@ -44,10 +46,6 @@ export default function AlertsNew() {
   const { loading, data } = alarmReducer;
   // console.log("dataalarm", alarmReducer);
 
-  let products = data && data.data && data.data.alerts;
-
-  console.log("product", products);
-
   // USE DISPATCH
   const dispatch = useDispatch();
   // state===============use Reducer==================================================
@@ -66,10 +64,10 @@ export default function AlertsNew() {
     projectCode: localStorage.getItem("project_type")
       ? JSON.parse(localStorage.getItem("project_type")).typeCode
       : projectType &&
-        projectType.modelList[0] &&
-        projectType.modelList[0].typeCode,
+      projectType.modelList[0] &&
+      projectType.modelList[0].typeCode,
 
-    searchField: null,
+    searchField: "",
 
     /**
      * @objectKey MA: Mac Address--------------,
@@ -97,7 +95,7 @@ export default function AlertsNew() {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const currentTableData = useMemo(() => {
+  useMemo(() => {
     const firstPageIndex = (currentPage - 1) * currentStateAlerts.record;
     const lastPageIndex = firstPageIndex + currentStateAlerts.record;
     return (
@@ -172,8 +170,6 @@ export default function AlertsNew() {
       currentStateAlerts.searchField.trim() &&
       currentStateAlerts.searchField.trim().toLowerCase()) ||
     "";
-
-  console.log("search", search);
 
   if (search.length > 0) {
     alertsFilter = alertsFilter.filter((item) => {
@@ -251,8 +247,6 @@ export default function AlertsNew() {
       newItemsArray.pop();
     }
     if (!newItemsArray.length) downloadButtonId.style.opacity = "30%";
-
-    console.log("first array", newItemsArray);
   };
 
   // DOWNLOAD CSV FILE FUNCTION
@@ -265,11 +259,8 @@ export default function AlertsNew() {
 
     csv += "\n";
     for (var i = 0; i < data.length; i++) {
-      csv += `${data[i].did}\t${data[i].ack.code}\t${data[i].ack.msg}\t${
-        data[i].ack.date.split("T")[0]
-      }\t${data[i].ack.date.split("T")[1].split(".")[0]}`;
-
-      console.log("value", data[i]);
+      csv += `${data[i].did}\t${data[i].ack.code}\t${data[i].ack.msg}\t${data[i].ack.date.split("T")[0]
+        }\t${data[i].ack.date.split("T")[1].split(".")[0]}`;
       csv += "\n";
     }
 
@@ -339,21 +330,20 @@ export default function AlertsNew() {
                       {currentStateAlerts.diffDate == 10
                         ? `last 10 days`
                         : currentStateAlerts.diffDate == 7
-                        ? `last 7 days`
-                        : currentStateAlerts.diffDate == 15
-                        ? `last 15 days`
-                        : currentStateAlerts.diffDate == 30
-                        ? `last 30 days`
-                        : currentStateAlerts.diffDate == 45
-                        ? `last 45 days`
-                        : currentStateAlerts.diffDate == 60
-                        ? `last 60 days`
-                        : currentStateAlerts.diffDate == 90
-                        ? `last 90 days`
-                        : null}
+                          ? `last 7 days`
+                          : currentStateAlerts.diffDate == 15
+                            ? `last 15 days`
+                            : currentStateAlerts.diffDate == 30
+                              ? `last 30 days`
+                              : currentStateAlerts.diffDate == 45
+                                ? `last 45 days`
+                                : currentStateAlerts.diffDate == 60
+                                  ? `last 60 days`
+                                  : currentStateAlerts.diffDate == 90
+                                    ? `last 90 days`
+                                    : null}
                     </p>
                     <FontAwesomeIcon
-                      color="#0099a4"
                       icon={faCaretDown}
                       color="#2A9AA4"
                       style={{
@@ -513,7 +503,7 @@ export default function AlertsNew() {
                             style={{
                               opacity:
                                 currentStateAlerts.allRowSelect ||
-                                currentStateAlerts.singleRowSelect
+                                  currentStateAlerts.singleRowSelect
                                   ? "100%"
                                   : "30%",
                             }}
@@ -654,34 +644,36 @@ export default function AlertsNew() {
                             <section>
                               {alertsFilter.map((items, index) => {
                                 return (
-                                  <section className={Style.bodyStyle}>
-                                    <section className={Style.bodyStyle_inner}>
-                                      <input
-                                        type="checkbox"
-                                        checked={
-                                          currentStateAlerts.allRowSelect
-                                            ? "checked"
-                                            : null
+                                  <React.Fragment key={items._id}>
+                                    <section className={Style.bodyStyle}>
+                                      <section className={Style.bodyStyle_inner}>
+                                        <input
+                                          type="checkbox"
+                                          checked={
+                                            currentStateAlerts.allRowSelect
+                                              ? "checked"
+                                              : null
+                                          }
+                                          onChange={(e) =>
+                                            singleCheckboxFun(e, items, index)
+                                          }
+                                        />
+                                      </section>
+                                      <section>{items.did}</section>
+                                      <section>{items.ack.code}</section>
+                                      <section>{items.ack.msg}</section>
+                                      <section>
+                                        {items.ack.date.split("T")[0]}
+                                      </section>
+                                      <section>
+                                        {
+                                          items.ack.date
+                                            .split("T")[1]
+                                            .split(".")[0]
                                         }
-                                        onChange={(e) =>
-                                          singleCheckboxFun(e, items, index)
-                                        }
-                                      />
+                                      </section>
                                     </section>
-                                    <section>{items.did}</section>
-                                    <section>{items.ack.code}</section>
-                                    <section>{items.ack.msg}</section>
-                                    <section>
-                                      {items.ack.date.split("T")[0]}
-                                    </section>
-                                    <section>
-                                      {
-                                        items.ack.date
-                                          .split("T")[1]
-                                          .split(".")[0]
-                                      }
-                                    </section>
-                                  </section>
+                                  </React.Fragment>
                                 );
                               })}
                             </section>

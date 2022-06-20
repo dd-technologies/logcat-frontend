@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+
+/* eslint-disable */
+import React, { useState } from "react";
 import CustomeDropDown from "../container/DropDown";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -11,18 +13,17 @@ import Bell from "../assets/images/BellIcon.png";
 export function Navbar(props) {
   const { navigation_details } = props;
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
-  let { theme, sideMenu } = React.useContext(ThemeContext);
+  let { sideMenu } = React.useContext(ThemeContext);
   // console.log("sidemene", sideMenu);
   const { adminInfo } = adminLoginReducer;
 
-  const [avatar, setAvatar] = useState(
+  const avatar = useState(
     adminInfo && adminInfo.image && adminInfo.image
-  );
+  )[0];
 
   // SHOW ACCOUNT DETAILS
 
   const [userInfo, setUserInfo] = useState(false);
-  const ref = useRef();
 
   const dispatch = useDispatch();
   let navigate = useNavigate();

@@ -13,12 +13,6 @@ export default function CrashFreeStatics() {
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { data: deviceData } = getModelCodeReducer;
 
-  // const getAllLogByCodeReducer = useSelector(
-  //   (state) => state.getAllLogByCodeReducer
-  // );
-
-  // const { data: userCode } = getAllLogByCodeReducer;
-
   return (
     <>
       <CustomCard height="300px">

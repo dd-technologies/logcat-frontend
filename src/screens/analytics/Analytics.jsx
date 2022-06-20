@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState, useEffect } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import ToggleTabs from "./Componets/ToggleTabs";
@@ -17,10 +19,10 @@ import { Navbar } from "../../utils/NavBar";
 import { faChartLine, faCog } from "@fortawesome/free-solid-svg-icons";
 
 export default function Analytics() {
-  const [date, setDate] = useState({
+  const date = useState({
     start: null,
     end: null,
-  });
+  })[0];
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
   var titleVal, subTitleVal;
@@ -177,7 +179,6 @@ export default function Analytics() {
           <Container className={`${Style.mainContainer} container`}>
             {/* data from api */}
             <Col>
-              {/* {console.log("title render", title)} */}
               <h2
                 className="darkModeColor"
                 style={{

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faTasks } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,8 +13,6 @@ import {
 import { alarmAction } from "../../../../store/action/AlarmAction";
 
 const TypeDropDown = (props) => {
-  console.log("props alerts", props);
-
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
 
   // dark-mode state
@@ -28,7 +26,6 @@ const TypeDropDown = (props) => {
 
   var url_string = window.location.href;
   var url = new URL(url_string);
-  // console.log("url", url.href);
 
   const dispatch = useDispatch();
 
@@ -116,15 +113,17 @@ const TypeDropDown = (props) => {
                 zIndex="8"
               >
                 {data &&
-                  data.modelList.map((type) => {
+                  data.modelList.map((type, i) => {
                     return (
-                      <p
-                        style={{ fontSize: ".8rem" }}
-                        className={`${Style.productVersion} darkModeColor`}
-                        onClick={() => onSubmitFun(type)}
-                      >
-                        {type.typeName}
-                      </p>
+                      <React.Fragment key={i}>
+                        <p
+                          style={{ fontSize: ".8rem" }}
+                          className={`${Style.productVersion} darkModeColor`}
+                          onClick={() => onSubmitFun(type)}
+                        >
+                          {type.typeName}
+                        </p>
+                      </React.Fragment>
                     );
                   })}
               </CustomeDropDown>

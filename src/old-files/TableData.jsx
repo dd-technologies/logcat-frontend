@@ -129,13 +129,13 @@ function TableData(props) {
     code: localStorage.getItem("project_type")
       ? JSON.parse(localStorage.getItem("project_type")).typeCode
       : typeWiseDate &&
-        typeWiseDate.modelList &&
-        typeWiseDate.modelList[0].typeCode,
+      typeWiseDate.modelList &&
+      typeWiseDate.modelList[0].typeCode,
     name: localStorage.getItem("project_type")
       ? JSON.parse(localStorage.getItem("project_type")).typeName
       : typeWiseDate &&
-        typeWiseDate.modelList &&
-        typeWiseDate.modelList[0].typeName,
+      typeWiseDate.modelList &&
+      typeWiseDate.modelList[0].typeName,
   };
 
   let projectCodeType = typeWiseDate && typeWiseDate.modelList[0].typeCode;
@@ -295,10 +295,6 @@ function TableData(props) {
 
   // FIRST DISPATCH OF TABLE DATA
 
-  // useEffect(() => {
-  //   // console.log("length", document.querySelectorAll(".selected-row").length);
-  // }, [selectionCount]);
-
   useEffect(() => {
     dispatch(
       getProjectByCode(code, date, logType, pageNo, record, projectCode.code)
@@ -379,20 +375,14 @@ function TableData(props) {
         }
         return (
           <div className={Style.expandedRow}>
-            {/* {console.log("title", row)} */}
-
             {row && row.log && row.log.message && (
               <Link
                 style={{ textDecoration: " none" }}
-                to={`/analytics?code=${props.code}&name=${
-                  props.projectName
-                }&col=${
-                  row.log.filePath ? row.log.filePath : row.log.message
-                }&rowlogGeneratedDate=${row.log.date}&version=${
-                  row.version
-                }&osArchitecture=${row.device.os.name}&modelName=${
-                  row.device.name
-                }&page-name=analytics&projectCodeAnalytics=${projectCodeAnalytics}`}
+                to={`/analytics?code=${props.code}&name=${props.projectName
+                  }&col=${row.log.filePath ? row.log.filePath : row.log.message
+                  }&rowlogGeneratedDate=${row.log.date}&version=${row.version
+                  }&osArchitecture=${row.device.os.name}&modelName=${row.device.name
+                  }&page-name=analytics&projectCodeAnalytics=${projectCodeAnalytics}`}
               >
                 <p>{title.split(")")[0]}</p>
               </Link>
@@ -663,7 +653,6 @@ function TableData(props) {
               >
                 {(toolkitProps) => (
                   <>
-                    {/* {console.log("first", toolkitProps.csvProps)} */}
                     <div className={`${Style.BootstrapTable} TBSED`}>
                       <section className={Style.searchbar}>
                         <SearchBar {...toolkitProps.searchProps} />
@@ -682,19 +671,18 @@ function TableData(props) {
                       </section>
                       <section className={Style.filterOptions}>
 
-                        {/* {console.log("props.csvProps", toolkitProps)} */}
                         <ExportCSVButton
                           {...toolkitProps.csvProps}
-                          // disabled={
-                          //   bootstrapTableRef &&
-                          //   bootstrapTableRef.current &&
-                          //   bootstrapTableRef.current.selectionContext &&
-                          //   bootstrapTableRef.current.selectionContext.selected
-                          //     .length == 0
-                          //     ? "disabled"
-                          //     : ""
-                          // }
-                          // disabled={selectionCount}
+                        disabled={
+                          bootstrapTableRef &&
+                          bootstrapTableRef.current &&
+                          bootstrapTableRef.current.selectionContext &&
+                          bootstrapTableRef.current.selectionContext.selected
+                            .length == 0
+                            ? "disabled"
+                            : ""
+                        }
+                        disabled={selectionCount}
                         >
                           <FontAwesomeIcon icon={faDownload} />
                         </ExportCSVButton>
@@ -705,7 +693,7 @@ function TableData(props) {
                       ref={bootstrapTableRef}
                       {...toolkitProps.baseProps}
                       selectRow={selectRow}
-                      // rowEvents={tableRowEvents}
+                    // rowEvents={tableRowEvents}
                     />
                   </>
                 )}
@@ -808,9 +796,9 @@ function TableData(props) {
                             dateState && dateState.start
                               ? dateState.start
                               : localStorage.getItem("selected_date") &&
-                                JSON.parse(
-                                  localStorage.getItem("selected_date")
-                                ).start
+                              JSON.parse(
+                                localStorage.getItem("selected_date")
+                              ).start
                           }
                           onChange={(e) => {
                             setDate({
@@ -828,9 +816,9 @@ function TableData(props) {
                             dateState && dateState.end
                               ? dateState.end
                               : localStorage.getItem("selected_date") &&
-                                JSON.parse(
-                                  localStorage.getItem("selected_date")
-                                ).end
+                              JSON.parse(
+                                localStorage.getItem("selected_date")
+                              ).end
                           }
                           onChange={(e) => {
                             setDate({

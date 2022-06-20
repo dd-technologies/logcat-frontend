@@ -1,6 +1,7 @@
+
+/* eslint-disable */
 import React, { useState } from "react";
 import {
-  faUpload,
   faEnvelope,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
@@ -26,30 +27,28 @@ export default function UpdateProfile() {
     (state) => state.passwordChangeReducer
   );
 
+  const { data: updatepasswordresponseData } = passwordChangeReducer;
+
   const [name, setname] = useState(
     adminInfo && adminInfo.data && adminInfo.data.name
   );
 
-  const [email, setemail] = useState(
+  const email = useState(
     adminInfo && adminInfo.data && adminInfo.data.email
-  );
+  )[0]
 
-  const [avatar, setAvatar] = useState(
+  const avatar = useState(
     adminInfo && adminInfo.image && adminInfo.image
-  );
+  )[0];
 
-  const {
-    loading: lnd,
-    data: updatepasswordresponseData,
-    error: err,
-  } = passwordChangeReducer;
+
 
   const dispatch = useDispatch();
 
   const [currentpassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewpassword, setConfirmNewPassword] = useState("");
-  const [error, setError] = useState(null);
+  const error = useState(null)[0];
 
   if (
     updatepasswordresponseData &&
@@ -67,17 +66,10 @@ export default function UpdateProfile() {
     );
   }
 
-  const [crop, setCrop] = useState();
 
   // Update profile data
   const handleSubmit = (e) => {
     dispatch(updateProfile(email, name, avatar));
-  };
-
-  // Upload Avatar
-  const handleUpload = (e) => {
-    const file = e.target.files;
-    setAvatar(file[0]);
   };
 
   // Show password

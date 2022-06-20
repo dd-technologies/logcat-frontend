@@ -1,9 +1,8 @@
 import React from "react";
 import { faLock, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { Col, Container, Row, Button } from "react-bootstrap";
+import { Col, Row, Button } from "react-bootstrap";
 import CustomeDropDown from "../../container/DropDown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import LogICon from "../../assets/icons/log.png";
 import Style from "../../css/UpdateProfile.module.css";
 
 const UpdatePassord = ({
@@ -145,7 +144,6 @@ const UpdatePassord = ({
           <p style={{ color: "red", fontSize: ".8rem" }}>{error}</p>
         </section>
         <p className="mt-4" style={{ color: "red", fontSize: ".8rem" }}>
-          {/* {console.log("error", error)} */}
           {error}
         </p>
 

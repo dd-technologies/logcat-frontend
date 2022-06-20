@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -33,7 +35,7 @@ export default function Settings() {
   let dataObj;
   allProjectData &&
     allProjectData.data &&
-    allProjectData.data.data.map((dt, idx) => {
+    allProjectData.data.data.map((dt) => {
       if (dt.code == code) {
         dataObj = dt;
       }
@@ -101,23 +103,7 @@ export default function Settings() {
 
   //EMAIL CHIPS
   const validateEmail = (email) => {
-    // if (!email) {
-    //   setEmailError("Please enter your email Id");
-
-    //   console.log("email validate function " + emailError);
-    //   return false;
-    // }
-
-    // if (email.length) {
-    //   var pattern = new RegExp(
-    //     /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
-    //   );
-    //   if (!pattern.test(email)) {
-    //     setEmailError("Please enter valid email address.");
-    //     return false;
-    //   }
-    // }
-
+  
     const isEmailValid = validateEmailHelper(email);
     if (isEmailValid.isSuccess) {
       return isEmailValid.isSuccess;
@@ -284,9 +270,9 @@ export default function Settings() {
                     {/* CHIP SECTION */}
                     <section className={Style.chipouter}>
                       {chipStateProject.items &&
-                        chipStateProject.items.map((items) => {
+                        chipStateProject.items.map((items, i) => {
                           return (
-                            <>
+                            <React.Fragment key={i}>
                               <section className={Style.chip}>
                                 <p style={{ color: "#fff" }} className="m-2">
                                   {items}
@@ -296,7 +282,8 @@ export default function Settings() {
                                   onClick={() => hanldeOndeleteProject(items)}
                                 />
                               </section>
-                            </>
+                            </React.Fragment>
+
                           );
                         })}
                     </section>
@@ -335,9 +322,9 @@ export default function Settings() {
                     {/* CHIP SECTION */}
                     <section className={Style.chipouter}>
                       {emailList.length > 0 &&
-                        emailList.map((items) => {
+                        emailList.map((items, i) => {
                           return (
-                            <>
+                            <React.Fragment key={i}>
                               <section className={Style.chip}>
                                 <p style={{ color: "#fff" }} className="m-2">
                                   {items}
@@ -347,7 +334,7 @@ export default function Settings() {
                                   onClick={() => hanldeOndeleteEmail(items)}
                                 />
                               </section>
-                            </>
+                            </React.Fragment>
                           );
                         })}
                     </section>

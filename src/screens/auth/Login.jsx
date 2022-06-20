@@ -16,10 +16,10 @@ export default function Login() {
   const [loginForm, setLoginForm] = useState({
     email: localStorage.getItem("adminUserName")
       ? JSON.parse(localStorage.getItem("adminUserName"))
-      : null,
+      : "",
     password: localStorage.getItem("adminUserCredential")
       ? JSON.parse(localStorage.getItem("adminUserCredential"))
-      : null,
+      : "",
   });
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
@@ -29,8 +29,6 @@ export default function Login() {
   const dispatch = useDispatch();
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { loading, error, adminInfo } = adminLoginReducer;
-  console.log("adminLoginReducer", adminLoginReducer);
-
   const navigate = useNavigate();
 
   // VALIDATE EMAIL
@@ -62,11 +60,7 @@ export default function Login() {
       setPasswordError("Please enter your password.");
       return false;
     }
-    // if (password !== null) {
-    //   var pattern = new RegExp(
-    //     "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
-    //   );
-    // }
+   
     setLoginForm({
       ...loginForm,
       password: password,
@@ -128,9 +122,8 @@ export default function Login() {
                   <input
                     type="email"
                     className="form-control LoginForminput "
-                    id="exampleInputEmail1"
                     placeholder="Enter your email"
-                    aria-describedby="emailHelp"
+                    autoComplete="Enter your email"
                     onChange={(e) =>
                       setLoginForm({ ...loginForm, email: e.target.value })
                     }
@@ -155,9 +148,8 @@ export default function Login() {
                   <input
                     type={showPassword ? "text" : "password"}
                     className="form-control LoginForminput "
-                    id="exampleInputEmail1"
                     placeholder="Enter your password"
-                    aria-describedby="emailHelp"
+                    autoComplete="Enter your password"
                     onChange={(e) =>
                       setLoginForm({ ...loginForm, password: e.target.value })
                     }

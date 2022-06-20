@@ -13,15 +13,6 @@ export default function CustomPaginationTableData({
 }) {
   //CURRENT PAGE NUMBER
 
-  console.log(
-    "pagination data",
-    data,
-    code,
-    date,
-    logType,
-    record,
-    projectType
-  );
 
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const dispatch = useDispatch();
@@ -167,43 +158,43 @@ export default function CustomPaginationTableData({
             {/* // MAPPING FIRST 4 PAGE NUMBER  */}
             {newArray
               ? newArray.map((items, index) => {
-                  return (
-                    <>
-                      {/* FIRST FOUR INDEXES */}
-                      {index <= 4 && (
-                        <Pagination.Item
-                          onClick={() =>
-                            allPaginationFunctionObj.currentPageFun(items)
-                          }
-                          active={items == currentPageNumber}
-                        >
-                          {items}
-                        </Pagination.Item>
-                      )}
+                return (
+                  <>
+                    {/* FIRST FOUR INDEXES */}
+                    {index <= 4 && (
+                      <Pagination.Item
+                        onClick={() =>
+                          allPaginationFunctionObj.currentPageFun(items)
+                        }
+                        active={items == currentPageNumber}
+                      >
+                        {items}
+                      </Pagination.Item>
+                    )}
 
-                      {/*LAST FOUR INDEXS  */}
-                    </>
-                  );
-                })
+                    {/*LAST FOUR INDEXS  */}
+                  </>
+                );
+              })
               : pageCountArray.map((items, index) => {
-                  return (
-                    <>
-                      {/* FIRST FOUR INDEXES */}
-                      {index <= 4 && (
-                        <Pagination.Item
-                          onClick={() =>
-                            allPaginationFunctionObj.currentPageFun(items)
-                          }
-                          active={items == currentPageNumber}
-                        >
-                          {items}
-                        </Pagination.Item>
-                      )}
+                return (
+                  <>
+                    {/* FIRST FOUR INDEXES */}
+                    {index <= 4 && (
+                      <Pagination.Item
+                        onClick={() =>
+                          allPaginationFunctionObj.currentPageFun(items)
+                        }
+                        active={items == currentPageNumber}
+                      >
+                        {items}
+                      </Pagination.Item>
+                    )}
 
-                      {/*LAST FOUR INDEXS  */}
-                    </>
-                  );
-                })}
+                    {/*LAST FOUR INDEXS  */}
+                  </>
+                );
+              })}
 
             {/* IF WE ARE IN FIRST PAGE OF LAST 4 INDEX ITEMS NEED TO DISAPPEAR THE BREAKPOINT  ----** */}
 

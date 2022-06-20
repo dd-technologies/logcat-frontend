@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from "react";
 import CustomCard from "../../container/CustomCard";
 import { Col, Image } from "react-bootstrap";

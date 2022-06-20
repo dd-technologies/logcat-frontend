@@ -164,11 +164,7 @@ export const forgetPassword = (email) => async (dispatch) => {
       type: FORGET_PASSWORD_REQUEST,
     });
 
-    const config = {
-      header: {
-        "Content-type": "application/json",
-      },
-    };
+
     const { data } = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/api/logger/auth/forget`,
       {
@@ -206,44 +202,44 @@ export const resetForgetPasswordState = () => async (dispatch) => {
 // RESET PASSWORD AFTER OTP
 export const resetForgetPassword =
   ({ email, resetData }) =>
-  async (dispatch) => {
-    try {
-      dispatch({
-        type: RESET_PASSWORD_REQUEST,
-      });
+    async (dispatch) => {
+      try {
+        dispatch({
+          type: RESET_PASSWORD_REQUEST,
+        });
 
-      const otp = resetData.otp;
-      const password = resetData.newPass;
-      const passwordVerify = resetData.confirmPass;
+        const otp = resetData.otp;
+        const password = resetData.newPass;
+        const passwordVerify = resetData.confirmPass;
 
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/auth/resetPassword`,
-        {
-          otp,
-          password,
-          email,
-          passwordVerify,
-        }
-      );
+        const { data } = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}/api/logger/auth/resetPassword`,
+          {
+            otp,
+            password,
+            email,
+            passwordVerify,
+          }
+        );
 
-      dispatch({
-        type: RESET_PASSWORD_REQUEST_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      // console.log("reset password", error);
-      dispatch({
-        type: RESET_PASSWORD_REQUEST_FAIL,
-        payload:
-          error &&
-          error.response &&
-          error.response.data &&
-          error.response.data.data &&
-          error.response.data.data.err &&
-          error.response.data.data.err.msg,
-      });
-    }
-  };
+        dispatch({
+          type: RESET_PASSWORD_REQUEST_SUCCESS,
+          payload: data,
+        });
+      } catch (error) {
+        // console.log("reset password", error);
+        dispatch({
+          type: RESET_PASSWORD_REQUEST_FAIL,
+          payload:
+            error &&
+            error.response &&
+            error.response.data &&
+            error.response.data.data &&
+            error.response.data.data.err &&
+            error.response.data.data.err.msg,
+        });
+      }
+    };
 
 // UPDATE PROFILE OF USER
 export const updateProfile = (email, name, avatar) => async (dispatch) => {

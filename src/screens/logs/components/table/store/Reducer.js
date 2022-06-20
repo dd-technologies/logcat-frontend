@@ -1,5 +1,4 @@
 import {
-  COUNT_PER_PAGE,
   DATE_SELECTION,
   DATE,
   LOGTYPE,
@@ -15,8 +14,6 @@ import {
 } from "./Type";
 
 export const checkBoxReducer = (state, action) => {
-  console.log("data action", action);
-
   switch (action.type) {
     //CHECKBOX SECTION
     case SINGLE_CHECKBOX_SELECTION:

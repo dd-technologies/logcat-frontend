@@ -15,7 +15,7 @@ export default function Spinner(props) {
       >
         <img
           className={Style.loader}
-          /* style={{height:'100px', width:'100px'}} */ src={DDLoader}
+          src={DDLoader}
           alt="loading..."
         />
       </section>

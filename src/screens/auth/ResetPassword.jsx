@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import CustomCard from "../../container/CustomCard";
@@ -85,7 +87,7 @@ export default function ResetPassword() {
     navigate("/login");
   }
 
-  useEffect(() => {}, [enableResendButton]);
+  useEffect(() => { }, [enableResendButton]);
   return (
     <>
       <Toaster />
@@ -131,9 +133,8 @@ export default function ResetPassword() {
                   <input
                     type={showPassword.new ? "text" : "password"}
                     className="form-control LoginForminput "
-                    id="exampleInputEmail1"
                     placeholder="Enter your new password"
-                    aria-describedby="emailHelp"
+                    autoComplete="Enter you new password"
                     onChange={(e) =>
                       setState({ ...state, newPass: e.target.value })
                     }
@@ -157,9 +158,8 @@ export default function ResetPassword() {
                   <input
                     type={showPassword.confime ? "text" : "password"}
                     className="form-control LoginForminput"
-                    id="exampleInputEmail1"
                     placeholder="Confirm your new password"
-                    aria-describedby="emailHelp"
+                    autoComplete="Confirm your new password"
                     onChange={(e) =>
                       setState({ ...state, confirmPass: e.target.value })
                     }
@@ -177,7 +177,7 @@ export default function ResetPassword() {
                   </span>
                 </section>
                 <section className="mt-4">
-                  <a
+                  <p
                     style={{
                       textDecoration: "underline",
                       cursor: enableResendButton ? "pointer" : null,
@@ -189,7 +189,7 @@ export default function ResetPassword() {
                     onClick={handleResendButton}
                   >
                     Resend OTP
-                  </a>
+                  </p>
                 </section>
 
                 <section style={{ display: "flex", justifyContent: "center" }}>

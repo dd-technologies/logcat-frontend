@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -36,18 +38,7 @@ export default function LogTable() {
   const projectName = urlParams.get("name");
   const projectTypeCode = urlParams.get("projectType");
 
-  var projectCode = {
-    code: localStorage.getItem("project_type")
-      ? JSON.parse(localStorage.getItem("project_type")).typeCode
-      : projectTypeCode,
-    name: localStorage.getItem("project_type")
-      ? JSON.parse(localStorage.getItem("project_type")).typeName
-      : projectType &&
-        projectType.modelList &&
-        projectType.modelList[0].typeName,
-  };
 
-  const navigate = useNavigate();
 
   // @@ All stats here -----------------start
 
@@ -64,6 +55,19 @@ export default function LogTable() {
 
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { data: projectType } = getModelCodeReducer;
+  const navigate = useNavigate();
+
+  var projectCode = {
+    code: localStorage.getItem("project_type")
+      ? JSON.parse(localStorage.getItem("project_type")).typeCode
+      : projectTypeCode,
+    name: localStorage.getItem("project_type")
+      ? JSON.parse(localStorage.getItem("project_type")).typeName
+      : projectType &&
+      projectType.modelList &&
+      projectType.modelList[0].typeName,
+  };
+
 
   const ref = useRef();
 
@@ -201,6 +205,10 @@ export default function LogTable() {
     });
   };
 
+
+  
+
+
   const showTableFieldFunc = () => {
     setShowTableField(!showTableField);
     // console.log("setShowTableField", showTableField);
@@ -247,18 +255,18 @@ export default function LogTable() {
                         {diffDate == 10
                           ? `last 10 days`
                           : diffDate == 7
-                          ? `last 7 days`
-                          : diffDate == 15
-                          ? `last 15 days`
-                          : diffDate == 30
-                          ? `last 30 days`
-                          : diffDate == 45
-                          ? `last 45 days`
-                          : diffDate == 60
-                          ? `last 60 days`
-                          : diffDate == 90
-                          ? `last 90 days`
-                          : null}
+                            ? `last 7 days`
+                            : diffDate == 15
+                              ? `last 15 days`
+                              : diffDate == 30
+                                ? `last 30 days`
+                                : diffDate == 45
+                                  ? `last 45 days`
+                                  : diffDate == 60
+                                    ? `last 60 days`
+                                    : diffDate == 90
+                                      ? `last 90 days`
+                                      : null}
                       </p>
                       <FontAwesomeIcon
                         icon={faCaretDown}

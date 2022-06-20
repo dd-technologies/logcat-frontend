@@ -1,3 +1,5 @@
+
+/* eslint-disable */
 import React, { useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import Style from "../../../css/ToggleTabs.module.css";
@@ -115,8 +117,8 @@ export default function ToggleTabs() {
               <section className={Style.DataTogleSection}>
                 {/*CHECKING FOR NOW IF NOT HAVING THE VALUE OF MAP */}
                 {!ld &&
-                  modelNamecnt.map((e) => (
-                    <>
+                  modelNamecnt.map((e, i) => (
+                    <React.Fragment key={i}>
                       <p className="mt-4 darkModeColor">
                         <span className="p-2">
                           {parseFloat((e.data / modelNameAdds) * 100).toFixed(
@@ -133,7 +135,8 @@ export default function ToggleTabs() {
                           theme == "light-theme" ? `#0099A4` : `#0099A4`
                         }
                       />
-                    </>
+                    </React.Fragment>
+
                   ))}
 
                 {ld && <SpinnerCustom height="250px" />}
@@ -146,7 +149,7 @@ export default function ToggleTabs() {
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-                      color: theme == "light-theme" ?  `#000` : `#fff`,
+                      color: theme == "light-theme" ? `#000` : `#fff`,
                     }}
                   >
                     No data found
@@ -185,7 +188,7 @@ export default function ToggleTabs() {
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-                      color: theme == "light-theme" ?  `#000` : `#fff`,
+                      color: theme == "light-theme" ? `#000` : `#fff`,
                     }}
                   >
                     No data found

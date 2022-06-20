@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Style from "../../css/CreateProject.module.css";
@@ -31,9 +31,9 @@ function CreateProject() {
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { adminInfo } = adminLoginReducer;
 
-  const [avatar, setAvatar] = useState(
+  const avatar = useState(
     adminInfo && adminInfo.image && adminInfo.image
-  );
+  )[0];
 
   const createNewProjectReducer = useSelector(
     (state) => state.createNewProjectReducer
@@ -197,10 +197,10 @@ function CreateProject() {
 
               {allProjectData &&
                 allProjectData.data.data.length &&
-                allProjectData.data.data.map((data) => (
-                  <>
-                    <ProjectCard data={data} key={data._id} />
-                  </>
+                allProjectData.data.data.map((data, i) => (
+                  <Fragment key={i}>
+                    <ProjectCard data={data} />
+                  </Fragment>
                 ))}
             </Row>
           </Container>

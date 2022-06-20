@@ -15,7 +15,7 @@ import { validateEmailHelper } from "../../helper/Emails";
 import SpinnerCustom from "../../container/SpinnerCustom";
 
 export default function ForgetPassword() {
-  const [forgetEmail, setForgetEmail] = useState(null);
+  const [forgetEmail, setForgetEmail] = useState("");
   const [forgetEmailErr, setForgetEmailErr] = useState(null);
 
   const dispatch = useDispatch();
@@ -86,9 +86,8 @@ export default function ForgetPassword() {
                     value={forgetEmail}
                     onChange={(e) => setForgetEmail(e.target.value)}
                     className="form-control LoginForminput "
-                    id="exampleInputEmail1"
+                    autoComplete="Enter your email"
                     placeholder="Enter your email"
-                    aria-describedby="emailHelp"
                   />
                 </div>
                 {forgetEmailErr != null ? (

@@ -25,8 +25,6 @@ export default function CustomePaginationAlerts({
   //@@ ALL FUNCTION WARPER OBJECT
   const allPaginationFunctionObj = {
     firstPageFun: () => {
-      console.log("code", code, projectType, date, pageCountArray[0], record);
-
       dispatch(alarmAction(code, projectType, date, pageCountArray[0], record));
       setCurrentPageNumber(pageCountArray[0]);
       localStorage.setItem("page_no", pageCountArray[0]);
@@ -130,11 +128,6 @@ export default function CustomePaginationAlerts({
     arrayOfLocal &&
     arrayOfLocal.filter((element, index) => index < arrayOfLocal.length - 4);
 
-  console.log(
-    "pagination",
-    arrayOfLocal.length == pageCountArray.slice(-4).length
-  );
-
   return (
     <>
       <Pagination>
@@ -156,45 +149,43 @@ export default function CustomePaginationAlerts({
             {/* // MAPPING FIRST 4 PAGE NUMBER  */}
             {newArray
               ? newArray.map((items, index) => {
-                  return (
-                    <>
-                      {console.log("arraypop items", items, index)}
-                      {/* FIRST FOUR INDEXES */}
-                      {index <= 4 && (
-                        <Pagination.Item
-                          onClick={() =>
-                            allPaginationFunctionObj.currentPageFun(items)
-                          }
-                          active={items == currentPageNumber}
-                        >
-                          {items}
-                        </Pagination.Item>
-                      )}
+                return (
+                  <>
+                    {/* FIRST FOUR INDEXES */}
+                    {index <= 4 && (
+                      <Pagination.Item
+                        onClick={() =>
+                          allPaginationFunctionObj.currentPageFun(items)
+                        }
+                        active={items == currentPageNumber}
+                      >
+                        {items}
+                      </Pagination.Item>
+                    )}
 
-                      {/*LAST FOUR INDEXS  */}
-                    </>
-                  );
-                })
+                    {/*LAST FOUR INDEXS  */}
+                  </>
+                );
+              })
               : pageCountArray.map((items, index) => {
-                  return (
-                    <>
-                      {/* {console.log("arraypop items", items, index)} */}
-                      {/* FIRST FOUR INDEXES */}
-                      {index <= 4 && (
-                        <Pagination.Item
-                          onClick={() =>
-                            allPaginationFunctionObj.currentPageFun(items)
-                          }
-                          active={items == currentPageNumber}
-                        >
-                          {items}
-                        </Pagination.Item>
-                      )}
+                return (
+                  <>
+                    {/* FIRST FOUR INDEXES */}
+                    {index <= 4 && (
+                      <Pagination.Item
+                        onClick={() =>
+                          allPaginationFunctionObj.currentPageFun(items)
+                        }
+                        active={items == currentPageNumber}
+                      >
+                        {items}
+                      </Pagination.Item>
+                    )}
 
-                      {/*LAST FOUR INDEXS  */}
-                    </>
-                  );
-                })}
+                    {/*LAST FOUR INDEXS  */}
+                  </>
+                );
+              })}
 
             {/* IF WE ARE IN FIRST PAGE OF LAST 4 INDEX ITEMS NEED TO DISAPPEAR THE BREAKPOINT  ----** */}
 

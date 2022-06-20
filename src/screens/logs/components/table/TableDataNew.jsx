@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useMemo, useReducer, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,12 +32,15 @@ import {
 } from "./store/Type";
 import Pagination from "../../../../common/Pagination";
 
-export default function TableDataN(props) {
+export default function TableDataNew(props) {
   // ALL CHECKED BOX CHECK STATE
   // const [allCheckBox, setAllCheckBox] = useState(false);
   const { theme } = React.useContext(ThemeContext);
   const code = props.code;
   let filedate = new Date();
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const projectTypeCode = urlParams.get("projectType");
 
   // ======================================Reducer from Redux===================================
   // ===========================================================================================
@@ -45,8 +49,7 @@ export default function TableDataN(props) {
   const getAllLogByCodeReducer = useSelector(
     (state) => state.getAllLogByCodeReducer
   );
-  const { loading, data, error } = getAllLogByCodeReducer;
-  console.log("getAllLogByCodeReducer", getAllLogByCodeReducer);
+  const { loading, data } = getAllLogByCodeReducer;
   // ============================================
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { data: typeWiseDate } = getModelCodeReducer;
@@ -106,7 +109,7 @@ export default function TableDataN(props) {
       start: JSON.parse(localStorage.getItem("selected_date")).start,
       end: JSON.parse(localStorage.getItem("selected_date")).end,
     },
-    searchField: null,
+    searchField: "",
     allCheckBox: false,
     singleCheckbox: false,
   };
@@ -118,7 +121,7 @@ export default function TableDataN(props) {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const currentTableData = useMemo(() => {
+  useMemo(() => {
     const firstPageIndex = (currentPage - 1) * currentStateTableData.record;
     const lastPageIndex = firstPageIndex + currentStateTableData.record;
     return (
@@ -126,7 +129,6 @@ export default function TableDataN(props) {
     );
   }, [currentPage]);
 
-  console.log("currentStateTableData", currentStateTableData);
 
   // CHECKBOX STATE MANAGEMENT WITH User REDUCER END ---------------------------------------------
   // ===========================================================================================
@@ -185,14 +187,12 @@ export default function TableDataN(props) {
   var projectCode = {
     code: localStorage.getItem("project_type")
       ? JSON.parse(localStorage.getItem("project_type")).typeCode
-      : typeWiseDate &&
-        typeWiseDate.modelList &&
-        typeWiseDate.modelList[0].typeCode,
+      : projectTypeCode,
     name: localStorage.getItem("project_type")
       ? JSON.parse(localStorage.getItem("project_type")).typeName
       : typeWiseDate &&
-        typeWiseDate.modelList &&
-        typeWiseDate.modelList[0].typeName,
+      typeWiseDate.modelList &&
+      typeWiseDate.modelList[0].typeName,
   };
 
   let projectCodeType = typeWiseDate && typeWiseDate.modelList[0].typeCode;
@@ -208,11 +208,9 @@ export default function TableDataN(props) {
     for (var i = 0; i < data.length; i++) {
       let logMsg = data[i].log.message;
       logMsg = logMsg.replaceAll("\n\t", "");
-      csv += `${logMsg}\t${data[i].device.did}\t${data[i].log.type}\t${
-        data[i].ack.date.split("T")[0]
-      }\t${data[i].ack.date.split("T")[1].split(".")[0]}`;
+      csv += `${logMsg}\t${data[i].device.did}\t${data[i].log.type}\t${data[i].ack.date.split("T")[0]
+        }\t${data[i].ack.date.split("T")[1].split(".")[0]}`;
 
-      console.log("value", data[i]);
       // }
       csv += "\n";
     }
@@ -330,12 +328,12 @@ export default function TableDataN(props) {
     currentStateTableData.dateState.start,
     currentStateTableData.dateState.end,
   ];
-  const dateChips = DateChipsArray.map((items, index) => (
+  const dateChips = DateChipsArray.map((items) => (
     <section className={Style.chip}>
       <p style={{ color: "#fff" }}>{items}</p>
       <FontAwesomeIcon
         icon={faWindowClose}
-        // onClick={() => closeDateChip(items, index)}
+      // onClick={() => closeDateChip(items, index)}
       />
     </section>
   ));
@@ -420,7 +418,8 @@ export default function TableDataN(props) {
   // ========================================
 
   const callbackfnDispatchGetAllData = (sortType) => {
-    return dispatch(
+
+    dispatch(
       getProjectByCode(
         code,
         date,
@@ -586,8 +585,6 @@ export default function TableDataN(props) {
       newItemsArray.pop();
     }
     if (!newItemsArray.length) downloadButtonId.style.opacity = "30%";
-
-    console.log("first array", newItemsArray);
   };
 
   // @@ DOWNLOAD FUNCTION
@@ -664,7 +661,7 @@ export default function TableDataN(props) {
             style={{
               opacity:
                 currentStateTableData.allCheckBox ||
-                currentStateTableData.singleCheckbox
+                  currentStateTableData.singleCheckbox
                   ? "100%"
                   : "30%",
             }}
@@ -909,8 +906,8 @@ export default function TableDataN(props) {
               {tableData &&
                 tableData.map((item, index) => {
                   return (
-                    <>
-                      <section className={Style.body_inner} key={item._id}>
+                    <React.Fragment key={item._id}>
+                      <section className={Style.body_inner} >
                         <section>
                           <input
                             id={`singleItem ${index}`}
@@ -942,15 +939,13 @@ export default function TableDataN(props) {
                               className={Style.LinkSection}
                               href={`/analytics?code=SBXMH&name=Ventilator&col=${item.log.message}&rowlogGeneratedDate=${item.log.date}&version=${item.version}&osArchitecture=${item.device.os.name}&modelName=${item.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`}
                             >
-                              {/* {console.log("item", item.log.message)} */}
-
                               {item.log.filePath
                                 ? item.log.file
                                 : item.log.message.includes("at ")
-                                ? item.log.message.split("at ")[0]
-                                : item.log.message.includes(":")
-                                ? item.log.message.split(": ")[0]
-                                : item.log.message}
+                                  ? item.log.message.split("at ")[0]
+                                  : item.log.message.includes(":")
+                                    ? item.log.message.split(": ")[0]
+                                    : item.log.message}
                             </a>
                           )}
                         </section>
@@ -982,7 +977,7 @@ export default function TableDataN(props) {
                           {item.log.date.split("T")[1].split(".")[0]}
                         </section>
                       </section>
-                    </>
+                    </React.Fragment>
                   );
                 })}
             </section>
@@ -1055,13 +1050,13 @@ export default function TableDataN(props) {
                           min={date.start}
                           max={date.end}
                           value={
-                            currentStateTableData.dateState &&
-                            currentStateTableData.dateState.start
-                              ? currentStateTableData.dateState.start
+                            startDate &&
+                              startDate.start
+                              ? startDate.start
                               : localStorage.getItem("selected_date") &&
-                                JSON.parse(
-                                  localStorage.getItem("selected_date")
-                                ).start
+                              JSON.parse(
+                                localStorage.getItem("selected_date")
+                              ).start
                           }
                           onChange={(e) => {
                             dispatchTableData({
@@ -1080,13 +1075,13 @@ export default function TableDataN(props) {
                           min={date.start}
                           max={date.end}
                           value={
-                            currentStateTableData.dateState &&
-                            currentStateTableData.dateState.end
-                              ? currentStateTableData.dateState.end
+                            startDate &&
+                              startDate.start
+                              ? startDate.start
                               : localStorage.getItem("selected_date") &&
-                                JSON.parse(
-                                  localStorage.getItem("selected_date")
-                                ).end
+                              JSON.parse(
+                                localStorage.getItem("selected_date")
+                              ).end
                           }
                           onChange={(e) => {
                             dispatchTableData({
@@ -1243,7 +1238,7 @@ export default function TableDataN(props) {
                         <p
                           className={
                             currentStateTableData.activeRecord.record25 ||
-                            currentStateTableData.record == 25
+                              currentStateTableData.record == 25
                               ? `${Style.perPagesectionInnerActive} darkModeColor`
                               : `${Style.perPagesectionInner} darkModeColor`
                           }
