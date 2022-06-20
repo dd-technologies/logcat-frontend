@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { getProjectByCode } from "../../../../store/action/ProjectAction";
 import TableCard from "../../../../container/TableCard";
-import Style from "./TableDataNew.module.css";
+import Style from "../../../../css/TableDataNew.module.css";
 import CustomCard from "../../../../container/CustomCard";
 import { ThemeContext } from "../../../../utils/ThemeContext";
 import toast from "react-hot-toast";

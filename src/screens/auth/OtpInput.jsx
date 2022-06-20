@@ -1,5 +1,5 @@
 import React from "react";
-import Style from "./OtpInput.module.css";
+import Style from "../../css/OtpInput.module.css";
 class Otpinput extends React.Component {
   constructor(props) {
     super(props);

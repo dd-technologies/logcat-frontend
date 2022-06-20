@@ -1,5 +1,5 @@
 import React from "react";
-import Style from "./SpinnerCustom.module.css";
+import Style from "../css/SpinnerCustom.module.css";
 
 export default function SpinnerCustom(props) {
   return (

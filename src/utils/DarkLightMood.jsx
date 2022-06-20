@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Style from "./DarkLightMood.module.css";
+import Style from "../css/DarkLightMood.module.css";
 import { ThemeContext, themes } from "./ThemeContext";
 import faSun from "../assets/icons/sunIcon.png";
 import faMoon from "../assets/icons/faMoon.png";

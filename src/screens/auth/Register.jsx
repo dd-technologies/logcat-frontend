@@ -9,7 +9,7 @@ import {
   faLock,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import Style from "./Register.module.css";
+import Style from "../../css/Register.module.css";
 import { adminRegister } from "../../store/action/AdminAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";

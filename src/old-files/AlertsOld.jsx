@@ -12,15 +12,15 @@ import Style from "./AlertsOld.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TypeDropDown from "../logs/screens/Table/TypeDropDown";
 import { useDispatch, useSelector } from "react-redux";
-import DateIcons from "../../assets/icons/date.png";
+import DateIcons from "../assets/icons/date.png";
 import CustomeDropDown from "../../Container/DropDown";
-import LogICon from "../../assets/icons/log.png";
+import LogICon from "../assets/icons/log.png";
 import ToolkitProvider, {
   Search,
   CSVExport,
 } from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit";
 import BootstrapTable from "react-bootstrap-table-next";
-import AlarmIcon from "../../assets/images/AlarmIcon.png";
+import AlarmIcon from "../assets/images/AlarmIcon.png";
 import { alarmAction } from "../store/action/AlarmAction";
 import SpinnerCustom from "../../Container/SpinnerCustom";
 import TableCard from "../../Container/TableCard";

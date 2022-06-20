@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDatabase, faWindowClose } from "@fortawesome/free-solid-svg-icons";
-import Style from "./Settings.module.css";
+import Style from "../../css/Settings.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { addCrashEmail } from "../../store/action/ProjectAction";

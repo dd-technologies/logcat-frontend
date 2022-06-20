@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadNewProject } from "../../../store/action/ProjectAction";
-import Style from "./AddProjectModal.module.css";
+import Style from "../../../css/AddProjectModal.module.css";
 
 const AddProjectModal = (props) => {
   const [createProject, setCreateProject] = useState({

@@ -7,7 +7,7 @@ import {
   forgetPassword,
   resetForgetPasswordState,
 } from "../../store/action/AdminAction";
-import Style from "./Forgetpassword.module.css";
+import Style from "../../css/Forgetpassword.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";

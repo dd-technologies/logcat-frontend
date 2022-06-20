@@ -4,7 +4,7 @@ import CustomCard from "../../../container/CustomCard";
 import EventByVersionChart from "../charts/EventByVersionChart";
 import { useSelector } from "react-redux";
 import SpinnerCustom from "../../../container/SpinnerCustom";
-import Style from "./EventByVersion.module.css";
+import Style from "../../../css/EventByVersion.module.css";
 import { ThemeContext } from "../../../utils/ThemeContext";
 
 export default function EventByVersion() {

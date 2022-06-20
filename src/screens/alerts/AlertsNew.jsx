@@ -7,7 +7,7 @@ import {
   faSortUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { Container, Row, Col, Image, Table } from "react-bootstrap";
-import Style from "./AlertsNew.module.css";
+import Style from "../../css/AlertsNew.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import DateIcons from "../../assets/icons/date.png";

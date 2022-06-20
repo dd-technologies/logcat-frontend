@@ -1,7 +1,7 @@
 import React from "react";
 import PieChartDataGraph from "../charts/PieChartDataGraph";
 import CustomCard from "../../../container/CustomCard";
-import Style from "./PieChartSection.module.css";
+import Style from "../../../css/PieChartSection.module.css";
 import { Col, Row } from "react-bootstrap";
 
 export default function PieChartSection(props) {

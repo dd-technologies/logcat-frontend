@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import CustomCard from "../../container/CustomCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash, faLock } from "@fortawesome/free-solid-svg-icons";
-import Style from "./ResetPassword.module.css";
+import Style from "../../css/ResetPassword.module.css";
 import { toast, Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { resetForgetPassword } from "../../store/action/AdminAction";
