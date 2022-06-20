@@ -180,6 +180,7 @@ export default function UpdateProfile() {
                       <input
                         type="file"
                         id="image_upload"
+                        autoComplete="Enter your email"
                         accept=".jpg, .jpeg, .png"
                         style={{ display: "none", visibility: "none" }}
                         onChange={(e) => handleUpload(e)}
@@ -197,11 +198,10 @@ export default function UpdateProfile() {
                         <input
                           style={{ color: "#212529", opacity: ".7" }}
                           type="email"
+                          autoComplete="Enter your name"
                           value={name}
                           className="form-control LoginForminput"
-                          id="exampleInputEmail1"
-                          placeholder="Enter your email"
-                          aria-describedby="emailHelp"
+                          placeholder="Enter your name"
                           onChange={(e) => {
                             setname(e.target.value);
                           }}
@@ -222,11 +222,10 @@ export default function UpdateProfile() {
                         <input
                           style={{ color: "#212529", opacity: ".7" }}
                           type="email"
+                          autoComplete="Enter your email"
                           value={email}
                           className="form-control LoginForminput"
-                          id="exampleInputEmail1"
                           placeholder="Enter your email"
-                          aria-describedby="emailHelp"
                           disabled="disabled"
                         />
                       </div>

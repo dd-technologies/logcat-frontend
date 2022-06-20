@@ -206,9 +206,6 @@ export default function LogTable() {
   };
 
 
-  
-
-
   const showTableFieldFunc = () => {
     setShowTableField(!showTableField);
     // console.log("setShowTableField", showTableField);
