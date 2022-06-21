@@ -1,12 +1,7 @@
 .otpContainer {
-  display: -webkit-box !important;
-  display: -ms-flexbox !important;
   display: flex !important;
 }
-
 .otpContainer .optInput {
-  display: -webkit-box !important;
-  display: -ms-flexbox !important;
   display: flex !important;
   border: none !important;
   width: 10% !important;
@@ -16,5 +11,4 @@
   border-radius: 5px !important;
   border: 1px solid rgba(0, 0, 0, 0.312) !important;
   color: #000;
-}
-/*# sourceMappingURL=OtpInput.module.css.map */
+}/*# sourceMappingURL=OtpInput.module.css.map */

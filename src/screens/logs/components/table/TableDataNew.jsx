@@ -907,7 +907,7 @@ export default function TableDataNew(props) {
                 tableData.map((item, index) => {
                   return (
                     <React.Fragment key={item._id}>
-                      <section className={Style.body_inner} >
+                      <section className={Style.body_inner} style={{ borderBottom: theme == "light-theme" ? "#efefef 1px solid" : "#333 1px solid" }} >
                         <section>
                           <input
                             id={`singleItem ${index}`}
@@ -922,12 +922,12 @@ export default function TableDataNew(props) {
                         </section>
                         <section>
                           {item && item.log && item.log.filePath ? (
-                            <section>
-                              <p style={{ cursor: "not-allowed" }}>
+                            <section className={Style.innerLogMsg} >
+                              <p>
                                 {item.log.file}
                               </p>
                               <section onClick={() => handleDownload(item)}>
-                                <FontAwesomeIcon icon={faDownload} />
+                                <FontAwesomeIcon icon={faDownload} style={{ filter: "invert(1)" }} size="1x" />
                               </section>
                             </section>
                           ) : (
@@ -949,7 +949,7 @@ export default function TableDataNew(props) {
                             </a>
                           )}
                         </section>
-                        <section>{item.device.did}</section>
+                        <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{item.device.did}</section>
                         <section>
                           {item.log.type == "error" && (
                             <span style={{ color: "red" }}>
@@ -971,9 +971,14 @@ export default function TableDataNew(props) {
                               {item.log.type.toUpperCase()}
                             </span>
                           )}
+                          {item.log.type == "verbose" && (
+                            <span style={{ color: "purple" }}>
+                              {item.log.type.toUpperCase()}
+                            </span>
+                          )}
                         </section>
-                        <section>{item.log.date.split("T")[0]}</section>
-                        <section>
+                        <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{item.log.date.split("T")[0]}</section>
+                        <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
                           {item.log.date.split("T")[1].split(".")[0]}
                         </section>
                       </section>
@@ -1310,14 +1315,6 @@ export default function TableDataNew(props) {
         )}
         {tableData && (
           <section className="p-2">
-            {/* <CustomPaginationTableData
-              data={data && data.data && data.data.count}
-              code={code}
-              date={date}
-              logType={currentStateTableData.logType}
-              record={currentStateTableData.record}
-              projectType={projectCode.code}
-            /> */}
 
             <Pagination
               code={code}

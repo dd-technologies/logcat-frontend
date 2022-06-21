@@ -150,7 +150,7 @@
     }
   }
 
-  @include xl {
+  @include lg {
     .header :nth-child(1) {
       width: 40px;
     }
@@ -174,7 +174,6 @@
   .bodyStyle {
     display: flex;
     align-items: center;
-    border-bottom: #efefef 1px solid;
     font-size: 0.9rem;
 
     .bodyStyle_inner {
@@ -242,7 +241,7 @@
       width: 140px;
     }
   }
-  @include xl {
+  @include lg {
     .bodyStyle :nth-child(1) {
       width: 40px;
     }

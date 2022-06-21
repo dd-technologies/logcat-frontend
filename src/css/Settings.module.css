@@ -8,32 +8,24 @@
 }
 
 .imputFields {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   border: 1px solid rgba(141, 141, 141, 0.72);
   border-radius: 5px;
   padding: 5px;
-  border: solid #e2e2e2 1px;
+  border: solid rgb(226, 226, 226) 1px;
   background-color: #ffffff;
 }
-
 .imputFields span {
   margin-left: 5px;
 }
-
 .imputFields input {
   border: none !important;
   background-color: none !important;
 }
-
 .imputFields svg {
   color: #0099a4;
 }
-
 .imputFields textarea {
   border: none !important;
   background-color: none !important;
@@ -49,23 +41,15 @@
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
-  display: -webkit-box !important;
-  display: -ms-flexbox !important;
   display: flex !important;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
   cursor: pointer;
   margin: 5px;
 }
-
 .chip p {
   font-size: 0.8rem !important;
 }
-
 .chip svg {
   color: #fff;
 }
@@ -84,5 +68,4 @@
 
 .darkMood_outer {
   background-color: black;
-}
-/*# sourceMappingURL=Settings.module.css.map */
+}/*# sourceMappingURL=Settings.module.css.map */

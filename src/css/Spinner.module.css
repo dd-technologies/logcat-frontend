@@ -1,11 +1,9 @@
 .loader {
   width: 300px;
   height: 300px;
-  -webkit-filter: brightness(1.75);
-          filter: brightness(1.75);
+  filter: brightness(1.75);
   image-rendering: optimizeQuality;
-  -webkit-filter: saturate(1);
-          filter: saturate(1);
+  filter: saturate(1);
 }
 
 /* Safari */
@@ -16,5 +14,4 @@
   100% {
     -webkit-transform: rotate(360deg);
   }
-}
-/*# sourceMappingURL=Spinner.module.css.map */
+}/*# sourceMappingURL=Spinner.module.css.map */

@@ -3,41 +3,26 @@
   color: #0099a4;
   font-weight: 500;
 }
-
 .Statics h4 {
   font-size: 1rem !important;
   color: #0099a4;
   font-weight: 500;
 }
-
 .Statics p {
   font-size: 0.9rem !important;
   color: #646464;
 }
-
 .Statics .StaticsSection {
-  display: -webkit-box !important;
-  display: -ms-flexbox !important;
   display: flex !important;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
 }
-
 .Statics .StaticsSection .Tooltip {
   background-color: #e2e2e2;
   width: 20px;
   height: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center !important;
-      -ms-flex-pack: center !important;
-          justify-content: center !important;
-  -webkit-box-align: center !important;
-      -ms-flex-align: center !important;
-          align-items: center !important;
+  justify-content: center !important;
+  align-items: center !important;
   border-radius: 100%;
   cursor: pointer;
-}
-/*# sourceMappingURL=CrashFreeStatic.module.css.map */
+}/*# sourceMappingURL=CrashFreeStatic.module.css.map */

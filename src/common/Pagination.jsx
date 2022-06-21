@@ -5,8 +5,11 @@ import "../css/Pagination.css";
 import { useDispatch } from "react-redux";
 import { alarmAction } from "../store/action/AlarmAction";
 import { getProjectByCode } from "../store/action/ProjectAction";
+import { ThemeContext } from "../utils/ThemeContext";
+
 
 const Pagination = (props) => {
+  const { theme } = React.useContext(ThemeContext);
   const dispatch = useDispatch();
   var url_string = window.location.href;
   var url = new URL(url_string);
@@ -93,6 +96,7 @@ const Pagination = (props) => {
         className={classnames("pagination-item", {
           disabled: currentPage === 1,
         })}
+        style={{ background: theme == "ligth-theme" ? "" : "#21969D" }}
         onClick={onPrevious}
       >
         <div className="arrow left" />
@@ -108,6 +112,7 @@ const Pagination = (props) => {
               className={classnames("pagination-item", {
                 selected: pageNumber === currentPage,
               })}
+
               onClick={() => {
                 onPageChange(pageNumber);
 
@@ -139,6 +144,7 @@ const Pagination = (props) => {
         className={classnames("pagination-item", {
           disabled: currentPage === lastPage,
         })}
+        style={{ background: theme == "ligth-theme" ? "" : "#21969D" }}
         onClick={onNext}
       >
         <div className="arrow right" />

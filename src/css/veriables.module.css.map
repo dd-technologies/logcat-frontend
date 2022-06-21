@@ -1,9 +1,1 @@
-{
-    "version": 3,
-    "mappings": "",
-    "sources": [
-        "veriables.module.scss"
-    ],
-    "names": [],
-    "file": "veriables.module.css"
-}
+{"version":3,"sources":[],"names":[],"mappings":"","file":"veriables.module.css"}

@@ -5,9 +5,7 @@
 .OuterDiv {
   width: 100%;
   height: 100vh;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
 
 .SidebarLogTable {
@@ -17,63 +15,44 @@
 
 .userInfo {
   width: 50%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center !important;
-      -ms-flex-align: center !important;
-          align-items: center !important;
+  justify-content: center;
+  align-items: center !important;
 }
-
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .userInfo {
     width: 60%;
   }
 }
-
 @media screen and (min-width: 1024px) and (max-width: 1400px) {
   .userInfo {
     width: 55%;
   }
 }
-
 @media screen and (min-width: 1400px) and (max-width: 1600px) {
   .userInfo {
     width: 50%;
   }
 }
-
 @media screen and (min-width: 1600px) and (max-width: 1920px) {
   .userInfo {
     width: 43%;
   }
 }
-
 .userInfo section {
   color: #e2e2e2;
 }
-
 .userInfo .Avtar {
   background-color: #e2e2e2;
   border-radius: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   width: 40px;
   height: 40px;
   color: #0099a4;
   font-weight: 700;
 }
-
 @media screen and (min-width: 300px) and (max-width: 1024px) {
   .userInfo .Avtar {
     width: 28px;
@@ -84,15 +63,9 @@
 .Avtarunder {
   background-color: #e2e2e2;
   border-radius: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   width: 100px;
   height: 100px;
   color: #0099a4;
@@ -102,23 +75,17 @@
 }
 
 .imputFields {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   border: 1px solid rgba(141, 141, 141, 0.72);
   border-radius: 5px;
   padding: 5px;
   padding-right: 10px;
 }
-
 .imputFields input {
   border: none !important;
   background: none !important;
 }
-
 .imputFields svg {
   color: #0099a4;
 }
@@ -128,54 +95,36 @@
   width: 35px;
   height: 35px;
   border-radius: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   margin-top: -20px;
   color: #fff;
   cursor: pointer;
   z-index: 11;
 }
-
 .editImage input {
   cursor: pointer !important;
 }
 
 .buttonbackground {
   margin-top: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   width: 70%;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
 }
 
 .imputFieldsError {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   border: 2px solid red;
   border-radius: 15px !important;
   padding: 5px;
 }
-
 .imputFieldsError input {
   border: none !important;
   background: none !important;
 }
-
 .imputFieldsError svg {
   color: #0099a4;
-}
-/*# sourceMappingURL=UpdateProfile.module.css.map */
+}/*# sourceMappingURL=UpdateProfile.module.css.map */

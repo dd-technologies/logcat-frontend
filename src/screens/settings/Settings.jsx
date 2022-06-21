@@ -14,7 +14,6 @@ import SideBar from "../../utils/Sidebar";
 import { Navbar } from "../../utils/NavBar";
 
 export default function Settings() {
-  // dark mood state
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);

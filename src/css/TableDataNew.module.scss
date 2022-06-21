@@ -4,6 +4,7 @@
 .LinkSection {
   text-decoration: none;
   color: #fff;
+
   &:hover {
     color: $active_text_color;
     transition-duration: 0.3s;
@@ -14,6 +15,7 @@
 input[type="checkbox"]:checked {
   background-color: $active_text_color;
 }
+
 input[type="checkbox"]:checked:after {
   content: "\2713";
   color: white;
@@ -100,6 +102,7 @@ input[type="checkbox"] {
     grid-template-columns: auto;
   }
 }
+
 @include md {
   .chipOuter {
     // border: 1px solid red;
@@ -127,6 +130,7 @@ input[type="checkbox"] {
     grid-template-columns: auto auto auto;
   }
 }
+
 @include xl {
   .chipOuter {
     // border: 1px solid red;
@@ -150,6 +154,7 @@ input[type="checkbox"] {
   & p {
     font-size: 0.8rem !important;
   }
+
   & svg {
     color: #fff;
   }
@@ -187,11 +192,13 @@ input[type="checkbox"] {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
   .perPagesectionInner {
     margin-top: 5px;
   }
+
   .perPagesectionInnerActive {
-    background-color: $backgroundColor !important;
+    background-color: $backgroundColor  !important;
     color: $defaultTextColor;
     padding: 5px;
     border-radius: 30px;
@@ -222,6 +229,7 @@ input[type="checkbox"] {
     display: flex;
     align-items: center;
     height: 50px;
+
     .header_inner {
       padding: 5px;
       display: flex;
@@ -235,18 +243,22 @@ input[type="checkbox"] {
         padding: 5px;
         width: 20px !important;
       }
+
       .header_inner :nth-child(2) {
         width: 220px !important;
         padding: 5px;
       }
+
       .header_inner :nth-child(3) {
         width: 100px !important;
         padding: 5px;
       }
+
       .header_inner :nth-child(4) {
         width: 80px !important;
         padding: 5px;
       }
+
       .header_inner :nth-child(5) {
         width: 80px !important;
         padding: 5px;
@@ -258,18 +270,22 @@ input[type="checkbox"] {
         padding: 5px;
         width: 20px !important;
       }
+
       .header_inner :nth-child(2) {
         width: 340px !important;
         padding: 5px;
       }
+
       .header_inner :nth-child(3) {
         width: 140px !important;
         padding: 5px;
       }
+
       .header_inner :nth-child(4) {
         width: 100px !important;
         padding: 5px;
       }
+
       .header_inner :nth-child(5) {
         width: 100px !important;
         padding: 5px;
@@ -281,18 +297,22 @@ input[type="checkbox"] {
         padding: 5px;
         width: 20px !important;
       }
+
       .header_inner :nth-child(2) {
         width: 480px !important;
         padding: 5px;
       }
+
       .header_inner :nth-child(3) {
         width: 200px !important;
         padding: 5px;
       }
+
       .header_inner :nth-child(4) {
         width: 120px !important;
         padding: 5px;
       }
+
       .header_inner :nth-child(5) {
         width: 120px !important;
         padding: 5px;
@@ -302,15 +322,19 @@ input[type="checkbox"] {
     .header_inner :nth-child(1) {
       width: 40px;
     }
+
     .header_inner :nth-child(2) {
       width: 500px;
     }
+
     .header_inner :nth-child(3) {
       width: 200px;
     }
+
     .header_inner :nth-child(4) {
       width: 200px;
     }
+
     .header_inner :nth-child(5) {
       width: 200px;
     }
@@ -319,34 +343,63 @@ input[type="checkbox"] {
   .body_table {
     .body_inner {
       padding: 5px;
-      border-bottom: #efefef 1px solid;
       display: flex;
+      align-items: center;
     }
+
+
 
     @include sm {
       .body_inner :nth-child(1) {
         padding: 5px;
         width: 20px !important;
       }
+
       .body_inner :nth-child(2) {
         padding: 5px;
-
         width: 220px !important;
+
+        .innerLogMsg {
+          width: 220px !important;
+          display: flex;
+          justify-content: space-between;
+
+          & p {
+            width: 200px !important;
+            cursor: not-allowed;
+          }
+
+          & section {
+            background: #0099A4;
+            width: 25px !important;
+            height: 25px !important;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+        }
       }
+
       .body_inner :nth-child(3) {
         padding: 5px;
 
         width: 100px !important;
       }
+
       .body_inner :nth-child(4) {
         padding: 5px;
 
         width: 80px !important;
       }
+
       .body_inner :nth-child(5) {
         padding: 5px;
 
         width: 80px !important;
+
+
       }
     }
 
@@ -355,18 +408,44 @@ input[type="checkbox"] {
         padding: 5px;
         width: 20px !important;
       }
+
       .body_inner :nth-child(2) {
         width: 340px !important;
         padding: 5px;
+
+        .innerLogMsg {
+          width: 310px !important;
+          display: flex;
+          justify-content: space-between;
+
+          & p {
+            width: 315px !important;
+            cursor: not-allowed;
+          }
+
+          & section {
+            background: #0099A4;
+            width: 25px !important;
+            height: 25px !important;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+        }
       }
+
       .body_inner :nth-child(3) {
         width: 140px !important;
         padding: 5px;
       }
+
       .body_inner :nth-child(4) {
         width: 100px !important;
         padding: 5px;
       }
+
       .body_inner :nth-child(5) {
         width: 100px !important;
         padding: 5px;
@@ -378,43 +457,97 @@ input[type="checkbox"] {
         padding: 5px;
         width: 20px !important;
       }
+
       .body_inner :nth-child(2) {
         width: 480px !important;
         padding: 5px;
+
+        .innerLogMsg {
+          width: 310px !important;
+          display: flex;
+          justify-content: space-between;
+
+          & p {
+            width: 315px !important;
+            cursor: not-allowed;
+          }
+
+          & section {
+            background: #0099A4;
+            width: 25px !important;
+            height: 25px !important;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+        }
       }
+
       .body_inner :nth-child(3) {
         width: 200px !important;
         padding: 5px;
       }
+
       .body_inner :nth-child(4) {
         width: 120px !important;
         padding: 5px;
       }
+
       .body_inner :nth-child(5) {
         width: 120px !important;
         padding: 5px;
       }
     }
 
-    .body_inner :nth-child(1) {
-      width: 40px;
-      font-size: 0.9rem;
-    }
-    .body_inner :nth-child(2) {
-      width: 500px;
-      font-size: 0.9rem;
-    }
-    .body_inner :nth-child(3) {
-      width: 200px;
-      font-size: 0.9rem;
-    }
-    .body_inner :nth-child(4) {
-      width: 200px;
-      font-size: 0.9rem;
-    }
-    .body_inner :nth-child(5) {
-      width: 200px;
-      font-size: 0.9rem;
+    @include lg {
+      .body_inner :nth-child(1) {
+        width: 40px;
+        font-size: 0.9rem;
+      }
+
+      .body_inner :nth-child(2) {
+        width: 500px;
+        font-size: 0.9rem;
+
+        .innerLogMsg {
+          width: 450px !important;
+          display: flex;
+          justify-content: space-between;
+
+          & p {
+            width: 200px !important;
+            cursor: not-allowed;
+          }
+
+          & section {
+            background: #0099A4;
+            width: 25px !important;
+            height: 25px !important;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+        }
+      }
+
+      .body_inner :nth-child(3) {
+        width: 200px;
+        font-size: 0.9rem;
+      }
+
+      .body_inner :nth-child(4) {
+        width: 200px;
+        font-size: 0.9rem;
+      }
+
+      .body_inner :nth-child(5) {
+        width: 200px;
+        font-size: 0.9rem;
+      }
     }
   }
 }

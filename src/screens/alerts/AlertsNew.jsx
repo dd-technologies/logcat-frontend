@@ -645,7 +645,7 @@ export default function AlertsNew() {
                               {alertsFilter.map((items, index) => {
                                 return (
                                   <React.Fragment key={items._id}>
-                                    <section className={Style.bodyStyle}>
+                                    <section className={Style.bodyStyle} style={{ borderBottom: theme == "light-theme" ? "#efefef 1px solid" : "#333 1px solid" }}>
                                       <section className={Style.bodyStyle_inner}>
                                         <input
                                           type="checkbox"
@@ -659,13 +659,13 @@ export default function AlertsNew() {
                                           }
                                         />
                                       </section>
-                                      <section>{items.did}</section>
-                                      <section>{items.ack.code}</section>
-                                      <section>{items.ack.msg}</section>
-                                      <section>
+                                      <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{items.did}</section>
+                                      <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{items.ack.code}</section>
+                                      <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{items.ack.msg}</section>
+                                      <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
                                         {items.ack.date.split("T")[0]}
                                       </section>
-                                      <section>
+                                      <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
                                         {
                                           items.ack.date
                                             .split("T")[1]
