@@ -12,10 +12,10 @@ import Protected from "./utils/Protected";
 import Settings from "./screens/settings/Settings";
 import { useSelector } from "react-redux";
 import UpdateProfile from "./screens/user/UpdateProfile";
-import "./utils/Theme.css";
 import Register from "./screens/auth/Register";
 import AlarmNew from "./screens/alerts/AlertsNew";
 import ddLoader from "../src/assets/images/ddLoader.gif";
+import "./css/Theme.css"
 
 function App() {
   const [splash, setSplash] = useState(true);

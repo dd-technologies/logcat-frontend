@@ -9,7 +9,7 @@ import {
   faLock,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import Style from "./Register.module.css";
+import Style from "../../css/Register.module.css";
 import { adminRegister } from "../../store/action/AdminAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -19,10 +19,10 @@ import SpinnerCustom from "../../container/SpinnerCustom";
 
 const Register = () => {
   const [registerForm, setRegisterForm] = useState({
-    name: null,
-    email: null,
-    password: null,
-    cpassword: null,
+    name: "",
+    email: "",
+    password: "",
+    cpassword: "",
   });
   const [nameError, setNameError] = useState(null);
   const [emailError, setEmailError] = useState(null);
@@ -34,16 +34,13 @@ const Register = () => {
     password: false,
     cpassword: false,
   });
-  const [responseError, setResponseError] = useState(null);
+  const setResponseError = useState(null)[1];
 
   const dispatch = useDispatch();
   const adminRegisterReducer = useSelector(
     (state) => state.adminRegisterReducer
   );
   const { loading, error, data } = adminRegisterReducer;
-
-  console.log("adminRegisterReducer", adminRegisterReducer);
-
   // VALIDATE EMAIL
   const validateEmail = (email) => {
     const isEmailValid = validateEmailHelper(email);
@@ -195,9 +192,8 @@ const Register = () => {
                   <input
                     type="text"
                     className="form-control registerForminput "
-                    id="exampleInputEmail1"
                     placeholder="Enter your full name"
-                    aria-describedby="emailHelp"
+                    autoComplete="Enter your full name"
                     onChange={(e) =>
                       setRegisterForm({ ...registerForm, name: e.target.value })
                     }
@@ -219,9 +215,8 @@ const Register = () => {
                   <input
                     type="email"
                     className="form-control registerForminput "
-                    id="exampleInputEmail1"
                     placeholder="Enter your email"
-                    aria-describedby="emailHelp"
+                    autoComplete="Enter your email"
                     onChange={(e) =>
                       setRegisterForm({
                         ...registerForm,
@@ -245,9 +240,8 @@ const Register = () => {
                   <input
                     type={showPassword.password ? "text" : "password"}
                     className="form-control registerForminput "
-                    id="exampleInputEmail1"
                     placeholder="Enter your password"
-                    aria-describedby="emailHelp"
+                    autoComplete="Enter your password"
                     onChange={(e) =>
                       setRegisterForm({
                         ...registerForm,
@@ -286,9 +280,8 @@ const Register = () => {
                   <input
                     type={showPassword.cpassword ? "text" : "password"}
                     className="form-control registerForminput "
-                    id="exampleInputEmail1"
                     placeholder="Confirm your password"
-                    aria-describedby="emailHelp"
+                    autoComplete="Confirm your password"
                     onChange={(e) =>
                       setRegisterForm({
                         ...registerForm,

@@ -1,6 +1,8 @@
+/* eslint-disable */
+
 import React, { useState } from "react";
 import { Row, Col } from "react-bootstrap";
-import Style from "./StackData.module.css";
+import Style from "../../../css/StackData.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCaretDown,
@@ -113,7 +115,7 @@ export default function StackData() {
                 {!keys == [] &&
                   keys.map((key, idx) => {
                     return (
-                      <>
+                      <React.Fragment key={idx}>
                         <section className={Style.outerDivinner}>
                           <section
                             className={
@@ -175,7 +177,7 @@ export default function StackData() {
                             </section>
                           )}
                         </section>
-                      </>
+                      </React.Fragment>
                     );
                   })}
               </Col>
@@ -192,3 +194,4 @@ export default function StackData() {
     </>
   );
 }
+

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Style from "./DarkLightMood.module.css";
+import Style from "../css/DarkLightMood.module.css";
 import { ThemeContext, themes } from "./ThemeContext";
 import faSun from "../assets/icons/sunIcon.png";
 import faMoon from "../assets/icons/faMoon.png";
@@ -20,11 +19,6 @@ export default function DarkLightMood() {
             changeTheme(darkMode ? themes.light : themes.dark);
           }}
         >
-          {/* <FontAwesomeIcon
-            icon={!darkMode ? faSun : faMoon}
-            // size="1x"
-            color={darkMode ? "#0099a4" : "#0099a4"}
-          /> */}
 
           <Image src={!darkMode ? faSun : faMoon} width="20px" />
         </section>

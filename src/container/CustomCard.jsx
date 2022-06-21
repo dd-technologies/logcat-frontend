@@ -1,6 +1,6 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import Style from "./CustomeCard.module.css";
+import Style from "../css/CustomeCard.module.css";
 
 export default function CustomCard(props) {
   // dark mode state

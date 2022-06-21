@@ -7,7 +7,7 @@ import {
   faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import { faAndroid } from "@fortawesome/free-brands-svg-icons";
-import Style from "./EventDataWithDate.module.css";
+import Style from "../../../css/EventDataWithDate.module.css";
 
 export default function EventDataWithDate() {
   // GETTGIN DATA FROM URL

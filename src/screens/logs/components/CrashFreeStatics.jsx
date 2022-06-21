@@ -1,5 +1,5 @@
 import React from "react";
-import Style from "./CrashFreeStatic.module.css";
+import Style from "../../../css/CrashFreeStatic.module.css";
 import { Row, Col } from "react-bootstrap";
 import CarshFreeStaticsGraph from "../charts/CarshFreeStaticsGraph";
 import CustomCard from "../../../container/CustomCard";
@@ -12,12 +12,6 @@ export default function CrashFreeStatics() {
 
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { data: deviceData } = getModelCodeReducer;
-
-  // const getAllLogByCodeReducer = useSelector(
-  //   (state) => state.getAllLogByCodeReducer
-  // );
-
-  // const { data: userCode } = getAllLogByCodeReducer;
 
   return (
     <>

@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+
+/* eslint-disable */
+import React, { useState } from "react";
 import CustomeDropDown from "../container/DropDown";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { adminLogout } from "../store/action/AdminAction";
-import Style from "./NavBar.module.css";
+import Style from "../css/NavBar.module.css";
 import DarkLightMood from "./DarkLightMood";
 import { ThemeContext } from "./ThemeContext";
 import Bell from "../assets/images/BellIcon.png";
@@ -11,18 +13,17 @@ import Bell from "../assets/images/BellIcon.png";
 export function Navbar(props) {
   const { navigation_details } = props;
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
-  let { theme, sideMenu } = React.useContext(ThemeContext);
+  let { sideMenu } = React.useContext(ThemeContext);
   // console.log("sidemene", sideMenu);
   const { adminInfo } = adminLoginReducer;
 
-  const [avatar, setAvatar] = useState(
+  const avatar = useState(
     adminInfo && adminInfo.image && adminInfo.image
-  );
+  )[0];
 
   // SHOW ACCOUNT DETAILS
 
   const [userInfo, setUserInfo] = useState(false);
-  const ref = useRef();
 
   const dispatch = useDispatch();
   let navigate = useNavigate();
@@ -35,14 +36,6 @@ export function Navbar(props) {
     setUserInfo(!userInfo);
   };
 
-  // console.log(
-  //   "first",
-  //   adminInfo &&
-  //     adminInfo.data &&
-  //     adminInfo.data.name.split(" ")[0].split("")[0]
-  // );
-
-
 
   return (
     <>
@@ -53,11 +46,7 @@ export function Navbar(props) {
               navigation_details.dashName.slice(1)}
           </h5>
 
-          <section
-            className={
-              sideMenu == "sidebar" ? `${Style.detailSection}` : `navBarDetails`
-            }
-          >
+          <section className={sideMenu == "sidebar" ? `${Style.detailSection}` : `navBarDetails`}>
             {/* light and dark mood */}
             <DarkLightMood />
             <img

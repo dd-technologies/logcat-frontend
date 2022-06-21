@@ -1,5 +1,7 @@
+/* eslint-disable */
+
 import React from "react";
-import Style from "./OtpInput.module.css";
+import Style from "../../css/OtpInput.module.css";
 class Otpinput extends React.Component {
   constructor(props) {
     super(props);
@@ -25,8 +27,6 @@ class Otpinput extends React.Component {
   }
 
   handleSubmit(event) {
-    const data = new FormData(event.target);
-    // console.log(this.state);
     event.preventDefault();
   }
 

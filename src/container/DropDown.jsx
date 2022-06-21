@@ -4,9 +4,9 @@ import { Card } from "react-bootstrap";
 export default function CustomeDropDown(props) {
   // dark mood state
 
-  const [darkMood, setDarkMood] = useState(
+  const darkMood = useState(
     JSON.parse(localStorage.getItem("darkMood"))
-  );
+  )[0];
 
   return (
     <>

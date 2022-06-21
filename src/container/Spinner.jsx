@@ -1,5 +1,5 @@
 import React from "react";
-import Style from "./Spinner.module.css";
+import Style from "../css/Spinner.module.css";
 import DDLoader from "../assets/images/ddLoader.gif";
 export default function Spinner(props) {
   return (
@@ -15,7 +15,7 @@ export default function Spinner(props) {
       >
         <img
           className={Style.loader}
-          /* style={{height:'100px', width:'100px'}} */ src={DDLoader}
+          src={DDLoader}
           alt="loading..."
         />
       </section>

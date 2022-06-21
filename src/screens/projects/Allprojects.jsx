@@ -1,10 +1,11 @@
+/* eslint-disable */
+
 import React from "react";
 import CustomCard from "../../container/CustomCard";
 import { Col, Image } from "react-bootstrap";
-import Style from "./Allprojects.module.css";
+import Style from "../../css/Allprojects.module.css";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../../utils/ThemeContext";
-import "../../utils/Theme.css";
 import DateIcons from "../../assets/icons/date.png";
 
 const Allprojects = (props) => {

@@ -1,12 +1,13 @@
+
+/* eslint-disable */
 import React, { useState } from "react";
 import {
-  faUpload,
   faEnvelope,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { Col, Container, Row, Button } from "react-bootstrap";
 import CustomeDropDown from "../../container/DropDown";
-import Style from "./UpdateProfile.module.css";
+import Style from "../../css/UpdateProfile.module.css";
 import LogICon from "../../assets/icons/log.png";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,30 +27,28 @@ export default function UpdateProfile() {
     (state) => state.passwordChangeReducer
   );
 
+  const { data: updatepasswordresponseData } = passwordChangeReducer;
+
   const [name, setname] = useState(
     adminInfo && adminInfo.data && adminInfo.data.name
   );
 
-  const [email, setemail] = useState(
+  const email = useState(
     adminInfo && adminInfo.data && adminInfo.data.email
-  );
+  )[0]
 
-  const [avatar, setAvatar] = useState(
+  const avatar = useState(
     adminInfo && adminInfo.image && adminInfo.image
-  );
+  )[0];
 
-  const {
-    loading: lnd,
-    data: updatepasswordresponseData,
-    error: err,
-  } = passwordChangeReducer;
+
 
   const dispatch = useDispatch();
 
   const [currentpassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewpassword, setConfirmNewPassword] = useState("");
-  const [error, setError] = useState(null);
+  const error = useState(null)[0];
 
   if (
     updatepasswordresponseData &&
@@ -67,17 +66,10 @@ export default function UpdateProfile() {
     );
   }
 
-  const [crop, setCrop] = useState();
 
   // Update profile data
   const handleSubmit = (e) => {
     dispatch(updateProfile(email, name, avatar));
-  };
-
-  // Upload Avatar
-  const handleUpload = (e) => {
-    const file = e.target.files;
-    setAvatar(file[0]);
   };
 
   // Show password
@@ -188,6 +180,7 @@ export default function UpdateProfile() {
                       <input
                         type="file"
                         id="image_upload"
+                        autoComplete="Enter your email"
                         accept=".jpg, .jpeg, .png"
                         style={{ display: "none", visibility: "none" }}
                         onChange={(e) => handleUpload(e)}
@@ -205,11 +198,10 @@ export default function UpdateProfile() {
                         <input
                           style={{ color: "#212529", opacity: ".7" }}
                           type="email"
+                          autoComplete="Enter your name"
                           value={name}
                           className="form-control LoginForminput"
-                          id="exampleInputEmail1"
-                          placeholder="Enter your email"
-                          aria-describedby="emailHelp"
+                          placeholder="Enter your name"
                           onChange={(e) => {
                             setname(e.target.value);
                           }}
@@ -230,11 +222,10 @@ export default function UpdateProfile() {
                         <input
                           style={{ color: "#212529", opacity: ".7" }}
                           type="email"
+                          autoComplete="Enter your email"
                           value={email}
                           className="form-control LoginForminput"
-                          id="exampleInputEmail1"
                           placeholder="Enter your email"
-                          aria-describedby="emailHelp"
                           disabled="disabled"
                         />
                       </div>

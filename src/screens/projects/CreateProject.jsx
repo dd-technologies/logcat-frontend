@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import Style from "./CreateProject.module.css";
+import Style from "../../css/CreateProject.module.css";
 import CustomCard from "../../container/CustomCard";
 import { Row, Col, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +15,6 @@ import { toast } from "react-hot-toast";
 import AddProjectModal from "./model/AddProjectModal";
 import Spinner from "../../container/Spinner";
 import { adminLogout } from "../../store/action/AdminAction";
-import "../../utils/Theme.css";
 import CustomeDropDown from "../../container/DropDown";
 
 function CreateProject() {
@@ -32,9 +31,9 @@ function CreateProject() {
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { adminInfo } = adminLoginReducer;
 
-  const [avatar, setAvatar] = useState(
+  const avatar = useState(
     adminInfo && adminInfo.image && adminInfo.image
-  );
+  )[0];
 
   const createNewProjectReducer = useSelector(
     (state) => state.createNewProjectReducer
@@ -198,10 +197,10 @@ function CreateProject() {
 
               {allProjectData &&
                 allProjectData.data.data.length &&
-                allProjectData.data.data.map((data) => (
-                  <>
-                    <ProjectCard data={data} key={data._id} />
-                  </>
+                allProjectData.data.data.map((data, i) => (
+                  <Fragment key={i}>
+                    <ProjectCard data={data} />
+                  </Fragment>
                 ))}
             </Row>
           </Container>

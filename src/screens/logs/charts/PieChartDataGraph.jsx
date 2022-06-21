@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
@@ -62,22 +64,6 @@ export default function PieChartDataGraph() {
         },
       },
     },
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            fontSize: 5,
-          },
-        },
-      ],
-      xAxes: [
-        {
-          ticks: {
-            fontSize: 5,
-          },
-        },
-      ],
-    },
   };
 
   return (
@@ -91,7 +77,7 @@ export default function PieChartDataGraph() {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              color: theme == "light-theme" ?  `#000` : `#fff`,
+              color: theme == "light-theme" ? `#000` : `#fff`,
             }}
           >
             No data found

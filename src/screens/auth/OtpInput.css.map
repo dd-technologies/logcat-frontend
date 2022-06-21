@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AACA,AAAA,aAAa,CAAC;EACb,OAAO,EAAE,IAAI;CAOb;;AARD,AAEC,aAFY,CAEV,KAAK,CAAA;EACN,KAAK,EAAE,cAAc;EACrB,MAAM,EAAE,IAAI;EACZ,UAAU,EAAE,MAAM;CAElB",
-    "sources": [
-        "OtpInput.scss"
-    ],
-    "names": [],
-    "file": "OtpInput.css"
-}
