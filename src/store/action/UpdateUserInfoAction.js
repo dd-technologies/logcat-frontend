@@ -1,33 +1,37 @@
 import axios from "axios";
-import { UPDATE_FAIL, UPDATE_REQUEST, UPDATE_SUCSESS } from "../types/UpdateUserInfoConstant";
+import { UPDATE_FAIL, UPDATE_REQUEST, UPDATE_SUCSESS } from "../types/UpdateUserInfoConstants";
 
-export const UpdateUserInfoActionFn = () => async (dispatch) => {
+
+export const updateUserInfoAction = (name) => async (dispatch) => {
     try {
         dispatch({
-            type: UPDATE_REQUEST,
+            type: UPDATE_FAIL,
         });
 
         const token = localStorage.getItem("ddAdminToken");
+
         const config = {
             headers: {
                 "Content-type": "application/json",
                 Authorization: `Bearer ${token}`,
             },
         };
+        console.log("token", name)
 
-        const response = await axios.get(
-            `${process.env.REACT_APP_BASE_URL}/api/logger/users`,
-            config
+        const { data } = await axios.put(
+            `${process.env.REACT_APP_BASE_URL}/api/logger/users/update`,
+            { name },
+            config,
         );
         dispatch({
-            type: UPDATE_SUCSESS,
-            payload: response.data,
+            type: UPDATE_REQUEST,
+            payload: data,
         });
     } catch (error) {
         // console.log("get log count api error", error);
 
         dispatch({
-            type: UPDATE_FAIL,
+            type: UPDATE_SUCSESS,
             payload:
                 error &&
                 error.response &&

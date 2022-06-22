@@ -1,6 +1,6 @@
-import { UPDATE_REQUEST, UPDATE_SUCSESS } from "../types/UpdateUserInfoConstant";
+import { UPDATE_FAIL, UPDATE_REQUEST, UPDATE_SUCSESS } from "../types/UpdateUserInfoConstants";
 
-export const UpdateUserInfoReducer = (state = {}, action) => {
+export const updateUserInfoReducer = (state = {}, action) => {
     switch (action.type) {
         case UPDATE_REQUEST:
             return {
@@ -11,7 +11,7 @@ export const UpdateUserInfoReducer = (state = {}, action) => {
                 loading: false,
                 data: action.payload,
             };
-        case UPDATE_SUCSESS:
+        case UPDATE_FAIL:
             return {
                 loading: false,
                 error: action.payload,

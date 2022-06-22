@@ -47,7 +47,7 @@ input[type=checkbox] {
   align-items: center;
   border-radius: 5px;
   border: solid rgb(226, 226, 226) 1px;
-  padding: 5px;
+  margin: 5px;
   width: 60%;
   height: 40px;
 }
@@ -153,7 +153,7 @@ input[type=checkbox] {
   background-color: #0099a4;
   color: #fff;
   border-radius: 10px;
-  padding: 5px;
+  margin: 5px;
   display: flex;
   align-items: center;
 }
@@ -161,7 +161,7 @@ input[type=checkbox] {
 .DateSection input {
   margin-top: 10px;
   border-radius: 10px;
-  padding: 5px;
+  margin: 5px;
   border: 1px solid rgba(0, 0, 0, 0.6);
 }
 
@@ -177,7 +177,7 @@ input[type=checkbox] {
 .perPageOuter .perPagesectionInnerActive {
   background-color: #0099a4 !important;
   color: #fff;
-  padding: 5px;
+  margin: 5px;
   border-radius: 30px;
   width: 30px;
   height: 30px;
@@ -188,7 +188,7 @@ input[type=checkbox] {
 
 .DefaultOption {
   color: #0099a4;
-  padding: 5px;
+  margin: 5px;
 }
 
 .StatusInnerSecion {
@@ -206,7 +206,7 @@ input[type=checkbox] {
   height: 50px;
 }
 .tableSection .headerTable .header_inner {
-  padding: 5px;
+  margin: 5px;
   display: flex;
   align-items: center;
   font-weight: 500;
@@ -214,68 +214,68 @@ input[type=checkbox] {
 }
 @media screen and (min-width: 600px) and (max-width: 959px) {
   .tableSection .headerTable .header_inner :nth-child(1) {
-    padding: 5px;
+    margin: 5px;
     width: 20px !important;
   }
   .tableSection .headerTable .header_inner :nth-child(2) {
     width: 220px !important;
-    padding: 5px;
+    margin: 5px;
   }
   .tableSection .headerTable .header_inner :nth-child(3) {
     width: 100px !important;
-    padding: 5px;
+    margin: 5px;
   }
   .tableSection .headerTable .header_inner :nth-child(4) {
     width: 80px !important;
-    padding: 5px;
+    margin: 5px;
   }
   .tableSection .headerTable .header_inner :nth-child(5) {
     width: 80px !important;
-    padding: 5px;
+    margin: 5px;
   }
 }
 @media screen and (min-width: 960px) and (max-width: 1279px) {
   .tableSection .headerTable .header_inner :nth-child(1) {
-    padding: 5px;
+    margin: 5px;
     width: 20px !important;
   }
   .tableSection .headerTable .header_inner :nth-child(2) {
     width: 340px !important;
-    padding: 5px;
+    margin: 5px;
   }
   .tableSection .headerTable .header_inner :nth-child(3) {
-    width: 140px !important;
-    padding: 5px;
+    width: 200px !important;
+    margin: 5px;
   }
   .tableSection .headerTable .header_inner :nth-child(4) {
     width: 100px !important;
-    padding: 5px;
+    margin: 5px;
   }
   .tableSection .headerTable .header_inner :nth-child(5) {
     width: 100px !important;
-    padding: 5px;
+    margin: 5px;
   }
 }
 @media screen and (min-width: 1280px) and (max-width: 1480px) {
   .tableSection .headerTable .header_inner :nth-child(1) {
-    padding: 5px;
+    margin: 5px;
     width: 20px !important;
   }
   .tableSection .headerTable .header_inner :nth-child(2) {
     width: 480px !important;
-    padding: 5px;
+    margin: 5px;
   }
   .tableSection .headerTable .header_inner :nth-child(3) {
     width: 200px !important;
-    padding: 5px;
+    margin: 5px;
   }
   .tableSection .headerTable .header_inner :nth-child(4) {
     width: 120px !important;
-    padding: 5px;
+    margin: 5px;
   }
   .tableSection .headerTable .header_inner :nth-child(5) {
     width: 120px !important;
-    padding: 5px;
+    margin: 5px;
   }
 }
 .tableSection .headerTable .header_inner :nth-child(1) {
@@ -294,17 +294,17 @@ input[type=checkbox] {
   width: 200px;
 }
 .tableSection .body_table .body_inner {
-  padding: 5px;
+  margin: 5px;
   display: flex;
   align-items: center;
 }
 @media screen and (min-width: 600px) and (max-width: 959px) {
   .tableSection .body_table .body_inner :nth-child(1) {
-    padding: 5px;
+    margin: 5px;
     width: 20px !important;
   }
   .tableSection .body_table .body_inner :nth-child(2) {
-    padding: 5px;
+    margin: 5px;
     width: 220px !important;
   }
   .tableSection .body_table .body_inner :nth-child(2) .innerLogMsg {
@@ -326,66 +326,26 @@ input[type=checkbox] {
     align-items: center;
   }
   .tableSection .body_table .body_inner :nth-child(3) {
-    padding: 5px;
+    margin: 5px;
     width: 100px !important;
   }
   .tableSection .body_table .body_inner :nth-child(4) {
-    padding: 5px;
+    margin: 5px;
     width: 80px !important;
   }
   .tableSection .body_table .body_inner :nth-child(5) {
-    padding: 5px;
+    margin: 5px;
     width: 80px !important;
   }
 }
 @media screen and (min-width: 960px) and (max-width: 1279px) {
   .tableSection .body_table .body_inner :nth-child(1) {
-    padding: 5px;
+    margin: 5px;
     width: 20px !important;
   }
   .tableSection .body_table .body_inner :nth-child(2) {
     width: 340px !important;
-    padding: 5px;
-  }
-  .tableSection .body_table .body_inner :nth-child(2) .innerLogMsg {
-    width: 310px !important;
-    display: flex;
-    justify-content: space-between;
-  }
-  .tableSection .body_table .body_inner :nth-child(2) .innerLogMsg p {
-    width: 315px !important;
-    cursor: not-allowed;
-  }
-  .tableSection .body_table .body_inner :nth-child(2) .innerLogMsg section {
-    background: #0099A4;
-    width: 25px !important;
-    height: 25px !important;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .tableSection .body_table .body_inner :nth-child(3) {
-    width: 140px !important;
-    padding: 5px;
-  }
-  .tableSection .body_table .body_inner :nth-child(4) {
-    width: 100px !important;
-    padding: 5px;
-  }
-  .tableSection .body_table .body_inner :nth-child(5) {
-    width: 100px !important;
-    padding: 5px;
-  }
-}
-@media screen and (min-width: 1280px) and (max-width: 1480px) {
-  .tableSection .body_table .body_inner :nth-child(1) {
-    padding: 5px;
-    width: 20px !important;
-  }
-  .tableSection .body_table .body_inner :nth-child(2) {
-    width: 480px !important;
-    padding: 5px;
+    margin: 5px;
   }
   .tableSection .body_table .body_inner :nth-child(2) .innerLogMsg {
     width: 310px !important;
@@ -407,18 +367,98 @@ input[type=checkbox] {
   }
   .tableSection .body_table .body_inner :nth-child(3) {
     width: 200px !important;
-    padding: 5px;
+    margin: 5px;
+  }
+  .tableSection .body_table .body_inner :nth-child(4) {
+    width: 100px !important;
+    margin: 5px;
+  }
+  .tableSection .body_table .body_inner :nth-child(5) {
+    width: 100px !important;
+    margin: 5px;
+  }
+}
+@media screen and (min-width: 1280px) and (max-width: 1480px) {
+  .tableSection .body_table .body_inner :nth-child(1) {
+    margin: 5px;
+    width: 20px !important;
+  }
+  .tableSection .body_table .body_inner :nth-child(2) {
+    width: 480px !important;
+    margin: 5px;
+  }
+  .tableSection .body_table .body_inner :nth-child(2) .innerLogMsg {
+    width: 310px !important;
+    display: flex;
+    justify-content: space-between;
+  }
+  .tableSection .body_table .body_inner :nth-child(2) .innerLogMsg p {
+    width: 315px !important;
+    cursor: not-allowed;
+  }
+  .tableSection .body_table .body_inner :nth-child(2) .innerLogMsg section {
+    background: #0099A4;
+    width: 25px !important;
+    height: 25px !important;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .tableSection .body_table .body_inner :nth-child(3) {
+    width: 200px !important;
+    margin: 5px;
   }
   .tableSection .body_table .body_inner :nth-child(4) {
     width: 120px !important;
-    padding: 5px;
+    margin: 5px;
   }
   .tableSection .body_table .body_inner :nth-child(5) {
     width: 120px !important;
-    padding: 5px;
+    margin: 5px;
   }
 }
-@media screen and (min-width: 1280px) and (max-width: 1919px) {
+@media screen and (min-width: 1480px) and (max-width: 1919px) {
+  .tableSection .body_table .body_inner :nth-child(1) {
+    margin: 5px;
+    width: 20px !important;
+  }
+  .tableSection .body_table .body_inner :nth-child(2) {
+    width: 480px !important;
+    margin: 5px;
+  }
+  .tableSection .body_table .body_inner :nth-child(2) .innerLogMsg {
+    width: 310px !important;
+    display: flex;
+    justify-content: space-between;
+  }
+  .tableSection .body_table .body_inner :nth-child(2) .innerLogMsg p {
+    width: 315px !important;
+    cursor: not-allowed;
+  }
+  .tableSection .body_table .body_inner :nth-child(2) .innerLogMsg section {
+    background: #0099A4;
+    width: 25px !important;
+    height: 25px !important;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .tableSection .body_table .body_inner :nth-child(3) {
+    width: 200px !important;
+    margin: 5px;
+  }
+  .tableSection .body_table .body_inner :nth-child(4) {
+    width: 120px !important;
+    margin: 5px;
+  }
+  .tableSection .body_table .body_inner :nth-child(5) {
+    width: 120px !important;
+    margin: 5px;
+  }
+}
+@media screen and (min-width: 1920px) and (max-width: 5000px) {
   .tableSection .body_table .body_inner :nth-child(1) {
     width: 40px;
     font-size: 0.9rem;

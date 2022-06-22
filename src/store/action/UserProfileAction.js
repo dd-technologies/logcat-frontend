@@ -1,9 +1,6 @@
 import axios from "axios";
-import {
-  USER_PASSWORD_CHANGE_REQUEST,
-  USER_PASSWORD_CHANGE_SUCESS,
-  USER_PASSWORD_CHANGE_FAIL,
-} from "../types/UserConstants";
+import { USER_PASSWORD_CHANGE_REQUEST, USER_PASSWORD_CHANGE_SUCESS, USER_PASSWORD_CHANGE_FAIL, } from "../types/UserConstants";
+import { UPDATE_FAIL, UPDATE_REQUEST, UPDATE_SUCSESS, USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCSESS } from "../types/UserInfoConstant";
 
 // USER PASSWORD UPDATE
 export const passwordChangeAction =
@@ -49,3 +46,43 @@ export const passwordChangeAction =
       });
     }
   };
+
+
+
+export const userInfoActionFn = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_DETAILS_REQUEST,
+    });
+
+    const token = localStorage.getItem("ddAdminToken");
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/logger/users`,
+      config
+    );
+    dispatch({
+      type: USER_DETAILS_SUCSESS,
+      payload: response.data,
+    });
+  } catch (error) {
+    // console.log("get log count api error", error);
+
+    dispatch({
+      type: USER_DETAILS_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.err.msg,
+    });
+  }
+};

@@ -16,7 +16,7 @@
     align-items: center;
     border-radius: 5px;
     border: solid rgb(226, 226, 226) 1px;
-    padding: 5px;
+    margin: 5px;
     width: 60%;
     height: 40px;
   }
@@ -59,12 +59,12 @@
 }
 
 .productVersion {
-  padding: 5px;
+  margin: 5px;
   cursor: pointer;
   &:hover {
     background-color: $backgroundColor;
     width: 100%;
-    padding: 5px;
+    margin: 5px;
     color: $defaultTextColor;
     transition-duration: 0.3s;
     display: flex;
@@ -81,7 +81,7 @@
     background-color: #efefef;
 
     .header_inner {
-      padding: 5px;
+      margin: 5px;
       display: flex;
       align-items: center;
       font-size: 1rem;
@@ -114,7 +114,7 @@
       width: 40px;
     }
     .header :nth-child(2) {
-      width: 220px;
+      width: 300px;
     }
     .header :nth-child(3) {
       width: 120px;
@@ -150,7 +150,7 @@
     }
   }
 
-  @include lg {
+  @include xl {
     .header :nth-child(1) {
       width: 40px;
     }
@@ -177,7 +177,7 @@
     font-size: 0.9rem;
 
     .bodyStyle_inner {
-      padding: 5px;
+      margin: 5px;
       display: flex;
     }
   }
@@ -206,7 +206,7 @@
       width: 40px;
     }
     .bodyStyle :nth-child(2) {
-      width: 220px;
+      width: 300px;
     }
     .bodyStyle :nth-child(3) {
       width: 120px;
@@ -241,7 +241,7 @@
       width: 140px;
     }
   }
-  @include lg {
+  @include xl {
     .bodyStyle :nth-child(1) {
       width: 40px;
     }

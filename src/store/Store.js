@@ -16,27 +16,13 @@ import {
 } from "./reducer/AdminReducer";
 
 import {
-  getAllProjectReducer,
-  getAllLogByCodeReducer,
-  createNewProjectReducer,
-  getLogCountsReducer,
-  getLogCountsByDateReducer,
-  getErrorWRTOSReducer,
-  getErrorWRTVersionReducer,
-  getDeviceInfoReducer,
-  getLogMsgOccurenceWRTDateReducer,
-  getCrashFreeUsersReducer,
-  getCrashAnalyticsDataReducer,
-  getCrashFreeUsersDataReducer,
-  getModelCodeReducer,
-  addCrashEmailReducer,
-  getProjectByCodeSettingReducer,
+  getAllProjectReducer, getAllLogByCodeReducer, createNewProjectReducer, getLogCountsReducer, getLogCountsByDateReducer, getErrorWRTOSReducer, getErrorWRTVersionReducer, getDeviceInfoReducer,
+  getLogMsgOccurenceWRTDateReducer, getCrashFreeUsersReducer, getCrashAnalyticsDataReducer, getCrashFreeUsersDataReducer, getModelCodeReducer, addCrashEmailReducer, getProjectByCodeSettingReducer,
 } from "./reducer/ProjectReducer";
-import { passwordChangeReducer } from "./reducer/UserProfileReducer";
+import { passwordChangeReducer, userInfoReducer } from "./reducer/UserProfileReducer";
 
 import { alarmReducer } from "./reducer/AlarmReducer";
-import { UpdateUserInfoReducer } from "./reducer/UpdateUserInfoReducer";
-
+import { updateUserInfoReducer } from "./reducer/UpdateUserInfoReducer"
 
 const appReducer = combineReducers({
   adminLoginReducer,
@@ -66,7 +52,8 @@ const appReducer = combineReducers({
   getProjectByCodeSettingReducer,
 
   alarmReducer,
-  UpdateUserInfoReducer
+  userInfoReducer,
+  updateUserInfoReducer
 });
 
 const persistConf = {
