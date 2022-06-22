@@ -1,6 +1,6 @@
 
 /* eslint-disable */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   faEnvelope,
   faUser,
@@ -17,10 +17,13 @@ import { updateProfile } from "../../store/action/AdminAction";
 import UpdatePassord from "./UpdatePassord";
 import SideBar from "../../utils/Sidebar";
 import { Navbar } from "../../utils/NavBar";
+import { UpdateUserInfoActionFn } from "../../store/action/UpdateUserInfoAction";
 
 export default function UpdateProfile() {
-  const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
-  const { adminInfo } = adminLoginReducer;
+  const UpdateUserInfoReducer = useSelector((state) => state.UpdateUserInfoReducer);
+  const { data } = UpdateUserInfoReducer;
+
+  console.log("data", data)
 
   // update profile reducer
   const passwordChangeReducer = useSelector(
@@ -29,17 +32,11 @@ export default function UpdateProfile() {
 
   const { data: updatepasswordresponseData } = passwordChangeReducer;
 
-  const [name, setname] = useState(
-    adminInfo && adminInfo.data && adminInfo.data.name
-  );
+  const [name, setname] = useState(data && data.data && data.data.user && data.data.user.name);
 
-  const email = useState(
-    adminInfo && adminInfo.data && adminInfo.data.email
-  )[0]
+  const email = useState(data && data.data && data.data.user && data.data.user.email)[0]
 
-  const avatar = useState(
-    adminInfo && adminInfo.image && adminInfo.image
-  )[0];
+  const avatar = useState(data && data.data && data.data.user && data.data.user.image)[0];
 
 
 
@@ -135,6 +132,11 @@ export default function UpdateProfile() {
     dispatch(passwordChangeAction(currentpassword, newPassword));
   };
 
+  useEffect(() => {
+    dispatch(UpdateUserInfoActionFn())
+  }, [])
+
+
   return (
     <>
       <Row className="rowSection">
@@ -166,9 +168,9 @@ export default function UpdateProfile() {
                       {avatar ? (
                         <img src={URL.createObjectURL(avatar)} alt="Avatar" />
                       ) : (
-                        adminInfo &&
-                        adminInfo.data &&
-                        adminInfo.data.name
+                        data &&
+                        data.data && data.data.user &&
+                        data.data.user.name
                           .split(" ")
                           .map((name) => name[0][0].toUpperCase())
                       )}
