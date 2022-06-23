@@ -5,11 +5,9 @@ import "../css/Pagination.css";
 import { useDispatch } from "react-redux";
 import { alarmAction } from "../store/action/AlarmAction";
 import { getProjectByCode } from "../store/action/ProjectAction";
-import { ThemeContext } from "../utils/ThemeContext";
 
 
 const Pagination = (props) => {
-  const { theme } = React.useContext(ThemeContext);
   const dispatch = useDispatch();
   var url_string = window.location.href;
   var url = new URL(url_string);

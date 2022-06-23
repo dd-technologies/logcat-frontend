@@ -322,13 +322,13 @@ export default function AlertsNew() {
               <Col xl={2} md={3} sm={3} className={Style.filterWithDate}>
                 <section className={Style.filterwithDate} ref={ref}>
                   <section className={Style.datafilter} onClick={DateFilter}>
-                    <Image src={DateIcons} />
+                    <Image src={DateIcons} width="20px" style={{ filter: "invert(45%) sepia(99%) saturate(341%) hue-rotate(135deg) brightness(91%) contrast(91%)" }} />
                     <p
-                        style={{
-                          fontSize: ".9rem",
-                        }}
-                        className="m-2 darkModeColor"
-                      >
+                      style={{
+                        fontSize: ".9rem",
+                      }}
+                      className="m-2 darkModeColor"
+                    >
                       {currentStateAlerts.diffDate == 10
                         ? `last 10 days`
                         : currentStateAlerts.diffDate == 7

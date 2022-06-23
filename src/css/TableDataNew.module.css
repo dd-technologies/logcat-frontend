@@ -132,12 +132,12 @@
 }
 
 .customeTable .tableHeader {
-  border-bottom: 1px solid rgba(51, 51, 51, 0.137);
-  padding: 10px 6px;
+  padding: 10px 10px;
   display: grid;
   grid-template-columns: 5% 22% 13% 20% 15% 12.5% 12.5%;
   font-weight: 500;
   font-size: 0.9rem !important;
+  background-color: rgba(122, 122, 122, 0.082);
 }
 @media screen and (min-width: 600px) and (max-width: 959px) {
   .customeTable .tableHeader {
@@ -151,7 +151,7 @@
 }
 .customeTable .tableBody {
   border-bottom: 1px solid rgba(51, 51, 51, 0.137);
-  padding: 6px;
+  padding: 10px;
   display: grid;
   grid-template-columns: 5% 22% 13% 20% 15% 12.5% 12.5%;
   font-size: 0.9rem;
@@ -168,7 +168,5 @@
 }
 .customeTable .logMsg {
   text-decoration: none;
-}
-.customeTable .logMsg :hover {
-  text-decoration: underline;
+  cursor: pointer !important;
 }/*# sourceMappingURL=TableDataNew.module.css.map */

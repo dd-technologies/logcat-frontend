@@ -110,8 +110,8 @@ export default function TableDataNew(props) {
       end: JSON.parse(localStorage.getItem("selected_date")).end,
     },
     searchField: "",
-    allCheckBox: false,
-    singleCheckbox: false,
+    // allCheckBox: false,
+    // singleCheckbox: false,
   };
 
   const [currentStateTableData, dispatchTableData] = useReducer(
@@ -120,6 +120,11 @@ export default function TableDataNew(props) {
   );
 
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [checkboxSelectState, setCheckboxSelectState] = useState({
+    allRowSelect: false,
+    rowSelect: []
+  })
 
   useMemo(() => {
     const firstPageIndex = (currentPage - 1) * currentStateTableData.record;
@@ -541,49 +546,59 @@ export default function TableDataNew(props) {
     });
   }
 
-  const allCheckBoxFun = () => {
-    // @@ FOR SELECTION ITEMS IS TRITE AS THE EVENT  items == e
-    dispatchTableData({
-      type: ALL_CHECkBOX,
-      data: !currentStateTableData.allCheckBox,
-    });
-  };
+  // const allCheckBoxFun = () => {
+  //   // @@ FOR SELECTION ITEMS IS TRITE AS THE EVENT  items == e
+  //   dispatchTableData({
+  //     type: ALL_CHECkBOX,
+  //     data: !currentStateTableData.allCheckBox,
+  //   });
+  // };
 
-  let newItemsArray = [];
-  const singleCheckboxFun = (event, item, index) => {
-    newItemsArray.push(item);
+  // let newItemsArray = [];
+  // const singleCheckboxFun = (event, item, index) => {
+  //   newItemsArray.push(item);
 
-    var downloadButtonId = document.getElementById("download_button");
+  //   var downloadButtonId = document.getElementById("download_button");
 
-    if (newItemsArray.length >= 2) {
-      // @@ conditions---
-      /*
-      sorting array for removing last tow duplicate indexs
-     */
-      newItemsArray = newItemsArray.sort((a, b) => {
-        const firstObjectKey = parseInt(Object.keys(a));
-        const secondObjectKey = parseInt(Object.keys(b));
-        // console.log("first array", parseInt(firstObjectKey))
-        if (firstObjectKey < secondObjectKey) return -1;
-        if (firstObjectKey > secondObjectKey) return 1;
-        return 0;
-      });
-    }
+  //   if (newItemsArray.length >= 2) {
+  //     // @@ conditions---
+  //     /*
+  //     sorting array for removing last tow duplicate indexs
+  //    */
+  //     newItemsArray = newItemsArray.sort((a, b) => {
+  //       const firstObjectKey = parseInt(Object.keys(a));
+  //       const secondObjectKey = parseInt(Object.keys(b));
+  //       // console.log("first array", parseInt(firstObjectKey))
+  //       if (firstObjectKey < secondObjectKey) return -1;
+  //       if (firstObjectKey > secondObjectKey) return 1;
+  //       return 0;
+  //     });
+  //   }
 
-    if (newItemsArray.length) {
-      downloadButtonId.style.opacity = "100%";
-    }
+  //   if (newItemsArray.length) {
+  //     downloadButtonId.style.opacity = "100%";
+  //   }
 
-    let arrayLastIndex = newItemsArray.slice(-1)[0]._id;
-    let arraySecondLastIndex =
-      newItemsArray.length >= 2 ? newItemsArray.slice(-2, -1)[0]._id : null;
+  //   let arrayLastIndex = newItemsArray.slice(-1)[0]._id;
+  //   let arraySecondLastIndex =
+  //     newItemsArray.length >= 2 ? newItemsArray.slice(-2, -1)[0]._id : null;
 
-    if (arrayLastIndex == arraySecondLastIndex) {
-      newItemsArray.pop();
-      newItemsArray.pop();
-    }
-    if (!newItemsArray.length) downloadButtonId.style.opacity = "30%";
-  };
+  //   if (arrayLastIndex == arraySecondLastIndex) {
+  //     newItemsArray.pop();
+  //     newItemsArray.pop();
+  //   }
+  //   if (!newItemsArray.length) downloadButtonId.style.opacity = "30%";
+  // };
+
+  const rowSelectFn = (data, index) => {
+    // console.log("rowSelected", data, index)
+  }
+
+  const allCheckBoxFn = () => {
+
+  }
+
+
 
   // @@ DOWNLOAD FUNCTION
   const handleDownload = (row) => {
@@ -657,26 +672,26 @@ export default function TableDataNew(props) {
             </section>
           </section>
           <section
-            id="download_button"
-            style={{
-              opacity:
-                currentStateTableData.allCheckBox ||
-                  currentStateTableData.singleCheckbox
-                  ? "100%"
-                  : "30%",
-            }}
-            onClick={() =>
-              (currentStateTableData.allCheckBox || newItemsArray.length) &&
-              downloadCSVFun({
-                data: currentStateTableData.allCheckBox
-                  ? tableData
-                  : newItemsArray,
-                fileName: `${props.code}.csv`,
-                fileType: "text/csv;charset=utf-8;",
-              })
-            }
+          // id="download_button"
+          // style={{
+          //   opacity:
+          //     currentStateTableData.allCheckBox ||
+          //       currentStateTableData.singleCheckbox
+          //       ? "100%"
+          //       : "30%",
+          // }}
+          // onClick={() =>
+          //   (currentStateTableData.allCheckBox || newItemsArray.length) &&
+          //   downloadCSVFun({
+          //     data: currentStateTableData.allCheckBox
+          //       ? tableData
+          //       : newItemsArray,
+          //     fileName: `${props.code}.csv`,
+          //     fileType: "text/csv;charset=utf-8;",
+          //   })
+          // }
           >
-            <FontAwesomeIcon icon={faDownload} style={{ background: "#21969D", padding: "10px", borderRadius: "5px" }} />
+            <FontAwesomeIcon icon={faDownload} style={{ background: "#21969D", padding: "10px", borderRadius: "5px", color: "#fff" }} />
           </section>
         </section>
 
@@ -684,7 +699,8 @@ export default function TableDataNew(props) {
         <section className={Style.customeTable}>
           <section className={Style.tableHeader}>
             <section>
-              <input type="checkbox" onChange={allCheckBoxFun} />
+              <input type="checkbox" value={checkboxSelectState.allRowSelect} onChange={allCheckBoxFn} />
+              {/* onChange={allCheckBoxFun}  */}
             </section>
             <section style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>
               Log Message
@@ -835,21 +851,31 @@ export default function TableDataNew(props) {
               <React.Fragment key={item._id}>
                 {console.log(item)}
                 <section className={Style.tableBody}>
-                  <section>
+                  <section style={{ display: "flex", alignItems: "center" }}>
                     <input
-                      id={`singleItem ${index}`}
+                      // id={`singleItem ${index}`}
                       type="checkbox"
-                      checked={
-                        currentStateTableData.allCheckBox
-                          ? "checked"
-                          : null
-                      }
-                      onChange={(e) => singleCheckboxFun(e, item, index)}
+                      // checked={
+                      //   currentStateTableData.allCheckBox
+                      //     ? "checked"
+                      //     : null
+                      // }
+
+                      // onChange={
+                      //   currentStateTableData.allCheckBox ? null :
+                      //     (e) => {
+                      //       singleCheckboxFun(e, item, index)
+                      //     }}
+
+                      value={checkboxSelectState.rowSelect}
+                      onChange={() => rowSelectFn(item, index)}
+
+
                     />
                   </section>
-                  <section>
+                  <section style={{ width: "80%" }} >
                     {item && item.log && item.log.filePath ? (
-                      <section>
+                      <section style={{ cursor: "pointer" }}>
                         <p onClick={() => handleDownload(item)}>
                           {item.log.file}
                         </p>
@@ -867,15 +893,13 @@ export default function TableDataNew(props) {
                           ? item.log.file
                           : item.log.message.includes("at ")
                             ? item.log.message.split("at ")[0]
-                            : item.log.message.includes(":")
-                              ? item.log.message.split(": ")[0]
-                              : item.log.message}
+                            : item.log.message}
                       </a>
                     )}
                   </section>
                   <section>
-                    <p style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>{item.log.message && "Text"}</p>
-                    <p style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>{item.log.filePath && "File"}</p>
+                    <p style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>{item.log.message && "TEXT"}</p>
+                    <p style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>{item.log.filePath && "FILE"}</p>
                   </section>
 
 

@@ -19,8 +19,8 @@ export default function DarkLightMood() {
             changeTheme(darkMode ? themes.light : themes.dark);
           }}
         >
+          {darkMode ? <Image src={faMoon} width="16px" /> : <Image src={faSun} width="28px" />}
 
-          <Image src={!darkMode ? faSun : faMoon} width="20px" />
         </section>
       )}
     </ThemeContext.Consumer>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { USER_PASSWORD_CHANGE_REQUEST, USER_PASSWORD_CHANGE_SUCESS, USER_PASSWORD_CHANGE_FAIL, } from "../types/UserConstants";
-import { UPDATE_FAIL, UPDATE_REQUEST, UPDATE_SUCSESS, USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCSESS } from "../types/UserInfoConstant";
+import { USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCSESS } from "../types/UserInfoConstant";
 
 // USER PASSWORD UPDATE
 export const passwordChangeAction =
