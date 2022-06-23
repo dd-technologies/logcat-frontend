@@ -210,8 +210,6 @@ export default function TableDataNew(props) {
       logMsg = logMsg.replaceAll("\n\t", "");
       csv += `${logMsg}\t${data[i].device.did}\t${data[i].log.type}\t${data[i].ack.date.split("T")[0]
         }\t${data[i].ack.date.split("T")[1].split(".")[0]}`;
-
-      // }
       csv += "\n";
     }
 
@@ -645,16 +643,18 @@ export default function TableDataNew(props) {
             onChange={handleSearchFunc}
           />
           {/* Chips section */}
-          <section className={Style.chipOuter}>
-            {currentStateTableData.logType.info && chipsSection[0]}
-            {currentStateTableData.logType.warn && chipsSection[1]}
-            {currentStateTableData.logType.error && chipsSection[2]}
-            {currentStateTableData.logType.debug && chipsSection[3]}
-            {currentStateTableData.logType.verbose && chipsSection[4]}
+          <section className={Style.chipExportSection}>
+            <section className={Style.chipInner}>
+              {currentStateTableData.logType.info && chipsSection[0]}
+              {currentStateTableData.logType.warn && chipsSection[1]}
+              {currentStateTableData.logType.error && chipsSection[2]}
+              {currentStateTableData.logType.debug && chipsSection[3]}
+              {currentStateTableData.logType.verbose && chipsSection[4]}
 
-            {/* DATE CHIPS */}
-            {currentStateTableData.dateState.start && dateChips[0]}
-            {currentStateTableData.dateState.end && dateChips[1]}
+              {/* DATE CHIPS */}
+              {currentStateTableData.dateState.start && dateChips[0]}
+              {currentStateTableData.dateState.end && dateChips[1]}
+            </section>
           </section>
           <section
             id="download_button"
@@ -676,317 +676,245 @@ export default function TableDataNew(props) {
               })
             }
           >
-            <section className={Style.filterGraphFirstSection}>
-              <FontAwesomeIcon icon={faDownload} />
-            </section>
+            <FontAwesomeIcon icon={faDownload} style={{ background: "#21969D", padding: "10px", borderRadius: "5px" }} />
           </section>
         </section>
 
         {/*  TABLE */}
-        <section className={Style.tableSection}>
-          <section>
-            <section className={Style.headerTable}>
-              <section className={Style.header_inner}>
-                <section className={Style.header_row}>
-                  <input type="checkbox" onChange={allCheckBoxFun} />
-                </section>
-                <section className={Style.header_row}>
-                  <section className={Style.sortIcons}>
-                    Log Message
-                    <span
-                      style={{ cursor: "pointer" }}
-                      className="ps-2"
-                      onClick={() =>
-                        sortTableFunLM(callbackfnDispatchGetAllData)
-                      }
-                    >
-                      {currentStateTableData.sortIconFilter.LM ? (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortDown}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                LM: false,
-                              },
-                            });
-                          }}
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortUp}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                LM: true,
-                              },
-                            });
-                          }}
-                        />
-                      )}
-                    </span>
-                  </section>
-                </section>
-                <section className={Style.header_row}>
-                  <section className={Style.sortIcons}>
-                    Mac Address
-                    <span
-                      style={{ cursor: "pointer" }}
-                      className="ps-2"
-                      onClick={() =>
-                        sortTableFunAD(callbackfnDispatchGetAllData)
-                      }
-                    >
-                      {currentStateTableData.sortIconFilter.AD ? (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortDown}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                AD: false,
-                              },
-                            });
-                          }}
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortUp}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                AD: true,
-                              },
-                            });
-                          }}
-                        />
-                      )}
-                    </span>
-                  </section>
-                </section>
-                <section className={Style.header_row}>
-                  <section className={Style.sortIcons}>
-                    Log Type
-                    <span
-                      style={{ cursor: "pointer" }}
-                      className="ps-2"
-                      onClick={() =>
-                        sortTableFunLT(callbackfnDispatchGetAllData)
-                      }
-                    >
-                      {currentStateTableData.sortIconFilter.LT ? (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortDown}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                LT: false,
-                              },
-                            });
-                          }}
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortUp}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                LT: true,
-                              },
-                            });
-                          }}
-                        />
-                      )}
-                    </span>
-                  </section>
-                </section>
-                <section className={Style.header_row}>
-                  <section className={Style.sortIcons}>
-                    Date
-                    <span
-                      style={{ cursor: "pointer" }}
-                      className="ps-2"
-                      onClick={() =>
-                        sortTableFunDT(callbackfnDispatchGetAllData)
-                      }
-                    >
-                      {currentStateTableData.sortIconFilter.DA ? (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortDown}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                DA: false,
-                              },
-                            });
-                          }}
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortUp}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                DA: true,
-                              },
-                            });
-                          }}
-                        />
-                      )}
-                    </span>
-                  </section>
-                </section>
-                <section className={Style.header_row}>
-                  <section className={Style.sortIcons}>
-                    Time
-                    <span
-                      style={{ cursor: "pointer" }}
-                      className="ps-2"
-                      onClick={() =>
-                        sortTableFunDT(callbackfnDispatchGetAllData)
-                      }
-                    >
-                      {currentStateTableData.sortIconFilter.TI ? (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortDown}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                TI: false,
-                              },
-                            });
-                          }}
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortUp}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                TI: true,
-                              },
-                            });
-                          }}
-                        />
-                      )}
-                    </span>
-                  </section>
-                </section>
+        <section className={Style.customeTable}>
+          <section className={Style.tableHeader}>
+            <section>
+              <input type="checkbox" onChange={allCheckBoxFun} />
+            </section>
+            <section style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>
+              Log Message
+              <span
+                style={{ cursor: "pointer", margin: "0px 5px", }}
+                onClick={() =>
+                  sortTableFunLM(callbackfnDispatchGetAllData)
+                }
+              >
+
+                <FontAwesomeIcon
+                  icon={currentStateTableData.sortIconFilter.LM ? faSortDown : faSortUp}
+                  onClick={() => {
+                    dispatchTableData({
+                      type: SORT_ICON_FILTER,
+                      data: {
+                        ...currentStateTableData.sortIconFilter,
+                        LM: !currentStateTableData.sortIconFilter.LM,
+                      },
+                    });
+                  }}
+                />
+              </span>
+            </section>
+            <section style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>
+              Log Type
+              <span
+                style={{ cursor: "pointer", margin: "0px 5px", }}
+                onClick={() =>
+                  sortTableFunLM(callbackfnDispatchGetAllData)
+                }
+              >
+
+                <FontAwesomeIcon
+                  icon={currentStateTableData.sortIconFilter.LM ? faSortDown : faSortUp}
+                  onClick={() => {
+                    dispatchTableData({
+                      type: SORT_ICON_FILTER,
+                      data: {
+                        ...currentStateTableData.sortIconFilter,
+                        LM: !currentStateTableData.sortIconFilter.LM,
+                      },
+                    });
+                  }}
+                />
+              </span>
+            </section>
+
+            <section>
+              <section style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>
+                Device Id
+                <span
+                  style={{ cursor: "pointer", margin: "0px 5px", }}
+                  onClick={() =>
+                    sortTableFunAD(callbackfnDispatchGetAllData)
+                  }
+                >
+                  <FontAwesomeIcon
+                    icon={currentStateTableData.sortIconFilter.AD ? faSortDown : faSortUp}
+                    onClick={() => {
+                      dispatchTableData({
+                        type: SORT_ICON_FILTER,
+                        data: {
+                          ...currentStateTableData.sortIconFilter,
+                          AD: !currentStateTableData.sortIconFilter.AD,
+                        },
+                      });
+                    }}
+                  />
+                </span>
               </section>
             </section>
-            <section className={Style.body_table}>
-              {tableData &&
-                tableData.map((item, index) => {
-                  return (
-                    <React.Fragment key={item._id}>
-                      <section className={Style.body_inner} style={{ borderBottom: theme == "light-theme" ? "#efefef 1px solid" : "#333 1px solid" }} >
-                        <section>
-                          <input
-                            id={`singleItem ${index}`}
-                            type="checkbox"
-                            checked={
-                              currentStateTableData.allCheckBox
-                                ? "checked"
-                                : null
-                            }
-                            onChange={(e) => singleCheckboxFun(e, item, index)}
-                          />
-                        </section>
-                        <section>
-                          {item && item.log && item.log.filePath ? (
-                            <section className={Style.innerLogMsg} >
-                              <p>
-                                {item.log.file}
-                              </p>
-                              <section onClick={() => handleDownload(item)}>
-                                <FontAwesomeIcon icon={faDownload} style={{ filter: "invert(1)" }} size="1x" />
-                              </section>
-                            </section>
-                          ) : (
-                            <a
-                              style={{
-                                color:
-                                  theme == "light-theme" ? "#7D7A8C" : "#fff",
-                              }}
-                              className={Style.LinkSection}
-                              href={`/analytics?code=SBXMH&name=Ventilator&col=${item.log.message}&rowlogGeneratedDate=${item.log.date}&version=${item.version}&osArchitecture=${item.device.os.name}&modelName=${item.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`}
-                            >
-                              {item.log.filePath
-                                ? item.log.file
-                                : item.log.message.includes("at ")
-                                  ? item.log.message.split("at ")[0]
-                                  : item.log.message.includes(":")
-                                    ? item.log.message.split(": ")[0]
-                                    : item.log.message}
-                            </a>
-                          )}
-                        </section>
-                        <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{item.device.did}</section>
-                        <section>
-                          {item.log.type == "error" && (
-                            <span style={{ color: "red" }}>
-                              {item.log.type.toUpperCase()}
-                            </span>
-                          )}
-                          {item.log.type == "info" && (
-                            <span style={{ color: "blue" }}>
-                              {item.log.type.toUpperCase()}
-                            </span>
-                          )}
-                          {item.log.type == "warn" && (
-                            <span style={{ color: "violet" }}>
-                              {item.log.type.toUpperCase()}
-                            </span>
-                          )}
-                          {item.log.type == "debug" && (
-                            <span style={{ color: "green" }}>
-                              {item.log.type.toUpperCase()}
-                            </span>
-                          )}
-                          {item.log.type == "verbose" && (
-                            <span style={{ color: "purple" }}>
-                              {item.log.type.toUpperCase()}
-                            </span>
-                          )}
-                        </section>
-                        <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{item.log.date.split("T")[0]}</section>
-                        <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
-                          {item.log.date.split("T")[1].split(".")[0]}
-                        </section>
-                      </section>
-                    </React.Fragment>
-                  );
-                })}
+            <section>
+              <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
+                Category
+                <span
+                  style={{ cursor: "pointer", margin: "0px 5px", }}
+                  onClick={() =>
+                    sortTableFunLT(callbackfnDispatchGetAllData)
+                  }
+                >
+                  <FontAwesomeIcon
+                    icon={currentStateTableData.sortIconFilter.LT ? faDownload : faSortUp}
+                    onClick={() => {
+                      dispatchTableData({
+                        type: SORT_ICON_FILTER,
+                        data: {
+                          ...currentStateTableData.sortIconFilter,
+                          LT: !currentStateTableData.sortIconFilter.LT,
+                        },
+                      });
+                    }}
+                  />
+                </span>
+              </section>
+            </section>
+            <section>
+              <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
+                Date
+                <span
+                  style={{ cursor: "pointer", margin: "0px 5px", }}
+                  onClick={() =>
+                    sortTableFunDT(callbackfnDispatchGetAllData)
+                  }
+                >
+                  <FontAwesomeIcon
+                    icon={currentStateTableData.sortIconFilter.DA ? faSortDown : faSortUp}
+                    onClick={() => {
+                      dispatchTableData({
+                        type: SORT_ICON_FILTER,
+                        data: {
+                          ...currentStateTableData.sortIconFilter,
+                          DA: !currentStateTableData.sortIconFilter.DA,
+                        },
+                      });
+                    }}
+                  />
+                </span>
+              </section>
+            </section>
+            <section>
+              <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
+                Time
+                <span
+                  style={{ cursor: "pointer", margin: "0px 5px", }}
+                  onClick={() =>
+                    sortTableFunDT(callbackfnDispatchGetAllData)
+                  }
+                >
+                  <FontAwesomeIcon
+                    icon={currentStateTableData.sortIconFilter.TI ? faSortDown : faSortUp}
+                    onClick={() => {
+                      dispatchTableData({
+                        type: SORT_ICON_FILTER,
+                        data: {
+                          ...currentStateTableData.sortIconFilter,
+                          TI: !urrentStateTableData.sortIconFilter.TI,
+                        },
+                      });
+                    }}
+                  />
+                </span>
+              </section>
             </section>
           </section>
+          {tableData && tableData.map((item, index) => {
+            return (
+              <React.Fragment key={item._id}>
+                {console.log(item)}
+                <section className={Style.tableBody}>
+                  <section>
+                    <input
+                      id={`singleItem ${index}`}
+                      type="checkbox"
+                      checked={
+                        currentStateTableData.allCheckBox
+                          ? "checked"
+                          : null
+                      }
+                      onChange={(e) => singleCheckboxFun(e, item, index)}
+                    />
+                  </section>
+                  <section>
+                    {item && item.log && item.log.filePath ? (
+                      <section>
+                        <p onClick={() => handleDownload(item)}>
+                          {item.log.file}
+                        </p>
+                      </section>
+                    ) : (
+                      <a
+                        className={Style.logMsg}
+                        style={{
+                          color:
+                            theme == "light-theme" ? "#7D7A8C" : "#fff",
+                        }}
+                        href={`/analytics?code=SBXMH&name=Ventilator&col=${item.log.message}&rowlogGeneratedDate=${item.log.date}&version=${item.version}&osArchitecture=${item.device.os.name}&modelName=${item.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`}
+                      >
+                        {item.log.filePath
+                          ? item.log.file
+                          : item.log.message.includes("at ")
+                            ? item.log.message.split("at ")[0]
+                            : item.log.message.includes(":")
+                              ? item.log.message.split(": ")[0]
+                              : item.log.message}
+                      </a>
+                    )}
+                  </section>
+                  <section>
+                    <p style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>{item.log.message && "Text"}</p>
+                    <p style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>{item.log.filePath && "File"}</p>
+                  </section>
+
+
+                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{item.device.did}</section>
+                  <section>
+                    {item.log.type == "error" && (
+                      <span style={{ color: "red" }}>
+                        {item.log.type.toUpperCase()}
+                      </span>
+                    )}
+                    {item.log.type == "info" && (
+                      <span style={{ color: "blue" }}>
+                        {item.log.type.toUpperCase()}
+                      </span>
+                    )}
+                    {item.log.type == "warn" && (
+                      <span style={{ color: "violet" }}>
+                        {item.log.type.toUpperCase()}
+                      </span>
+                    )}
+                    {item.log.type == "debug" && (
+                      <span style={{ color: "green" }}>
+                        {item.log.type.toUpperCase()}
+                      </span>
+                    )}
+                    {item.log.type == "verbose" && (
+                      <span style={{ color: "purple" }}>
+                        {item.log.type.toUpperCase()}
+                      </span>
+                    )}
+                  </section>
+                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{item.log.date.split("T")[0]}</section>
+                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
+                    {item.log.date.split("T")[1].split(".")[0]}
+                  </section>
+                </section>
+              </React.Fragment>
+            );
+          })}
         </section>
 
         {/* DROPDOWN FILTER */}
@@ -1014,6 +942,7 @@ export default function TableDataNew(props) {
                   <Col xl={6} md={6} sm={6}>
                     <section className={`m-2`}>
                       <p
+                        style={{ cursor: "pointer" }}
                         className={
                           currentStateTableData.dateSection
                             ? `${Style.ActiveOption} mt-2`
@@ -1024,6 +953,7 @@ export default function TableDataNew(props) {
                         Date
                       </p>
                       <p
+                        style={{ cursor: "pointer" }}
                         className={
                           currentStateTableData.statusSection
                             ? `${Style.ActiveOption} mt-2`
@@ -1033,7 +963,7 @@ export default function TableDataNew(props) {
                       >
                         Select Log Type
                       </p>
-                      <p
+                      {/* <p
                         className={
                           currentStateTableData.recordPerPageSection
                             ? `${Style.ActiveOption} mt-2`
@@ -1042,7 +972,7 @@ export default function TableDataNew(props) {
                         onClick={handleShowPerPage}
                       >
                         Record per page
-                      </p>
+                      </p> */}
                     </section>
                   </Col>
 
@@ -1307,10 +1237,8 @@ export default function TableDataNew(props) {
         {loading && <SpinnerCustom height="200px" />}
         {data && data.data && !data.data.count && (
           <section
-            className={Style.noDataFound}
-            style={{ color: theme == "light-theme" ? `#000` : `#fff` }}
-          >
-            <p>No Data Found</p>
+            className={Style.noDataFound}>
+            <p style={{ color: theme == "light-theme" ? `#000` : `#fff` }}>No Data Found</p>
           </section>
         )}
         {tableData && (
@@ -1330,6 +1258,6 @@ export default function TableDataNew(props) {
           </section>
         )}
       </section>
-    </TableCard>
+    </TableCard >
   );
 }

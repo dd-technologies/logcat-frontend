@@ -324,9 +324,11 @@ export default function AlertsNew() {
                   <section className={Style.datafilter} onClick={DateFilter}>
                     <Image src={DateIcons} />
                     <p
-                      style={{ fontSize: ".9rem" }}
-                      className="m-2 darkModeColor"
-                    >
+                        style={{
+                          fontSize: ".9rem",
+                        }}
+                        className="m-2 darkModeColor"
+                      >
                       {currentStateAlerts.diffDate == 10
                         ? `last 10 days`
                         : currentStateAlerts.diffDate == 7
@@ -522,6 +524,7 @@ export default function AlertsNew() {
                             <section className={Style.filterGraphFirstSection}>
                               <FontAwesomeIcon
                                 color="#0099a4"
+                                style={{ cursor: "pointer" }}
                                 icon={faDownload}
                               />
                             </section>
@@ -529,155 +532,128 @@ export default function AlertsNew() {
                         </section>
 
                         {/* TABLE HERE */}
-                        <section className={Style.tableDataAlerts}>
-                          <section>
-                            <section>
-                              <section className={Style.header}>
-                                <section className={Style.header_inner}>
-                                  <input
-                                    type="checkbox"
-                                    onChange={allCheckBoxSelectFn}
-                                  />
-                                </section>
-                                <section>
-                                  <section className={Style.header_inner}>
-                                    <section style={{ width: "200px" }}>
-                                      MAC Address
-                                    </section>
-                                    <section>
-                                      <FontAwesomeIcon
-                                        color="#0099a4"
-                                        className="ps-1"
-                                        icon={
-                                          currentStateAlerts.sortIcons.MA
-                                            ? faSortDown
-                                            : faSortUp
-                                        }
-                                        onClick={() => sortIconsFunc("MA")}
-                                      />
-                                    </section>
-                                  </section>
-                                </section>
-                                <section>
-                                  <section className={Style.header_inner}>
-                                    <section style={{ width: "200px" }}>
-                                      Code
-                                    </section>
 
-                                    <section>
-                                      <FontAwesomeIcon
-                                        color="#0099a4"
-                                        className="ps-1"
-                                        icon={
-                                          currentStateAlerts.sortIcons.LM
-                                            ? faSortDown
-                                            : faSortUp
-                                        }
-                                        onClick={() => sortIconsFunc("LM")}
-                                      />
-                                    </section>
-                                  </section>
-                                </section>
-
-                                <section>
-                                  <section className={Style.header_inner}>
-                                    <section style={{ width: "200px" }}>
-                                      Log Message
-                                    </section>
-
-                                    <section>
-                                      <FontAwesomeIcon
-                                        color="#0099a4"
-                                        className="ps-1"
-                                        icon={
-                                          currentStateAlerts.sortIcons.ET
-                                            ? faSortDown
-                                            : faSortUp
-                                        }
-                                        onClick={() => sortIconsFunc("ET")}
-                                      />
-                                    </section>
-                                  </section>
-                                </section>
-                                <section>
-                                  <section className={Style.header_inner}>
-                                    <section style={{ width: "200px" }}>
-                                      Date
-                                    </section>
-
-                                    <section>
-                                      <FontAwesomeIcon
-                                        color="#0099a4"
-                                        className="ps-1"
-                                        icon={
-                                          currentStateAlerts.sortIcons.DT
-                                            ? faSortDown
-                                            : faSortUp
-                                        }
-                                        onClick={() => sortIconsFunc("DT")}
-                                      />
-                                    </section>
-                                  </section>
-                                </section>
-                                <section>
-                                  <section className={Style.header_inner}>
-                                    <section style={{ width: "200px" }}>
-                                      Time
-                                    </section>
-
-                                    <section>
-                                      <FontAwesomeIcon
-                                        color="#0099a4"
-                                        className="ps-1"
-                                        icon={
-                                          currentStateAlerts.sortIcons.TI
-                                            ? faSortDown
-                                            : faSortUp
-                                        }
-                                        onClick={() => sortIconsFunc("TI")}
-                                      />
-                                    </section>
-                                  </section>
-                                </section>
-                              </section>
+                        <section className={Style.alertTable}>
+                          <section className={Style.tableHeader}>
+                            <section style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>
+                              <input
+                                type="checkbox"
+                                onChange={allCheckBoxSelectFn}
+                              />
                             </section>
-                            <section>
-                              {alertsFilter.map((items, index) => {
-                                return (
-                                  <React.Fragment key={items._id}>
-                                    <section className={Style.bodyStyle} style={{ borderBottom: theme == "light-theme" ? "#efefef 1px solid" : "#333 1px solid" }}>
-                                      <section className={Style.bodyStyle_inner}>
-                                        <input
-                                          type="checkbox"
-                                          checked={
-                                            currentStateAlerts.allRowSelect
-                                              ? "checked"
-                                              : null
-                                          }
-                                          onChange={(e) =>
-                                            singleCheckboxFun(e, items, index)
-                                          }
-                                        />
-                                      </section>
-                                      <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{items.did}</section>
-                                      <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{items.ack.code}</section>
-                                      <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{items.ack.msg}</section>
-                                      <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
-                                        {items.ack.date.split("T")[0]}
-                                      </section>
-                                      <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
-                                        {
-                                          items.ack.date
-                                            .split("T")[1]
-                                            .split(".")[0]
-                                        }
-                                      </section>
-                                    </section>
-                                  </React.Fragment>
-                                );
-                              })}
+                            <section className={Style.innerHeader}>
+                              <p style={{ marginRight: "10px", color: theme == "light-theme" ? "#000" : "#fff", fontWeight: "600", fontSize: ".9rem" }}>
+                                Device Id
+                              </p>
+                              <FontAwesomeIcon
+                                color="#0099a4"
+                                style={{ cursor: "pointer" }}
+                                icon={
+                                  currentStateAlerts.sortIcons.MA
+                                    ? faSortDown
+                                    : faSortUp
+                                }
+                                onClick={() => sortIconsFunc("MA")}
+                              />
+                            </section>
+                            <section className={Style.innerHeader}>
+                              <p style={{ marginRight: "10px", color: theme == "light-theme" ? "#000" : "#fff", fontWeight: "600", fontSize: ".9rem" }}>
+                                Code
+                              </p>
+
+                              <FontAwesomeIcon
+                                color="#0099a4"
+                                style={{ cursor: "pointer" }}
+                                icon={
+                                  currentStateAlerts.sortIcons.LM
+                                    ? faSortDown
+                                    : faSortUp
+                                }
+                                onClick={() => sortIconsFunc("LM")}
+                              />
+                            </section>
+                            <section className={Style.innerHeader}>
+                              <p style={{ marginRight: "10px", color: theme == "light-theme" ? "#000" : "#fff", fontWeight: "600", fontSize: ".9rem" }}>
+                                Log Message
+                              </p>
+
+                              <FontAwesomeIcon
+                                color="#0099a4"
+                                style={{ cursor: "pointer" }}
+                                icon={
+                                  currentStateAlerts.sortIcons.ET
+                                    ? faSortDown
+                                    : faSortUp
+                                }
+                                onClick={() => sortIconsFunc("ET")}
+                              />
+                            </section>
+                            <section className={Style.innerHeader}>
+                              <p style={{ marginRight: "10px", color: theme == "light-theme" ? "#000" : "#fff", fontWeight: "600", fontSize: ".9rem" }}>
+                                Date
+                              </p>
+                              <FontAwesomeIcon
+                                color="#0099a4"
+                                style={{ cursor: "pointer" }}
+                                icon={
+                                  currentStateAlerts.sortIcons.DT
+                                    ? faSortDown
+                                    : faSortUp
+                                }
+                                onClick={() => sortIconsFunc("DT")}
+                              />
+                            </section>
+                            <section className={Style.innerHeader}>
+                              <p style={{ marginRight: "10px", color: theme == "light-theme" ? "#000" : "#fff", fontWeight: "600", fontSize: ".9rem" }}>
+                                Time
+                              </p>
+                              <FontAwesomeIcon
+                                color="#0099a4"
+                                style={{ cursor: "pointer" }}
+                                icon={
+                                  currentStateAlerts.sortIcons.TI
+                                    ? faSortDown
+                                    : faSortUp
+                                }
+                                onClick={() => sortIconsFunc("TI")}
+                              />
+
                             </section>
                           </section>
+                          {alertsFilter.map((items, index) => {
+                            return (
+                              <React.Fragment key={items._id}>
+                                <section className={Style.tableBody}>
+                                  <section>
+                                    <input
+                                      type="checkbox"
+                                      checked={
+                                        currentStateAlerts.allRowSelect
+                                          ? "checked"
+                                          : null
+                                      }
+                                      onChange={(e) =>
+                                        singleCheckboxFun(e, items, index)
+                                      }
+                                    />
+                                  </section>
+                                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{items.did}</section>
+                                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{items.ack.code}</section>
+                                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{items.ack.msg}</section>
+                                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
+                                    {items.ack.date.split("T")[0]}
+                                  </section>
+                                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
+                                    {
+                                      items.ack.date
+                                        .split("T")[1]
+                                        .split(".")[0]
+                                    }
+                                  </section>
+                                </section>
+                              </React.Fragment>
+                            );
+                          })}
                         </section>
                       </section>
                       <section className="p-2">
@@ -695,20 +671,10 @@ export default function AlertsNew() {
                   )}
 
                   {data && data.data && data.data.alerts.length == 0 && (
-                    <p
-                      style={{
-                        width: "100%",
-                        height: "600%",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        padding: "120px 0px",
-                        fontSize: "1.7rem",
-                        color: theme == "light-theme" ? `#000` : `#fff`,
-                      }}
-                    >
-                      No data found
-                    </p>
+                    <section
+                      className={Style.noDataFound}>
+                      <p style={{ color: theme == "light-theme" ? `#000` : `#fff` }}>No Data Found</p>
+                    </section>
                   )}
 
                   {loading && <SpinnerCustom />}

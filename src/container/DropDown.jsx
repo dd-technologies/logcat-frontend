@@ -12,9 +12,9 @@ export default function CustomeDropDown(props) {
     <>
       <Card
         style={{
+          borderRadius: "10px",
           width: props.width ? props.width : "auto",
           height: props.height ? props.height : "auto",
-          borderRadius: props.borderRadius ? props.borderRadius : "0px",
           padding: props.padding ? props.padding : "10px",
           boxShadow: props.boxShadow
             ? props.boxShadow

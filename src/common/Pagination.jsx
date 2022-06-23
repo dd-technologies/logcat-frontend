@@ -96,7 +96,7 @@ const Pagination = (props) => {
         className={classnames("pagination-item", {
           disabled: currentPage === 1,
         })}
-        style={{ background: theme == "ligth-theme" ? "" : "#21969D" }}
+
         onClick={onPrevious}
       >
         <div className="arrow left" />
@@ -144,7 +144,7 @@ const Pagination = (props) => {
         className={classnames("pagination-item", {
           disabled: currentPage === lastPage,
         })}
-        style={{ background: theme == "ligth-theme" ? "" : "#21969D" }}
+
         onClick={onNext}
       >
         <div className="arrow right" />
