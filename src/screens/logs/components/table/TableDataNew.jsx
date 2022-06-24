@@ -34,7 +34,6 @@ import Pagination from "../../../../common/Pagination";
 
 
 var arrayofSelectRow = []
-var getPrivousArray = {}
 
 export default function TableDataNew(props) {
   // ALL CHECKED BOX CHECK STATE
@@ -125,10 +124,7 @@ export default function TableDataNew(props) {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [checkboxSelectState, setCheckboxSelectState] = useState({
-    allRowSelect: false,
-    rowSelect: []
-  })
+  const [checkboxSelectState, setCheckboxSelectState] = useState([])
 
   const setDownloadButton = useState(false)[1]
 
@@ -532,8 +528,8 @@ export default function TableDataNew(props) {
       data: event.target.value,
     });
   };
-  let tableData = data && data.data && data.data.logs;
-
+  
+  var tableData = data && data.data && data.data.logs;
   // console.log("tableData", tableData)
 
   let search =
@@ -609,38 +605,38 @@ export default function TableDataNew(props) {
    */
 
 
-  const rowSelectFn = (data, index) => {
-    console.log("rowSelected", index)
-    arrayofSelectRow.push(data)
-    arrayofSelectRow.sort((a, b) => (a._id.toLowerCase() > b._id.toLowerCase() ? 1 : -1))
+  // const rowSelectFn = (data, index) => {
+  //   // console.log("rowSelected", index)
+  // arrayofSelectRow.push(data)
+  //   arrayofSelectRow.sort((a, b) => (a._id.toLowerCase() > b._id.toLowerCase() ? 1 : -1))
 
-    let arrayLastIndex = arrayofSelectRow.slice(-1)[0]._id;
-    let arraySecondLastIndex = arrayofSelectRow.length >= 2 ? arrayofSelectRow.slice(-2, -1)[0]._id : null;
-    if (arrayLastIndex == arraySecondLastIndex) {
-      arrayofSelectRow.pop();
-      arrayofSelectRow.pop();
-    }
-    console.log(arrayofSelectRow, "arrayofSelectRow")
-    setCheckboxSelectState({ ...checkboxSelectState, rowSelect: arrayofSelectRow, allRowSelect: false })
-  }
+  //   let arrayLastIndex = arrayofSelectRow.slice(-1)[0]._id;
+  //   let arraySecondLastIndex = arrayofSelectRow.length >= 2 ? arrayofSelectRow.slice(-2, -1)[0]._id : null;
+  //   if (arrayLastIndex == arraySecondLastIndex) {
+  //     arrayofSelectRow.pop();
+  //     arrayofSelectRow.pop();
+  //   }
+  //   console.log(arrayofSelectRow, "arrayofSelectRow")
+  //   setCheckboxSelectState({ ...checkboxSelectState, rowSelect: arrayofSelectRow, allRowSelect: false })
+  // }
 
 
-  const allCheckBoxFn = () => {
-    // setCheckboxSelectState({ ...checkboxSelectState, allRowSelect: !checkboxSelectState.allRowSelect })
-    if (checkboxSelectState.allRowSelect) {
-      setCheckboxSelectState({ ...checkboxSelectState, allRowSelect: false, rowSelect: [] })
-      arrayofSelectRow == []
-      console.log(arrayofSelectRow, "arrayofSelectRow")
-    }
-    if (!checkboxSelectState.allRowSelect) setCheckboxSelectState({ ...checkboxSelectState, allRowSelect: true, rowSelect: tableData })
-    if (checkboxSelectState.allRowSelect) {
-      setDownloadButton(true)
+  const checkBoxFn = (e) => {
+    const { name, checked } = e.target;
+    if (name === "allSelect") {
+      let tempUser = tableData.map((user) => {
+        return { ...user, isChecked: checked };
+      });
+      setCheckboxSelectState(tempUser);
     } else {
-      setDownloadButton(false)
+      let tempUser = tableData.map((user) =>
+        user._id === name ? { ...user, isChecked: checked } : user
+      );
+      setCheckboxSelectState(tempUser);
     }
   }
 
-  console.log("checkboxSelectState", checkboxSelectState)
+  // console.log("checkboxSelectState", checkboxSelectState)
 
   // @@ DOWNLOAD FUNCTION
   const handleDownload = (row) => {
@@ -666,6 +662,11 @@ export default function TableDataNew(props) {
   }, [currentStateTableData.pageNo, startDate, endDate]);
 
   useEffect(() => {
+    setCheckboxSelectState(tableData)
+  }, [])
+
+
+  useEffect(() => {
     dispatch(
       getProjectByCode(props.code, null, null, null, null, projectCode.code)
     );
@@ -688,6 +689,7 @@ export default function TableDataNew(props) {
   }, [props.diffDate]);
 
   // console.log("tableData", tableData)
+  console.log("hi", checkboxSelectState)
 
   return (
     <TableCard height="100%" borderRadius="10px">
@@ -734,12 +736,13 @@ export default function TableDataNew(props) {
             //   })
             // }
 
-            disabled={checkboxSelectState.allRowSelect || checkboxSelectState.rowSelect.length ? null : "disabled"}
-            style={{ border: "none", opacity: checkboxSelectState.allRowSelect || checkboxSelectState.rowSelect.length ? "100%" : "40%" }}
+            // disabled={checkboxSelectState.allRowSelect || checkboxSelectState.rowSelect.length ? null : "disabled"}
+            // style={{ border: "none", opacity: checkboxSelectState.allRowSelect || checkboxSelectState.rowSelect.length ? "100%" : "40%" }}
 
             onClick={() =>
               downloadCSVFun({
-                data: checkboxSelectState.allRowSelect ? tableData : arrayofSelectRow,
+                // data: checkboxSelectState.allRowSelect ? tableData : arrayofSelectRow,
+                data: tableData,
                 fileName: `${props.code}${new Date()}.csv`,
                 fileType: "text/csv;charset=utf-8;",
               })
@@ -753,8 +756,16 @@ export default function TableDataNew(props) {
         <section className={Style.customeTable}>
           <section className={Style.tableHeader}>
             <section>
-              <input type="checkbox" value={checkboxSelectState.allRowSelect} checked={checkboxSelectState.allRowSelect ? "checked" : null} onChange={allCheckBoxFn} />
-              {/* onChange={allCheckBoxFun}  */}
+              {/* {console.log("all data", checkboxSelectState.filter(data => data.isChecked !== true).length < 1)} */}
+              <input type="checkbox"
+                name="allSelect"
+
+                // value={checkboxSelectState.allRowSelect} 
+                // checked={checkboxSelectState.allRowSelect ? "checked" : null} 
+                // checked={!tableData.some((user) => user.isChecked !== true)}
+                onChange={checkBoxFn}
+
+              />
             </section>
             <section style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>
               Log Message
@@ -900,7 +911,7 @@ export default function TableDataNew(props) {
               </section>
             </section>
           </section>
-          {tableData && tableData.map((item, index) => {
+          {tableData && tableData.map((item) => {
             return (
               <React.Fragment key={item._id}>
                 {/* {console.log(item)} */}
@@ -909,6 +920,9 @@ export default function TableDataNew(props) {
                     <input
                       // id={`singleItem ${index}`}
                       type="checkbox"
+                      name={item._id}
+                      checked={item.isChecked || false}
+
                       // checked={
                       //   currentStateTableData.allCheckBox
                       //     ? "checked"
@@ -920,10 +934,9 @@ export default function TableDataNew(props) {
                       //     (e) => {
                       //       singleCheckboxFun(e, item, index)
                       //     }}
-                      value={checkboxSelectState.rowSelect}
-                      checked={checkboxSelectState.allRowSelect ? "checked" : null}
-                      onChange={checkboxSelectState.allRowSelect ? null : () => rowSelectFn(item, index)}
-                    />
+                      // value={checkboxSelectState.rowSelect}
+                      // checked={checkboxSelectState.allRowSelect ? "checked" : null}
+                      onChange={checkBoxFn} />
                   </section>
                   <section style={{ width: "80%" }} >
                     {item && item.log && item.log.filePath ? (
