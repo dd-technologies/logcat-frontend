@@ -25,12 +25,16 @@ import {
   RECORDS,
   LOGTYPE,
   SORT_ICON_FILTER,
-  ALL_CHECkBOX,
+  // ALL_CHECkBOX,
   RECORD_PER_PAGE_SECTION,
   ACTIVE_RECORDS,
   DATE,
 } from "./store/Type";
 import Pagination from "../../../../common/Pagination";
+
+
+var arrayofSelectRow = []
+var getPrivousArray = {}
 
 export default function TableDataNew(props) {
   // ALL CHECKED BOX CHECK STATE
@@ -126,6 +130,8 @@ export default function TableDataNew(props) {
     rowSelect: []
   })
 
+  const [downloadButton, setDownloadButton] = useState(false)
+
   useMemo(() => {
     const firstPageIndex = (currentPage - 1) * currentStateTableData.record;
     const lastPageIndex = firstPageIndex + currentStateTableData.record;
@@ -204,6 +210,7 @@ export default function TableDataNew(props) {
 
   // DOWNLOAD CSV FILE FUNCTION
   const downloadCSVFun = ({ data, fileName, fileType }) => {
+    console.log("data", data)
     var csv = " Log Message";
     csv += "\t Mac Address";
     csv += "\t Log Type";
@@ -213,8 +220,9 @@ export default function TableDataNew(props) {
     for (var i = 0; i < data.length; i++) {
       let logMsg = data[i].log.message;
       logMsg = logMsg.replaceAll("\n\t", "");
-      csv += `${logMsg}\t${data[i].device.did}\t${data[i].log.type}\t${data[i].ack.date.split("T")[0]
-        }\t${data[i].ack.date.split("T")[1].split(".")[0]}`;
+      csv += `${logMsg}\t${data[i].device.did}\t${data[i].log.type}\t${data[i].log.date.split("T")[0]
+        }\t${data[i].log.date.split("T")[1].split(".")[0]}`;
+      // csv += `${logMsg}\t${data[i].device.did}\t${data[i].log.type}`;
       csv += "\n";
     }
 
@@ -526,6 +534,8 @@ export default function TableDataNew(props) {
   };
   let tableData = data && data.data && data.data.logs;
 
+  // console.log("tableData", tableData)
+
   let search =
     (currentStateTableData.searchField &&
       currentStateTableData.searchField.trim() &&
@@ -590,20 +600,47 @@ export default function TableDataNew(props) {
   //   if (!newItemsArray.length) downloadButtonId.style.opacity = "30%";
   // };
 
+
+  /***
+   * conditions ----
+   * -> all checkbox checked so off single checkbox
+   * -> sort array by there index for rew select state
+   * -> delte both duplace item and previous item as well
+   */
+
+
   const rowSelectFn = (data, index) => {
     // console.log("rowSelected", data, index)
-  }
+    arrayofSelectRow.push(data)
+    arrayofSelectRow.sort((a, b) => (a._id.toLowerCase() > b._id.toLowerCase() ? 1 : -1))
 
+    let arrayLastIndex = arrayofSelectRow.slice(-1)[0]._id;
+    let arraySecondLastIndex = arrayofSelectRow.length >= 2 ? arrayofSelectRow.slice(-2, -1)[0]._id : null;
+    if (arrayLastIndex == arraySecondLastIndex) {
+      arrayofSelectRow.pop();
+      arrayofSelectRow.pop();
+    }
+    console.log(arrayofSelectRow, "arrayofSelectRow")
+    setCheckboxSelectState({ ...checkboxSelectState, rowSelect: arrayofSelectRow, allRowSelect: false })
+  }
   const allCheckBoxFn = () => {
+    setCheckboxSelectState({ ...checkboxSelectState, allRowSelect: !checkboxSelectState.allRowSelect })
+    if (checkboxSelectState.allRowSelect) {
+      setCheckboxSelectState({ ...checkboxSelectState, allRowSelect: false, rowSelect: [] })
+      arrayofSelectRow == []
+    }
+    if (!checkboxSelectState.allRowSelect) setCheckboxSelectState({ ...checkboxSelectState, allRowSelect: true })
 
+    if (checkboxSelectState.allRowSelect) {
+      setDownloadButton(true)
+    } else {
+      setDownloadButton(false)
+    }
   }
-
-
 
   // @@ DOWNLOAD FUNCTION
   const handleDownload = (row) => {
     // console.log("download function", row);
-
     var a = document.createElement("a");
     a.target = "_blank";
     a.href = `https://0942-2401-4900-1f39-34dc-385b-1069-1819-5282.in.ngrok.io/${row.log.filePath}`;
@@ -646,6 +683,8 @@ export default function TableDataNew(props) {
     // setDate({ start: startDate, end: endDate }); ----**
   }, [props.diffDate]);
 
+  // console.log("tableData", tableData)
+
   return (
     <TableCard height="100%" borderRadius="10px">
       <section>
@@ -671,35 +710,46 @@ export default function TableDataNew(props) {
               {currentStateTableData.dateState.end && dateChips[1]}
             </section>
           </section>
-          <section
-          // id="download_button"
-          // style={{
-          //   opacity:
-          //     currentStateTableData.allCheckBox ||
-          //       currentStateTableData.singleCheckbox
-          //       ? "100%"
-          //       : "30%",
-          // }}
-          // onClick={() =>
-          //   (currentStateTableData.allCheckBox || newItemsArray.length) &&
-          //   downloadCSVFun({
-          //     data: currentStateTableData.allCheckBox
-          //       ? tableData
-          //       : newItemsArray,
-          //     fileName: `${props.code}.csv`,
-          //     fileType: "text/csv;charset=utf-8;",
-          //   })
-          // }
+          <button
+            // id="download_button"
+            // style={{
+            //   opacity:
+            //     currentStateTableData.allCheckBox ||
+            //       currentStateTableData.singleCheckbox
+            //       ? "100%"
+            //       : "30%",
+            // }}
+            // onClick={() =>
+            // (currentStateTableData.allCheckBox || newItemsArray.length) &&
+            //   downloadCSVFun({
+            //     data: currentStateTableData.allCheckBox
+            //       ? tableData
+            //       : newItemsArray,
+            //     fileName: `${props.code}.csv`,
+            //     fileType: "text/csv;charset=utf-8;",
+            //   })
+            // }
+
+            disabled={checkboxSelectState.allRowSelect || checkboxSelectState.rowSelect.length ? null : "disabled"}
+            style={{ border: "none", opacity: checkboxSelectState.allRowSelect || checkboxSelectState.rowSelect.length ? "100%" : "40%" }}
+
+            onClick={() =>
+              downloadCSVFun({
+                data: checkboxSelectState.allRowSelect ? tableData : arrayofSelectRow,
+                fileName: `${props.code}${new Date()}.csv`,
+                fileType: "text/csv;charset=utf-8;",
+              })
+            }
           >
             <FontAwesomeIcon icon={faDownload} style={{ background: "#21969D", padding: "10px", borderRadius: "5px", color: "#fff" }} />
-          </section>
+          </button>
         </section>
 
         {/*  TABLE */}
         <section className={Style.customeTable}>
           <section className={Style.tableHeader}>
             <section>
-              <input type="checkbox" value={checkboxSelectState.allRowSelect} onChange={allCheckBoxFn} />
+              <input type="checkbox" value={checkboxSelectState.allRowSelect} checked={checkboxSelectState.allRowSelect ? "checked" : null} onChange={allCheckBoxFn} />
               {/* onChange={allCheckBoxFun}  */}
             </section>
             <section style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>
@@ -849,7 +899,7 @@ export default function TableDataNew(props) {
           {tableData && tableData.map((item, index) => {
             return (
               <React.Fragment key={item._id}>
-                {console.log(item)}
+                {/* {console.log(item)} */}
                 <section className={Style.tableBody}>
                   <section style={{ display: "flex", alignItems: "center" }}>
                     <input
@@ -868,6 +918,7 @@ export default function TableDataNew(props) {
                       //     }}
 
                       value={checkboxSelectState.rowSelect}
+                      checked={checkboxSelectState.allRowSelect ? "checked" : null}
                       onChange={() => rowSelectFn(item, index)}
 
 
