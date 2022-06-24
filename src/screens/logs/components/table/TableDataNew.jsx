@@ -130,7 +130,7 @@ export default function TableDataNew(props) {
     rowSelect: []
   })
 
-  const [downloadButton, setDownloadButton] = useState(false)
+  const setDownloadButton = useState(false)[1]
 
   useMemo(() => {
     const firstPageIndex = (currentPage - 1) * currentStateTableData.record;
@@ -610,7 +610,7 @@ export default function TableDataNew(props) {
 
 
   const rowSelectFn = (data, index) => {
-    // console.log("rowSelected", data, index)
+    console.log("rowSelected", index)
     arrayofSelectRow.push(data)
     arrayofSelectRow.sort((a, b) => (a._id.toLowerCase() > b._id.toLowerCase() ? 1 : -1))
 
@@ -623,20 +623,24 @@ export default function TableDataNew(props) {
     console.log(arrayofSelectRow, "arrayofSelectRow")
     setCheckboxSelectState({ ...checkboxSelectState, rowSelect: arrayofSelectRow, allRowSelect: false })
   }
+
+
   const allCheckBoxFn = () => {
-    setCheckboxSelectState({ ...checkboxSelectState, allRowSelect: !checkboxSelectState.allRowSelect })
+    // setCheckboxSelectState({ ...checkboxSelectState, allRowSelect: !checkboxSelectState.allRowSelect })
     if (checkboxSelectState.allRowSelect) {
       setCheckboxSelectState({ ...checkboxSelectState, allRowSelect: false, rowSelect: [] })
       arrayofSelectRow == []
+      console.log(arrayofSelectRow, "arrayofSelectRow")
     }
-    if (!checkboxSelectState.allRowSelect) setCheckboxSelectState({ ...checkboxSelectState, allRowSelect: true })
-
+    if (!checkboxSelectState.allRowSelect) setCheckboxSelectState({ ...checkboxSelectState, allRowSelect: true, rowSelect: tableData })
     if (checkboxSelectState.allRowSelect) {
       setDownloadButton(true)
     } else {
       setDownloadButton(false)
     }
   }
+
+  console.log("checkboxSelectState", checkboxSelectState)
 
   // @@ DOWNLOAD FUNCTION
   const handleDownload = (row) => {
@@ -916,12 +920,9 @@ export default function TableDataNew(props) {
                       //     (e) => {
                       //       singleCheckboxFun(e, item, index)
                       //     }}
-
                       value={checkboxSelectState.rowSelect}
                       checked={checkboxSelectState.allRowSelect ? "checked" : null}
-                      onChange={() => rowSelectFn(item, index)}
-
-
+                      onChange={checkboxSelectState.allRowSelect ? null : () => rowSelectFn(item, index)}
                     />
                   </section>
                   <section style={{ width: "80%" }} >
