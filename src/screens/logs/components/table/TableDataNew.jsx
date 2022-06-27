@@ -125,10 +125,31 @@ export default function TableDataNew(props) {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [checkboxSelectState, setCheckboxSelectState] = useState({
-    allRowSelect: false,
-    rowSelect: []
-  })
+  const [isCheckAll, setIsCheckAll] = useState(false);
+  const [isCheck, setIsCheck] = useState([]);
+  const [checkedLogs, setCheckedLogs] = useState([])
+
+  const handleSelectAll = e => {
+    setIsCheckAll(!isCheckAll);
+    setIsCheck(data?.data?.logs.map(log => log._id));
+    setCheckedLogs(data?.data?.logs)
+    if (isCheckAll) {
+      setIsCheck([]);
+      setCheckedLogs([]);
+    }
+  };
+
+  const handleClick = e => {
+    const { id, checked, name } = e.target;
+    setIsCheck([...isCheck, id]);
+    setCheckedLogs([...checkedLogs, JSON.parse(name)])
+    if (!checked) {
+      setIsCheck(isCheck.filter(item => item !== id));
+      setCheckedLogs(checkedLogs.filter(item => {
+        return item._id !== id
+      }))
+    }
+  };
 
   const setDownloadButton = useState(false)[1]
 
@@ -556,91 +577,12 @@ export default function TableDataNew(props) {
     });
   }
 
-  // const allCheckBoxFun = () => {
-  //   // @@ FOR SELECTION ITEMS IS TRITE AS THE EVENT  items == e
-  //   dispatchTableData({
-  //     type: ALL_CHECkBOX,
-  //     data: !currentStateTableData.allCheckBox,
-  //   });
-  // };
-
-  // let newItemsArray = [];
-  // const singleCheckboxFun = (event, item, index) => {
-  //   newItemsArray.push(item);
-
-  //   var downloadButtonId = document.getElementById("download_button");
-
-  //   if (newItemsArray.length >= 2) {
-  //     // @@ conditions---
-  //     /*
-  //     sorting array for removing last tow duplicate indexs
-  //    */
-  //     newItemsArray = newItemsArray.sort((a, b) => {
-  //       const firstObjectKey = parseInt(Object.keys(a));
-  //       const secondObjectKey = parseInt(Object.keys(b));
-  //       // console.log("first array", parseInt(firstObjectKey))
-  //       if (firstObjectKey < secondObjectKey) return -1;
-  //       if (firstObjectKey > secondObjectKey) return 1;
-  //       return 0;
-  //     });
-  //   }
-
-  //   if (newItemsArray.length) {
-  //     downloadButtonId.style.opacity = "100%";
-  //   }
-
-  //   let arrayLastIndex = newItemsArray.slice(-1)[0]._id;
-  //   let arraySecondLastIndex =
-  //     newItemsArray.length >= 2 ? newItemsArray.slice(-2, -1)[0]._id : null;
-
-  //   if (arrayLastIndex == arraySecondLastIndex) {
-  //     newItemsArray.pop();
-  //     newItemsArray.pop();
-  //   }
-  //   if (!newItemsArray.length) downloadButtonId.style.opacity = "30%";
-  // };
-
-
   /***
    * conditions ----
    * -> all checkbox checked so off single checkbox
    * -> sort array by there index for rew select state
    * -> delte both duplace item and previous item as well
    */
-
-
-  const rowSelectFn = (data, index) => {
-    console.log("rowSelected", index)
-    arrayofSelectRow.push(data)
-    arrayofSelectRow.sort((a, b) => (a._id.toLowerCase() > b._id.toLowerCase() ? 1 : -1))
-
-    let arrayLastIndex = arrayofSelectRow.slice(-1)[0]._id;
-    let arraySecondLastIndex = arrayofSelectRow.length >= 2 ? arrayofSelectRow.slice(-2, -1)[0]._id : null;
-    if (arrayLastIndex == arraySecondLastIndex) {
-      arrayofSelectRow.pop();
-      arrayofSelectRow.pop();
-    }
-    console.log(arrayofSelectRow, "arrayofSelectRow")
-    setCheckboxSelectState({ ...checkboxSelectState, rowSelect: arrayofSelectRow, allRowSelect: false })
-  }
-
-
-  const allCheckBoxFn = () => {
-    // setCheckboxSelectState({ ...checkboxSelectState, allRowSelect: !checkboxSelectState.allRowSelect })
-    if (checkboxSelectState.allRowSelect) {
-      setCheckboxSelectState({ ...checkboxSelectState, allRowSelect: false, rowSelect: [] })
-      arrayofSelectRow == []
-      console.log(arrayofSelectRow, "arrayofSelectRow")
-    }
-    if (!checkboxSelectState.allRowSelect) setCheckboxSelectState({ ...checkboxSelectState, allRowSelect: true, rowSelect: tableData })
-    if (checkboxSelectState.allRowSelect) {
-      setDownloadButton(true)
-    } else {
-      setDownloadButton(false)
-    }
-  }
-
-  console.log("checkboxSelectState", checkboxSelectState)
 
   // @@ DOWNLOAD FUNCTION
   const handleDownload = (row) => {
@@ -714,6 +656,7 @@ export default function TableDataNew(props) {
               {currentStateTableData.dateState.end && dateChips[1]}
             </section>
           </section>
+          {/* {console.log("date", new Date().getDay() + "-" + new Date().getMonth() + "-" + new Date().getFullYear())} */}
           <button
             // id="download_button"
             // style={{
@@ -734,13 +677,13 @@ export default function TableDataNew(props) {
             //   })
             // }
 
-            disabled={checkboxSelectState.allRowSelect || checkboxSelectState.rowSelect.length ? null : "disabled"}
-            style={{ border: "none", opacity: checkboxSelectState.allRowSelect || checkboxSelectState.rowSelect.length ? "100%" : "40%" }}
+            disabled={checkedLogs?.length ? null : "disabled"}
+            style={{ border: "none", opacity: checkedLogs?.length ? "100%" : "40%" }}
 
             onClick={() =>
               downloadCSVFun({
-                data: checkboxSelectState.allRowSelect ? tableData : arrayofSelectRow,
-                fileName: `${props.code}${new Date()}.csv`,
+                data: checkedLogs,
+                fileName: `${props.code}-${new Date().getDay() + "-" + new Date().getMonth() + "-" + new Date().getFullYear()}.csv`,
                 fileType: "text/csv;charset=utf-8;",
               })
             }
@@ -753,8 +696,11 @@ export default function TableDataNew(props) {
         <section className={Style.customeTable}>
           <section className={Style.tableHeader}>
             <section>
-              <input type="checkbox" value={checkboxSelectState.allRowSelect} checked={checkboxSelectState.allRowSelect ? "checked" : null} onChange={allCheckBoxFn} />
-              {/* onChange={allCheckBoxFun}  */}
+              <input type="checkbox"
+                onChange={handleSelectAll}
+                checked={isCheckAll}
+                id="selectAll"
+              />
             </section>
             <section style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>
               Log Message
@@ -907,22 +853,11 @@ export default function TableDataNew(props) {
                 <section className={Style.tableBody}>
                   <section style={{ display: "flex", alignItems: "center" }}>
                     <input
-                      // id={`singleItem ${index}`}
                       type="checkbox"
-                      // checked={
-                      //   currentStateTableData.allCheckBox
-                      //     ? "checked"
-                      //     : null
-                      // }
-
-                      // onChange={
-                      //   currentStateTableData.allCheckBox ? null :
-                      //     (e) => {
-                      //       singleCheckboxFun(e, item, index)
-                      //     }}
-                      value={checkboxSelectState.rowSelect}
-                      checked={checkboxSelectState.allRowSelect ? "checked" : null}
-                      onChange={checkboxSelectState.allRowSelect ? null : () => rowSelectFn(item, index)}
+                      id={item._id}
+                      name={JSON.stringify(item)}
+                      onChange={handleClick}
+                      checked={isCheck.includes(item._id)}
                     />
                   </section>
                   <section style={{ width: "80%" }} >
