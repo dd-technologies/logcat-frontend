@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { alarmAction } from "../store/action/AlarmAction";
 import { getProjectByCode } from "../store/action/ProjectAction";
 
+
 const Pagination = (props) => {
   const dispatch = useDispatch();
   var url_string = window.location.href;
@@ -93,6 +94,7 @@ const Pagination = (props) => {
         className={classnames("pagination-item", {
           disabled: currentPage === 1,
         })}
+
         onClick={onPrevious}
       >
         <div className="arrow left" />
@@ -108,6 +110,7 @@ const Pagination = (props) => {
               className={classnames("pagination-item", {
                 selected: pageNumber === currentPage,
               })}
+
               onClick={() => {
                 onPageChange(pageNumber);
 
@@ -139,6 +142,7 @@ const Pagination = (props) => {
         className={classnames("pagination-item", {
           disabled: currentPage === lastPage,
         })}
+
         onClick={onNext}
       >
         <div className="arrow right" />

@@ -1,45 +1,42 @@
 
 /* eslint-disable */
-import React, { useState } from "react";
-import {
-  faEnvelope,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from "react";
+import { faEnvelope, faUser, } from "@fortawesome/free-solid-svg-icons";
 import { Col, Container, Row, Button } from "react-bootstrap";
 import CustomeDropDown from "../../container/DropDown";
 import Style from "../../css/UpdateProfile.module.css";
 import LogICon from "../../assets/icons/log.png";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { passwordChangeAction } from "../../store/action/UserProfileAction";
+import { passwordChangeAction, userInfoActionFn } from "../../store/action/UserProfileAction";
 import { toast, Toaster } from "react-hot-toast";
 import { updateProfile } from "../../store/action/AdminAction";
 import UpdatePassord from "./UpdatePassord";
 import SideBar from "../../utils/Sidebar";
 import { Navbar } from "../../utils/NavBar";
+import { updateUserInfoAction } from "../../store/action/UpdateUserInfoAction";
 
 export default function UpdateProfile() {
-  const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
-  const { adminInfo } = adminLoginReducer;
+  const userInfoReducer = useSelector((state) => state.userInfoReducer);
+  const { data } = userInfoReducer;
+  const userName = data && data.data && data.data.user && data.data.user.name
+  const userEmail = data && data.data && data.data.user && data.data.user.email
+  const userAvtar = data && data.data && data.data.user && data.data.user.image
 
-  // update profile reducer
+  console.log("data", data)
+
+  // uprofile reducer
   const passwordChangeReducer = useSelector(
     (state) => state.passwordChangeReducer
   );
 
   const { data: updatepasswordresponseData } = passwordChangeReducer;
 
-  const [name, setname] = useState(
-    adminInfo && adminInfo.data && adminInfo.data.name
-  );
+  const [name, setname] = useState(userName);
 
-  const email = useState(
-    adminInfo && adminInfo.data && adminInfo.data.email
-  )[0]
+  const email = useState(userEmail)[0]
 
-  const avatar = useState(
-    adminInfo && adminInfo.image && adminInfo.image
-  )[0];
+  const avatar = useState(userAvtar)[0];
 
 
 
@@ -66,11 +63,6 @@ export default function UpdateProfile() {
     );
   }
 
-
-  // Update profile data
-  const handleSubmit = (e) => {
-    dispatch(updateProfile(email, name, avatar));
-  };
 
   // Show password
   const [showPassword, setShowPassword] = useState({
@@ -135,6 +127,24 @@ export default function UpdateProfile() {
     dispatch(passwordChangeAction(currentpassword, newPassword));
   };
 
+
+  // Update profile data
+  const handleSubmit = (e) => {
+    // dispatch(updateProfile(email, name, avatar));
+
+    if (!name) {
+      return toast.error("Please enter your name")
+    }
+
+    toast.success("User name updated..")
+    return dispatch(updateUserInfoAction(name))
+  };
+
+  useEffect(() => {
+    dispatch(userInfoActionFn())
+  }, [name])
+
+
   return (
     <>
       <Row className="rowSection">
@@ -166,26 +176,14 @@ export default function UpdateProfile() {
                       {avatar ? (
                         <img src={URL.createObjectURL(avatar)} alt="Avatar" />
                       ) : (
-                        adminInfo &&
-                        adminInfo.data &&
-                        adminInfo.data.name
+                        data &&
+                        data.data && data.data.user &&
+                        data.data.user.name
                           .split(" ")
                           .map((name) => name[0][0].toUpperCase())
                       )}
                     </section>
-                    {/* <section className={Style.editImage}>
-                      <label for="image_upload">
-                        <FontAwesomeIcon icon={faUpload} size="lg" />
-                      </label>
-                      <input
-                        type="file"
-                        id="image_upload"
-                        autoComplete="Enter your email"
-                        accept=".jpg, .jpeg, .png"
-                        style={{ display: "none", visibility: "none" }}
-                        onChange={(e) => handleUpload(e)}
-                      />
-                    </section> */}
+
                     {/*name field  */}
                     <section className="mt-4">
                       <h5 className="darkModeColor">Name</h5>
@@ -205,7 +203,7 @@ export default function UpdateProfile() {
                           onChange={(e) => {
                             setname(e.target.value);
                           }}
-                          disabled="disabled"
+
                         />
                       </div>
                     </section>

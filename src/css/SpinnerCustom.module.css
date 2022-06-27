@@ -1,19 +1,9 @@
 .container {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
 .container .loader_three {
   border: 4px solid #fff;
   border-top: 4px solid #0099a4;
@@ -31,23 +21,18 @@
 
 @-webkit-keyframes spin {
   0% {
-    -webkit-transform: rotate(0deg) scale(0.75);
-            transform: rotate(0deg) scale(0.75);
+    transform: rotate(0deg) scale(0.75);
   }
   100% {
-    -webkit-transform: rotate(360deg) scale(0.75);
-            transform: rotate(360deg) scale(0.75);
+    transform: rotate(360deg) scale(0.75);
   }
 }
 
 @keyframes spin {
   0% {
-    -webkit-transform: rotate(0deg) scale(0.75);
-            transform: rotate(0deg) scale(0.75);
+    transform: rotate(0deg) scale(0.75);
   }
   100% {
-    -webkit-transform: rotate(360deg) scale(0.75);
-            transform: rotate(360deg) scale(0.75);
+    transform: rotate(360deg) scale(0.75);
   }
-}
-/*# sourceMappingURL=SpinnerCustom.module.css.map */
+}/*# sourceMappingURL=SpinnerCustom.module.css.map */

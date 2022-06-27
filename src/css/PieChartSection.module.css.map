@@ -1,10 +1,1 @@
-{
-    "version": 3,
-    "mappings": "AAEA,AAAA,aAAa,CAAC;EACZ,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,aAAa;CAa/B;;AAfD,AAGE,aAHW,CAGT,EAAE,CAAC;ECuEL,SAAS,EAAE,eAAe;EAC1B,KAAK,EApEa,OAAO;EAqEzB,WAAW,EAAE,GAAG;CDvEf;;AALH,AAOE,aAPW,CAOT,CAAC,CAAC;EACF,KAAK,ECDW,OAAO;EDEvB,SAAS,EAAE,MAAM;CAClB;;AAVH,AAYE,aAZW,CAYT,OAAO,CAAC;EACR,OAAO,EAAE,IAAI;CACd",
-    "sources": [
-        "PieChartSection.module.scss",
-        "veriables.module.scss"
-    ],
-    "names": [],
-    "file": "PieChartSection.module.css"
-}
+{"version":3,"sources":["PieChartSection.module.scss","PieChartSection.module.css","veriables.module.scss"],"names":[],"mappings":"AAEA;EACE,aAAA;EACA,8BAAA;ACDF;ADEE;EEuEA,0BAAA;EACA,cApEkB;EAqElB,gBAAA;ADtEF;ADCE;EACE,cEDgB;EFEhB,iBAAA;ACCJ;ADEE;EACE,aAAA;ACAJ","file":"PieChartSection.module.css"}

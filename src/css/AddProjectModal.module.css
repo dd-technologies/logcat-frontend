@@ -1,13 +1,10 @@
 .tagItemsOuter {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: auto auto auto auto auto;
-      grid-template-columns: auto auto auto auto auto;
+  grid-template-columns: auto auto auto auto auto;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
 }
-
 .tagItemsOuter .tag_item {
   color: #fff;
   background-color: #0099a4;
@@ -18,16 +15,11 @@
   border-radius: 30px;
   height: 30px;
   padding: 0 4px 0 1rem;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   margin: 0 0.3rem 0.3rem 0;
   margin-left: 10px;
 }
-
 .tagItemsOuter .tag_item > button {
   background-color: #fff;
   width: 22px;
@@ -40,19 +32,12 @@
   font-weight: bold;
   padding: 10px;
   line-height: 1;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   font-size: 16px;
 }
 
 .inputFields {
   border-radius: 5px !important;
-}
-/*# sourceMappingURL=AddProjectModal.module.css.map */
+}/*# sourceMappingURL=AddProjectModal.module.css.map */

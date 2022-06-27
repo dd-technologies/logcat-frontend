@@ -25,12 +25,15 @@ import {
   RECORDS,
   LOGTYPE,
   SORT_ICON_FILTER,
-  ALL_CHECkBOX,
+  // ALL_CHECkBOX,
   RECORD_PER_PAGE_SECTION,
   ACTIVE_RECORDS,
   DATE,
 } from "./store/Type";
 import Pagination from "../../../../common/Pagination";
+
+
+var arrayofSelectRow = []
 
 export default function TableDataNew(props) {
   // ALL CHECKED BOX CHECK STATE
@@ -110,8 +113,8 @@ export default function TableDataNew(props) {
       end: JSON.parse(localStorage.getItem("selected_date")).end,
     },
     searchField: "",
-    allCheckBox: false,
-    singleCheckbox: false,
+    // allCheckBox: false,
+    // singleCheckbox: false,
   };
 
   const [currentStateTableData, dispatchTableData] = useReducer(
@@ -120,6 +123,10 @@ export default function TableDataNew(props) {
   );
 
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [checkboxSelectState, setCheckboxSelectState] = useState([])
+
+  const setDownloadButton = useState(false)[1]
 
   useMemo(() => {
     const firstPageIndex = (currentPage - 1) * currentStateTableData.record;
@@ -199,6 +206,7 @@ export default function TableDataNew(props) {
 
   // DOWNLOAD CSV FILE FUNCTION
   const downloadCSVFun = ({ data, fileName, fileType }) => {
+    console.log("data", data)
     var csv = " Log Message";
     csv += "\t Mac Address";
     csv += "\t Log Type";
@@ -208,10 +216,9 @@ export default function TableDataNew(props) {
     for (var i = 0; i < data.length; i++) {
       let logMsg = data[i].log.message;
       logMsg = logMsg.replaceAll("\n\t", "");
-      csv += `${logMsg}\t${data[i].device.did}\t${data[i].log.type}\t${data[i].ack.date.split("T")[0]
-        }\t${data[i].ack.date.split("T")[1].split(".")[0]}`;
-
-      // }
+      csv += `${logMsg}\t${data[i].device.did}\t${data[i].log.type}\t${data[i].log.date.split("T")[0]
+        }\t${data[i].log.date.split("T")[1].split(".")[0]}`;
+      // csv += `${logMsg}\t${data[i].device.did}\t${data[i].log.type}`;
       csv += "\n";
     }
 
@@ -521,7 +528,9 @@ export default function TableDataNew(props) {
       data: event.target.value,
     });
   };
-  let tableData = data && data.data && data.data.logs;
+  
+  var tableData = data && data.data && data.data.logs;
+  // console.log("tableData", tableData)
 
   let search =
     (currentStateTableData.searchField &&
@@ -543,54 +552,95 @@ export default function TableDataNew(props) {
     });
   }
 
-  const allCheckBoxFun = () => {
-    // @@ FOR SELECTION ITEMS IS TRITE AS THE EVENT  items == e
-    dispatchTableData({
-      type: ALL_CHECkBOX,
-      data: !currentStateTableData.allCheckBox,
-    });
-  };
+  // const allCheckBoxFun = () => {
+  //   // @@ FOR SELECTION ITEMS IS TRITE AS THE EVENT  items == e
+  //   dispatchTableData({
+  //     type: ALL_CHECkBOX,
+  //     data: !currentStateTableData.allCheckBox,
+  //   });
+  // };
 
-  let newItemsArray = [];
-  const singleCheckboxFun = (event, item, index) => {
-    newItemsArray.push(item);
+  // let newItemsArray = [];
+  // const singleCheckboxFun = (event, item, index) => {
+  //   newItemsArray.push(item);
 
-    var downloadButtonId = document.getElementById("download_button");
+  //   var downloadButtonId = document.getElementById("download_button");
 
-    if (newItemsArray.length >= 2) {
-      // @@ conditions---
-      /*
-      sorting array for removing last tow duplicate indexs
-     */
-      newItemsArray = newItemsArray.sort((a, b) => {
-        const firstObjectKey = parseInt(Object.keys(a));
-        const secondObjectKey = parseInt(Object.keys(b));
-        // console.log("first array", parseInt(firstObjectKey))
-        if (firstObjectKey < secondObjectKey) return -1;
-        if (firstObjectKey > secondObjectKey) return 1;
-        return 0;
+  //   if (newItemsArray.length >= 2) {
+  //     // @@ conditions---
+  //     /*
+  //     sorting array for removing last tow duplicate indexs
+  //    */
+  //     newItemsArray = newItemsArray.sort((a, b) => {
+  //       const firstObjectKey = parseInt(Object.keys(a));
+  //       const secondObjectKey = parseInt(Object.keys(b));
+  //       // console.log("first array", parseInt(firstObjectKey))
+  //       if (firstObjectKey < secondObjectKey) return -1;
+  //       if (firstObjectKey > secondObjectKey) return 1;
+  //       return 0;
+  //     });
+  //   }
+
+  //   if (newItemsArray.length) {
+  //     downloadButtonId.style.opacity = "100%";
+  //   }
+
+  //   let arrayLastIndex = newItemsArray.slice(-1)[0]._id;
+  //   let arraySecondLastIndex =
+  //     newItemsArray.length >= 2 ? newItemsArray.slice(-2, -1)[0]._id : null;
+
+  //   if (arrayLastIndex == arraySecondLastIndex) {
+  //     newItemsArray.pop();
+  //     newItemsArray.pop();
+  //   }
+  //   if (!newItemsArray.length) downloadButtonId.style.opacity = "30%";
+  // };
+
+
+  /***
+   * conditions ----
+   * -> all checkbox checked so off single checkbox
+   * -> sort array by there index for rew select state
+   * -> delte both duplace item and previous item as well
+   */
+
+
+  // const rowSelectFn = (data, index) => {
+  //   // console.log("rowSelected", index)
+  // arrayofSelectRow.push(data)
+  //   arrayofSelectRow.sort((a, b) => (a._id.toLowerCase() > b._id.toLowerCase() ? 1 : -1))
+
+  //   let arrayLastIndex = arrayofSelectRow.slice(-1)[0]._id;
+  //   let arraySecondLastIndex = arrayofSelectRow.length >= 2 ? arrayofSelectRow.slice(-2, -1)[0]._id : null;
+  //   if (arrayLastIndex == arraySecondLastIndex) {
+  //     arrayofSelectRow.pop();
+  //     arrayofSelectRow.pop();
+  //   }
+  //   console.log(arrayofSelectRow, "arrayofSelectRow")
+  //   setCheckboxSelectState({ ...checkboxSelectState, rowSelect: arrayofSelectRow, allRowSelect: false })
+  // }
+
+
+  const checkBoxFn = (e) => {
+    const { name, checked } = e.target;
+    if (name === "allSelect") {
+      let tempUser = tableData.map((user) => {
+        return { ...user, isChecked: checked };
       });
+      setCheckboxSelectState(tempUser);
+    } else {
+      let tempUser = tableData.map((user) =>
+        user._id === name ? { ...user, isChecked: checked } : user
+      );
+      setCheckboxSelectState(tempUser);
     }
+  }
 
-    if (newItemsArray.length) {
-      downloadButtonId.style.opacity = "100%";
-    }
-
-    let arrayLastIndex = newItemsArray.slice(-1)[0]._id;
-    let arraySecondLastIndex =
-      newItemsArray.length >= 2 ? newItemsArray.slice(-2, -1)[0]._id : null;
-
-    if (arrayLastIndex == arraySecondLastIndex) {
-      newItemsArray.pop();
-      newItemsArray.pop();
-    }
-    if (!newItemsArray.length) downloadButtonId.style.opacity = "30%";
-  };
+  // console.log("checkboxSelectState", checkboxSelectState)
 
   // @@ DOWNLOAD FUNCTION
   const handleDownload = (row) => {
     // console.log("download function", row);
-
     var a = document.createElement("a");
     a.target = "_blank";
     a.href = `https://0942-2401-4900-1f39-34dc-385b-1069-1819-5282.in.ngrok.io/${row.log.filePath}`;
@@ -610,6 +660,11 @@ export default function TableDataNew(props) {
       )
     );
   }, [currentStateTableData.pageNo, startDate, endDate]);
+
+  useEffect(() => {
+    setCheckboxSelectState(tableData)
+  }, [])
+
 
   useEffect(() => {
     dispatch(
@@ -633,6 +688,9 @@ export default function TableDataNew(props) {
     // setDate({ start: startDate, end: endDate }); ----**
   }, [props.diffDate]);
 
+  // console.log("tableData", tableData)
+  console.log("hi", checkboxSelectState)
+
   return (
     <TableCard height="100%" borderRadius="10px">
       <section>
@@ -645,343 +703,307 @@ export default function TableDataNew(props) {
             onChange={handleSearchFunc}
           />
           {/* Chips section */}
-          <section className={Style.chipOuter}>
-            {currentStateTableData.logType.info && chipsSection[0]}
-            {currentStateTableData.logType.warn && chipsSection[1]}
-            {currentStateTableData.logType.error && chipsSection[2]}
-            {currentStateTableData.logType.debug && chipsSection[3]}
-            {currentStateTableData.logType.verbose && chipsSection[4]}
+          <section className={Style.chipExportSection}>
+            <section className={Style.chipInner}>
+              {currentStateTableData.logType.info && chipsSection[0]}
+              {currentStateTableData.logType.warn && chipsSection[1]}
+              {currentStateTableData.logType.error && chipsSection[2]}
+              {currentStateTableData.logType.debug && chipsSection[3]}
+              {currentStateTableData.logType.verbose && chipsSection[4]}
 
-            {/* DATE CHIPS */}
-            {currentStateTableData.dateState.start && dateChips[0]}
-            {currentStateTableData.dateState.end && dateChips[1]}
+              {/* DATE CHIPS */}
+              {currentStateTableData.dateState.start && dateChips[0]}
+              {currentStateTableData.dateState.end && dateChips[1]}
+            </section>
           </section>
-          <section
-            id="download_button"
-            style={{
-              opacity:
-                currentStateTableData.allCheckBox ||
-                  currentStateTableData.singleCheckbox
-                  ? "100%"
-                  : "30%",
-            }}
+          <button
+            // id="download_button"
+            // style={{
+            //   opacity:
+            //     currentStateTableData.allCheckBox ||
+            //       currentStateTableData.singleCheckbox
+            //       ? "100%"
+            //       : "30%",
+            // }}
+            // onClick={() =>
+            // (currentStateTableData.allCheckBox || newItemsArray.length) &&
+            //   downloadCSVFun({
+            //     data: currentStateTableData.allCheckBox
+            //       ? tableData
+            //       : newItemsArray,
+            //     fileName: `${props.code}.csv`,
+            //     fileType: "text/csv;charset=utf-8;",
+            //   })
+            // }
+
+            // disabled={checkboxSelectState.allRowSelect || checkboxSelectState.rowSelect.length ? null : "disabled"}
+            // style={{ border: "none", opacity: checkboxSelectState.allRowSelect || checkboxSelectState.rowSelect.length ? "100%" : "40%" }}
+
             onClick={() =>
-              (currentStateTableData.allCheckBox || newItemsArray.length) &&
               downloadCSVFun({
-                data: currentStateTableData.allCheckBox
-                  ? tableData
-                  : newItemsArray,
-                fileName: `${props.code}.csv`,
+                // data: checkboxSelectState.allRowSelect ? tableData : arrayofSelectRow,
+                data: tableData,
+                fileName: `${props.code}${new Date()}.csv`,
                 fileType: "text/csv;charset=utf-8;",
               })
             }
           >
-            <section className={Style.filterGraphFirstSection}>
-              <FontAwesomeIcon icon={faDownload} />
-            </section>
-          </section>
+            <FontAwesomeIcon icon={faDownload} style={{ background: "#21969D", padding: "10px", borderRadius: "5px", color: "#fff" }} />
+          </button>
         </section>
 
         {/*  TABLE */}
-        <section className={Style.tableSection}>
-          <section>
-            <section className={Style.headerTable}>
-              <section className={Style.header_inner}>
-                <section className={Style.header_row}>
-                  <input type="checkbox" onChange={allCheckBoxFun} />
-                </section>
-                <section className={Style.header_row}>
-                  <section className={Style.sortIcons}>
-                    Log Message
-                    <span
-                      style={{ cursor: "pointer" }}
-                      className="ps-2"
-                      onClick={() =>
-                        sortTableFunLM(callbackfnDispatchGetAllData)
-                      }
-                    >
-                      {currentStateTableData.sortIconFilter.LM ? (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortDown}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                LM: false,
-                              },
-                            });
-                          }}
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortUp}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                LM: true,
-                              },
-                            });
-                          }}
-                        />
-                      )}
-                    </span>
-                  </section>
-                </section>
-                <section className={Style.header_row}>
-                  <section className={Style.sortIcons}>
-                    Mac Address
-                    <span
-                      style={{ cursor: "pointer" }}
-                      className="ps-2"
-                      onClick={() =>
-                        sortTableFunAD(callbackfnDispatchGetAllData)
-                      }
-                    >
-                      {currentStateTableData.sortIconFilter.AD ? (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortDown}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                AD: false,
-                              },
-                            });
-                          }}
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortUp}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                AD: true,
-                              },
-                            });
-                          }}
-                        />
-                      )}
-                    </span>
-                  </section>
-                </section>
-                <section className={Style.header_row}>
-                  <section className={Style.sortIcons}>
-                    Log Type
-                    <span
-                      style={{ cursor: "pointer" }}
-                      className="ps-2"
-                      onClick={() =>
-                        sortTableFunLT(callbackfnDispatchGetAllData)
-                      }
-                    >
-                      {currentStateTableData.sortIconFilter.LT ? (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortDown}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                LT: false,
-                              },
-                            });
-                          }}
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortUp}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                LT: true,
-                              },
-                            });
-                          }}
-                        />
-                      )}
-                    </span>
-                  </section>
-                </section>
-                <section className={Style.header_row}>
-                  <section className={Style.sortIcons}>
-                    Date
-                    <span
-                      style={{ cursor: "pointer" }}
-                      className="ps-2"
-                      onClick={() =>
-                        sortTableFunDT(callbackfnDispatchGetAllData)
-                      }
-                    >
-                      {currentStateTableData.sortIconFilter.DA ? (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortDown}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                DA: false,
-                              },
-                            });
-                          }}
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortUp}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                DA: true,
-                              },
-                            });
-                          }}
-                        />
-                      )}
-                    </span>
-                  </section>
-                </section>
-                <section className={Style.header_row}>
-                  <section className={Style.sortIcons}>
-                    Time
-                    <span
-                      style={{ cursor: "pointer" }}
-                      className="ps-2"
-                      onClick={() =>
-                        sortTableFunDT(callbackfnDispatchGetAllData)
-                      }
-                    >
-                      {currentStateTableData.sortIconFilter.TI ? (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortDown}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                TI: false,
-                              },
-                            });
-                          }}
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          className="ps-1"
-                          icon={faSortUp}
-                          onClick={() => {
-                            dispatchTableData({
-                              type: SORT_ICON_FILTER,
-                              data: {
-                                ...currentStateTableData.sortIconFilter,
-                                TI: true,
-                              },
-                            });
-                          }}
-                        />
-                      )}
-                    </span>
-                  </section>
-                </section>
+        <section className={Style.customeTable}>
+          <section className={Style.tableHeader}>
+            <section>
+              {/* {console.log("all data", checkboxSelectState.filter(data => data.isChecked !== true).length < 1)} */}
+              <input type="checkbox"
+                name="allSelect"
+
+                // value={checkboxSelectState.allRowSelect} 
+                // checked={checkboxSelectState.allRowSelect ? "checked" : null} 
+                // checked={!tableData.some((user) => user.isChecked !== true)}
+                onChange={checkBoxFn}
+
+              />
+            </section>
+            <section style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>
+              Log Message
+              <span
+                style={{ cursor: "pointer", margin: "0px 5px", }}
+                onClick={() =>
+                  sortTableFunLM(callbackfnDispatchGetAllData)
+                }
+              >
+
+                <FontAwesomeIcon
+                  icon={currentStateTableData.sortIconFilter.LM ? faSortDown : faSortUp}
+                  onClick={() => {
+                    dispatchTableData({
+                      type: SORT_ICON_FILTER,
+                      data: {
+                        ...currentStateTableData.sortIconFilter,
+                        LM: !currentStateTableData.sortIconFilter.LM,
+                      },
+                    });
+                  }}
+                />
+              </span>
+            </section>
+            <section style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>
+              Log Type
+              <span
+                style={{ cursor: "pointer", margin: "0px 5px", }}
+                onClick={() =>
+                  sortTableFunLM(callbackfnDispatchGetAllData)
+                }
+              >
+
+                <FontAwesomeIcon
+                  icon={currentStateTableData.sortIconFilter.LM ? faSortDown : faSortUp}
+                  onClick={() => {
+                    dispatchTableData({
+                      type: SORT_ICON_FILTER,
+                      data: {
+                        ...currentStateTableData.sortIconFilter,
+                        LM: !currentStateTableData.sortIconFilter.LM,
+                      },
+                    });
+                  }}
+                />
+              </span>
+            </section>
+
+            <section>
+              <section style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>
+                Device Id
+                <span
+                  style={{ cursor: "pointer", margin: "0px 5px", }}
+                  onClick={() =>
+                    sortTableFunAD(callbackfnDispatchGetAllData)
+                  }
+                >
+                  <FontAwesomeIcon
+                    icon={currentStateTableData.sortIconFilter.AD ? faSortDown : faSortUp}
+                    onClick={() => {
+                      dispatchTableData({
+                        type: SORT_ICON_FILTER,
+                        data: {
+                          ...currentStateTableData.sortIconFilter,
+                          AD: !currentStateTableData.sortIconFilter.AD,
+                        },
+                      });
+                    }}
+                  />
+                </span>
               </section>
             </section>
-            <section className={Style.body_table}>
-              {tableData &&
-                tableData.map((item, index) => {
-                  return (
-                    <React.Fragment key={item._id}>
-                      <section className={Style.body_inner} >
-                        <section>
-                          <input
-                            id={`singleItem ${index}`}
-                            type="checkbox"
-                            checked={
-                              currentStateTableData.allCheckBox
-                                ? "checked"
-                                : null
-                            }
-                            onChange={(e) => singleCheckboxFun(e, item, index)}
-                          />
-                        </section>
-                        <section>
-                          {item && item.log && item.log.filePath ? (
-                            <section>
-                              <p style={{ cursor: "not-allowed" }}>
-                                {item.log.file}
-                              </p>
-                              <section onClick={() => handleDownload(item)}>
-                                <FontAwesomeIcon icon={faDownload} />
-                              </section>
-                            </section>
-                          ) : (
-                            <a
-                              style={{
-                                color:
-                                  theme == "light-theme" ? "#7D7A8C" : "#fff",
-                              }}
-                              className={Style.LinkSection}
-                              href={`/analytics?code=SBXMH&name=Ventilator&col=${item.log.message}&rowlogGeneratedDate=${item.log.date}&version=${item.version}&osArchitecture=${item.device.os.name}&modelName=${item.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`}
-                            >
-                              {item.log.filePath
-                                ? item.log.file
-                                : item.log.message.includes("at ")
-                                  ? item.log.message.split("at ")[0]
-                                  : item.log.message.includes(":")
-                                    ? item.log.message.split(": ")[0]
-                                    : item.log.message}
-                            </a>
-                          )}
-                        </section>
-                        <section>{item.device.did}</section>
-                        <section>
-                          {item.log.type == "error" && (
-                            <span style={{ color: "red" }}>
-                              {item.log.type.toUpperCase()}
-                            </span>
-                          )}
-                          {item.log.type == "info" && (
-                            <span style={{ color: "blue" }}>
-                              {item.log.type.toUpperCase()}
-                            </span>
-                          )}
-                          {item.log.type == "warn" && (
-                            <span style={{ color: "violet" }}>
-                              {item.log.type.toUpperCase()}
-                            </span>
-                          )}
-                          {item.log.type == "debug" && (
-                            <span style={{ color: "green" }}>
-                              {item.log.type.toUpperCase()}
-                            </span>
-                          )}
-                        </section>
-                        <section>{item.log.date.split("T")[0]}</section>
-                        <section>
-                          {item.log.date.split("T")[1].split(".")[0]}
-                        </section>
-                      </section>
-                    </React.Fragment>
-                  );
-                })}
+            <section>
+              <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
+                Category
+                <span
+                  style={{ cursor: "pointer", margin: "0px 5px", }}
+                  onClick={() =>
+                    sortTableFunLT(callbackfnDispatchGetAllData)
+                  }
+                >
+                  <FontAwesomeIcon
+                    icon={currentStateTableData.sortIconFilter.LT ? faDownload : faSortUp}
+                    onClick={() => {
+                      dispatchTableData({
+                        type: SORT_ICON_FILTER,
+                        data: {
+                          ...currentStateTableData.sortIconFilter,
+                          LT: !currentStateTableData.sortIconFilter.LT,
+                        },
+                      });
+                    }}
+                  />
+                </span>
+              </section>
+            </section>
+            <section>
+              <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
+                Date
+                <span
+                  style={{ cursor: "pointer", margin: "0px 5px", }}
+                  onClick={() =>
+                    sortTableFunDT(callbackfnDispatchGetAllData)
+                  }
+                >
+                  <FontAwesomeIcon
+                    icon={currentStateTableData.sortIconFilter.DA ? faSortDown : faSortUp}
+                    onClick={() => {
+                      dispatchTableData({
+                        type: SORT_ICON_FILTER,
+                        data: {
+                          ...currentStateTableData.sortIconFilter,
+                          DA: !currentStateTableData.sortIconFilter.DA,
+                        },
+                      });
+                    }}
+                  />
+                </span>
+              </section>
+            </section>
+            <section>
+              <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
+                Time
+                <span
+                  style={{ cursor: "pointer", margin: "0px 5px", }}
+                  onClick={() =>
+                    sortTableFunDT(callbackfnDispatchGetAllData)
+                  }
+                >
+                  <FontAwesomeIcon
+                    icon={currentStateTableData.sortIconFilter.TI ? faSortDown : faSortUp}
+                    onClick={() => {
+                      dispatchTableData({
+                        type: SORT_ICON_FILTER,
+                        data: {
+                          ...currentStateTableData.sortIconFilter,
+                          TI: !urrentStateTableData.sortIconFilter.TI,
+                        },
+                      });
+                    }}
+                  />
+                </span>
+              </section>
             </section>
           </section>
+          {tableData && tableData.map((item) => {
+            return (
+              <React.Fragment key={item._id}>
+                {/* {console.log(item)} */}
+                <section className={Style.tableBody}>
+                  <section style={{ display: "flex", alignItems: "center" }}>
+                    <input
+                      // id={`singleItem ${index}`}
+                      type="checkbox"
+                      name={item._id}
+                      checked={item.isChecked || false}
+
+                      // checked={
+                      //   currentStateTableData.allCheckBox
+                      //     ? "checked"
+                      //     : null
+                      // }
+
+                      // onChange={
+                      //   currentStateTableData.allCheckBox ? null :
+                      //     (e) => {
+                      //       singleCheckboxFun(e, item, index)
+                      //     }}
+                      // value={checkboxSelectState.rowSelect}
+                      // checked={checkboxSelectState.allRowSelect ? "checked" : null}
+                      onChange={checkBoxFn} />
+                  </section>
+                  <section style={{ width: "80%" }} >
+                    {item && item.log && item.log.filePath ? (
+                      <section style={{ cursor: "pointer" }}>
+                        <p onClick={() => handleDownload(item)}>
+                          {item.log.file}
+                        </p>
+                      </section>
+                    ) : (
+                      <a
+                        className={Style.logMsg}
+                        style={{
+                          color:
+                            theme == "light-theme" ? "#7D7A8C" : "#fff",
+                        }}
+                        href={`/analytics?code=SBXMH&name=Ventilator&col=${item.log.message}&rowlogGeneratedDate=${item.log.date}&version=${item.version}&osArchitecture=${item.device.os.name}&modelName=${item.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`}
+                      >
+                        {item.log.filePath
+                          ? item.log.file
+                          : item.log.message.includes("at ")
+                            ? item.log.message.split("at ")[0]
+                            : item.log.message}
+                      </a>
+                    )}
+                  </section>
+                  <section>
+                    <p style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>{item.log.message && "TEXT"}</p>
+                    <p style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>{item.log.filePath && "FILE"}</p>
+                  </section>
+
+
+                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{item.device.did}</section>
+                  <section>
+                    {item.log.type == "error" && (
+                      <span style={{ color: "red" }}>
+                        {item.log.type.toUpperCase()}
+                      </span>
+                    )}
+                    {item.log.type == "info" && (
+                      <span style={{ color: "blue" }}>
+                        {item.log.type.toUpperCase()}
+                      </span>
+                    )}
+                    {item.log.type == "warn" && (
+                      <span style={{ color: "violet" }}>
+                        {item.log.type.toUpperCase()}
+                      </span>
+                    )}
+                    {item.log.type == "debug" && (
+                      <span style={{ color: "green" }}>
+                        {item.log.type.toUpperCase()}
+                      </span>
+                    )}
+                    {item.log.type == "verbose" && (
+                      <span style={{ color: "purple" }}>
+                        {item.log.type.toUpperCase()}
+                      </span>
+                    )}
+                  </section>
+                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{item.log.date.split("T")[0]}</section>
+                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
+                    {item.log.date.split("T")[1].split(".")[0]}
+                  </section>
+                </section>
+              </React.Fragment>
+            );
+          })}
         </section>
 
         {/* DROPDOWN FILTER */}
@@ -1009,6 +1031,7 @@ export default function TableDataNew(props) {
                   <Col xl={6} md={6} sm={6}>
                     <section className={`m-2`}>
                       <p
+                        style={{ cursor: "pointer" }}
                         className={
                           currentStateTableData.dateSection
                             ? `${Style.ActiveOption} mt-2`
@@ -1019,6 +1042,7 @@ export default function TableDataNew(props) {
                         Date
                       </p>
                       <p
+                        style={{ cursor: "pointer" }}
                         className={
                           currentStateTableData.statusSection
                             ? `${Style.ActiveOption} mt-2`
@@ -1028,7 +1052,7 @@ export default function TableDataNew(props) {
                       >
                         Select Log Type
                       </p>
-                      <p
+                      {/* <p
                         className={
                           currentStateTableData.recordPerPageSection
                             ? `${Style.ActiveOption} mt-2`
@@ -1037,7 +1061,7 @@ export default function TableDataNew(props) {
                         onClick={handleShowPerPage}
                       >
                         Record per page
-                      </p>
+                      </p> */}
                     </section>
                   </Col>
 
@@ -1302,22 +1326,12 @@ export default function TableDataNew(props) {
         {loading && <SpinnerCustom height="200px" />}
         {data && data.data && !data.data.count && (
           <section
-            className={Style.noDataFound}
-            style={{ color: theme == "light-theme" ? `#000` : `#fff` }}
-          >
-            <p>No Data Found</p>
+            className={Style.noDataFound}>
+            <p style={{ color: theme == "light-theme" ? `#000` : `#fff` }}>No Data Found</p>
           </section>
         )}
         {tableData && (
           <section className="p-2">
-            {/* <CustomPaginationTableData
-              data={data && data.data && data.data.count}
-              code={code}
-              date={date}
-              logType={currentStateTableData.logType}
-              record={currentStateTableData.record}
-              projectType={projectCode.code}
-            /> */}
 
             <Pagination
               code={code}
@@ -1333,6 +1347,6 @@ export default function TableDataNew(props) {
           </section>
         )}
       </section>
-    </TableCard>
+    </TableCard >
   );
 }

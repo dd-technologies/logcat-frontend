@@ -1,14 +1,8 @@
 .StatusInnerSecion {
   width: 40%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 5px;
 }
 
@@ -25,22 +19,11 @@
 }
 
 .perPageOuter {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-
 .perPageOuter .perPagesectionInner {
   margin-top: 5px;
-}
-/*# sourceMappingURL=CustomeFilterTable.module.css.map */
+}/*# sourceMappingURL=CustomeFilterTable.module.css.map */

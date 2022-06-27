@@ -4,6 +4,7 @@
 .LinkSection {
   text-decoration: none;
   color: #fff;
+
   &:hover {
     color: $active_text_color;
     transition-duration: 0.3s;
@@ -11,34 +12,12 @@
   }
 }
 
-input[type="checkbox"]:checked {
-  background-color: $active_text_color;
-}
-input[type="checkbox"]:checked:after {
-  content: "\2713";
-  color: white;
-}
-
-input[type="checkbox"] {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20px !important;
-  height: 20px !important;
-  appearance: none;
-  border: 1px solid $active_text_color;
-  box-shadow: none;
-  font-size: 1em;
-}
-
 .searchSection {
   background-color: #efefef;
-  padding: 10px;
+  padding: 10px !important;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   display: flex;
-
   justify-content: space-between;
   border-bottom: 1px solid rgba(0, 0, 0, 0.224);
 
@@ -48,27 +27,26 @@ input[type="checkbox"] {
     border-radius: 5px;
     border: solid rgb(226, 226, 226) 1px;
     padding: 5px;
-    width: 60%;
+    width: 70%;
     height: 40px;
+
+    @include sm {
+      width: 50% !important;
+    }
+  }
+
+  .chipExportSection {
+    display: grid;
+    grid-template-columns: auto auto;
+
+    .chipInner {
+      display: grid;
+      grid-template-columns: auto auto;
+    }
   }
 }
 
-.filterGraphFirstSection {
-  cursor: pointer;
-  background-color: $active_text_color;
-  padding: 10px;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: auto !important;
 
-  & svg {
-    color: $defaultTextColor;
-    transition-duration: 0.5s;
-  }
-}
 
 .noDataFound {
   width: 100%;
@@ -85,55 +63,7 @@ input[type="checkbox"] {
   align-items: center;
 }
 
-.chipOuter {
-  width: 40% !important;
-  height: auto !important;
-  margin-right: 5px;
-  margin-left: 5px;
-  display: grid;
-  grid-gap: 0px;
-}
 
-@include sm {
-  .chipOuter {
-    // border: 1px solid red;
-    grid-template-columns: auto;
-  }
-}
-@include md {
-  .chipOuter {
-    // border: 1px solid red;
-    grid-template-columns: auto auto;
-  }
-}
-
-@include lg-md {
-  .chipOuter {
-    // border: 1px solid red;
-    grid-template-columns: auto auto auto;
-  }
-}
-
-@include lg-xl {
-  .chipOuter {
-    // border: 1px solid red;
-    grid-template-columns: auto auto auto;
-  }
-}
-
-@include lg {
-  .chipOuter {
-    // border: 1px solid red;
-    grid-template-columns: auto auto auto;
-  }
-}
-@include xl {
-  .chipOuter {
-    // border: 1px solid red;
-    grid-template-columns: auto auto auto auto;
-    gap: 0;
-  }
-}
 
 .chip {
   background-color: $backgroundColor;
@@ -150,6 +80,7 @@ input[type="checkbox"] {
   & p {
     font-size: 0.8rem !important;
   }
+
   & svg {
     color: #fff;
   }
@@ -187,13 +118,15 @@ input[type="checkbox"] {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
   .perPagesectionInner {
     margin-top: 5px;
   }
+
   .perPagesectionInnerActive {
-    background-color: $backgroundColor !important;
+    background-color: $backgroundColor  !important;
     color: $defaultTextColor;
-    padding: 5px;
+    margin: 5px;
     border-radius: 30px;
     width: 30px;
     height: 30px;
@@ -205,7 +138,7 @@ input[type="checkbox"] {
 
 .DefaultOption {
   color: $active_text_color;
-  padding: 5px;
+  margin: 5px;
 }
 
 .StatusInnerSecion {
@@ -216,205 +149,43 @@ input[type="checkbox"] {
   margin-top: 5px;
 }
 
-.tableSection {
-  .headerTable {
-    background-color: #efefef;
-    display: flex;
-    align-items: center;
-    height: 50px;
-    .header_inner {
-      padding: 5px;
-      display: flex;
-      align-items: center;
-      font-weight: 500;
-      font-size: .9rem;
-    }
+.customeTable {
+  .tableHeader {
+    padding: 10px 10px;
+    display: grid;
+    grid-template-columns: 5% 22% 13% 20% 15% 12.5% 12.5%;
+    font-weight: 500;
+    font-size: .9rem !important;
+    background-color: rgba(122, 122, 122, 0.082);
 
     @include sm {
-      .header_inner :nth-child(1) {
-        padding: 5px;
-        width: 20px !important;
-      }
-      .header_inner :nth-child(2) {
-        width: 220px !important;
-        padding: 5px;
-      }
-      .header_inner :nth-child(3) {
-        width: 100px !important;
-        padding: 5px;
-      }
-      .header_inner :nth-child(4) {
-        width: 80px !important;
-        padding: 5px;
-      }
-      .header_inner :nth-child(5) {
-        width: 80px !important;
-        padding: 5px;
-      }
+      grid-template-columns: 5% 25% 13% 15% 15% 14% 14%;
     }
 
-    @include md {
-      .header_inner :nth-child(1) {
-        padding: 5px;
-        width: 20px !important;
-      }
-      .header_inner :nth-child(2) {
-        width: 340px !important;
-        padding: 5px;
-      }
-      .header_inner :nth-child(3) {
-        width: 140px !important;
-        padding: 5px;
-      }
-      .header_inner :nth-child(4) {
-        width: 100px !important;
-        padding: 5px;
-      }
-      .header_inner :nth-child(5) {
-        width: 100px !important;
-        padding: 5px;
-      }
-    }
-
-    @include lg-md {
-      .header_inner :nth-child(1) {
-        padding: 5px;
-        width: 20px !important;
-      }
-      .header_inner :nth-child(2) {
-        width: 480px !important;
-        padding: 5px;
-      }
-      .header_inner :nth-child(3) {
-        width: 200px !important;
-        padding: 5px;
-      }
-      .header_inner :nth-child(4) {
-        width: 120px !important;
-        padding: 5px;
-      }
-      .header_inner :nth-child(5) {
-        width: 120px !important;
-        padding: 5px;
-      }
-    }
-
-    .header_inner :nth-child(1) {
-      width: 40px;
-    }
-    .header_inner :nth-child(2) {
-      width: 500px;
-    }
-    .header_inner :nth-child(3) {
-      width: 200px;
-    }
-    .header_inner :nth-child(4) {
-      width: 200px;
-    }
-    .header_inner :nth-child(5) {
-      width: 200px;
+    @include xl {
+      grid-template-columns: 5% 30% 13% 20% 15% 10% 10%;
     }
   }
 
-  .body_table {
-    .body_inner {
-      padding: 5px;
-      border-bottom: #efefef 1px solid;
-      display: flex;
-    }
+  .tableBody {
+    border-bottom: 1px solid rgba(51, 51, 51, 0.137);
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 5% 22% 13% 20% 15% 12.5% 12.5%;
+    font-size: .9rem;
 
     @include sm {
-      .body_inner :nth-child(1) {
-        padding: 5px;
-        width: 20px !important;
-      }
-      .body_inner :nth-child(2) {
-        padding: 5px;
-
-        width: 220px !important;
-      }
-      .body_inner :nth-child(3) {
-        padding: 5px;
-
-        width: 100px !important;
-      }
-      .body_inner :nth-child(4) {
-        padding: 5px;
-
-        width: 80px !important;
-      }
-      .body_inner :nth-child(5) {
-        padding: 5px;
-
-        width: 80px !important;
-      }
+      grid-template-columns: 5% 25% 13% 15% 15% 14% 14%;
     }
 
-    @include md {
-      .body_inner :nth-child(1) {
-        padding: 5px;
-        width: 20px !important;
-      }
-      .body_inner :nth-child(2) {
-        width: 340px !important;
-        padding: 5px;
-      }
-      .body_inner :nth-child(3) {
-        width: 140px !important;
-        padding: 5px;
-      }
-      .body_inner :nth-child(4) {
-        width: 100px !important;
-        padding: 5px;
-      }
-      .body_inner :nth-child(5) {
-        width: 100px !important;
-        padding: 5px;
-      }
+    @include xl {
+      grid-template-columns: 5% 30% 13% 20% 15% 10% 10%;
     }
+  }
 
-    @include lg-md {
-      .body_inner :nth-child(1) {
-        padding: 5px;
-        width: 20px !important;
-      }
-      .body_inner :nth-child(2) {
-        width: 480px !important;
-        padding: 5px;
-      }
-      .body_inner :nth-child(3) {
-        width: 200px !important;
-        padding: 5px;
-      }
-      .body_inner :nth-child(4) {
-        width: 120px !important;
-        padding: 5px;
-      }
-      .body_inner :nth-child(5) {
-        width: 120px !important;
-        padding: 5px;
-      }
-    }
+  .logMsg {
+    text-decoration: none;
+    cursor: pointer !important;
 
-    .body_inner :nth-child(1) {
-      width: 40px;
-      font-size: 0.9rem;
-    }
-    .body_inner :nth-child(2) {
-      width: 500px;
-      font-size: 0.9rem;
-    }
-    .body_inner :nth-child(3) {
-      width: 200px;
-      font-size: 0.9rem;
-    }
-    .body_inner :nth-child(4) {
-      width: 200px;
-      font-size: 0.9rem;
-    }
-    .body_inner :nth-child(5) {
-      width: 200px;
-      font-size: 0.9rem;
-    }
   }
 }

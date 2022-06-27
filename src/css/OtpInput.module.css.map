@@ -1,9 +1,1 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,aAAa,CAAC;EACZ,OAAO,EAAE,eAAe;CAazB;;AAdD,AAEE,aAFW,CAEX,SAAS,CAAC;EACR,OAAO,EAAE,eAAe;EACxB,MAAM,EAAE,eAAe;EACvB,KAAK,EAAE,cAAc;EACrB,MAAM,EAAE,IAAI;EACZ,UAAU,EAAE,MAAM;EAClB,MAAM,EAAE,GAAG;EACX,aAAa,EAAE,cAAc;EAC7B,MAAM,EAAE,GAAG,CAAC,KAAK,CAAC,oBAAoB,CAAC,UAAU;EACjD,KAAK,EAAE,IAAI;CAEZ",
-    "sources": [
-        "OtpInput.module.scss"
-    ],
-    "names": [],
-    "file": "OtpInput.module.css"
-}
+{"version":3,"sources":["OtpInput.module.scss","OtpInput.module.css"],"names":[],"mappings":"AAAA;EACE,wBAAA;ACCF;ADAE;EACE,wBAAA;EACA,uBAAA;EACA,qBAAA;EACA,YAAA;EACA,kBAAA;EACA,WAAA;EACA,6BAAA;EACA,iDAAA;EACA,WAAA;ACEJ","file":"OtpInput.module.css"}
