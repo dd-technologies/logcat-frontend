@@ -656,6 +656,7 @@ export default function TableDataNew(props) {
               {currentStateTableData.dateState.end && dateChips[1]}
             </section>
           </section>
+          {/* {console.log("date", new Date().getDay() + "-" + new Date().getMonth() + "-" + new Date().getFullYear())} */}
           <button
             // id="download_button"
             // style={{
@@ -682,7 +683,9 @@ export default function TableDataNew(props) {
             onClick={() =>
               downloadCSVFun({
                 data: checkedLogs,
-                fileName: `${props.code}${new Date()}.csv`,
+
+                fileName: `${props.code}-${new Date().getDay() + "-" + new Date().getMonth() + "-" + new Date().getFullYear()}.csv`,
+
                 fileType: "text/csv;charset=utf-8;",
               })
             }
@@ -695,11 +698,13 @@ export default function TableDataNew(props) {
         <section className={Style.customeTable}>
           <section className={Style.tableHeader}>
             <section>
-              <input type="checkbox" 
-              onChange={handleSelectAll}
-              checked={isCheckAll}
-              id="selectAll"
-               />
+
+              <input type="checkbox"
+                onChange={handleSelectAll}
+                checked={isCheckAll}
+                id="selectAll"
+              />
+
             </section>
             <section style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>
               Log Message
