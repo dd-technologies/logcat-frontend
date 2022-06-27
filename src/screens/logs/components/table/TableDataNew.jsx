@@ -33,8 +33,8 @@ import {
 import Pagination from "../../../../common/Pagination";
 
 
-var arrayofSelectRow = []
-var getPrivousArray = {}
+// var arrayofSelectRow = []
+// var getPrivousArray = {}
 
 export default function TableDataNew(props) {
   // ALL CHECKED BOX CHECK STATE
