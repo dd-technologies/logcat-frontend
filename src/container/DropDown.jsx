@@ -4,8 +4,8 @@ import { Card } from "react-bootstrap";
 export default function CustomeDropDown(props) {
   // dark mood state
 
-  const darkMood = useState(
-    JSON.parse(localStorage.getItem("darkMood"))
+  const darkMode = useState(
+    JSON.parse(localStorage.getItem("darkMode"))
   )[0];
 
   return (
@@ -30,7 +30,7 @@ export default function CustomeDropDown(props) {
           right: props.right ? props.right : "",
           marginRight: props.marginRight ? props.marginRight : "",
           zIndex: props.zIndex ? props.zIndex : "",
-          backgroundColor: darkMood ? "#202940" : null,
+          backgroundColor: darkMode ? "#202940" : null,
         }}
       >
         {props.children}

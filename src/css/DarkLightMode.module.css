@@ -25,7 +25,7 @@
   }
 }
 
-.darkMood_outer {
+.darkMode_outer {
   background-color: #0099a4;
   border-radius: 100%;
   padding: 2px;
@@ -34,4 +34,4 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}/*# sourceMappingURL=DarkLightMood.module.css.map */
+}/*# sourceMappingURL=DarkLightMode.module.css.map */
