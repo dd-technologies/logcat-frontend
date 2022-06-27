@@ -5,10 +5,10 @@ import {
   RECORDS,
   SEARCH_FIELD,
   SELECT_PAGE_NO,
-  // ALL_CHECkBOX,
+  ALL_CHECkBOX,
   SORT_ICON_FILTER,
   STATUS_SELECTION,
-  // SINGLE_CHECKBOX_SELECTION,
+  SINGLE_CHECKBOX_SELECTION,
   RECORD_PER_PAGE_SECTION,
   ACTIVE_RECORDS,
 } from "./Type";
@@ -16,19 +16,19 @@ import {
 export const checkBoxReducer = (state, action) => {
   switch (action.type) {
     //CHECKBOX SECTION
-    // case SINGLE_CHECKBOX_SELECTION:
-    //   return {
-    //     ...state,
-    //     type: action.type,
-    //     singleCheckbox: action.data,
-    //   };
+    case SINGLE_CHECKBOX_SELECTION:
+      return {
+        ...state,
+        type: action.type,
+        singleCheckbox: action.data,
+      };
 
-    // case ALL_CHECkBOX:
-    //   return {
-    //     ...state,
-    //     type: action.type,
-    //     allCheckBox: action.data,
-    //   };
+    case ALL_CHECkBOX:
+      return {
+        ...state,
+        type: action.type,
+        allCheckBox: action.data,
+      };
 
     //PAGE SECTION
     case SELECT_PAGE_NO:
