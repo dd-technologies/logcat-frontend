@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Style from "../css/DarkLightMood.module.css";
+import Style from "../css/DarkLightMode.module.css";
 import { ThemeContext, themes } from "./ThemeContext";
 import faSun from "../assets/icons/sunIcon.png";
 import faMoon from "../assets/icons/faMoon.png";

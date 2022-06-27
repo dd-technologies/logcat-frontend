@@ -38,7 +38,7 @@ export default function EventDataWithDate() {
           <section className={`${Style.outerSec} p-2`}>
             <p
               style={{
-                color: JSON.parse(localStorage.getItem("darkMood"))
+                color: JSON.parse(localStorage.getItem("darkMode"))
                   ? "#fff"
                   : "#0099a4",
               }}
@@ -49,7 +49,7 @@ export default function EventDataWithDate() {
             <section className="px-4">
               <p
                 style={{
-                  color: JSON.parse(localStorage.getItem("darkMood"))
+                  color: JSON.parse(localStorage.getItem("darkMode"))
                     ? "#fff"
                     : "#0099a4",
                 }}
@@ -65,7 +65,7 @@ export default function EventDataWithDate() {
               <section className="px-4">
                 <p
                   style={{
-                    color: JSON.parse(localStorage.getItem("darkMood"))
+                    color: JSON.parse(localStorage.getItem("darkMode"))
                       ? "#fff"
                       : "#0099a4",
                   }}
@@ -82,7 +82,7 @@ export default function EventDataWithDate() {
               <section className="px-4">
                 <p
                   style={{
-                    color: JSON.parse(localStorage.getItem("darkMood"))
+                    color: JSON.parse(localStorage.getItem("darkMode"))
                       ? "#fff"
                       : "#0099a4",
                   }}
@@ -99,7 +99,7 @@ export default function EventDataWithDate() {
               <section className="px-4">
                 <p
                   style={{
-                    color: JSON.parse(localStorage.getItem("darkMood"))
+                    color: JSON.parse(localStorage.getItem("darkMode"))
                       ? "#fff"
                       : "#0099a4",
                   }}
