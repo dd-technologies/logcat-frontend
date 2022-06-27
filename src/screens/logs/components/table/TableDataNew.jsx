@@ -33,7 +33,7 @@ import {
 import Pagination from "../../../../common/Pagination";
 
 
-// var arrayofSelectRow = []
+var arrayofSelectRow = []
 // var getPrivousArray = {}
 
 export default function TableDataNew(props) {
