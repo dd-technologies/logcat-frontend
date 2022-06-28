@@ -19,7 +19,7 @@ export default function DarkLightMood() {
             changeTheme(darkMode ? themes.light : themes.dark);
           }}
         >
-          {darkMode ? <Image src={faMoon} width="16px" /> : <Image src={faSun} width="28px" />}
+          {darkMode ? <Image src={faSun} width="28px" /> : <Image src={faMoon} width="16px" />}
 
         </section>
       )}

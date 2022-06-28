@@ -78,10 +78,10 @@ export default function AlertsNew() {
      */
 
     sortIcons: {
-      MA: false,
+      DI: false,
+      CD: false,
       LM: false,
-      ET: false,
-      DT: false,
+      DA: false,
       TI: false,
     },
     singleRowSelect: false,
@@ -94,6 +94,32 @@ export default function AlertsNew() {
   );
 
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [isCheckAll, setIsCheckAll] = useState(false);
+  const [isCheck, setIsCheck] = useState([]);
+  const [checkedLogs, setCheckedLogs] = useState([])
+
+  const handleSelectAll = e => {
+    setIsCheckAll(!isCheckAll);
+    setIsCheck(data?.data?.alerts.map(alerts => alerts._id));
+    setCheckedLogs(data?.data?.alerts)
+    if (isCheckAll) {
+      setIsCheck([]);
+      setCheckedLogs([]);
+    }
+  };
+
+  const handleClick = e => {
+    const { id, checked, name } = e.target;
+    setIsCheck([...isCheck, id]);
+    setCheckedLogs([...checkedLogs, JSON.parse(name)])
+    if (!checked) {
+      setIsCheck(isCheck.filter(item => item !== id));
+      setCheckedLogs(checkedLogs.filter(item => {
+        return item._id !== id
+      }))
+    }
+  };
 
   useMemo(() => {
     const firstPageIndex = (currentPage - 1) * currentStateAlerts.record;
@@ -182,25 +208,120 @@ export default function AlertsNew() {
   }
 
   // sort icon function
-  const sortIconsFunc = (typeName) => {
-    if (currentStateAlerts.sortIcons) {
-      dispatchAlertsData({
-        type: SORT_ICONS,
-        data: {
-          MA: typeName == "MA" ? !currentStateAlerts.sortIcons.MA : false,
-          LM: typeName == "LM" ? !currentStateAlerts.sortIcons.LM : false,
-          ET: typeName == "ET" ? !currentStateAlerts.sortIcons.ET : false,
-          DT: typeName == "DT" ? !currentStateAlerts.sortIcons.DT : false,
-          TI: typeName == "TI" ? !currentStateAlerts.sortIcons.TI : false,
-        },
+  // const sortIconsFunc = (typeName) => {
+  //   if (currentStateAlerts.sortIcons) {
+  //     dispatchAlertsData({
+  //       type: SORT_ICONS,
+  //       data: {
+  //         MA: typeName == "MA" ? !currentStateAlerts.sortIcons.MA : false,
+  //         LM: typeName == "LM" ? !currentStateAlerts.sortIcons.LM : false,
+  //         ET: typeName == "ET" ? !currentStateAlerts.sortIcons.ET : false,
+  //         DT: typeName == "DT" ? !currentStateAlerts.sortIcons.DT : false,
+  //         TI: typeName == "TI" ? !currentStateAlerts.sortIcons.TI : false,
+  //       },
+  //     });
+  //     dispatch(
+  //       alarmAction(
+  //         code,
+  //         currentStateAlerts.projectCode,
+  //         currentStateAlerts.diffDate
+  //       )
+  //     );
+  //   }
+  // };
+
+
+  const callbackfnDispatchGetAllData = (sortType) => {
+
+    dispatch(
+      alarmAction(
+        code,
+        currentStateAlerts.projectCode,
+        currentStateAlerts.diffDate,
+        currentStateAlerts.page,
+        currentStateAlerts.record,
+        sortType
+      )
+    );
+  };
+
+  // SORTING FUNCTION
+  // multple dispatch function for sorting
+  const multpleDispatchSort = (type, data) => {
+    return dispatchAlertsData({
+      type: type,
+      data: data,
+    });
+  };
+
+  const sortTableFnDI = (callbackDispatchAllData) => {
+    // LM -- log message
+    if (currentStateAlerts.sortIcons.DI) {
+      return callbackDispatchAllData("-did");
+    } else if (!currentStateAlerts.sortIcons.DI) {
+      multpleDispatchSort(SORT_ICONS, {
+        DI: true,
+        CD: false,
+        LM: false,
+        DA: false,
+        TI: false,
       });
-      dispatch(
-        alarmAction(
-          code,
-          currentStateAlerts.projectCode,
-          currentStateAlerts.diffDate
-        )
-      );
+
+      return callbackDispatchAllData("did");
+    }
+  };
+
+  const sortTableFnCD = (callbackDispatchAllData) => {
+    // AD-- mac address
+    if (currentStateAlerts.sortIcons.CD) {
+      return callbackDispatchAllData("-ack.code");
+    } else if (!currentStateAlerts.sortIcons.CD) {
+      multpleDispatchSort(SORT_ICONS, {
+        DI: false,
+        CD: true,
+        LM: false,
+        DA: false,
+        TI: false,
+      });
+      return callbackDispatchAllData("ack.code");
+    }
+  };
+
+  const sortTableFnLM = (callbackDispatchAllData) => {
+    // LT -- logotype
+    if (currentStateAlerts.sortIcons.LM) {
+      return callbackDispatchAllData("-alerts.ack.msg");
+    } else if (!currentStateAlerts.sortIcons.LM) {
+      multpleDispatchSort(SORT_ICONS, {
+        DI: false,
+        CD: false,
+        LM: true,
+        DA: false,
+        TI: false,
+      });
+      return callbackDispatchAllData("alerts.ack.msg");
+    }
+  };
+
+  const sortTableFnDT = (callbackDispatchAllData) => {
+    // DT -- date TI-- time
+    if (
+      currentStateAlerts.sortIcons.DA ||
+      currentStateAlerts.sortIcons.TI
+    ) {
+      return callbackDispatchAllData("-alerts.ack.date");
+    } else if (
+      !currentStateAlerts.sortIcons.DA ||
+      !currentStateAlerts.sortIcons.TI
+    ) {
+      multpleDispatchSort(SORT_ICONS, {
+        DI: false,
+        CD: false,
+        LM: false,
+        DA: true,
+        TI: true,
+      });
+      return callbackDispatchAllData("alerts.ack.date");
     }
   };
 
@@ -502,21 +623,12 @@ export default function AlertsNew() {
                           />
                           <section
                             id="download_button"
-                            style={{
-                              opacity:
-                                currentStateAlerts.allRowSelect ||
-                                  currentStateAlerts.singleRowSelect
-                                  ? "100%"
-                                  : "30%",
-                            }}
+                            disabled={checkedLogs?.length ? null : "disabled"}
+                            style={{ border: "none", opacity: checkedLogs?.length ? "100%" : "40%" }}
                             onClick={() =>
-                              (currentStateAlerts.allRowSelect ||
-                                newItemsArray.length) &&
                               downloadCSVFun({
-                                data: currentStateAlerts.allRowSelect
-                                  ? alertsFilter
-                                  : newItemsArray,
-                                fileName: `${code}.csv`,
+                                data: checkedLogs,
+                                fileName: `${code}-${new Date().getDay() + "-" + new Date().getMonth() + "-" + new Date().getFullYear()}.csv`,
                                 fileType: "text/csv;charset=utf-8;",
                               })
                             }
@@ -538,7 +650,9 @@ export default function AlertsNew() {
                             <section style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>
                               <input
                                 type="checkbox"
-                                onChange={allCheckBoxSelectFn}
+                                onChange={handleSelectAll}
+                                checked={isCheckAll}
+                                id="selectAll"
                               />
                             </section>
                             <section className={Style.innerHeader}>
@@ -549,11 +663,20 @@ export default function AlertsNew() {
                                 color="#0099a4"
                                 style={{ cursor: "pointer" }}
                                 icon={
-                                  currentStateAlerts.sortIcons.MA
+                                  currentStateAlerts.sortIcons.DI
                                     ? faSortDown
                                     : faSortUp
                                 }
-                                onClick={() => sortIconsFunc("MA")}
+                                onClick={() => {
+                                  dispatchAlertsData({
+                                    type: SORT_ICONS,
+                                    data: {
+                                      ...currentStateAlerts.sortIcons,
+                                      DI: !currentStateAlerts.sortIcons.DI,
+                                    },
+                                  });
+                                  sortTableFnDI(callbackfnDispatchGetAllData)
+                                }}
                               />
                             </section>
                             <section className={Style.innerHeader}>
@@ -565,11 +688,20 @@ export default function AlertsNew() {
                                 color="#0099a4"
                                 style={{ cursor: "pointer" }}
                                 icon={
-                                  currentStateAlerts.sortIcons.LM
+                                  currentStateAlerts.sortIcons.CD
                                     ? faSortDown
                                     : faSortUp
                                 }
-                                onClick={() => sortIconsFunc("LM")}
+                                onClick={() => {
+                                  dispatchAlertsData({
+                                    type: SORT_ICONS,
+                                    data: {
+                                      ...currentStateAlerts.sortIcons,
+                                      CD: !currentStateAlerts.sortIcons.CD,
+                                    },
+                                  });
+                                  sortTableFnCD(callbackfnDispatchGetAllData)
+                                }}
                               />
                             </section>
                             <section className={Style.innerHeader}>
@@ -581,11 +713,20 @@ export default function AlertsNew() {
                                 color="#0099a4"
                                 style={{ cursor: "pointer" }}
                                 icon={
-                                  currentStateAlerts.sortIcons.ET
+                                  currentStateAlerts.sortIcons.LM
                                     ? faSortDown
                                     : faSortUp
                                 }
-                                onClick={() => sortIconsFunc("ET")}
+                                onClick={() => {
+                                  dispatchAlertsData({
+                                    type: SORT_ICONS,
+                                    data: {
+                                      ...currentStateAlerts.sortIcons,
+                                      LM: !currentStateAlerts.sortIcons.LM,
+                                    },
+                                  });
+                                  sortTableFnLM(callbackfnDispatchGetAllData)
+                                }}
                               />
                             </section>
                             <section className={Style.innerHeader}>
@@ -600,7 +741,16 @@ export default function AlertsNew() {
                                     ? faSortDown
                                     : faSortUp
                                 }
-                                onClick={() => sortIconsFunc("DT")}
+                                onClick={() => {
+                                  dispatchAlertsData({
+                                    type: SORT_ICONS,
+                                    data: {
+                                      ...currentStateAlerts.sortIcons,
+                                      DT: !currentStateAlerts.sortIcons.DT,
+                                    },
+                                  });
+                                  sortTableFnDT(callbackfnDispatchGetAllData)
+                                }}
                               />
                             </section>
                             <section className={Style.innerHeader}>
@@ -615,37 +765,42 @@ export default function AlertsNew() {
                                     ? faSortDown
                                     : faSortUp
                                 }
-                                onClick={() => sortIconsFunc("TI")}
+                                onClick={() => {
+                                  dispatchAlertsData({
+                                    type: SORT_ICONS,
+                                    data: {
+                                      ...currentStateAlerts.sortIcons,
+                                      TI: !currentStateAlerts.sortIcons.TI,
+                                    },
+                                  });
+                                  sortTableFnDT(callbackfnDispatchGetAllData)
+                                }}
                               />
 
                             </section>
                           </section>
-                          {alertsFilter.map((items, index) => {
+                          {alertsFilter.map((item, index) => {
                             return (
-                              <React.Fragment key={items._id}>
+                              <React.Fragment key={item._id}>
                                 <section className={Style.tableBody}>
                                   <section>
                                     <input
                                       type="checkbox"
-                                      checked={
-                                        currentStateAlerts.allRowSelect
-                                          ? "checked"
-                                          : null
-                                      }
-                                      onChange={(e) =>
-                                        singleCheckboxFun(e, items, index)
-                                      }
+                                      id={item._id}
+                                      name={JSON.stringify(item)}
+                                      onChange={handleClick}
+                                      checked={isCheck.includes(item._id)}
                                     />
                                   </section>
-                                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{items.did}</section>
-                                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{items.ack.code}</section>
-                                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{items.ack.msg}</section>
+                                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{item.did}</section>
+                                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{item.ack.code}</section>
+                                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{item.ack.msg || `N/A`}</section>
                                   <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
-                                    {items.ack.date.split("T")[0]}
+                                    {item.ack.date.split("T")[0]}
                                   </section>
                                   <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
                                     {
-                                      items.ack.date
+                                      item.ack.date
                                         .split("T")[1]
                                         .split(".")[0]
                                     }
@@ -662,7 +817,7 @@ export default function AlertsNew() {
                           projectType={currentStateAlerts.projectCode}
                           diffdate={currentStateAlerts.diffDate}
                           currentPage={currentPage}
-                          totalCount={data && data.data && data.data.count}
+                          totalCount={data?.data?.count ? data?.data?.count : 0}
                           pageSize={currentStateAlerts.record}
                           onPageChange={(page) => setCurrentPage(page)}
                         />

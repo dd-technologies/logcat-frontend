@@ -33,7 +33,7 @@ import {
 import Pagination from "../../../../common/Pagination";
 
 
-var arrayofSelectRow = []
+// var arrayofSelectRow = []
 // var getPrivousArray = {}
 
 export default function TableDataNew(props) {
@@ -837,7 +837,7 @@ export default function TableDataNew(props) {
                         type: SORT_ICON_FILTER,
                         data: {
                           ...currentStateTableData.sortIconFilter,
-                          TI: !urrentStateTableData.sortIconFilter.TI,
+                          TI: !currentStateTableData.sortIconFilter.TI,
                         },
                       });
                     }}
@@ -849,6 +849,7 @@ export default function TableDataNew(props) {
           {tableData && tableData.map((item, index) => {
             return (
               <React.Fragment key={item._id}>
+                {console.log("item", item)}
                 {/* {console.log(item)} */}
                 <section className={Style.tableBody}>
                   <section style={{ display: "flex", alignItems: "center" }}>
@@ -874,7 +875,7 @@ export default function TableDataNew(props) {
                           color:
                             theme == "light-theme" ? "#7D7A8C" : "#fff",
                         }}
-                        href={`/analytics?code=SBXMH&name=Ventilator&col=${item.log.message}&rowlogGeneratedDate=${item.log.date}&version=${item.version}&osArchitecture=${item.device.os.name}&modelName=${item.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`}
+                        href={`/analytics?code=SBXMH&name=Ventilator&col=${item?.log?.message}&rowlogGeneratedDate=${item?.log?.date}&version=${item?.version}&osArchitecture=${item?.device?.os?.name}&modelName=${item.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`}
                       >
                         {item.log.filePath
                           ? item.log.file
@@ -890,7 +891,7 @@ export default function TableDataNew(props) {
                   </section>
 
 
-                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{item.device.did}</section>
+                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{item?.device?.did}</section>
                   <section>
                     {item.log.type == "error" && (
                       <span style={{ color: "red" }}>
@@ -1254,6 +1255,7 @@ export default function TableDataNew(props) {
         )}
         {tableData && (
           <section className="p-2">
+            {/* {console.log("mmm",data && data?.data && data?.data.count)} */}
 
             <Pagination
               code={code}
@@ -1262,7 +1264,7 @@ export default function TableDataNew(props) {
               projectType={projectCode.code}
               // className="pagination-bar"
               currentPage={currentPage}
-              totalCount={data && data.data && data.data.count}
+              totalCount={data?.data?.count ? data?.data.count : 0}
               pageSize={currentStateTableData.record}
               onPageChange={(page) => setCurrentPage(page)}
             />
