@@ -117,7 +117,7 @@ const TypeDropDown = (props) => {
                     return (
                       <React.Fragment key={i}>
                         <p
-                          style={{ fontSize: ".8rem" }}
+                          style={{ fontSize: ".9rem" }}
                           className={`${Style.productVersion} darkModeColor`}
                           onClick={() => onSubmitFun(type)}
                         >

@@ -673,16 +673,16 @@ function TableData(props) {
 
                         <ExportCSVButton
                           {...toolkitProps.csvProps}
-                        disabled={
-                          bootstrapTableRef &&
-                          bootstrapTableRef.current &&
-                          bootstrapTableRef.current.selectionContext &&
-                          bootstrapTableRef.current.selectionContext.selected
-                            .length == 0
-                            ? "disabled"
-                            : ""
-                        }
-                        disabled={selectionCount}
+                          disabled={
+                            bootstrapTableRef &&
+                              bootstrapTableRef.current &&
+                              bootstrapTableRef.current.selectionContext &&
+                              bootstrapTableRef.current.selectionContext.selected
+                                .length == 0
+                              ? "disabled"
+                              : ""
+                          }
+                          disabled={selectionCount}
                         >
                           <FontAwesomeIcon icon={faDownload} />
                         </ExportCSVButton>
@@ -769,7 +769,7 @@ function TableData(props) {
                         }
                         onClick={handleShowStatus}
                       >
-                        Select Log Type
+                        Log Category
                       </p>
                       <p
                         className={

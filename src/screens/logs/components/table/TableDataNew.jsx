@@ -783,7 +783,7 @@ export default function TableDataNew(props) {
                   }
                 >
                   <FontAwesomeIcon
-                    icon={currentStateTableData.sortIconFilter.LT ? faDownload : faSortUp}
+                    icon={currentStateTableData.sortIconFilter.LT ? faSortDown : faSortUp}
                     onClick={() => {
                       dispatchTableData({
                         type: SORT_ICON_FILTER,
@@ -973,7 +973,7 @@ export default function TableDataNew(props) {
                         }
                         onClick={handleShowStatus}
                       >
-                        Select Log Type
+                        Log Category
                       </p>
                       {/* <p
                         className={

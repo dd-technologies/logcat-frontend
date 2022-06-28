@@ -34,9 +34,9 @@ export default function UpdateProfile() {
 
   const [name, setname] = useState(userName);
 
-  const email = useState(userEmail)[0]
+  const [email, setEmail] = useState(userEmail)
 
-  const avatar = useState(userAvtar)[0];
+  const [avatar, setAvtar] = useState(userAvtar)
 
 
 
@@ -144,6 +144,12 @@ export default function UpdateProfile() {
     dispatch(userInfoActionFn())
   }, [name])
 
+  useEffect(() => {
+    setname(userName)
+    setEmail(userEmail)
+    setAvtar(userAvtar)
+  }, [name, email])
+
 
   return (
     <>
@@ -218,7 +224,7 @@ export default function UpdateProfile() {
                           <FontAwesomeIcon icon={faEnvelope} size="lg" />
                         </span>
                         <input
-                          style={{ color: "#212529", opacity: ".7" }}
+                          style={{ color: "#212529", opacity: ".3" }}
                           type="email"
                           autoComplete="Enter your email"
                           value={email}
