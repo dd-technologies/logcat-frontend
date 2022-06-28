@@ -290,7 +290,7 @@ export default function AlertsNew() {
   const sortTableFnLM = (callbackDispatchAllData) => {
     // LT -- logotype
     if (currentStateAlerts.sortIcons.LM) {
-      return callbackDispatchAllData("-alerts.ack.msg");
+      return callbackDispatchAllData("-ack.msg");
     } else if (!currentStateAlerts.sortIcons.LM) {
       multpleDispatchSort(SORT_ICONS, {
         DI: false,
@@ -299,7 +299,7 @@ export default function AlertsNew() {
         DA: false,
         TI: false,
       });
-      return callbackDispatchAllData("alerts.ack.msg");
+      return callbackDispatchAllData("ack.msg");
     }
   };
 
@@ -309,7 +309,7 @@ export default function AlertsNew() {
       currentStateAlerts.sortIcons.DA ||
       currentStateAlerts.sortIcons.TI
     ) {
-      return callbackDispatchAllData("-alerts.ack.date");
+      return callbackDispatchAllData("-ack.date");
     } else if (
       !currentStateAlerts.sortIcons.DA ||
       !currentStateAlerts.sortIcons.TI
@@ -321,7 +321,7 @@ export default function AlertsNew() {
         DA: true,
         TI: true,
       });
-      return callbackDispatchAllData("alerts.ack.date");
+      return callbackDispatchAllData("ack.date");
     }
   };
 
