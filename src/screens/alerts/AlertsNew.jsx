@@ -230,13 +230,13 @@ export default function AlertsNew() {
   //   }
   // };
 
+  console.log("first", localStorage.getItem("project_type"))
 
   const callbackfnDispatchGetAllData = (sortType) => {
-
     dispatch(
       alarmAction(
         code,
-        currentStateAlerts.projectCode,
+        localStorage.getItem("project_type") && JSON.parse(localStorage.getItem("project_type")).typeCode,
         currentStateAlerts.diffDate,
         currentStateAlerts.page,
         currentStateAlerts.record,

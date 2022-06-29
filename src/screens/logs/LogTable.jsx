@@ -272,6 +272,7 @@ export default function LogTable() {
                           width: "10px",
                           height: "20px",
                           marginBottom: "2px",
+                          
                         }}
                       />
                     </section>
