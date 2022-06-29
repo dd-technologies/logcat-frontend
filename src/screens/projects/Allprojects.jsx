@@ -30,14 +30,12 @@ const Allprojects = (props) => {
                 boxShadow="0px 0px 3px 1px rgba(192,192,192,0.90)"
               >
                 <Link
-                  to={`/log_table?code=${props.data.code}&name=${
-                    props.data.name
-                  }&page-name=logpage&projectType=${
-                    props.data &&
+                  to={`/log_table?code=${props.data.code}&name=${props.data.name
+                    }&page-name=logpage&projectType=${props.data &&
                     props.data.device_types &&
                     props.data.device_types[0] &&
                     props.data.device_types[0].typeCode
-                  }`}
+                    }`}
                   style={{ textDecoration: "none" }}
                 >
                   <section className={Style.Outer_InfoRow}>
@@ -57,7 +55,7 @@ const Allprojects = (props) => {
                       </p>
                     </section>
                     <section className={Style.InfoDetails}>
-                      <Image src={DateIcons} />
+                      <Image src={DateIcons} style={{ filter: theme == "light-theme" ? "" : "invert(1)" }} />
                       <p
                         className="darkModeColor"
                         style={{

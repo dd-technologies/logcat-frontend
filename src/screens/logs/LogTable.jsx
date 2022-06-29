@@ -280,7 +280,7 @@ export default function LogTable() {
                       {dateDropDown ? (
                         <CustomeDropDown width="100%" zIndex="8">
                           <p
-                            style={{ fontSize: ".8rem" }}
+                            style={{ fontSize: ".9rem" }}
                             className={`${Style.productVersion} mt-1 darkModeColor `}
                             onClick={() => {
                               setDiffDate(7);
@@ -291,7 +291,7 @@ export default function LogTable() {
                             7 days
                           </p>
                           <p
-                            style={{ fontSize: ".8rem" }}
+                            style={{ fontSize: ".9rem" }}
                             className={`${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(15);
@@ -303,7 +303,7 @@ export default function LogTable() {
                           </p>
 
                           <p
-                            style={{ fontSize: ".8rem" }}
+                            style={{ fontSize: ".9rem" }}
                             className={`${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(30);
@@ -314,7 +314,7 @@ export default function LogTable() {
                             30 days
                           </p>
                           <p
-                            style={{ fontSize: ".8rem" }}
+                            style={{ fontSize: ".9rem" }}
                             className={`${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(45);
@@ -325,7 +325,7 @@ export default function LogTable() {
                             45 days
                           </p>
                           <p
-                            style={{ fontSize: ".8rem" }}
+                            style={{ fontSize: ".9rem" }}
                             className={`${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(60);
@@ -336,7 +336,7 @@ export default function LogTable() {
                             60 days
                           </p>
                           <p
-                            style={{ fontSize: ".8rem" }}
+                            style={{ fontSize: ".9rem" }}
                             className={`faSync${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(90);
