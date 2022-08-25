@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import React, { useState, useEffect, useRef } from "react";
+import Cookies from 'universal-cookie';
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -30,6 +31,8 @@ import SideBar from "../../utils/Sidebar";
 import { Navbar } from "../../utils/NavBar";
 import AlarmIcon from "../../assets/images/AlarmIcon.png";
 import TableDataNew from "./components/table/TableDataNew";
+
+const cookies = new Cookies();
 
 export default function LogTable() {
   const queryString = window.location.search;
@@ -157,7 +160,7 @@ export default function LogTable() {
 
   // CHECKING IF USER IS LOGIN OR NOT
   useEffect(() => {
-    if (!localStorage.getItem("ddAdminToken")) {
+    if (!cookies.get('ddAdminToken')) {
       navigate("/");
     }
     // return () => {

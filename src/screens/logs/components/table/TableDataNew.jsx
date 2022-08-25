@@ -1,5 +1,6 @@
 /* eslint-disable */
 import React, { useEffect, useMemo, useReducer, useState } from "react";
+import AWS from 'aws-sdk';
 import { Button, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,6 +32,11 @@ import {
   DATE,
 } from "./store/Type";
 import Pagination from "../../../../common/Pagination";
+
+AWS.config.update({
+  accessKeyId: process.env.REACT_APP_ACCESS_ID,
+  secretAccessKey: process.env.REACT_APP_ACCESS_KEY,
+});
 
 
 // var arrayofSelectRow = []
@@ -585,13 +591,32 @@ export default function TableDataNew(props) {
    */
 
   // @@ DOWNLOAD FUNCTION
-  const handleDownload = (row) => {
-    // console.log("download function", row);
-    var a = document.createElement("a");
-    a.target = "_blank";
-    a.href = `https://0942-2401-4900-1f39-34dc-385b-1069-1819-5282.in.ngrok.io/${row.log.filePath}`;
-    a.setAttribute("download", row.log.filePath);
-    a.click();
+  const handleDownload = async (row) => {
+    try {
+
+      const s3 = new AWS.S3({
+        accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY, 
+        secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+        Bucket: process.env.REACT_APP_S3_BUCKET,
+        region: 'ap-south-1'       
+      });
+
+      const params = {
+        Bucket: process.env.REACT_APP_S3_BUCKET,
+        Key: row.log.filePath
+      };
+      
+      const data = await s3.getObject(params).promise()
+
+      let blob=new Blob([data.Body], {type: data.ContentType});
+      let link=document.createElement('a');
+      link.href=window.URL.createObjectURL(blob);
+      link.download= `s3://${process.env.REACT_APP_S3_BUCKET}/${row.log.filePath}`;
+      link.click();
+
+    } catch (error) {
+      console.log('Download error : ',error)
+    }
   };
   // @@ first dispatch of table data
   useEffect(() => {
@@ -853,7 +878,7 @@ export default function TableDataNew(props) {
           {tableData && tableData.map((item, index) => {
             return (
               <React.Fragment key={item._id}>
-                {console.log("item", item)}
+                {/* {console.log("item", item)} */}
                 {/* {console.log(item)} */}
                 <section className={Style.tableBody}>
                   <section style={{ display: "flex", alignItems: "center" }}>

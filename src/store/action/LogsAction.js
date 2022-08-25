@@ -1,4 +1,6 @@
 import axios from "axios";
+import Cookies from 'universal-cookie';
+
 import {
   GET_LOG_COUNT_REQUEST,
   GET_LOG_COUNT_SUCCESS,
@@ -29,6 +31,8 @@ import {
   GET_MODEL_CODE_FAIL,
 } from "../types/ProjectConstants";
 
+const cookies = new Cookies();
+
 // LOG COUNT
 export const getLogTypeCounts =
   ({ code, diffDate, code1 }) =>
@@ -38,7 +42,7 @@ export const getLogTypeCounts =
         type: GET_LOG_COUNT_REQUEST,
       });
 
-      const token = localStorage.getItem("ddAdminToken");
+      const token = cookies.get('ddAdminToken');
       const config = {
         headers: {
           "Content-type": "application/json",
@@ -83,7 +87,7 @@ export const getLogByDate =
       dispatch({
         type: GET_LOG_COUNT_BY_DATE_REQUEST,
       });
-      const token = localStorage.getItem("ddAdminToken");
+      const token = cookies.get('ddAdminToken');
       const config = {
         headers: {
           "Content-type": "application/json",
@@ -127,7 +131,7 @@ export const getLogMsgOccurenceWRTDate =
       dispatch({
         type: GET_LOG_MSG_OCCURRENCE_COUNT_WRT_DATE_REQUEST,
       });
-      const token = localStorage.getItem("ddAdminToken");
+      const token = cookies.get('ddAdminToken');
       const config = {
         headers: {
           "Content-type": "application/json",
@@ -186,7 +190,7 @@ export const getCrashFreeUsers =
       dispatch({
         type: GET_CRASH_FREE_USERS_REQUEST,
       });
-      const token = localStorage.getItem("ddAdminToken");
+      const token = cookies.get('ddAdminToken');
       const config = {
         headers: {
           "Content-type": "application/json",
@@ -227,7 +231,7 @@ export const getCrashAnalyticsData =
       dispatch({
         type: GET_CRASH_ANALYTICS_DATA_REQUEST,
       });
-      const token = localStorage.getItem("ddAdminToken");
+      const token = cookies.get('ddAdminToken');
       const config = {
         headers: {
           "Content-type": "application/json",
@@ -266,7 +270,7 @@ export const getCrashFreeUsersData =
       dispatch({
         type: GET_CRASH_FREE_USERS_DATA_REQUEST,
       });
-      const token = localStorage.getItem("ddAdminToken");
+      const token = cookies.get('ddAdminToken');
       const config = {
         headers: {
           "Content-type": "application/json",
@@ -302,7 +306,7 @@ export const getDeviceModelCode = (code) => async (dispatch) => {
     dispatch({
       type: GET_MODEL_CODE_REQUEST,
     });
-    const token = localStorage.getItem("ddAdminToken");
+    const token = cookies.get('ddAdminToken');
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -338,7 +342,7 @@ export const getErrorWRTOS = (code, projectType) => async (dispatch) => {
     dispatch({
       type: GET_ERROR_WRT_OS_REQUEST,
     });
-    const token = localStorage.getItem("ddAdminToken");
+    const token = cookies.get('ddAdminToken');
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -374,7 +378,7 @@ export const getErrorWRTVersion = (code, projectType) => async (dispatch) => {
     dispatch({
       type: GET_ERROR_COUNT_BY_VERSION_REQUEST,
     });
-    const token = localStorage.getItem("ddAdminToken");
+    const token = cookies.get('ddAdminToken');
     const config = {
       headers: {
         "Content-type": "application/json",

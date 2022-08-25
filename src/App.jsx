@@ -27,12 +27,6 @@ function App() {
       setSplash(false);
     }, 3500);
   }, []);
-  
-  
-  document.cookie = "username=John Doe";
-
-
-
 
   return (
     <>

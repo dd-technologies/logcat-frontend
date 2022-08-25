@@ -1,4 +1,6 @@
 import axios from "axios";
+import Cookies from 'universal-cookie';
+
 import {
   GET_PROJECT_REQUEST,
   GET_PROJECT_REQUEST_SUCCESS,
@@ -18,13 +20,15 @@ import {
   GET_PROJECT_BY_CODE_REQUEST_FAIL,
 } from "../types/ProjectConstants";
 
+const cookies = new Cookies();
+
 // ALL PROJECT
 export const getAllProject = () => async (dispatch) => {
   try {
     dispatch({
       type: GET_PROJECT_REQUEST,
     });
-    const token = localStorage.getItem("ddAdminToken");
+    const token = cookies.get('ddAdminToken');
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -50,7 +54,7 @@ export const getAllProject = () => async (dispatch) => {
         error.response.data &&
         error.response.data.data &&
         error.response.data.data.err &&
-        error.response.data.data.msg,
+        error.response.data.data.err.msg,
     });
   }
 };
@@ -61,7 +65,7 @@ export const addCrashEmail = (code, email) => async (dispatch) => {
     dispatch({
       type: ADD_CRASH_EMAIL_REQUEST,
     });
-    const token = localStorage.getItem("ddAdminToken");
+    const token = cookies.get('ddAdminToken');
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -113,7 +117,7 @@ export const getProjectByCode =
         type: GET_ALL_LOG_BY_CODE_REQUEST,
       });
       // console.log("filter", filters);
-      const token = localStorage.getItem("ddAdminToken");
+      const token = cookies.get('ddAdminToken');
       const config = {
         headers: {
           "Content-type": "application/json",
@@ -160,7 +164,7 @@ export const uploadNewProject = (name, modelList, desc) => async (dispatch) => {
     dispatch({
       type: UPLOAD_NEW_PROJECT_REQUEST,
     });
-    const token = localStorage.getItem("ddAdminToken");
+    const token = cookies.get('ddAdminToken');
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -209,7 +213,7 @@ export const getProjectByCodeSetting = (code) => async (dispatch) => {
     dispatch({
       type: GET_PROJECT_BY_CODE_REQUEST,
     });
-    const token = localStorage.getItem("ddAdminToken");
+    const token = cookies.get('ddAdminToken');
     const config = {
       headers: {
         "Content-type": "application/json",

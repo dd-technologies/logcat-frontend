@@ -1,9 +1,12 @@
 import axios from "axios";
+import Cookies from 'universal-cookie';
 import {
   ALARM_FAIL,
   ALARM_REQUEST,
   ALARM_SUCSESS,
 } from "../types/AlarmConstant";
+
+const cookies = new Cookies();
 
 export const alarmAction = (
   code = null,
@@ -38,7 +41,7 @@ export const alarmAction = (
     dispatch({
       type: ALARM_REQUEST,
     });
-    const token = localStorage.getItem("ddAdminToken");
+    const token = cookies.get('ddAdminToken');
     const config = {
       headers: {
         "Content-type": "application/json",

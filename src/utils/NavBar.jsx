@@ -42,7 +42,7 @@ export function Navbar(props) {
       <section className={`${Style.NavbarOuter}`}>
         <nav className={Style.Navbar}>
           <h5 style={{ color: "#fff" }}>
-            {navigation_details.dashName.charAt(0).toUpperCase() +
+            {navigation_details && navigation_details.dashName && navigation_details.dashName.charAt(0).toUpperCase() +
               navigation_details.dashName.slice(1)}
           </h5>
 

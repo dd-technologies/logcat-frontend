@@ -1,6 +1,8 @@
 import axios from "axios";
-import { UPDATE_FAIL, UPDATE_REQUEST, UPDATE_SUCSESS } from "../types/UpdateUserInfoConstants";
+import Cookies from 'universal-cookie';
+import { UPDATE_FAIL, UPDATE_REQUEST, UPDATE_SUCCESS } from "../types/UpdateUserInfoConstants";
 
+const cookies = new Cookies();
 
 export const updateUserInfoAction = (name) => async (dispatch) => {
     try {
@@ -8,7 +10,7 @@ export const updateUserInfoAction = (name) => async (dispatch) => {
             type: UPDATE_FAIL,
         });
 
-        const token = localStorage.getItem("ddAdminToken");
+        const token = cookies.get('ddAdminToken');
 
         const config = {
             headers: {
@@ -31,7 +33,7 @@ export const updateUserInfoAction = (name) => async (dispatch) => {
         // console.log("get log count api error", error);
 
         dispatch({
-            type: UPDATE_SUCSESS,
+            type: UPDATE_SUCCESS,
             payload:
                 error &&
                 error.response &&

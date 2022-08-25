@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Cookies from 'universal-cookie';
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CustomCard from "../../container/CustomCard";
@@ -11,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { validateEmailHelper } from "../../helper/Emails";
 import SpinnerCustom from "../../container/SpinnerCustom";
+
+const cookies = new Cookies();
 
 export default function Login() {
   const [loginForm, setLoginForm] = useState({
@@ -83,7 +86,7 @@ export default function Login() {
   // console.log("error", error);
 
   useEffect(() => {
-    if (localStorage.getItem("ddAdminToken")) {
+    if (cookies.get('ddAdminToken')) {
       navigate("/home");
     }
   }, [navigate, adminInfo]);

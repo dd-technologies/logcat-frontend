@@ -218,13 +218,13 @@ export default function UpdateProfile() {
                     <section className="mt-4">
                       <h5 className="darkModeColor">Email</h5>
                       <div
-                        className={`${Style.imputFields} darkBgColorSec mt-2 `}
+                        className={`${Style.imputFields} darkBgColorSec mt-2 `} style={{background: '#d1d1d1'}}
                       >
                         <span className="ms-2">
                           <FontAwesomeIcon icon={faEnvelope} size="lg" />
                         </span>
                         <input
-                          style={{ color: "#212529", opacity: ".3" }}
+                          style={{ opacity: ".6" }}
                           type="email"
                           autoComplete="Enter your email"
                           value={email}

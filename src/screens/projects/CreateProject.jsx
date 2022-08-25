@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
+import Cookies from 'universal-cookie';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Style from "../../css/CreateProject.module.css";
@@ -16,6 +17,8 @@ import AddProjectModal from "./model/AddProjectModal";
 import Spinner from "../../container/Spinner";
 import { adminLogout } from "../../store/action/AdminAction";
 import CustomeDropDown from "../../container/DropDown";
+
+const cookies = new Cookies();
 
 function CreateProject() {
   const [modalShow, setModalShow] = useState(false);
@@ -46,7 +49,7 @@ function CreateProject() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!localStorage.getItem("ddAdminToken")) {
+    if (!cookies.get('ddAdminToken')) {
       navigate("/");
     }
     if (localStorage.getItem("project_type")) {
