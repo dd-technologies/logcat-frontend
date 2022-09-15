@@ -1,37 +1,37 @@
 /* eslint-disable */
 
-import React, { useRef, useEffect, useReducer, useMemo, useState } from "react";
+import React, { useRef, useEffect, useReducer, useMemo, useState } from 'react';
 import {
   faCaretDown,
   faDatabase,
   faDownload,
   faSortDown,
   faSortUp,
-} from "@fortawesome/free-solid-svg-icons";
-import { Container, Row, Col, Image } from "react-bootstrap";
-import Style from "../../css/AlertsNew.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch, useSelector } from "react-redux";
-import DateIcons from "../../assets/icons/date.png";
-import LogICon from "../../assets/icons/log.png";
-import AlarmIcon from "../../assets/images/AlarmIcon.png";
-import CustomeDropDown from "../../container/DropDown";
-import SpinnerCustom from "../../container/SpinnerCustom";
-import TableCard from "../../container/TableCard";
-import TypeDropDown from "../logs/components/table/TypeDropDown";
-import { alarmAction } from "../../store/action/AlarmAction";
-import { Navbar } from "../../utils/NavBar";
-import SideBar from "../../utils/Sidebar";
-import { ThemeContext } from "../../utils/ThemeContext";
-import { alertDataReducer } from "./store/Reducer";
+} from '@fortawesome/free-solid-svg-icons';
+import { Container, Row, Col, Image } from 'react-bootstrap';
+import Style from '../../css/AlertsNew.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch, useSelector } from 'react-redux';
+import DateIcons from '../../assets/icons/date.png';
+import LogICon from '../../assets/icons/log.png';
+import AlarmIcon from '../../assets/images/AlarmIcon.png';
+import CustomeDropDown from '../../container/DropDown';
+import SpinnerCustom from '../../container/SpinnerCustom';
+import TableCard from '../../container/TableCard';
+import TypeDropDown from '../logs/components/table/TypeDropDown';
+import { alarmAction } from '../../store/action/AlarmAction';
+import { Navbar } from '../../utils/NavBar';
+import SideBar from '../../utils/Sidebar';
+import { ThemeContext } from '../../utils/ThemeContext';
+import { alertDataReducer } from './store/Reducer';
 import {
   ALL_ROW_SELECTED,
   DATE_DROPDOWN,
   DIFF_DATE,
   SEARCH_FIELD,
   SORT_ICONS,
-} from "./store/Types";
-import Pagination from "../../common/Pagination";
+} from './store/Types';
+import Pagination from '../../common/Pagination';
 
 export default function AlertsNew() {
   const { theme } = React.useContext(ThemeContext);
@@ -52,22 +52,22 @@ export default function AlertsNew() {
 
   const initialState = {
     tableDataState: {},
-    diffDate: localStorage.getItem("diffDate") || 90,
+    diffDate: localStorage.getItem('diffDate') || 90,
     disableButton: false,
     dateDropDown: false,
     showTableField: false,
 
-    record: localStorage.getItem("selected_record")
-      ? JSON.parse(localStorage.getItem("selected_record"))
+    record: localStorage.getItem('selected_record')
+      ? JSON.parse(localStorage.getItem('selected_record'))
       : 25,
 
-    projectCode: localStorage.getItem("project_type")
-      ? JSON.parse(localStorage.getItem("project_type")).typeCode
+    projectCode: localStorage.getItem('project_type')
+      ? JSON.parse(localStorage.getItem('project_type')).typeCode
       : projectType &&
-      projectType.modelList[0] &&
-      projectType.modelList[0].typeCode,
+        projectType.modelList[0] &&
+        projectType.modelList[0].typeCode,
 
-    searchField: "",
+    searchField: '',
 
     /**
      * @objectKey MA: Mac Address--------------,
@@ -97,27 +97,29 @@ export default function AlertsNew() {
 
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [isCheck, setIsCheck] = useState([]);
-  const [checkedLogs, setCheckedLogs] = useState([])
+  const [checkedLogs, setCheckedLogs] = useState([]);
 
-  const handleSelectAll = e => {
+  const handleSelectAll = (e) => {
     setIsCheckAll(!isCheckAll);
-    setIsCheck(data?.data?.alerts.map(alerts => alerts._id));
-    setCheckedLogs(data?.data?.alerts)
+    setIsCheck(data?.data?.alerts.map((alerts) => alerts._id));
+    setCheckedLogs(data?.data?.alerts);
     if (isCheckAll) {
       setIsCheck([]);
       setCheckedLogs([]);
     }
   };
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     const { id, checked, name } = e.target;
     setIsCheck([...isCheck, id]);
-    setCheckedLogs([...checkedLogs, JSON.parse(name)])
+    setCheckedLogs([...checkedLogs, JSON.parse(name)]);
     if (!checked) {
-      setIsCheck(isCheck.filter(item => item !== id));
-      setCheckedLogs(checkedLogs.filter(item => {
-        return item._id !== id
-      }))
+      setIsCheck(isCheck.filter((item) => item !== id));
+      setCheckedLogs(
+        checkedLogs.filter((item) => {
+          return item._id !== id;
+        })
+      );
     }
   };
 
@@ -133,8 +135,8 @@ export default function AlertsNew() {
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const code = urlParams.get("code");
-  const projectName = urlParams.get("name");
+  const code = urlParams.get('code');
+  const projectName = urlParams.get('name');
 
   // DATE FILTER
   // Filter crash free STATICS & Trend wrt to date
@@ -152,12 +154,12 @@ export default function AlertsNew() {
     dashName: projectName,
     link1: {
       iconName: faDatabase,
-      linkName: "Logs",
+      linkName: 'Logs',
       link: `/log_table?code=${code}&name=${projectName}`,
     },
     link2: {
       iconName: faDatabase,
-      linkName: "Settings",
+      linkName: 'Settings',
     },
   };
 
@@ -166,17 +168,17 @@ export default function AlertsNew() {
     dashName: projectName,
     link1: {
       iconName: LogICon,
-      linkName: "Logs",
+      linkName: 'Logs',
       link: `/log_table?code=${code}&name=${projectName}`,
     },
     link2: {
       iconName: AlarmIcon,
-      linkName: "Settings",
+      linkName: 'Settings',
       link: `/settings?code=${code}&name=${projectName}`,
     },
     link3: {
       iconName: AlarmIcon,
-      linkName: "alarm",
+      linkName: 'alarm',
       link: `/alarm?code=${code}&name=${projectName}`,
     },
   };
@@ -195,7 +197,7 @@ export default function AlertsNew() {
     (currentStateAlerts.searchField &&
       currentStateAlerts.searchField.trim() &&
       currentStateAlerts.searchField.trim().toLowerCase()) ||
-    "";
+    '';
 
   if (search.length > 0) {
     alertsFilter = alertsFilter.filter((item) => {
@@ -230,13 +232,14 @@ export default function AlertsNew() {
   //   }
   // };
 
-  console.log("first", localStorage.getItem("project_type"))
+  console.log('first', localStorage.getItem('project_type'));
 
   const callbackfnDispatchGetAllData = (sortType) => {
     dispatch(
       alarmAction(
         code,
-        localStorage.getItem("project_type") && JSON.parse(localStorage.getItem("project_type")).typeCode,
+        localStorage.getItem('project_type') &&
+          JSON.parse(localStorage.getItem('project_type')).typeCode,
         currentStateAlerts.diffDate,
         currentStateAlerts.page,
         currentStateAlerts.record,
@@ -257,7 +260,7 @@ export default function AlertsNew() {
   const sortTableFnDI = (callbackDispatchAllData) => {
     // LM -- log message
     if (currentStateAlerts.sortIcons.DI) {
-      return callbackDispatchAllData("-did");
+      return callbackDispatchAllData('-did');
     } else if (!currentStateAlerts.sortIcons.DI) {
       multpleDispatchSort(SORT_ICONS, {
         DI: true,
@@ -267,14 +270,14 @@ export default function AlertsNew() {
         TI: false,
       });
 
-      return callbackDispatchAllData("did");
+      return callbackDispatchAllData('did');
     }
   };
 
   const sortTableFnCD = (callbackDispatchAllData) => {
     // AD-- mac address
     if (currentStateAlerts.sortIcons.CD) {
-      return callbackDispatchAllData("-ack.code");
+      return callbackDispatchAllData('-ack.code');
     } else if (!currentStateAlerts.sortIcons.CD) {
       multpleDispatchSort(SORT_ICONS, {
         DI: false,
@@ -283,14 +286,14 @@ export default function AlertsNew() {
         DA: false,
         TI: false,
       });
-      return callbackDispatchAllData("ack.code");
+      return callbackDispatchAllData('ack.code');
     }
   };
 
   const sortTableFnLM = (callbackDispatchAllData) => {
     // LT -- logotype
     if (currentStateAlerts.sortIcons.LM) {
-      return callbackDispatchAllData("-ack.msg");
+      return callbackDispatchAllData('-ack.msg');
     } else if (!currentStateAlerts.sortIcons.LM) {
       multpleDispatchSort(SORT_ICONS, {
         DI: false,
@@ -299,17 +302,14 @@ export default function AlertsNew() {
         DA: false,
         TI: false,
       });
-      return callbackDispatchAllData("ack.msg");
+      return callbackDispatchAllData('ack.msg');
     }
   };
 
   const sortTableFnDT = (callbackDispatchAllData) => {
     // DT -- date TI-- time
-    if (
-      currentStateAlerts.sortIcons.DA ||
-      currentStateAlerts.sortIcons.TI
-    ) {
-      return callbackDispatchAllData("-ack.date");
+    if (currentStateAlerts.sortIcons.DA || currentStateAlerts.sortIcons.TI) {
+      return callbackDispatchAllData('-ack.date');
     } else if (
       !currentStateAlerts.sortIcons.DA ||
       !currentStateAlerts.sortIcons.TI
@@ -321,7 +321,7 @@ export default function AlertsNew() {
         DA: true,
         TI: true,
       });
-      return callbackDispatchAllData("ack.date");
+      return callbackDispatchAllData('ack.date');
     }
   };
 
@@ -338,7 +338,7 @@ export default function AlertsNew() {
   const singleCheckboxFun = (event, item, index) => {
     newItemsArray.push(item);
 
-    var downloadButtonId = document.getElementById("download_button");
+    var downloadButtonId = document.getElementById('download_button');
 
     if (newItemsArray.length >= 2) {
       // @@ conditions---
@@ -356,7 +356,7 @@ export default function AlertsNew() {
     }
 
     if (newItemsArray.length) {
-      downloadButtonId.style.opacity = "100%";
+      downloadButtonId.style.opacity = '100%';
     }
 
     let arrayLastIndex = newItemsArray.slice(-1)[0]._id;
@@ -367,29 +367,30 @@ export default function AlertsNew() {
       newItemsArray.pop();
       newItemsArray.pop();
     }
-    if (!newItemsArray.length) downloadButtonId.style.opacity = "30%";
+    if (!newItemsArray.length) downloadButtonId.style.opacity = '30%';
   };
 
   // DOWNLOAD CSV FILE FUNCTION
   const downloadCSVFun = ({ data, fileName, fileType }) => {
-    var csv = " MAC address";
-    csv += "\t Code";
-    csv += "\t Log Message";
-    csv += "\t Date";
-    csv += "\t Time";
+    var csv = ' MAC address';
+    csv += '\t Code';
+    csv += '\t Log Message';
+    csv += '\t Date';
+    csv += '\t Time';
 
-    csv += "\n";
+    csv += '\n';
     for (var i = 0; i < data.length; i++) {
-      csv += `${data[i].did}\t${data[i].ack.code}\t${data[i].ack.msg}\t${data[i].ack.date.split("T")[0]
-        }\t${data[i].ack.date.split("T")[1].split(".")[0]}`;
-      csv += "\n";
+      csv += `${data[i].did}\t${data[i].ack.code}\t${data[i].ack.msg}\t${
+        data[i].ack.date.split('T')[0]
+      }\t${data[i].ack.date.split('T')[1].split('.')[0]}`;
+      csv += '\n';
     }
 
     const blob = new Blob([csv], { type: fileType });
-    const a = document.createElement("a");
+    const a = document.createElement('a');
     a.download = fileName;
     a.href = window.URL.createObjectURL(blob);
-    const clickEvt = new MouseEvent("click", {
+    const clickEvt = new MouseEvent('click', {
       view: window,
       bubbles: true,
       cancelable: true,
@@ -443,36 +444,43 @@ export default function AlertsNew() {
               <Col xl={2} md={3} sm={3} className={Style.filterWithDate}>
                 <section className={Style.filterwithDate} ref={ref}>
                   <section className={Style.datafilter} onClick={DateFilter}>
-                    <Image src={DateIcons} width="20px" style={{ filter: "invert(45%) sepia(99%) saturate(341%) hue-rotate(135deg) brightness(91%) contrast(91%)" }} />
+                    <Image
+                      src={DateIcons}
+                      width="20px"
+                      style={{
+                        filter:
+                          'invert(45%) sepia(99%) saturate(341%) hue-rotate(135deg) brightness(91%) contrast(91%)',
+                      }}
+                    />
                     <p
                       style={{
-                        fontSize: ".9rem",
+                        fontSize: '.9rem',
                       }}
                       className="m-2 darkModeColor"
                     >
                       {currentStateAlerts.diffDate == 10
                         ? `last 10 days`
                         : currentStateAlerts.diffDate == 7
-                          ? `last 7 days`
-                          : currentStateAlerts.diffDate == 15
-                            ? `last 15 days`
-                            : currentStateAlerts.diffDate == 30
-                              ? `last 30 days`
-                              : currentStateAlerts.diffDate == 45
-                                ? `last 45 days`
-                                : currentStateAlerts.diffDate == 60
-                                  ? `last 60 days`
-                                  : currentStateAlerts.diffDate == 90
-                                    ? `last 90 days`
-                                    : null}
+                        ? `last 7 days`
+                        : currentStateAlerts.diffDate == 15
+                        ? `last 15 days`
+                        : currentStateAlerts.diffDate == 30
+                        ? `last 30 days`
+                        : currentStateAlerts.diffDate == 45
+                        ? `last 45 days`
+                        : currentStateAlerts.diffDate == 60
+                        ? `last 60 days`
+                        : currentStateAlerts.diffDate == 90
+                        ? `last 90 days`
+                        : null}
                     </p>
                     <FontAwesomeIcon
                       icon={faCaretDown}
                       color="#2A9AA4"
                       style={{
-                        width: "10px",
-                        height: "20px",
-                        marginBottom: "2px",
+                        width: '10px',
+                        height: '20px',
+                        marginBottom: '2px',
                       }}
                     />
                   </section>
@@ -481,7 +489,7 @@ export default function AlertsNew() {
                     {currentStateAlerts.dateDropDown ? (
                       <CustomeDropDown width="100%" zIndex="8">
                         <p
-                          style={{ fontSize: ".8rem" }}
+                          style={{ fontSize: '.8rem' }}
                           className={`${Style.productVersion} mt-1 darkModeColor `}
                           onClick={() => {
                             dispatchAlertsData({
@@ -489,7 +497,7 @@ export default function AlertsNew() {
                               data: 7,
                             });
                             localStorage.setItem(
-                              "diffDate",
+                              'diffDate',
                               currentStateAlerts.diffDate
                             );
                             dispatchAlertsData({
@@ -501,7 +509,7 @@ export default function AlertsNew() {
                           7 days
                         </p>
                         <p
-                          style={{ fontSize: ".8rem" }}
+                          style={{ fontSize: '.8rem' }}
                           className={`${Style.productVersion} mt-1 darkModeColor`}
                           onClick={() => {
                             dispatchAlertsData({
@@ -509,7 +517,7 @@ export default function AlertsNew() {
                               data: 15,
                             });
                             localStorage.setItem(
-                              "diffDate",
+                              'diffDate',
                               currentStateAlerts.diffDate
                             );
                             dispatchAlertsData({
@@ -522,7 +530,7 @@ export default function AlertsNew() {
                         </p>
 
                         <p
-                          style={{ fontSize: ".8rem" }}
+                          style={{ fontSize: '.8rem' }}
                           className={`${Style.productVersion} mt-1 darkModeColor`}
                           onClick={() => {
                             dispatchAlertsData({
@@ -530,7 +538,7 @@ export default function AlertsNew() {
                               data: 30,
                             });
                             localStorage.setItem(
-                              "diffDate",
+                              'diffDate',
                               currentStateAlerts.diffDate
                             );
                             dispatchAlertsData({
@@ -542,7 +550,7 @@ export default function AlertsNew() {
                           30 days
                         </p>
                         <p
-                          style={{ fontSize: ".8rem" }}
+                          style={{ fontSize: '.8rem' }}
                           className={`${Style.productVersion} mt-1 darkModeColor`}
                           onClick={() => {
                             dispatchAlertsData({
@@ -550,7 +558,7 @@ export default function AlertsNew() {
                               data: 45,
                             });
                             localStorage.setItem(
-                              "diffDate",
+                              'diffDate',
                               currentStateAlerts.diffDate
                             );
                             dispatchAlertsData({
@@ -562,7 +570,7 @@ export default function AlertsNew() {
                           45 days
                         </p>
                         <p
-                          style={{ fontSize: ".8rem" }}
+                          style={{ fontSize: '.8rem' }}
                           className={`${Style.productVersion} mt-1 darkModeColor`}
                           onClick={() => {
                             dispatchAlertsData({
@@ -570,7 +578,7 @@ export default function AlertsNew() {
                               data: 60,
                             });
                             localStorage.setItem(
-                              "diffDate",
+                              'diffDate',
                               currentStateAlerts.diffDate
                             );
                             dispatchAlertsData({
@@ -582,7 +590,7 @@ export default function AlertsNew() {
                           60 days
                         </p>
                         <p
-                          style={{ fontSize: ".8rem" }}
+                          style={{ fontSize: '.8rem' }}
                           className={`${Style.productVersion} mt-1 darkModeColor`}
                           onClick={() => {
                             dispatchAlertsData({
@@ -590,7 +598,7 @@ export default function AlertsNew() {
                               data: 90,
                             });
                             localStorage.setItem(
-                              "diffDate",
+                              'diffDate',
                               currentStateAlerts.diffDate
                             );
                             dispatchAlertsData({
@@ -623,20 +631,29 @@ export default function AlertsNew() {
                           />
                           <section
                             id="download_button"
-                            disabled={checkedLogs?.length ? null : "disabled"}
-                            style={{ border: "none", opacity: checkedLogs?.length ? "100%" : "40%" }}
+                            disabled={checkedLogs?.length ? null : 'disabled'}
+                            style={{
+                              border: 'none',
+                              opacity: checkedLogs?.length ? '100%' : '40%',
+                            }}
                             onClick={() =>
                               downloadCSVFun({
                                 data: checkedLogs,
-                                fileName: `${code}-${new Date().getDay() + "-" + new Date().getMonth() + "-" + new Date().getFullYear()}.csv`,
-                                fileType: "text/csv;charset=utf-8;",
+                                fileName: `${code}-${
+                                  new Date().getDay() +
+                                  '-' +
+                                  new Date().getMonth() +
+                                  '-' +
+                                  new Date().getFullYear()
+                                }.csv`,
+                                fileType: 'text/csv;charset=utf-8;',
                               })
                             }
                           >
                             <section className={Style.filterGraphFirstSection}>
                               <FontAwesomeIcon
                                 color="#0099a4"
-                                style={{ cursor: "pointer" }}
+                                style={{ cursor: 'pointer' }}
                                 icon={faDownload}
                               />
                             </section>
@@ -647,7 +664,11 @@ export default function AlertsNew() {
 
                         <section className={Style.alertTable}>
                           <section className={Style.tableHeader}>
-                            <section style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>
+                            <section
+                              style={{
+                                color: theme == 'light-theme' ? '#000' : '#fff',
+                              }}
+                            >
                               <input
                                 type="checkbox"
                                 onChange={handleSelectAll}
@@ -656,12 +677,20 @@ export default function AlertsNew() {
                               />
                             </section>
                             <section className={Style.innerHeader}>
-                              <p style={{ marginRight: "10px", color: theme == "light-theme" ? "#000" : "#fff", fontWeight: "600", fontSize: ".9rem" }}>
+                              <p
+                                style={{
+                                  marginRight: '10px',
+                                  color:
+                                    theme == 'light-theme' ? '#000' : '#fff',
+                                  fontWeight: '600',
+                                  fontSize: '.9rem',
+                                }}
+                              >
                                 Device Id
                               </p>
                               <FontAwesomeIcon
                                 color="#0099a4"
-                                style={{ cursor: "pointer" }}
+                                style={{ cursor: 'pointer' }}
                                 icon={
                                   currentStateAlerts.sortIcons.DI
                                     ? faSortDown
@@ -675,18 +704,26 @@ export default function AlertsNew() {
                                       DI: !currentStateAlerts.sortIcons.DI,
                                     },
                                   });
-                                  sortTableFnDI(callbackfnDispatchGetAllData)
+                                  sortTableFnDI(callbackfnDispatchGetAllData);
                                 }}
                               />
                             </section>
                             <section className={Style.innerHeader}>
-                              <p style={{ marginRight: "10px", color: theme == "light-theme" ? "#000" : "#fff", fontWeight: "600", fontSize: ".9rem" }}>
+                              <p
+                                style={{
+                                  marginRight: '10px',
+                                  color:
+                                    theme == 'light-theme' ? '#000' : '#fff',
+                                  fontWeight: '600',
+                                  fontSize: '.9rem',
+                                }}
+                              >
                                 Code
                               </p>
 
                               <FontAwesomeIcon
                                 color="#0099a4"
-                                style={{ cursor: "pointer" }}
+                                style={{ cursor: 'pointer' }}
                                 icon={
                                   currentStateAlerts.sortIcons.CD
                                     ? faSortDown
@@ -700,18 +737,26 @@ export default function AlertsNew() {
                                       CD: !currentStateAlerts.sortIcons.CD,
                                     },
                                   });
-                                  sortTableFnCD(callbackfnDispatchGetAllData)
+                                  sortTableFnCD(callbackfnDispatchGetAllData);
                                 }}
                               />
                             </section>
                             <section className={Style.innerHeader}>
-                              <p style={{ marginRight: "10px", color: theme == "light-theme" ? "#000" : "#fff", fontWeight: "600", fontSize: ".9rem" }}>
+                              <p
+                                style={{
+                                  marginRight: '10px',
+                                  color:
+                                    theme == 'light-theme' ? '#000' : '#fff',
+                                  fontWeight: '600',
+                                  fontSize: '.9rem',
+                                }}
+                              >
                                 Log Message
                               </p>
 
                               <FontAwesomeIcon
                                 color="#0099a4"
-                                style={{ cursor: "pointer" }}
+                                style={{ cursor: 'pointer' }}
                                 icon={
                                   currentStateAlerts.sortIcons.LM
                                     ? faSortDown
@@ -725,17 +770,25 @@ export default function AlertsNew() {
                                       LM: !currentStateAlerts.sortIcons.LM,
                                     },
                                   });
-                                  sortTableFnLM(callbackfnDispatchGetAllData)
+                                  sortTableFnLM(callbackfnDispatchGetAllData);
                                 }}
                               />
                             </section>
                             <section className={Style.innerHeader}>
-                              <p style={{ marginRight: "10px", color: theme == "light-theme" ? "#000" : "#fff", fontWeight: "600", fontSize: ".9rem" }}>
+                              <p
+                                style={{
+                                  marginRight: '10px',
+                                  color:
+                                    theme == 'light-theme' ? '#000' : '#fff',
+                                  fontWeight: '600',
+                                  fontSize: '.9rem',
+                                }}
+                              >
                                 Date
                               </p>
                               <FontAwesomeIcon
                                 color="#0099a4"
-                                style={{ cursor: "pointer" }}
+                                style={{ cursor: 'pointer' }}
                                 icon={
                                   currentStateAlerts.sortIcons.DT
                                     ? faSortDown
@@ -749,17 +802,25 @@ export default function AlertsNew() {
                                       DT: !currentStateAlerts.sortIcons.DT,
                                     },
                                   });
-                                  sortTableFnDT(callbackfnDispatchGetAllData)
+                                  sortTableFnDT(callbackfnDispatchGetAllData);
                                 }}
                               />
                             </section>
                             <section className={Style.innerHeader}>
-                              <p style={{ marginRight: "10px", color: theme == "light-theme" ? "#000" : "#fff", fontWeight: "600", fontSize: ".9rem" }}>
+                              <p
+                                style={{
+                                  marginRight: '10px',
+                                  color:
+                                    theme == 'light-theme' ? '#000' : '#fff',
+                                  fontWeight: '600',
+                                  fontSize: '.9rem',
+                                }}
+                              >
                                 Time
                               </p>
                               <FontAwesomeIcon
                                 color="#0099a4"
-                                style={{ cursor: "pointer" }}
+                                style={{ cursor: 'pointer' }}
                                 icon={
                                   currentStateAlerts.sortIcons.TI
                                     ? faSortDown
@@ -773,10 +834,9 @@ export default function AlertsNew() {
                                       TI: !currentStateAlerts.sortIcons.TI,
                                     },
                                   });
-                                  sortTableFnDT(callbackfnDispatchGetAllData)
+                                  sortTableFnDT(callbackfnDispatchGetAllData);
                                 }}
                               />
-
                             </section>
                           </section>
                           {alertsFilter.map((item, index) => {
@@ -792,18 +852,45 @@ export default function AlertsNew() {
                                       checked={isCheck.includes(item._id)}
                                     />
                                   </section>
-                                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{item.did}</section>
-                                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{item.ack.code}</section>
-                                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{item.ack.msg || `N/A`}</section>
-                                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
-                                    {item.ack.date.split("T")[0]}
+                                  <section
+                                    style={{
+                                      color:
+                                        theme == 'light-theme' ? '' : '#fff',
+                                    }}
+                                  >
+                                    {item.did}
                                   </section>
-                                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
-                                    {
-                                      item.ack.date
-                                        .split("T")[1]
-                                        .split(".")[0]
-                                    }
+                                  <section
+                                    style={{
+                                      color:
+                                        theme == 'light-theme' ? '' : '#fff',
+                                    }}
+                                  >
+                                    {item.ack.code}
+                                  </section>
+                                  <section
+                                    style={{
+                                      color:
+                                        theme == 'light-theme' ? '' : '#fff',
+                                    }}
+                                  >
+                                    {item.ack.msg || `N/A`}
+                                  </section>
+                                  <section
+                                    style={{
+                                      color:
+                                        theme == 'light-theme' ? '' : '#fff',
+                                    }}
+                                  >
+                                    {item.ack.date.split('T')[0]}
+                                  </section>
+                                  <section
+                                    style={{
+                                      color:
+                                        theme == 'light-theme' ? '' : '#fff',
+                                    }}
+                                  >
+                                    {item.ack.date.split('T')[1].split('.')[0]}
                                   </section>
                                 </section>
                               </React.Fragment>
@@ -826,9 +913,14 @@ export default function AlertsNew() {
                   )}
 
                   {data && data.data && data.data.alerts.length == 0 && (
-                    <section
-                      className={Style.noDataFound}>
-                      <p style={{ color: theme == "light-theme" ? `#000` : `#fff` }}>No Data Found</p>
+                    <section className={Style.noDataFound}>
+                      <p
+                        style={{
+                          color: theme == 'light-theme' ? `#000` : `#fff`,
+                        }}
+                      >
+                        No Data Found
+                      </p>
                     </section>
                   )}
 

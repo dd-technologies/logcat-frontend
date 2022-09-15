@@ -1,20 +1,20 @@
 /* eslint-disable */
 
-import React, { useState } from "react";
-import { Image } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import logo from "../assets/images/DDTECH.png";
-import Logcat_small from "../assets/images/lgnewsmall.png";
-import LogcatLarge from "../assets/images/LgLargeIcon.png";
-import settigns from "../assets/icons/settings.png";
-import Analytics from "../assets/icons/analyticIcon.png";
+import React, { useState } from 'react';
+import { Image } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import logo from '../assets/images/DDTECH.png';
+import Logcat_small from '../assets/images/lgnewsmall.png';
+import LogcatLarge from '../assets/images/LgLargeIcon.png';
+import settigns from '../assets/icons/settings.png';
+import Analytics from '../assets/icons/analyticIcon.png';
 
-import Log from "../assets/icons/log.png";
+import Log from '../assets/icons/log.png';
 
-import Style from "../css/Sidebar.module.css";
-import { ThemeContext, sideMenus } from "./ThemeContext";
-import AlarmIcon from "../assets/images/AlarmIcon.png";
+import Style from '../css/Sidebar.module.css';
+import { ThemeContext, sideMenus } from './ThemeContext';
+import AlarmIcon from '../assets/images/AlarmIcon.png';
 
 function SideBar(props) {
   const { sidebar_details } = props;
@@ -38,19 +38,19 @@ function SideBar(props) {
             <Link
               to="/"
               style={{
-                display: "flex",
-                alignItems: "center",
-                textDecoration: "none",
+                display: 'flex',
+                alignItems: 'center',
+                textDecoration: 'none',
               }}
             >
               <section
                 className={
-                  sideMenu == "sidebar"
+                  sideMenu == 'sidebar'
                     ? `noSideBarLogcatLogo`
                     : `${Style.LogcatLogo}`
                 }
               >
-                {sideMenu == "sidebar" ? (
+                {sideMenu == 'sidebar' ? (
                   <Image src={Logcat_small} alt="logcat" />
                 ) : (
                   <Image src={LogcatLarge} alt="logcat" />
@@ -60,12 +60,12 @@ function SideBar(props) {
           </section>
 
           <section className={Style.linkSection}>
-            {!url.href.includes("update")  && (
+            {!url.href.includes('update') && (
               <section className={Style.navMenuIcons}>
                 <section
                   className={
-                    url.href.includes("log_table") ||
-                    url.href.includes("analytics")
+                    url.href.includes('log_table') ||
+                    url.href.includes('analytics')
                       ? `${Style.linkActive} `
                       : `${Style.linkInActive} `
                   }
@@ -76,12 +76,12 @@ function SideBar(props) {
                       sidebar_details.link1 &&
                       sidebar_details.link1.link &&
                       sidebar_details.link1.link.length == 0
-                        ? ""
+                        ? ''
                         : sidebar_details.link1.link
                     }
                   >
                     <Image
-                      src={url.href.includes("analytics") ? Analytics : Log}
+                      src={url.href.includes('analytics') ? Analytics : Log}
                       width="18"
                       height="18"
                     />
@@ -94,12 +94,12 @@ function SideBar(props) {
                 {/* LINK SECOND  */}
                 {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
                   <>
-                    {url.pathname == "/update" ? (
+                    {url.pathname == '/update' ? (
                       <></>
                     ) : (
                       <section
                         className={
-                          url.href.includes("settings")
+                          url.href.includes('settings')
                             ? `${Style.linkActive} `
                             : `${Style.linkInActive} `
                         }
@@ -110,7 +110,7 @@ function SideBar(props) {
                             sidebar_details.link2 &&
                             sidebar_details.link2.link &&
                             sidebar_details.link2.link.length == 0
-                              ? ""
+                              ? ''
                               : sidebar_details.link2.link
                           }
                         >
@@ -125,11 +125,11 @@ function SideBar(props) {
                 )}
 
                 {/* ALARM LINK  */}
-                {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
+                {adminInfo && adminInfo.data && (
                   <>
                     <section
                       className={
-                        url.href.includes("alarm")
+                        url.href.includes('alarm')
                           ? `${Style.linkActive} `
                           : `${Style.linkInActive} `
                       }
@@ -153,7 +153,7 @@ function SideBar(props) {
             {({ changeSideMenu }) => (
               <section
                 className={Style.ClickSlideSection}
-                style={{ cursor: "pointer" }}
+                style={{ cursor: 'pointer' }}
                 onClick={() => {
                   setSideBar(!sideBar);
                   changeSideMenu(
