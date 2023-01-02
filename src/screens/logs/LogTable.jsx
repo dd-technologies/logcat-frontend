@@ -1,53 +1,51 @@
 /* eslint-disable */
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 import Cookies from 'universal-cookie';
-import { Container, Row, Col, Image } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Container, Row, Col, Image } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCaretDown,
   faDatabase,
   faFilter,
   faSync,
-} from "@fortawesome/free-solid-svg-icons";
-import Style from "../../css/LogTable.module.css";
-import CrashFreeStatics from "./components/CrashFreeStatics";
-import TrandData from "./components/TrandData";
-import CustomeDropDown from "../../container/DropDown";
-import { useDispatch, useSelector } from "react-redux";
-import PieChartSection from "./components/PieChartSection";
-import { getProjectByCode } from "../../store/action/ProjectAction";
+} from '@fortawesome/free-solid-svg-icons';
+import Style from '../../css/LogTable.module.css';
+import CrashFreeStatics from './components/CrashFreeStatics';
+import TrandData from './components/TrandData';
+import CustomeDropDown from '../../container/DropDown';
+import { useDispatch, useSelector } from 'react-redux';
+import PieChartSection from './components/PieChartSection';
+import { getProjectByCode } from '../../store/action/ProjectAction';
 import {
   getLogTypeCounts,
   getLogByDate,
   getDeviceModelCode,
   getCrashFreeUsers,
-} from "../../store/action/LogsAction";
-import { useNavigate } from "react-router-dom";
-import DateIcons from "../../assets/icons/date.png";
-import LogICon from "../../assets/icons/log.png";
-import TypeDropDown from "./components/table/TypeDropDown";
-import SideBar from "../../utils/Sidebar";
-import { Navbar } from "../../utils/NavBar";
-import AlarmIcon from "../../assets/images/AlarmIcon.png";
-import TableDataNew from "./components/table/TableDataNew";
+} from '../../store/action/LogsAction';
+import { useNavigate } from 'react-router-dom';
+import DateIcons from '../../assets/icons/date.png';
+import LogICon from '../../assets/icons/log.png';
+import TypeDropDown from './components/table/TypeDropDown';
+import SideBar from '../../utils/Sidebar';
+import { Navbar } from '../../utils/NavBar';
+import AlarmIcon from '../../assets/images/AlarmIcon.png';
+import TableDataNew from './components/table/TableDataNew';
 
 const cookies = new Cookies();
 
 export default function LogTable() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const code = urlParams.get("code");
-  const projectName = urlParams.get("name");
-  const projectTypeCode = urlParams.get("projectType");
-
-
+  const code = urlParams.get('code');
+  const projectName = urlParams.get('name');
+  const projectTypeCode = urlParams.get('projectType');
 
   // @@ All stats here -----------------start
 
   const [dateDropDown, setDateDropDown] = useState(false);
   const [diffDate, setDiffDate] = useState(
-    localStorage.getItem("diffDate") || 90
+    localStorage.getItem('diffDate') || 90
   );
 
   const [tableDataState, setTableDataState] = useState({});
@@ -61,16 +59,15 @@ export default function LogTable() {
   const navigate = useNavigate();
 
   var projectCode = {
-    code: localStorage.getItem("project_type")
-      ? JSON.parse(localStorage.getItem("project_type")).typeCode
+    code: localStorage.getItem('project_type')
+      ? JSON.parse(localStorage.getItem('project_type')).typeCode
       : projectTypeCode,
-    name: localStorage.getItem("project_type")
-      ? JSON.parse(localStorage.getItem("project_type")).typeName
+    name: localStorage.getItem('project_type')
+      ? JSON.parse(localStorage.getItem('project_type')).typeName
       : projectType &&
-      projectType.modelList &&
-      projectType.modelList[0].typeName,
+        projectType.modelList &&
+        projectType.modelList[0].typeName,
   };
-
 
   const ref = useRef();
 
@@ -80,11 +77,11 @@ export default function LogTable() {
     dashName: projectName,
     link1: {
       iconName: faDatabase,
-      linkName: "Logs",
+      linkName: 'Logs',
     },
     link2: {
       iconName: faDatabase,
-      linkName: "Settings",
+      linkName: 'Settings',
     },
   };
 
@@ -93,17 +90,17 @@ export default function LogTable() {
     dashName: projectName,
     link1: {
       iconName: LogICon,
-      linkName: "Logs",
+      linkName: 'Logs',
       link: `/log_table?code=${code}&name=${projectName}`,
     },
     link2: {
       iconName: `/assets/icons/settings.png`,
-      linkName: "Settings",
+      linkName: 'Settings',
       link: `/settings?code=${code}&name=${projectName}`,
     },
     link3: {
       iconName: AlarmIcon,
-      linkName: "Alarm",
+      linkName: 'Alarm',
       link: `/alarm?code=${code}&name=${projectName}`,
     },
   };
@@ -150,7 +147,7 @@ export default function LogTable() {
   const startDate = filedate.toISOString().slice(0, 10);
 
   localStorage.setItem(
-    "selected_date",
+    'selected_date',
     JSON.stringify({ start: startDate, end: endDate })
   );
 
@@ -161,7 +158,7 @@ export default function LogTable() {
   // CHECKING IF USER IS LOGIN OR NOT
   useEffect(() => {
     if (!cookies.get('ddAdminToken')) {
-      navigate("/");
+      navigate('/');
     }
     // return () => {
     //   <Spinner />;
@@ -170,13 +167,13 @@ export default function LogTable() {
 
   // REFRESH ONLY TABLE
   const RefreshTableOnlyFun = () => {
-    let logType = JSON.parse(localStorage.getItem("selected_log"));
-    let record = localStorage.getItem("selected_record")
-      ? JSON.parse(localStorage.getItem("selected_record"))
+    let logType = JSON.parse(localStorage.getItem('selected_log'));
+    let record = localStorage.getItem('selected_record')
+      ? JSON.parse(localStorage.getItem('selected_record'))
       : 25;
-    let start = JSON.parse(localStorage.getItem("selected_date")).start;
-    let end = JSON.parse(localStorage.getItem("selected_date")).end;
-    let pgNo = JSON.parse(localStorage.getItem("page_no"));
+    let start = JSON.parse(localStorage.getItem('selected_date')).start;
+    let end = JSON.parse(localStorage.getItem('selected_date')).end;
+    let pgNo = JSON.parse(localStorage.getItem('page_no'));
 
     dispatch(
       getProjectByCode(
@@ -207,7 +204,6 @@ export default function LogTable() {
       projectType,
     });
   };
-
 
   const showTableFieldFunc = () => {
     setShowTableField(!showTableField);
@@ -245,37 +241,43 @@ export default function LogTable() {
                 <Col xl={2} md={3} sm={3} className={Style.filterWithDate}>
                   <section className={Style.filterwithDate} ref={ref}>
                     <section className={Style.datafilter} onClick={DateFilter}>
-                      <Image src={DateIcons} width="20px" style={{ filter: "invert(45%) sepia(99%) saturate(341%) hue-rotate(135deg) brightness(91%) contrast(91%)" }} />
+                      <Image
+                        src={DateIcons}
+                        width="20px"
+                        style={{
+                          filter:
+                            'invert(45%) sepia(99%) saturate(341%) hue-rotate(135deg) brightness(91%) contrast(91%)',
+                        }}
+                      />
                       <p
                         style={{
-                          fontSize: ".9rem",
+                          fontSize: '.9rem',
                         }}
                         className="m-2 darkModeColor"
                       >
                         {diffDate == 10
                           ? `last 10 days`
                           : diffDate == 7
-                            ? `last 7 days`
-                            : diffDate == 15
-                              ? `last 15 days`
-                              : diffDate == 30
-                                ? `last 30 days`
-                                : diffDate == 45
-                                  ? `last 45 days`
-                                  : diffDate == 60
-                                    ? `last 60 days`
-                                    : diffDate == 90
-                                      ? `last 90 days`
-                                      : null}
+                          ? `last 7 days`
+                          : diffDate == 15
+                          ? `last 15 days`
+                          : diffDate == 30
+                          ? `last 30 days`
+                          : diffDate == 45
+                          ? `last 45 days`
+                          : diffDate == 60
+                          ? `last 60 days`
+                          : diffDate == 90
+                          ? `last 90 days`
+                          : null}
                       </p>
                       <FontAwesomeIcon
                         icon={faCaretDown}
                         color="#2A9AA4"
                         style={{
-                          width: "10px",
-                          height: "20px",
-                          marginBottom: "2px",
-                          
+                          width: '10px',
+                          height: '20px',
+                          marginBottom: '2px',
                         }}
                       />
                     </section>
@@ -284,22 +286,22 @@ export default function LogTable() {
                       {dateDropDown ? (
                         <CustomeDropDown width="100%" zIndex="8">
                           <p
-                            style={{ fontSize: ".9rem" }}
+                            style={{ fontSize: '.9rem' }}
                             className={`${Style.productVersion} mt-1 darkModeColor `}
                             onClick={() => {
                               setDiffDate(7);
-                              localStorage.setItem("diffDate", 7);
+                              localStorage.setItem('diffDate', 7);
                               setDateDropDown(false);
                             }}
                           >
                             7 days
                           </p>
                           <p
-                            style={{ fontSize: ".9rem" }}
+                            style={{ fontSize: '.9rem' }}
                             className={`${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(15);
-                              localStorage.setItem("diffDate", 15);
+                              localStorage.setItem('diffDate', 15);
                               setDateDropDown(false);
                             }}
                           >
@@ -307,44 +309,44 @@ export default function LogTable() {
                           </p>
 
                           <p
-                            style={{ fontSize: ".9rem" }}
+                            style={{ fontSize: '.9rem' }}
                             className={`${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(30);
-                              localStorage.setItem("diffDate", 30);
+                              localStorage.setItem('diffDate', 30);
                               setDateDropDown(false);
                             }}
                           >
                             30 days
                           </p>
                           <p
-                            style={{ fontSize: ".9rem" }}
+                            style={{ fontSize: '.9rem' }}
                             className={`${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(45);
-                              localStorage.setItem("diffDate", 45);
+                              localStorage.setItem('diffDate', 45);
                               setDateDropDown(false);
                             }}
                           >
                             45 days
                           </p>
                           <p
-                            style={{ fontSize: ".9rem" }}
+                            style={{ fontSize: '.9rem' }}
                             className={`${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(60);
-                              localStorage.setItem("diffDate", 60);
+                              localStorage.setItem('diffDate', 60);
                               setDateDropDown(false);
                             }}
                           >
                             60 days
                           </p>
                           <p
-                            style={{ fontSize: ".9rem" }}
+                            style={{ fontSize: '.9rem' }}
                             className={`faSync${Style.productVersion} mt-1 darkModeColor`}
                             onClick={() => {
                               setDiffDate(90);
-                              localStorage.setItem("diffDate", 90);
+                              localStorage.setItem('diffDate', 90);
                               setDateDropDown(false);
                             }}
                           >
@@ -376,11 +378,11 @@ export default function LogTable() {
                   <p
                     className="darkModeColor"
                     style={{
-                      fontWeight: "600",
-                      fontSize: "0.9rem",
-                      lineHeight: "2.2rem",
-                      letterSpacing: "0.5px",
-                      color: "#000",
+                      fontWeight: '600',
+                      fontSize: '0.9rem',
+                      lineHeight: '2.2rem',
+                      letterSpacing: '0.5px',
+                      color: '#000',
                     }}
                   >
                     Issues
@@ -390,7 +392,7 @@ export default function LogTable() {
                   xl={6}
                   md={6}
                   sm={6}
-                  style={{ display: "flex", justifyContent: "flex-end" }}
+                  style={{ display: 'flex', justifyContent: 'flex-end' }}
                 >
                   {/* section lifed from table data */}
                   <section

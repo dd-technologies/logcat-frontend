@@ -1,30 +1,30 @@
 /* eslint-disable */
 
-import React, { useState, useEffect } from "react";
-import { Row, Col, Container } from "react-bootstrap";
-import ToggleTabs from "./Componets/ToggleTabs";
-import Style from "../../css/Analytics.module.css";
-import AnalyticsEventDataComp from "./Componets/AnalyticsEventDataComp";
-import EventByVersion from "./Componets/EventByVersion";
+import React, { useState, useEffect } from 'react';
+import { Row, Col, Container } from 'react-bootstrap';
+import ToggleTabs from './Componets/ToggleTabs';
+import Style from '../../css/Analytics.module.css';
+import AnalyticsEventDataComp from './Componets/AnalyticsEventDataComp';
+import EventByVersion from './Componets/EventByVersion';
 
 import {
   getCrashFreeUsersData,
   getCrashAnalyticsData,
-} from "../../store/action/LogsAction";
-import { getLogMsgOccurenceWRTDate } from "../../store/action/LogsAction";
-import { useDispatch, useSelector } from "react-redux";
-import AnalyticeIcon from "../../assets/icons/analyticIcon.png";
-import SideBar from "../../utils/Sidebar";
-import { Navbar } from "../../utils/NavBar";
-import { faChartLine, faCog } from "@fortawesome/free-solid-svg-icons";
+} from '../../store/action/LogsAction';
+import { getLogMsgOccurenceWRTDate } from '../../store/action/LogsAction';
+import { useDispatch, useSelector } from 'react-redux';
+import AnalyticeIcon from '../../assets/icons/analyticIcon.png';
+import SideBar from '../../utils/Sidebar';
+import { Navbar } from '../../utils/NavBar';
+import { faChartLine, faCog } from '@fortawesome/free-solid-svg-icons';
 
 export default function Analytics() {
   const date = useState({
     start: null,
     end: null,
   })[0];
-  const [title, setTitle] = useState("");
-  const [subTitle, setSubTitle] = useState("");
+  const [title, setTitle] = useState('');
+  const [subTitle, setSubTitle] = useState('');
   var titleVal, subTitleVal;
 
   var dt = new Date();
@@ -35,32 +35,32 @@ export default function Analytics() {
   // URL STRING
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const code = urlParams.get("code");
+  const code = urlParams.get('code');
 
-  const projectName = urlParams.get("name");
-  const projectCodeAnalytics = urlParams.get("projectCodeAnalytics");
-  let stackArray = urlParams.get("col") || "";
+  const projectName = urlParams.get('name');
+  const projectCodeAnalytics = urlParams.get('projectCodeAnalytics');
+  let stackArray = urlParams.get('col') || '';
 
   // console.log("stack array", stackArray);
 
-  let stackArrayNew = stackArray.split("at ") && stackArray.split(")");
+  let stackArrayNew = stackArray.split('at ') && stackArray.split(')');
 
   const sidebar_details = {
     name: projectName,
     dashName: projectName,
     link1: {
       iconName: AnalyticeIcon,
-      linkName: "Analytics",
+      linkName: 'Analytics',
       link: ``,
     },
     link2: {
       iconName: `./assets/icons/settings.png`,
-      linkName: "Settings",
+      linkName: 'Settings',
       link: `/settings?code=${code}&name=${projectName}`,
     },
     link3: {
       iconName: `./assets/icons/settings.png`,
-      linkName: "Settings",
+      linkName: 'Settings',
       link: `/alarm?code=${code}&name=${projectName}`,
     },
   };
@@ -69,11 +69,11 @@ export default function Analytics() {
     dashName: projectName,
     link1: {
       iconName: faChartLine,
-      linkName: "Analytics",
+      linkName: 'Analytics',
     },
     link2: {
       iconName: faCog,
-      linkName: "Settings",
+      linkName: 'Settings',
     },
   };
 
@@ -87,33 +87,33 @@ export default function Analytics() {
     if (mapArrayKey.length == 1) {
       setTitle(mapArrayKey[0]);
       titleVal = mapArrayKey[0];
-      setSubTitle("");
-      subTitleVal = "";
+      setSubTitle('');
+      subTitleVal = '';
     } else {
       for (let key in mapArrayKey) {
-        if (mapArrayKey[key].includes("Caused by:")) {
+        if (mapArrayKey[key].includes('Caused by:')) {
           causedError = mapArrayKey[parseInt(key) + 1];
           setTitle(
-            causedError.split("(")[1].replace(":", " line ").split(")")[0]
+            causedError.split('(')[1].replace(':', ' line ').split(')')[0]
           );
           titleVal = causedError
-            .split("(")[1]
-            .replace(":", " line ")
-            .split(")")[0];
+            .split('(')[1]
+            .replace(':', ' line ')
+            .split(')')[0];
           setSubTitle(causedError);
           subTitleVal = causedError;
         }
         // console.log("values", titleVal, subTitleVal);
       }
 
-      if (!stackArray.includes("Caused by:")) {
+      if (!stackArray.includes('Caused by:')) {
         noCousedError =
-          mapArrayKey[1].split("(")[1].replace(":", " ").split(")")[0] &&
-          mapArrayKey[1].split("(")[1].replace(":", " ").replace(" ", " line ");
+          mapArrayKey[1].split('(')[1].replace(':', ' ').split(')')[0] &&
+          mapArrayKey[1].split('(')[1].replace(':', ' ').replace(' ', ' line ');
         setTitle(noCousedError);
         titleVal = noCousedError;
-        setSubTitle(mapArrayKey[1].concat(")"));
-        subTitleVal = mapArrayKey[1].concat(")");
+        setSubTitle(mapArrayKey[1].concat(')'));
+        subTitleVal = mapArrayKey[1].concat(')');
 
         // console.log("values", titleVal, subTitleVal);
       }
@@ -134,11 +134,11 @@ export default function Analytics() {
   const dispatch = useDispatch();
 
   const dispatchmultiple = () => {
-    // console.log("subTitleVal", subTitleVal);
+    console.log('subTitleVal', code);
     dispatch(
       getCrashFreeUsersData(
         code,
-        subTitleVal ? subTitleVal.replace(" at ", "") : titleVal,
+        subTitleVal ? subTitleVal.replace(' at ', '') : titleVal,
         projectCodeAnalytics
       )
     );
@@ -146,7 +146,7 @@ export default function Analytics() {
     dispatch(
       getCrashAnalyticsData(
         code,
-        subTitleVal ? subTitleVal.replace(" at ", "") : titleVal,
+        subTitleVal ? subTitleVal.replace(' at ', '') : titleVal,
         projectCodeAnalytics
       )
     );
@@ -155,7 +155,7 @@ export default function Analytics() {
         code,
         startDate: date.start,
         endDate: date.end,
-        logMsg: subTitleVal ? subTitleVal.replace(" at ", "") : titleVal,
+        logMsg: subTitleVal ? subTitleVal.replace(' at ', '') : titleVal,
         code1: projectCodeAnalytics,
       })
     );
@@ -182,7 +182,7 @@ export default function Analytics() {
               <h2
                 className="darkModeColor"
                 style={{
-                  fontWeight: "600",
+                  fontWeight: '600',
                 }}
               >
                 {title}
@@ -190,7 +190,7 @@ export default function Analytics() {
               <p
                 className="darkModeColor"
                 style={{
-                  fontWeight: "600",
+                  fontWeight: '600',
                 }}
               >
                 {subTitle}
@@ -199,15 +199,15 @@ export default function Analytics() {
 
             <Col className="my-4">
               {loading ? (
-                "Loading"
+                'Loading'
               ) : (
                 <p className={`${Style.paraTextIssue} darkModeColor`}>
-                  This issue has{" "}
-                  <strong style={{ color: "#0099a4" }}>
+                  This issue has{' '}
+                  <strong style={{ color: '#0099a4' }}>
                     {totalCount} crash
-                  </strong>{" "}
+                  </strong>{' '}
                   events affecting
-                  <strong style={{ color: "#0099a4" }}> {users} users</strong>
+                  <strong style={{ color: '#0099a4' }}> {users} users</strong>
                 </p>
               )}
             </Col>
@@ -231,9 +231,9 @@ export default function Analytics() {
               <p
                 className="darkModeColor"
                 style={{
-                  color: "#000",
-                  fontWeight: "600",
-                  letterSpacing: "0.5px",
+                  color: '#000',
+                  fontWeight: '600',
+                  letterSpacing: '0.5px',
                 }}
               >
                 Events

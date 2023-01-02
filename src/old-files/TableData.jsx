@@ -1,23 +1,23 @@
-import React, { useState, useEffect, useRef } from "react";
-import CustomCard from "../../../../Container/CustomCard";
-import BootstrapTable from "react-bootstrap-table-next";
-import { Button, Col, Row } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWindowClose, faDownload } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect, useRef } from 'react';
+import CustomCard from '../../../../Container/CustomCard';
+import BootstrapTable from 'react-bootstrap-table-next';
+import { Button, Col, Row } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWindowClose, faDownload } from '@fortawesome/free-solid-svg-icons';
 import ToolkitProvider, {
   Search,
   CSVExport,
-} from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit";
-import Style from "./TableData.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { getProjectByCode } from "../store/action/ProjectAction";
-import SpinnerCustom from "../../../../Container/SpinnerCustom";
-import toast, { Toaster } from "react-hot-toast";
-import TableCard from "../../../../Container/TableCard";
-import { Link, useNavigate } from "react-router-dom";
-import { ThemeContext } from "../utils/ThemeContext";
-import "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css";
-import CustomPaginationTableData from "../common/CustomPaginationTableData";
+} from 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit';
+import Style from './TableData.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProjectByCode } from '../store/action/ProjectAction';
+import SpinnerCustom from '../../../../Container/SpinnerCustom';
+import toast, { Toaster } from 'react-hot-toast';
+import TableCard from '../../../../Container/TableCard';
+import { Link, useNavigate } from 'react-router-dom';
+import { ThemeContext } from '../utils/ThemeContext';
+import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css';
+import CustomPaginationTableData from '../common/CustomPaginationTableData';
 
 const { SearchBar } = Search;
 const { ExportCSVButton } = CSVExport;
@@ -69,13 +69,13 @@ function TableData(props) {
   var startDate, endDate;
 
   const [dateState, setDate] = useState({
-    start: JSON.parse(localStorage.getItem("selected_date")).start,
-    end: JSON.parse(localStorage.getItem("selected_date")).end,
+    start: JSON.parse(localStorage.getItem('selected_date')).start,
+    end: JSON.parse(localStorage.getItem('selected_date')).end,
   });
 
   var date = {
-    start: JSON.parse(localStorage.getItem("selected_date")).start,
-    end: JSON.parse(localStorage.getItem("selected_date")).end,
+    start: JSON.parse(localStorage.getItem('selected_date')).start,
+    end: JSON.parse(localStorage.getItem('selected_date')).end,
   };
 
   endDate = filedate.toISOString().slice(0, 10);
@@ -88,28 +88,28 @@ function TableData(props) {
   }, [props.diffDate]);
 
   const [record, setRecords] = useState(
-    localStorage.getItem("selected_record")
-      ? JSON.parse(localStorage.getItem("selected_record"))
+    localStorage.getItem('selected_record')
+      ? JSON.parse(localStorage.getItem('selected_record'))
       : 25
   );
 
   const ref = useRef();
 
   const [logType, setLogType] = useState({
-    error: localStorage.getItem("selected_log")
-      ? JSON.parse(localStorage.getItem("selected_log")).error
+    error: localStorage.getItem('selected_log')
+      ? JSON.parse(localStorage.getItem('selected_log')).error
       : false,
-    info: localStorage.getItem("selected_log")
-      ? JSON.parse(localStorage.getItem("selected_log")).info
+    info: localStorage.getItem('selected_log')
+      ? JSON.parse(localStorage.getItem('selected_log')).info
       : false,
-    warn: localStorage.getItem("selected_log")
-      ? JSON.parse(localStorage.getItem("selected_log")).warn
+    warn: localStorage.getItem('selected_log')
+      ? JSON.parse(localStorage.getItem('selected_log')).warn
       : false,
-    debug: localStorage.getItem("selected_log")
-      ? JSON.parse(localStorage.getItem("selected_log")).debug
+    debug: localStorage.getItem('selected_log')
+      ? JSON.parse(localStorage.getItem('selected_log')).debug
       : false,
-    verbose: localStorage.getItem("selected_log")
-      ? JSON.parse(localStorage.getItem("selected_log")).verbose
+    verbose: localStorage.getItem('selected_log')
+      ? JSON.parse(localStorage.getItem('selected_log')).verbose
       : false,
   });
 
@@ -126,16 +126,16 @@ function TableData(props) {
 
   const [activePage, setActivePage] = useState({ activePage: 1 });
   var projectCode = {
-    code: localStorage.getItem("project_type")
-      ? JSON.parse(localStorage.getItem("project_type")).typeCode
+    code: localStorage.getItem('project_type')
+      ? JSON.parse(localStorage.getItem('project_type')).typeCode
       : typeWiseDate &&
-      typeWiseDate.modelList &&
-      typeWiseDate.modelList[0].typeCode,
-    name: localStorage.getItem("project_type")
-      ? JSON.parse(localStorage.getItem("project_type")).typeName
+        typeWiseDate.modelList &&
+        typeWiseDate.modelList[0].typeCode,
+    name: localStorage.getItem('project_type')
+      ? JSON.parse(localStorage.getItem('project_type')).typeName
       : typeWiseDate &&
-      typeWiseDate.modelList &&
-      typeWiseDate.modelList[0].typeName,
+        typeWiseDate.modelList &&
+        typeWiseDate.modelList[0].typeName,
   };
 
   let projectCodeType = typeWiseDate && typeWiseDate.modelList[0].typeCode;
@@ -159,15 +159,15 @@ function TableData(props) {
     [];
 
   const selectRow = {
-    mode: "checkbox",
+    mode: 'checkbox',
     clickToSelect: selectTableState,
-    classes: "selected-row",
+    classes: 'selected-row',
     onSelect: (row, isSelect, rowIndex, e) => {
-      setSelectionCount(document.querySelectorAll(".selected-row").length);
+      setSelectionCount(document.querySelectorAll('.selected-row').length);
       // console.log("length A: ", selectionCount);
     },
     onSelectAll: (isSelect, rows, e) => {
-      setSelectionCount(document.querySelectorAll(".selected-row").length);
+      setSelectionCount(document.querySelectorAll('.selected-row').length);
       // console.log("length B: ", selectionCount);
     },
   };
@@ -177,31 +177,31 @@ function TableData(props) {
   let logTypeFun = () => {
     if (logType.info) {
       localStorage.setItem(
-        "selected_log",
+        'selected_log',
         JSON.stringify({ ...logType, info: true })
       );
     }
     if (logType.error) {
       localStorage.setItem(
-        "selected_log",
+        'selected_log',
         JSON.stringify({ ...logType, error: true })
       );
     }
     if (logType.warn) {
       localStorage.setItem(
-        "selected_log",
+        'selected_log',
         JSON.stringify({ ...logType, warn: true })
       );
     }
     if (logType.debug) {
       localStorage.setItem(
-        "selected_log",
+        'selected_log',
         JSON.stringify({ ...logType, debug: true })
       );
     }
     if (logType.verbos) {
       localStorage.setItem(
-        "selected_log",
+        'selected_log',
         JSON.stringify({ ...logType, verbos: true })
       );
     }
@@ -210,13 +210,13 @@ function TableData(props) {
   let dateChipFun = () => {
     if (dateState.start) {
       localStorage.setItem(
-        "selected_date",
+        'selected_date',
         JSON.stringify({ ...dateState, start: dateState.start })
       );
     }
     if (dateState.end) {
       localStorage.setItem(
-        "selected_date",
+        'selected_date',
         JSON.stringify({ ...dateState, end: dateState.end })
       );
     }
@@ -228,13 +228,13 @@ function TableData(props) {
     // LOG TYPE
     logTypeFun();
 
-    localStorage.setItem("page_no", 1);
-    var pageNofromLocalStrg = localStorage.getItem("page_no");
+    localStorage.setItem('page_no', 1);
+    var pageNofromLocalStrg = localStorage.getItem('page_no');
 
     // DATE CHIPS
     dateChipFun();
 
-    localStorage.setItem("selected_record", JSON.stringify(record));
+    localStorage.setItem('selected_record', JSON.stringify(record));
     if (
       logType.info ||
       logType.error ||
@@ -251,7 +251,7 @@ function TableData(props) {
       );
     }
 
-    toast.success("Filter saved");
+    toast.success('Filter saved');
     props.setShowTableField(false);
   };
 
@@ -274,23 +274,23 @@ function TableData(props) {
       record100: false,
     });
 
-    localStorage.removeItem("selected_log");
-    localStorage.removeItem("selected_date");
-    localStorage.removeItem("selected_record");
+    localStorage.removeItem('selected_log');
+    localStorage.removeItem('selected_date');
+    localStorage.removeItem('selected_record');
 
     setLogType({
-      error: "",
-      info: "",
-      warn: "",
-      debug: "",
-      verbose: "",
+      error: '',
+      info: '',
+      warn: '',
+      debug: '',
+      verbose: '',
     });
 
     props.setShowTableField(false);
     dispatch(
       getProjectByCode(code, date, null, null, record, projectCode.code)
     );
-    toast.success("Filter has been reset");
+    toast.success('Filter has been reset');
   };
 
   // FIRST DISPATCH OF TABLE DATA
@@ -306,16 +306,16 @@ function TableData(props) {
     if (row.log.type) {
       return (
         <span>
-          {cell == "error" ? (
-            <p style={{ color: "red" }}>{cell.toUpperCase()}</p>
-          ) : cell == "warn" ? (
-            <p style={{ color: "violet" }}>{cell.toUpperCase()}</p>
-          ) : cell == "info" ? (
-            <p style={{ color: "blue" }}>{cell.toUpperCase()}</p>
-          ) : cell == "verbose" ? (
-            <p style={{ color: "green" }}>{cell.toUpperCase()}</p>
+          {cell == 'error' ? (
+            <p style={{ color: 'red' }}>{cell.toUpperCase()}</p>
+          ) : cell == 'warn' ? (
+            <p style={{ color: 'violet' }}>{cell.toUpperCase()}</p>
+          ) : cell == 'info' ? (
+            <p style={{ color: 'blue' }}>{cell.toUpperCase()}</p>
+          ) : cell == 'verbose' ? (
+            <p style={{ color: 'green' }}>{cell.toUpperCase()}</p>
           ) : (
-            <p style={{ color: "orange" }}>{cell.toUpperCase()}</p>
+            <p style={{ color: 'orange' }}>{cell.toUpperCase()}</p>
           )}
         </span>
       );
@@ -329,47 +329,47 @@ function TableData(props) {
     setSelectTableState(false);
     // console.log("download function", row);
 
-    var a = document.createElement("a");
-    a.target = "_blank";
+    var a = document.createElement('a');
+    a.target = '_blank';
     a.href = `https://0942-2401-4900-1f39-34dc-385b-1069-1819-5282.in.ngrok.io/${row.log.filePath}`;
-    a.setAttribute("download", row.log.filePath);
+    a.setAttribute('download', row.log.filePath);
     a.click();
   };
 
   const columns = [
     {
-      dataField: "log.message",
-      text: "Log Message",
-      headerAlign: "center",
+      dataField: 'log.message',
+      text: 'Log Message',
+      headerAlign: 'center',
       headerStyle: () => {
         return {
-          backgroundColor: "#257d7c",
-          color: "#fff",
-          width: "100%",
+          backgroundColor: '#257d7c',
+          color: '#fff',
+          width: '100%',
         };
       },
 
       formatter: (col, row, rowIndex) => {
         // console.log("col", row);
         var title;
-        var colData = col.split("at ");
+        var colData = col.split('at ');
         var colDataTOString = colData.toString();
         if (colData) {
-          if (colDataTOString.includes("(")) {
-            title = colData[0].split(")")[0].concat(")");
+          if (colDataTOString.includes('(')) {
+            title = colData[0].split(')')[0].concat(')');
           } else {
-            title = colData[0].split(")")[0];
+            title = colData[0].split(')')[0];
           }
         }
-        if (colDataTOString.includes("java.lang.RuntimeException")) {
-          title = colData[1].split("(")[1].replace(":", " ").split(")")[0];
+        if (colDataTOString.includes('java.lang.RuntimeException')) {
+          title = colData[1].split('(')[1].replace(':', ' ').split(')')[0];
         } else {
           for (let key in colData) {
-            if (colData[key].includes("Caused by:")) {
+            if (colData[key].includes('Caused by:')) {
               title = colData[parseInt(key) + 1]
-                .split("(")[1]
-                .replace(":", " line ")
-                .split(")")[0];
+                .split('(')[1]
+                .replace(':', ' line ')
+                .split(')')[0];
             }
           }
         }
@@ -377,14 +377,18 @@ function TableData(props) {
           <div className={Style.expandedRow}>
             {row && row.log && row.log.message && (
               <Link
-                style={{ textDecoration: " none" }}
-                to={`/analytics?code=${props.code}&name=${props.projectName
-                  }&col=${row.log.filePath ? row.log.filePath : row.log.message
-                  }&rowlogGeneratedDate=${row.log.date}&version=${row.version
-                  }&osArchitecture=${row.device.os.name}&modelName=${row.device.name
-                  }&page-name=analytics&projectCodeAnalytics=${projectCodeAnalytics}`}
+                style={{ textDecoration: ' none' }}
+                to={`/analytics?code=${props.code}&name=${
+                  props.projectName
+                }&col=${
+                  row.log.filePath ? row.log.filePath : row.log.message
+                }&rowlogGeneratedDate=${row.log.date}&version=${
+                  row.version
+                }&osArchitecture=${row.device.os.name}&modelName=${
+                  row.device.name
+                }&page-name=analytics&projectCodeAnalytics=${projectCodeAnalytics}`}
               >
-                <p>{title.split(")")[0]}</p>
+                <p>{title.split(')')[0]}</p>
               </Link>
             )}
 
@@ -393,18 +397,18 @@ function TableData(props) {
             {row && row.log && row.log.filePath && (
               <section
                 style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
-                <p style={{ cursor: "not-allowed" }}>{row.log.file}</p>
+                <p style={{ cursor: 'not-allowed' }}>{row.log.file}</p>
                 <section
                   style={{
-                    backgroundColor: "#0099A4",
-                    padding: "3px 5px",
-                    color: "#fff",
-                    borderRadius: "5px",
+                    backgroundColor: '#0099A4',
+                    padding: '3px 5px',
+                    color: '#fff',
+                    borderRadius: '5px',
                   }}
                   onClick={() => handleDownload(row)}
                 >
@@ -420,29 +424,29 @@ function TableData(props) {
     {
       headerStyle: () => {
         return {
-          backgroundColor: "#257d7c",
-          color: "#fff",
+          backgroundColor: '#257d7c',
+          color: '#fff',
         };
       },
-      dataField: "device.did",
-      text: "MAC Address",
+      dataField: 'device.did',
+      text: 'MAC Address',
       sort: true,
       headerStyle: () => {
         return {
-          backgroundColor: "#257d7c",
-          color: "#fff",
-          width: "40%",
+          backgroundColor: '#257d7c',
+          color: '#fff',
+          width: '40%',
         };
       },
     },
     {
-      dataField: "log.type",
-      text: "Log Type",
+      dataField: 'log.type',
+      text: 'Log Type',
       headerStyle: () => {
         return {
-          backgroundColor: "#257d7c",
-          color: "#fff",
-          width: "40%",
+          backgroundColor: '#257d7c',
+          color: '#fff',
+          width: '40%',
         };
       },
 
@@ -450,57 +454,56 @@ function TableData(props) {
       sort: true,
     },
     {
-      dataField: "log.date",
-      text: "Date",
+      dataField: 'log.date',
+      text: 'Date',
       headerStyle: () => {
         return {
-          backgroundColor: "#257d7c",
-          color: "#fff",
-          width: "40%",
+          backgroundColor: '#257d7c',
+          color: '#fff',
+          width: '40%',
         };
       },
 
       formatter: (cell) => {
-        cell = cell.split("T")[0];
-        let day = cell.split("-")[2];
-        let month = cell.split("-")[1];
-        let year = cell.split("-")[0];
+        cell = cell.split('T')[0];
+        let day = cell.split('-')[2];
+        let month = cell.split('-')[1];
+        let year = cell.split('-')[0];
         cell = `${day}-${month}-${year}`;
-        return cell.split("T")[0];
+        return cell.split('T')[0];
       },
       sort: true,
     },
     {
-      dataField: "log.date",
-      text: "Time",
+      dataField: 'log.date',
+      text: 'Time',
       headerStyle: () => {
         return {
-          backgroundColor: "#257d7c",
-          color: "#fff",
-          width: "40%",
+          backgroundColor: '#257d7c',
+          color: '#fff',
+          width: '40%',
         };
       },
 
       formatter: (cell) => {
-        cell = cell.split("T")[1];
-        cell = cell.split(".")[0];
-        let seconds = cell.split(":")[2];
-        let minutes = cell.split(":")[1];
-        let hours = cell.split(":")[0];
+        cell = cell.split('T')[1];
+        cell = cell.split('.')[0];
+        let seconds = cell.split(':')[2];
+        let minutes = cell.split(':')[1];
+        let hours = cell.split(':')[0];
         cell =
-          seconds !== "00" && hours !== "00" && minutes !== "00"
+          seconds !== '00' && hours !== '00' && minutes !== '00'
             ? `${hours}:${minutes}:${seconds}`
-            : "N/A";
+            : 'N/A';
         return cell;
       },
       sort: true,
     },
   ];
 
-
   useEffect(() => {
     // 1) If record are 10 in local storage
-    if (localStorage.getItem("selected_record") == 10) {
+    if (localStorage.getItem('selected_record') == 10) {
       setRecords(10);
       setActiveRecord({
         ...activeRecord,
@@ -509,7 +512,7 @@ function TableData(props) {
     }
 
     // 2) If record are 25 in local storage
-    if (localStorage.getItem("selected_record") == 25) {
+    if (localStorage.getItem('selected_record') == 25) {
       setRecords(25);
       setActiveRecord({
         ...activeRecord,
@@ -517,7 +520,7 @@ function TableData(props) {
       });
     }
     // 3) If record are 50 in local storage
-    if (localStorage.getItem("selected_record") == 50) {
+    if (localStorage.getItem('selected_record') == 50) {
       setRecords(50);
       setActiveRecord({
         ...activeRecord,
@@ -526,7 +529,7 @@ function TableData(props) {
     }
 
     // 3) If record are 100 in local storage
-    if (localStorage.getItem("selected_record") == 100) {
+    if (localStorage.getItem('selected_record') == 100) {
       setRecords(100);
       setActiveRecord({
         ...activeRecord,
@@ -548,18 +551,18 @@ function TableData(props) {
       )
     );
     localStorage.setItem(
-      "selected_log",
+      'selected_log',
       JSON.stringify({ ...logType, [items]: false })
     );
   };
 
   // STATUS LOG TYPE CHIPS
 
-  const chipsArray = ["info", "warn", "error", "debug", "verbose"];
+  const chipsArray = ['info', 'warn', 'error', 'debug', 'verbose'];
 
   const chipsSection = chipsArray.map((items, index) => (
     <section className={Style.chip}>
-      <p style={{ color: "#fff" }}>{items.toUpperCase()}</p>
+      <p style={{ color: '#fff' }}>{items.toUpperCase()}</p>
       <FontAwesomeIcon
         icon={faWindowClose}
         onClick={() => closeChips(items, index)}
@@ -572,12 +575,12 @@ function TableData(props) {
     if (index == 0) {
       setDate({
         ...dateState,
-        start: "",
+        start: '',
       });
-      date.start = "";
+      date.start = '';
       localStorage.setItem(
-        "selected_date",
-        JSON.stringify({ ...dateState, start: "" })
+        'selected_date',
+        JSON.stringify({ ...dateState, start: '' })
       );
       dispatch(
         getProjectByCode({
@@ -590,12 +593,12 @@ function TableData(props) {
     if (index == 1) {
       setDate({
         ...dateState,
-        end: "",
+        end: '',
       });
-      date.end = "";
+      date.end = '';
       localStorage.setItem(
-        "selected_date",
-        JSON.stringify({ ...dateState, end: "" })
+        'selected_date',
+        JSON.stringify({ ...dateState, end: '' })
       );
       dispatch(
         getProjectByCode({
@@ -610,7 +613,7 @@ function TableData(props) {
   const DateChipsArray = [dateState.start, dateState.end];
   const dateChips = DateChipsArray.map((items, index) => (
     <section className={Style.chip}>
-      <p style={{ color: "#fff" }}>{items}</p>
+      <p style={{ color: '#fff' }}>{items}</p>
       <FontAwesomeIcon
         icon={faWindowClose}
         onClick={() => closeDateChip(items, index)}
@@ -633,7 +636,7 @@ function TableData(props) {
   return (
     <>
       <TableCard
-        height={data && data.data && data.data.logs.length ? "100%" : "200px"}
+        height={data && data.data && data.data.logs.length ? '100%' : '200px'}
         borderRadius="10px"
       >
         <Toaster />
@@ -670,17 +673,16 @@ function TableData(props) {
                         {logType.verbose && chipsSection[4]}
                       </section>
                       <section className={Style.filterOptions}>
-
                         <ExportCSVButton
                           {...toolkitProps.csvProps}
                           disabled={
                             bootstrapTableRef &&
-                              bootstrapTableRef.current &&
-                              bootstrapTableRef.current.selectionContext &&
-                              bootstrapTableRef.current.selectionContext.selected
-                                .length == 0
-                              ? "disabled"
-                              : ""
+                            bootstrapTableRef.current &&
+                            bootstrapTableRef.current.selectionContext &&
+                            bootstrapTableRef.current.selectionContext.selected
+                              .length == 0
+                              ? 'disabled'
+                              : ''
                           }
                           disabled={selectionCount}
                         >
@@ -693,7 +695,7 @@ function TableData(props) {
                       ref={bootstrapTableRef}
                       {...toolkitProps.baseProps}
                       selectRow={selectRow}
-                    // rowEvents={tableRowEvents}
+                      // rowEvents={tableRowEvents}
                     />
                   </>
                 )}
@@ -714,13 +716,13 @@ function TableData(props) {
           {data && data.data && data.data.logs.length == 0 && (
             <section
               style={{
-                height: "200px",
-                textAlign: "center",
-                fontSize: "1.7rem",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: theme == "dark-content" ? `#fff` : `#000`,
+                height: '200px',
+                textAlign: 'center',
+                fontSize: '1.7rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: theme == 'dark-content' ? `#fff` : `#000`,
               }}
             >
               No data found
@@ -795,10 +797,10 @@ function TableData(props) {
                           value={
                             dateState && dateState.start
                               ? dateState.start
-                              : localStorage.getItem("selected_date") &&
-                              JSON.parse(
-                                localStorage.getItem("selected_date")
-                              ).start
+                              : localStorage.getItem('selected_date') &&
+                                JSON.parse(
+                                  localStorage.getItem('selected_date')
+                                ).start
                           }
                           onChange={(e) => {
                             setDate({
@@ -815,10 +817,10 @@ function TableData(props) {
                           value={
                             dateState && dateState.end
                               ? dateState.end
-                              : localStorage.getItem("selected_date") &&
-                              JSON.parse(
-                                localStorage.getItem("selected_date")
-                              ).end
+                              : localStorage.getItem('selected_date') &&
+                                JSON.parse(
+                                  localStorage.getItem('selected_date')
+                                ).end
                           }
                           onChange={(e) => {
                             setDate({

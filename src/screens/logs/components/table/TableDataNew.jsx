@@ -1,23 +1,23 @@
 /* eslint-disable */
-import React, { useEffect, useMemo, useReducer, useState } from "react";
+import React, { useEffect, useMemo, useReducer, useState } from 'react';
 import AWS from 'aws-sdk';
-import { Button, Col, Row } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Col, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faSortDown,
   faSortUp,
   faDownload,
   faWindowClose,
-} from "@fortawesome/free-solid-svg-icons";
-import { getProjectByCode } from "../../../../store/action/ProjectAction";
-import TableCard from "../../../../container/TableCard";
-import Style from "../../../../css/TableDataNew.module.css";
-import CustomCard from "../../../../container/CustomCard";
-import { ThemeContext } from "../../../../utils/ThemeContext";
-import toast from "react-hot-toast";
-import SpinnerCustom from "../../../../container/SpinnerCustom";
-import { checkBoxReducer } from "./store/Reducer";
+} from '@fortawesome/free-solid-svg-icons';
+import { getProjectByCode } from '../../../../store/action/ProjectAction';
+import TableCard from '../../../../container/TableCard';
+import Style from '../../../../css/TableDataNew.module.css';
+import CustomCard from '../../../../container/CustomCard';
+import { ThemeContext } from '../../../../utils/ThemeContext';
+import toast from 'react-hot-toast';
+import SpinnerCustom from '../../../../container/SpinnerCustom';
+import { checkBoxReducer } from './store/Reducer';
 import {
   SEARCH_FIELD,
   SELECT_PAGE_NO,
@@ -30,14 +30,13 @@ import {
   RECORD_PER_PAGE_SECTION,
   ACTIVE_RECORDS,
   DATE,
-} from "./store/Type";
-import Pagination from "../../../../common/Pagination";
+} from './store/Type';
+import Pagination from '../../../../common/Pagination';
 
 AWS.config.update({
   accessKeyId: process.env.REACT_APP_ACCESS_ID,
   secretAccessKey: process.env.REACT_APP_ACCESS_KEY,
 });
-
 
 // var arrayofSelectRow = []
 // var getPrivousArray = {}
@@ -46,11 +45,11 @@ export default function TableDataNew(props) {
   // ALL CHECKED BOX CHECK STATE
   // const [allCheckBox, setAllCheckBox] = useState(false);
   const { theme } = React.useContext(ThemeContext);
-  const code = props.code;
+  // const code = props.code;
   let filedate = new Date();
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const projectTypeCode = urlParams.get("projectType");
+  const projectTypeCode = urlParams.get('projectType');
 
   // ======================================Reducer from Redux===================================
   // ===========================================================================================
@@ -81,20 +80,20 @@ export default function TableDataNew(props) {
     recordPerPageSection: false,
     countPerPage: false,
     logType: {
-      error: localStorage.getItem("selected_log")
-        ? JSON.parse(localStorage.getItem("selected_log")).error
+      error: localStorage.getItem('selected_log')
+        ? JSON.parse(localStorage.getItem('selected_log')).error
         : false,
-      info: localStorage.getItem("selected_log")
-        ? JSON.parse(localStorage.getItem("selected_log")).info
+      info: localStorage.getItem('selected_log')
+        ? JSON.parse(localStorage.getItem('selected_log')).info
         : false,
-      warn: localStorage.getItem("selected_log")
-        ? JSON.parse(localStorage.getItem("selected_log")).warn
+      warn: localStorage.getItem('selected_log')
+        ? JSON.parse(localStorage.getItem('selected_log')).warn
         : false,
-      debug: localStorage.getItem("selected_log")
-        ? JSON.parse(localStorage.getItem("selected_log")).debug
+      debug: localStorage.getItem('selected_log')
+        ? JSON.parse(localStorage.getItem('selected_log')).debug
         : false,
-      verbose: localStorage.getItem("selected_log")
-        ? JSON.parse(localStorage.getItem("selected_log")).verbose
+      verbose: localStorage.getItem('selected_log')
+        ? JSON.parse(localStorage.getItem('selected_log')).verbose
         : false,
     },
     sortIconFilter: {
@@ -104,8 +103,8 @@ export default function TableDataNew(props) {
       DA: false,
       TI: false,
     },
-    record: localStorage.getItem("selected_record")
-      ? JSON.parse(localStorage.getItem("selected_record"))
+    record: localStorage.getItem('selected_record')
+      ? JSON.parse(localStorage.getItem('selected_record'))
       : 25,
 
     activeRecord: {
@@ -116,10 +115,10 @@ export default function TableDataNew(props) {
     },
 
     dateState: {
-      start: JSON.parse(localStorage.getItem("selected_date")).start,
-      end: JSON.parse(localStorage.getItem("selected_date")).end,
+      start: JSON.parse(localStorage.getItem('selected_date')).start,
+      end: JSON.parse(localStorage.getItem('selected_date')).end,
     },
-    searchField: "",
+    searchField: '',
     // allCheckBox: false,
     // singleCheckbox: false,
   };
@@ -133,31 +132,33 @@ export default function TableDataNew(props) {
 
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [isCheck, setIsCheck] = useState([]);
-  const [checkedLogs, setCheckedLogs] = useState([])
+  const [checkedLogs, setCheckedLogs] = useState([]);
 
-  const handleSelectAll = e => {
+  const handleSelectAll = (e) => {
     setIsCheckAll(!isCheckAll);
-    setIsCheck(data?.data?.logs.map(log => log._id));
-    setCheckedLogs(data?.data?.logs)
+    setIsCheck(data?.data?.logs.map((log) => log._id));
+    setCheckedLogs(data?.data?.logs);
     if (isCheckAll) {
       setIsCheck([]);
       setCheckedLogs([]);
     }
   };
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     const { id, checked, name } = e.target;
     setIsCheck([...isCheck, id]);
-    setCheckedLogs([...checkedLogs, JSON.parse(name)])
+    setCheckedLogs([...checkedLogs, JSON.parse(name)]);
     if (!checked) {
-      setIsCheck(isCheck.filter(item => item !== id));
-      setCheckedLogs(checkedLogs.filter(item => {
-        return item._id !== id
-      }))
+      setIsCheck(isCheck.filter((item) => item !== id));
+      setCheckedLogs(
+        checkedLogs.filter((item) => {
+          return item._id !== id;
+        })
+      );
     }
   };
 
-  const setDownloadButton = useState(false)[1]
+  const setDownloadButton = useState(false)[1];
 
   useMemo(() => {
     const firstPageIndex = (currentPage - 1) * currentStateTableData.record;
@@ -166,7 +167,6 @@ export default function TableDataNew(props) {
       data && data.data && data.data.logs.slice(firstPageIndex, lastPageIndex)
     );
   }, [currentPage]);
-
 
   // CHECKBOX STATE MANAGEMENT WITH User REDUCER END ---------------------------------------------
   // ===========================================================================================
@@ -223,41 +223,42 @@ export default function TableDataNew(props) {
 
   // PROJECT CODE
   var projectCode = {
-    code: localStorage.getItem("project_type")
-      ? JSON.parse(localStorage.getItem("project_type")).typeCode
+    code: localStorage.getItem('project_type')
+      ? JSON.parse(localStorage.getItem('project_type')).typeCode
       : projectTypeCode,
-    name: localStorage.getItem("project_type")
-      ? JSON.parse(localStorage.getItem("project_type")).typeName
+    name: localStorage.getItem('project_type')
+      ? JSON.parse(localStorage.getItem('project_type')).typeName
       : typeWiseDate &&
-      typeWiseDate.modelList &&
-      typeWiseDate.modelList[0].typeName,
+        typeWiseDate.modelList &&
+        typeWiseDate.modelList[0].typeName,
   };
 
   let projectCodeType = typeWiseDate && typeWiseDate.modelList[0].typeCode;
 
   // DOWNLOAD CSV FILE FUNCTION
   const downloadCSVFun = ({ data, fileName, fileType }) => {
-    console.log("data", data)
-    var csv = " Log Message";
-    csv += "\t Mac Address";
-    csv += "\t Log Type";
-    csv += "\t Date";
-    csv += "\t Time";
-    csv += "\n";
+    console.log('data', data);
+    var csv = ' Log Message';
+    csv += '\t Mac Address';
+    csv += '\t Log Type';
+    csv += '\t Date';
+    csv += '\t Time';
+    csv += '\n';
     for (var i = 0; i < data.length; i++) {
       let logMsg = data[i].log.message;
-      logMsg = logMsg.replaceAll("\n\t", "");
-      csv += `${logMsg}\t${data[i].device.did}\t${data[i].log.type}\t${data[i].log.date.split("T")[0]
-        }\t${data[i].log.date.split("T")[1].split(".")[0]}`;
+      logMsg = logMsg.replaceAll('\n\t', '');
+      csv += `${logMsg}\t${data[i].device.did}\t${data[i].log.type}\t${
+        data[i].log.date.split('T')[0]
+      }\t${data[i].log.date.split('T')[1].split('.')[0]}`;
       // csv += `${logMsg}\t${data[i].device.did}\t${data[i].log.type}`;
-      csv += "\n";
+      csv += '\n';
     }
 
     const blob = new Blob([csv], { type: fileType });
-    const a = document.createElement("a");
+    const a = document.createElement('a');
     a.download = fileName;
     a.href = window.URL.createObjectURL(blob);
-    const clickEvt = new MouseEvent("click", {
+    const clickEvt = new MouseEvent('click', {
       view: window,
       bubbles: true,
       cancelable: true,
@@ -290,10 +291,10 @@ export default function TableDataNew(props) {
       },
     });
 
-    localStorage.removeItem("selected_log");
-    localStorage.removeItem("selected_date");
-    localStorage.removeItem("selected_record");
-    localStorage.removeItem("page_no");
+    localStorage.removeItem('selected_log');
+    localStorage.removeItem('selected_date');
+    localStorage.removeItem('selected_record');
+    localStorage.removeItem('page_no');
 
     multipleDispatch({
       type: LOGTYPE,
@@ -319,16 +320,16 @@ export default function TableDataNew(props) {
         null
       )
     );
-    toast.success("Filter has been reset");
+    toast.success('Filter has been reset');
   };
 
   // STATUS LOG TYPE CHIPS
 
-  const chipsArray = ["info", "warn", "error", "debug", "verbose"];
+  const chipsArray = ['info', 'warn', 'error', 'debug', 'verbose'];
 
   const chipsSection = chipsArray.map((items, index) => (
     <section className={Style.chip}>
-      <p style={{ color: "#fff" }}>{items.toUpperCase()}</p>
+      <p style={{ color: '#fff' }}>{items.toUpperCase()}</p>
       <FontAwesomeIcon
         icon={faWindowClose}
         onClick={() => closeChips(items, index)}
@@ -356,7 +357,7 @@ export default function TableDataNew(props) {
       )
     );
     localStorage.setItem(
-      "selected_log",
+      'selected_log',
       JSON.stringify({ ...currentStateTableData.logType, [items]: false })
     );
   };
@@ -368,10 +369,10 @@ export default function TableDataNew(props) {
   ];
   const dateChips = DateChipsArray.map((items) => (
     <section className={Style.chip}>
-      <p style={{ color: "#fff" }}>{items}</p>
+      <p style={{ color: '#fff' }}>{items}</p>
       <FontAwesomeIcon
         icon={faWindowClose}
-      // onClick={() => closeDateChip(items, index)}
+        // onClick={() => closeDateChip(items, index)}
       />
     </section>
   ));
@@ -381,7 +382,7 @@ export default function TableDataNew(props) {
     // LOG TYPE
     if (currentStateTableData.logType) {
       localStorage.setItem(
-        "selected_log",
+        'selected_log',
         JSON.stringify({
           ...currentStateTableData.logType,
           [currentStateTableData.logType]: true,
@@ -389,13 +390,13 @@ export default function TableDataNew(props) {
       );
     }
 
-    localStorage.setItem("page_no", 1);
+    localStorage.setItem('page_no', 1);
 
     // DATE CHIPS
     dateChipFun();
 
     localStorage.setItem(
-      "selected_record",
+      'selected_record',
       JSON.stringify(currentStateTableData.record)
     );
     if (
@@ -428,14 +429,14 @@ export default function TableDataNew(props) {
       );
     }
 
-    toast.success("Filter saved");
+    toast.success('Filter saved');
     props.setShowTableField(false);
   };
 
   let dateChipFun = () => {
     if (currentStateTableData.dateState.start) {
       localStorage.setItem(
-        "selected_date",
+        'selected_date',
         JSON.stringify({
           ...currentStateTableData.dateState,
           start: currentStateTableData.dateState.start,
@@ -444,7 +445,7 @@ export default function TableDataNew(props) {
     }
     if (currentStateTableData.dateState.end) {
       localStorage.setItem(
-        "selected_date",
+        'selected_date',
         JSON.stringify({
           ...currentStateTableData.dateState,
           end: currentStateTableData.dateState.end,
@@ -456,14 +457,13 @@ export default function TableDataNew(props) {
   // ========================================
 
   const callbackfnDispatchGetAllData = (sortType) => {
-
     dispatch(
       getProjectByCode(
-        code,
+        props.code,
         date,
         currentStateTableData.logType,
-        localStorage.getItem("page_no")
-          ? JSON.parse(localStorage.getItem("page_no"))
+        localStorage.getItem('page_no')
+          ? JSON.parse(localStorage.getItem('page_no'))
           : currentStateTableData.pageNo,
         currentStateTableData.record,
         projectCode.code,
@@ -484,7 +484,7 @@ export default function TableDataNew(props) {
   const sortTableFunLM = (callbackDispatchAllData) => {
     // LM -- log message
     if (currentStateTableData.sortIconFilter.LM) {
-      return callbackDispatchAllData("-log.message");
+      return callbackDispatchAllData('-log.message');
     } else if (!currentStateTableData.sortIconFilter.LM) {
       multpleDispatchSort(SORT_ICON_FILTER, {
         LM: true,
@@ -494,14 +494,14 @@ export default function TableDataNew(props) {
         TI: false,
       });
 
-      return callbackDispatchAllData("log.message");
+      return callbackDispatchAllData('log.message');
     }
   };
 
   const sortTableFunAD = (callbackDispatchAllData) => {
     // AD-- mac address
     if (currentStateTableData.sortIconFilter.AD) {
-      return callbackDispatchAllData("-device.did");
+      return callbackDispatchAllData('-device.did');
     } else if (!currentStateTableData.sortIconFilter.AD) {
       multpleDispatchSort(SORT_ICON_FILTER, {
         LM: false,
@@ -510,14 +510,14 @@ export default function TableDataNew(props) {
         DA: false,
         TI: false,
       });
-      return callbackDispatchAllData("device.did");
+      return callbackDispatchAllData('device.did');
     }
   };
 
   const sortTableFunLT = (callbackDispatchAllData) => {
     // LT -- logotype
     if (currentStateTableData.sortIconFilter.LT) {
-      return callbackDispatchAllData("-log.type");
+      return callbackDispatchAllData('-log.type');
     } else if (!currentStateTableData.sortIconFilter.LT) {
       multpleDispatchSort(SORT_ICON_FILTER, {
         LM: false,
@@ -526,7 +526,7 @@ export default function TableDataNew(props) {
         DA: false,
         TI: false,
       });
-      return callbackDispatchAllData("log.type");
+      return callbackDispatchAllData('log.type');
     }
   };
 
@@ -536,7 +536,7 @@ export default function TableDataNew(props) {
       currentStateTableData.sortIconFilter.DA ||
       currentStateTableData.sortIconFilter.TI
     ) {
-      return callbackDispatchAllData("-log.date");
+      return callbackDispatchAllData('-log.date');
     } else if (
       !currentStateTableData.sortIconFilter.DA ||
       !currentStateTableData.sortIconFilter.TI
@@ -548,7 +548,7 @@ export default function TableDataNew(props) {
         DA: true,
         TI: true,
       });
-      return callbackDispatchAllData("log.date");
+      return callbackDispatchAllData('log.date');
     }
   };
 
@@ -567,12 +567,12 @@ export default function TableDataNew(props) {
     (currentStateTableData.searchField &&
       currentStateTableData.searchField.trim() &&
       currentStateTableData.searchField.trim().toLowerCase()) ||
-    "";
+    '';
   if (search.length > 0) {
     tableData = tableData.filter(function (item) {
       return (
-        item.log.date.split("T")[0].toLowerCase().includes(search) ||
-        item.log.date.split("T")[1].toLowerCase().includes(search) ||
+        item.log.date.split('T')[0].toLowerCase().includes(search) ||
+        item.log.date.split('T')[1].toLowerCase().includes(search) ||
         item.log.file.toLowerCase().includes(search) ||
         item.log.message.toLowerCase().includes(search) ||
         item.log.type.toLowerCase().includes(search) ||
@@ -593,36 +593,34 @@ export default function TableDataNew(props) {
   // @@ DOWNLOAD FUNCTION
   const handleDownload = async (row) => {
     try {
-
       const s3 = new AWS.S3({
-        accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY, 
+        accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
         secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
         Bucket: process.env.REACT_APP_S3_BUCKET,
-        region: 'ap-south-1'       
+        region: 'ap-south-1',
       });
 
       const params = {
         Bucket: process.env.REACT_APP_S3_BUCKET,
-        Key: row.log.filePath
+        Key: row.log.filePath,
       };
-      
-      const data = await s3.getObject(params).promise()
 
-      let blob=new Blob([data.Body], {type: data.ContentType});
-      let link=document.createElement('a');
-      link.href=window.URL.createObjectURL(blob);
-      link.download= `s3://${process.env.REACT_APP_S3_BUCKET}/${row.log.filePath}`;
+      const data = await s3.getObject(params).promise();
+
+      let blob = new Blob([data.Body], { type: data.ContentType });
+      let link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = `s3://${process.env.REACT_APP_S3_BUCKET}/${row.log.filePath}`;
       link.click();
-
     } catch (error) {
-      console.log('Download error : ',error)
+      console.log('Download error : ', error);
     }
   };
   // @@ first dispatch of table data
   useEffect(() => {
     dispatch(
       getProjectByCode(
-        code,
+        props.code,
         date,
         currentStateTableData.logType,
         currentStateTableData.pageNo,
@@ -640,7 +638,7 @@ export default function TableDataNew(props) {
   useEffect(() => {
     // Providing data to the type-dropdown
     props.tableDataStateFun(
-      code,
+      props.code,
       date,
       currentStateTableData.logType,
       currentStateTableData.pageNo,
@@ -702,20 +700,36 @@ export default function TableDataNew(props) {
             //   })
             // }
 
-            disabled={checkedLogs?.length ? null : "disabled"}
-            style={{ border: "none", opacity: checkedLogs?.length ? "100%" : "40%" }}
-
+            disabled={checkedLogs?.length ? null : 'disabled'}
+            style={{
+              border: 'none',
+              opacity: checkedLogs?.length ? '100%' : '40%',
+            }}
             onClick={() =>
               downloadCSVFun({
                 data: checkedLogs,
 
-                fileName: `${props.code}-${new Date().getDay() + "-" + new Date().getMonth() + "-" + new Date().getFullYear()}.csv`,
+                fileName: `${props.code}-${
+                  new Date().getDay() +
+                  '-' +
+                  new Date().getMonth() +
+                  '-' +
+                  new Date().getFullYear()
+                }.csv`,
 
-                fileType: "text/csv;charset=utf-8;",
+                fileType: 'text/csv;charset=utf-8;',
               })
             }
           >
-            <FontAwesomeIcon icon={faDownload} style={{ background: "#21969D", padding: "10px", borderRadius: "5px", color: "#fff" }} />
+            <FontAwesomeIcon
+              icon={faDownload}
+              style={{
+                background: '#21969D',
+                padding: '10px',
+                borderRadius: '5px',
+                color: '#fff',
+              }}
+            />
           </button>
         </section>
 
@@ -723,25 +737,27 @@ export default function TableDataNew(props) {
         <section className={Style.customeTable}>
           <section className={Style.tableHeader}>
             <section>
-
-              <input type="checkbox"
+              <input
+                type="checkbox"
                 onChange={handleSelectAll}
                 checked={isCheckAll}
                 id="selectAll"
               />
-
             </section>
-            <section style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>
+            <section
+              style={{ color: theme == 'light-theme' ? '#000' : '#fff' }}
+            >
               Log Message
               <span
-                style={{ cursor: "pointer", margin: "0px 5px", }}
-                onClick={() =>
-                  sortTableFunLM(callbackfnDispatchGetAllData)
-                }
+                style={{ cursor: 'pointer', margin: '0px 5px' }}
+                onClick={() => sortTableFunLM(callbackfnDispatchGetAllData)}
               >
-
                 <FontAwesomeIcon
-                  icon={currentStateTableData.sortIconFilter.LM ? faSortDown : faSortUp}
+                  icon={
+                    currentStateTableData.sortIconFilter.LM
+                      ? faSortDown
+                      : faSortUp
+                  }
                   onClick={() => {
                     dispatchTableData({
                       type: SORT_ICON_FILTER,
@@ -754,17 +770,20 @@ export default function TableDataNew(props) {
                 />
               </span>
             </section>
-            <section style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>
+            <section
+              style={{ color: theme == 'light-theme' ? '#000' : '#fff' }}
+            >
               Log Type
               <span
-                style={{ cursor: "pointer", margin: "0px 5px", }}
-                onClick={() =>
-                  sortTableFunLM(callbackfnDispatchGetAllData)
-                }
+                style={{ cursor: 'pointer', margin: '0px 5px' }}
+                onClick={() => sortTableFunLM(callbackfnDispatchGetAllData)}
               >
-
                 <FontAwesomeIcon
-                  icon={currentStateTableData.sortIconFilter.LM ? faSortDown : faSortUp}
+                  icon={
+                    currentStateTableData.sortIconFilter.LM
+                      ? faSortDown
+                      : faSortUp
+                  }
                   onClick={() => {
                     dispatchTableData({
                       type: SORT_ICON_FILTER,
@@ -779,16 +798,20 @@ export default function TableDataNew(props) {
             </section>
 
             <section>
-              <section style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>
+              <section
+                style={{ color: theme == 'light-theme' ? '#000' : '#fff' }}
+              >
                 Device Id
                 <span
-                  style={{ cursor: "pointer", margin: "0px 5px", }}
-                  onClick={() =>
-                    sortTableFunAD(callbackfnDispatchGetAllData)
-                  }
+                  style={{ cursor: 'pointer', margin: '0px 5px' }}
+                  onClick={() => sortTableFunAD(callbackfnDispatchGetAllData)}
                 >
                   <FontAwesomeIcon
-                    icon={currentStateTableData.sortIconFilter.AD ? faSortDown : faSortUp}
+                    icon={
+                      currentStateTableData.sortIconFilter.AD
+                        ? faSortDown
+                        : faSortUp
+                    }
                     onClick={() => {
                       dispatchTableData({
                         type: SORT_ICON_FILTER,
@@ -803,16 +826,18 @@ export default function TableDataNew(props) {
               </section>
             </section>
             <section>
-              <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
+              <section style={{ color: theme == 'light-theme' ? '' : '#fff' }}>
                 Category
                 <span
-                  style={{ cursor: "pointer", margin: "0px 5px", }}
-                  onClick={() =>
-                    sortTableFunLT(callbackfnDispatchGetAllData)
-                  }
+                  style={{ cursor: 'pointer', margin: '0px 5px' }}
+                  onClick={() => sortTableFunLT(callbackfnDispatchGetAllData)}
                 >
                   <FontAwesomeIcon
-                    icon={currentStateTableData.sortIconFilter.LT ? faSortDown : faSortUp}
+                    icon={
+                      currentStateTableData.sortIconFilter.LT
+                        ? faSortDown
+                        : faSortUp
+                    }
                     onClick={() => {
                       dispatchTableData({
                         type: SORT_ICON_FILTER,
@@ -827,16 +852,18 @@ export default function TableDataNew(props) {
               </section>
             </section>
             <section>
-              <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
+              <section style={{ color: theme == 'light-theme' ? '' : '#fff' }}>
                 Date
                 <span
-                  style={{ cursor: "pointer", margin: "0px 5px", }}
-                  onClick={() =>
-                    sortTableFunDT(callbackfnDispatchGetAllData)
-                  }
+                  style={{ cursor: 'pointer', margin: '0px 5px' }}
+                  onClick={() => sortTableFunDT(callbackfnDispatchGetAllData)}
                 >
                   <FontAwesomeIcon
-                    icon={currentStateTableData.sortIconFilter.DA ? faSortDown : faSortUp}
+                    icon={
+                      currentStateTableData.sortIconFilter.DA
+                        ? faSortDown
+                        : faSortUp
+                    }
                     onClick={() => {
                       dispatchTableData({
                         type: SORT_ICON_FILTER,
@@ -851,16 +878,18 @@ export default function TableDataNew(props) {
               </section>
             </section>
             <section>
-              <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
+              <section style={{ color: theme == 'light-theme' ? '' : '#fff' }}>
                 Time
                 <span
-                  style={{ cursor: "pointer", margin: "0px 5px", }}
-                  onClick={() =>
-                    sortTableFunDT(callbackfnDispatchGetAllData)
-                  }
+                  style={{ cursor: 'pointer', margin: '0px 5px' }}
+                  onClick={() => sortTableFunDT(callbackfnDispatchGetAllData)}
                 >
                   <FontAwesomeIcon
-                    icon={currentStateTableData.sortIconFilter.TI ? faSortDown : faSortUp}
+                    icon={
+                      currentStateTableData.sortIconFilter.TI
+                        ? faSortDown
+                        : faSortUp
+                    }
                     onClick={() => {
                       dispatchTableData({
                         type: SORT_ICON_FILTER,
@@ -875,87 +904,108 @@ export default function TableDataNew(props) {
               </section>
             </section>
           </section>
-          {tableData && tableData.map((item, index) => {
-            return (
-              <React.Fragment key={item._id}>
-                {/* {console.log("item", item)} */}
-                {/* {console.log(item)} */}
-                <section className={Style.tableBody}>
-                  <section style={{ display: "flex", alignItems: "center" }}>
-                    <input
-                      type="checkbox"
-                      id={item._id}
-                      name={JSON.stringify(item)}
-                      onChange={handleClick}
-                      checked={isCheck.includes(item._id)}
-                    />
-                  </section>
-                  <section style={{ width: "80%" }} >
-                    {item && item.log && item.log.filePath ? (
-                      <section style={{ cursor: "pointer" }}>
-                        <p onClick={() => handleDownload(item)}>
-                          {item.log.file}
-                        </p>
-                      </section>
-                    ) : (
-                      <a
-                        className={Style.logMsg}
-                        style={{
-                          color:
-                            theme == "light-theme" ? "#7D7A8C" : "#fff",
-                        }}
-                        href={`/analytics?code=SBXMH&name=Ventilator&col=${item?.log?.message}&rowlogGeneratedDate=${item?.log?.date}&version=${item?.version}&osArchitecture=${item?.device?.os?.name}&modelName=${item.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`}
-                      >
-                        {item.log.filePath
-                          ? item.log.file
-                          : item.log.message.includes("at ")
-                            ? item.log.message.split("at ")[0]
+          {tableData &&
+            tableData.map((item, index) => {
+              return (
+                <React.Fragment key={item._id}>
+                  {/* {console.log("item", item)} */}
+                  {/* {console.log(item)} */}
+                  <section className={Style.tableBody}>
+                    <section style={{ display: 'flex', alignItems: 'center' }}>
+                      <input
+                        type="checkbox"
+                        id={item._id}
+                        name={JSON.stringify(item)}
+                        onChange={handleClick}
+                        checked={isCheck.includes(item._id)}
+                      />
+                    </section>
+                    <section style={{ width: '80%' }}>
+                      {item && item.log && item.log.filePath ? (
+                        <section style={{ cursor: 'pointer' }}>
+                          <p onClick={() => handleDownload(item)}>
+                            {item.log.file}
+                          </p>
+                        </section>
+                      ) : (
+                        <a
+                          className={Style.logMsg}
+                          style={{
+                            color: theme == 'light-theme' ? '#7D7A8C' : '#fff',
+                          }}
+                          href={`/analytics?code=${props.code}&name=${props.projectName}&col=${item?.log?.message}&rowlogGeneratedDate=${item?.log?.date}&version=${item?.version}&osArchitecture=${item?.device?.os?.name}&modelName=${item.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`}
+                        >
+                          {item.log.filePath
+                            ? item.log.file
+                            : item.log.message.includes('at ')
+                            ? item.log.message.split('at ')[0]
                             : item.log.message}
-                      </a>
-                    )}
-                  </section>
-                  <section>
-                    <p style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>{item.log.message && "TEXT"}</p>
-                    <p style={{ color: theme == "light-theme" ? "#000" : "#fff" }}>{item.log.filePath && "FILE"}</p>
-                  </section>
+                        </a>
+                      )}
+                    </section>
+                    <section>
+                      <p
+                        style={{
+                          color: theme == 'light-theme' ? '#000' : '#fff',
+                        }}
+                      >
+                        {item.log.message && 'TEXT'}
+                      </p>
+                      <p
+                        style={{
+                          color: theme == 'light-theme' ? '#000' : '#fff',
+                        }}
+                      >
+                        {item.log.filePath && 'FILE'}
+                      </p>
+                    </section>
 
-
-                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{item?.device?.did}</section>
-                  <section>
-                    {item.log.type == "error" && (
-                      <span style={{ color: "red" }}>
-                        {item.log.type.toUpperCase()}
-                      </span>
-                    )}
-                    {item.log.type == "info" && (
-                      <span style={{ color: "blue" }}>
-                        {item.log.type.toUpperCase()}
-                      </span>
-                    )}
-                    {item.log.type == "warn" && (
-                      <span style={{ color: "violet" }}>
-                        {item.log.type.toUpperCase()}
-                      </span>
-                    )}
-                    {item.log.type == "debug" && (
-                      <span style={{ color: "green" }}>
-                        {item.log.type.toUpperCase()}
-                      </span>
-                    )}
-                    {item.log.type == "verbose" && (
-                      <span style={{ color: "purple" }}>
-                        {item.log.type.toUpperCase()}
-                      </span>
-                    )}
+                    <section
+                      style={{ color: theme == 'light-theme' ? '' : '#fff' }}
+                    >
+                      {item?.device?.did}
+                    </section>
+                    <section>
+                      {item.log.type == 'error' && (
+                        <span style={{ color: 'red' }}>
+                          {item.log.type.toUpperCase()}
+                        </span>
+                      )}
+                      {item.log.type == 'info' && (
+                        <span style={{ color: 'blue' }}>
+                          {item.log.type.toUpperCase()}
+                        </span>
+                      )}
+                      {item.log.type == 'warn' && (
+                        <span style={{ color: 'violet' }}>
+                          {item.log.type.toUpperCase()}
+                        </span>
+                      )}
+                      {item.log.type == 'debug' && (
+                        <span style={{ color: 'green' }}>
+                          {item.log.type.toUpperCase()}
+                        </span>
+                      )}
+                      {item.log.type == 'verbose' && (
+                        <span style={{ color: 'purple' }}>
+                          {item.log.type.toUpperCase()}
+                        </span>
+                      )}
+                    </section>
+                    <section
+                      style={{ color: theme == 'light-theme' ? '' : '#fff' }}
+                    >
+                      {item.log.date.split('T')[0]}
+                    </section>
+                    <section
+                      style={{ color: theme == 'light-theme' ? '' : '#fff' }}
+                    >
+                      {item.log.date.split('T')[1].split('.')[0]}
+                    </section>
                   </section>
-                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>{item.log.date.split("T")[0]}</section>
-                  <section style={{ color: theme == "light-theme" ? "" : "#fff" }}>
-                    {item.log.date.split("T")[1].split(".")[0]}
-                  </section>
-                </section>
-              </React.Fragment>
-            );
-          })}
+                </React.Fragment>
+              );
+            })}
         </section>
 
         {/* DROPDOWN FILTER */}
@@ -983,7 +1033,7 @@ export default function TableDataNew(props) {
                   <Col xl={6} md={6} sm={6}>
                     <section className={`m-2`}>
                       <p
-                        style={{ cursor: "pointer" }}
+                        style={{ cursor: 'pointer' }}
                         className={
                           currentStateTableData.dateSection
                             ? `${Style.ActiveOption} mt-2`
@@ -994,7 +1044,7 @@ export default function TableDataNew(props) {
                         Date
                       </p>
                       <p
-                        style={{ cursor: "pointer" }}
+                        style={{ cursor: 'pointer' }}
                         className={
                           currentStateTableData.statusSection
                             ? `${Style.ActiveOption} mt-2`
@@ -1026,13 +1076,12 @@ export default function TableDataNew(props) {
                           min={date.start}
                           max={date.end}
                           value={
-                            startDate &&
-                              startDate.start
+                            startDate && startDate.start
                               ? startDate.start
-                              : localStorage.getItem("selected_date") &&
-                              JSON.parse(
-                                localStorage.getItem("selected_date")
-                              ).start
+                              : localStorage.getItem('selected_date') &&
+                                JSON.parse(
+                                  localStorage.getItem('selected_date')
+                                ).start
                           }
                           onChange={(e) => {
                             dispatchTableData({
@@ -1051,13 +1100,12 @@ export default function TableDataNew(props) {
                           min={date.start}
                           max={date.end}
                           value={
-                            startDate &&
-                              startDate.start
+                            startDate && startDate.start
                               ? startDate.start
-                              : localStorage.getItem("selected_date") &&
-                              JSON.parse(
-                                localStorage.getItem("selected_date")
-                              ).end
+                              : localStorage.getItem('selected_date') &&
+                                JSON.parse(
+                                  localStorage.getItem('selected_date')
+                                ).end
                           }
                           onChange={(e) => {
                             dispatchTableData({
@@ -1214,7 +1262,7 @@ export default function TableDataNew(props) {
                         <p
                           className={
                             currentStateTableData.activeRecord.record25 ||
-                              currentStateTableData.record == 25
+                            currentStateTableData.record == 25
                               ? `${Style.perPagesectionInnerActive} darkModeColor`
                               : `${Style.perPagesectionInner} darkModeColor`
                           }
@@ -1277,9 +1325,10 @@ export default function TableDataNew(props) {
 
         {loading && <SpinnerCustom height="200px" />}
         {data && data.data && !data.data.count && (
-          <section
-            className={Style.noDataFound}>
-            <p style={{ color: theme == "light-theme" ? `#000` : `#fff` }}>No Data Found</p>
+          <section className={Style.noDataFound}>
+            <p style={{ color: theme == 'light-theme' ? `#000` : `#fff` }}>
+              No Data Found
+            </p>
           </section>
         )}
         {tableData && (
@@ -1287,7 +1336,7 @@ export default function TableDataNew(props) {
             {/* {console.log("mmm",data && data?.data && data?.data.count)} */}
 
             <Pagination
-              code={code}
+              code={props.code}
               date={date}
               filters={currentStateTableData.logType}
               projectType={projectCode.code}
@@ -1300,6 +1349,6 @@ export default function TableDataNew(props) {
           </section>
         )}
       </section>
-    </TableCard >
+    </TableCard>
   );
 }
