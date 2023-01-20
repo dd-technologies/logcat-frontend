@@ -142,13 +142,13 @@ export default function UpdateProfile() {
 
   useEffect(() => {
     dispatch(userInfoActionFn())
-  }, [name])
+  }, [name,email])
 
   useEffect(() => {
     setname(userName)
     setEmail(userEmail)
     setAvtar(userAvtar)
-  }, [name, email])
+  }, [email])
 
 
   return (

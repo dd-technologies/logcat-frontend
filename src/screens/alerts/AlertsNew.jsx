@@ -232,7 +232,7 @@ export default function AlertsNew() {
   //   }
   // };
 
-  console.log('first', localStorage.getItem('project_type'));
+  // console.log('first', localStorage.getItem('project_type'));
 
   const callbackfnDispatchGetAllData = (sortType) => {
     dispatch(

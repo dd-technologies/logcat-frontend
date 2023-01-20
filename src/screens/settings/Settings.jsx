@@ -16,13 +16,17 @@ import { Navbar } from "../../utils/NavBar";
 export default function Settings() {
 
   const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const code = urlParams.get("code");
+  const urlParams = new URLSearchParams(queryString);//URLSearchParams used for iterating the queryString
+  // console.log('queryString',queryString)
+  const code = urlParams.get("code"); //project code 
+  // console.log('code',code)
   const projectName = urlParams.get("name");
+  // console.log('projectName',projectName)
 
   const getAllProjectReducer = useSelector(
     (state) => state.getAllProjectReducer
   );
+  // console.log('getAllProjectReducer',getAllProjectReducer)//gets all the state of the projects available and processes into an array
 
   const getProjectByCodeSettingReducer = useSelector(
     (state) => state.getProjectByCodeSettingReducer
@@ -30,6 +34,7 @@ export default function Settings() {
   const { loading: ld, data: dt } = getProjectByCodeSettingReducer;
 
   const { allProjectData } = getAllProjectReducer;
+  // console.log('allProjectData',allProjectData)
 
   let dataObj;
   allProjectData &&
@@ -39,13 +44,14 @@ export default function Settings() {
         dataObj = dt;
       }
     });
-
+// console.log('dataObj',dataObj)
   const dispatch = useDispatch();
 
   const [emailstate, setEmail] = useState({
     email: "",
     error: null,
   });
+  // console.log('emailstate',emailstate)
   const [emailList, setEmailList] = useState([...dataObj.reportEmail]);
 
   let deviceTypeArray = dataObj.device_types.map((type) => type.typeName);
@@ -59,6 +65,7 @@ export default function Settings() {
     value: "",
     error: null,
   });
+  // console.log('deviceTypeArray',deviceTypeArray) //device types
 
   // Project name and description state
   const [nameAndDesc, setNameAndDesc] = useState({
@@ -78,7 +85,12 @@ export default function Settings() {
       iconName: faDatabase,
       linkName: "Settings",
     },
+    link3:{
+      iconName:faDatabase,
+      linkName:"Alarms"
+    }
   };
+  // console.log('projectName',projectName)
 
   const sidebar_details = {
     name: projectName,
@@ -94,12 +106,11 @@ export default function Settings() {
       link: `/settings?code=${code}&name=${projectName}`,
     },
     link3: {
-      iconName: `/assets/icons/settings.png`,
-      linkName: "Settings",
-      link: `/alarm?code=${code}&name=${projectName}`,
+      iconName: `/assets/images/AlarmIcon.png`,
+      linkName: "Alarms",
+      link: `/alarm?code=${code}&name=${projectName}`, //to do   
     },
   };
-
   //EMAIL CHIPS
   const validateEmail = (email) => {
   
@@ -107,6 +118,7 @@ export default function Settings() {
     if (isEmailValid.isSuccess) {
       return isEmailValid.isSuccess;
     }
+    console.log('isEmailValid',isEmailValid)
     if (!isEmailValid.isSuccess && !isEmailValid.isEmail) {
       setEmailError(isEmailValid.message);
       return isEmailValid.isSuccess;
@@ -135,8 +147,8 @@ export default function Settings() {
       }
     }
   };
-
-  const hanldeOndeleteEmail = (item) => {
+  // console.log('emailList',emailList)
+  const handleOndeleteEmail = (item) => {
     setEmailList(
       emailList.filter((it) => {
         return it !== item;
@@ -151,16 +163,16 @@ export default function Settings() {
     if (emailList.email !== null) {
       dispatch(addCrashEmail(code, emailList));
     }
-
     if (!emailList.email.length) {
       setEmailError("Email is required");
     }
   };
 
+
   //PROJECT TYPE CHIPS
 
   //ADD CHIPS ON CLICK
-  const handleKeyDownPorject = (evt) => {
+  const handleKeyDownProject = (evt) => {
     if (["Enter", "Tab", ","].includes(evt.key)) {
       evt.preventDefault();
       var value = chipStateProject.value.trim();
@@ -173,6 +185,7 @@ export default function Settings() {
       }
     }
   };
+  // console.log('chipStateProject',chipStateProject)
 
   //UPDATE STATE ON CHANGE
   const handleChangeProject = (evt) => {
@@ -184,7 +197,7 @@ export default function Settings() {
   };
 
   // DELETE PROJECT
-  const hanldeOndeleteProject = (item) => {
+  const handleOndeleteProject = (item) => {
     setChipStateProject({
       items: chipStateProject.items.filter((i) => i !== item),
     });
@@ -238,19 +251,20 @@ export default function Settings() {
                         rows="4"
                         cols="50"
                         value={nameAndDesc.desc}
+                        disabled="disabled"
                         onChange={(e) =>
                           setNameAndDesc({
                             ...nameAndDesc,
                             desc: e.target.value,
-                          })
+                          }) 
                         }
                       />
                     </div>
-
-                    <Button type="submit" className="mt-4">
+                    <Button type="submit" className="mt-4" onClick={handleKeyDownEmail}>
                       Save Changes
                     </Button>
                   </Col>
+                  
                   <Col xl={6} md={6} sm={12} className="mt-4">
                     <h4 className={Style.headingText}>Add project type</h4>
                     <div className={`${Style.imputFields} mt-4`}>
@@ -261,7 +275,7 @@ export default function Settings() {
                         placeholder="Project Type"
                         aria-describedby="emailHelp"
                         value={chipStateProject.value}
-                        onKeyDown={handleKeyDownPorject}
+                        onKeyDown={handleKeyDownProject}
                         onChange={handleChangeProject}
                       />
                     </div>
@@ -278,7 +292,7 @@ export default function Settings() {
                                 </p>
                                 <FontAwesomeIcon
                                   icon={faWindowClose}
-                                  onClick={() => hanldeOndeleteProject(items)}
+                                  onClick={() => handleOndeleteProject(items)}
                                 />
                               </section>
                             </React.Fragment>
@@ -330,7 +344,7 @@ export default function Settings() {
                                 </p>
                                 <FontAwesomeIcon
                                   icon={faWindowClose}
-                                  onClick={() => hanldeOndeleteEmail(items)}
+                                  onClick={() => handleOndeleteEmail(items)}
                                 />
                               </section>
                             </React.Fragment>

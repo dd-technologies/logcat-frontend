@@ -136,7 +136,7 @@ export const getProjectByCode =
         }
       }
       response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/${code}?startDate=${date.start}&endDate=${date.end}&limit=${record}&page=${page}&logType=${logString}&projectType=${projectType}&sort=${sort}`,
+        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/${code}?startDate=${date.start}&endDate=${date.end}&limit=${record}&page=${page}&logType=${logString.slice(0, -1)}&projectType=${projectType}&sort=${sort}`,
         config
       );
 
@@ -220,7 +220,6 @@ export const getProjectByCodeSetting = (code) => async (dispatch) => {
         Authorization: `Bearer ${token}`,
       },
     };
-
     const { data } = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/api/logger/projects/${code}`,
       config

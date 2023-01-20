@@ -311,7 +311,7 @@ export default function TableDataNew(props) {
 
     dispatch(
       getProjectByCode(
-        code,
+        props.code,
         date,
         null,
         currentStateTableData.pageNo,
@@ -348,7 +348,7 @@ export default function TableDataNew(props) {
     });
     dispatch(
       getProjectByCode(
-        code,
+        props.code,
         date,
         { ...currentStateTableData.logType, [items]: false },
         currentStateTableData.pageNo,
@@ -408,7 +408,7 @@ export default function TableDataNew(props) {
     ) {
       dispatch(
         getProjectByCode(
-          code,
+          props.code,
           date,
           currentStateTableData.logType,
           currentStateTableData.pageNo,
@@ -419,7 +419,7 @@ export default function TableDataNew(props) {
     } else {
       dispatch(
         getProjectByCode(
-          code,
+          props.code,
           date,
           currentStateTableData.logType,
           currentStateTableData.pageNo,

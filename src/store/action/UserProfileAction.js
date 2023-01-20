@@ -67,7 +67,7 @@ export const userInfoActionFn = () => async (dispatch) => {
     };
 
     const response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/api/logger/users`,
+      `${process.env.REACT_APP_BASE_URL}/api/logger/users/me`,
       config
     );
     dispatch({

@@ -22,9 +22,10 @@ export const alarmAction = (
     endDate =
       endDate.split("/")[2] +
       "/" +
-      endDate.split("/")[1] +
+      endDate.split("/")[0] +
       "/" +
-      endDate.split("/")[0];
+      endDate.split("/")[1];
+      // console.log('endDate',endDate)
 
     let startDate = new Date(
       new Date().setDate(new Date().getDate() - diffdate)
@@ -34,9 +35,11 @@ export const alarmAction = (
     startDate =
       startDate.split("/")[2] +
       "/" +
-      startDate.split("/")[1] +
+      startDate.split("/")[0] +
       "/" +
-      startDate.split("/")[0];
+      startDate.split("/")[1];
+      // console.log('startDate',startDate)
+    
 
     dispatch({
       type: ALARM_REQUEST,
