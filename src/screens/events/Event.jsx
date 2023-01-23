@@ -19,7 +19,7 @@ import CustomeDropDown from '../../container/DropDown';
 import SpinnerCustom from '../../container/SpinnerCustom';
 import TableCard from '../../container/TableCard';
 import TypeDropDown from '../logs/components/table/TypeDropDown';
-import { alarmAction } from '../../store/action/AlarmAction';
+import { EventsAction } from '../../store/action/EventsAction';
 import { Navbar } from '../../utils/NavBar';
 import SideBar from '../../utils/Sidebar';
 import { ThemeContext } from '../../utils/ThemeContext';
@@ -162,13 +162,13 @@ export default function AlertsNew() {
       linkName: 'Settings',
     },
     link3:{
-      iconName:faDatabase,
-      linkName:"Alarms"
-    },
+        iconName:faDatabase,
+        linkName:"Alarms"
+      },
     link4:{
-      iconName:faDatabase,
-      linkName:"Events"
-    }
+        iconName:faDatabase,
+        linkName:"Events"
+      },
   };
 
   const sidebar_details = {
@@ -204,8 +204,7 @@ export default function AlertsNew() {
     });
   };
 
-  let alertsFilter = data && data.data && data.data.alerts;
-  console.log('alertsFilter',alertsFilter)
+  let eventsFilter = data && data.data && data.data.events;
 
   let search =
     (currentStateAlerts.searchField &&
@@ -214,7 +213,7 @@ export default function AlertsNew() {
     '';
 
   if (search.length > 0) {
-    alertsFilter = alertsFilter.filter((item) => {
+     eventsFilter = eventsFilter.filter((item) => {
       return (
         item.did.toLowerCase().includes(search) ||
         item.ack.msg.toLowerCase().includes(search) ||
@@ -250,7 +249,7 @@ export default function AlertsNew() {
 
   const callbackfnDispatchGetAllData = (sortType) => {
     dispatch(
-      alarmAction(
+      EventsAction(
         code,
         localStorage.getItem('project_type') &&
           JSON.parse(localStorage.getItem('project_type')).typeCode,
@@ -418,7 +417,7 @@ export default function AlertsNew() {
   //   FIRST TIME ALARM ACTION DISPATCH
   useEffect(() => {
     dispatch(
-      alarmAction(
+      EventsAction(
         code,
         currentStateAlerts.projectCode,
         currentStateAlerts.diffDate
@@ -444,7 +443,7 @@ export default function AlertsNew() {
         >
           <Navbar navigation_details={navigation_details} />
           <Container className={Style.mainContainer}>
-            <h1 className=" darkModeColor">Alerts Summary</h1>
+            <h1 className=" darkModeColor">Events Summary</h1>
             <Row className="mt-4">
               <Col xl={10} md={9} sm={9}>
                 <TypeDropDown
@@ -856,7 +855,7 @@ export default function AlertsNew() {
                           {alertsFilter.map((item, index) => {
                             return (
                               <React.Fragment key={item._id}>
-                                <section className={Style.tableBody}>
+                                {/* <section className={Style.tableBody}>
                                   <section>
                                     <input
                                       type="checkbox"
@@ -906,7 +905,7 @@ export default function AlertsNew() {
                                   >
                                     {item.ack.date.split('T')[1].split('.')[0]}
                                   </section>
-                                </section>
+                                </section> */}
                               </React.Fragment>
                             );
                           })}

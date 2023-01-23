@@ -88,10 +88,6 @@ export default function Settings() {
     link3:{
       iconName:faDatabase,
       linkName:"Alarms"
-    },
-    link4:{
-      iconName:faDatabase,
-      linkName:"Events"
     }
   };
   // console.log('projectName',projectName)
@@ -112,12 +108,7 @@ export default function Settings() {
     link3: {
       iconName: `/assets/images/AlarmIcon.png`,
       linkName: "Alarms",
-      link: `/alarm?code=${code}&name=${projectName}`,  
-    },
-    link4: {
-      iconName: `/assets/images/AlarmIcon.png`,
-      linkName: "Events",
-      link: `/events?code=${code}&name=${projectName}`,  
+      link: `/alarm?code=${code}&name=${projectName}`, //to do   
     },
   };
   //EMAIL CHIPS

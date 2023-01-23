@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { passwordChangeAction, userInfoActionFn } from "../../store/action/UserProfileAction";
 import { toast, Toaster } from "react-hot-toast";
 import { updateProfile } from "../../store/action/AdminAction";
-import UpdatePassord from "./UpdatePassord";
+import UpdatePassword from "./UpdatePassword";
 import SideBar from "../../utils/Sidebar";
 import { Navbar } from "../../utils/NavBar";
 import { updateUserInfoAction } from "../../store/action/UpdateUserInfoAction";
@@ -246,7 +246,7 @@ export default function UpdateProfile() {
                 </Col>
 
                 {/*password change section*/}
-                <UpdatePassord
+                <UpdatePassword
                   error={error}
                   currentpassword={currentpassword}
                   setCurrentPassword={setCurrentPassword}

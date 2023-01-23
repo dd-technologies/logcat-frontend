@@ -5,7 +5,7 @@ import CustomeDropDown from "../../container/DropDown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Style from "../../css/UpdateProfile.module.css";
 
-const UpdatePassord = ({
+const UpdatePassword = ({
   error,
   showPassword,
   currentpassword,
@@ -158,4 +158,4 @@ const UpdatePassord = ({
   );
 };
 
-export default UpdatePassord;
+export default UpdatePassword;
