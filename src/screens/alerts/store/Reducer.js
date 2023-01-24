@@ -19,7 +19,7 @@ export const alertDataReducer = (state, action) => {
       return {
         ...state,
         type: action.type,
-        tableDataState: action.data,
+         tableDataState: action.data,
       };
 
     case DIFF_DATE:

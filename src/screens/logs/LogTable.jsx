@@ -114,7 +114,7 @@ export default function LogTable() {
     link4:{
       iconName:faDatabase,
       linkName:'events',
-      link:`/event?code=${code}&name=${projectName}`,
+      link:`/events?code=${code}&name=${projectName}`,
     }
   };
 

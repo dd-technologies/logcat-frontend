@@ -22,6 +22,7 @@ import {
 import { passwordChangeReducer, userInfoReducer } from "./reducer/UserProfileReducer";
 
 import { alarmReducer } from "./reducer/AlarmReducer";
+import {testReducer} from "./reducer/EventReducer"
 import { updateUserInfoReducer } from "./reducer/UpdateUserInfoReducer"
 
 const appReducer = combineReducers({
@@ -50,7 +51,7 @@ const appReducer = combineReducers({
 
   addCrashEmailReducer,
   getProjectByCodeSettingReducer,
-
+  testReducer,
   alarmReducer,
   userInfoReducer,
   updateUserInfoReducer

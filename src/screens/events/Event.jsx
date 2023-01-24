@@ -19,11 +19,11 @@ import CustomeDropDown from '../../container/DropDown';
 import SpinnerCustom from '../../container/SpinnerCustom';
 import TableCard from '../../container/TableCard';
 import TypeDropDown from '../logs/components/table/TypeDropDown';
-import { EventsAction } from '../../store/action/EventsAction';
+import { eventAction } from '../../store/action/EventsAction';
 import { Navbar } from '../../utils/NavBar';
 import SideBar from '../../utils/Sidebar';
 import { ThemeContext } from '../../utils/ThemeContext';
-import { alertDataReducer } from './store/Reducer';
+import { eventsReducer } from './store/Reducer';
 import {
   ALL_ROW_SELECTED,
   DATE_DROPDOWN,
@@ -33,7 +33,7 @@ import {
 } from './store/Types';
 import Pagination from '../../common/Pagination';
 
-export default function AlertsNew() {
+export default function Events() {
   const { theme } = React.useContext(ThemeContext);
 
   // REDUX REDUCER=========================================================
@@ -41,10 +41,12 @@ export default function AlertsNew() {
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { data: projectType } = getModelCodeReducer;
 
-  const alarmReducer = useSelector((state) => state.alarmReducer);
-  // console.log("first", alarmReducer);
-  const { loading, data } = alarmReducer;
-  // console.log("dataalarm", alarmReducer);
+  const testReducer = useSelector((state) => state.testReducer);
+  // console.log("first",testReducer)
+  const { loading, data } = testReducer;
+  // console.log('data',data)
+  // console.log('testReducer',testReducer)
+  // console.log("events",testReducer)
 
   // USE DISPATCH
   const dispatch = useDispatch();
@@ -88,8 +90,8 @@ export default function AlertsNew() {
     allRowSelect: false,
   };
 
-  const [currentStateAlerts, dispatchAlertsData] = useReducer(
-    alertDataReducer,
+  const [currentStateEvents, dispatchEventsData] = useReducer(
+    eventsReducer,
     initialState
   );
 
@@ -101,8 +103,8 @@ export default function AlertsNew() {
 
   const handleSelectAll = (e) => {
     setIsCheckAll(!isCheckAll);
-    setIsCheck(data?.data?.alerts.map((alerts) => alerts._id));
-    setCheckedLogs(data?.data?.alerts);
+    setIsCheck(data?.data?.alerts.map((events) => events._id));
+    setCheckedLogs(data?.data?.events);
     if (isCheckAll) {
       setIsCheck([]);
       setCheckedLogs([]);
@@ -124,10 +126,10 @@ export default function AlertsNew() {
   };
 
   useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * currentStateAlerts.record;
-    const lastPageIndex = firstPageIndex + currentStateAlerts.record;
+    const firstPageIndex = (currentPage - 1) * currentStateEvents.record;
+    const lastPageIndex = firstPageIndex + currentStateEvents.record;
     return (
-      data && data.data && data.data.alerts.slice(firstPageIndex, lastPageIndex)
+      data && data.data && data.data.events.slice(firstPageIndex, lastPageIndex)
     );
   }, [currentPage]);
 
@@ -141,9 +143,9 @@ export default function AlertsNew() {
   // DATE FILTER
   // Filter crash free STATICS & Trend wrt to date
   const DateFilter = () => {
-    dispatchAlertsData({
+    dispatchEventsData({
       type: DATE_DROPDOWN,
-      data: !currentStateAlerts.dateDropDown,
+      data: !currentStateEvents.dateDropDown,
     });
   };
 
@@ -198,7 +200,7 @@ export default function AlertsNew() {
 
   // @@ SEARCH MECHANISMS IMPLEMENTATION  STARTS HERE -----
   const handleSearchFunc = (event) => {
-    dispatchAlertsData({
+    dispatchEventsData({
       type: SEARCH_FIELD,
       data: event.target.value,
     });
@@ -207,9 +209,9 @@ export default function AlertsNew() {
   let eventsFilter = data && data.data && data.data.events;
 
   let search =
-    (currentStateAlerts.searchField &&
-      currentStateAlerts.searchField.trim() &&
-      currentStateAlerts.searchField.trim().toLowerCase()) ||
+    (currentStateEvents.searchField &&
+      currentStateEvents.searchField.trim() &&
+      currentStateEvents.searchField.trim().toLowerCase()) ||
     '';
 
   if (search.length > 0) {
@@ -224,22 +226,22 @@ export default function AlertsNew() {
 
   // sort icon function
   // const sortIconsFunc = (typeName) => {
-  //   if (currentStateAlerts.sortIcons) {
-  //     dispatchAlertsData({
+  //   if (currentStateEvents.sortIcons) {
+  //     dispatchEventsData({
   //       type: SORT_ICONS,
   //       data: {
-  //         MA: typeName == "MA" ? !currentStateAlerts.sortIcons.MA : false,
-  //         LM: typeName == "LM" ? !currentStateAlerts.sortIcons.LM : false,
-  //         ET: typeName == "ET" ? !currentStateAlerts.sortIcons.ET : false,
-  //         DT: typeName == "DT" ? !currentStateAlerts.sortIcons.DT : false,
-  //         TI: typeName == "TI" ? !currentStateAlerts.sortIcons.TI : false,
+  //         MA: typeName == "MA" ? !currentStateEvents.sortIcons.MA : false,
+  //         LM: typeName == "LM" ? !currentStateEvents.sortIcons.LM : false,
+  //         ET: typeName == "ET" ? !currentStateEvents.sortIcons.ET : false,
+  //         DT: typeName == "DT" ? !currentStateEvents.sortIcons.DT : false,
+  //         TI: typeName == "TI" ? !currentStateEvents.sortIcons.TI : false,
   //       },
   //     });
   //     dispatch(
   //       alarmAction(
   //         code,
-  //         currentStateAlerts.projectCode,
-  //         currentStateAlerts.diffDate
+  //         currentStateEvents.projectCode,
+  //         currentStateEvents.diffDate
   //       )
   //     );
   //   }
@@ -249,13 +251,13 @@ export default function AlertsNew() {
 
   const callbackfnDispatchGetAllData = (sortType) => {
     dispatch(
-      EventsAction(
+      eventAction(
         code,
         localStorage.getItem('project_type') &&
           JSON.parse(localStorage.getItem('project_type')).typeCode,
-        currentStateAlerts.diffDate,
-        currentStateAlerts.page,
-        currentStateAlerts.record,
+        currentStateEvents.diffDate,
+        currentStateEvents.page,
+        currentStateEvents.record,
         sortType
       )
     );
@@ -264,7 +266,7 @@ export default function AlertsNew() {
   // SORTING FUNCTION
   // multple dispatch function for sorting
   const multpleDispatchSort = (type, data) => {
-    return dispatchAlertsData({
+    return dispatchEventsData({
       type: type,
       data: data,
     });
@@ -272,9 +274,9 @@ export default function AlertsNew() {
 
   const sortTableFnDI = (callbackDispatchAllData) => {
     // LM -- log message
-    if (currentStateAlerts.sortIcons.DI) {
+    if (currentStateEvents.sortIcons.DI) {
       return callbackDispatchAllData('-did');
-    } else if (!currentStateAlerts.sortIcons.DI) {
+    } else if (!currentStateEvents.sortIcons.DI) {
       multpleDispatchSort(SORT_ICONS, {
         DI: true,
         CD: false,
@@ -289,9 +291,9 @@ export default function AlertsNew() {
 
   const sortTableFnCD = (callbackDispatchAllData) => {
     // AD-- mac address
-    if (currentStateAlerts.sortIcons.CD) {
+    if (currentStateEvents.sortIcons.CD) {
       return callbackDispatchAllData('-ack.code');
-    } else if (!currentStateAlerts.sortIcons.CD) {
+    } else if (!currentStateEvents.sortIcons.CD) {
       multpleDispatchSort(SORT_ICONS, {
         DI: false,
         CD: true,
@@ -305,9 +307,9 @@ export default function AlertsNew() {
 
   const sortTableFnLM = (callbackDispatchAllData) => {
     // LT -- logotype
-    if (currentStateAlerts.sortIcons.LM) {
+    if (currentStateEvents.sortIcons.LM) {
       return callbackDispatchAllData('-ack.msg');
-    } else if (!currentStateAlerts.sortIcons.LM) {
+    } else if (!currentStateEvents.sortIcons.LM) {
       multpleDispatchSort(SORT_ICONS, {
         DI: false,
         CD: false,
@@ -321,11 +323,11 @@ export default function AlertsNew() {
 
   const sortTableFnDT = (callbackDispatchAllData) => {
     // DT -- date TI-- time
-    if (currentStateAlerts.sortIcons.DA || currentStateAlerts.sortIcons.TI) {
+    if (currentStateEvents.sortIcons.DA || currentStateEvents.sortIcons.TI) {
       return callbackDispatchAllData('-ack.date');
     } else if (
-      !currentStateAlerts.sortIcons.DA ||
-      !currentStateAlerts.sortIcons.TI
+      !currentStateEvents.sortIcons.DA ||
+      !currentStateEvents.sortIcons.TI
     ) {
       multpleDispatchSort(SORT_ICONS, {
         DI: false,
@@ -340,9 +342,9 @@ export default function AlertsNew() {
 
   // @@ all checkbox selection function
   const allCheckBoxSelectFn = () => {
-    dispatchAlertsData({
+    dispatchEventsData({
       type: ALL_ROW_SELECTED,
-      data: !currentStateAlerts.allRowSelect,
+      data: !currentStateEvents.allRowSelect,
     });
   };
 
@@ -417,13 +419,13 @@ export default function AlertsNew() {
   //   FIRST TIME ALARM ACTION DISPATCH
   useEffect(() => {
     dispatch(
-      EventsAction(
+      eventAction(
         code,
-        currentStateAlerts.projectCode,
-        currentStateAlerts.diffDate
+        currentStateEvents.projectCode,
+        currentStateEvents.diffDate
       )
     );
-  }, [dispatch, currentStateAlerts.projectCode, currentStateAlerts.diffDate]);
+  }, [dispatch, currentStateEvents.projectCode, currentStateEvents.diffDate]);
 
   return (
     <div>
@@ -447,8 +449,8 @@ export default function AlertsNew() {
             <Row className="mt-4">
               <Col xl={10} md={9} sm={9}>
                 <TypeDropDown
-                  tableDataState={currentStateAlerts.tableDataState}
-                  diffDate={currentStateAlerts.diffDate}
+                  tableDataState={currentStateEvents.tableDataState}
+                  diffDate={currentStateEvents.diffDate}
                   codeReducer={getModelCodeReducer}
                 />
               </Col>
@@ -471,19 +473,19 @@ export default function AlertsNew() {
                       }}
                       className="m-2 darkModeColor"
                     >
-                      {currentStateAlerts.diffDate == 10
+                      {currentStateEvents.diffDate == 10
                         ? `last 10 days`
-                        : currentStateAlerts.diffDate == 7
+                        : currentStateEvents.diffDate == 7
                         ? `last 7 days`
-                        : currentStateAlerts.diffDate == 15
+                        : currentStateEvents.diffDate == 15
                         ? `last 15 days`
-                        : currentStateAlerts.diffDate == 30
+                        : currentStateEvents.diffDate == 30
                         ? `last 30 days`
-                        : currentStateAlerts.diffDate == 45
+                        : currentStateEvents.diffDate == 45
                         ? `last 45 days`
-                        : currentStateAlerts.diffDate == 60
+                        : currentStateEvents.diffDate == 60
                         ? `last 60 days`
-                        : currentStateAlerts.diffDate == 90
+                        : currentStateEvents.diffDate == 90
                         ? `last 90 days`
                         : null}
                     </p>
@@ -499,21 +501,21 @@ export default function AlertsNew() {
                   </section>
 
                   <section>
-                    {currentStateAlerts.dateDropDown ? (
+                    {currentStateEvents.dateDropDown ? (
                       <CustomeDropDown width="100%" zIndex="8">
                         <p
                           style={{ fontSize: '.8rem' }}
                           className={`${Style.productVersion} mt-1 darkModeColor `}
                           onClick={() => {
-                            dispatchAlertsData({
+                            dispatchEventsData({
                               type: DIFF_DATE,
                               data: 7,
                             });
                             localStorage.setItem(
                               'diffDate',
-                              currentStateAlerts.diffDate
+                              currentStateEvents.diffDate
                             );
-                            dispatchAlertsData({
+                            dispatchEventsData({
                               type: DATE_DROPDOWN,
                               data: false,
                             });
@@ -525,15 +527,15 @@ export default function AlertsNew() {
                           style={{ fontSize: '.8rem' }}
                           className={`${Style.productVersion} mt-1 darkModeColor`}
                           onClick={() => {
-                            dispatchAlertsData({
+                            dispatchEventsData({
                               type: DIFF_DATE,
                               data: 15,
                             });
                             localStorage.setItem(
                               'diffDate',
-                              currentStateAlerts.diffDate
+                              currentStateEvents.diffDate
                             );
-                            dispatchAlertsData({
+                            dispatchEventsData({
                               type: DATE_DROPDOWN,
                               data: false,
                             });
@@ -546,15 +548,15 @@ export default function AlertsNew() {
                           style={{ fontSize: '.8rem' }}
                           className={`${Style.productVersion} mt-1 darkModeColor`}
                           onClick={() => {
-                            dispatchAlertsData({
+                            dispatchEventsData({
                               type: DIFF_DATE,
                               data: 30,
                             });
                             localStorage.setItem(
                               'diffDate',
-                              currentStateAlerts.diffDate
+                              currentStateEvents.diffDate
                             );
-                            dispatchAlertsData({
+                            dispatchEventsData({
                               type: DATE_DROPDOWN,
                               data: false,
                             });
@@ -566,15 +568,15 @@ export default function AlertsNew() {
                           style={{ fontSize: '.8rem' }}
                           className={`${Style.productVersion} mt-1 darkModeColor`}
                           onClick={() => {
-                            dispatchAlertsData({
+                            dispatchEventsData({
                               type: DIFF_DATE,
                               data: 45,
                             });
                             localStorage.setItem(
                               'diffDate',
-                              currentStateAlerts.diffDate
+                              currentStateEvents.diffDate
                             );
-                            dispatchAlertsData({
+                            dispatchEventsData({
                               type: DATE_DROPDOWN,
                               data: false,
                             });
@@ -586,15 +588,15 @@ export default function AlertsNew() {
                           style={{ fontSize: '.8rem' }}
                           className={`${Style.productVersion} mt-1 darkModeColor`}
                           onClick={() => {
-                            dispatchAlertsData({
+                            dispatchEventsData({
                               type: DIFF_DATE,
                               data: 60,
                             });
                             localStorage.setItem(
                               'diffDate',
-                              currentStateAlerts.diffDate
+                              currentStateEvents.diffDate
                             );
-                            dispatchAlertsData({
+                            dispatchEventsData({
                               type: DATE_DROPDOWN,
                               data: false,
                             });
@@ -606,15 +608,15 @@ export default function AlertsNew() {
                           style={{ fontSize: '.8rem' }}
                           className={`${Style.productVersion} mt-1 darkModeColor`}
                           onClick={() => {
-                            dispatchAlertsData({
+                            dispatchEventsData({
                               type: DIFF_DATE,
                               data: 90,
                             });
                             localStorage.setItem(
                               'diffDate',
-                              currentStateAlerts.diffDate
+                              currentStateEvents.diffDate
                             );
-                            dispatchAlertsData({
+                            dispatchEventsData({
                               type: DATE_DROPDOWN,
                               data: false,
                             });
@@ -632,14 +634,14 @@ export default function AlertsNew() {
             <Row className="mt-4">
               <Col>
                 <TableCard borderRadius="10px">
-                  {data && data.data && data.data.alerts.length > 0 && (
+                  {data && data.data && data.data.events.length > 0 && (
                     <>
                       <section className={`${Style.OuterTable} `}>
                         <section className={Style.searchSection}>
                           <input
                             type="text"
                             placeholder="Search..."
-                            value={currentStateAlerts.searchField}
+                            value={currentStateEvents.searchField}
                             onChange={handleSearchFunc}
                           />
                           <section
@@ -674,8 +676,7 @@ export default function AlertsNew() {
                         </section>
 
                         {/* TABLE HERE */}
-
-                        <section className={Style.alertTable}>
+                        <section className={Style.alertTable}> 
                           <section className={Style.tableHeader}>
                             <section
                               style={{
@@ -705,16 +706,16 @@ export default function AlertsNew() {
                                 color="#0099a4"
                                 style={{ cursor: 'pointer' }}
                                 icon={
-                                  currentStateAlerts.sortIcons.DI
+                                  currentStateEvents.sortIcons.DI
                                     ? faSortDown
                                     : faSortUp
                                 }
                                 onClick={() => {
-                                  dispatchAlertsData({
+                                  dispatchEventsData({
                                     type: SORT_ICONS,
                                     data: {
-                                      ...currentStateAlerts.sortIcons,
-                                      DI: !currentStateAlerts.sortIcons.DI,
+                                      ...currentStateEvents.sortIcons,
+                                      DI: !currentStateEvents.sortIcons.DI,
                                     },
                                   });
                                   sortTableFnDI(callbackfnDispatchGetAllData);
@@ -738,16 +739,16 @@ export default function AlertsNew() {
                                 color="#0099a4"
                                 style={{ cursor: 'pointer' }}
                                 icon={
-                                  currentStateAlerts.sortIcons.CD
+                                  currentStateEvents.sortIcons.CD
                                     ? faSortDown
                                     : faSortUp
                                 }
                                 onClick={() => {
-                                  dispatchAlertsData({
+                                  dispatchEventsData({
                                     type: SORT_ICONS,
                                     data: {
-                                      ...currentStateAlerts.sortIcons,
-                                      CD: !currentStateAlerts.sortIcons.CD,
+                                      ...currentStateEvents.sortIcons,
+                                      CD: !currentStateEvents.sortIcons.CD,
                                     },
                                   });
                                   sortTableFnCD(callbackfnDispatchGetAllData);
@@ -771,16 +772,16 @@ export default function AlertsNew() {
                                 color="#0099a4"
                                 style={{ cursor: 'pointer' }}
                                 icon={
-                                  currentStateAlerts.sortIcons.LM
+                                  currentStateEvents.sortIcons.LM
                                     ? faSortDown
                                     : faSortUp
                                 }
                                 onClick={() => {
-                                  dispatchAlertsData({
+                                  dispatchEventsData({
                                     type: SORT_ICONS,
                                     data: {
-                                      ...currentStateAlerts.sortIcons,
-                                      LM: !currentStateAlerts.sortIcons.LM,
+                                      ...currentStateEvents.sortIcons,
+                                      LM: !currentStateEvents.sortIcons.LM,
                                     },
                                   });
                                   sortTableFnLM(callbackfnDispatchGetAllData);
@@ -803,16 +804,16 @@ export default function AlertsNew() {
                                 color="#0099a4"
                                 style={{ cursor: 'pointer' }}
                                 icon={
-                                  currentStateAlerts.sortIcons.DT
+                                  currentStateEvents.sortIcons.DT
                                     ? faSortDown
                                     : faSortUp
                                 }
                                 onClick={() => {
-                                  dispatchAlertsData({
+                                  dispatchEventsData({
                                     type: SORT_ICONS,
                                     data: {
-                                      ...currentStateAlerts.sortIcons,
-                                      DT: !currentStateAlerts.sortIcons.DT,
+                                      ...currentStateEvents.sortIcons,
+                                      DT: !currentStateEvents.sortIcons.DT,
                                     },
                                   });
                                   sortTableFnDT(callbackfnDispatchGetAllData);
@@ -835,16 +836,16 @@ export default function AlertsNew() {
                                 color="#0099a4"
                                 style={{ cursor: 'pointer' }}
                                 icon={
-                                  currentStateAlerts.sortIcons.TI
+                                  currentStateEvents.sortIcons.TI
                                     ? faSortDown
                                     : faSortUp
                                 }
                                 onClick={() => {
-                                  dispatchAlertsData({
+                                  dispatchEventsData({
                                     type: SORT_ICONS,
                                     data: {
-                                      ...currentStateAlerts.sortIcons,
-                                      TI: !currentStateAlerts.sortIcons.TI,
+                                      ...currentStateEvents.sortIcons,
+                                      TI: !currentStateEvents.sortIcons.TI,
                                     },
                                   });
                                   sortTableFnDT(callbackfnDispatchGetAllData);
@@ -852,10 +853,10 @@ export default function AlertsNew() {
                               />
                             </section>
                           </section>
-                          {alertsFilter.map((item, index) => {
+                          {eventsFilter.map((item, index) => {
                             return (
                               <React.Fragment key={item._id}>
-                                {/* <section className={Style.tableBody}>
+                                <section className={Style.tableBody}>
                                   <section>
                                     <input
                                       type="checkbox"
@@ -905,7 +906,7 @@ export default function AlertsNew() {
                                   >
                                     {item.ack.date.split('T')[1].split('.')[0]}
                                   </section>
-                                </section> */}
+                                </section>
                               </React.Fragment>
                             );
                           })}
@@ -914,18 +915,18 @@ export default function AlertsNew() {
                       <section className="p-2">
                         <Pagination
                           code={code}
-                          projectType={currentStateAlerts.projectCode}
-                          diffdate={currentStateAlerts.diffDate}
+                          projectType={currentStateEvents.projectCode}
+                          diffdate={currentStateEvents.diffDate}
                           currentPage={currentPage}
                           totalCount={data?.data?.count ? data?.data?.count : 0}
-                          pageSize={currentStateAlerts.record}
+                          pageSize={currentStateEvents.record}
                           onPageChange={(page) => setCurrentPage(page)}
                         />
                       </section>
                     </>
                   )}
 
-                  {data && data.data && data.data.alerts.length == 0 && (
+                  {data && data.data && data.data.events.length == 0 && (
                     <section className={Style.noDataFound}>
                       <p
                         style={{

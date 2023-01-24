@@ -1,11 +1,13 @@
 import { Action } from "@remix-run/router";
+
+
 import{
     EVENT_REQUEST,
     EVENT_SUCCESS,
     EVENT_FAIL,
 }from "../types/EventConstants";
 
-export const eventsReducer = (state ={},action)=>{
+export const testReducer = (state ={},action)=>{
     switch(action.type){
         case EVENT_REQUEST:
             return{
@@ -14,12 +16,12 @@ export const eventsReducer = (state ={},action)=>{
         case EVENT_SUCCESS:
             return{
                 loading:false,
-                data:action.payload
+                data:action.payload,
             }
         case EVENT_FAIL:
             return{
                 loading:false,
-                error:action.payload
+                error:action.payload,
             }       
     default:
         return state;

@@ -11,7 +11,7 @@ import {
   TABLE_DATA_STATE,
 } from "./Types";
 
-export const alertDataReducer = (state, action) => {
+export const eventsReducer = (state, action) => {
   console.log("action", state, action);
 
   switch (action.type) {

@@ -44,7 +44,8 @@ export default function AlertsNew() {
   const alarmReducer = useSelector((state) => state.alarmReducer);
   // console.log("first", alarmReducer);
   const { loading, data } = alarmReducer;
-  // console.log("dataalarm", alarmReducer);
+  console.log('data',data)
+  // console.log("alarmReducer", alarmReducer);
 
   // USE DISPATCH
   const dispatch = useDispatch();
@@ -205,7 +206,7 @@ export default function AlertsNew() {
   };
 
   let alertsFilter = data && data.data && data.data.alerts;
-  console.log('alertsFilter',alertsFilter)
+  // console.log('alertsFilter',alertsFilter)
 
   let search =
     (currentStateAlerts.searchField &&

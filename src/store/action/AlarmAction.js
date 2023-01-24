@@ -3,7 +3,7 @@ import Cookies from 'universal-cookie';
 import {
   ALARM_FAIL,
   ALARM_REQUEST,
-  ALARM_SUCSESS,
+  ALARM_SUCCESS,
 } from "../types/AlarmConstant";
 
 const cookies = new Cookies();
@@ -60,7 +60,7 @@ export const alarmAction = (
     );
 
     dispatch({
-      type: ALARM_SUCSESS,
+      type: ALARM_SUCCESS,
       payload: response.data,
     });
   } catch (error) {

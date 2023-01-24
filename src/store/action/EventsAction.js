@@ -8,7 +8,7 @@ import {
 
 const cookies = new Cookies();
 
-export const EventsAction = (
+export const eventAction = (
   code = null,
   projectType = null,
   diffdate = null,
