@@ -8,6 +8,7 @@ const AddProjectModal = (props) => {
   const [createProject, setCreateProject] = useState({
     name: "",
     description: "",
+    
   });
   const [chips, setChips] = useState("");
   const [modelType, setModelType] = useState([]);
@@ -17,6 +18,7 @@ const AddProjectModal = (props) => {
   const createNewProjectReducer = useSelector(
     (state) => state.createNewProjectReducer
   );
+  // console.log('createNewProjectReducer',createNewProjectReducer)
   const { data, error } = createNewProjectReducer;
   const deleteChips = (type) => {
     setModelType(
@@ -25,10 +27,11 @@ const AddProjectModal = (props) => {
       })
     );
   };
+  
 
   const addChips = (e) => {
     if (["Enter", "Tab", ","].includes(e.key)) {
-      e.preventDefault();
+      // e.preventDefault();
 
       let inputChips = chips.trim();
       if (inputChips) {
@@ -42,7 +45,7 @@ const AddProjectModal = (props) => {
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     setErrorName("");
     setErrorMsg("");
     if (!createProject.name.length) {
@@ -87,7 +90,7 @@ const AddProjectModal = (props) => {
           )}
           {data ? (
             <h6 style={{ fontSize: 12, color: "green" }}>
-              Porject Created Successfully...
+              Project Created Successfully...
             </h6>
           ) : (
             ""

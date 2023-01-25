@@ -45,6 +45,9 @@ import {
   GET_PROJECT_BY_CODE_REQUEST,
   GET_PROJECT_BY_CODE_REQUEST_SUCCESS,
   GET_PROJECT_BY_CODE_REQUEST_FAIL,
+  GET_DEVICE_DETAILS_REQUEST,
+  GET_DEVICE_DETAILS_SUCCESS,
+  GET_DEVICE_DETAILS_FAIL,
 } from "../types/ProjectConstants";
 
 export const getAllProjectReducer = (state = {}, action) => {
@@ -354,3 +357,23 @@ export const getProjectByCodeSettingReducer = (state = {}, action) => {
   }
 };
 
+export const getAllDeviceReducer =(state={},action)=>{
+  switch(action.type){
+      case GET_DEVICE_DETAILS_REQUEST:
+          return{
+              loading:true,
+          };
+      case GET_DEVICE_DETAILS_SUCCESS:
+          return{
+              loading:false,
+              allDeviceData:action.payload,
+          }
+      case GET_DEVICE_DETAILS_FAIL:
+          return{
+              loading:false,
+              error:action.payload
+          };
+      default:
+          return state;
+  }
+};

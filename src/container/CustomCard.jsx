@@ -4,7 +4,6 @@ import Style from "../css/CustomeCard.module.css";
 
 export default function CustomCard(props) {
   // dark mode state
-
   return (
     <>
       <Card
@@ -22,6 +21,7 @@ export default function CustomCard(props) {
         }}
       >
         {props.children}
+        
       </Card>
     </>
   );
