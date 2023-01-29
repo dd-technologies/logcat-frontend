@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { ThemeContext } from "../../utils/ThemeContext";
 import DateIcons from "../../assets/icons/date.png";
 
-const Allprojects = (props) => {
+const allDeviceData = (props) => {
   // console.log("props", props);
 
   const { theme } = React.useContext(ThemeContext);
@@ -30,13 +30,7 @@ const Allprojects = (props) => {
                 boxShadow="0px 0px 3px 1px rgba(192,192,192,0.90)"
               >
                 <Link
-                // to={`/log_table?code=${props.data.code}&name=${props.data.name
-                // }&page-name=logpage&projectType=${props.data &&
-                // props.data.device_types &&
-                // props.data.device_types[0] &&
-                // props.data.device_types[0].typeCode
-                // }`}
-                  to={`/registerDevice?code=${props.data.code}&name=${props.data.name
+                  to={`/registerdevice?code=${props.data.code}&name=${props.data.name
                     }&page-name=logpage&projectType=${props.data &&
                     props.data.device_types &&
                     props.data.device_types[0] &&
@@ -50,14 +44,14 @@ const Allprojects = (props) => {
                         className="cpactiveText mb-1"
                         style={{ fontWeight: "600" }}
                       >
-                        {props.data.name}
+                        {props.data.deviceID}
                       </h5>
                       <p
                         className={
                           theme == "light-theme" ? null : "darkModeColor"
                         }
                       >
-                        {props.data.description && props.data.description}
+                        {props.data.IMEINo && props.data.IMEINo}
                       </p>
                     </section>
                     <section className={Style.InfoDetails}>
@@ -82,4 +76,4 @@ const Allprojects = (props) => {
   );
 };
 
-export default Allprojects;
+export default allDeviceData;

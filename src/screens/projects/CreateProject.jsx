@@ -60,15 +60,15 @@ function CreateProject() {
     }
     Dispatch(getAllProject());
   }, []);
-
+// Logout function
   const handlelogout = (e) => {
     e.preventDefault();
     Dispatch(adminLogout(navigate));
   };
 
-  useEffect(() => {
-    setDarkMode(!darkMode);
-  }, []);
+  // useEffect(() => {
+  //   setDarkMode(!darkMode);
+  // }, []);
 
   const showUserInfoFun = () => {
     setUserInfo(!userInfo);
@@ -85,7 +85,7 @@ function CreateProject() {
       {/*Logout functionality */}
       {ProjectData && ProjectData.data && ProjectData.data.data ? (
         <>
-          <section className={Style.backgroundSection}></section>
+          <section className={Style.backgroundSection}></section>  
           <Container className={Style.MainContantainer}>
             <Row>
               <Col
@@ -152,7 +152,7 @@ function CreateProject() {
                     >
                       {adminInfo && adminInfo.data && adminInfo.data.email}
                     </p>
-
+                   {/* Logout method in navbar */}
                     <section
                       style={{ border: "1px solid #fff", marginTop: "5px" }}
                       className={`${Style.logoutAccount} darkModeColor`}
@@ -162,7 +162,7 @@ function CreateProject() {
                     >
                       Logout
                     </section>
-
+                  {/*Navbar section  */}
                     <section className={Style.privacyPolicy}>
                       <p>Privacy policy</p>
                       <p>Terms of service</p>
@@ -179,6 +179,7 @@ function CreateProject() {
                     height="200px"
                     boxShadow="0px 0px 3px 1px rgba(192,192,192,0.90)"
                   >
+                    {/* Shows add project section */}
                     <section
                       className={Style.addProject}
                       onClick={() => setModalShow(true)}
@@ -192,12 +193,12 @@ function CreateProject() {
                     </section>
                   </CustomCard>
                   <AddProjectModal
-                    show={modalShow}
+                    show={modalShow} //shows modal of create project
                     onHide={() => setModalShow(false)}
                   />
                 </Col>
               ) : null}
-
+              {/*maps other project data in the project section  */}
               {allProjectData &&
                 allProjectData.data.data.length &&
                 allProjectData.data.data.map((data, i) => (

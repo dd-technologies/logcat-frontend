@@ -24,7 +24,8 @@
     margin-left: 6% !important;
   }
 }
-.MainContantainer .addProject {
+/* Add Project */
+.MainContantainer .addProject { 
   cursor: pointer;
   height: 100%;
   display: flex;

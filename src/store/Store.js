@@ -24,7 +24,10 @@ import { passwordChangeReducer, userInfoReducer } from "./reducer/UserProfileRed
 import { alarmReducer } from "./reducer/AlarmReducer";
 import {testReducer} from "./reducer/EventReducer"
 import { updateUserInfoReducer } from "./reducer/UpdateUserInfoReducer"
-
+import {
+  getAllDeviceReducer,
+  registerNewDeviceReducer,
+}from "./reducer/DeviceReducer"
 const appReducer = combineReducers({
   adminLoginReducer,
   adminRegisterReducer,
@@ -54,7 +57,10 @@ const appReducer = combineReducers({
   testReducer,
   alarmReducer,
   userInfoReducer,
-  updateUserInfoReducer
+  updateUserInfoReducer,
+
+  getAllDeviceReducer,
+  registerNewDeviceReducer,
 });
 
 const persistConf = {
