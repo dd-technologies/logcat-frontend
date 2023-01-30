@@ -36,12 +36,8 @@ const Allprojects = (props) => {
                 // props.data.device_types[0] &&
                 // props.data.device_types[0].typeCode
                 // }`}
-                  to={`/registerDevice?code=${props.data.code}&name=${props.data.name
-                    }&page-name=logpage&projectType=${props.data &&
-                    props.data.device_types &&
-                    props.data.device_types[0] &&
-                    props.data.device_types[0].typeCode
-                    }`}
+                  to={`/device?`}
+                  // to={`/api/logger/logs/device/${code}?projectType=${projectType}&startDate=${startDate}&endDate=${endDate}&page=${page}&limit=${record}&sort=${sort}`}
                   style={{ textDecoration: "none" }}
                 >
                   <section className={Style.Outer_InfoRow}>

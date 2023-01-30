@@ -103,7 +103,7 @@ export default function Events() {
 
   const handleSelectAll = (e) => {
     setIsCheckAll(!isCheckAll);
-    setIsCheck(data?.data?.alerts.map((events) => events._id));
+    setIsCheck(data?.data?.events.map((events) => events._id));
     setCheckedLogs(data?.data?.events);
     if (isCheckAll) {
       setIsCheck([]);

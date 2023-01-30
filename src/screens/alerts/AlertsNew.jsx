@@ -937,6 +937,7 @@ export default function AlertsNew() {
                         No Data Found
                       </p>
                     </section>
+                     
                   )}
 
                   {loading && <SpinnerCustom />}
