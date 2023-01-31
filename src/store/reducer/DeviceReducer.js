@@ -17,7 +17,7 @@ export const deviceReducer = (state = {},action) =>{
         case DEVICE_SUCCESS:
             return{
                 loading:false,
-                data:action.payload,
+                data: action.payload,
             }
         case DEVICE_FAIL:
             return{

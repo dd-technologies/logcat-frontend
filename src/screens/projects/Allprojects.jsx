@@ -36,7 +36,8 @@ const Allprojects = (props) => {
                 // props.data.device_types[0] &&
                 // props.data.device_types[0].typeCode
                 // }`}
-                  to={`/device?`}
+                  to={`/device?code=${props.data.code}&name=${props.data.name
+                    }`}
                   // to={`/api/logger/logs/device/${code}?projectType=${projectType}&startDate=${startDate}&endDate=${endDate}&page=${page}&limit=${record}&sort=${sort}`}
                   style={{ textDecoration: "none" }}
                 >

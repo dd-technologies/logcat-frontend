@@ -40,9 +40,10 @@ export default function AlertsNew() {
 
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { data: projectType } = getModelCodeReducer;
+  // console.log("getModel",getModelCodeReducer);
 
   const alarmReducer = useSelector((state) => state.alarmReducer);
-  // console.log("first", alarmReducer);
+  console.log("first", alarmReducer);
   const { loading, data } = alarmReducer;
   console.log('data',data)
   // console.log("alarmReducer", alarmReducer);
@@ -50,7 +51,6 @@ export default function AlertsNew() {
   // USE DISPATCH
   const dispatch = useDispatch();
   // state===============use Reducer==================================================
-
   const initialState = {
     tableDataState: {},
     diffDate: localStorage.getItem('diffDate') || 90,
@@ -88,7 +88,7 @@ export default function AlertsNew() {
     singleRowSelect: false,
     allRowSelect: false,
   };
-
+  // console.log("record",initialState.projectCode)
   const [currentStateAlerts, dispatchAlertsData] = useReducer(
     alertDataReducer,
     initialState
@@ -111,7 +111,7 @@ export default function AlertsNew() {
   };
 
   const handleClick = (e) => {
-    const { id, checked, name } = e.target;
+    const {id, checked, name } = e.target;
     setIsCheck([...isCheck, id]);
     setCheckedLogs([...checkedLogs, JSON.parse(name)]);
     if (!checked) {
@@ -207,6 +207,7 @@ export default function AlertsNew() {
 
   let alertsFilter = data && data.data && data.data.alerts;
   // console.log('alertsFilter',alertsFilter)
+  // console.log('first',alertsFilter)
 
   let search =
     (currentStateAlerts.searchField &&
@@ -426,6 +427,7 @@ export default function AlertsNew() {
       )
     );
   }, [dispatch, currentStateAlerts.projectCode, currentStateAlerts.diffDate]);
+  // console.log( currentStateAlerts.diffDate)
 
   return (
     <div>
@@ -854,6 +856,7 @@ export default function AlertsNew() {
                               />
                             </section>
                           </section>
+              
                           {alertsFilter.map((item, index) => {
                             return (
                               <React.Fragment key={item._id}>

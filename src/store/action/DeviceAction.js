@@ -16,28 +16,28 @@ export const deviceAction = (
   sort = null
 ) => async (dispatch) => {
   try {
-    let date = new Date();
-    let endDate = date.toLocaleDateString();
-    endDate =
-      endDate.split("/")[2] +
-      "/" +
-      endDate.split("/")[0] +
-      "/" +
-      endDate.split("/")[1];
-      // console.log('endDate',endDate)
+    // let date = new Date();
+    // let endDate = date.toLocaleDateString();
+    // endDate =
+    //   endDate.split("/")[2] +
+    //   "/" +
+    //   endDate.split("/")[0] +
+    //   "/" +
+    //   endDate.split("/")[1];
+    //   // console.log('endDate',endDate)
 
-    let startDate = new Date(
-      new Date().setDate(new Date().getDate() - diffdate)
-    )
-      .toLocaleString()
-      .split(",")[0];
-    startDate =
-      startDate.split("/")[2] +
-      "/" +
-      startDate.split("/")[0] +
-      "/" +
-      startDate.split("/")[1];
-      // console.log('startDate',startDate)
+    // let startDate = new Date(
+    //   new Date().setDate(new Date().getDate() - diffdate)
+    // )
+    //   .toLocaleString()
+    //   .split(",")[0];
+    // startDate =
+    //   startDate.split("/")[2] +
+    //   "/" +
+    //   startDate.split("/")[0] +
+    //   "/" +
+    //   startDate.split("/")[1];
+    //   // console.log('startDate',startDate)
     
       dispatch({
         type:DEVICE_REQUEST,
