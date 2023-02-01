@@ -3,7 +3,11 @@ import Cookies from 'universal-cookie';
 import {
     DEVICE_FAIL,
     DEVICE_REQUEST,
-    DEVICE_SUCCESS
+    DEVICE_SUCCESS,
+    REGISTER_NEW_DEVICE_REQUEST,
+    REGISTER_NEW_DEVICE_SUCCESS,
+    REGISTER_NEW_DEVICE_FAIL,
+
 }from "../types/DeviceConstant";
 
 const cookies = new Cookies();
@@ -72,6 +76,49 @@ export const deviceAction = (
           });
     }
 };
+export const registerNewDevice = ( DeviceID,DoctorName,HospitalName,Alias,IMEINumber,VentiOperator,Wardno) =>async(dispatch)=>{
+  try{
+    dispatch({
+      type:REGISTER_NEW_DEVICE_REQUEST,
+    });
+    const token = cookies.get('ddAdminToken');
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/logger/device/RegisterDevice/`,
+      {
+        DeviceId:DeviceID,
+        AliasName:Alias,
+        Doctor_Name:DoctorName,
+        hospName:HospitalName,
+        IMEI_NO:IMEINumber,
+        Ventilator_Operator:VentiOperator,
+        Ward_No:Wardno,
+        AliasName:Alias,
+      },
+      config
+      );
+      dispatch({
+        type: REGISTER_NEW_DEVICE_SUCCESS,
+        payload: data,
+      });
+  }catch (error) {
+    dispatch({
+      type: REGISTER_NEW_DEVICE_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.msg,
+    });
+  }
+}
 
 // import Cookies from 'universal-cookie';
 

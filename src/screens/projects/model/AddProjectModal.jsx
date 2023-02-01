@@ -18,7 +18,7 @@ const AddProjectModal = (props) => {
   const createNewProjectReducer = useSelector(
     (state) => state.createNewProjectReducer
   );
-  // console.log('createNewProjectReducer',createNewProjectReducer)
+  console.log('createNewProjectReducer',createNewProjectReducer)
   const { data, error } = createNewProjectReducer;
   const deleteChips = (type) => {
     setModelType(

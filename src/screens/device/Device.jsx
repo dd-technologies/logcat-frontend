@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 import React, { useRef, useEffect, useReducer, useMemo, useState } from 'react';
 import {
   faCaretDown,
@@ -8,22 +7,21 @@ import {
   faSortDown,
   faSortUp,
 } from '@fortawesome/free-solid-svg-icons';
-import { Container, Row, Col,} from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
+import { Container, Row, Col,Button} from 'react-bootstrap';
 import Style from '../../css/device.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
-import DateIcons from '../../assets/icons/date.png';
 import LogICon from '../../assets/icons/log.png';
 import AlarmIcon from '../../assets/images/AlarmIcon.png';
-import CustomeDropDown from '../../container/DropDown';
 import SpinnerCustom from '../../container/SpinnerCustom';
 import TableCard from '../../container/TableCard';
-import TypeDropDown from '../logs/components/table/TypeDropDown';
 import { deviceAction } from '../../store/action/DeviceAction';
 import { Navbar } from '../../utils/NavBar';
 import SideBar from '../../utils/Sidebar';
 import { ThemeContext } from '../../utils/ThemeContext';
 import { deviceDataReducer } from './store/Reducer';
+import AddDeviceModal from './model/addDeviceModal';
 import {
   ALL_ROW_SELECTED,
   DATE_DROPDOWN,
@@ -79,6 +77,11 @@ export default function DeviceTable(){
     singleRowSelect: false,
     allRowSelect: false,
   };
+  let navigate = useNavigate(); 
+  const routeChange = () =>{ 
+    let path = `/DeviceData`; 
+    navigate(path);
+  }
 
   const [currentStateDevices,dispatchDeviceData] = useReducer(
     deviceDataReducer,
@@ -89,6 +92,7 @@ export default function DeviceTable(){
   const[isCheckAll,setIsCheckAll] = useState(false);
   const[isCheck,setIsCheck] = useState([]);
   const [checkedLogs,setCheckedLogs] = useState([]);
+  const [modalShow,setModalShow] = useState(false);
 
   const handleSelectAll = (e) =>{
     setIsCheckAll(!isCheckAll);
@@ -193,7 +197,7 @@ const sidebar_details = {
   });
 };
 let deviceFilter = data && data.data && data.data.data;
-console.log('df',deviceFilter)
+// console.log('df',deviceFilter)
 
 let search =
     (currentStateDevices.searchField &&
@@ -282,7 +286,6 @@ useEffect(()=>{
     )
   );
 },([dispatch,currentStateDevices.projectCode]))
-
 return (
   <div>
     <Row className="rowSection">
@@ -300,10 +303,23 @@ return (
         className={`${Style.NavbarColumn} colSection`}
       >
         <Navbar navigation_details={navigation_details} />
-        <Container className={Style.mainContainer}>
-          <h1 className=" darkModeColor">Device Summary</h1>
+        <h1 className=" darkModeColor">Device Summary</h1>
+        <Container style={{marginTop:'0px'}}>
+        <Button 
+                     style={{ backgroundColor: "#1a83ff", marginLeft: "87%",marginTop:"5%",marginBottom:"0%", position:'relative'} }          
+                    >
+                      <section
+                      onClick={()=>setModalShow(true)}
+                      >
+                        Register New Device
+                      </section>
+                    </Button>
+                    <AddDeviceModal
+                    show={modalShow}
+                    onHide={()=>setModalShow(false)}
+                    />
           <Row className="mt-4">
-          <button className='regbtn'>Click Me</button>
+                  
             {/* <Col xl={10} md={9} sm={9}>
               <TypeDropDown
                 tableDataState={currentStateDevices.tableDataState}
@@ -485,10 +501,10 @@ return (
                   ) : null}
                 </section>
               </section>
-            </Col> */}
+            </Col>  */}
           </Row>
           {/* Events  */}
-          <Row className="mt-4">
+          <Row className="mt-0">
             <Col>
               <TableCard borderRadius="10px">
                 {data && data.data && data.data.data.length > 0 && (
@@ -562,7 +578,7 @@ return (
                             </p>
                             <FontAwesomeIcon
                               color="#0099a4"
-                              style={{ cursor: 'pointer' }}
+                              style={{ cursor: 'pointer' ,display:'none'}}
                               icon={
                                 currentStateDevices.sortIcons.DI
                                   ? faSortDown
@@ -583,7 +599,7 @@ return (
                           <section className={Style.innerHeader}>
                             <p
                               style={{
-                                marginRight: '10px',
+                                marginRight: '20px',
                                 color:
                                   theme == 'light-theme' ? '#000' : '#fff',
                                 fontWeight: '600',
@@ -653,6 +669,7 @@ return (
                           return (
                             <React.Fragment key={item._id}>
                               <section className={Style.tableBody}>
+                                
                                 <section>
                                   <input
                                     type="checkbox"
@@ -666,9 +683,10 @@ return (
                                   style={{
                                     color:
                                       theme == 'light-theme' ? '' : '#fff',
+                                      
                                   }}
                                 >
-                                  {item.did}
+                                <button onClick={routeChange} style={{border:'none',backgroundColor:'white',fontWeight:'400'}}>{item.DeviceId}</button>
                                 </section>
                                 <section
                                   style={{
@@ -710,14 +728,12 @@ return (
                     <p
                       style={{
                         color: theme == 'light-theme' ? `#000` : `#fff`,
-                      }}
+                      }}                     
                     >
                       No Data Found
                     </p>
                   </section>
-                   
                 )}
-
                 {loading && <SpinnerCustom />}
               </TableCard>
             </Col>

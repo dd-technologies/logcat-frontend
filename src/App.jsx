@@ -18,6 +18,7 @@ import Event from "./screens/events/Event"
 import Device from "./screens/device/Device"
 import ddLoader from "../src/assets/images/ddLoader.gif";
 import "./css/Theme.css"
+import DeviceData from "./screens/device/DeviceData";
 
 function App() {
   const [splash, setSplash] = useState(true);
@@ -64,6 +65,7 @@ function App() {
               <Route exact path="/alarm" element={<AlarmNew />} />
               <Route exact path="/events" element={<Event/>}/>
               <Route exact path="/device" element={<Device/>}/>
+              <Route exact path="/deviceData" element={<DeviceData/>}/>
               {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
                 <Route exact path="/settings" element={<Settings />} />
               )}
