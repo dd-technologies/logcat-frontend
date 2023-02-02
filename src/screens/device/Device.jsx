@@ -37,7 +37,7 @@ export default function DeviceTable(){
   
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { data: projectType } = getModelCodeReducer;
-  // console.log(getModelCodeReducer)
+  console.log('firstget',getModelCodeReducer)
 
   const deviceReducer = useSelector((state) =>state.deviceReducer);
   // console.log("first",deviceReducer)
@@ -79,7 +79,7 @@ export default function DeviceTable(){
   };
   let navigate = useNavigate(); 
   const routeChange = () =>{ 
-    let path = `/DeviceData`; 
+    let path = `/DeviceData?code=${code}&name=${projectName}`; 
     navigate(path);
   }
 
@@ -134,6 +134,7 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const code = urlParams.get('code');
 const projectName = urlParams.get('name');
+const DeviceId = urlParams.get('DeviceID')
 
 // const DateFilter = () => {
 //   dispatchDeviceData({
@@ -686,7 +687,7 @@ return (
                                       
                                   }}
                                 >
-                                <button onClick={routeChange} style={{border:'none',backgroundColor:'white',fontWeight:'400'}}>{item.DeviceId}</button>
+                                <button onClick={(routeChange)} style={{border:'none',backgroundColor:'white',fontWeight:'400'}}>{item.DeviceId}</button>
                                 </section>
                                 <section
                                   style={{

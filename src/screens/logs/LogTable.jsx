@@ -68,7 +68,7 @@ export default function LogTable() {
         projectType.modelList &&
         projectType.modelList[0].typeName,
   };
-
+console.log(projectTypeCode)
   const ref = useRef();
 
   // navigation

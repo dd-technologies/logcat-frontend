@@ -5,24 +5,25 @@ import { registerNewDevice } from "../../../store/action/DeviceAction";
 import Style from "../../../css/AddProjectModal.module.css";
 import CreateProject from "../../projects/CreateProject";
 import { uploadNewProject } from "../../../store/action/ProjectAction";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 
 const AddDeviceModal = (props) => {
   const [registerDevice, setRegisterDevice] = useState({
-    DeviceID:"",
-    DoctorName:"",
-    HospitalName:"",
-    Alias:"",
-    IMEINumber:"",
-    VentiOperator:"",
-    Wardno:"",
+    DeviceId:"",
+    Doctor_Name:"",
+    Hospital_Name:"",
+    AliasName:"",
+    IMEI_NO:"",
+    Ventilator_Operator:"",
+    Ward_No:"",
     
   });
   const [chips, setChips] = useState("");
   const [modelType, setModelType] = useState([]);
   const [errorName, setErrorName] = useState();
   const [errorMsg, setErrorMsg] = useState();
-
+  const [modalShow,setModalShow] = useState(false);
   const createNewProjectReducer = useSelector(
     (state) => state.createNewProjectReducer
   );
@@ -41,15 +42,22 @@ const AddDeviceModal = (props) => {
     // if(!HospitalName.length){
     //   setErrorName("Hospital's Name is Required Field");
     // }
-    if(registerDevice.DeviceID && registerDevice.Alias ){
+    if(registerDevice.DeviceId && registerDevice.Doctor_Name && registerDevice.Hospital_Name && registerDevice.AliasName && registerDevice.IMEI_NO && registerDevice.Ward_No && registerDevice.Ventilator_Operator){
       setErrorName("");
       setErrorMsg("");
+      alert("Device Registered Successfully")
+      setModalShow(false);
       dispatch(
         registerNewDevice(
-          registerDevice.DeviceID,
-          registerDevice.DoctorName,
+          registerDevice.DeviceId,
+          registerDevice.Doctor_Name,
+          registerDevice.Hospital_Name,
+          registerDevice.AliasName,
+          registerDevice.IMEI_NO,
+          registerDevice.Ward_No,
+          registerDevice.Ventilator_Operator,
 
-        )
+        ),
       )
     }
 
@@ -90,7 +98,7 @@ const AddDeviceModal = (props) => {
               type="text"
               placeholder="Enter Your Device ID"
               onChange={(e) =>
-                setRegisterDevice({ ...registerDevice,  DeviceID: e.target.value })
+                setRegisterDevice({ ...registerDevice,  DeviceId: e.target.value })
               }
               required
             />
@@ -109,7 +117,7 @@ const AddDeviceModal = (props) => {
               type="text"
               placeholder="Please Enter an Alias Name for the Ventilator"
               onChange={(e) =>
-                setRegisterDevice({ ...registerDevice,  Alias: e.target.value })
+                setRegisterDevice({ ...registerDevice,  AliasName: e.target.value })
               }
               required
             />
@@ -127,7 +135,7 @@ const AddDeviceModal = (props) => {
               type="text"
               placeholder="Please Enter Doctor Name"
               onChange={(e) =>
-                setRegisterDevice({ ...registerDevice, DoctorName: e.target.value })
+                setRegisterDevice({ ...registerDevice, Doctor_Name: e.target.value })
               }
               required
             />
@@ -144,7 +152,7 @@ const AddDeviceModal = (props) => {
               type="text"
               placeholder="Please Enter Hospital Name"
               onChange={(e) =>
-                setRegisterDevice({ ...registerDevice, HospitalName: e.target.value })
+                setRegisterDevice({ ...registerDevice,  Hospital_Name: e.target.value })
               }
               required
             />
@@ -161,7 +169,7 @@ const AddDeviceModal = (props) => {
               type="text"
               placeholder="Please Enter IMEI Number"
               onChange={(e) =>
-                setRegisterDevice({ ...registerDevice,  IMEINumber: e.target.value })
+                setRegisterDevice({ ...registerDevice,   IMEI_NO: e.target.value })
               }
               required
             />
@@ -178,7 +186,7 @@ const AddDeviceModal = (props) => {
               type="text"
               placeholder="Please enter Ventilator Operator's Name"
               onChange={(e) =>
-                setRegisterDevice({ ...registerDevice,  VentiOperator: e.target.value })
+                setRegisterDevice({ ...registerDevice,  Ventilator_Operator: e.target.value })
               }
               required
             />
@@ -195,7 +203,7 @@ const AddDeviceModal = (props) => {
               type="text"
               placeholder="Please Enter Ward Number"
               onChange={(e) =>
-                setRegisterDevice({ ...registerDevice,  Wardno: e.target.value })
+                setRegisterDevice({ ...registerDevice,   Ward_No: e.target.value })
               }
               required
             />

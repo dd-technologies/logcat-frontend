@@ -20,9 +20,8 @@ import {
   getLogMsgOccurenceWRTDateReducer, getCrashFreeUsersReducer, getCrashAnalyticsDataReducer, getCrashFreeUsersDataReducer, getModelCodeReducer, addCrashEmailReducer, getProjectByCodeSettingReducer,
 } from "./reducer/ProjectReducer";
 import { passwordChangeReducer, userInfoReducer } from "./reducer/UserProfileReducer";
-import {deviceReducer} from "./reducer/deviceReducer"
+import {deviceReducer,getAllLogByDeviceIdReducer} from "./reducer/deviceReducer"
 import { alarmReducer } from "./reducer/AlarmReducer";
-import {testReducer} from "./reducer/EventReducer"
 import { updateUserInfoReducer } from "./reducer/UpdateUserInfoReducer"
 // import {
 //   getAllDeviceReducer,
@@ -54,7 +53,6 @@ const appReducer = combineReducers({
 
   addCrashEmailReducer,
   getProjectByCodeSettingReducer,
-  testReducer,
   alarmReducer,
   deviceReducer,
   userInfoReducer,
@@ -62,6 +60,7 @@ const appReducer = combineReducers({
 
   // getAllDeviceReducer,
   // registerNewDeviceReducer,
+  getAllLogByDeviceIdReducer,
 });
 
 const persistConf = {
