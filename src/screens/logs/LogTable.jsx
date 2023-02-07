@@ -41,6 +41,12 @@ export default function LogTable() {
   const projectName = urlParams.get('name');
   const projectTypeCode = urlParams.get('projectType');
 
+
+  console.log("projectTypeCode",projectTypeCode);
+  console.log("code",code);
+  console.log("projectName",projectName);
+
+
   // @@ All stats here -----------------start
 
   const [dateDropDown, setDateDropDown] = useState(false);
@@ -57,7 +63,8 @@ export default function LogTable() {
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { data: projectType } = getModelCodeReducer;
   const navigate = useNavigate();
-
+ console.log("getModelCodeReducer",getModelCodeReducer);
+ console.log("projectType",projectType)
   var projectCode = {
     code: localStorage.getItem('project_type')
       ? JSON.parse(localStorage.getItem('project_type')).typeCode
@@ -68,7 +75,8 @@ export default function LogTable() {
         projectType.modelList &&
         projectType.modelList[0].typeName,
   };
-console.log(projectTypeCode)
+// console.log(projectTypeCode)
+console.log("helllo",projectCode.code)
   const ref = useRef();
 
   // navigation

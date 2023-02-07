@@ -1,11 +1,10 @@
-import { faL } from "@fortawesome/free-solid-svg-icons";
 import{
     DEVICE_FAIL,
     DEVICE_REQUEST,
     DEVICE_SUCCESS,
-    GET_ALL_LOG_BY_CODE_FAIL,
-    GET_ALL_LOG_BY_CODE_REQUEST,
-    GET_ALL_LOG_BY_CODE_SUCCESS
+    GET_DEVICE_DETAILS_BY_ID_FAIL,
+    GET_DEVICE_DETAILS_BY_ID_SUCCESS,
+    GET_DEVICE_DETAILS_BY_ID_REQUEST
 
 }from "../types/DeviceConstant";
 
@@ -32,15 +31,15 @@ export const deviceReducer = (state = {},action) =>{
 };
 export const getAllLogByDeviceIdReducer = (state = {},action) =>{
   switch(action.type){
-    case GET_ALL_LOG_BY_CODE_REQUEST:
+    case GET_DEVICE_DETAILS_BY_ID_REQUEST:
       return {loading : true};
     
-    case GET_ALL_LOG_BY_CODE_SUCCESS:
+    case GET_DEVICE_DETAILS_BY_ID_SUCCESS:
     return{
       loading:false,
       data : action.payload,
     }
-    case GET_ALL_LOG_BY_CODE_FAIL:
+    case GET_DEVICE_DETAILS_BY_ID_FAIL:
     return{
       loading:false,
       error:action.payload,

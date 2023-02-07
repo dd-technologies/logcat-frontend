@@ -3,9 +3,9 @@ import { Modal, Button, Form, ModalBody } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { registerNewDevice } from "../../../store/action/DeviceAction";
 import Style from "../../../css/AddProjectModal.module.css";
-import CreateProject from "../../projects/CreateProject";
-import { uploadNewProject } from "../../../store/action/ProjectAction";
-import { faL } from "@fortawesome/free-solid-svg-icons";
+// import CreateProject from "../../projects/CreateProject";
+// import { uploadNewProject } from "../../../store/action/ProjectAction";
+// import { faL } from "@fortawesome/free-solid-svg-icons";
 
 
 const AddDeviceModal = (props) => {
@@ -19,8 +19,6 @@ const AddDeviceModal = (props) => {
     Ward_No:"",
     
   });
-  const [chips, setChips] = useState("");
-  const [modelType, setModelType] = useState([]);
   const [errorName, setErrorName] = useState();
   const [errorMsg, setErrorMsg] = useState();
   const [modalShow,setModalShow] = useState(false);

@@ -1,0 +1,17 @@
+.th{
+   
+}
+.tr{
+    text-decoration: none;
+}
+.Savebtn{
+    float:right;
+   background-color: #0099a4; 
+   color: white;
+   height: 20px;
+   width: 90px;
+
+}
+.table{
+    margin-left: 95px;
+}
