@@ -9,7 +9,10 @@ import {
     REGISTER_NEW_DEVICE_FAIL,
     GET_DEVICE_DETAILS_BY_ID_FAIL,
     GET_DEVICE_DETAILS_BY_ID_SUCCESS,
-    GET_DEVICE_DETAILS_BY_ID_REQUEST
+    GET_DEVICE_DETAILS_BY_ID_REQUEST,
+    UPDATE_DEVICE_DETAILS_BY_ID_FAIL,
+    UPDATE_DEVICE_DETAILS_BY_ID_SUCCESS,
+    UPDATE_DEVICE_DETAILS_BY_ID_REQUEST,
 
 }from "../types/DeviceConstant";
 const cookies = new Cookies();
@@ -35,7 +38,7 @@ export const deviceAction = (
       let response;
 
       response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/device/`, 
+        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/AllEvents/Events`, 
         config
       );
       dispatch({
@@ -141,7 +144,8 @@ export const registerNewDevice = ( DeviceID,DoctorName,HospitalName,Alias,IMEINu
 // }
 export const getDetailsById = 
 (
-  DeviceID,
+  did,
+  
 )=>
 async(dispatch)=>{
   try{
@@ -155,8 +159,9 @@ async(dispatch)=>{
         Authorization: `Bearer ${token}`,
       },
     };
-    let response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/api/logger/device/RegisterDevice/${DeviceID}`,
+    const response = await axios.get(
+      // `${process.env.REACT_APP_BASE_URL}/api/logger/device/RegisterDevice/${DeviceID}`,
+      `${process.env.REACT_APP_BASE_URL}/api/logger/logs/AllEvents/Events`,
       config
     );
     dispatch({
@@ -166,6 +171,60 @@ async(dispatch)=>{
   }catch(error){
     dispatch({
       type:GET_DEVICE_DETAILS_BY_ID_FAIL,
+      payload:
+      error &&
+      error.response &&
+      error.response.data &&
+      error.response.data.data &&
+      error.response.data.data.err &&
+      error.response.data.data.msg,
+    })
+  }
+};
+
+export const updateDetailsById = 
+(
+  DeviceID,
+  Hospital_Name,
+  Doctor_Name,
+  AliasName,
+  Ward_No,
+  IMEI_NO,
+  Ventilator_Operator,
+)=>
+async(dispatch)=>{
+  try{
+    dispatch({
+      type:UPDATE_DEVICE_DETAILS_BY_ID_REQUEST
+    });
+    const token = cookies.get('ddAdminToken');
+    const config ={
+      method:'PATCH',
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body:{
+        // DeviceID:DeviceID,
+        // AliasName:AliasName,
+        // Doctor_Name:Doctor_Name,
+        // Hospital_Name:Hospital_Name,
+        // Ward_No:Ward_No,
+        // IMEI_NO:IMEI_NO,
+        // Ventilator_Operator:Ventilator_Operator
+      }
+    };
+    let response = await axios.patch(
+      `${process.env.REACT_APP_BASE_URL}/api/logger/device/RegisterDevice/`,
+      config
+    );
+    dispatch({
+      type:UPDATE_DEVICE_DETAILS_BY_ID_SUCCESS,
+      payload:response.data,
+    });
+  }catch(error){
+    dispatch({
+      type:UPDATE_DEVICE_DETAILS_BY_ID_FAIL,
       payload:
       error &&
       error.response &&

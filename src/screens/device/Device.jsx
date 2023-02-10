@@ -733,7 +733,7 @@ import {
   faSortDown,
   faSortUp,
 } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { Container, Row, Col,Button} from 'react-bootstrap';
 import Style from '../../css/device.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -763,13 +763,13 @@ export default function DeviceTable(){
   
   const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
   const { data: projectType } = getModelCodeReducer;
-  console.log('firstget',getModelCodeReducer)
+  // console.log('firstget',getModelCodeReducer)
 
   const deviceReducer = useSelector((state) =>state.deviceReducer);
-  // console.log("first",deviceReducer)
+  console.log("first",deviceReducer)
   const {loading,data} = deviceReducer;
-  // console.log(loading)
-  // console.log(data)
+  console.log(loading)
+  console.log(data)
 
   const dispatch = useDispatch();
 
@@ -819,6 +819,7 @@ export default function DeviceTable(){
   const[isCheck,setIsCheck] = useState([]);
   const [checkedLogs,setCheckedLogs] = useState([]);
   const [modalShow,setModalShow] = useState(false);
+  const [modalData,setModalData] = useState(null);
 
 
   const handleSelectAll = (e) =>{
@@ -925,6 +926,8 @@ const sidebar_details = {
 };
 let deviceFilter = data && data.data && data.data.data;
 console.log('df',deviceFilter)
+// console.log('data',data.data.data)
+// console.log(typeof(deviceFilter));
 
 let search =
     (currentStateDevices.searchField &&
@@ -932,15 +935,15 @@ let search =
       currentStateDevices.searchField.trim().toLowerCase()) ||
     '';
 
-  if (search.length > 0) {
-    deviceFilter = deviceFilter.filter((item) => {
-      return (
-        item.did.toLowerCase().includes(search) ||
-        item.ack.msg.toLowerCase().includes(search) ||
-        item.createdAt.toLowerCase().includes(search)
-      );
-    });
-  }
+  // if (search.length > 0) {
+  //   deviceFilter = deviceFilter.filter((item) => {
+  //     return (
+  //       item.did.toLowerCase().includes(search) ||
+  //       item.ack.msg.toLowerCase().includes(search) ||
+  //       item.createdAt.toLowerCase().includes(search)
+  //     );
+  //   });
+  // }
   const callbackfnDispatchGetAllData = (sortType) => {
     dispatch(
       deviceAction(
@@ -1013,6 +1016,7 @@ useEffect(()=>{
     )
   );
 },([dispatch,currentStateDevices.projectCode]))
+
 
 
 return (
@@ -1291,6 +1295,7 @@ return (
                               onChange={handleSelectAll}
                               checked={isCheckAll}
                               id="selectAll"
+                            
                             />
                           </section>
                           <section className={Style.innerHeader}>
@@ -1527,16 +1532,50 @@ return (
                               }}
                             /> */}
                           </section>
-                          
-                          
-                          
-                        
-                        </section>
+                          <section className={Style.innerHeader}>
+                            <p
+                              style={{
+                                marginRight: '10px',
+                                color:
+                                  theme == 'light-theme' ? '#000' : '#fff',
+                                fontWeight: '600',
+                                fontSize: '.9rem',
+                              }}
+                            >
+                              Action
+                            </p>
+                          </section>
+                        </section>          
+                      <div>
+                        {deviceFilter && deviceFilter
+                        .filter((item,index)=>
+                        deviceFilter.findIndex(obj => obj.did === item.did)===index)
+                        .map((item,_id) => {
+                          // console.log('item',deviceFilter)
+                          // console.log(item)
             
-                        {deviceFilter.map((item, index) => {
-                          console.log('item',item)
+
+
+                          // console.log(`Index: ${index}`);
+                          // console.log('item',index.toString())
+                        // const result = deviceFilter.filter(item,index);
+                        // console.log(item.did)
+                        // console.log(
+                        //   deviceFilter.filter((item,index)=>
+                        //   deviceFilter.indexOf(item)
+                        //   )
+                        // )
+                        // function result(item){
+                        //   return deviceFilter.filter(deviceFilter.indexof(item));
+                        // }
+                        // const result = deviceFilter.filter((item,index)=>deviceFilter.indexOf(item));
+                        // console.log(result)
+                        // console.log(item._id)
+                        // console.log(deviceFilter)
+
                           return (
-                            <React.Fragment key={item._id}>
+                            <React.Fragment key={_id}>
+                              {/* {console.log(item)} */}
                               <section className={Style.tableBody}>
                                 
                                 <section>
@@ -1555,7 +1594,8 @@ return (
                                       
                                   }}
                                 >
-                                {item.DeviceId}
+                                {item.did}
+                                {/* {console.log(item)} */}
                                 </section>
                                 <section
                                   style={{
@@ -1623,24 +1663,30 @@ return (
                                 </section> */}
                                 <section>
                                   <Button
-                                  onClick={()=>setModalShow(true)}
-                                  
-                        
+                                  onClick={()=>{
+                                    setModalShow(true);
+                                    // setModalData(item);
+                                    {item}
+                                    // console.log(item)
+                                    console.log({...item})
+                                  }
+                                  }
                                   >
                                     Edit
                                   </Button>
-                                  <EditDetailsModal
+                                  <EditDetailsModal 
                                   show={modalShow}
                                   onHide={()=>setModalShow(false)}
-                                  data={item}
-
+                                  {...item}
+                                  
                                   />
                                 </section>
-                                
                               </section>
                             </React.Fragment>
                           );
                         })}
+                        </div>
+          
                       </section>
                     </section>
                     <section className="p-2">
@@ -1655,7 +1701,6 @@ return (
                     </section>
                   </>
                 )}
-
                 {data && data.data && data.data.data.length == 0 && (
                   <section className={Style.noDataFound}>
                     <p

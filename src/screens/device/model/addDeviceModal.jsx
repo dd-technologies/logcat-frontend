@@ -30,7 +30,7 @@ const AddDeviceModal = (props) => {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) =>{
+  const  = (e) =>{
     e.preventDefault();
     setErrorName("");
     setErrorMsg("");

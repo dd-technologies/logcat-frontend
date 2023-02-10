@@ -49,6 +49,10 @@
 .filterWithDate input {
   margin-left: 10px;
 }
+#selectAll{
+  height: 20px;
+  width:10px;
+}
 
 .noDataFound {
   width: 100%;
@@ -109,7 +113,14 @@
 }
 @media screen and (min-width: 600px) and (max-width: 959px) {
   .alertTable .tableBody {
-    grid-template-columns: 5% 15% 10% 10% 15% 15% 15%;
+    grid-template-columns: 5% 10% 12% 12% 10% 12% 14% 15% 5%;
+    font-size:0.9rem;
+  }
+  .alertTable .tableHeader{
+    grid-template-columns: 5% 11% 12% 12% 10% 12% 14% 15% 5%;
+    font-weight: 200;
+    padding: 10px;
+
   }
 }
 @media screen and (min-width: 1920px) and (max-width: 5000px) {
