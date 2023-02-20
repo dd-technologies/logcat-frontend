@@ -32,6 +32,7 @@ export default function Login() {
   const dispatch = useDispatch();
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { loading, error, adminInfo } = adminLoginReducer;
+  console.log(adminLoginReducer)
   const navigate = useNavigate();
 
   // VALIDATE EMAIL

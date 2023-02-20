@@ -44,9 +44,9 @@ export default function Events() {
   const testReducer = useSelector((state) => state.testReducer);
   // console.log("first",testReducer)
   const { loading, data } = testReducer;
-  // console.log('data',data)
-  // console.log('testReducer',testReducer)
-  // console.log("events",testReducer)
+  console.log('data',data)
+  console.log('testReducer',testReducer)
+  console.log("events",testReducer)
 
   // USE DISPATCH
   const dispatch = useDispatch();
@@ -138,7 +138,9 @@ export default function Events() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get('code');
+  console.log('code',code)
   const projectName = urlParams.get('name');
+  console.log('projectName',projectName)
 
   // DATE FILTER
   // Filter crash free STATICS & Trend wrt to date
@@ -191,11 +193,11 @@ export default function Events() {
       linkName: 'alarm',
       link: `/alarm?code=${code}&name=${projectName}`,
     },
-    link4: {
-      iconName: `/assets/images/AlarmIcon.png`,
-      linkName: "Events",
-      link: `/events?code=${code}&name=${projectName}`, //to do   
-    },
+    // link4: {
+    //   iconName: `/assets/images/AlarmIcon.png`,
+    //   linkName: "Events",
+    //   link: `/events?code=${code}&name=${projectName}`, //to do   
+    // },
   };
 
   // @@ SEARCH MECHANISMS IMPLEMENTATION  STARTS HERE -----
@@ -207,6 +209,7 @@ export default function Events() {
   };
 
   let eventsFilter = data && data.data && data.data.events;
+  console.log('eventsFilter',eventsFilter)
 
   let search =
     (currentStateEvents.searchField &&

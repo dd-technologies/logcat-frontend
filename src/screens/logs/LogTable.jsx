@@ -95,10 +95,10 @@ console.log("helllo",projectCode.code)
       iconName: faDatabase,
       linkName: 'Alarms',
     },
-    link4:{
-      iconName:faDatabase,
-      linkName:'events'
-    }
+    // link4:{
+    //   iconName:faDatabase,
+    //   linkName:'events'
+    // }
   };
 
   const sidebar_details = {
@@ -119,11 +119,11 @@ console.log("helllo",projectCode.code)
       linkName: 'Alarm',
       link: `/alarm?code=${code}&name=${projectName}`,
     },
-    link4:{
-      iconName:faDatabase,
-      linkName:'events',
-      link:`/events?code=${code}&name=${projectName}`,
-    }
+    // link4:{
+    //   iconName:faDatabase,
+    //   linkName:'events',
+    //   link:`/events?code=${code}&name=${projectName}`,
+    // }
   };
 
   // Filter crash free STATICS & Trend wrt to date

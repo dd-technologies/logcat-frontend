@@ -155,13 +155,13 @@ function SideBar(props) {
                           : `${Style.linkInActive} `
                       }
                     >
-                      <Link
+                      {/* <Link
                         className={`${Style.linkData} noSideBarLink`}
                         to={sidebar_details.link4 && sidebar_details.link4.link}
                       >
                         <Image src={AlarmIcon} width="20" height="20" />
                         <section className="hidelinkName">Events</section>
-                      </Link>
+                      </Link> */}
                     </section>
                   </>
                 )}

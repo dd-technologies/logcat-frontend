@@ -8,7 +8,7 @@ import {
   faSortDown,
   faSortUp,
 } from '@fortawesome/free-solid-svg-icons';
-import { Container, Row, Col, Image } from 'react-bootstrap';
+import { Container, Row, Col, Image ,Button} from 'react-bootstrap';
 import Style from '../../css/AlertsNew.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
@@ -46,7 +46,7 @@ export default function AlertsNew() {
   console.log("first", alarmReducer);
   const { loading, data } = alarmReducer;
   console.log('data',data)
-  // console.log("alarmReducer", alarmReducer);
+  console.log("alarmReducer", alarmReducer);
 
   // USE DISPATCH
   const dispatch = useDispatch();
@@ -99,6 +99,10 @@ export default function AlertsNew() {
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [isCheck, setIsCheck] = useState([]);
   const [checkedLogs, setCheckedLogs] = useState([]);
+
+  const [idList, setIdList] = useState([]);
+
+
 
   const handleSelectAll = (e) => {
     setIsCheckAll(!isCheckAll);
@@ -166,10 +170,10 @@ export default function AlertsNew() {
       iconName:faDatabase,
       linkName:"Alarms"
     },
-    link4:{
-      iconName:faDatabase,
-      linkName:"Events"
-    }
+    // link4:{
+    //   iconName:faDatabase,
+    //   linkName:"Events"
+    // }
   };
 
   const sidebar_details = {
@@ -190,11 +194,11 @@ export default function AlertsNew() {
       linkName: 'alarm',
       link: `/alarm?code=${code}&name=${projectName}`,
     },
-    link4: {
-      iconName: `/assets/images/AlarmIcon.png`,
-      linkName: "Events",
-      link: `/events?code=${code}&name=${projectName}`, //to do   
-    },
+    // link4: {
+    //   iconName: `/assets/images/AlarmIcon.png`,
+    //   linkName: "Events",
+    //   link: `/events?code=${code}&name=${projectName}`, //to do   
+    // },
   };
 
   // @@ SEARCH MECHANISMS IMPLEMENTATION  STARTS HERE -----
@@ -205,10 +209,39 @@ export default function AlertsNew() {
     });
   };
 
-  let alertsFilter = data && data.data && data.data.alerts;
+    let alertsFilter = data && data.data && data.data.alerts;
   // console.log('alertsFilter',alertsFilter)
   // console.log('first',alertsFilter)
 
+  if (alertsFilter) {
+    let uniqueData = alertsFilter
+      .map(alerts => alerts.did)
+      .filter((value, index, self) => self.indexOf(value) === index);
+    // This will map each alert to its data property and then filter out any duplicates.
+  
+    console.log(uniqueData); // This will log the unique data from the alerts.
+  }
+
+  const [selectedDid, setSelectedDid] = useState(null);
+
+  const handleDidChange = (event) => {
+    const did = event.target.value;
+    setSelectedDid(did);
+  };
+
+  const filteredAlerts = selectedDid
+    ? alertsFilter.filter((alert) => alert.did === selectedDid)
+    : alertsFilter;
+
+    console.log(filteredAlerts)
+
+
+  // useEffect(() => {
+  //   // Extract the IDs from the data and filter out duplicates
+  //   const idSet = new Set(alertsFilter.map(item => item.id));
+  //   const filteredIds = Array.from(idSet).sort();
+  //   setUniqueIds(filteredIds);
+  // }, [data]);
   let search =
     (currentStateAlerts.searchField &&
       currentStateAlerts.searchField.trim() &&
@@ -646,6 +679,25 @@ export default function AlertsNew() {
                             value={currentStateAlerts.searchField}
                             onChange={handleSearchFunc}
                           />
+            
+                        <section id="filter" style={{marginTop:'5px'}} >
+                        <select  value={selectedDid} onChange={handleDidChange}>
+                        <option value="">-- Select an ID --</option>
+                        {alertsFilter
+                        .map(alerts => alerts.did)
+                        .filter((value, index, self) => self.indexOf(value) === index)
+                        .map(alertDid => {
+                        console.log(alertDid); // log the current alert's "did" value
+                         return (
+                         <option key={alertDid} value={alertDid}>
+                         {alertDid}
+                        </option>
+                        );
+                    })
+                    }
+                    </select>
+                        </section>
+
                           <section
                             id="download_button"
                             disabled={checkedLogs?.length ? null : 'disabled'}
@@ -856,8 +908,65 @@ export default function AlertsNew() {
                               />
                             </section>
                           </section>
+                          {filteredAlerts.map((alerts) => {
+                            return (
+                              <React.Fragment key={alerts._id}>
+                                <section className={Style.tableBody}>
+                                  <section>
+                                    <input
+                                      type="checkbox"
+                                      id={alerts.did}
+                                      name={JSON.stringify(alerts)}
+                                      onChange={handleClick}
+                                      checked={isCheck.includes(alerts._id)}
+                                    />
+                                  </section>
+                                  <section
+                                    style={{
+                                      color:
+                                        theme == 'light-theme' ? '' : '#fff',
+                                    }}
+                                  >
+                                    {alerts.did}
+                                  </section>
+                                  <section
+                                    style={{
+                                      color:
+                                        theme == 'light-theme' ? '' : '#fff',
+                                    }}
+                                  >
+                                    {alerts.ack.code}
+                                  </section>
+                                  <section
+                                    style={{
+                                      color:
+                                        theme == 'light-theme' ? '' : '#fff',
+                                    }}
+                                  >
+                                    {alerts.ack.msg || `N/A`}
+                                  </section>
+                                  <section
+                                    style={{
+                                      color:
+                                        theme == 'light-theme' ? '' : '#fff',
+                                    }}
+                                  >
+                                    {alerts.ack.date.split('T')[0]}
+                                  </section>
+                                  <section
+                                    style={{
+                                      color:
+                                        theme == 'light-theme' ? '' : '#fff',
+                                    }}
+                                  >
+                                    {alerts.ack.date.split('T')[1].split('.')[0]}
+                                  </section>
+                                </section>
+                              </React.Fragment>
+                            );
+                          })}
               
-                          {alertsFilter.map((item, index) => {
+                          {/* {alertsFilter.map((item, index) => {
                             return (
                               <React.Fragment key={item._id}>
                                 <section className={Style.tableBody}>
@@ -913,7 +1022,7 @@ export default function AlertsNew() {
                                 </section>
                               </React.Fragment>
                             );
-                          })}
+                          })} */}
                         </section>
                       </section>
                       <section className="p-2">

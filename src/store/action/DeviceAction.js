@@ -18,11 +18,7 @@ import {
 const cookies = new Cookies();
 
 export const deviceAction = (
-  code = null,
-  diffdate = null,
-  page = 1,
-  record = 25,
-  sort = null
+  code,
 ) => async (dispatch) => {
   try {
       dispatch({

@@ -44,6 +44,7 @@ const Register = () => {
     (state) => state.adminRegisterReducer
   );
   const { loading, error, data } = adminRegisterReducer;
+  console.log('adminRegisterReducer',adminRegisterReducer)
   // VALIDATE EMAIL
   const validateEmail = (email) => {
     const isEmailValid = validateEmailHelper(email);
