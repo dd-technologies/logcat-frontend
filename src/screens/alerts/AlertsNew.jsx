@@ -210,7 +210,7 @@ export default function AlertsNew() {
   };
 
     let alertsFilter = data && data.data && data.data.alerts;
-  // console.log('alertsFilter',alertsFilter)
+  console.log('alertsFilter',alertsFilter)
   // console.log('first',alertsFilter)
 
   if (alertsFilter) {
@@ -230,7 +230,7 @@ export default function AlertsNew() {
   };
 
   const filteredAlerts = selectedDid
-    ? alertsFilter.filter((alert) => alert.did === selectedDid)
+    ? alertsFilter.filter((alerts) => alerts.did === selectedDid)
     : alertsFilter;
 
     console.log(filteredAlerts)
@@ -512,6 +512,8 @@ export default function AlertsNew() {
                         ? `last 10 days`
                         : currentStateAlerts.diffDate == 7
                         ? `last 7 days`
+                        :currentStateAlerts.diffDate == 1
+                        ? `last 24 hours`
                         : currentStateAlerts.diffDate == 15
                         ? `last 15 days`
                         : currentStateAlerts.diffDate == 30
@@ -538,6 +540,26 @@ export default function AlertsNew() {
                   <section>
                     {currentStateAlerts.dateDropDown ? (
                       <CustomeDropDown width="100%" zIndex="8">
+                              <p
+                          style={{ fontSize: '.8rem' }}
+                          className={`${Style.productVersion} mt-1 darkModeColor `}
+                          onClick={() => {
+                            dispatchAlertsData({
+                              type: DIFF_DATE,
+                              data: 1,
+                            });
+                            localStorage.setItem(
+                              'diffDate',
+                              currentStateAlerts.diffDate
+                            );
+                            dispatchAlertsData({
+                              type: DATE_DROPDOWN,
+                              data: false,
+                            });
+                          }}
+                        >
+                          24 Hours
+                        </p>
                         <p
                           style={{ fontSize: '.8rem' }}
                           className={`${Style.productVersion} mt-1 darkModeColor `}
@@ -908,7 +930,7 @@ export default function AlertsNew() {
                               />
                             </section>
                           </section>
-                          {filteredAlerts.map((alerts) => {
+                           {filteredAlerts.map((alerts,index) => {
                             return (
                               <React.Fragment key={alerts._id}>
                                 <section className={Style.tableBody}>
@@ -960,11 +982,12 @@ export default function AlertsNew() {
                                     }}
                                   >
                                     {alerts.ack.date.split('T')[1].split('.')[0]}
+                                    {console.log(alerts.ack.date.split('T')[1].split('.')[0])}
                                   </section>
                                 </section>
                               </React.Fragment>
                             );
-                          })}
+                          })} 
               
                           {/* {alertsFilter.map((item, index) => {
                             return (
@@ -1037,6 +1060,7 @@ export default function AlertsNew() {
                         />
                       </section>
                     </>
+                    
                   )}
 
                   {data && data.data && data.data.alerts.length == 0 && (

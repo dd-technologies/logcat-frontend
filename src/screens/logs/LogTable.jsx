@@ -280,6 +280,8 @@ console.log("helllo",projectCode.code)
                           ? `last 10 days`
                           : diffDate == 7
                           ? `last 7 days`
+                          : diffDate == 1
+                          ? `last 24 Hours`
                           : diffDate == 15
                           ? `last 15 days`
                           : diffDate == 30
@@ -306,6 +308,17 @@ console.log("helllo",projectCode.code)
                     <section>
                       {dateDropDown ? (
                         <CustomeDropDown width="100%" zIndex="8">
+                           <p
+                            style={{ fontSize: '.9rem' }}
+                            className={`${Style.productVersion} mt-1 darkModeColor `}
+                            onClick={() => {
+                              setDiffDate(1);
+                              localStorage.setItem('diffDate', 1);
+                              setDateDropDown(false);
+                            }}
+                          >
+                            24 Hours
+                          </p>    
                           <p
                             style={{ fontSize: '.9rem' }}
                             className={`${Style.productVersion} mt-1 darkModeColor `}
