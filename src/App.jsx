@@ -65,7 +65,7 @@ function App() {
               <Route exact path="/alarm" element={<AlarmNew />} />
               <Route exact path="/events" element={<Event/>}/>
               <Route exact path="/device" element={<Device/>}/>
-              {/* <Route exact path="/deviceLogs" element={<DeviceLogs/>}/> */}
+              <Route exact path="/deviceLogs" element={<DeviceLogs/>}/>
               {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
                 <Route exact path="/settings" element={<Settings />} />
               )}

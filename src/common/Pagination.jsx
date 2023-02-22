@@ -43,11 +43,11 @@ const Pagination = (props) => {
     onPageChange(currentPage + 1);
 
     // if url is alerts
-    // if (url.href.includes("alarm")) {
-    //   dispatch(
-    //     alarmAction(code, projectType, diffdate, currentPage + 1, pageSize)
-    //   );
-    // }
+    if (url.href.includes("alarm")) {
+      dispatch(
+        alarmAction(code, projectType, diffdate, currentPage + 1, pageSize)
+      );
+    }
 
     // if url is logable
     if (url.href.includes("log_table")) {

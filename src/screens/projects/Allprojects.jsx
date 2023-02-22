@@ -30,16 +30,16 @@ const Allprojects = (props) => {
                 boxShadow="0px 0px 3px 1px rgba(192,192,192,0.90)"
               >
                 <Link
-                //  to={`/device?code=${props.data.code}&projectType=${props.data &&
-                // props.data.device_types &&
-                // props.data.device_types[0] &&
-                // props.data.device_types[0].typeCode}`}
-                to={`/log_table?code=${props.data.code}&name=${props.data.name
-                }&page-name=logpage&projectType=${props.data &&
+                 to={`/device?code=${props.data.code}&projectType=${props.data &&
                 props.data.device_types &&
                 props.data.device_types[0] &&
-                props.data.device_types[0].typeCode
-                }`}
+                props.data.device_types[0].typeCode}`}
+                // to={`/log_table?code=${props.data.code}&name=${props.data.name
+                // }&page-name=logpage&projectType=${props.data &&
+                // props.data.device_types &&
+                // props.data.device_types[0] &&
+                // props.data.device_types[0].typeCode
+                // }`}
                   // to={`/device?code=${props.data.code}&name=${props.data.name
                   //   }`}
                   style={{ textDecoration: "none" }}

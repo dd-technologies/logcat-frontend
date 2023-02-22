@@ -27,6 +27,7 @@ import { updateUserInfoReducer } from "./reducer/UpdateUserInfoReducer"
 //   getAllDeviceReducer,
 //   registerNewDeviceReducer,
 // }from "./reducer/DeviceReducer"
+import {eventReducer} from "./reducer/EventReducer";
 const appReducer = combineReducers({
   adminLoginReducer,
   adminRegisterReducer,
@@ -57,6 +58,7 @@ const appReducer = combineReducers({
   deviceReducer,
   userInfoReducer,
   updateUserInfoReducer,
+  eventReducer,
 
   // getAllDeviceReducer,
   // registerNewDeviceReducer,

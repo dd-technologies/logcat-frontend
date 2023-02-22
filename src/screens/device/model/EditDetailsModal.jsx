@@ -6,12 +6,12 @@ import Style from "../../../css/EditDetailsModal.module.css";
 
 const EditDetailsModal = (props) =>{
     const {did} = props;
-    
+    console.log('did',did)
     const[EditDetails,setEditDetails] = useState({
         DeviceId:did,
     });
     // console.log ({did});
-    // console.log(EditDetails.DeviceId);
+    console.log(EditDetails.DeviceId);
     // console.log(props)
 
     const [errorName,setErrorName]= useState();

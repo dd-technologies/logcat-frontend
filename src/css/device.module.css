@@ -126,6 +126,12 @@
 @media screen and (min-width: 1920px) and (max-width: 5000px) {
   .alertTable .tableBody {
     /* grid-template-columns: 5% 30% 13% 25% 15% 15%; */
-    grid-template-columns:  5% 15% 10% 15% 15% 15% 15%;;
+    grid-template-columns:  4% 11% 12% 12% 10% 12% 14% 16% 5%;
+  }
+  .alertTable .tableHeader{
+    grid-template-columns:  5% 11% 12% 12% 10% 12% 14% 15% 5%;
+    font-weight: 200;
+    padding: 10px;
+
   }
 }/* # sourceMappingURL=device.module.css.map */

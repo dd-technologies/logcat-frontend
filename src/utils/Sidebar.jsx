@@ -15,6 +15,7 @@ import Log from '../assets/icons/log.png';
 import Style from '../css/Sidebar.module.css';
 import { ThemeContext, sideMenus } from './ThemeContext';
 import AlarmIcon from '../assets/images/AlarmIcon.png';
+import notes from '../assets/icons/notes.png';
 
 function SideBar(props) {
   const { sidebar_details } = props;
@@ -155,13 +156,13 @@ function SideBar(props) {
                           : `${Style.linkInActive} `
                       }
                     >
-                      {/* <Link
+                      <Link
                         className={`${Style.linkData} noSideBarLink`}
                         to={sidebar_details.link4 && sidebar_details.link4.link}
                       >
-                        <Image src={AlarmIcon} width="20" height="20" />
+                        <Image src={notes} width="20" height="20" />
                         <section className="hidelinkName">Events</section>
-                      </Link> */}
+                      </Link>
                     </section>
                   </>
                 )}

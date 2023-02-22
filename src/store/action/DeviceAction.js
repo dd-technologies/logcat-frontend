@@ -13,6 +13,9 @@ import {
     UPDATE_DEVICE_DETAILS_BY_ID_FAIL,
     UPDATE_DEVICE_DETAILS_BY_ID_SUCCESS,
     UPDATE_DEVICE_DETAILS_BY_ID_REQUEST,
+    GET_ALL_LOG_BY_CODE_FAIL,
+    GET_ALL_LOG_BY_CODE_REQUEST,
+    GET_ALL_LOG_BY_CODE_SUCCESS
 
 }from "../types/DeviceConstant";
 const cookies = new Cookies();
@@ -231,42 +234,42 @@ async(dispatch)=>{
     })
   }
 };
-// export const getDeviceLogsById = (
-//   code,
-//   DeviceID,
-//   projectName,
-// ) => async (dispatch) => {
-//   try {
-//       dispatch({
-//         type:GET_ALL_LOG_BY_CODE_REQUEST,
-//       });
-//       const token = cookies.get('ddAdminToken');
-//       const config = {
-//         headers: {
-//           "Content-type": "application/json",
-//           Authorization: `Bearer ${token}`,
-//         },
-//       };
-//       let response;
+export const getDeviceLogsById = (
+  code,
+  DeviceID,
+  projectName,
+) => async (dispatch) => {
+  try {
+      dispatch({
+        type:GET_ALL_LOG_BY_CODE_REQUEST,
+      });
+      const token = cookies.get('ddAdminToken');
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      let response;
 
-//       response = await axios.get(
-//         `${process.env.REACT_APP_BASE_URL}/api/logger/logs/deviceLogs?code=${code}&projectName=${projectName}&DeviceId=${DeviceID}`, 
-//         config
-//       );
-//       dispatch({
-//         type:GET_ALL_LOG_BY_CODE_SUCCESS,
-//         payload:response.data,
-//       });
-//     }catch(error){
-//         dispatch({
-//             type: GET_ALL_LOG_BY_CODE_FAIL,
-//             payload:
-//               error &&
-//               error.response &&
-//               error.response.data &&
-//               error.response.data.data &&
-//               error.response.data.data.err &&
-//               error.response.data.data.err.msg,
-//           });
-//     }
-// };
+      response = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/deviceLogs?code=${code}&projectName=${projectName}&DeviceId=${DeviceID}`, 
+        config
+      );
+      dispatch({
+        type:GET_ALL_LOG_BY_CODE_SUCCESS,
+        payload:response.data,
+      });
+    }catch(error){
+        dispatch({
+            type: GET_ALL_LOG_BY_CODE_FAIL,
+            payload:
+              error &&
+              error.response &&
+              error.response.data &&
+              error.response.data.data &&
+              error.response.data.data.err &&
+              error.response.data.data.err.msg,
+          });
+    }
+};

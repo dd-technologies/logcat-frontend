@@ -55,7 +55,7 @@ export const eventAction = (
     let response;
 
     response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/api/logger/logs/AllEvents/Events`, 
+      `${process.env.REACT_APP_BASE_URL}/api/logger/logs/events/${code}?projectType=${projectType}&startDate=${startDate}&endDate=${endDate}&page=${page}&limit=${record}&sort=${sort}`, 
       config
     );
 

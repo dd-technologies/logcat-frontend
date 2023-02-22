@@ -89,10 +89,10 @@ export default function Settings() {
       iconName:faDatabase,
       linkName:"Alarms"
     },
-    // link4:{
-    //   iconName:faDatabase,
-    //   linkName:"Events"
-    // }
+    link4:{
+      iconName:faDatabase,
+      linkName:"Events"
+    }
   };
   // console.log('projectName',projectName)
 
@@ -114,11 +114,11 @@ export default function Settings() {
       linkName: "Alarms",
       link: `/alarm?code=${code}&name=${projectName}`,  
     },
-    // link4: {
-    //   iconName: `/assets/images/AlarmIcon.png`,
-    //   linkName: "Events",
-    //   link: `/events?code=${code}&name=${projectName}`,  
-    // },
+    link4:{
+      iconName:faDatabase,
+      linkName:'events',
+      link:`/events?code=${code}&name=${projectName}`,
+    },
   };
   //EMAIL CHIPS
   const validateEmail = (email) => {

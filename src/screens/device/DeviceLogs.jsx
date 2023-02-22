@@ -740,3 +740,41 @@
 // );
 
 // }
+import React, { useRef, useEffect, useReducer, useMemo, useState } from 'react';
+import {
+  faCaretDown,
+  faDatabase,
+  faDownload,
+  faSortDown,
+  faSortUp,
+} from '@fortawesome/free-solid-svg-icons';
+// import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { Container, Row, Col,Button} from 'react-bootstrap';
+import Style from '../../css/device.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch, useSelector } from 'react-redux';
+import LogICon from '../../assets/icons/log.png';
+import AlarmIcon from '../../assets/images/AlarmIcon.png';
+import SpinnerCustom from '../../container/SpinnerCustom';
+import TableCard from '../../container/TableCard';
+import { deviceAction } from '../../store/action/DeviceAction';
+import { Navbar } from '../../utils/NavBar';
+import SideBar from '../../utils/Sidebar';
+import { ThemeContext } from '../../utils/ThemeContext';
+import { deviceDataReducer } from './store/Reducer';
+import EditDetailsModal from './model/EditDetailsModal';
+import {
+  ALL_ROW_SELECTED,
+  DATE_DROPDOWN,
+  DIFF_DATE,
+  SEARCH_FIELD,
+  SORT_ICONS,
+} from './store/Types';
+import Pagination from '../../common/Pagination';
+
+export default function DeviceData(){
+    const {theme} = React.useContext(ThemeContext);
+
+    
+}
