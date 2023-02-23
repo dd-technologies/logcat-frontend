@@ -16,7 +16,10 @@
   width: 60%;
   height: 40px;
 }
-
+.Tabs{
+ margin-right: 50px;
+ font-weight: 200;
+}
 .searchSection .filterGraphFirstSection {
   cursor: pointer;
   background-color: #0099a4;

@@ -13,9 +13,9 @@ import {
     UPDATE_DEVICE_DETAILS_BY_ID_FAIL,
     UPDATE_DEVICE_DETAILS_BY_ID_SUCCESS,
     UPDATE_DEVICE_DETAILS_BY_ID_REQUEST,
-    GET_ALL_LOG_BY_CODE_FAIL,
-    GET_ALL_LOG_BY_CODE_REQUEST,
-    GET_ALL_LOG_BY_CODE_SUCCESS
+    // GET_ALL_LOG_BY_CODE_FAIL,
+    // GET_ALL_LOG_BY_CODE_REQUEST,
+    // GET_ALL_LOG_BY_CODE_SUCCESS
 
 }from "../types/DeviceConstant";
 const cookies = new Cookies();
@@ -241,7 +241,7 @@ export const getDeviceLogsById = (
 ) => async (dispatch) => {
   try {
       dispatch({
-        type:GET_ALL_LOG_BY_CODE_REQUEST,
+        type:GET_DEVICE_DETAILS_BY_ID_REQUEST,
       });
       const token = cookies.get('ddAdminToken');
       const config = {
@@ -253,16 +253,16 @@ export const getDeviceLogsById = (
       let response;
 
       response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/deviceLogs?code=${code}&projectName=${projectName}&DeviceId=${DeviceID}`, 
+        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/deviceLogs`, 
         config
       );
       dispatch({
-        type:GET_ALL_LOG_BY_CODE_SUCCESS,
+        type:GET_DEVICE_DETAILS_BY_ID_SUCCESS,
         payload:response.data,
       });
     }catch(error){
         dispatch({
-            type: GET_ALL_LOG_BY_CODE_FAIL,
+            type: GET_DEVICE_DETAILS_BY_ID_FAIL,
             payload:
               error &&
               error.response &&

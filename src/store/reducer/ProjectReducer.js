@@ -357,7 +357,7 @@ export const getProjectByCodeSettingReducer = (state = {}, action) => {
   }
 };
 
-export const getAllDeviceReducer =(state={},action)=>{
+export const getAllDeviceLogsReducer =(state={},action)=>{
   switch(action.type){
       case GET_DEVICE_DETAILS_REQUEST:
           return{

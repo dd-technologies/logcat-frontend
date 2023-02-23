@@ -231,9 +231,9 @@ export default function DeviceTable(){
   const { theme } = React.useContext(ThemeContext);
 
   
-  const getModelCodeReducer = useSelector((state) => state.getModelCodeReducer);
-  const { data: projectType } = getModelCodeReducer;
-  // console.log('firstget',getModelCodeReducer)
+  const getAllDeviceLogsReducer = useSelector((state) => state.getAllDeviceLogsReducer);
+  const { data: DeviceId } = getAllDeviceLogsReducer;
+  console.log('firstget',getAllDeviceLogsReducer)
 
   const deviceReducer = useSelector((state) =>state.deviceReducer);
   console.log("first",deviceReducer)
@@ -253,12 +253,9 @@ export default function DeviceTable(){
     ? JSON.parse(localStorage.getItem('selected_record'))
     : 25,
 
-    projectCode: localStorage.getItem('project_type')
-    ? JSON.parse(localStorage.getItem('project_type')).typeCode
-    : projectType &&
-      projectType.modelList[0] &&
-      projectType.modelList[0].typeCode,
-
+    DeviceId: localStorage.getItem('DeviceId')
+    ? JSON.parse(localStorage.getItem('DeviceId'))
+    : DeviceId ,
     searchField: '',
  /**
      * @objectKey DI: Device Id,
@@ -1063,8 +1060,8 @@ return (
                                       
                                   }}
                                 >
-                            <Link to={`/api/logger/logs/deviceLogs?code=${code}&projectName=${projectName}&DeviceId=${item.did}`} style={{textDecoration:"none",color:"black"}}>  {item.did}</Link>
-                                {/* {console.log(item)} */}
+                             <Link to={`/deviceLogs?code=${code}&projectName=${projectName}&DeviceId=${item.did}`} style={{textDecoration:"none",color:"black"}}>  {item.did}</Link>
+                                {console.log('did',item.did)}
                                 </section>
                                 <section
                                   style={{

@@ -29,6 +29,7 @@ function CreateProject() {
     (state) => state.getAllProjectReducer
   );
   const { allProjectData: ProjectData, allProjectData } = getAllProjectReducer;
+  console.log('allProjectData',allProjectData)
 
   // GETTING USER NAME
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);

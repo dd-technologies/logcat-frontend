@@ -118,7 +118,7 @@ const Pagination = (props) => {
 
                 if (url.href.includes("alarm")) {
                   dispatch(
-                    alarmAction(code, projectType, diffdate, pageNumber, pageSize)
+                    alarmAction(code, projectType, diffdate, currentPage + 1, pageSize)
                   );
                 }
                 if (url.href.includes("log_table")) {

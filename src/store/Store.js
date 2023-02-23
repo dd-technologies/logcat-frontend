@@ -23,10 +23,7 @@ import { passwordChangeReducer, userInfoReducer } from "./reducer/UserProfileRed
 import {deviceReducer,getAllLogByDeviceIdReducer} from "./reducer/deviceReducer"
 import { alarmReducer } from "./reducer/AlarmReducer";
 import { updateUserInfoReducer } from "./reducer/UpdateUserInfoReducer"
-// import {
-//   getAllDeviceReducer,
-//   registerNewDeviceReducer,
-// }from "./reducer/DeviceReducer"
+import { getAllDeviceLogsReducer } from "./reducer/ProjectReducer";
 import {eventReducer} from "./reducer/EventReducer";
 const appReducer = combineReducers({
   adminLoginReducer,
@@ -59,9 +56,7 @@ const appReducer = combineReducers({
   userInfoReducer,
   updateUserInfoReducer,
   eventReducer,
-
-  // getAllDeviceReducer,
-  // registerNewDeviceReducer,
+  getAllDeviceLogsReducer,
   getAllLogByDeviceIdReducer,
 });
 

@@ -1053,6 +1053,7 @@ export default function AlertsNew() {
                         <Pagination
                           code={code}
                           projectType={currentStateAlerts.projectCode}
+                          filters={filteredAlerts.selectedDid}
                           diffdate={currentStateAlerts.diffDate}
                           currentPage={currentPage}
                           totalCount={data?.data?.count ? data?.data?.count : 0}
