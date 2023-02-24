@@ -11,6 +11,7 @@ import {
   getLogByDate,
 } from "../../../../store/action/LogsAction";
 import { alarmAction } from "../../../../store/action/AlarmAction";
+import { eventAction } from "../../../../store/action/EventsAction";
 
 const TypeDropDown = (props) => {
   const [projectCodeDropDown, setProjectCodeDropDown] = useState(false);
@@ -45,6 +46,9 @@ const TypeDropDown = (props) => {
     if (url.href.includes("alarm")) {
       dispatch(alarmAction(code, projectDetails.typeCode, props.diffDate));
       // props.projectCode(type.typeCode);
+    }
+    if(url.href.includes("events")){
+      dispatch(eventAction(code, projectDetails.typeCode, props.diffDate))
     }
 
     if (url.href.includes("log_table")) {

@@ -83,6 +83,14 @@ export default function LogTable() {
       iconName: faDatabase,
       linkName: 'Settings',
     },
+    link3: {
+      iconName: faDatabase,
+      linkName: 'Alarms',
+    },
+    link4:{
+      iconName:faDatabase,
+      linkName:'events'
+    }
   };
 
   const sidebar_details = {
@@ -103,6 +111,11 @@ export default function LogTable() {
       linkName: 'Alarm',
       link: `/alarm?code=${code}&name=${projectName}`,
     },
+    link4:{
+      iconName:faDatabase,
+      linkName:'events',
+      link:`/events?code=${code}&name=${projectName}`,
+    }
   };
 
   // Filter crash free STATICS & Trend wrt to date

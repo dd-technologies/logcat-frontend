@@ -10,8 +10,10 @@ export default function TrandData() {
     (state) => state.getLogCountsByDateReducer
   );
   const { data } = getLogCountsByDateReducer;
+  console.log('data',data)
   const LineCount =
     data && data.data && data.data.response ? data.data.response : null;
+    // console.log('data',data)
 
   let add = 0;
   if (data && data.data && data.data.response) {

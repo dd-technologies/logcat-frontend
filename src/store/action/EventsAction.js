@@ -1,14 +1,14 @@
 import axios from "axios";
 import Cookies from 'universal-cookie';
 import {
-  ALARM_FAIL,
-  ALARM_REQUEST,
-  ALARM_SUCCESS,
-} from "../types/AlarmConstant";
+  EVENT_FAIL,
+  EVENT_REQUEST,
+  EVENT_SUCCESS,
+} from "../types/EventConstants";
 
 const cookies = new Cookies();
 
-export const alarmAction = (
+export const eventAction = (
   code = null,
   projectType = null,
   diffdate = null,
@@ -42,7 +42,7 @@ export const alarmAction = (
     
 
     dispatch({
-      type: ALARM_REQUEST,
+      type: EVENT_REQUEST,
     });
     const token = cookies.get('ddAdminToken');
     const config = {
@@ -55,17 +55,17 @@ export const alarmAction = (
     let response;
 
     response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/api/logger/logs/alerts/${code}?projectType=${projectType}&startDate=${startDate}&endDate=${endDate}&page=${page}&limit=${record}&sort=${sort}`, 
+      `${process.env.REACT_APP_BASE_URL}/api/logger/logs/events/${code}?projectType=${projectType}&startDate=${startDate}&endDate=${endDate}&page=${page}&limit=${record}&sort=${sort}`, 
       config
     );
 
     dispatch({
-      type: ALARM_SUCCESS,
+      type: EVENT_SUCCESS,
       payload: response.data,
     });
   } catch (error) {
     dispatch({
-      type: ALARM_FAIL,
+      type: EVENT_FAIL,
       payload:
         error &&
         error.response &&

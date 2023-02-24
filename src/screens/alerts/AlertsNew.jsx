@@ -161,6 +161,14 @@ export default function AlertsNew() {
       iconName: faDatabase,
       linkName: 'Settings',
     },
+    link3:{
+      iconName:faDatabase,
+      linkName:"Alarms"
+    },
+  link4:{
+      iconName:faDatabase,
+      linkName:"Events"
+    },
   };
 
   const sidebar_details = {
@@ -181,6 +189,12 @@ export default function AlertsNew() {
       linkName: 'alarm',
       link: `/alarm?code=${code}&name=${projectName}`,
     },
+    link4: {
+      iconName: `/assets/images/AlarmIcon.png`,
+      linkName: "Events",
+      link: `/events?code=${code}&name=${projectName}`,  
+    },
+    
   };
 
   // @@ SEARCH MECHANISMS IMPLEMENTATION  STARTS HERE -----
@@ -192,6 +206,7 @@ export default function AlertsNew() {
   };
 
   let alertsFilter = data && data.data && data.data.alerts;
+  console.log(alertsFilter)
 
   let search =
     (currentStateAlerts.searchField &&
@@ -462,6 +477,8 @@ export default function AlertsNew() {
                         ? `last 10 days`
                         : currentStateAlerts.diffDate == 7
                         ? `last 7 days`
+                        : currentStateAlerts.diffDate == 1
+                        ? `last 24 Hours`
                         : currentStateAlerts.diffDate == 15
                         ? `last 15 days`
                         : currentStateAlerts.diffDate == 30
@@ -488,6 +505,26 @@ export default function AlertsNew() {
                   <section>
                     {currentStateAlerts.dateDropDown ? (
                       <CustomeDropDown width="100%" zIndex="8">
+                         <p
+                          style={{ fontSize: '.8rem' }}
+                          className={`${Style.productVersion} mt-1 darkModeColor `}
+                          onClick={() => {
+                            dispatchAlertsData({
+                              type: DIFF_DATE,
+                              data: 1,
+                            });
+                            localStorage.setItem(
+                              'diffDate',
+                              currentStateAlerts.diffDate
+                            );
+                            dispatchAlertsData({
+                              type: DATE_DROPDOWN,
+                              data: false,
+                            });
+                          }}
+                        >
+                          24 Hours
+                        </p>
                         <p
                           style={{ fontSize: '.8rem' }}
                           className={`${Style.productVersion} mt-1 darkModeColor `}

@@ -15,6 +15,7 @@ import UpdateProfile from "./screens/user/UpdateProfile";
 import Register from "./screens/auth/Register";
 import AlarmNew from "./screens/alerts/AlertsNew";
 import ddLoader from "../src/assets/images/ddLoader.gif";
+import Event from "./screens/events/Event";
 import "./css/Theme.css"
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
               <Route exact path="/analytics" element={<Analytics />} />
               <Route exact path="/update" element={<UpdateProfile />} />
               <Route exact path="/alarm" element={<AlarmNew />} />
+              <Route exact path="/events" element={<Event/>}/>
               {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
                 <Route exact path="/settings" element={<Settings />} />
               )}

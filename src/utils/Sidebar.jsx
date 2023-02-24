@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import logo from '../assets/images/DDTECH.png';
 import Logcat_small from '../assets/images/lgnewsmall.png';
 import LogcatLarge from '../assets/images/LgLargeIcon.png';
-import settigns from '../assets/icons/settings.png';
+import settings from '../assets/icons/settings.png';
 import Analytics from '../assets/icons/analyticIcon.png';
 
 import Log from '../assets/icons/log.png';
@@ -15,6 +15,7 @@ import Log from '../assets/icons/log.png';
 import Style from '../css/Sidebar.module.css';
 import { ThemeContext, sideMenus } from './ThemeContext';
 import AlarmIcon from '../assets/images/AlarmIcon.png';
+import notes from '../assets/icons/notes.png';
 
 function SideBar(props) {
   const { sidebar_details } = props;
@@ -60,6 +61,7 @@ function SideBar(props) {
           </section>
 
           <section className={Style.linkSection}>
+             {/* LINK FIRST  */}
             {!url.href.includes('update') && (
               <section className={Style.navMenuIcons}>
                 <section
@@ -114,7 +116,7 @@ function SideBar(props) {
                               : sidebar_details.link2.link
                           }
                         >
-                          <Image src={settigns} width="18" height="18" />
+                          <Image src={settings} width="18" height="18" />
                           <section className="hidelinkName">
                             {sidebar_details.link2.linkName}
                           </section>
@@ -124,7 +126,7 @@ function SideBar(props) {
                   </>
                 )}
 
-                {/* ALARM LINK  */}
+                {/* ALERTS LINK  */}
                 {adminInfo && adminInfo.data && (
                   <>
                     <section
@@ -144,10 +146,29 @@ function SideBar(props) {
                     </section>
                   </>
                 )}
+                 {/* Events LINK  */}
+                 {adminInfo && adminInfo.data && (
+                  <>
+                    <section
+                      className={
+                        url.href.includes('events')
+                          ? `${Style.linkActive} `
+                          : `${Style.linkInActive} `
+                      }
+                    >
+                      <Link
+                        className={`${Style.linkData} noSideBarLink`}
+                        to={sidebar_details.link4 && sidebar_details.link4.link}
+                      >
+                        <Image src={notes} width="20" height="20" />
+                        <section className="hidelinkName">Events</section>
+                      </Link>
+                    </section>
+                  </>
+                )}
+                
               </section>
             )}
-
-            {/* LINK FIRST  */}
           </section>
           <ThemeContext.Consumer>
             {({ changeSideMenu }) => (

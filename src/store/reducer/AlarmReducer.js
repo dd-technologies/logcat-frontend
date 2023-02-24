@@ -1,7 +1,7 @@
 import {
   ALARM_FAIL,
   ALARM_REQUEST,
-  ALARM_SUCSESS,
+  ALARM_SUCCESS,
 } from "../types/AlarmConstant";
 
 export const alarmReducer = (state = {}, action) => {
@@ -10,7 +10,7 @@ export const alarmReducer = (state = {}, action) => {
       return {
         loading: true,
       };
-    case ALARM_SUCSESS:
+    case ALARM_SUCCESS:
       return {
         loading: false,
         data: action.payload,
