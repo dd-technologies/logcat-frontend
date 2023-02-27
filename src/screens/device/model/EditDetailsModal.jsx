@@ -5,10 +5,10 @@ import { getDetailsById } from '../../../store/action/DeviceAction';
 import Style from "../../../css/EditDetailsModal.module.css";
 
 const EditDetailsModal = (props) =>{
-    const {did} = props;
-    console.log('did',did)
+    const {item} = props;
+    console.log('did',item)
     const[EditDetails,setEditDetails] = useState({
-        DeviceId:did,
+        DeviceId:item,
     });
     // console.log ({did});
     console.log(EditDetails.DeviceId);
@@ -60,7 +60,7 @@ const EditDetailsModal = (props) =>{
               className={Style.inputFields}
               type="text"
               name="DeviceId"
-              value={EditDetails.DeviceId}
+              value={item}
               placeholder="Enter Your Device ID"
             //   onChange={(e) =>
             //     setEditDetails({ ...EditDetails,  DeviceId: e.target.value })

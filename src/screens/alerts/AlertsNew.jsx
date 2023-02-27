@@ -102,8 +102,6 @@ export default function AlertsNew() {
 
   const [idList, setIdList] = useState([]);
 
-
-
   const handleSelectAll = (e) => {
     setIsCheckAll(!isCheckAll);
     setIsCheck(data?.data?.alerts.map((alerts) => alerts._id));
@@ -1053,7 +1051,7 @@ export default function AlertsNew() {
                         <Pagination
                           code={code}
                           projectType={currentStateAlerts.projectCode}
-                          filters={filteredAlerts.selectedDid}
+                          filters={{alerts : filteredAlerts}}
                           diffdate={currentStateAlerts.diffDate}
                           currentPage={currentPage}
                           totalCount={data?.data?.count ? data?.data?.count : 0}

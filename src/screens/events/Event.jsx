@@ -587,7 +587,7 @@ return (
                             >
                               Device Id
                             </p>
-                            <FontAwesomeIcon
+                            {/* <FontAwesomeIcon
                               color="#0099a4"
                               style={{ cursor: 'pointer' }}
                               icon={
@@ -605,7 +605,7 @@ return (
                                 });
                                 sortTableFnDI(callbackfnDispatchGetAllData);
                               }}
-                            />
+                            /> */}
                           </section>
                           <section className={Style.innerHeader}>
                             <p
@@ -620,7 +620,7 @@ return (
                               Message
                             </p>
 
-                            <FontAwesomeIcon
+                            {/* <FontAwesomeIcon
                               color="#0099a4"
                               style={{ cursor: 'pointer' }}
                               icon={
@@ -638,7 +638,7 @@ return (
                                 });
                                 sortTableFnCD(callbackfnDispatchGetAllData);
                               }}
-                            />
+                            /> */}
                           </section>
                           <section className={Style.innerHeader}>
                             <p
@@ -653,7 +653,7 @@ return (
                               Date
                             </p>
 
-                            <FontAwesomeIcon
+                            {/* <FontAwesomeIcon
                               color="#0099a4"
                               style={{ cursor: 'pointer' }}
                               icon={
@@ -671,7 +671,7 @@ return (
                                 });
                                 sortTableFnLM(callbackfnDispatchGetAllData);
                               }}
-                            />
+                            /> */}
                           </section>
                           <section className={Style.innerHeader}>
                             <p
@@ -685,7 +685,7 @@ return (
                             >
                               Time
                             </p>
-                            <FontAwesomeIcon
+                            {/* <FontAwesomeIcon
                               color="#0099a4"
                               style={{ cursor: 'pointer' }}
                               icon={
@@ -703,7 +703,7 @@ return (
                                 });
                                 sortTableFnDT(callbackfnDispatchGetAllData);
                               }}
-                            />
+                            /> */}
                           </section>
                           {/* <section className={Style.innerHeader}>
                             <p

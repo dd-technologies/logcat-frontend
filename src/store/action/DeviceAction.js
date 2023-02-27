@@ -143,7 +143,7 @@ export const registerNewDevice = ( DeviceID,DoctorName,HospitalName,Alias,IMEINu
 // }
 export const getDetailsById = 
 (
-  did,
+  did = null,
   
 )=>
 async(dispatch)=>{
@@ -160,7 +160,7 @@ async(dispatch)=>{
     };
     const response = await axios.get(
       // `${process.env.REACT_APP_BASE_URL}/api/logger/device/RegisterDevice/${DeviceID}`,
-      `${process.env.REACT_APP_BASE_URL}/api/logger/logs/AllEvents/Events`,
+      `${process.env.REACT_APP_BASE_URL}/api/logger/logs/AllEvents/Events/${did}`,
       config
     );
     dispatch({
@@ -238,6 +238,7 @@ export const getDeviceLogsById = (
   code,
   DeviceID,
   projectName,
+  did
 ) => async (dispatch) => {
   try {
       dispatch({
@@ -253,7 +254,7 @@ export const getDeviceLogsById = (
       let response;
 
       response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/deviceLogs`, 
+        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/deviceLogs/${did}`, 
         config
       );
       dispatch({

@@ -12,6 +12,7 @@ export const alarmAction = (
   code = null,
   projectType = null,
   diffdate = null,
+  filters = null,
   page = 1,
   record = 25,
   sort = null
@@ -53,6 +54,15 @@ export const alarmAction = (
     };
 
     let response;
+    let logString = "";
+    if (filters) {
+      for (const [key, value] of Object.entries(filters)) {
+        if (value) {
+          logString += `${key}-`;
+          console.log("logstring", logString);
+        }
+      }
+    }
 
     response = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/api/logger/logs/alerts/${code}?projectType=${projectType}&startDate=${startDate}&endDate=${endDate}&page=${page}&limit=${record}&sort=${sort}`, 

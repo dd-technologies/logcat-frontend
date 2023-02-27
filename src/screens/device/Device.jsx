@@ -202,7 +202,7 @@ import {
   faSortDown,
   faSortUp,
 } from '@fortawesome/free-solid-svg-icons';
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { Container, Row, Col,Button} from 'react-bootstrap';
 import Style from '../../css/device.module.css';
@@ -270,11 +270,11 @@ export default function DeviceTable(){
     singleRowSelect: false,
     allRowSelect: false,
   };
-  // let navigate = useNavigate(); 
-  // const routeChange = () =>{ 
-  //   let path = `/DeviceData?code=${code}&name=${projectName}`; 
-  //   navigate(path);
-  // }
+  let navigate = useNavigate(); 
+  const routeChange = () =>{ 
+    let path = `/deviceLogs?code=${code}&projectName=${projectName}&DeviceId=${item.did}`; 
+    navigate(path);
+  }
 
   const [currentStateDevices,dispatchDeviceData] = useReducer(
     deviceDataReducer,
@@ -1060,7 +1060,8 @@ return (
                                       
                                   }}
                                 >
-                             <Link to={`/deviceLogs?code=${code}&projectName=${projectName}&DeviceId=${item.did}`} style={{textDecoration:"none",color:"black"}}>  {item.did}</Link>
+                             <Link to={`/deviceEvents?code=${code}&projectName=${projectName}&DeviceId=${item.did}`} onClick={routeChange} style={{textDecoration:"none",color:"black"}}>{item.did}</Link>
+                             {/* {localStorage.setItem('DeviceId',JSON.stringify(item.did))} */}
                                 {console.log('did',item.did)}
                                 </section>
                                 <section
@@ -1136,6 +1137,7 @@ return (
                                     // console.log(item)
                                     console.log({...item})
                                     console.log(item.did)
+                                    localStorage.setItem('DeviceId',JSON.stringify(item.did))
                                   }
                                   }
                                   >
@@ -1145,6 +1147,7 @@ return (
                                   show={modalShow}
                                   onHide={()=>setModalShow(false)}
                                   {...item}
+                                  item = {JSON.parse(localStorage.getItem('DeviceId'))}
                                   
                                   />
                                 </section>
