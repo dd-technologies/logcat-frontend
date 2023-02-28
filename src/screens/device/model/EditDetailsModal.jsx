@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import {Modal,Button,Form} from 'react-bootstrap';
 import { useDispatch,useSelector } from 'react-redux';
-import { getDetailsById } from '../../../store/action/DeviceAction';
+import { registerNewDevice } from '../../../store/action/DeviceAction';
 import Style from "../../../css/EditDetailsModal.module.css";
 
 const EditDetailsModal = (props) =>{
@@ -9,6 +9,14 @@ const EditDetailsModal = (props) =>{
     console.log('did',item)
     const[EditDetails,setEditDetails] = useState({
         DeviceId:item,
+        AliasName:'',
+        Hospital_Name:'',
+        Doctor_Name:'',
+        Ward_No:'',
+        IMEI_No:'',
+        Ventilator_Operator:'',
+
+
     });
     // console.log ({did});
     console.log(EditDetails.DeviceId);
@@ -20,22 +28,37 @@ const EditDetailsModal = (props) =>{
 
     const dispatch = useDispatch();
 
-    //   const handleSubmit=(e)=>{
-    //     e.preventDefault();
-    //     setErrorName("");
-    //     setErrorMsg("");
-    //     if(EditDetails.DeviceId === {did}){
-
-    //         setErrorName("");
-    //         setErrorMsg("");
-    //         setModalShow(false);
-    //         dispatch(
-    //             getDetailsById(
-    //                 EditDetails.DeviceId,
-    //             ),
-    //         )        
-    //   }
-    // }
+      const handleSubmit=(e)=>{
+        e.preventDefault();
+        setErrorName("");
+        setErrorMsg("");
+        if(item){
+          // console.log(item)
+            setErrorName("");
+            setErrorMsg("");
+            setModalShow(false);
+            dispatch(
+               registerNewDevice(
+                    item,
+                    EditDetails.AliasName,
+                    EditDetails.Hospital_Name,
+                    EditDetails.Doctor_Name,
+                    EditDetails.Ward_No,
+                    EditDetails.IMEI_No,
+                    EditDetails.Ventilator_Operator
+                ),
+            )        
+      }
+    }
+    const handleSuWbmit=(e)=>{
+      console.log(item)
+      console.log(EditDetails.AliasName)
+      console.log(EditDetails.Hospital_Name)
+      console.log(EditDetails.Doctor_Name)
+      console.log(EditDetails.Ward_No)
+      console.log(EditDetails.IMEI_No)
+      console.log(EditDetails.Ventilator_Operator)
+    }
     
    return(
     <>
@@ -62,11 +85,7 @@ const EditDetailsModal = (props) =>{
               name="DeviceId"
               value={item}
               placeholder="Enter Your Device ID"
-            //   onChange={(e) =>
-            //     setEditDetails({ ...EditDetails,  DeviceId: e.target.value })
-            //   }
-            onChange={(e)=>setEditDetails({DeviceId:e.target.value})}
-              required
+              readOnly
             />
             {errorName ? (
               <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
@@ -82,7 +101,7 @@ const EditDetailsModal = (props) =>{
               type="text"
               name="AliasName"
               value={EditDetails.AliasName}
-              placeholder="Enter Your Device ID"
+              placeholder="Enter Your Device Alias Name"
               onChange={(e) =>
                 setEditDetails({ ...EditDetails,  AliasName: e.target.value })
               }
@@ -94,7 +113,131 @@ const EditDetailsModal = (props) =>{
               ""
             )}
           </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label className="darkModeColor">Hospital Name</Form.Label>
+            <Form.Control
+              className={Style.inputFields}
+              type="text"
+              name="HospitalName"
+              value={EditDetails.Hospital_Name}
+              placeholder="Enter the Hospital Name"
+              onChange={(e) =>
+                setEditDetails({ ...EditDetails,  Hospital_Name: e.target.value })
+              }
+              required
+            />
+            {errorName ? (
+              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
+            ) : (
+              ""
+            )}
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label className="darkModeColor">Doctor Name</Form.Label>
+            <Form.Control
+              className={Style.inputFields}
+              type="text"
+              name="DoctorName"
+              value={EditDetails.Doctor_Name}
+              placeholder="Enter Doctor's Name"
+              onChange={(e) =>
+                setEditDetails({ ...EditDetails,  Doctor_Name: e.target.value })
+              }
+              required
+            />
+            {errorName ? (
+              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
+            ) : (
+              ""
+            )}
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label className="darkModeColor">Ward Number</Form.Label>
+            <Form.Control
+              className={Style.inputFields}
+              type="text"
+              name="WardNo"
+              value={EditDetails.Ward_No}
+              placeholder="Enter Your Ward Number"
+              onChange={(e) =>
+                setEditDetails({ ...EditDetails,  Ward_No: e.target.value })
+              }
+              required
+            />
+            {errorName ? (
+              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
+            ) : (
+              ""
+            )}
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label className="darkModeColor">IMEI Number</Form.Label>
+            <Form.Control
+              className={Style.inputFields}
+              type="text"
+              name="IMEINumber"
+              value={EditDetails.IMEI_No}
+              placeholder="Enter Your Device IMEI Number"
+              onChange={(e) =>
+                setEditDetails({ ...EditDetails,  IMEI_No: e.target.value })
+              }
+              required
+            />
+            {errorName ? (
+              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
+            ) : (
+              ""
+            )}
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label className="darkModeColor">Ventilator Operator</Form.Label>
+            <Form.Control
+              className={Style.inputFields}
+              type="text"
+              name="ventiOperator"
+              value={EditDetails.Ventilator_Operator}
+              placeholder="Enter Ventilator Operator's Name"
+              onChange={(e) =>
+                setEditDetails({ ...EditDetails,  Ventilator_Operator: e.target.value })
+              }
+              required
+            />
+            {errorName ? (
+              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
+            ) : (
+              ""
+            )}
+          </Form.Group>
             </Modal.Body>
+            <Modal.Footer className="card darkModeColor">
+          <section
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
+            <Button
+              onClick={props.onHide}
+              style={{ backgroundColor: "#1a83ff", marginLeft: "10px" }}
+            >
+              Cancel
+            </Button>
+            <Button
+              style={{ backgroundColor: "#1a83ff" }}
+              onClick={(e) => {
+                handleSubmit(e);
+              }}
+            >
+              Register
+            </Button>
+          </section>
+        </Modal.Footer>
 
     </Modal>
     </>
