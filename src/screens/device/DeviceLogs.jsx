@@ -758,7 +758,7 @@ import LogICon from '../../assets/icons/log.png';
 import AlarmIcon from '../../assets/images/AlarmIcon.png';
 import SpinnerCustom from '../../container/SpinnerCustom';
 import TableCard from '../../container/TableCard';
-import { getDeviceLogsById } from '../../store/action/DeviceAction';
+import { getDeviceEventsById } from '../../store/action/DeviceAction';
 import { Navbar } from '../../utils/NavBar';
 import SideBar from '../../utils/Sidebar';
 import { ThemeContext } from '../../utils/ThemeContext';
@@ -772,9 +772,9 @@ import {
   SORT_ICONS,
 } from './store/Types';
 import Pagination from '../../common/Pagination';
-import Events from './components/table/Events';
+// import Events from './components/table/Events';
 import Logs from './components/table/Logs';
-import Alarms from './components/table/Alarms';
+// import Alarms from './components/table/Alarms';
 
 export default function DeviceLogs(props){
     const {theme} = React.useContext(ThemeContext);
@@ -834,6 +834,7 @@ export default function DeviceLogs(props){
     console.log(projectName)
     const did = urlParams.get('DeviceId')
     console.log('did',did);
+    
 
      //Navigation bar ==================================
 const navigation_details = {
@@ -883,17 +884,278 @@ const sidebar_details = {
   },
 };
 
+function Events(){
+  const {theme} = React.useContext(ThemeContext);
+  const getAllLogByDeviceIdReducer = useSelector((state)=>state.getAllLogByDeviceIdReducer);
+  const {data} = getAllLogByDeviceIdReducer;
+  console.log(getAllLogByDeviceIdReducer);
+
+  let eventsFilter = data && data.data && data.data.findDeviceById;
+  console.log(eventsFilter)
+  return(
+    <>
+     <section className={Style.alertTable}>
+      <section className={Style.tableHeader}>
+        <section style={{
+          color: theme == 'light-theme' ? '#000' : '#fff',
+        }}
+        ><input
+        type="checkbox"
+        // onChange={handleSelectAll}
+        // checked={isCheckAll}
+        id="selectAll"
+      
+      /></section>
+      <section className={Style.innerHeader}>
+                            <p
+                              style={{
+                                marginRight: '10px',
+                                color:
+                                  theme == 'light-theme' ? '#000' : '#fff',
+                                fontWeight: '600',
+                                fontSize: '.9rem',
+                              }}
+                            >
+                              Device Id
+                            </p>
+                            {/* <FontAwesomeIcon
+                              color="#0099a4"
+                              style={{ cursor: 'pointer' ,display:'none'}}
+                              icon={
+                                currentStateDevices.sortIcons.DI
+                                  ? faSortDown
+                                  : faSortUp
+                              }
+                              onClick={() => {
+                                dispatchDeviceData({
+                                  type: SORT_ICONS,
+                                  data: {
+                                    ...currentStateDevices.sortIcons,
+                                    DI: !currentStateDevices.sortIcons.DI,
+                                  },
+                                });
+                                sortTableFnDI(callbackfnDispatchGetAllData);
+                              }}
+                            /> */}
+                          </section>
+                          <section className={Style.innerHeader}>
+                            <p
+                              style={{
+                                marginRight: '10px',
+                                color:
+                                  theme == 'light-theme' ? '#000' : '#fff',
+                                fontWeight: '600',
+                                fontSize: '.9rem',
+                              }}
+                            >
+                             Message
+                            </p>
+                            {/* <FontAwesomeIcon
+                              color="#0099a4"
+                              style={{ cursor: 'pointer' ,display:'none'}}
+                              icon={
+                                currentStateDevices.sortIcons.DI
+                                  ? faSortDown
+                                  : faSortUp
+                              }
+                              onClick={() => {
+                                dispatchDeviceData({
+                                  type: SORT_ICONS,
+                                  data: {
+                                    ...currentStateDevices.sortIcons,
+                                    DI: !currentStateDevices.sortIcons.DI,
+                                  },
+                                });
+                                sortTableFnDI(callbackfnDispatchGetAllData);
+                              }}
+                            /> */}
+                          </section>
+                          <section className={Style.innerHeader}>
+                            <p
+                              style={{
+                                marginRight: '10px',
+                                color:
+                                  theme == 'light-theme' ? '#000' : '#fff',
+                                fontWeight: '600',
+                                fontSize: '.9rem',
+                              }}
+                            >
+                              Type
+                            </p>
+                            {/* <FontAwesomeIcon
+                              color="#0099a4"
+                              style={{ cursor: 'pointer' ,display:'none'}}
+                              icon={
+                                currentStateDevices.sortIcons.DI
+                                  ? faSortDown
+                                  : faSortUp
+                              }
+                              onClick={() => {
+                                dispatchDeviceData({
+                                  type: SORT_ICONS,
+                                  data: {
+                                    ...currentStateDevices.sortIcons,
+                                    DI: !currentStateDevices.sortIcons.DI,
+                                  },
+                                });
+                                sortTableFnDI(callbackfnDispatchGetAllData);
+                              }}
+                            /> */}
+                          </section>
+                          <section className={Style.innerHeader}>
+                            <p
+                              style={{
+                                marginRight: '10px',
+                                color:
+                                  theme == 'light-theme' ? '#000' : '#fff',
+                                fontWeight: '600',
+                                fontSize: '.9rem',
+                              }}
+                            >
+                              Date
+                            </p>
+                            {/* <FontAwesomeIcon
+                              color="#0099a4"
+                              style={{ cursor: 'pointer' ,display:'none'}}
+                              icon={
+                                currentStateDevices.sortIcons.DI
+                                  ? faSortDown
+                                  : faSortUp
+                              }
+                              onClick={() => {
+                                dispatchDeviceData({
+                                  type: SORT_ICONS,
+                                  data: {
+                                    ...currentStateDevices.sortIcons,
+                                    DI: !currentStateDevices.sortIcons.DI,
+                                  },
+                                });
+                                sortTableFnDI(callbackfnDispatchGetAllData);
+                              }}
+                            /> */}
+                          </section>    
+                          <section className={Style.innerHeader}>
+                            <p
+                              style={{
+                                marginRight: '10px',
+                                color:
+                                  theme == 'light-theme' ? '#000' : '#fff',
+                                fontWeight: '600',
+                                fontSize: '.9rem',
+                              }}
+                            >
+                              Time
+                            </p>
+                            {/* <FontAwesomeIcon
+                              color="#0099a4"
+                              style={{ cursor: 'pointer' ,display:'none'}}
+                              icon={
+                                currentStateDevices.sortIcons.DI
+                                  ? faSortDown
+                                  : faSortUp
+                              }
+                              onClick={() => {
+                                dispatchDeviceData({
+                                  type: SORT_ICONS,
+                                  data: {
+                                    ...currentStateDevices.sortIcons,
+                                    DI: !currentStateDevices.sortIcons.DI,
+                                  },
+                                });
+                                sortTableFnDI(callbackfnDispatchGetAllData);
+                              }}
+                            /> */}
+                          </section>                   
+      </section>
+      <div>
+        {console.log(eventsFilter)}
+        {eventsFilter && eventsFilter.map((item1,_id) => {
+          return(
+            <React.Fragment key = {_id}>
+              <section className={Style.tableBody}>
+              <section>
+                                  <input
+                                    type="checkbox"
+                                    id={item1._id}
+                                    // name={JSON.stringify(item)}
+                                    // onChange={handleClick}
+                                    // checked={isCheck.includes(item._id)}
+                                  />
+                                </section>
+                                <section
+                                  style={{
+                                    color:
+                                      theme == 'light-theme' ? '' : '#fff',
+                                      
+                                  }}
+                                >
+                                  {item1.did}
+                                </section>
+                                <section
+                                  style={{
+                                    color:
+                                      theme == 'light-theme' ? '' : '#fff',
+                                  }}
+                                >
+                                  {item1.message}
+                                </section>
+                                <section
+                                  style={{
+                                    color:
+                                      theme == 'light-theme' ? '' : '#fff',
+                                  }}
+                                >
+                                  {item1.type}
+                                </section>
+                                {/* <section
+                                  style={{
+                                    color:
+                                      theme == 'light-theme' ? '' : '#fff',
+                                  }}
+                                >
+                                  {data.state}
+                                </section> */}
+                                    <section
+                                    style={{
+                                      color:
+                                        theme == 'light-theme' ? '' : '#fff',
+                                    }}
+                                  >
+                                    {item1.date.split('T')[0]}
+                                  </section>
+                                <section
+                                    style={{
+                                      color:
+                                        theme == 'light-theme' ? '' : '#fff',
+                                    }}
+                                  >
+                                    {item1.date.split('T')[1].split('.')[0]}
+                                  </section>
+              </section>
+            </React.Fragment>
+          )
+    }   
+  )
+}
+      </div>
+    </section>
+    </>
+  )
+}
+function Alarms(){
+  return(
+    <h1>Alarms</h1>
+  )
+}
+
 const dispatch = useDispatch();
 useEffect(()=>{
   dispatch(
-    getDeviceLogsById(
+    getDeviceEventsById(
       code,
     )
   );
 },([]))
-
-
-
   const[activeTab,setActiveTab]=useState(0);
  const handleTabClick = (tabIndex) => {
   setActiveTab(tabIndex);
@@ -918,16 +1180,21 @@ useEffect(()=>{
         <h1>Device Logs</h1>
         <Container style={{marginTop:'0px'}}>
         <h4 style={{paddingLeft:"5px",paddingTop:"200px",color:"black"}}>Active DeviceId:{did}</h4>
+        {/* <h6>Status:{eventsFilter.data.state}</h6> */}
         <Row className='mt-0'>
           <Col>
           <TableCard borderRadius="10px">
             <>
             <section className={`${Style.Tabs} `}>
-            <button onClick={() => handleTabClick(0)} style={{marginLeft:"2px",marginRight:"15px",border:'none',}}>Logs/</button>
-           <button onClick={() => handleTabClick(1)} style={{marginRight:"15px",border:'none'}}>Alarms/</button>
-           <button onClick={() => handleTabClick(2)} style={{marginRight:"12px",border:'none'}}>Events</button>
+            <button onClick={() => handleTabClick(0)} style={{marginLeft:"2px",marginRight:"15px",border:'none',}}>Events /</button>
+           <button onClick={() => handleTabClick(1)} style={{marginRight:"15px",border:'none'}}>Alarms /</button>
+           <button onClick={() => handleTabClick(2)} style={{marginRight:"12px",border:'none'}}>Logs</button>
+            </section>
 
-
+            <section className={`${Style.tableHeader}`}>
+               {activeTab === 0 && Events()} 
+               {activeTab === 1 && Alarms()}
+               {activeTab === 2 && <Logs/>}
             </section>
             </>
           </TableCard>
@@ -940,27 +1207,3 @@ useEffect(()=>{
 
     )
 }  
-//  <Row className='mt-0'>
-// <Col>
-// <TableCard borderRadius="10px">
-//   <>
-//   <section className={`${Style.Tabs} `}>
-
-// {/* {activeTab === 0 && <Logs />} */}
-// {/* {activeTab === 1 && <Alarms />}
-// {activeTab === 2 && <Events />} */}
-
-
-//   {/* Table Here */}
-//   <section className={Style.alertTable}>
-//   <section className={Style.tableHeader}>
-//   {activeTab === 0 && <Logs />}
-//   {activeTab === 1 && <Alarms />}
-//   {activeTab === 2 && <Events />}
-//   </section>
-//   </section>
-//   </section>
-//   </>
-// </TableCard>
-// </Col>
-// </Row>

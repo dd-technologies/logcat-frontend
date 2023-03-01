@@ -13,6 +13,9 @@ import {
     UPDATE_DEVICE_DETAILS_BY_ID_FAIL,
     UPDATE_DEVICE_DETAILS_BY_ID_SUCCESS,
     UPDATE_DEVICE_DETAILS_BY_ID_REQUEST,
+    GET_REGISTERED_DEVICE_DETAILS_REQUEST,
+    GET_REGISTERED_DEVICE_DETAILS_SUCCESS,
+    GET_REGISTERED_DEVICE_DETAILS_FAIL
     // GET_ALL_LOG_BY_CODE_FAIL,
     // GET_ALL_LOG_BY_CODE_REQUEST,
     // GET_ALL_LOG_BY_CODE_SUCCESS
@@ -99,48 +102,50 @@ export const registerNewDevice = ( DeviceID,DoctorName,HospitalName,Alias,IMEINu
     });
   }
 }
-// export const getDetailsById=(DeviceID,DoctorName,HospitalName,Alias,IMEINumber,VentiOperator,Wardno) =>async(dispatch)=>{
-//   try{
-//     dispatch({
-//       type:GET_DEVICE_DETAILS_REQUEST,
-//     });
-//     const token = cookies.get('ddAdminToken');
-//     const config = {
-//       headers: {
-//         "Content-type": "application/json",
-//         Authorization: `Bearer ${token}`,
-//       },
-//     };
-//     const { data } = await axios.get(
-//       `${process.env.REACT_APP_BASE_URL}/api/logger/device/RegisterDevice/`,
-//       {
-//         DeviceId:DeviceID,
-//         Doctor_Name:DoctorName,
-//         Hospital_Name:HospitalName,
-//         AliasName:Alias,
-//         IMEI_NO:IMEINumber,
-//         Ventilator_Operator:VentiOperator,
-//         Ward_No:Wardno,
-//       },
-//       config
-//       );
-//       dispatch({
-//         type: GET_DEVICE_DETAILS_SUCCESS,
-//         payload: data,
-//       });
-//   }catch(error) {
-//     dispatch({
-//       type: GET_DEVICE_DETAILS_FAIL,
-//       payload:
-//         error &&
-//         error.response &&
-//         error.response.data &&
-//         error.response.data.data &&
-//         error.response.data.data.err &&
-//         error.response.data.data.msg,
-//     });
-//   }
-// }
+
+export const getRegisteredDetailsById=(DeviceID,DoctorName,HospitalName,Alias,IMEINumber,VentiOperator,Wardno) =>async(dispatch)=>{
+  try{
+    dispatch({
+      type:GET_REGISTERED_DEVICE_DETAILS_REQUEST,
+    });
+    const token = cookies.get('ddAdminToken');
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/logger/device`,
+      {
+        DeviceId:DeviceID,
+        Doctor_Name:DoctorName,
+        Hospital_Name:HospitalName,
+        AliasName:Alias,
+        IMEI_NO:IMEINumber,
+        Ventilator_Operator:VentiOperator,
+        Ward_No:Wardno,
+      },
+      config
+      );
+      dispatch({
+        type: GET_REGISTERED_DEVICE_DETAILS_SUCCESS,
+        payload: data,
+      });
+      console.log('data12',data);
+  }catch(error) {
+    dispatch({
+      type: GET_REGISTERED_DEVICE_DETAILS_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.msg,
+    });
+  }
+}
 export const getDetailsById = 
 (
   did = null,
@@ -234,12 +239,7 @@ async(dispatch)=>{
     })
   }
 };
-export const getDeviceLogsById = (
-  code,
-  DeviceID,
-  projectName,
-  did
-) => async (dispatch) => {
+export const getDeviceEventsById = () => async (dispatch) => {
   try {
       dispatch({
         type:GET_DEVICE_DETAILS_BY_ID_REQUEST,
@@ -251,10 +251,15 @@ export const getDeviceLogsById = (
           Authorization: `Bearer ${token}`,
         },
       };
+
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const DeviceId12 = urlParams.get('DeviceId');
+      console.log('Device12',DeviceId12)
       let response;
 
       response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/deviceLogs/${did}`, 
+        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/deviceEvents/${DeviceId12}`, 
         config
       );
       dispatch({

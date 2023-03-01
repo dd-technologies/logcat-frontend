@@ -3,10 +3,11 @@ import {Modal,Button,Form} from 'react-bootstrap';
 import { useDispatch,useSelector } from 'react-redux';
 import { registerNewDevice } from '../../../store/action/DeviceAction';
 import Style from "../../../css/EditDetailsModal.module.css";
+import Device from "../Device";
 
 const EditDetailsModal = (props) =>{
     const {item} = props;
-    console.log('did',item)
+    // console.log('did',item)
     const[EditDetails,setEditDetails] = useState({
         DeviceId:item,
         AliasName:'',
@@ -15,13 +16,22 @@ const EditDetailsModal = (props) =>{
         Ward_No:'',
         IMEI_No:'',
         Ventilator_Operator:'',
-
-
     });
+    localStorage.setItem('AliasName',JSON.stringify(EditDetails.AliasName))
     // console.log ({did});
-    console.log(EditDetails.DeviceId);
+    // console.log(EditDetails.DeviceId);
     // console.log(props)
-
+    const onClick = () =>{
+      props.sendData(EditDetails)
+    }
+    // const handleInputChange = (event) => {
+    //   const { name, value } = event.target;
+    //   setEditDetails((prevState) => ({
+    //     ...prevState,
+    //     [name]: value,
+    //   }));
+    //   props.onEditDetailsChange(EditDetails);
+    // };
     const [errorName,setErrorName]= useState();
     const [modalShow,setModalShow] = useState(false);
     const [errorMsg,setErrorMsg] = useState();
@@ -32,11 +42,11 @@ const EditDetailsModal = (props) =>{
         e.preventDefault();
         setErrorName("");
         setErrorMsg("");
-        if(item){
-          // console.log(item)
+        alert("Device Registered Successfully")
+        if(item && EditDetails.AliasName && EditDetails.Ward_No && EditDetails.Hospital_Name && EditDetails.Doctor_Name && EditDetails.IMEI_No && EditDetails.Ventilator_Operator){
+          console.log(EditDetails.AliasName)
             setErrorName("");
             setErrorMsg("");
-            setModalShow(false);
             dispatch(
                registerNewDevice(
                     item,
@@ -47,19 +57,18 @@ const EditDetailsModal = (props) =>{
                     EditDetails.IMEI_No,
                     EditDetails.Ventilator_Operator
                 ),
-            )        
+            ); 
+            props.onHide(); 
+            // console.log(item)
+            // console.log(EditDetails.AliasName)
+            // console.log(EditDetails.Hospital_Name)
+            // console.log(EditDetails.Doctor_Name)
+            // console.log(EditDetails.Ward_No)
+            // console.log(EditDetails.IMEI_No)
+            // console.log(EditDetails.Ventilator_Operator)    
       }
     }
-    const handleSuWbmit=(e)=>{
-      console.log(item)
-      console.log(EditDetails.AliasName)
-      console.log(EditDetails.Hospital_Name)
-      console.log(EditDetails.Doctor_Name)
-      console.log(EditDetails.Ward_No)
-      console.log(EditDetails.IMEI_No)
-      console.log(EditDetails.Ventilator_Operator)
-    }
-    
+  
    return(
     <>
     <Modal
@@ -92,7 +101,7 @@ const EditDetailsModal = (props) =>{
             ) : (
               ""
             )}
-          </Form.Group>
+            </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label className="darkModeColor">Alias Name</Form.Label>
@@ -231,14 +240,13 @@ const EditDetailsModal = (props) =>{
             <Button
               style={{ backgroundColor: "#1a83ff" }}
               onClick={(e) => {
-                handleSubmit(e);
+                handleSubmit(e); 
               }}
             >
               Register
             </Button>
           </section>
         </Modal.Footer>
-
     </Modal>
     </>
    )
