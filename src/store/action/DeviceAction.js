@@ -7,18 +7,24 @@ import {
     REGISTER_NEW_DEVICE_REQUEST,
     REGISTER_NEW_DEVICE_SUCCESS,
     REGISTER_NEW_DEVICE_FAIL,
-    GET_DEVICE_DETAILS_BY_ID_FAIL,
-    GET_DEVICE_DETAILS_BY_ID_SUCCESS,
-    GET_DEVICE_DETAILS_BY_ID_REQUEST,
+    GET_DEVICE_EVENTS_BY_ID_FAIL,
+    GET_DEVICE_EVENTS_BY_ID_SUCCESS,
+    GET_DEVICE_EVENTS_BY_ID_REQUEST,
     UPDATE_DEVICE_DETAILS_BY_ID_FAIL,
     UPDATE_DEVICE_DETAILS_BY_ID_SUCCESS,
     UPDATE_DEVICE_DETAILS_BY_ID_REQUEST,
     GET_REGISTERED_DEVICE_DETAILS_REQUEST,
     GET_REGISTERED_DEVICE_DETAILS_SUCCESS,
-    GET_REGISTERED_DEVICE_DETAILS_FAIL
+    GET_REGISTERED_DEVICE_DETAILS_FAIL,
     // GET_ALL_LOG_BY_CODE_FAIL,
     // GET_ALL_LOG_BY_CODE_REQUEST,
-    // GET_ALL_LOG_BY_CODE_SUCCESS
+    // GET_ALL_LOG_BY_CODE_SUCCESS,
+    GET_DEVICE_ALARMS_BY_ID_FAIL,
+    GET_DEVICE_ALARMS_BY_ID_REQUEST,
+    GET_DEVICE_ALARMS_BY_ID_SUCCESS,
+    GET_DEVICE_LOGS_BY_ID_FAIL,
+    GET_DEVICE_LOGS_BY_ID_REQUEST,
+    GET_DEVICE_LOGS_BY_ID_SUCCESS
 
 }from "../types/DeviceConstant";
 const cookies = new Cookies();
@@ -146,103 +152,103 @@ export const getRegisteredDetailsById=(DeviceID,DoctorName,HospitalName,Alias,IM
     });
   }
 }
-export const getDetailsById = 
-(
-  did = null,
+// export const getDetailsById = 
+// (
+//   did = null,
   
-)=>
-async(dispatch)=>{
-  try{
-    dispatch({
-      type:GET_DEVICE_DETAILS_BY_ID_REQUEST
-    });
-    const token = cookies.get('ddAdminToken');
-    const config ={
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const response = await axios.get(
-      // `${process.env.REACT_APP_BASE_URL}/api/logger/device/RegisterDevice/${DeviceID}`,
-      `${process.env.REACT_APP_BASE_URL}/api/logger/logs/AllEvents/Events/${did}`,
-      config
-    );
-    dispatch({
-      type:GET_DEVICE_DETAILS_BY_ID_SUCCESS,
-      payload:response.data,
-    });
-  }catch(error){
-    dispatch({
-      type:GET_DEVICE_DETAILS_BY_ID_FAIL,
-      payload:
-      error &&
-      error.response &&
-      error.response.data &&
-      error.response.data.data &&
-      error.response.data.data.err &&
-      error.response.data.data.msg,
-    })
-  }
-};
+// )=>
+// async(dispatch)=>{
+//   try{
+//     dispatch({
+//       type:GET_DEVICE_DETAILS_BY_ID_REQUEST
+//     });
+//     const token = cookies.get('ddAdminToken');
+//     const config ={
+//       headers: {
+//         "Content-type": "application/json",
+//         Authorization: `Bearer ${token}`,
+//       },
+//     };
+//     const response = await axios.get(
+//       // `${process.env.REACT_APP_BASE_URL}/api/logger/device/RegisterDevice/${DeviceID}`,
+//       `${process.env.REACT_APP_BASE_URL}/api/logger/logs/AllEvents/Events/${did}`,
+//       config
+//     );
+//     dispatch({
+//       type:GET_DEVICE_DETAILS_BY_ID_SUCCESS,
+//       payload:response.data,
+//     });
+//   }catch(error){
+//     dispatch({
+//       type:GET_DEVICE_DETAILS_BY_ID_FAIL,
+//       payload:
+//       error &&
+//       error.response &&
+//       error.response.data &&
+//       error.response.data.data &&
+//       error.response.data.data.err &&
+//       error.response.data.data.msg,
+//     })
+//   }
+// };
 
-export const updateDetailsById = 
-(
-  DeviceID,
-  Hospital_Name,
-  Doctor_Name,
-  AliasName,
-  Ward_No,
-  IMEI_NO,
-  Ventilator_Operator,
-)=>
-async(dispatch)=>{
-  try{
-    dispatch({
-      type:UPDATE_DEVICE_DETAILS_BY_ID_REQUEST
-    });
-    const token = cookies.get('ddAdminToken');
-    const config ={
-      method:'PATCH',
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body:{
-        // DeviceID:DeviceID,
-        // AliasName:AliasName,
-        // Doctor_Name:Doctor_Name,
-        // Hospital_Name:Hospital_Name,
-        // Ward_No:Ward_No,
-        // IMEI_NO:IMEI_NO,
-        // Ventilator_Operator:Ventilator_Operator
-      }
-    };
-    let response = await axios.patch(
-      `${process.env.REACT_APP_BASE_URL}/api/logger/device/RegisterDevice/`,
-      config
-    );
-    dispatch({
-      type:UPDATE_DEVICE_DETAILS_BY_ID_SUCCESS,
-      payload:response.data,
-    });
-  }catch(error){
-    dispatch({
-      type:UPDATE_DEVICE_DETAILS_BY_ID_FAIL,
-      payload:
-      error &&
-      error.response &&
-      error.response.data &&
-      error.response.data.data &&
-      error.response.data.data.err &&
-      error.response.data.data.msg,
-    })
-  }
-};
+// export const updateDetailsById = 
+// (
+//   DeviceID,
+//   Hospital_Name,
+//   Doctor_Name,
+//   AliasName,
+//   Ward_No,
+//   IMEI_NO,
+//   Ventilator_Operator,
+// )=>
+// async(dispatch)=>{
+//   try{
+//     dispatch({
+//       type:UPDATE_DEVICE_DETAILS_BY_ID_REQUEST
+//     });
+//     const token = cookies.get('ddAdminToken');
+//     const config ={
+//       method:'PATCH',
+//       headers: {
+//         "Content-type": "application/json",
+//         Authorization: `Bearer ${token}`,
+//       },
+//       body:{
+//         // DeviceID:DeviceID,
+//         // AliasName:AliasName,
+//         // Doctor_Name:Doctor_Name,
+//         // Hospital_Name:Hospital_Name,
+//         // Ward_No:Ward_No,
+//         // IMEI_NO:IMEI_NO,
+//         // Ventilator_Operator:Ventilator_Operator
+//       }
+//     };
+//     let response = await axios.patch(
+//       `${process.env.REACT_APP_BASE_URL}/api/logger/device/RegisterDevice/`,
+//       config
+//     );
+//     dispatch({
+//       type:UPDATE_DEVICE_DETAILS_BY_ID_SUCCESS,
+//       payload:response.data,
+//     });
+//   }catch(error){
+//     dispatch({
+//       type:UPDATE_DEVICE_DETAILS_BY_ID_FAIL,
+//       payload:
+//       error &&
+//       error.response &&
+//       error.response.data &&
+//       error.response.data.data &&
+//       error.response.data.data.err &&
+//       error.response.data.data.msg,
+//     })
+//   }
+// };
 export const getDeviceEventsById = () => async (dispatch) => {
   try {
       dispatch({
-        type:GET_DEVICE_DETAILS_BY_ID_REQUEST,
+        type:GET_DEVICE_EVENTS_BY_ID_REQUEST,
       });
       const token = cookies.get('ddAdminToken');
       const config = {
@@ -263,12 +269,92 @@ export const getDeviceEventsById = () => async (dispatch) => {
         config
       );
       dispatch({
-        type:GET_DEVICE_DETAILS_BY_ID_SUCCESS,
+        type:GET_DEVICE_EVENTS_BY_ID_SUCCESS,
         payload:response.data,
       });
     }catch(error){
         dispatch({
-            type: GET_DEVICE_DETAILS_BY_ID_FAIL,
+            type: GET_DEVICE_EVENTS_BY_ID_FAIL,
+            payload:
+              error &&
+              error.response &&
+              error.response.data &&
+              error.response.data.data &&
+              error.response.data.data.err &&
+              error.response.data.data.err.msg,
+          });
+    }
+};
+export const getDeviceAlarmsById = () => async (dispatch) => {
+  try {
+      dispatch({
+        type:GET_DEVICE_ALARMS_BY_ID_REQUEST,
+      });
+      const token = cookies.get('ddAdminToken');
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const DeviceId121 = urlParams.get('DeviceId');
+      console.log('Device12',DeviceId121)
+      let response;
+
+      response = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/deviceAlerts/${DeviceId121}`, 
+        config
+      );
+      dispatch({
+        type:GET_DEVICE_ALARMS_BY_ID_SUCCESS,
+        payload:response.data,
+      });
+    }catch(error){
+        dispatch({
+            type: GET_DEVICE_ALARMS_BY_ID_FAIL,
+            payload:
+              error &&
+              error.response &&
+              error.response.data &&
+              error.response.data.data &&
+              error.response.data.data.err &&
+              error.response.data.data.err.msg,
+          });
+    }
+};
+export const getDeviceLogsById = () => async (dispatch) => {
+  try {
+      dispatch({
+        type:GET_DEVICE_LOGS_BY_ID_REQUEST,
+      });
+      const token = cookies.get('ddAdminToken');
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const DeviceId121 = urlParams.get('DeviceId');
+      console.log('Device12',DeviceId121)
+      let response;
+
+      response = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/deviceLogs/${DeviceId121}`, 
+        config
+      );
+      dispatch({
+        type:GET_DEVICE_LOGS_BY_ID_SUCCESS,
+        payload:response.data,
+      });
+    }catch(error){
+        dispatch({
+            type: GET_DEVICE_LOGS_BY_ID_FAIL,
             payload:
               error &&
               error.response &&

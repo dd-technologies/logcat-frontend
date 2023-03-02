@@ -1934,7 +1934,7 @@ return (
                                   }}
                                 >
                              <Link to={`/deviceEvents?code=${code}&projectName=${projectName}&DeviceId=${item.did}`} onClick={routeChange} style={{textDecoration:"none",color:"black"}}>{item.did}</Link>
-                             {localStorage.setItem('DeviceId',JSON.stringify(item.did))}
+                             {/* {localStorage.setItem('DeviceId',JSON.stringify(item.did))} */}
                                 {console.log('did',item.did)}
                                 </section>
                                 <section

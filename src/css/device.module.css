@@ -17,14 +17,13 @@
   height: 40px;
 }
 .Tabs{
- margin-right: 50px;
  font-weight: 200;
  background-color: rgba(122, 122, 122, 0.082);
  
 }
 .Tabs button{
   margin-right: 20px;
-  font-weight: 400;
+  font-weight: 600;
   font-size: large;
 }
 .searchSection .filterGraphFirstSection {
