@@ -103,7 +103,7 @@ export const getRegisteredDetailsReducer = (state={},action)=>{
     case GET_REGISTERED_DEVICE_DETAILS_SUCCESS:
       return{
         loading:false,
-        data1 : action.payload,
+        data12 : action.payload,
       }
     case GET_REGISTERED_DEVICE_DETAILS_FAIL:
       return{

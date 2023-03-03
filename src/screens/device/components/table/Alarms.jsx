@@ -34,7 +34,7 @@ export default function Alarms(){
         <section className={Style.alertTable}>
             <section className={Style.tableHeader}>
                 <section style={{
-                     color: theme == 'light-theme' ? '#000' : '#fff',
+                     color: theme === 'light-theme' ? '#000' : '#fff',
                 }}
                 ><input
                 type="checkbox"
@@ -48,7 +48,7 @@ export default function Alarms(){
                                 style={{
                                   marginRight: '10px',
                                   color:
-                                    theme == 'light-theme' ? '#000' : '#fff',
+                                    theme === 'light-theme' ? '#000' : '#fff',
                                   fontWeight: '600',
                                   fontSize: '.9rem',
                                 }}
@@ -80,7 +80,7 @@ export default function Alarms(){
                                 style={{
                                   marginRight: '10px',
                                   color:
-                                    theme == 'light-theme' ? '#000' : '#fff',
+                                    theme === 'light-theme' ? '#000' : '#fff',
                                   fontWeight: '600',
                                   fontSize: '.9rem',
                                 }}
@@ -112,7 +112,7 @@ export default function Alarms(){
                                 style={{
                                   marginRight: '10px',
                                   color:
-                                    theme == 'light-theme' ? '#000' : '#fff',
+                                    theme === 'light-theme' ? '#000' : '#fff',
                                   fontWeight: '600',
                                   fontSize: '.9rem',
                                 }}
@@ -144,7 +144,7 @@ export default function Alarms(){
                                 style={{
                                   marginRight: '10px',
                                   color:
-                                    theme == 'light-theme' ? '#000' : '#fff',
+                                    theme === 'light-theme' ? '#000' : '#fff',
                                   fontWeight: '600',
                                   fontSize: '.9rem',
                                 }}
@@ -176,7 +176,7 @@ export default function Alarms(){
                                 style={{
                                   marginRight: '10px',
                                   color:
-                                    theme == 'light-theme' ? '#000' : '#fff',
+                                    theme === 'light-theme' ? '#000' : '#fff',
                                   fontWeight: '600',
                                   fontSize: '.9rem',
                                 }}
@@ -208,7 +208,7 @@ export default function Alarms(){
                                 style={{
                                   marginRight: '10px',
                                   color:
-                                    theme == 'light-theme' ? '#000' : '#fff',
+                                    theme === 'light-theme' ? '#000' : '#fff',
                                   fontWeight: '600',
                                   fontSize: '.9rem',
                                 }}
@@ -251,7 +251,7 @@ export default function Alarms(){
                                 <section
                                     style={{
                                       color:
-                                        theme == 'light-theme' ? '' : '#fff',
+                                        theme === 'light-theme' ? '' : '#fff',
                                         
                                     }}
                                   >
@@ -260,7 +260,7 @@ export default function Alarms(){
                                   <section
                                     style={{
                                       color:
-                                        theme == 'light-theme' ? '' : '#fff',
+                                        theme === 'light-theme' ? '' : '#fff',
                                         
                                     }}
                                   >
@@ -269,7 +269,7 @@ export default function Alarms(){
                                   <section
                                     style={{
                                       color:
-                                        theme == 'light-theme' ? '' : '#fff',
+                                        theme === 'light-theme' ? '' : '#fff',
                                         
                                     }}
                                   >
@@ -278,7 +278,7 @@ export default function Alarms(){
                                   <section
                                     style={{
                                       color:
-                                        theme == 'light-theme' ? '' : '#fff',
+                                        theme === 'light-theme' ? '' : '#fff',
                                         
                                     }}
                                   >
@@ -287,7 +287,7 @@ export default function Alarms(){
                                   <section
                                     style={{
                                       color:
-                                        theme == 'light-theme' ? '' : '#fff',
+                                        theme === 'light-theme' ? '' : '#fff',
                                         
                                     }}
                                   >
@@ -296,7 +296,7 @@ export default function Alarms(){
                                   <section
                                       style={{
                                         color:
-                                          theme == 'light-theme' ? '' : '#fff',
+                                          theme === 'light-theme' ? '' : '#fff',
                                       }}
                                     >
                                       {item.ack.date.split('T')[1].split('.')[0]}

@@ -1,8 +1,7 @@
-import React,{useState} from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import Style from '../../../../css/deviceEvents.module.css';
 import { ThemeContext } from '../../../../utils/ThemeContext';
-import { getDeviceEventsById } from '../../../../store/action/DeviceAction';
 
 export default function Events(){
   const {theme} = React.useContext(ThemeContext);
@@ -12,15 +11,13 @@ export default function Events(){
   
     let eventsFilter = data && data.data && data.data.findDeviceById;
     // console.log(eventsFilter)
-    let ds = data && data.state;
-    // console.log('ds',ds)
 
     return(
       <>
        <section className={Style.alertTable}>
         <section className={Style.tableHeader}>
           <section style={{
-            color: theme == 'light-theme' ? '#000' : '#fff',
+            color: theme === 'light-theme' ? '#000' : '#fff',
           }}
           ><input
           type="checkbox"
@@ -34,7 +31,7 @@ export default function Events(){
                                 style={{
                                   marginRight: '10px',
                                   color:
-                                    theme == 'light-theme' ? '#000' : '#fff',
+                                    theme === 'light-theme' ? '#000' : '#fff',
                                   fontWeight: '600',
                                   fontSize: '.9rem',
                                 }}
@@ -66,7 +63,7 @@ export default function Events(){
                                 style={{
                                   marginRight: '10px',
                                   color:
-                                    theme == 'light-theme' ? '#000' : '#fff',
+                                    theme === 'light-theme' ? '#000' : '#fff',
                                   fontWeight: '600',
                                   fontSize: '.9rem',
                                 }}
@@ -98,7 +95,7 @@ export default function Events(){
                                 style={{
                                   marginRight: '10px',
                                   color:
-                                    theme == 'light-theme' ? '#000' : '#fff',
+                                    theme === 'light-theme' ? '#000' : '#fff',
                                   fontWeight: '600',
                                   fontSize: '.9rem',
                                 }}
@@ -130,7 +127,7 @@ export default function Events(){
                                 style={{
                                   marginRight: '10px',
                                   color:
-                                    theme == 'light-theme' ? '#000' : '#fff',
+                                    theme === 'light-theme' ? '#000' : '#fff',
                                   fontWeight: '600',
                                   fontSize: '.9rem',
                                 }}
@@ -162,7 +159,7 @@ export default function Events(){
                                 style={{
                                   marginRight: '10px',
                                   color:
-                                    theme == 'light-theme' ? '#000' : '#fff',
+                                    theme === 'light-theme' ? '#000' : '#fff',
                                   fontWeight: '600',
                                   fontSize: '.9rem',
                                 }}
@@ -210,7 +207,7 @@ export default function Events(){
                                   <section
                                     style={{
                                       color:
-                                        theme == 'light-theme' ? '' : '#fff',
+                                        theme === 'light-theme' ? '' : '#fff',
                                         
                                     }}
                                   >
@@ -219,7 +216,7 @@ export default function Events(){
                                   <section
                                     style={{
                                       color:
-                                        theme == 'light-theme' ? '' : '#fff',
+                                        theme === 'light-theme' ? '' : '#fff',
                                     }}
                                   >
                                     {item1.message}
@@ -227,7 +224,7 @@ export default function Events(){
                                   <section
                                     style={{
                                       color:
-                                        theme == 'light-theme' ? '' : '#fff',
+                                        theme === 'light-theme' ? '' : '#fff',
                                     }}
                                   >
                                     {item1.type}
@@ -243,7 +240,7 @@ export default function Events(){
                                       <section
                                       style={{
                                         color:
-                                          theme == 'light-theme' ? '' : '#fff',
+                                          theme === 'light-theme' ? '' : '#fff',
                                       }}
                                     >
                                       {item1.date.split('T')[0]}
@@ -251,7 +248,7 @@ export default function Events(){
                                   <section
                                       style={{
                                         color:
-                                          theme == 'light-theme' ? '' : '#fff',
+                                          theme === 'light-theme' ? '' : '#fff',
                                       }}
                                     >
                                       {item1.date.split('T')[1].split('.')[0]}

@@ -32,7 +32,7 @@ export default function Logs(){
         <section className={Style.alertTable}>
             <section className={Style.tableHeader}>
                 <section style={{
-                    color:theme == 'light-theme' ? '#000' : '#fff',
+                    color:theme === 'light-theme' ? '#000' : '#fff',
                 }}
                 ><input
                 type="checkbox"
@@ -46,7 +46,7 @@ export default function Logs(){
                                 style={{
                                   marginRight: '10px',
                                   color:
-                                    theme == 'light-theme' ? '#000' : '#fff',
+                                    theme === 'light-theme' ? '#000' : '#fff',
                                   fontWeight: '600',
                                   fontSize: '.9rem',
                                 }}
@@ -78,7 +78,7 @@ export default function Logs(){
                                 style={{
                                   marginRight: '10px',
                                   color:
-                                    theme == 'light-theme' ? '#000' : '#fff',
+                                    theme === 'light-theme' ? '#000' : '#fff',
                                   fontWeight: '600',
                                   fontSize: '.9rem',
                                 }}
@@ -110,7 +110,7 @@ export default function Logs(){
                                 style={{
                                   marginRight: '10px',
                                   color:
-                                    theme == 'light-theme' ? '#000' : '#fff',
+                                    theme === 'light-theme' ? '#000' : '#fff',
                                   fontWeight: '600',
                                   fontSize: '.9rem',
                                 }}
@@ -142,7 +142,7 @@ export default function Logs(){
                                 style={{
                                   marginRight: '10px',
                                   color:
-                                    theme == 'light-theme' ? '#000' : '#fff',
+                                    theme === 'light-theme' ? '#000' : '#fff',
                                   fontWeight: '600',
                                   fontSize: '.9rem',
                                 }}
@@ -174,7 +174,7 @@ export default function Logs(){
                                 style={{
                                   marginRight: '10px',
                                   color:
-                                    theme == 'light-theme' ? '#000' : '#fff',
+                                    theme === 'light-theme' ? '#000' : '#fff',
                                   fontWeight: '600',
                                   fontSize: '.9rem',
                                 }}
@@ -206,7 +206,7 @@ export default function Logs(){
                                 style={{
                                   marginRight: '10px',
                                   color:
-                                    theme == 'light-theme' ? '#000' : '#fff',
+                                    theme === 'light-theme' ? '#000' : '#fff',
                                   fontWeight: '600',
                                   fontSize: '.9rem',
                                 }}
@@ -249,7 +249,7 @@ export default function Logs(){
                                 <section
                                     style={{
                                       color:
-                                        theme == 'light-theme' ? '' : '#fff',
+                                        theme === 'light-theme' ? '' : '#fff',
                                         
                                     }}
                                   >
@@ -263,7 +263,7 @@ export default function Logs(){
                                   <section
                                     style={{
                                       color:
-                                        theme == 'light-theme' ? '' : '#fff',
+                                        theme === 'light-theme' ? '' : '#fff',
                                         
                                     }}
                                   >
@@ -272,7 +272,7 @@ export default function Logs(){
                                   <section
                                     style={{
                                       color:
-                                        theme == 'light-theme' ? '' : '#fff',
+                                        theme === 'light-theme' ? '' : '#fff',
                                         
                                     }}
                                   >
@@ -281,32 +281,32 @@ export default function Logs(){
                                   <section
                                     style={{
                                       color:
-                                        theme == 'light-theme' ? '' : '#fff',
+                                        theme === 'light-theme' ? '' : '#fff',
                                         
                                     }}
                                   >
                                     <section>
-                      {item.log.type == 'error' && (
+                      {item.log.type === 'error' && (
                         <span style={{ color: 'red' }}>
                           {item.log.type.toUpperCase()}
                         </span>
                       )}
-                      {item.log.type == 'info' && (
+                      {item.log.type === 'info' && (
                         <span style={{ color: 'blue' }}>
                           {item.log.type.toUpperCase()}
                         </span>
                       )}
-                      {item.log.type == 'warn' && (
+                      {item.log.type === 'warn' && (
                         <span style={{ color: 'violet' }}>
                           {item.log.type.toUpperCase()}
                         </span>
                       )}
-                      {item.log.type == 'debug' && (
+                      {item.log.type === 'debug' && (
                         <span style={{ color: 'green' }}>
                           {item.log.type.toUpperCase()}
                         </span>
                       )}
-                      {item.log.type == 'verbose' && (
+                      {item.log.type === 'verbose' && (
                         <span style={{ color: 'purple' }}>
                           {item.log.type.toUpperCase()}
                         </span>
@@ -317,7 +317,7 @@ export default function Logs(){
                                    <section
                                     style={{
                                       color:
-                                        theme == 'light-theme' ? '' : '#fff',
+                                        theme === 'light-theme' ? '' : '#fff',
                                         
                                     }}
                                   >
@@ -327,14 +327,13 @@ export default function Logs(){
                                   <section
                                       style={{
                                         color:
-                                          theme == 'light-theme' ? '' : '#fff',
+                                          theme === 'light-theme' ? '' : '#fff',
                                       }}
                                     >
                                     {item.log.date.split('T')[1].split('.')[0]}
                                     </section>
                               </section>
                               
-
                         </React.Fragment>
                     )
                 })}

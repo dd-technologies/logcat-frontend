@@ -10,9 +10,9 @@ import {
     GET_DEVICE_EVENTS_BY_ID_FAIL,
     GET_DEVICE_EVENTS_BY_ID_SUCCESS,
     GET_DEVICE_EVENTS_BY_ID_REQUEST,
-    UPDATE_DEVICE_DETAILS_BY_ID_FAIL,
-    UPDATE_DEVICE_DETAILS_BY_ID_SUCCESS,
-    UPDATE_DEVICE_DETAILS_BY_ID_REQUEST,
+    // UPDATE_DEVICE_DETAILS_BY_ID_FAIL,
+    // UPDATE_DEVICE_DETAILS_BY_ID_SUCCESS,
+    // UPDATE_DEVICE_DETAILS_BY_ID_REQUEST,
     GET_REGISTERED_DEVICE_DETAILS_REQUEST,
     GET_REGISTERED_DEVICE_DETAILS_SUCCESS,
     GET_REGISTERED_DEVICE_DETAILS_FAIL,
@@ -66,6 +66,7 @@ export const deviceAction = (
           });
     }
 };
+//Register API Used in EditDetailsModal
 export const registerNewDevice = ( DeviceID,DoctorName,HospitalName,Alias,IMEINumber,VentiOperator,Wardno) =>async(dispatch)=>{
   try{
     dispatch({

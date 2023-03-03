@@ -745,7 +745,7 @@ export default function TableDataNew(props) {
               />
             </section>
             <section
-              style={{ color: theme == 'light-theme' ? '#000' : '#fff' }}
+              style={{ color: theme === 'light-theme' ? '#000' : '#fff' }}
             >
               Log Message
               <span
@@ -771,7 +771,7 @@ export default function TableDataNew(props) {
               </span>
             </section>
             <section
-              style={{ color: theme == 'light-theme' ? '#000' : '#fff' }}
+              style={{ color: theme === 'light-theme' ? '#000' : '#fff' }}
             >
               Log Type
               <span
@@ -799,7 +799,7 @@ export default function TableDataNew(props) {
 
             <section>
               <section
-                style={{ color: theme == 'light-theme' ? '#000' : '#fff' }}
+                style={{ color: theme === 'light-theme' ? '#000' : '#fff' }}
               >
                 Device Id
                 <span
@@ -826,7 +826,7 @@ export default function TableDataNew(props) {
               </section>
             </section>
             <section>
-              <section style={{ color: theme == 'light-theme' ? '' : '#fff' }}>
+              <section style={{ color: theme === 'light-theme' ? '' : '#fff' }}>
                 Category
                 <span
                   style={{ cursor: 'pointer', margin: '0px 5px' }}
@@ -852,7 +852,7 @@ export default function TableDataNew(props) {
               </section>
             </section>
             <section>
-              <section style={{ color: theme == 'light-theme' ? '' : '#fff' }}>
+              <section style={{ color: theme === 'light-theme' ? '' : '#fff' }}>
                 Date
                 <span
                   style={{ cursor: 'pointer', margin: '0px 5px' }}
@@ -878,7 +878,7 @@ export default function TableDataNew(props) {
               </section>
             </section>
             <section>
-              <section style={{ color: theme == 'light-theme' ? '' : '#fff' }}>
+              <section style={{ color: theme === 'light-theme' ? '' : '#fff' }}>
                 Time
                 <span
                   style={{ cursor: 'pointer', margin: '0px 5px' }}
@@ -931,7 +931,7 @@ export default function TableDataNew(props) {
                         <a
                           className={Style.logMsg}
                           style={{
-                            color: theme == 'light-theme' ? '#7D7A8C' : '#fff',
+                            color: theme === 'light-theme' ? '#7D7A8C' : '#fff',
                           }}
                           href={`/analytics?code=${props.code}&name=${props.projectName}&col=${item?.log?.message}&rowlogGeneratedDate=${item?.log?.date}&version=${item?.version}&osArchitecture=${item?.device?.os?.name}&modelName=${item.device.name}&pagename=analytics&projectCodeAnalytics=${projectCodeAnalytics}`}
                         >
@@ -946,14 +946,14 @@ export default function TableDataNew(props) {
                     <section>
                       <p
                         style={{
-                          color: theme == 'light-theme' ? '#000' : '#fff',
+                          color: theme === 'light-theme' ? '#000' : '#fff',
                         }}
                       >
                         {item.log.message && 'TEXT'}
                       </p>
                       <p
                         style={{
-                          color: theme == 'light-theme' ? '#000' : '#fff',
+                          color: theme === 'light-theme' ? '#000' : '#fff',
                         }}
                       >
                         {item.log.filePath && 'FILE'}
@@ -961,44 +961,44 @@ export default function TableDataNew(props) {
                     </section>
 
                     <section
-                      style={{ color: theme == 'light-theme' ? '' : '#fff' }}
+                      style={{ color: theme === 'light-theme' ? '' : '#fff' }}
                     >
                       {item?.device?.did}
                     </section>
                     <section>
-                      {item.log.type == 'error' && (
+                      {item.log.type === 'error' && (
                         <span style={{ color: 'red' }}>
                           {item.log.type.toUpperCase()}
                         </span>
                       )}
-                      {item.log.type == 'info' && (
+                      {item.log.type === 'info' && (
                         <span style={{ color: 'blue' }}>
                           {item.log.type.toUpperCase()}
                         </span>
                       )}
-                      {item.log.type == 'warn' && (
+                      {item.log.type === 'warn' && (
                         <span style={{ color: 'violet' }}>
                           {item.log.type.toUpperCase()}
                         </span>
                       )}
-                      {item.log.type == 'debug' && (
+                      {item.log.type === 'debug' && (
                         <span style={{ color: 'green' }}>
                           {item.log.type.toUpperCase()}
                         </span>
                       )}
-                      {item.log.type == 'verbose' && (
+                      {item.log.type === 'verbose' && (
                         <span style={{ color: 'purple' }}>
                           {item.log.type.toUpperCase()}
                         </span>
                       )}
                     </section>
                     <section
-                      style={{ color: theme == 'light-theme' ? '' : '#fff' }}
+                      style={{ color: theme === 'light-theme' ? '' : '#fff' }}
                     >
                       {item.log.date.split('T')[0]}
                     </section>
                     <section
-                      style={{ color: theme == 'light-theme' ? '' : '#fff' }}
+                      style={{ color: theme === 'light-theme' ? '' : '#fff' }}
                     >
                       {item.log.date.split('T')[1].split('.')[0]}
                     </section>

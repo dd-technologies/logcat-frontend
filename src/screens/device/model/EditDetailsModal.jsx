@@ -1,13 +1,11 @@
 import React,{useState} from 'react';
 import {Modal,Button,Form} from 'react-bootstrap';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { registerNewDevice } from '../../../store/action/DeviceAction';
 import Style from "../../../css/EditDetailsModal.module.css";
-import Device from "../Device";
 
 const EditDetailsModal = (props) =>{
     const {item} = props;
-    // console.log('did',item)
     const[EditDetails,setEditDetails] = useState({
         DeviceId:item,
         AliasName:'',
@@ -17,23 +15,11 @@ const EditDetailsModal = (props) =>{
         IMEI_No:'',
         Ventilator_Operator:'',
     });
-    localStorage.setItem('AliasName',JSON.stringify(EditDetails.AliasName))
-    // console.log ({did});
-    // console.log(EditDetails.DeviceId);
-    // console.log(props)
-    const onClick = () =>{
-      props.sendData(EditDetails)
-    }
-    // const handleInputChange = (event) => {
-    //   const { name, value } = event.target;
-    //   setEditDetails((prevState) => ({
-    //     ...prevState,
-    //     [name]: value,
-    //   }));
-    //   props.onEditDetailsChange(EditDetails);
-    // };
+    localStorage.setItem('AliasName',JSON.stringify(EditDetails.AliasName));  
+
+
+
     const [errorName,setErrorName]= useState();
-    const [modalShow,setModalShow] = useState(false);
     const [errorMsg,setErrorMsg] = useState();
 
     const dispatch = useDispatch();
@@ -57,7 +43,7 @@ const EditDetailsModal = (props) =>{
                     EditDetails.IMEI_No,
                     EditDetails.Ventilator_Operator
                 ),
-            ); 
+            );
             props.onHide(); 
             // console.log(item)
             // console.log(EditDetails.AliasName)
@@ -67,6 +53,7 @@ const EditDetailsModal = (props) =>{
             // console.log(EditDetails.IMEI_No)
             // console.log(EditDetails.Ventilator_Operator)    
       }
+
     }
   
    return(

@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   faDatabase,
 } from '@fortawesome/free-solid-svg-icons';
 import { Container, Row, Col} from 'react-bootstrap';
 import Style from '../../css/device.module.css';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import LogICon from '../../assets/icons/log.png';
