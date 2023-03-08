@@ -3,6 +3,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import Style from '../../../../css/deviceLogs.module.css';
 import { ThemeContext } from '../../../../utils/ThemeContext';
 import { getDeviceLogsById } from '../../../../store/action/DeviceAction';
+import { Link } from 'react-router-dom';
 
 export default function Logs(){
     const {theme} = React.useContext(ThemeContext);
@@ -51,7 +52,7 @@ export default function Logs(){
                                   fontSize: '.9rem',
                                 }}
                               >
-                                Log Message
+                              Log Message
                               </p>
                               {/* <FontAwesomeIcon
                                 color="#0099a4"
@@ -252,13 +253,13 @@ export default function Logs(){
                                         theme === 'light-theme' ? '' : '#fff',
                                         
                                     }}
-                                  >
+                                  ><Link to={`/deviceAnalytics`}>
                                     {/* {item.log.message} */}
                                     {item.log.filePath
                             ? item.log.file
                             : item.log.message.includes('at ')
                             ? item.log.message.split('at ')[0]
-                            : item.log.message}
+                            : item.log.message}</Link>
                                   </section>
                                   <section
                                     style={{

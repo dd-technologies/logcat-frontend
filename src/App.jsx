@@ -20,6 +20,7 @@ import ddLoader from "../src/assets/images/ddLoader.gif";
 import "./css/Theme.css"
 import DeviceLogs from "./screens/device/DeviceLogs";
 import Alarms from "./screens/device/components/table/Alarms";
+import DeviceAnalytics from "./screens/deviceAnalytics/DeviceAnalytics";
 
 function App() {
   const [splash, setSplash] = useState(true);
@@ -68,6 +69,7 @@ function App() {
               <Route exact path="/device" element={<Device/>}/>
               <Route exact path="/deviceEvents" element={<DeviceLogs/>}/>
               <Route exact path="/deviceAlerts" element={<Alarms/>}/>
+              <Route exact path="/deviceAnalytics" element={<DeviceAnalytics/>}/>
               {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
                 <Route exact path="/settings" element={<Settings />} />
               )}

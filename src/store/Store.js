@@ -20,7 +20,7 @@ import {
   getLogMsgOccurenceWRTDateReducer, getCrashFreeUsersReducer, getCrashAnalyticsDataReducer, getCrashFreeUsersDataReducer, getModelCodeReducer, addCrashEmailReducer, getProjectByCodeSettingReducer,
 } from "./reducer/ProjectReducer";
 import { passwordChangeReducer, userInfoReducer } from "./reducer/UserProfileReducer";
-import {deviceReducer,getAllEventsByDeviceIdReducer,getRegisteredDetailsReducer,getAllAlarmsByDeviceIdReducer,getAllLogsByDeviceIdReducer} from "./reducer/deviceReducer";
+import {deviceReducer,getAllEventsByDeviceIdReducer,getRegisteredDetailsReducer,getAllAlarmsByDeviceIdReducer,getAllLogsByDeviceIdReducer} from "./reducer/DeviceReducer";
 import { alarmReducer } from "./reducer/AlarmReducer";
 import { updateUserInfoReducer } from "./reducer/UpdateUserInfoReducer"
 import { getAllDeviceLogsReducer } from "./reducer/ProjectReducer";
