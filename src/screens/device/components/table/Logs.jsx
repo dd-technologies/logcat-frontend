@@ -253,7 +253,7 @@ export default function Logs(){
                                         theme === 'light-theme' ? '' : '#fff',
                                         
                                     }}
-                                  ><Link to={`/deviceAnalytics`}>
+                                  ><Link to={`/deviceAnalytics?DeviceId=${item?.did}&logMsg=${item?.log?.message}&col=${item?.log?.message}`} style={{textDecoration:'none',color:'black'}}>
                                     {/* {item.log.message} */}
                                     {item.log.filePath
                             ? item.log.file

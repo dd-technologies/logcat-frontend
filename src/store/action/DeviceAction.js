@@ -24,7 +24,13 @@ import {
     GET_DEVICE_ALARMS_BY_ID_SUCCESS,
     GET_DEVICE_LOGS_BY_ID_FAIL,
     GET_DEVICE_LOGS_BY_ID_REQUEST,
-    GET_DEVICE_LOGS_BY_ID_SUCCESS
+    GET_DEVICE_LOGS_BY_ID_SUCCESS,
+    GET_LOG_MSG_OCCURENCE_FAIL,
+    GET_LOG_MSG_OCCURENCE_REQUEST,
+    GET_LOG_MSG_OCCURENCE_SUCCESS,
+    GET_DEVICE_CRASH_ANALYTICS_DATA_FAIL,
+    GET_DEVICE_CRASH_ANALYTICS_DATA_REQUEST,
+    GET_DEVICE_CRASH_ANALYTICS_DATA_SUCCESS
 
 }from "../types/DeviceConstant";
 const cookies = new Cookies();
@@ -366,3 +372,72 @@ export const getDeviceLogsById = () => async (dispatch) => {
           });
     }
 };
+
+export const getLogMsgOccurence = (did,logMsg) => async (dispatch) =>{
+  try{
+        dispatch({
+          type:GET_LOG_MSG_OCCURENCE_REQUEST,
+        });
+        const token = cookies.get('ddAdminToken');
+        const config = {
+          headers:{
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          }
+        };
+        const {data} = await axios.get(
+                `${process.env.REACT_APP_BASE_URL}/api/logger/logs/logMsgOccurence2/${did}?logMsg=${logMsg}`,
+                config
+              );
+              dispatch({
+                type:GET_LOG_MSG_OCCURENCE_SUCCESS,
+                payload:data.data
+              });
+              console.log(data)
+            }catch(error){
+              dispatch({
+                type:GET_LOG_MSG_OCCURENCE_FAIL,
+                payload:
+                    error &&
+                    error.response &&
+                    error.response.data &&
+                    error.response.data.data &&
+                    error.response.data.data.err &&
+                    error.response.data.data.err.msg,
+              })
+            }
+};
+export const getDeviceCrashAnalytics = (did,logMsg)=>async (dispatch) =>{
+  try{
+    dispatch({
+      type:GET_DEVICE_CRASH_ANALYTICS_DATA_REQUEST,
+    });
+    const token = cookies.get('ddAdminToken');
+    const config = {
+      headers:{
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    };
+    const { data } = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/get-crashlytics-data2/${did}?&logMsg=${logMsg}`,
+        config
+      );
+      dispatch({
+        type:GET_DEVICE_CRASH_ANALYTICS_DATA_SUCCESS,
+        payload: data.data,
+  });
+  }catch(error){
+    dispatch({
+      type: GET_DEVICE_CRASH_ANALYTICS_DATA_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.err.msg,
+    });
+  }
+
+}

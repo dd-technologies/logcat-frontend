@@ -39,11 +39,13 @@ export default function Analytics() {
 
   const projectName = urlParams.get('name');
   const projectCodeAnalytics = urlParams.get('projectCodeAnalytics');
+  console.log(projectCodeAnalytics)
   let stackArray = urlParams.get('col') || '';
 
-  // console.log("stack array", stackArray);
+  console.log("stack array", stackArray);
 
   let stackArrayNew = stackArray.split('at ') && stackArray.split(')');
+  console.log('stackArrayNew',stackArrayNew)
 
   const sidebar_details = {
     name: projectName,
@@ -80,7 +82,7 @@ export default function Analytics() {
   let mapArrayKey = stackArrayNew.map((val, index) => {
     return val;
   });
-
+console.log('mapArrayKey',mapArrayKey)
   const stackErrorLine = () => {
     var causedError, noCousedError;
 
@@ -91,8 +93,9 @@ export default function Analytics() {
       subTitleVal = '';
     } else {
       for (let key in mapArrayKey) {
+            // console.log('mapArraykey',parseInt(key)+1)
         if (mapArrayKey[key].includes('Caused by:')) {
-          causedError = mapArrayKey[parseInt(key) + 1];
+          causedError = mapArrayKey[parseInt(key) + 1]; //takes key value from 1 instead of 0
           setTitle(
             causedError.split('(')[1].replace(':', ' line ').split(')')[0]
           );
