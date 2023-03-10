@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import LogICon from '../../assets/icons/log.png';
 import AlarmIcon from '../../assets/images/AlarmIcon.png';
-import TableCard from '../../container/TableCard';
+import TableCard1 from '../../container/TableCard1';
 import { getDeviceEventsById } from '../../store/action/DeviceAction';
 import { Navbar } from '../../utils/NavBar';
 import SideBar from '../../utils/Sidebar';
@@ -113,15 +113,15 @@ console.log('first',item)
          >
         <Navbar navigation_details={navigation_details} />
         <h1>Device Logs</h1>
-        <Container style={{marginTop:'0px'}}>
+        <Container style={{marginLeft:'120px',marginTop:'0px'}}>
         <h6 style={{paddingLeft:"5px",paddingTop:"200px",color:"black"}}>Active DeviceId:{did}</h6>
         <h6 style={{paddingLeft:"5px",color:"black"}}>Status:{item}</h6>
         <Row className='mt-0'>
           <Col>
-          <TableCard borderRadius="10px">
+          <TableCard1 borderRadius="10px">
             <>
             <section className={`${Style.Tabs} `}>
-            <button onClick={() => handleTabClick(0)} style={{marginLeft:"2px",marginRight:"15px",border:'none'}}>Events /</button>
+            <button onClick={() => handleTabClick(0)} style={{marginLeft:"2px",marginRight:"15px",border:'none'}} defaultChecked>Events /</button>
             <button onClick={() => handleTabClick(1)} style={{marginRight:"15px",border:'none'}}>Alarms /</button>
             <button onClick={() => handleTabClick(2)} style={{marginRight:"12px",border:'none'}}>Logs</button>
             </section>
@@ -132,7 +132,7 @@ console.log('first',item)
                {activeTab === 2 && <Logs/>}
             </section>
             </>
-          </TableCard>
+          </TableCard1>
           </Col>
         </Row>
       </Container>

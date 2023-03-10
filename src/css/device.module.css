@@ -19,12 +19,14 @@
 .Tabs{
  font-weight: 200;
  background-color: rgba(122, 122, 122, 0.082);
+ background-color: #fff;
  
 }
 .Tabs button{
   margin-right: 20px;
   font-weight: 600;
   font-size: large;
+  background-color: #fff;
 }
 .searchSection .filterGraphFirstSection {
   cursor: pointer;
@@ -87,7 +89,6 @@
   justify-content: center;
   border-radius: 5px;
 }
-
 .alertTable .tableHeader {
   padding: 10px 10px;
   display: grid;

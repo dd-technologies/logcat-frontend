@@ -23,6 +23,7 @@ import SideBar from '../../utils/Sidebar';
 import { ThemeContext } from '../../utils/ThemeContext';
 import { deviceDataReducer } from './store/Reducer';
 import EditDetailsModal from './model/EditDetailsModal';
+import UpdateDetailsModal from './model/UpdateDetailsModal';
 import {
   ALL_ROW_SELECTED,
   DATE_DROPDOWN,
@@ -31,6 +32,7 @@ import {
   SORT_ICONS,
 } from './store/Types';
 import Pagination from '../../common/Pagination';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 export default function DeviceTable(){
   const { theme } = React.useContext(ThemeContext);
@@ -49,10 +51,10 @@ export default function DeviceTable(){
   
   const getRegisteredDetailsReducer = useSelector((state)=>state.getRegisteredDetailsReducer);
   const {data12} = getRegisteredDetailsReducer;
-  console.log('first',data12)
+  // console.log('first',data12)
 
   let regDetail = data12 && data12.data;
-  console.log('1212',data12)
+  // console.log('1212',data12)
 
   useEffect(()=>{
     dispatch(
@@ -108,7 +110,7 @@ export default function DeviceTable(){
   const[isCheck,setIsCheck] = useState([]);
   const [checkedLogs,setCheckedLogs] = useState([]);
   const [modalShow,setModalShow] = useState(false);
-  const [modalData,setModalData] = useState(null);
+  const [modalShow1,setModalShow1] = useState(null);
 
 
   const handleSelectAll = (e) =>{
@@ -320,8 +322,8 @@ return (
         className={`${Style.NavbarColumn} colSection`}
       >
         <Navbar navigation_details={navigation_details} />
-        <h1 className=" darkModeColor">Device Summary</h1>
-        <Container style={{marginTop:'0px'}}>
+        <h4 className=" darkModeColor"style={{paddingLeft:'140px',paddingTop:'150px',color:' #0099a4'}}>Device Summary</h4>
+        <Container className={Style.Container}  style={{marginLeft:'120px',marginTop:'0px'}}>
           <Row className="mt-4">
                   
             {/* <Col xl={10} md={9} sm={9}>
@@ -504,7 +506,7 @@ return (
                 </section>
               </section>
             </Col>  */}
-          </Row>
+          </Row>  
           {/* Events  */}
           <Row className="mt-0">
             <Col>
@@ -821,27 +823,6 @@ return (
                         .filter((item,index)=>
                         deviceFilter.findIndex(obj => obj.did === item.did)===index)
                         .map((item,_id) => {
-                          // console.log('item',deviceFilter)
-                          // console.log(item)
-            
-
-
-                          // console.log(`Index: ${index}`);
-                          // console.log('item',index.toString())
-                        // const result = deviceFilter.filter(item,index);
-                        // console.log(item.did)
-                        // console.log(
-                        //   deviceFilter.filter((item,index)=>
-                        //   deviceFilter.indexOf(item)
-                        //   )
-                        // )
-                        // function result(item){
-                        //   return deviceFilter.filter(deviceFilter.indexof(item));
-                        // }
-                        // const result = deviceFilter.filter((item,index)=>deviceFilter.indexOf(item));
-                        // console.log(result)
-                        // console.log(item._id)
-                        // console.log(deviceFilter)
                           return (
                             <React.Fragment key={_id}>
                               {/* {console.log(item)} */}
@@ -873,7 +854,6 @@ return (
                                 .map((item1,_id)=>{
                                   return(
                                    <>
-                                   {console.log(item1.AliasName)}
                                     <section
                                   style={{
                                     color:
@@ -923,43 +903,59 @@ return (
                                 >
                                   {item1.Ventilator_Operator}
                                 </section>
-                                
+                                <Dropdown>
+      <Dropdown.Toggle variant="success" id="dropdown-basic">
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu style={{padding:'0px 0px',textDecoration:'none'}}>
+      <Dropdown.Item style={{padding:'15px 0px 0px 35px'}}>
+      <Button
+      onClick={()=>{
+      setModalShow(true);
+      // setModalData(item);
+      {item}                            
+      // console.log(item)
+      console.log({...item})
+      localStorage.setItem('DeviceId',JSON.stringify(item.did))
+      }
+      }
+      >
+      Register
+      </Button>
+
+      <EditDetailsModal 
+      show={modalShow}
+      onHide={()=>setModalShow(false)} 
+      {...item}
+      item = {JSON.parse(localStorage.getItem('DeviceId'))}
+      />
+      </Dropdown.Item>
+      <br/>
+      <Dropdown.Item style={{padding:'0px 0px 0px 35px'}}>
+      <Button
+      onClick={()=>{
+      setModalShow1(true);
+      {item1}  
+      // console.log({...item1})
+                                                    
+      }}
+    >
+    Update
+    </Button>
+      <UpdateDetailsModal
+        show={modalShow1}
+        onHide={()=>setModalShow1(false)}
+        {...item1}
+        // {...console.log(item1)}
+      />
+      </Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
                                    </>
                                   )
                                 })
                                 }
-                                
                                 <section>
-                                  <Button 
-                                  onClick={()=>{
-                                    setModalShow(true);
-                                    // setModalData(item);
-                                    {item}
-                                    
-                                    // console.log(item)
-                                    console.log({...item})
-                                    console.log(item.did)
-                                    localStorage.setItem('DeviceId',JSON.stringify(item.did))
-                                  }
-                                  }
-                                  >
-                                    Register
-                                  </Button>
-                                  <Button 
-                                  style={{marginTop:'20px'}}
-                                  onClick={()=>{
-                                    setModalShow(true);
-                                  }}
-                                  >
-                                    Update
-                                    </Button>
-                                  <EditDetailsModal 
-                                  show={modalShow}
-                                  onHide={()=>setModalShow(false)} 
-                                  {...item}
-                                  item = {JSON.parse(localStorage.getItem('DeviceId'))}
-                                  
-                                  />
                                 </section>
                               </section>
                             </React.Fragment>
@@ -1004,3 +1000,21 @@ return (
 
 
 }
+
+{/* <section>
+                                  <Button
+                                  onClick={()=>{
+                                    setModalShow1(true);
+                                    {item1}
+                                      
+                                    
+                                  }}
+                                  >
+                                    Update
+                                    </Button>
+                                  <UpdateDetailsModal
+                                  show={modalShow1}
+                                  onHide={()=>setModalShow1(false)}
+                                  {...item1}
+                                  />
+                                </section> */}

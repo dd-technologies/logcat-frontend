@@ -15,7 +15,7 @@ const EditDetailsModal = (props) =>{
         IMEI_No:'',
         Ventilator_Operator:'',
     });
-    localStorage.setItem('AliasName',JSON.stringify(EditDetails.AliasName));  
+    // localStorage.setItem('AliasName',JSON.stringify(EditDetails.AliasName));  
 
 
 
@@ -69,7 +69,7 @@ const EditDetailsModal = (props) =>{
                 id="contained-modal-title-vcenterv"
                 style={{color:"#IF99A4"}}
                 >
-                    Device Details
+                     Register Device Details
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body className='card darkModeColor'>
