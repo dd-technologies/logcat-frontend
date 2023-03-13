@@ -8,3 +8,4 @@ export const PROJECT_CODE = "PROJECT_CODE";
 export const SEARCH_FIELD = "SEARCH_FIELD";
 export const SORT_ICONS = "SORT_ICONS";
 export const ALL_ROW_SELECTED = "ALL_ROW_SELECTED";
+export const FILTERS = "FILTERS"

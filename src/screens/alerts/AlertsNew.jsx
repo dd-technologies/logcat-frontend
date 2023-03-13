@@ -30,6 +30,7 @@ import {
   DIFF_DATE,
   SEARCH_FIELD,
   SORT_ICONS,
+  FILTERS
 } from './store/Types';
 import Pagination from '../../common/Pagination';
 
@@ -57,6 +58,7 @@ export default function AlertsNew() {
     disableButton: false,
     dateDropDown: false,
     showTableField: false,
+    filters1:localStorage.getItem('filteredAlerts'),
 
     record: localStorage.getItem('selected_record')
       ? JSON.parse(localStorage.getItem('selected_record'))
@@ -88,6 +90,7 @@ export default function AlertsNew() {
     singleRowSelect: false,
     allRowSelect: false,
   };
+  console.log('inif',initialState.filters1)
   // console.log("record",initialState.projectCode)
   const [currentStateAlerts, dispatchAlertsData] = useReducer(
     alertDataReducer,
@@ -233,7 +236,7 @@ export default function AlertsNew() {
     : alertsFilter;
 
     console.log(filteredAlerts,'dfvgkjdfvg')// change here;
-
+  localStorage.setItem('filteredAlerts',JSON.stringify(filteredAlerts))
 
   // useEffect(() => {
   //   // Extract the IDs from the data and filter out duplicates
@@ -455,10 +458,11 @@ export default function AlertsNew() {
       alarmAction(
         code,
         currentStateAlerts.projectCode,
-        currentStateAlerts.diffDate
+        currentStateAlerts.diffDate,
+        currentStateAlerts.filters1,
       )
     );
-  }, [dispatch, currentStateAlerts.projectCode, currentStateAlerts.diffDate]);
+  }, [dispatch, currentStateAlerts.projectCode, currentStateAlerts.diffDate,currentStateAlerts.filters1]);
   // console.log( currentStateAlerts.diffDate)
 
   return (
@@ -1046,12 +1050,13 @@ export default function AlertsNew() {
                             );
                           })} */}
                         </section>
+                        {/* {console.log('123',currentStateAlerts.filters1)} */}
                       </section>
                       <section className="p-2">
                         <Pagination
                           code={code}
                           projectType={currentStateAlerts.projectCode}
-                          filters={{alerts : filteredAlerts}}
+                          filters={currentStateAlerts.filters1}
                           diffdate={currentStateAlerts.diffDate}
                           currentPage={currentPage}
                           totalCount={data?.data?.count ? data?.data?.count : 0}

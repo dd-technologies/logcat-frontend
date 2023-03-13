@@ -179,6 +179,7 @@ export default function CustomePaginationAlerts({
                         active={items == currentPageNumber}
                       >
                         {items}
+                        {console.log(items)}
                       </Pagination.Item>
                     )}
 

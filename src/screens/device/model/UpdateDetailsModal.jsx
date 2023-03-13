@@ -12,12 +12,14 @@ const UpdateDetailsModal = (props)=>{
         DeviceId:item1.DeviceId,
         AliasName:item1.AliasName,
         HospitalName:item1.Hospital_Name,
-        DocName:item1.Doctor_Name,
-        WardNo:item1.Ward_No,
-        IMEINo:item1.IMEI_NO,
-        VentiOp:item1.Ventilator_Operator
+        // DocName:item1.Doctor_Name,
+        // WardNo:item1.Ward_No,
+        // IMEINo:item1.IMEI_NO,
+        // VentiOp:item1.Ventilator_Operator
       
     })
+    // console.log('deviceid',updateDetails.DeviceId)
+    // console.log('aliasupdate',updateDetails.AliasName)
     const dispatch = useDispatch();
     
     const handleSubmit = (e) =>{
@@ -39,7 +41,8 @@ const UpdateDetailsModal = (props)=>{
 
                 )
             );
-            console.log(updateDetails.AliasName)
+            // console.log(updateDetails.AliasName)
+            // console.log('DoctorName',updateDetails.DocName)
             props.onHide(); 
         }
 
@@ -100,7 +103,7 @@ const UpdateDetailsModal = (props)=>{
                 )}
               </Form.Group>
     
-              <Form.Group className="mb-3" controlId="formBasicPassword">
+               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label className="darkModeColor">Hospital Name</Form.Label>
                 <Form.Control
                   className={Style.inputFields}
@@ -197,7 +200,7 @@ const UpdateDetailsModal = (props)=>{
                 ) : (
                   ""
                 )}
-              </Form.Group>
+              </Form.Group> 
                 </Modal.Body>
                 <Modal.Footer className="card darkModeColor">
               <section

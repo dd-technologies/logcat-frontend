@@ -202,9 +202,9 @@ export const getRegisteredDetailsById=(DeviceID,DoctorName,HospitalName,Alias,IM
 export const updateDetailsById = 
 (
   DeviceID,
+  AliasName,
   Hospital_Name,
   Doctor_Name,
-  AliasName,
   Ward_No,
   IMEI_NO,
   Ventilator_Operator,
@@ -216,29 +216,29 @@ async(dispatch)=>{
     });
     const token = cookies.get('ddAdminToken');
     const config ={
-      method:'PATCH',
+      method:'PUT',
       headers: {
         "Content-type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body:{
-        DeviceID:DeviceID,
-        AliasName:AliasName,
-        Doctor_Name:Doctor_Name,
-        Hospital_Name:Hospital_Name,
-        Ward_No:Ward_No,
-        IMEI_NO:IMEI_NO,
-        Ventilator_Operator:Ventilator_Operator
-      }
     };
-    let response = await axios.put(
+    let {data} = await axios.put(
       `${process.env.REACT_APP_BASE_URL}/api/logger/device/Update/${DeviceID}`,
+      {
+        AliasName,
+        Hospital_Name,
+        Doctor_Name,
+        Ward_No,
+        IMEI_NO,
+        Ventilator_Operator,
+      },
       config
     );
     dispatch({
       type:UPDATE_DEVICE_DETAILS_BY_ID_SUCCESS,
-      payload:response.data,
+      payload:data,
     });
+    console.log('data123',data)
   }catch(error){
     dispatch({
       type:UPDATE_DEVICE_DETAILS_BY_ID_FAIL,

@@ -116,7 +116,7 @@ export const getProjectByCode =
       dispatch({
         type: GET_ALL_LOG_BY_CODE_REQUEST,
       });
-      // console.log("filter", filters);
+      console.log("filter", filters);
       const token = cookies.get('ddAdminToken');
       const config = {
         headers: {

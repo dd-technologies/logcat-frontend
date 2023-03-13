@@ -264,7 +264,7 @@ export const updateProfile = (email, name, avatar) => async (dispatch) => {
     let formData = new FormData();
     formData.append('name', name);
     formData.append('image', avatar);
-    // console.log([...formData]);
+    console.log([...formData]);
     dispatch({
       type: UPDATE_PROFILE_REQUEST,
     });

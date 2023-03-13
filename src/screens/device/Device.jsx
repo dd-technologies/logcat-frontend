@@ -862,6 +862,7 @@ return (
                                 >
                                   {/* {localStorage.getItem('AliasName')} */}
                                   {item1.AliasName}
+                                  {/* {console.log(item1.AliasName)} */}
                                 </section>
                                 <section
                                   style={{
@@ -915,7 +916,7 @@ return (
       // setModalData(item);
       {item}                            
       // console.log(item)
-      console.log({...item})
+      // console.log({...item})
       localStorage.setItem('DeviceId',JSON.stringify(item.did))
       }
       }
@@ -936,7 +937,7 @@ return (
       onClick={()=>{
       setModalShow1(true);
       {item1}  
-      // console.log({...item1})
+      console.log({...item1})
                                                     
       }}
     >
@@ -946,24 +947,23 @@ return (
         show={modalShow1}
         onHide={()=>setModalShow1(false)}
         {...item1}
-        // {...console.log(item1)}
+        {...console.log(item1)}
       />
       </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
-                                   </>
-                                  )
-                                })
-                                }
-                                <section>
-                                </section>
-                              </section>
-                            </React.Fragment>
-                          );
-                        })}
-                        </div>
-          
-                      </section>
+     </>
+   )
+ })
+}
+
+   </section>
+   
+   </React.Fragment>
+    );
+  })}
+  </div>
+          </section>
                     </section>
                     <section className="p-2">
                       <Pagination

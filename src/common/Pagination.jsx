@@ -17,6 +17,7 @@ const Pagination = (props) => {
     diffdate,
     date,
     filters,
+    filters1,
     onPageChange,
     totalCount,
     siblingCount = 1,
@@ -45,7 +46,7 @@ const Pagination = (props) => {
     // if url is alerts
     if (url.href.includes("alarm")) {
       dispatch(
-        alarmAction(code, projectType, diffdate, currentPage + 1, pageSize)
+        alarmAction(code,filters1,date, projectType, diffdate, currentPage + 1, pageSize)
       );
     }
 
@@ -69,7 +70,7 @@ const Pagination = (props) => {
     // if url is alerts
     if (url.href.includes("alarm")) {
       dispatch(
-        alarmAction(code,filters, projectType, diffdate, currentPage - 1, pageSize)
+        alarmAction(code,filters1,date, projectType, diffdate, currentPage - 1, pageSize)
       );
     }
     // if url is logable
@@ -118,7 +119,7 @@ const Pagination = (props) => {
 
                 if (url.href.includes("alarm")) {
                   dispatch(
-                    alarmAction(code,filters, projectType, diffdate, currentPage + 1, pageSize)
+                    alarmAction(code,filters1,date, projectType, diffdate, currentPage + 1, pageSize)
                   );
                 }
                 if (url.href.includes("log_table")) {
@@ -136,6 +137,7 @@ const Pagination = (props) => {
               }}
             >
               {pageNumber}
+              {/* {console.log(pageNumber)} */}
             </li>
           </React.Fragment>
         );

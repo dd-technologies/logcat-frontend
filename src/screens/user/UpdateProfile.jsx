@@ -141,7 +141,7 @@ export default function UpdateProfile() {
   };
 
   useEffect(() => {
-    dispatch(userInfoActionFn())
+    dispatch(updateUserInfoAction())
   }, [name,email])
 
   useEffect(() => {

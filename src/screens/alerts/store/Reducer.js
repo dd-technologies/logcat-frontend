@@ -2,6 +2,7 @@ import {
   ALL_ROW_SELECTED,
   DATE_DROPDOWN,
   DIFF_DATE,
+  FILTERS,
   DISABLE_BUTTON,
   PROJECT_CODE,
   RECORDS,
@@ -84,6 +85,12 @@ export const alertDataReducer = (state, action) => {
         type: action.type,
         allRowSelect: action.data,
       };
+      case FILTERS:
+        return{
+          ...state,
+          type:action.type,
+          filters1:action.data,
+        }
 
     default:
       return state;

@@ -12,7 +12,7 @@ export const alarmAction = (
   code = null,
   projectType = null,
   diffdate = null,
-  filters = null,
+  filters = localStorage.getItem('filteredAlerts'),
   page = 1,
   record = 25,
   sort = null
@@ -55,17 +55,18 @@ export const alarmAction = (
 
     let response;
     let logString = "";
+    console.log(filters)
     if (filters) {
       for (const [key, value] of Object.entries(filters)) {
         if (value) {
           logString += `${key}-`;
-          console.log("logstring", logString);
+          // console.log("logstring", logString);
         }
       }
     }
 
     response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/api/logger/logs/alerts/${code}?projectType=${projectType}&startDate=${startDate}&endDate=${endDate}&page=${page}&limit=${record}&sort=${sort}`, 
+      `${process.env.REACT_APP_BASE_URL}/api/logger/logs/alerts/${code}?projectType=${projectType}&startDate=${startDate}&endDate=${endDate}&page=${page}&limit=${record}&sort=${sort}&filters=${filters}`, 
       config
     );
 
@@ -73,6 +74,7 @@ export const alarmAction = (
       type: ALARM_SUCCESS,
       payload: response.data,
     });
+    // console.log(filters,'filters')
   } catch (error) {
     dispatch({
       type: ALARM_FAIL,
