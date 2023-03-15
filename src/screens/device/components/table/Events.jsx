@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Style from '../../../../css/deviceEvents.module.css';
 import { ThemeContext } from '../../../../utils/ThemeContext';
-
+const moment = require("moment-timezone");
 export default function Events(){
   const {theme} = React.useContext(ThemeContext);
     const getAllEventsByDeviceIdReducer = useSelector((state)=>state.getAllEventsByDeviceIdReducer);
@@ -11,7 +11,7 @@ export default function Events(){
   
     let eventsFilter = data && data.data && data.data.findDeviceById;
     // console.log(eventsFilter)
-
+    var dateNew =0;
     return(
       <>
        <section className={Style.alertTable}>
@@ -134,6 +134,7 @@ export default function Events(){
                               >
                                 Date
                               </p>
+                        
                               {/* <FontAwesomeIcon
                                 color="#0099a4"
                                 style={{ cursor: 'pointer' ,display:'none'}}
@@ -244,6 +245,7 @@ export default function Events(){
                                       }}
                                     >
                                       {item1.date.split('T')[0]}
+                                      {console.log(item1.date)}
                                     </section>
                                   <section
                                       style={{
@@ -251,7 +253,11 @@ export default function Events(){
                                           theme === 'light-theme' ? '' : '#fff',
                                       }}
                                     >
-                                      {item1.date.split('T')[1].split('.')[0]}
+                                      {/* {(item1.date.substring(15,24))} */}
+                                      {(item1.date.split('T')[1])}
+      
+                                      {/* { dateNew = moment.tz((item1.date.split('T')[1].split('.')[0]),"Asia/Calcutta").utcOffset("+05:30").format()} */}
+                                      {/* {parseInt(item1.date.split('T')[1].split('.')[0].split(':'))+5}{":"}{parseInt(item1.date.split('T')[1].split('.')[0].split(':')[1])+30} */}
                                     </section>
                 </section>
               </React.Fragment>

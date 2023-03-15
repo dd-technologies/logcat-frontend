@@ -6,16 +6,17 @@ import Style from "../../../css/EditDetailsModal.module.css";
 
 const UpdateDetailsModal = (props)=>{
     const {...item1} = props;
-    console.log(item1)
+    // console.log(item1)
+    localStorage.setItem('item1',JSON.stringify(item1))
 
     const[updateDetails,setUpdateDetails] = useState({
         DeviceId:item1.DeviceId,
         AliasName:item1.AliasName,
         HospitalName:item1.Hospital_Name,
-        // DocName:item1.Doctor_Name,
-        // WardNo:item1.Ward_No,
-        // IMEINo:item1.IMEI_NO,
-        // VentiOp:item1.Ventilator_Operator
+        DocName:item1.Doctor_Name,
+        WardNo:item1.Ward_No,
+        IMEINo:item1.IMEI_NO,
+        VentiOp:item1.Ventilator_Operator
       
     })
     // console.log('deviceid',updateDetails.DeviceId)

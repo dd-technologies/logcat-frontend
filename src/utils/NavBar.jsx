@@ -101,7 +101,7 @@ export function Navbar(props) {
               className="darkModeColor"
             >
               {adminInfo && adminInfo.data && adminInfo.data.name}
-              {console.log(adminInfo.data.name)}
+              {/* {console.log(adminInfo.data.name)} */}
             </p>
             <p
               style={{

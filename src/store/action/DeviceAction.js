@@ -89,12 +89,13 @@ export const registerNewDevice = ( DeviceID,DoctorName,HospitalName,Alias,IMEINu
       `${process.env.REACT_APP_BASE_URL}/api/logger/device/RegisterDevice/`,
       {
         DeviceId:DeviceID,
-        Doctor_Name:DoctorName,
-        Hospital_Name:HospitalName,
         AliasName:Alias,
+        Hospital_Name:HospitalName,
+        Doctor_Name:DoctorName,
+        Ward_No:Wardno,
         IMEI_NO:IMEINumber,
         Ventilator_Operator:VentiOperator,
-        Ward_No:Wardno,
+       
       },
       config
       );
