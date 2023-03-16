@@ -937,7 +937,7 @@ return (
                             show={modalShow1}
                             onHide={()=>setModalShow1(false)}
                             {...item1}
-                            {...console.log(item1)}
+                            // {...console.log(item1)}
                           />
 </section> 
      </React.Fragment>

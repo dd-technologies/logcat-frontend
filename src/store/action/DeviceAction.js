@@ -73,7 +73,7 @@ export const deviceAction = (
     }
 };
 //Register API Used in EditDetailsModal
-export const registerNewDevice = ( DeviceID,DoctorName,HospitalName,Alias,IMEINumber,VentiOperator,Wardno) =>async(dispatch)=>{
+export const registerNewDevice = ( DeviceID,Alias,HospitalName,DoctorName,Wardno,IMEINumber,VentiOperator) =>async(dispatch)=>{
   try{
     dispatch({
       type:REGISTER_NEW_DEVICE_REQUEST,
@@ -103,6 +103,7 @@ export const registerNewDevice = ( DeviceID,DoctorName,HospitalName,Alias,IMEINu
         type: REGISTER_NEW_DEVICE_SUCCESS,
         payload: data,
       });
+      // console.log(data)
   }catch (error) {
     dispatch({
       type: REGISTER_NEW_DEVICE_FAIL,

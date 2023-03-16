@@ -6,6 +6,7 @@ import Style from "../../../css/EditDetailsModal.module.css";
 
 const EditDetailsModal = (props) =>{
     const {item} = props;
+    console.log(item)
     const[EditDetails,setEditDetails] = useState({
         DeviceId:item,
         AliasName:'',
