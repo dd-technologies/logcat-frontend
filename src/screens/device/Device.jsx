@@ -962,6 +962,7 @@ return (
                        show={modalShow}
                       onHide={()=>setModalShow(false)} 
                       {...item}
+                      {...console.log(item)}
                        item = {JSON.parse(localStorage.getItem('DeviceId'))}
                       />
    </section>  

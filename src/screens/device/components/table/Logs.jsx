@@ -323,6 +323,7 @@ export default function Logs(){
                                     }}
                                   >
                                    {item.log.date.split('T')[0]}
+                                   {console.log(item.log.date)}
                                   </section>
                                   
                                   <section

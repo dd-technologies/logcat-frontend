@@ -45,13 +45,13 @@ const EditDetailsModal = (props) =>{
                 ),
             );
             props.onHide(); 
-            // console.log(item)
-            // console.log(EditDetails.AliasName)
-            // console.log(EditDetails.Hospital_Name)
-            // console.log(EditDetails.Doctor_Name)
-            // console.log(EditDetails.Ward_No)
-            // console.log(EditDetails.IMEI_No)
-            // console.log(EditDetails.Ventilator_Operator)    
+            console.log(item)
+            console.log(EditDetails.AliasName)
+            console.log(EditDetails.Hospital_Name)
+            console.log(EditDetails.Doctor_Name)
+            console.log(EditDetails.Ward_No)
+            console.log(EditDetails.IMEI_No)
+            console.log(EditDetails.Ventilator_Operator)    
       }
 
     }

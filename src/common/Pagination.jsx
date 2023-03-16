@@ -46,7 +46,7 @@ const Pagination = (props) => {
     // if url is alerts
     if (url.href.includes("alarm")) {
       dispatch(
-        alarmAction(code,filters1,date, projectType, diffdate, currentPage + 1, pageSize)
+        alarmAction(code,date, projectType, diffdate, currentPage + 1, pageSize)
       );
     }
 
@@ -70,7 +70,7 @@ const Pagination = (props) => {
     // if url is alerts
     if (url.href.includes("alarm")) {
       dispatch(
-        alarmAction(code,filters1,date, projectType, diffdate, currentPage - 1, pageSize)
+        alarmAction(code,date, projectType, diffdate, currentPage - 1, pageSize)
       );
     }
     // if url is logable
@@ -119,7 +119,7 @@ const Pagination = (props) => {
 
                 if (url.href.includes("alarm")) {
                   dispatch(
-                    alarmAction(code,filters1,date, projectType, diffdate, currentPage + 1, pageSize)
+                    alarmAction(code,date, projectType, diffdate, currentPage + 1, pageSize)
                   );
                 }
                 if (url.href.includes("log_table")) {

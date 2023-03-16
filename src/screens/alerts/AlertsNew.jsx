@@ -977,6 +977,7 @@ export default function AlertsNew() {
                                     }}
                                   >
                                     {alerts.ack.date.split('T')[0]}
+                                    {console.log(alerts.ack.date.split('T')[0])}
                                   </section>
                                   <section
                                     style={{
@@ -985,7 +986,8 @@ export default function AlertsNew() {
                                     }}
                                   >
                                     {alerts.ack.date.split('T')[1].split('.')[0]}
-                                    {console.log(alerts.ack.date.split('T')[1].split('.')[0],'time ddsfs')}
+                                    {/* {alerts.ack.date.split('T')[1].split('.')[0]}
+                                    {console.log(alerts.ack.date.split('T')[1].split('.')[0],'time ddsfs')} */}
                                   </section>
                                 </section>
                               </React.Fragment>

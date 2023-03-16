@@ -292,6 +292,7 @@ export default function Alarms(){
                                     }}
                                   >
                                    {item.ack.date.split('T')[0]}
+                                   {/* {console.log(item.ack.date.split('T')[0])} */}
                                   </section>
                                   <section
                                       style={{
@@ -299,7 +300,7 @@ export default function Alarms(){
                                           theme === 'light-theme' ? '' : '#fff',
                                       }}
                                     >
-                                      {item.ack.date.split('T')[1].split('.')[0]}
+                                      {item.ack.date.split('T')[1]}
                                     </section>
                             </section>
                         </React.Fragment>
