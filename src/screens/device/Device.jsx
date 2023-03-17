@@ -33,7 +33,6 @@ import {
 } from './store/Types';
 import Pagination from '../../common/Pagination';
 import Dropdown from 'react-bootstrap/Dropdown';
-import writing from '../../assets/icons/writing.png'
 
 export default function DeviceTable(){
   const { theme } = React.useContext(ThemeContext);
@@ -55,7 +54,7 @@ export default function DeviceTable(){
   // console.log('first',data12)
 
   let regDetail = data12 && data12.data;
-  // console.log('1212',data12)
+  console.log('1212',regDetail)
 
   useEffect(()=>{
     dispatch(
@@ -112,7 +111,7 @@ export default function DeviceTable(){
   const[isCheck,setIsCheck] = useState([]);
   const [checkedLogs,setCheckedLogs] = useState([]);
   const [modalShow,setModalShow] = useState(false);
-  const [modalShow1,setModalShow1] = useState(null);
+  const [modalShow1,setModalShow1] = useState(false);
 
 
   const handleSelectAll = (e) =>{
@@ -245,58 +244,6 @@ let search =
       )
     );
   };
-  // SORTING FUNCTION
-  // multple dispatch function for sorting
-  const multpleDispatchSort = (type, data) => {
-    return dispatchDeviceData({
-      type: type,
-      data: data,
-    });
-  };
-  // const sortTableFnDI = (callbackDispatchAllData) => {
-  //   //Device Id Sorting
-  //   if (currentStateDevices.sortIcons.DI) {
-  //     return callbackDispatchAllData('-did');
-  //   } else if (!currentStateDevices.sortIcons.DI) {
-  //     multpleDispatchSort(SORT_ICONS, {
-  //       DI: true,
-  //       LOC: false,
-  //       St: false,
-  //     });
-      
-  //     return callbackDispatchAllData('did');
-  //   }
-  // };
-  // const sortTableFnLOC = (callbackDispatchAllData) => {
-  //   // Device Location
-  //   if (currentStateDevices.sortIcons.LOC) {
-  //     return callbackDispatchAllData('-ack.code');
-  //   } else if (!currentStateDevices.sortIcons.LOC) {
-  //     multpleDispatchSort(SORT_ICONS, {
-  //       DI: false,
-  //       LOC: true,
-  //       St: false,
-  //     });
-  //     return callbackDispatchAllData('ack.code');
-  //   }
-  // };
-  
-  // const sortTableFnSt = (callbackDispatchAllData) => {
-  //   // Device Status
-  //   if (currentStateDevices.sortIcons.St) {
-  //     return callbackDispatchAllData('-ack.msg');
-  //   } else if (!currentStateDevices.sortIcons.St) {
-  //     multpleDispatchSort(SORT_ICONS, {
-  //       DI: false,
-  //       LOC:false,
-  //       St: true,
-  //     });
-  //     return callbackDispatchAllData('ack.msg');
-  //   }
-  // };
-
-  // var temp = [];
-
 
 
 useEffect(()=>{
@@ -869,7 +816,6 @@ return (
                                 .filter((item1,index)=>
                                 regDetail.findIndex(item1 => item.did === item1.DeviceId)===index)
                                 .map((item1,_id)=>{
-                                  var temp1 = item1;
                                   return(
                                    <React.Fragment key={_id}>
                                     <section
@@ -878,10 +824,7 @@ return (
                                       theme == 'light-theme' ? '' : '#fff',
                                   }}
                                 >
-                                  {/* {console.log('key1',_id)} */}
-                                  {/* {localStorage.getItem('AliasName')} */}
                                   {item1.AliasName}
-                                  {/* {console.log(item1.AliasName)} */}
                                 </section>
                                 <section
                                   style={{
@@ -923,12 +866,66 @@ return (
                                 >
                                   {item1.Ventilator_Operator}
                                 </section>
-                                <section>                                
-                            <Button
+                                <section>  
+       <Dropdown>
+      <Dropdown.Toggle variant="success" id="dropdown-basic">
+      </Dropdown.Toggle>
+
+     <Dropdown.Menu style={{padding:'0px 0px',textDecoration:'none'}}>
+     <Dropdown.Item style={{padding:'15px 0px 0px 35px'}}>
+      <Button
+      onClick={()=>{
+      setModalShow(true);
+      // setModalData(item);
+      {item}                            
+      // console.log(item)
+      // console.log({...item})
+      localStorage.setItem('DeviceId',JSON.stringify(item.did))
+      }
+      }
+      >
+      Register
+      </Button>
+
+      <EditDetailsModal 
+      show={modalShow}
+      onHide={()=>setModalShow(false)} 
+      {...item}
+      item = {JSON.parse(localStorage.getItem('DeviceId'))}
+      />
+      </Dropdown.Item>
+      <br/>
+      <Dropdown.Item style={{padding:'0px 0px 0px 35px'}}>
+      <Button
+      onClick={()=>{
+      setModalShow1(true);
+      {item1}  
+      console.log({...item1})
+                                                    
+      }}
+    >
+    Update
+    </Button>
+      <UpdateDetailsModal
+        show={modalShow1}
+        onHide={()=>setModalShow1(false)}
+        {...item1}
+        {...console.log(item1)}
+      />
+      </Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+                            
+            </section> 
+            </React.Fragment>
+   )
+ })
+}
+{/* <Button
                              onClick={()=>{
                              setModalShow1(true);
-                             {item1} 
-                            // console.log({...item1})
+                             {item1}
+                             console.log('1',{...item1})
                             }}
                            >
                             Update
@@ -937,35 +934,28 @@ return (
                             show={modalShow1}
                             onHide={()=>setModalShow1(false)}
                             {...item1}
-                            // {...console.log(item1)}
+                            {...console.log('2',{...item1})}
                           />
-</section> 
-     </React.Fragment>
-   )
- })
-}
-       <Button 
-                               onClick={()=>{
-                               setModalShow(true);
-                               // setModalData(item);
-                               {item}                            
-                               // console.log(item)
-                              // console.log({...item})
-                              localStorage.setItem('DeviceId',JSON.stringify(item.did))
-                               }
-                            }
-                         >
-                             Register
-                         </Button>
+        <Button 
+        onClick={()=>{
+        setModalShow(true);
+      // setModalData(item);
+        {item}                            
+        console.log({...item})
+        localStorage.setItem('DeviceId',JSON.stringify(item.did))
+        }
+    }
+    >
+    Register
+  </Button>
 
-                      <EditDetailsModal 
-                       show={modalShow}
-                      onHide={()=>setModalShow(false)} 
-                      {...item}
-                      {...console.log(item)}
-                       item = {JSON.parse(localStorage.getItem('DeviceId'))}
-                      />
-   </section>  
+    <EditDetailsModal 
+      show={modalShow}
+      onHide={()=>setModalShow(false)} 
+      {...item}
+      item = {JSON.parse(localStorage.getItem('DeviceId'))}
+    /> */}
+   </section>   
    </React.Fragment>
     );
   })}

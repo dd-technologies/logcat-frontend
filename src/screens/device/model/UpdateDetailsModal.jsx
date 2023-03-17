@@ -6,11 +6,12 @@ import Style from "../../../css/EditDetailsModal.module.css";
 
 const UpdateDetailsModal = (props)=>{
     const {...item1} = props;
-    // console.log(item1)
-    localStorage.setItem('item1',JSON.stringify(item1))
+    console.log('3',props)
+    // console.log('12',{item1}.item1.AliasName)
+    // localStorage.setItem('item1',JSON.stringify(item1))
 
     const[updateDetails,setUpdateDetails] = useState({
-        DeviceId:item1.DeviceId,
+        DeviceID1:item1.DeviceId,
         AliasName:item1.AliasName,
         HospitalName:item1.Hospital_Name,
         DocName:item1.Doctor_Name,
@@ -19,8 +20,7 @@ const UpdateDetailsModal = (props)=>{
         VentiOp:item1.Ventilator_Operator
       
     })
-    // console.log('deviceid',updateDetails.DeviceId)
-    // console.log('aliasupdate',updateDetails.AliasName)
+    // console.log(updateDetails.DeviceID1)
     const dispatch = useDispatch();
     
     const handleSubmit = (e) =>{
@@ -32,7 +32,7 @@ const UpdateDetailsModal = (props)=>{
             setErrorName("");
             dispatch(
                 updateDetailsById(
-                    updateDetails.DeviceId,
+                    updateDetails.DeviceID1,
                     updateDetails.AliasName,
                     updateDetails.HospitalName,
                     updateDetails.DocName,
@@ -42,6 +42,7 @@ const UpdateDetailsModal = (props)=>{
 
                 )
             );
+            window.location.reload()
             // console.log(updateDetails.AliasName)
             // console.log('DoctorName',updateDetails.DocName)
             props.onHide(); 
@@ -54,6 +55,7 @@ const UpdateDetailsModal = (props)=>{
         <>
         <Modal
             {...props}
+            // {...console.log(props,'props')}
             size="md"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -73,7 +75,7 @@ const UpdateDetailsModal = (props)=>{
                   className={Style.inputFields}
                   type="text"
                   name="DeviceId"
-                  value={updateDetails.DeviceId}
+                  value={updateDetails.DeviceID1}
                   placeholder="Enter Your Device ID"
                   readOnly
                 />
@@ -201,7 +203,7 @@ const UpdateDetailsModal = (props)=>{
                 ) : (
                   ""
                 )}
-              </Form.Group> 
+              </Form.Group>  
                 </Modal.Body>
                 <Modal.Footer className="card darkModeColor">
               <section

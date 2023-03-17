@@ -6,7 +6,6 @@ import Style from "../../../css/EditDetailsModal.module.css";
 
 const EditDetailsModal = (props) =>{
     const {item} = props;
-    console.log(item)
     const[EditDetails,setEditDetails] = useState({
         DeviceId:item,
         AliasName:'',
@@ -46,13 +45,14 @@ const EditDetailsModal = (props) =>{
                 ),
             );
             props.onHide(); 
-            console.log(item)
-            console.log(EditDetails.AliasName)
-            console.log(EditDetails.Hospital_Name)
-            console.log(EditDetails.Doctor_Name)
-            console.log(EditDetails.Ward_No)
-            console.log(EditDetails.IMEI_No)
-            console.log(EditDetails.Ventilator_Operator)    
+            window.location.reload()
+            // console.log(item)
+            // console.log(EditDetails.AliasName)
+            // console.log(EditDetails.Hospital_Name)
+            // console.log(EditDetails.Doctor_Name)
+            // console.log(EditDetails.Ward_No)
+            // console.log(EditDetails.IMEI_No)
+            // console.log(EditDetails.Ventilator_Operator)    
       }
 
     }

@@ -103,7 +103,6 @@ export const registerNewDevice = ( DeviceID,Alias,HospitalName,DoctorName,Wardno
         type: REGISTER_NEW_DEVICE_SUCCESS,
         payload: data,
       });
-      // console.log(data)
   }catch (error) {
     dispatch({
       type: REGISTER_NEW_DEVICE_FAIL,
@@ -203,7 +202,7 @@ export const getRegisteredDetailsById=(DeviceID,DoctorName,HospitalName,Alias,IM
 
 export const updateDetailsById = 
 (
-  DeviceID,
+  DeviceId,
   AliasName,
   Hospital_Name,
   Doctor_Name,
@@ -225,7 +224,7 @@ async(dispatch)=>{
       },
     };
     let {data} = await axios.put(
-      `${process.env.REACT_APP_BASE_URL}/api/logger/device/Update/${DeviceID}`,
+      `${process.env.REACT_APP_BASE_URL}/api/logger/device/Update/${DeviceId}`,
       {
         AliasName,
         Hospital_Name,
@@ -252,6 +251,7 @@ async(dispatch)=>{
       error.response.data.data.err &&
       error.response.data.data.msg,
     })
+    console.log(DeviceId)
   }
 };
 export const getDeviceEventsById = () => async (dispatch) => {
@@ -281,6 +281,7 @@ export const getDeviceEventsById = () => async (dispatch) => {
         type:GET_DEVICE_EVENTS_BY_ID_SUCCESS,
         payload:response.data,
       });
+      
     }catch(error){
         dispatch({
             type: GET_DEVICE_EVENTS_BY_ID_FAIL,
@@ -292,6 +293,7 @@ export const getDeviceEventsById = () => async (dispatch) => {
               error.response.data.data.err &&
               error.response.data.data.err.msg,
           });
+          
     }
 };
 export const getDeviceAlarmsById = () => async (dispatch) => {

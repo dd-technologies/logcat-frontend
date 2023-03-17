@@ -292,7 +292,7 @@ export default function Alarms(){
                                     }}
                                   >
                                    {item.ack.date.split('T')[0]}
-                                   {/* {console.log(item.ack.date.split('T')[0])} */}
+                                   {console.log(item.ack.date.split('T')[0])}
                                   </section>
                                   <section
                                       style={{
