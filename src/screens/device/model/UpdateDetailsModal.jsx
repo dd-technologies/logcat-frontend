@@ -1,33 +1,35 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { Modal,Button,Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { updateDetailsById } from '../../../store/action/DeviceAction';
 import Style from "../../../css/EditDetailsModal.module.css";
 
 const UpdateDetailsModal = (props)=>{
-    const {...item1} = props;
-    console.log('3',props)
+    // const {...item1} = props;
+    // console.log('3',{...item1})
     // console.log('12',{item1}.item1.AliasName)
     // localStorage.setItem('item1',JSON.stringify(item1))
+  var item11 = JSON.parse(localStorage.getItem('item1'))
+   console.log(item11.DeviceId)
 
-    const[updateDetails,setUpdateDetails] = useState({
-        DeviceID1:item1.DeviceId,
-        AliasName:item1.AliasName,
-        HospitalName:item1.Hospital_Name,
-        DocName:item1.Doctor_Name,
-        WardNo:item1.Ward_No,
-        IMEINo:item1.IMEI_NO,
-        VentiOp:item1.Ventilator_Operator
+const [updateDetails,setUpdateDetails] = useState({
+        DeviceID1:item11.DeviceId,
+        AliasName:item11.AliasName,
+        HospitalName:item11.Hospital_Name,
+        DocName:item11.Doctor_Name,
+        WardNo:item11.Ward_No,
+        IMEINo:item11.IMEI_NO,
+        VentiOp:item11.Ventilator_Operator
       
     })
+    console.log(updateDetails.DeviceID1)
     // console.log(updateDetails.DeviceID1)
     const dispatch = useDispatch();
-    
     const handleSubmit = (e) =>{
         e.preventDefault();
         setErrorName("");
         alert("Details Updated SuccessFully")
-        if(item1){
+        if(item11){
             setErrorMsg("");
             setErrorName("");
             dispatch(
@@ -75,7 +77,7 @@ const UpdateDetailsModal = (props)=>{
                   className={Style.inputFields}
                   type="text"
                   name="DeviceId"
-                  value={updateDetails.DeviceID1}
+                  value={item11.DeviceId}
                   placeholder="Enter Your Device ID"
                   readOnly
                 />
@@ -223,6 +225,7 @@ const UpdateDetailsModal = (props)=>{
                   style={{ backgroundColor: "#1a83ff" }}
                   onClick={(e) => {
                     handleSubmit(e); 
+                    window.location.reload()
                   }}
                 >
                   Update

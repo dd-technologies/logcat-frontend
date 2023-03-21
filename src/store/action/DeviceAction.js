@@ -274,7 +274,8 @@ export const getDeviceEventsById = () => async (dispatch) => {
       let response;
 
       response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/deviceEvents/${DeviceId12}`, 
+        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/deviceEvents/${DeviceId12}`,
+         
         config
       );
       dispatch({

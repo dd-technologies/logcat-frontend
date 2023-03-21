@@ -8,6 +8,7 @@ import {
   faSortUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
+import {Image} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col,Button} from 'react-bootstrap';
 import Style from '../../css/DevicePage.module.css';
@@ -15,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import LogICon from '../../assets/icons/log.png';
 import AlarmIcon from '../../assets/images/AlarmIcon.png';
+import edit from '../../assets/icons/edit.png'; 
 import SpinnerCustom from '../../container/SpinnerCustom';
 import TableCard1 from '../../container/TableCard1';
 import { deviceAction,getRegisteredDetailsById } from '../../store/action/DeviceAction';
@@ -37,7 +39,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 export default function DeviceTable(){
   const { theme } = React.useContext(ThemeContext);
 
-  
   const getAllDeviceLogsReducer = useSelector((state) => state.getAllDeviceLogsReducer);
   const { data: DeviceId } = getAllDeviceLogsReducer;
   // console.log('firstget',getAllDeviceLogsReducer)
@@ -54,7 +55,10 @@ export default function DeviceTable(){
   // console.log('first',data12)
 
   let regDetail = data12 && data12.data;
-  console.log('1212',regDetail)
+  // console.log('1212',regDetail)
+
+  let deviceFilter = data && data.data && data.data.data;
+
 
   useEffect(()=>{
     dispatch(
@@ -64,8 +68,10 @@ export default function DeviceTable(){
       )
     )
   },([]))
-
   const dispatch = useDispatch();
+  // if(data12.data.did == data.data.data.DeviceId){
+  //   console.log(data.data.data.AliasName)
+  // }
 
   const initialState = {
     tableDataState :{},
@@ -211,11 +217,6 @@ const sidebar_details = {
     data: event.target.value,
   });
 };
-let deviceFilter = data && data.data && data.data.data;
-// console.log('df',deviceFilter)
-// console.log('data',data.data.data)
-// console.log(typeof(deviceFilter));
-
 let search =
     (currentStateDevices.searchField &&
       currentStateDevices.searchField.trim() &&
@@ -765,8 +766,6 @@ return (
                             >
                               Action
                             </p>
-                          </section>
-                          <section className={Style.innerHeader}>
                             <p
                               style={{
                                 marginRight: '10px',
@@ -778,7 +777,7 @@ return (
                             >
                              
                             </p>
-                          </section>
+                            </section>
                         </section>          
                       <div>
                       {/* {console.log('details',{details})} */}
@@ -865,15 +864,9 @@ return (
                                   }}
                                 >
                                   {item1.Ventilator_Operator}
-                                </section>
-                                <section>  
-       <Dropdown>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
-      </Dropdown.Toggle>
-
-     <Dropdown.Menu style={{padding:'0px 0px',textDecoration:'none'}}>
-     <Dropdown.Item style={{padding:'15px 0px 0px 35px'}}>
-      <Button
+                                </section>    
+                                <section>
+                                <Button style={{display:'none'}}
       onClick={()=>{
       setModalShow(true);
       // setModalData(item);
@@ -893,18 +886,20 @@ return (
       {...item}
       item = {JSON.parse(localStorage.getItem('DeviceId'))}
       />
-      </Dropdown.Item>
       <br/>
-      <Dropdown.Item style={{padding:'0px 0px 0px 35px'}}>
       <Button
       onClick={()=>{
       setModalShow1(true);
       {item1}  
       console.log({...item1})
+      {localStorage.setItem('item1',JSON.stringify(item1))}
+      // {localStorage.setItem('AliasName',JSON.stringify(item1.AliasName))}
+
                                                     
       }}
     >
-    Update
+    {/* Update */}
+    {<Image width="20" height="20" src={edit}/>}
     </Button>
       <UpdateDetailsModal
         show={modalShow1}
@@ -912,15 +907,31 @@ return (
         {...item1}
         {...console.log(item1)}
       />
-      </Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
-                            
-            </section> 
+      </section>                       
             </React.Fragment>
    )
  })
 }
+<Button
+      onClick={()=>{
+      setModalShow(true);
+      // setModalData(item);
+      {item}                            
+      // console.log(item)
+      // console.log({...item})
+      localStorage.setItem('DeviceId',JSON.stringify(item.did))
+      }
+      }
+      >
+      Register
+      </Button>
+
+      <EditDetailsModal 
+      show={modalShow}
+      onHide={()=>setModalShow(false)} 
+      {...item}
+      item = {JSON.parse(localStorage.getItem('DeviceId'))}
+      />
 {/* <Button
                              onClick={()=>{
                              setModalShow1(true);
@@ -974,7 +985,7 @@ return (
                     </section>
                   </>
                 )}
-                {data && data.data && data.data.data.length == 0 && (
+                {data12 && data12.data12  == 0 && (
                   <section className={Style.noDataFound}>
                     <p
                       style={{

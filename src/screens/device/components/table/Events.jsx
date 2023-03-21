@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Style from '../../../../css/deviceEvents.module.css';
 import { ThemeContext } from '../../../../utils/ThemeContext';
-const moment = require("moment-timezone");
+import { getRegisteredDetailsById } from '../../../../store/action/DeviceAction';
+// const moment = require("moment-timezone");
 export default function Events(){
   const {theme} = React.useContext(ThemeContext);
     const getAllEventsByDeviceIdReducer = useSelector((state)=>state.getAllEventsByDeviceIdReducer);
@@ -11,7 +13,13 @@ export default function Events(){
   
     let eventsFilter = data && data.data && data.data.findDeviceById;
     // console.log(eventsFilter)
-    var dateNew =0;
+
+    const getRegisteredDetailsReducer = useSelector((state)=>state.getRegisteredDetailsReducer);
+    const {data12} = getRegisteredDetailsReducer;
+    console.log('first',data12)
+  
+    const dispatch = useDispatch();
+  
     return(
       <>
        <section className={Style.alertTable}>
@@ -265,8 +273,8 @@ export default function Events(){
       }   
     )
   }
-        </div>
-      </section>
-      </>
-    )
-  }
+</div>
+</section>
+</>
+)
+}
