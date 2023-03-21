@@ -35,6 +35,7 @@ import {
 } from './store/Types';
 import Pagination from '../../common/Pagination';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { flushSync } from 'react-dom';
 
 export default function DeviceTable(){
   const { theme } = React.useContext(ThemeContext);
@@ -273,7 +274,7 @@ return (
         className={`${Style.NavbarColumn} colSection`}
       >
         <Navbar navigation_details={navigation_details} />
-        <h4 className=" darkModeColor"style={{paddingLeft:'140px',paddingTop:'150px',color:' #0099a4'}}>Device Summary</h4>
+        <h4 className={Style.Header}>Device Summary</h4>
         <Container className={Style.Container}  style={{marginLeft:'120px',marginTop:'0px'}}>
           <Row className="mt-4">
                   
@@ -775,7 +776,6 @@ return (
                                 fontSize: '.9rem',
                               }}
                             >
-                             
                             </p>
                             </section>
                         </section>          
@@ -893,13 +893,11 @@ return (
       {item1}  
       console.log({...item1})
       {localStorage.setItem('item1',JSON.stringify(item1))}
-      // {localStorage.setItem('AliasName',JSON.stringify(item1.AliasName))}
-
-                                                    
+      // {localStorage.setItem('AliasName',JSON.stringify(item1.AliasName))}                                             
       }}
     >
     {/* Update */}
-    {<Image width="20" height="20" src={edit}/>}
+    {<Image width="20" height="20" src={edit} className={Style.Image}/>}
     </Button>
       <UpdateDetailsModal
         show={modalShow1}
@@ -908,11 +906,11 @@ return (
         {...console.log(item1)}
       />
       </section>                       
-            </React.Fragment>
+      </React.Fragment>
    )
  })
 }
-<Button
+<Button style={{width:'90px',height:'50px'}}
       onClick={()=>{
       setModalShow(true);
       // setModalData(item);

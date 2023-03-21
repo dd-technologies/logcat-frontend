@@ -3,6 +3,7 @@ import { Modal,Button,Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { updateDetailsById } from '../../../store/action/DeviceAction';
 import Style from "../../../css/EditDetailsModal.module.css";
+import { flushSync } from 'react-dom';
 
 const UpdateDetailsModal = (props)=>{
     // const {...item1} = props;
@@ -33,7 +34,7 @@ const [updateDetails,setUpdateDetails] = useState({
             setErrorMsg("");
             setErrorName("");
             dispatch(
-                updateDetailsById(
+                  updateDetailsById(
                     updateDetails.DeviceID1,
                     updateDetails.AliasName,
                     updateDetails.HospitalName,
@@ -41,7 +42,6 @@ const [updateDetails,setUpdateDetails] = useState({
                     updateDetails.WardNo,
                     updateDetails.IMEINo,
                     updateDetails.VentiOp
-
                 )
             );
             window.location.reload()
@@ -68,7 +68,7 @@ const [updateDetails,setUpdateDetails] = useState({
                     style={{color:"#IF99A4"}}
                     >
                          Update Device Details
-                    </Modal.Title>
+                </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='card darkModeColor'>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
