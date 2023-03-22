@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import Style from '../../../../css/deviceEvents.module.css';
 import { ThemeContext } from '../../../../utils/ThemeContext';
-import { getRegisteredDetailsById } from '../../../../store/action/DeviceAction';
+import { getRegisteredDetailsById,getDeviceEventsById } from '../../../../store/action/DeviceAction';
 // const moment = require("moment-timezone");
 export default function Events(){
   const {theme} = React.useContext(ThemeContext);
@@ -13,12 +13,32 @@ export default function Events(){
   
     let eventsFilter = data && data.data && data.data.findDeviceById;
     // console.log(eventsFilter)
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const code = urlParams.get('code');
+    const deviceid = urlParams.get('DeviceId')
+    console.log('deviceid',deviceid)
 
     const getRegisteredDetailsReducer = useSelector((state)=>state.getRegisteredDetailsReducer);
     const {data12} = getRegisteredDetailsReducer;
     console.log('first',data12)
+    console.log(data && data.data && data.data.findDeviceById && data.data.findDeviceById.did)
   
     const dispatch = useDispatch();
+    useEffect(()=>{
+      dispatch(
+        getDeviceEventsById(
+          code,
+        )
+      );
+    },([]))
+    useEffect(()=>{
+      dispatch(
+        getRegisteredDetailsById(
+          deviceid     
+        )
+      )
+      },([]))
   
     return(
       <>
@@ -197,7 +217,7 @@ export default function Events(){
                             </section>                   
         </section>
         <div>
-          {console.log(eventsFilter)}
+          {/* {console.log(eventsFilter)} */}
           {eventsFilter && eventsFilter.map((item1,_id) => {
             return(
               <React.Fragment key = {_id}>
@@ -253,7 +273,7 @@ export default function Events(){
                                       }}
                                     >
                                       {item1.date.split('T')[0]}
-                                      {console.log(item1.date)}
+                                      {/* {console.log(item1.date)} */}
                                     </section>
                                   <section
                                       style={{

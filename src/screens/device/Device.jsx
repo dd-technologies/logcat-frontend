@@ -276,189 +276,7 @@ return (
         <Navbar navigation_details={navigation_details} />
         <h4 className={Style.Header}>Device Summary</h4>
         <Container className={Style.Container}  style={{marginLeft:'120px',marginTop:'0px'}}>
-          <Row className="mt-4">
-                  
-            {/* <Col xl={10} md={9} sm={9}>
-              <TypeDropDown
-                tableDataState={currentStateDevices.tableDataState}
-                diffDate={currentStateDevices.diffDate}
-                codeReducer={getModelCodeReducer}
-              />
-            </Col> */}
-
-            {/* DATE FILTER */}
-            {/* <Col xl={2} md={3} sm={3} className={Style.filterWithDate}>
-              <section className={Style.filterwithDate} ref={ref}>
-                <section className={Style.datafilter} onClick={DateFilter}>
-                  <Image
-                    src={DateIcons}
-                    width="20px"
-                    style={{
-                      filter:
-                        'invert(45%) sepia(99%) saturate(341%) hue-rotate(135deg) brightness(91%) contrast(91%)',
-                    }}
-                  />
-                  <p
-                    style={{
-                      fontSize: '.9rem',
-                    }}
-                    className="m-2 darkModeColor"
-                  >
-                    {currentStateDevices.diffDate == 10
-                      ? `last 10 days`
-                      : currentStateDevices.diffDate == 7
-                      ? `last 7 days`
-                      : currentStateDevices.diffDate == 15
-                      ? `last 15 days`
-                      : currentStateDevices.diffDate == 30
-                      ? `last 30 days`
-                      : currentStateDevices.diffDate == 45
-                      ? `last 45 days`
-                      : currentStateDevices.diffDate == 60
-                      ? `last 60 days`
-                      : currentStateDevices.diffDate == 90
-                      ? `last 90 days`
-                      : null}
-                  </p>
-                  <FontAwesomeIcon
-                    icon={faCaretDown}
-                    color="#2A9AA4"
-                    style={{
-                      width: '10px',
-                      height: '20px',
-                      marginBottom: '2px',
-                    }}
-                  />
-                </section>
-                <section>
-                  {currentStateDevices.dateDropDown ? (
-                    <CustomeDropDown width="100%" zIndex="8">
-                      <p
-                        style={{ fontSize: '.8rem' }}
-                        className={`${Style.productVersion} mt-1 darkModeColor `}
-                        onClick={() => {
-                          dispatchAlertsData({
-                            type: DIFF_DATE,
-                            data: 7,
-                          });
-                          localStorage.setItem(
-                            'diffDate',
-                            currentStateDevices.diffDate
-                          );
-                          dispatchAlertsData({
-                            type: DATE_DROPDOWN,
-                            data: false,
-                          });
-                        }}
-                      >
-                        7 days
-                      </p>
-                      <p
-                        style={{ fontSize: '.8rem' }}
-                        className={`${Style.productVersion} mt-1 darkModeColor`}
-                        onClick={() => {
-                          dispatchAlertsData({
-                            type: DIFF_DATE,
-                            data: 15,
-                          });
-                          localStorage.setItem(
-                            'diffDate',
-                            currentStateDevices.diffDate
-                          );
-                          dispatchAlertsData({
-                            type: DATE_DROPDOWN,
-                            data: false,
-                          });
-                        }}
-                      >
-                        15 days
-                      </p>
-                      <p
-                        style={{ fontSize: '.8rem' }}
-                        className={`${Style.productVersion} mt-1 darkModeColor`}
-                        onClick={() => {
-                          dispatchAlertsData({
-                            type: DIFF_DATE,
-                            data: 30,
-                          });
-                          localStorage.setItem(
-                            'diffDate',
-                            currentStateDevices.diffDate
-                          );
-                          dispatchAlertsData({
-                            type: DATE_DROPDOWN,
-                            data: false,
-                          });
-                        }}
-                      >
-                        30 days
-                      </p>
-                      <p
-                        style={{ fontSize: '.8rem' }}
-                        className={`${Style.productVersion} mt-1 darkModeColor`}
-                        onClick={() => {
-                          dispatchAlertsData({
-                            type: DIFF_DATE,
-                            data: 45,
-                          });
-                          localStorage.setItem(
-                            'diffDate',
-                            currentStateDevices.diffDate
-                          );
-                          dispatchAlertsData({
-                            type: DATE_DROPDOWN,
-                            data: false,
-                          });
-                        }}
-                      >
-                        45 days
-                      </p>
-                      <p
-                        style={{ fontSize: '.8rem' }}
-                        className={`${Style.productVersion} mt-1 darkModeColor`}
-                        onClick={() => {
-                          dispatchAlertsData({
-                            type: DIFF_DATE,
-                            data: 60,
-                          });
-                          localStorage.setItem(
-                            'diffDate',
-                            currentStateDevices.diffDate
-                          );
-                          dispatchAlertsData({
-                            type: DATE_DROPDOWN,
-                            data: false,
-                          });
-                        }}
-                      >
-                        60 days
-                      </p>
-                      <p
-                        style={{ fontSize: '.8rem' }}
-                        className={`${Style.productVersion} mt-1 darkModeColor`}
-                        onClick={() => {
-                          dispatchAlertsData({
-                            type: DIFF_DATE,
-                            data: 90,
-                          });
-                          localStorage.setItem(
-                            'diffDate',
-                            currentStateDevices.diffDate
-                          );
-                          dispatchAlertsData({
-                            type: DATE_DROPDOWN,
-                            data: false,
-                          });
-                        }}
-                      >
-                        90 days
-                      </p>
-                    </CustomeDropDown>
-                  ) : null}
-                </section>
-              </section>
-            </Col>  */}
-          </Row>  
+           
           {/* Events  */}
           <Row className="mt-0">
             <Col>
@@ -866,19 +684,19 @@ return (
                                   {item1.Ventilator_Operator}
                                 </section>    
                                 <section>
-                                <Button style={{display:'none'}}
-      onClick={()=>{
-      setModalShow(true);
-      // setModalData(item);
-      {item}                            
-      // console.log(item)
-      // console.log({...item})
-      localStorage.setItem('DeviceId',JSON.stringify(item.did))
-      }
-      }
-      >
-      Register
-      </Button>
+         <Button style={{display:'none'}}
+            onClick={()=>{
+            setModalShow(true);
+           // setModalData(item);
+           {item}                            
+            // console.log(item)
+           // console.log({...item})
+           localStorage.setItem('DeviceId',JSON.stringify(item.did))
+           }
+         }
+         >
+          Register
+        </Button>
 
       <EditDetailsModal 
       show={modalShow}
@@ -886,8 +704,7 @@ return (
       {...item}
       item = {JSON.parse(localStorage.getItem('DeviceId'))}
       />
-      <br/>
-      <Button
+      <Button title='Update'
       onClick={()=>{
       setModalShow1(true);
       {item1}  
@@ -910,18 +727,15 @@ return (
    )
  })
 }
-<Button style={{width:'90px',height:'50px'}}
+<Button title='Register'
       onClick={()=>{
       setModalShow(true);
-      // setModalData(item);
       {item}                            
-      // console.log(item)
-      // console.log({...item})
       localStorage.setItem('DeviceId',JSON.stringify(item.did))
       }
       }
       >
-      Register
+      {<Image width="10" height="20" src={edit} className={Style.Image}/>}
       </Button>
 
       <EditDetailsModal 

@@ -28,6 +28,11 @@ export default function DeviceLogs(props){
     console.log(projectName)
     const did = urlParams.get('DeviceId')
     console.log('did',did);
+
+    // const getRegisteredDetailsReducer = useSelector((state)=>state.getRegisteredDetailsReducer);
+    // const {data12} = getRegisteredDetailsReducer;
+    // console.log('first',data12)
+  
     
 
      //Navigation bar ==================================
@@ -94,6 +99,8 @@ useEffect(()=>{
 };
 const item = localStorage.getItem('Status');
 console.log('first',item)
+const alias = localStorage.getItem('Alias')
+console.log(alias)
 
     return(
       <div>
@@ -115,7 +122,8 @@ console.log('first',item)
         <h1>Device Logs</h1>
         <Container style={{marginLeft:'120px',marginTop:'0px'}}>
         <h6 style={{paddingLeft:"5px",paddingTop:"200px",color:"black"}}>Active DeviceId:{did}</h6>
-        <h6 style={{paddingLeft:"5px",color:"black"}}>Status:{item}</h6>
+        {/* <h6 style={{paddingLeft:"5px",color:"black"}}>Status:{item}</h6>
+        <h6>Status</h6> */}
         <Row className='mt-0'>
           <Col>
           <TableCard1 borderRadius="10px">
