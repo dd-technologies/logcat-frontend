@@ -17,13 +17,14 @@
   height: 40px;
 }
 .Tabs{
+  padding: 10px;
  font-weight: 200;
  background-color: rgba(122, 122, 122, 0.082);
  background-color: #fff;
  
 }
 .Tabs button{
-  margin-right: 20px;
+  margin-right: 10px;
   font-weight: 600;
   font-size: large;
   background-color: #fff;

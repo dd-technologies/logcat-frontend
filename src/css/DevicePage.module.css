@@ -88,10 +88,14 @@
   .alertTable .tableHeader {
     padding: 10px 10px;
     display: grid;
-    grid-template-columns: 5% 15% 10% 10% 10% 12% 15% 19% 5% 5%;
+    grid-template-columns:  5% 10% 12% 12% 10% 12% 14% 16% 5% 5%;
     font-weight: 500;
     font-size: 0.9rem !important;
     background-color: rgba(122, 122, 122, 0.082);
+  }
+  .alertTable .tableBody {
+    /* grid-template-columns: 5% 30% 13% 25% 15% 15%; */
+    grid-template-columns:  4% 12% 12% 12% 10% 12% 14% 13% 5% 6% 10%; 
   }
   @media screen and (min-width: 600px) and (max-width: 959px) {
     .alertTable .tableHeader {
@@ -112,7 +116,8 @@
     border-bottom: 1px solid rgba(51, 51, 51, 0.137);
     padding: 10px;
     display: grid;
-    grid-template-columns:  5% 15% 10% 10% 10% 12% 15% 19% 5% 5%;
+    /* grid-template-columns:  5% 15% 10% 10% 10% 12% 15% 19% 5% 5%; */
+    grid-template-columns:  4% 11% 12% 12% 10% 12% 14% 13% 5% 6% 10%;
     font-size: 0.9rem;
   }
   @media screen and (min-width: 600px) and (max-width: 959px) {
@@ -152,7 +157,7 @@
   @media screen and (min-width: 1920px) and (max-width: 5000px) {
     .alertTable .tableBody {
       /* grid-template-columns: 5% 30% 13% 25% 15% 15%; */
-      grid-template-columns:  4% 11% 12% 12% 10% 12% 14% 13% 5% 6% 10%;
+      grid-template-columns:  4% 11% 12% 12% 10% 12% 14% 13% 5% 6% 10%; 
     }
     .alertTable .tableHeader{
       grid-template-columns:  5% 11% 12% 12% 10% 12% 14% 12% 5% 5%;
@@ -169,4 +174,6 @@
       height: 20px;
     }
 
-  }/* # sourceMappingURL=device.module.css.map */
+  }
+  
+  /* # sourceMappingURL=device.module.css.map */

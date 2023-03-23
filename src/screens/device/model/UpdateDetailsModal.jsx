@@ -11,7 +11,8 @@ const UpdateDetailsModal = (props)=>{
     // console.log('12',{item1}.item1.AliasName)
     // localStorage.setItem('item1',JSON.stringify(item1))
   var item11 = JSON.parse(localStorage.getItem('item1'))
-   console.log(item11.DeviceId)
+
+  // var item11 = JSON.parse;
 
 const [updateDetails,setUpdateDetails] = useState({
         DeviceID1:item11.DeviceId,

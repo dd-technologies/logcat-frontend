@@ -97,6 +97,10 @@
     font-size: 0.9rem !important;
     background-color: rgba(122, 122, 122, 0.082);
   }
+      .alertTable .tableBody {
+      /* grid-template-columns: 5% 30% 13% 25% 15% 15%; */
+      grid-template-columns:  12% 35% 12% 18% 10% 13% 14% 16% 5%;
+    }
   .regbtn{
     display: none;
   }

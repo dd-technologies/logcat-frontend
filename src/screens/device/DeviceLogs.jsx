@@ -93,9 +93,30 @@ useEffect(()=>{
     )
   );
 },([]))
-  const[activeTab,setActiveTab]=useState(0);
- const handleTabClick = (tabIndex) => {
+const [eventsbtn,setEventsbtn]=useState("btn text-white")
+const [alarmsbtn,setAlarmsbtn]=useState()
+const [logsbtn,setLogsbtn]=useState()
+const[activeTab,setActiveTab]=useState(0);
+const handleTabClick = (tabIndex) => {
   setActiveTab(tabIndex);
+  if(tabIndex==0){
+    setEventsbtn("btn text-white")
+  }
+  else{
+    setEventsbtn("btn-light")
+  }
+  if(tabIndex==1){
+    setAlarmsbtn('btn text-white')
+  }
+  else{
+    setAlarmsbtn('btn-light')
+  }
+  if(tabIndex==2){
+    setLogsbtn('btn text-white')
+  }
+  else{
+    setLogsbtn('btn-light')
+  }
 };
 const item = localStorage.getItem('Status');
 console.log('first',item)
@@ -129,9 +150,9 @@ console.log(alias)
           <TableCard1 borderRadius="10px">
             <>
             <section className={`${Style.Tabs} `}>
-            <button onClick={() => handleTabClick(0)} style={{marginLeft:"2px",marginRight:"15px",border:'none'}} defaultChecked>Events /</button>
-            <button onClick={() => handleTabClick(1)} style={{marginRight:"15px",border:'none'}}>Alarms /</button>
-            <button onClick={() => handleTabClick(2)} style={{marginRight:"12px",border:'none'}}>Logs</button>
+            <button  className={eventsbtn} onClick={() => handleTabClick(0)} style={{border:'none',padding:"6px"}} defaultChecked>Events</button>
+            <button  className={alarmsbtn} onClick={() => handleTabClick(1)} style={{padding:"6px",border:'none'}}>Alarms</button>
+            <button  className={logsbtn} onClick={() => handleTabClick(2)} style={{padding:"6px",border:'none'}}>Logs</button>
             </section>
 
             <section className={`${Style.tableHeader}`}>
