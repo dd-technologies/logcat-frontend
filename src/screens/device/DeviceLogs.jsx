@@ -24,7 +24,7 @@ export default function DeviceLogs(props){
     const urlParams = new URLSearchParams(queryString);
     const code = urlParams.get('code');
     console.log('code',code)
-    const projectName = urlParams.get('name');
+    const projectName = urlParams.get('projectName');
     console.log(projectName)
     const did = urlParams.get('DeviceId')
     console.log('did',did);
@@ -120,8 +120,8 @@ const handleTabClick = (tabIndex) => {
 };
 const item = localStorage.getItem('Status');
 console.log('first',item)
-const alias = localStorage.getItem('Alias')
-console.log(alias)
+const alias = localStorage.getItem('AliasName')
+console.log("alias",alias)
 
     return(
       <div>
@@ -140,14 +140,12 @@ console.log(alias)
          className={`${Style.NavbarColumn} colSection`}
          >
         <Navbar navigation_details={navigation_details} />
-        <h1>Device Logs</h1>
         <Container style={{marginLeft:'120px',marginTop:'0px'}}>
-        <h6 style={{paddingLeft:"5px",paddingTop:"200px",color:"black"}}>Active DeviceId:{did}</h6>
-        {/* <h6 style={{paddingLeft:"5px",color:"black"}}>Status:{item}</h6>
-        <h6>Status</h6> */}
+        {/* <h6 style={{paddingLeft:"5px",paddingTop:"200px",color:"black", paddingBottom:"20px"}}>Active DeviceId:{did}</h6> */}
+        <h6 style={{paddingLeft:"5px",paddingTop:"200px",color:"black", paddingBottom:"20px"}}>Alias Name:{alias}</h6>
         <Row className='mt-0'>
           <Col>
-          <TableCard1 borderRadius="10px">
+          <TableCard1 borderRadius="10px" style={{boxShadow:"0px 5px 10px 0px rgba(0, 0, 0, 0.5)"}}>
             <>
             <section className={`${Style.Tabs} `}>
             <button  className={eventsbtn} onClick={() => handleTabClick(0)} style={{border:'none',padding:"6px"}} defaultChecked>Events</button>

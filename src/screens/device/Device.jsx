@@ -273,8 +273,8 @@ return (
         className={`${Style.NavbarColumn} colSection`}
       >
         <Navbar navigation_details={navigation_details} />
-        <h4 className={Style.Header} style={{marginLeft:'30px',marginTop:'120px'}}>Device Summary</h4>
-        <Container className={Style.Container}  style={{marginLeft:'10px',marginTop:'0px'}}>
+        <h4 className={Style.Header} style={{marginLeft:'40px',paddingBottom:"20px"}}>Device Summary</h4>
+        <Container className={Style.Container}  style={{marginLeft:'50px',marginTop:'0px'}}>
            
           {/* Events  */}
           <Row className="mt-0">
@@ -624,7 +624,7 @@ return (
                                   }}
                                 >
                                   {/* {console.log('key',_id)} */}
-                             <Link to={`/deviceEvents?code=${code}&projectName=${projectName}&DeviceId=${item.did}`} onClick={routeChange} style={{textDecoration:"none",color:"black"}}>{item.did}</Link>
+                             <Link to={`/deviceEvents?code=${code}&projectName=${projectName}&DeviceId=${item.did}`} onClick={routeChange} style={{textDecoration:"none",color:theme == 'light-theme' ? 'black' : '#fff',}}>{item.did}</Link>
                              {/* {localStorage.setItem('DeviceId',JSON.stringify(item.did))} */}
                                 {/* {console.log('did',item.did)} */}
                                 </section>
@@ -682,7 +682,7 @@ return (
                                 >
                                   {item1.Ventilator_Operator}
                                 </section>    
-                                <section>
+                                <section className='d-flex' style={{gap:'5px'}}>
          <Button style={{display:'none'}}
             onClick={()=>{
             setModalShow(true);
@@ -709,12 +709,29 @@ return (
       {item1}  
       console.log({...item1})
       {localStorage.setItem('item1',JSON.stringify(item1))}
-      // {localStorage.setItem('AliasName',JSON.stringify(item1.AliasName))}                                             
+      {localStorage.setItem('AliasName',JSON.stringify(item1.AliasName))}                                             
       }}
     >
     {/* Update */}
     {<Image width="20" height="20" src={edit} className={Style.Image}/>}
     </Button>
+    <Button title='Register'
+      onClick={()=>{
+      setModalShow(true);
+      {item}                            
+      localStorage.setItem('DeviceId',JSON.stringify(item.did))
+      }
+      }
+      >
+      {<Image width="20" height="20" src={edit} className={Style.Image}/>}
+      </Button>
+
+      <EditDetailsModal 
+      show={modalShow}
+      onHide={()=>setModalShow(false)} 
+      {...item}
+      item = {JSON.parse(localStorage.getItem('DeviceId'))}
+      />
       <UpdateDetailsModal
         show={modalShow1}
         onHide={()=>setModalShow1(false)}
@@ -726,57 +743,7 @@ return (
    )
  })
 }
-<Button title='Register'
-      onClick={()=>{
-      setModalShow(true);
-      {item}                            
-      localStorage.setItem('DeviceId',JSON.stringify(item.did))
-      }
-      }
-      >
-      {<Image width="10" height="20" src={edit} className={Style.Image}/>}
-      </Button>
 
-      <EditDetailsModal 
-      show={modalShow}
-      onHide={()=>setModalShow(false)} 
-      {...item}
-      item = {JSON.parse(localStorage.getItem('DeviceId'))}
-      />
-{/* <Button
-                             onClick={()=>{
-                             setModalShow1(true);
-                             {item1}
-                             console.log('1',{...item1})
-                            }}
-                           >
-                            Update
-                          </Button>
-                          <UpdateDetailsModal
-                            show={modalShow1}
-                            onHide={()=>setModalShow1(false)}
-                            {...item1}
-                            {...console.log('2',{...item1})}
-                          />
-        <Button 
-        onClick={()=>{
-        setModalShow(true);
-      // setModalData(item);
-        {item}                            
-        console.log({...item})
-        localStorage.setItem('DeviceId',JSON.stringify(item.did))
-        }
-    }
-    >
-    Register
-  </Button>
-
-    <EditDetailsModal 
-      show={modalShow}
-      onHide={()=>setModalShow(false)} 
-      {...item}
-      item = {JSON.parse(localStorage.getItem('DeviceId'))}
-    /> */}
    </section>   
    </React.Fragment>
     );
@@ -820,71 +787,3 @@ return (
 
 }
 
-{/* <section>
-                                  <Button
-                                  onClick={()=>{
-                                    setModalShow1(true);
-                                    {item1}
-                                      
-                                    
-                                  }}
-                                  >
-                                    Update
-                                    </Button>
-                                  <UpdateDetailsModal
-                                  show={modalShow1}
-                                  onHide={()=>setModalShow1(false)}
-                                  {...item1}
-                                  />
-                                </section> */}
-
-//                                 <section>
-//                                 <Dropdown>
-//       <Dropdown.Toggle variant="success" id="dropdown-basic">
-//       </Dropdown.Toggle>
-
-//       <Dropdown.Menu style={{padding:'0px 0px',textDecoration:'none'}}>
-//       <Dropdown.Item style={{padding:'15px 0px 0px 35px'}}>
-//       <Button
-//       onClick={()=>{
-//       setModalShow(true);
-//       // setModalData(item);
-//       {item}                            
-//       // console.log(item)
-//       // console.log({...item})
-//       localStorage.setItem('DeviceId',JSON.stringify(item.did))
-//       }
-//       }
-//       >
-//       Register
-//       </Button>
-
-//       <EditDetailsModal 
-//       show={modalShow}
-//       onHide={()=>setModalShow(false)} 
-//       {...item}
-//       item = {JSON.parse(localStorage.getItem('DeviceId'))}
-//       />
-//       </Dropdown.Item>
-//       <br/>
-//       <Dropdown.Item style={{padding:'0px 0px 0px 35px'}}>
-//       <Button
-//       onClick={()=>{
-//       setModalShow1(true);
-//       {item1}  
-//       console.log({...item1})
-                                                    
-//       }}
-//     >
-//     Update
-//     </Button>
-//       <UpdateDetailsModal
-//         show={modalShow1}
-//         onHide={()=>setModalShow1(false)}
-//         {...item1}
-//         {...console.log(item1)}
-//       />
-//       </Dropdown.Item>
-//       </Dropdown.Menu>
-//     </Dropdown>
-// </section> 
