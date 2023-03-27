@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // import{
 //     getLogMsgOccurenceWRTDate
 // }from '../../store/action/LogsAction';
+//
 import {getLogMsgOccurence,getDeviceCrashAnalytics} from '../../store/action/DeviceAction'
 import AnalyticeIcon from '../../assets/icons/analyticIcon.png';
 import Style from '../../css/Analytics.module.css';
