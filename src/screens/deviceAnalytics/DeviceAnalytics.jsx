@@ -10,7 +10,7 @@ import Style from '../../css/Analytics.module.css';
 import SideBar from '../../utils/Sidebar';
 import { Navbar } from '../../utils/NavBar';
 import { faChartLine, faCog } from '@fortawesome/free-solid-svg-icons';
-export default function analytics(){
+export default function Analytics(){
 
 const [title, setTitle] = useState('');
 const [subTitle, setSubTitle] = useState('');

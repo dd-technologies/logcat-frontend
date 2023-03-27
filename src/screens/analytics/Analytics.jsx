@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
-import ToggleTabs from './Componets/ToggleTabs';
+import ToggleTabs from './Components/ToggleTabs';
 import Style from '../../css/Analytics.module.css';
-import AnalyticsEventDataComp from './Componets/AnalyticsEventDataComp';
-import EventByVersion from './Componets/EventByVersion';
+import AnalyticsEventDataComp from './Components/AnalyticsEventDataComp';
+import EventByVersion from './Components/EventByVersion';
 
 import {
   getCrashFreeUsersData,

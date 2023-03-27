@@ -10,7 +10,7 @@ import { toast, Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { resetForgetPassword } from "../../store/action/AdminAction";
 import { useNavigate } from "react-router-dom";
-import Timer from "../analytics/Componets/Timer";
+import Timer from "../analytics/Components/Timer";
 import { forgetPassword } from "../../store/action/AdminAction";
 import OtpInput from "./OtpInput";
 import SpinnerCustom from "../../container/SpinnerCustom";
