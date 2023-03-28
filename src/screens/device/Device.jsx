@@ -16,7 +16,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import LogICon from '../../assets/icons/log.png';
 import AlarmIcon from '../../assets/images/AlarmIcon.png';
-import edit from '../../assets/icons/edit.png'; 
+import registericon from '../../assets/icons/registericon.png';
+import editicon from '../../assets/icons/editicon.png'; 
 import SpinnerCustom from '../../container/SpinnerCustom';
 import TableCard1 from '../../container/TableCard1';
 import { deviceAction,getRegisteredDetailsById } from '../../store/action/DeviceAction';
@@ -713,9 +714,9 @@ return (
       }}
     >
     {/* Update */}
-    {<Image width="20" height="20" src={edit} className={Style.Image}/>}
+    {<Image width="20" height="20" src={editicon} className={Style.Image}/>}
     </Button>
-    <Button title='Register'
+    {/* <Button title='Register'
       onClick={()=>{
       setModalShow(true);
       {item}                            
@@ -723,7 +724,7 @@ return (
       }
       }
       >
-      {<Image width="20" height="20" src={edit} className={Style.Image}/>}
+      {<Image width="20" height="22" src={registericon} className={Style.Image}/>}
       </Button>
 
       <EditDetailsModal 
@@ -731,7 +732,7 @@ return (
       onHide={()=>setModalShow(false)} 
       {...item}
       item = {JSON.parse(localStorage.getItem('DeviceId'))}
-      />
+      /> */}
       <UpdateDetailsModal
         show={modalShow1}
         onHide={()=>setModalShow1(false)}
@@ -743,6 +744,23 @@ return (
    )
  })
 }
+<Button title='Register'
+      onClick={()=>{
+      setModalShow(true);
+      {item}                            
+      localStorage.setItem('DeviceId',JSON.stringify(item.did))
+      }
+      }
+      >
+      {<Image width="20" height="22" src={registericon} className={Style.Image}/>}
+      </Button>
+
+      <EditDetailsModal 
+      show={modalShow}
+      onHide={()=>setModalShow(false)} 
+      {...item}
+      item = {JSON.parse(localStorage.getItem('DeviceId'))}
+      />
 
    </section>   
    </React.Fragment>
