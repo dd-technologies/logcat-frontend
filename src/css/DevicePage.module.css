@@ -20,8 +20,8 @@
     display: none;
   }
   .Header{
-    padding-left:'140px';
-    padding-top:'150px';
+    padding: 150px 0px 20px 140px;
+    margin-left: 40px;
     color:' #0099a4'
   }
   .searchSection .filterGraphFirstSection {
@@ -97,6 +97,10 @@
     /* grid-template-columns: 5% 30% 13% 25% 15% 15%; */
     grid-template-columns:  4% 12% 12% 12% 10% 12% 14% 13% 5% 6% 10%; 
   }
+  .Container{
+    margin-left:'15%';
+    margin-top:'0px';
+  }
   @media screen and (min-width: 600px) and (max-width: 959px) {
     .alertTable .tableHeader {
       grid-template-columns: 5% 25% 13% 25% 18% 18%;
@@ -131,15 +135,19 @@
       padding: 10px;
   
     }
-    
+    .Header{
+      padding-left:20px;
+      padding-top:150px;
+      color: #0099a4;
+    }
   }
-  @media screen and (min-width:800px) and (max-width:1280px){
+  @media screen and (min-width:800px) and (max-width:1920px){
     .Container{
-      margin-left: 0px;
+      margin-left: 9%;
     }
     .alertTable .tableBody {
       /* grid-template-columns: 5% 30% 13% 25% 15% 15%; */
-      grid-template-columns:  4% 11% 12% 12% 10% 12% 14% 13% 5% 7%;
+      grid-template-columns:  4% 13% 12% 12% 10% 12% 14% 10% 5% 5%;
     }
     .alertTable .tableHeader{
       grid-template-columns:  5% 11% 12% 12% 10% 12% 14% 12% 5% 5%;
@@ -148,7 +156,7 @@
   
     }
     .Header{
-      padding-left:140px;
+      padding-left:66px;
       padding-top:150px;
       color: #0099a4;
     }
@@ -165,7 +173,7 @@
       padding: 10px;
     }
     .Header{
-      padding-left:20px;
+      padding-left:220px;
       padding-top:150px;
       color: #0099a4;
     }

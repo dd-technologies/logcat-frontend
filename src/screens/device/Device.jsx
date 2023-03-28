@@ -273,8 +273,8 @@ return (
         className={`${Style.NavbarColumn} colSection`}
       >
         <Navbar navigation_details={navigation_details} />
-        <h4 className={Style.Header} style={{marginLeft:'40px',paddingBottom:"20px"}}>Device Summary</h4>
-        <Container className={Style.Container}  style={{marginLeft:'50px',marginTop:'0px'}}>
+        <h4 className={Style.Header}>Device Summary</h4>
+        <Container className={Style.Container}>
            
           {/* Events  */}
           <Row className="mt-0">

@@ -8,10 +8,10 @@ export default function TableCard1(props) {
   )[0];
   return (
     <>
-      <Card
+      <Card 
         style={{
           // height: props.height ? props.height : "100%",
-          width: props.width ? props.width : "130%",
+          width: props.width ? props.width : "100%",
           borderRadius: props.borderRadius ? props.borderRadius : "20px",
           padding: props.padding ? props.padding : "0px",
           position: props.position ? props.position : "relative",

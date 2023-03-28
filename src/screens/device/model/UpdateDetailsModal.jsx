@@ -10,9 +10,9 @@ const UpdateDetailsModal = (props)=>{
     // console.log('3',{...item1})
     // console.log('12',{item1}.item1.AliasName)
     // localStorage.setItem('item1',JSON.stringify(item1))
-  var item11 = JSON.parse(localStorage.getItem('item1'))
+  // var item11 = JSON.parse(localStorage.getItem('item1'))
 
-  // var item11 = 0;
+  var item11 = 0;
 
 const [updateDetails,setUpdateDetails] = useState({
         DeviceID1:item11.DeviceId,
