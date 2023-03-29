@@ -38,6 +38,8 @@ export const loginWithEmail =
       
       const config = {
         header: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
           'Content-type': 'application/json',
         },
       };

@@ -225,15 +225,15 @@ let search =
       currentStateDevices.searchField.trim().toLowerCase()) ||
     '';
 
-  // if (search.length > 0) {
-  //   deviceFilter = deviceFilter.filter((item) => {
-  //     return (
-  //       item.did.toLowerCase().includes(search) ||
-  //       item.ack.msg.toLowerCase().includes(search) ||
-  //       item.createdAt.toLowerCase().includes(search)
-  //     );
-  //   });
-  // }
+  if (search.length > 0) {
+    deviceFilter = deviceFilter.filter((item) => {
+      return (
+        item.did.toLowerCase().includes(search) 
+        // item.ack.msg.toLowerCase().includes(search) ||
+        // item.createdAt.toLowerCase().includes(search)
+      );
+    });
+  }
   const callbackfnDispatchGetAllData = (sortType) => {
     dispatch(
       deviceAction(
