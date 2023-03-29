@@ -44,7 +44,7 @@ export const loginWithEmail =
         },
       };
       const { data } = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}api/logger/auth/login`,
+        `${process.env.REACT_APP_BASE_URL}/api/logger/auth/login`,
         {
           email,
           password,
