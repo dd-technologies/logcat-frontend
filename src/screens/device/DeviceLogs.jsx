@@ -16,6 +16,7 @@ import { ThemeContext } from '../../utils/ThemeContext';
 import Events from './components/table/Events';
 import Logs from './components/table/Logs';
 import Alarms from './components/table/Alarms';
+import Trends from './components/table/Trends';
 
 export default function DeviceLogs(props){
     const {theme} = React.useContext(ThemeContext);
@@ -96,6 +97,7 @@ useEffect(()=>{
 const [eventsbtn,setEventsbtn]=useState("btn text-white")
 const [alarmsbtn,setAlarmsbtn]=useState()
 const [logsbtn,setLogsbtn]=useState()
+const [trendsbtn, setTrendsbtn]=useState()
 const[activeTab,setActiveTab]=useState(0);
 const handleTabClick = (tabIndex) => {
   setActiveTab(tabIndex);
@@ -117,11 +119,17 @@ const handleTabClick = (tabIndex) => {
   else{
     setLogsbtn('btn-light')
   }
+  if(tabIndex==3){
+    setTrendsbtn('btn text-white')
+  }
+  else{
+    setTrendsbtn('btn-light')
+  }
 };
 const item = localStorage.getItem('Status');
 console.log('first',item)
-const alias = localStorage.getItem('AliasName')
-console.log("alias",alias)
+// const alias = (localStorage.getItem('AliasName')) 
+// console.log("alias",JSON.parse(alias))
 
     return(
       <div>
@@ -140,9 +148,9 @@ console.log("alias",alias)
          className={`${Style.NavbarColumn} colSection`}
          >
         <Navbar navigation_details={navigation_details} />
-        <Container style={{marginLeft:'120px',marginTop:'0px'}}>
+        <Container>
         {/* <h6 style={{paddingLeft:"5px",paddingTop:"200px",color:"black", paddingBottom:"20px"}}>Active DeviceId:{did}</h6> */}
-        <h6 style={{paddingLeft:"5px",paddingTop:"200px",color:"black", paddingBottom:"20px"}}>Alias Name:{alias}</h6>
+        <h6 style={{fontSize:"1.5rem", paddingLeft:"5px",paddingTop:"5rem",color:"#21969d", paddingBottom:"20px"}}>Alias Name : {JSON.parse(localStorage.getItem('AliasName'))}</h6>
         <Row className='mt-0'>
           <Col>
           <TableCard1 borderRadius="10px" style={{boxShadow:"0px 5px 10px 0px rgba(0, 0, 0, 0.5)"}}>
@@ -151,12 +159,14 @@ console.log("alias",alias)
             <button  className={eventsbtn} onClick={() => handleTabClick(0)} style={{border:'none',padding:"6px"}} defaultChecked>Events</button>
             <button  className={alarmsbtn} onClick={() => handleTabClick(1)} style={{padding:"6px",border:'none'}}>Alarms</button>
             <button  className={logsbtn} onClick={() => handleTabClick(2)} style={{padding:"6px",border:'none'}}>Logs</button>
+            <button  className={trendsbtn} onClick={() => handleTabClick(3)} style={{padding:"6px",border:'none'}}>Trends</button>
             </section>
 
             <section className={`${Style.tableHeader}`}>
                {activeTab === 0 && <Events/>} 
                {activeTab === 1 && < Alarms/>}
                {activeTab === 2 && <Logs/>}
+               {activeTab === 3 && <Trends/>}
             </section>
             </>
           </TableCard1>

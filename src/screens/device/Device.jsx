@@ -6,6 +6,7 @@ import {
   faDownload,
   faSortDown,
   faSortUp,
+  faArrowRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
 import {Image} from 'react-bootstrap';
@@ -280,7 +281,7 @@ return (
           {/* Events  */}
           <Row className="mt-0">
             <Col>
-              <TableCard1 borderRadius="10px">
+              <TableCard1 borderRadius="20px" >
                 {data && data.data && data.data.data.length > 0 && (
                   <>
                     <section className={`${Style.OuterTable} `}>
@@ -625,7 +626,8 @@ return (
                                   }}
                                 >
                                   {/* {console.log('key',_id)} */}
-                             <Link to={`/deviceEvents?code=${code}&projectName=${projectName}&DeviceId=${item.did}`} onClick={routeChange} style={{textDecoration:"none",color:theme == 'light-theme' ? 'black' : '#fff',}}>{item.did}</Link>
+                             {/* <Link to={`/deviceEvents?code=${code}&projectName=${projectName}&DeviceId=${item.did}`} onClick={routeChange} style={{textDecoration:"none",color:theme == 'light-theme' ? 'black' : '#fff',}}>{item.did}</Link> */}
+                             {item.did}
                              {/* {localStorage.setItem('DeviceId',JSON.stringify(item.did))} */}
                                 {/* {console.log('did',item.did)} */}
                                 </section>
@@ -697,13 +699,14 @@ return (
          >
           Register
         </Button>
-
+        
       <EditDetailsModal 
       show={modalShow}
       onHide={()=>setModalShow(false)} 
       {...item}
       item = {JSON.parse(localStorage.getItem('DeviceId'))}
       />
+      
       <Button title='Update'
       onClick={()=>{
       setModalShow1(true);
@@ -716,6 +719,7 @@ return (
     {/* Update */}
     {<Image width="20" height="20" src={editicon} className={Style.Image}/>}
     </Button>
+    
     {/* <Button title='Register'
       onClick={()=>{
       setModalShow(true);
@@ -739,12 +743,10 @@ return (
         {...item1}
         {...console.log(item1)}
       />
-      </section>                       
-      </React.Fragment>
-   )
- })
-}
-<Button title='Register'
+      
+      </section>
+      
+      <Button title='Register'
       onClick={()=>{
       setModalShow(true);
       {item}                            
@@ -754,13 +756,26 @@ return (
       >
       {<Image width="20" height="22" src={registericon} className={Style.Image}/>}
       </Button>
-
+      <Button style={{marginLeft:"13px"}}onClick={()=>{
+        navigate(`/deviceEvents?code=${code}&projectName=${projectName}&DeviceId=${item.did}`)
+      {item1}  
+      console.log({...item1})
+      {localStorage.setItem('item1',JSON.stringify(item1))}
+      {localStorage.setItem('AliasName',JSON.stringify(item1.AliasName))}                                             
+      }}><FontAwesomeIcon
+      style={{ cursor: 'pointer' }}
+      icon={faArrowRight}
+    /></Button>
       <EditDetailsModal 
       show={modalShow}
       onHide={()=>setModalShow(false)} 
       {...item}
       item = {JSON.parse(localStorage.getItem('DeviceId'))}
-      />
+      />                      
+      </React.Fragment>
+   )
+ })
+}
 
    </section>   
    </React.Fragment>
