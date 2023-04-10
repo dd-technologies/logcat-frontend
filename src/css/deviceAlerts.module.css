@@ -92,22 +92,21 @@
   .alertTable .tableHeader {
     padding: 10px 10px;
     display: grid;
-    grid-template-columns: 5% 25% 22% 16% 14% 12% 14% 15% 5%;
+    grid-template-columns: 4% 20% 16% 25% 15% 12% 14% 16% 5%;
     font-weight: 500;
     font-size: 0.9rem !important;
-    background-color: rgba(122, 122, 122, 0.082);
   }
   .regbtn{
     display: none;
   }
   @media screen and (min-width: 600px) and (max-width: 959px) {
     .alertTable .tableHeader {
-      grid-template-columns: 5% 25% 22% 16% 14% 12% 14% 15% 5%;
+      grid-template-columns: 4% 20% 16% 25% 15% 12% 14% 16% 5%;
     }
   }
   @media screen and (min-width: 1920px) and (max-width: 5000px) {
     .alertTable .tableHeader {
-      grid-template-columns: 5% 25% 22% 16% 14% 12% 14% 15% 5%;
+      grid-template-columns: 4% 20% 16% 25% 15% 12% 14% 16% 5%;
     }
   }
   .alertTable .tableHeader .innerHeader {
@@ -118,16 +117,16 @@
     border-bottom: 1px solid rgba(51, 51, 51, 0.137);
     padding: 10px;
     display: grid;
-    grid-template-columns:   4% 20% 28% 15% 15% 12% 14% 16% 5%;
+    grid-template-columns: 4% 20% 13% 27% 15% 12% 14% 16% 5%;
     font-size: 0.9rem;
   }
   @media screen and (min-width: 600px) and (max-width: 959px) {
     .alertTable .tableBody {
-      grid-template-columns:  4% 20% 28% 15% 15% 12% 14% 16% 5%;
+      grid-template-columns:  4% 20% 13% 27% 15% 12% 14% 16% 5%;
       font-size:0.9rem;
     }
     .alertTable .tableHeader{
-      grid-template-columns:  5% 25% 22% 16% 14% 12% 14% 15% 5%;
+      grid-template-columns: 4% 20% 16% 25% 15% 12% 14% 16% 5%;
       font-weight: 200;
       padding: 10px;
   
@@ -136,10 +135,10 @@
   @media screen and (min-width: 1920px) and (max-width: 5000px) {
     .alertTable .tableBody {
       /* grid-template-columns: 5% 30% 13% 25% 15% 15%; */
-      grid-template-columns:  4% 20% 15% 26% 14% 13% 14% 16% 5%;
+      grid-template-columns:  4% 20% 13% 25% 14% 13% 14% 16% 5%;
     }
     .alertTable .tableHeader{
-      grid-template-columns:  5% 19% 16% 25% 15% 12% 14% 15% 5%;
+      grid-template-columns: 4% 20% 16% 25% 15% 12% 14% 16% 5%;
       font-weight: 200;
       padding: 10px;
   

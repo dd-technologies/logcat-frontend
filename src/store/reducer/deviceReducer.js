@@ -11,6 +11,9 @@ import{
     GET_DEVICE_ALARMS_BY_ID_FAIL,
     GET_DEVICE_ALARMS_BY_ID_REQUEST,
     GET_DEVICE_ALARMS_BY_ID_SUCCESS,
+    GET_DEVICE_TRENDS_BY_ID_REQUEST,
+    GET_DEVICE_TRENDS_BY_ID_SUCCESS,
+    GET_DEVICE_TRENDS_BY_ID_FAIL,
     GET_DEVICE_LOGS_BY_ID_FAIL,
     GET_DEVICE_LOGS_BY_ID_REQUEST,
     GET_DEVICE_LOGS_BY_ID_SUCCESS,
@@ -77,6 +80,25 @@ export const getAllAlarmsByDeviceIdReducer = (state = {},action) =>{
       data : action.payload,
     }
     case GET_DEVICE_ALARMS_BY_ID_FAIL:
+    return{
+      loading:false,
+      error:action.payload,
+    }
+    default:
+      return state;
+  }
+}
+export const getAllTrendsByDeviceIdReducer = (state = {},action) =>{
+  switch(action.type){
+    case GET_DEVICE_TRENDS_BY_ID_REQUEST:
+      return {loading : true};
+    
+    case GET_DEVICE_TRENDS_BY_ID_SUCCESS:
+    return{
+      loading:false,
+      data : action.payload,
+    }
+    case GET_DEVICE_TRENDS_BY_ID_FAIL:
     return{
       loading:false,
       error:action.payload,

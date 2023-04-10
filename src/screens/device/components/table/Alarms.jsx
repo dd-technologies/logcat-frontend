@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useDispatch,useSelector } from 'react-redux';
 import Style from '../../../../css/deviceAlerts.module.css';
 import { ThemeContext } from '../../../../utils/ThemeContext';
@@ -19,7 +19,7 @@ export default function Alarms(){
     const urlParams = new URLSearchParams(queryString);
     const code = urlParams.get('name');
     console.log(code)
-
+    
     const dispatch = useDispatch();
     useEffect(()=>{
         dispatch(
@@ -55,25 +55,6 @@ export default function Alarms(){
                               >
                                 Device Id
                               </p>
-                              {/* <FontAwesomeIcon
-                                color="#0099a4"
-                                style={{ cursor: 'pointer' ,display:'none'}}
-                                icon={
-                                  currentStateDevices.sortIcons.DI
-                                    ? faSortDown
-                                    : faSortUp
-                                }
-                                onClick={() => {
-                                  dispatchDeviceData({
-                                    type: SORT_ICONS,
-                                    data: {
-                                      ...currentStateDevices.sortIcons,
-                                      DI: !currentStateDevices.sortIcons.DI,
-                                    },
-                                  });
-                                  sortTableFnDI(callbackfnDispatchGetAllData);
-                                }}
-                              /> */}
                             </section>
                             <section className={Style.innerHeader}>
                               <p
@@ -87,25 +68,6 @@ export default function Alarms(){
                               >
                                 Code
                               </p>
-                              {/* <FontAwesomeIcon
-                                color="#0099a4"
-                                style={{ cursor: 'pointer' ,display:'none'}}
-                                icon={
-                                  currentStateDevices.sortIcons.DI
-                                    ? faSortDown
-                                    : faSortUp
-                                }
-                                onClick={() => {
-                                  dispatchDeviceData({
-                                    type: SORT_ICONS,
-                                    data: {
-                                      ...currentStateDevices.sortIcons,
-                                      DI: !currentStateDevices.sortIcons.DI,
-                                    },
-                                  });
-                                  sortTableFnDI(callbackfnDispatchGetAllData);
-                                }}
-                              /> */}
                             </section>
                             <section className={Style.innerHeader}>
                               <p
@@ -119,25 +81,6 @@ export default function Alarms(){
                               >
                                 Log Message
                               </p>
-                              {/* <FontAwesomeIcon
-                                color="#0099a4"
-                                style={{ cursor: 'pointer' ,display:'none'}}
-                                icon={
-                                  currentStateDevices.sortIcons.DI
-                                    ? faSortDown
-                                    : faSortUp
-                                }
-                                onClick={() => {
-                                  dispatchDeviceData({
-                                    type: SORT_ICONS,
-                                    data: {
-                                      ...currentStateDevices.sortIcons,
-                                      DI: !currentStateDevices.sortIcons.DI,
-                                    },
-                                  });
-                                  sortTableFnDI(callbackfnDispatchGetAllData);
-                                }}
-                              /> */}
                             </section>
                             <section className={Style.innerHeader}>
                               <p
@@ -151,25 +94,6 @@ export default function Alarms(){
                               >
                                 Priority
                               </p>
-                              {/* <FontAwesomeIcon
-                                color="#0099a4"
-                                style={{ cursor: 'pointer' ,display:'none'}}
-                                icon={
-                                  currentStateDevices.sortIcons.DI
-                                    ? faSortDown
-                                    : faSortUp
-                                }
-                                onClick={() => {
-                                  dispatchDeviceData({
-                                    type: SORT_ICONS,
-                                    data: {
-                                      ...currentStateDevices.sortIcons,
-                                      DI: !currentStateDevices.sortIcons.DI,
-                                    },
-                                  });
-                                  sortTableFnDI(callbackfnDispatchGetAllData);
-                                }}
-                              /> */}
                             </section>
                             <section className={Style.innerHeader}>
                               <p
@@ -183,25 +107,6 @@ export default function Alarms(){
                               >
                                 Date
                               </p>
-                              {/* <FontAwesomeIcon
-                                color="#0099a4"
-                                style={{ cursor: 'pointer' ,display:'none'}}
-                                icon={
-                                  currentStateDevices.sortIcons.DI
-                                    ? faSortDown
-                                    : faSortUp
-                                }
-                                onClick={() => {
-                                  dispatchDeviceData({
-                                    type: SORT_ICONS,
-                                    data: {
-                                      ...currentStateDevices.sortIcons,
-                                      DI: !currentStateDevices.sortIcons.DI,
-                                    },
-                                  });
-                                  sortTableFnDI(callbackfnDispatchGetAllData);
-                                }}
-                              /> */}
                             </section>
                             <section className={Style.innerHeader}>
                               <p
@@ -215,30 +120,12 @@ export default function Alarms(){
                               >
                                 Time
                               </p>
-                              {/* <FontAwesomeIcon
-                                color="#0099a4"
-                                style={{ cursor: 'pointer' ,display:'none'}}
-                                icon={
-                                  currentStateDevices.sortIcons.DI
-                                    ? faSortDown
-                                    : faSortUp
-                                }
-                                onClick={() => {
-                                  dispatchDeviceData({
-                                    type: SORT_ICONS,
-                                    data: {
-                                      ...currentStateDevices.sortIcons,
-                                      DI: !currentStateDevices.sortIcons.DI,
-                                    },
-                                  });
-                                  sortTableFnDI(callbackfnDispatchGetAllData);
-                                }}
-                              /> */}
                             </section>
             </section>
             <div>
                 {console.log(alarmsFilter)}
                 {alarmsFilter && alarmsFilter.map((item,_id)=>{
+                  console.log("item.priority",item.priority)
                     return(
                         <React.Fragment key ={_id}>
                             <section className={Style.tableBody}>
@@ -282,7 +169,8 @@ export default function Alarms(){
                                         
                                     }}
                                   >
-                                    {item.priority}
+                                    {item.priority==="high"?<div style={{backgroundColor:"#ff0000",height:"0.6rem",borderRadius:"10px",width:"5rem",marginTop:"0.3rem"}}></div>:item.priority==="low"?<div style={{backgroundColor:"#ffbf00",height:"0.6rem",borderRadius:"10px",width:"5rem",marginTop:"0.3rem"}}></div>:item.priority==="medium"?<div style={{backgroundColor:"#ffbf00",height:"0.6rem",borderRadius:"10px",width:"5rem",marginTop:"0.3rem"}}></div>:""}
+                                    {/* {item.priority} */}
                                   </section>
                                   <section
                                     style={{

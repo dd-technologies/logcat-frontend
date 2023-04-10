@@ -64,7 +64,7 @@ function SideBar(props) {
              {/* LINK FIRST  */}
             {!url.href.includes('update') && (
               <section className={Style.navMenuIcons}>
-                <section
+                {/* <section
                   className={
                     url.href.includes('log_table') ||
                     url.href.includes('analytics')
@@ -91,7 +91,7 @@ function SideBar(props) {
                       {sidebar_details.link1.linkName}
                     </section>
                   </Link>
-                </section>
+                </section> */}
 
                 {/* LINK SECOND  */}
                 {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
@@ -129,7 +129,7 @@ function SideBar(props) {
                 {/* ALERTS LINK  */}
                 {adminInfo && adminInfo.data && (
                   <>
-                    <section
+                    {/* <section
                       className={
                         url.href.includes('alarm')
                           ? `${Style.linkActive} `
@@ -143,13 +143,13 @@ function SideBar(props) {
                         <Image src={AlarmIcon} width="20" height="20" />
                         <section className="hidelinkName">Alerts</section>
                       </Link>
-                    </section>
+                    </section> */}
                   </>
                 )}
                  {/* Events LINK  */}
                  {adminInfo && adminInfo.data && (
                   <>
-                    <section
+                    {/* <section
                       className={
                         url.href.includes('events')
                           ? `${Style.linkActive} `
@@ -163,7 +163,7 @@ function SideBar(props) {
                         <Image src={notes} width="20" height="20" />
                         <section className="hidelinkName">Events</section>
                       </Link>
-                    </section>
+                    </section> */}
                   </>
                 )}
                 

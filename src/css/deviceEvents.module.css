@@ -95,7 +95,7 @@
     grid-template-columns: 5% 25% 22% 16% 14% 12% 14% 15% 5%;
     font-weight: 500;
     font-size: 0.9rem !important;
-    background-color: rgba(122, 122, 122, 0.082);
+    /* background-color: rgba(122, 122, 122, 0.082); */
   }
   .regbtn{
     display: none;
@@ -118,7 +118,7 @@
     border-bottom: 1px solid rgba(51, 51, 51, 0.137);
     padding: 10px;
     display: grid;
-    grid-template-columns:   4% 20% 28% 15% 15% 12% 14% 16% 5%;
+    grid-template-columns:   4% 27% 21% 15% 15% 12% 14% 16% 5%;
     font-size: 0.9rem;
   }
   @media screen and (min-width: 600px) and (max-width: 959px) {
