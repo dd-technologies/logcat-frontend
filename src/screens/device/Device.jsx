@@ -275,6 +275,7 @@ return (
         className={`${Style.NavbarColumn} colSection`}
       >
         <Navbar navigation_details={navigation_details} />
+        <div>
         <h4 className={Style.Header}>Device Summary</h4>
         <Container className={Style.Container}>
            
@@ -812,6 +813,7 @@ return (
             </Col>
           </Row>
         </Container>
+        </div>
       </Col>
     </Row>
   </div>
