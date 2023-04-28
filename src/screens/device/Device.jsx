@@ -105,10 +105,10 @@ export default function DeviceTable(){
     allRowSelect: false,
   };
   let navigate = useNavigate(); 
-  const routeChange = () =>{ 
-    let path = `/deviceLogs?code=${code}&projectName=${projectName}&DeviceId=${item.did}`; 
-    navigate(path);
-  }
+  // const routeChange = () =>{ 
+  //   let path = `/deviceLogs?code=${code}&projectName=${projectName}&DeviceId=${item.did}`; 
+  //   navigate(path);
+  // }
 
   const [currentStateDevices,dispatchDeviceData] = useReducer(
     deviceDataReducer,
@@ -627,8 +627,8 @@ return (
                                   }}
                                 >
                                   {/* {console.log('key',_id)} */}
-                             {/* <Link to={`/deviceEvents?code=${code}&projectName=${projectName}&DeviceId=${item.did}`} onClick={routeChange} style={{textDecoration:"none",color:theme == 'light-theme' ? 'black' : '#fff',}}>{item.did}</Link> */}
-                             {item.did}
+                             <Link to={`/deviceEvents?code=${code}&projectName=${projectName}&DeviceId=${item.did}`} style={{textDecoration:"none",color:theme == 'light-theme' ? 'black' : '#fff',}}>{item.did}</Link>
+                             {/* {item.did} */}
                              {/* {localStorage.setItem('DeviceId',JSON.stringify(item.did))} */}
                                 {/* {console.log('did',item.did)} */}
                                 </section>
@@ -746,7 +746,7 @@ return (
       />
       
       </section>
-      
+      {item1 && item1.did ? <>
       <Button title='Register'
       onClick={()=>{
       setModalShow(true);
@@ -767,6 +767,7 @@ return (
       style={{ cursor: 'pointer' }}
       icon={faArrowRight}
     /></Button>
+     </> :""}
       <EditDetailsModal 
       show={modalShow}
       onHide={()=>setModalShow(false)} 
@@ -777,7 +778,17 @@ return (
    )
  })
 }
-
+{/* <Button title='Register'
+      onClick={()=>{
+        alert("item",item)
+      setModalShow(true);
+      {item}                            
+      localStorage.setItem('DeviceId',JSON.stringify(item.did))
+      }
+      }
+      >
+      {<Image width="20" height="22" src={registericon} className={Style.Image}/>}
+      </Button> */}
    </section>   
    </React.Fragment>
     );

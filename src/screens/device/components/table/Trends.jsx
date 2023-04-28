@@ -11,7 +11,7 @@ function Trends() {
     console.log('getAllTrendsByDeviceIdReducer',getAllTrendsByDeviceIdReducer)
 
     let trendsFilter = data && data.data && data.data.findDeviceById;
-    console.log(trendsFilter)
+    console.log("trendsFilter",trendsFilter);
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -56,108 +56,26 @@ function Trends() {
               Unit
             </p>
           </section>
-          <section className={Style.innerHeader}>
+            {trendsFilter && trendsFilter.map((item,_id)=>{
+          return(
+            <section>
             <p
               style={{
                 marginRight: '10px',
-                color: 
-                theme === 'light-theme' ? '#fff' : '#000',
+                color: theme === 'light-theme' ? '#fff' : '#000',
                 fontWeight: '600',
                 fontSize: '.9rem',
               }}
             >
-              05:05
+              {item.time}
             </p>
-          </section>
-          {/* timmer section */}
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#fff' : '#000',
-                fontWeight: '600',
-                fontSize: '.9rem',
-              }}
-            >05:00
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#fff' : '#000',
-                fontWeight: '600',
-                fontSize: '.9rem',
-              }}
-            >04:55
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#fff' : '#000',
-                fontWeight: '600',
-                fontSize: '.9rem',
-              }}
-            >04:50
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#fff' : '#000',
-                fontWeight: '600',
-                fontSize: '.9rem',
-              }}
-            >04:45
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#fff' : '#000',
-                fontWeight: '600',
-                fontSize: '.9rem',
-              }}
-            >04:35
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#fff' : '#000',
-                fontWeight: '600',
-                fontSize: '.9rem',
-              }}
-            >04:30
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#fff' : '#000',
-                fontWeight: '600',
-                fontSize: '.9rem',
-              }}
-            >04:25
-            </p>
-          </section>
+            </section>
+          )
+            })}
         </section>
         {/* Mode Head Section */}
         <section className={Style.tableHeader}>
-          <section style={{
+        <section style={{
             color: theme === 'light-theme' ? '#000' : '#fff',
           }}
           >
@@ -184,6 +102,41 @@ function Trends() {
               Mode Type
             </p>
           </section>
+        
+        {trendsFilter && trendsFilter.map((item,_id)=>{
+          return(
+           <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              {item.mode}
+            </p>
+          </section>
+          )
+        })}
+        </section>
+         {/* Pip Head Section */}
+         <section className={Style.eventableBody}>
+        <section style={{
+            color: theme === 'light-theme' ? '#000' : '#fff',
+          }}
+          >
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              PIP
+            </p>
+          </section>
           <section className={Style.innerHeader}>
             <p
               style={{
@@ -193,49 +146,29 @@ function Trends() {
                 fontSize: '.9rem',
               }}
             >
-              PC-SIMV
+              cmH20
             </p>
           </section>
+        {trendsFilter && trendsFilter.map((item,_id)=>{
+          return(
+           <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              {item.pip}
+            </p>
+          </section>
+          )
+        })}
         </section>
-        <div>
-                {console.log(trendsFilter)}
-                {trendsFilter && trendsFilter.map((item,_id)=>{
-                    return(
-                        <React.Fragment key ={_id}>
-                          {/* Pip */}
-                            <section className={Style.eventableBody}>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    PIP
-                                    {/* {item.did} */}
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    cmH20
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    {item.pip}
-                                  </section>
-                            </section>
-                            {/* Peep */}
-                            <section className={Style.tableBody}>
-                                  <section
+        {/* peep */}
+        <section className={Style.tableHeader}>
+              <section
                                     style={{
                                       color:
                                         theme === 'light-theme' ? '' : '#fff',
@@ -243,9 +176,8 @@ function Trends() {
                                     }}
                                   >
                                     PEEP
-                                    {/* {item.did} */}
-                                  </section>
-                                  <section
+              </section>
+              <section
                                     style={{
                                       color:
                                         theme === 'light-theme' ? '' : '#fff',
@@ -253,349 +185,530 @@ function Trends() {
                                     }}
                                   >
                                     cmH20
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    {item.peep}
-                                  </section>
-                            </section>
-                            {/* Mean Airway */}
-                            <section className={Style.eventableBody}>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    Mean Airway
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    cmH20
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    {item.mean_Airway}
-                                  </section>
-                            </section>
-                            {/* Vti */}
-                            <section className={Style.tableBody}>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    Vti
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    ml
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    {item.vti}
-                                  </section>
-                            </section>
-                            {/* Vte */}
-                            <section className={Style.eventableBody}>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    Vte
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    ml
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    {item.vte}
-                                  </section>
-                            </section>
-                            {/* MVe */}
-                            <section className={Style.tableBody}>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    MVe
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    Litre
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    {item.mve}
-                                  </section>
-                            </section>
-                            {/* MVi */}
-                            <section className={Style.eventableBody}>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    MVi
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    Litre
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    {item.mvi}
-                                    </section>
-                            </section>
-                            {/* FiO2 */}
-                            <section className={Style.tableBody}>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    FiO2
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    %
-                                  </section>
-                                  <section
-                                      style={{
-                                        color:
-                                          theme === 'light-theme' ? '' : '#fff',
-                                      }}
-                                    >
-                                      {item.fio2}
-                                    </section>
-                            </section>
-                            {/* Respiratory Rate */}
-                            <section className={Style.eventableBody}>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    Respiratory Rate
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    BPM
-                                  </section>
-                                  <section
-                                      style={{
-                                        color:
-                                          theme === 'light-theme' ? '' : '#fff',
-                                      }}
-                                    >
-                                      {item.respiratory_Rate}
-                                    </section>
-                            </section>
-                            {/* I:E */}
-                            <section className={Style.tableBody}>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    I:E
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    Ratio
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    {item.ie}
-                                  </section>
-                            </section>
-                            {/* Tinsp */}
-                            <section className={Style.eventableBody}>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    Tinsp
-                                    {/* {item.did} */}
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    sec
-                                    {/* {item.mode} */}
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    {item.tinsp}
-                                  </section>
-                            </section>
-                            {/* Texp */}
-                            <section className={Style.tableBody}>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    Texp
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >Sec
-                                  </section>
-                                  <section
-                                      style={{
-                                        color:
-                                          theme === 'light-theme' ? '' : '#fff',
-                                      }}
-                                    >
-                                      {item.texp}
-                                    </section>
-                            </section>
-                            {/* Average Leak */}
-                            <section className={Style.eventableBody}>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    Average Leak
-                                    {/* {item.did} */}
-                                  </section>
-                                  <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    %
-                                  </section>
-                                  <section
-                                      style={{
-                                        color:
-                                          theme === 'light-theme' ? '' : '#fff',
-                                      }}
-                                    >
-                                      {item.averageLeak}
-                                    </section>
-                            </section>
-                        </React.Fragment>
-                    )
-                })}
-        </div>
+              </section>
+              {trendsFilter && trendsFilter.map((item,_id)=>{
+          return(
+           <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              {item.peep}
+            </p>
+          </section>
+          )
+        })}
+        </section>
+        {/* Mean Airway Head Section */}
+        <section className={Style.eventableBody}>
+        <section style={{
+            color: theme === 'light-theme' ? '#000' : '#fff',
+          }}
+          >
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              Mean Airway
+            </p>
+          </section>
+          <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              cmH20
+            </p>
+          </section>
+          {trendsFilter && trendsFilter.map((item,_id)=>{
+          return(
+           <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              {item.mean_Airway}
+            </p>
+          </section>
+          )
+        })}
+        </section>
+        {/* Vti Airway Head Section */}
+        <section className={Style.tableHeader}>
+        <section style={{
+            color: theme === 'light-theme' ? '#000' : '#fff',
+          }}
+          >
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              Vti
+            </p>
+          </section>
+          <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              ml
+            </p>
+          </section>
+          {trendsFilter && trendsFilter.map((item,_id)=>{
+          return(
+           <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              {item.vti}
+            </p>
+          </section>
+          )
+        })}
+        </section>
+        {/* Vte Airway Head Section */}
+        <section className={Style.eventableBody}>
+        <section style={{
+            color: theme === 'light-theme' ? '#000' : '#fff',
+          }}
+          >
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              Vte
+            </p>
+          </section>
+          <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              ml
+            </p>
+          </section>
+          {trendsFilter && trendsFilter.map((item,_id)=>{
+          return(
+           <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              {item.vte}
+            </p>
+          </section>
+          )
+        })}
+        </section>
+        {/* Mve Airway Head Section */}
+        <section className={Style.tableHeader}>
+        <section style={{
+            color: theme === 'light-theme' ? '#000' : '#fff',
+          }}
+          >
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              Mve
+            </p>
+          </section>
+          <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              Litre
+            </p>
+          </section>
+          {trendsFilter && trendsFilter.map((item,_id)=>{
+          return(
+           <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              {item.mve}
+            </p>
+          </section>
+          )
+        })}
+        </section>
+        {/* Mvi Airway Head Section */}
+        <section className={Style.eventableBody}>
+        <section style={{
+            color: theme === 'light-theme' ? '#000' : '#fff',
+          }}
+          >
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              Mvi
+            </p>
+          </section>
+          <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              Litre
+            </p>
+          </section>
+          {trendsFilter && trendsFilter.map((item,_id)=>{
+          return(
+           <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              {item.mvi}
+            </p>
+          </section>
+          )
+        })}
+        </section>
+         {/* FiO2 Head Section */}
+         <section className={Style.tableHeader}>
+        <section style={{
+            color: theme === 'light-theme' ? '#000' : '#fff',
+          }}
+          >
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              FiO2
+            </p>
+          </section>
+          <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              %
+            </p>
+          </section>
+          {trendsFilter && trendsFilter.map((item,_id)=>{
+          return(
+           <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              {item.fio2}
+            </p>
+          </section>
+          )
+        })}
+        </section>
+         {/* Resposiratory Rate Head Section */}
+         <section className={Style.eventableBody}>
+        <section style={{
+            color: theme === 'light-theme' ? '#000' : '#fff',
+          }}
+          >
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              Respiratory Rate
+            </p>
+          </section>
+          <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              BPM
+            </p>
+          </section>
+          {trendsFilter && trendsFilter.map((item,_id)=>{
+          return(
+           <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              {item.respiratory_Rate}
+            </p>
+          </section>
+          )
+        })}
+        </section>
+        {/* i:e Head Section */}
+        <section className={Style.tableHeader}>
+        <section style={{
+            color: theme === 'light-theme' ? '#000' : '#fff',
+          }}
+          >
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              I:E
+            </p>
+          </section>
+          <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              Ratio
+            </p>
+          </section>
+          {trendsFilter && trendsFilter.map((item,_id)=>{
+          return(
+           <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              {item.ie}
+            </p>
+          </section>
+          )
+        })}
+        </section>
+        {/* Tinsp Head Section */}
+        <section className={Style.eventableBody}>
+        <section style={{
+            color: theme === 'light-theme' ? '#000' : '#fff',
+          }}
+          >
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              Respiratory Rate
+            </p>
+          </section>
+          <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              BPM
+            </p>
+          </section>
+          {trendsFilter && trendsFilter.map((item,_id)=>{
+          return(
+           <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              {item.respiratory_Rate}
+            </p>
+          </section>
+          )
+        })}
+        </section>
+        {/* Texp Head Section */}
+        <section className={Style.tableHeader}>
+        <section style={{
+            color: theme === 'light-theme' ? '#000' : '#fff',
+          }}
+          >
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              Texp
+            </p>
+          </section>
+          <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              sec
+            </p>
+          </section>
+          {trendsFilter && trendsFilter.map((item,_id)=>{
+          return(
+           <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              {item.texp}
+            </p>
+          </section>
+          )
+        })}
+        </section>
+        {/* Average Leak Head Section */}
+        <section className={Style.eventableBody}>
+        <section style={{
+            color: theme === 'light-theme' ? '#000' : '#fff',
+          }}
+          >
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              Average Leak
+            </p>
+          </section>
+          <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              %
+            </p>
+          </section>
+          {trendsFilter && trendsFilter.map((item,_id)=>{
+          return(
+           <section className={Style.innerHeader}>
+            <p
+              style={{
+                marginRight: '10px',
+                color:
+                  theme === 'light-theme' ? '#000' : '#fff',
+                fontSize: '.9rem',
+              }}
+            >
+              {item.averageLeak}
+            </p>
+          </section>
+          )
+        })}
+        </section>
       </section>
     </>
   )

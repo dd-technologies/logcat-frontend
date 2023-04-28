@@ -70,7 +70,7 @@ var titleVal, subTitleVal;
       const stackLine = () =>{
         var causedError, noCausedError;
 
-        if(mapArrayKey.length == 1){
+        if(mapArrayKey.length === 1){
             setTitle(mapArrayKey[0]);
             setSubTitle('');
             subTitleVal='';
@@ -143,6 +143,8 @@ var titleVal, subTitleVal;
     dispatchmultiple();
   }, []);
 return(
+
+  
     <>
     <Row className="rowSection">
         <Col xl={2} lg={2} md={2} sm={2} className="noSidebar colSection">
@@ -151,28 +153,38 @@ return(
         <Col xl={10} lg={10} md={10} sm={10} className='colSection'>
             <Navbar navigation_details={navigation_details}/>
             <Container className={`${Style.mainContainer} container`}>
-                <Col>
+              <Col style={{marginTop:"5%"}}>
+              <h6 style={{fontSize:"1.5rem", paddingLeft:"5px",paddingTop:"5rem",color:"#21969d", paddingBottom:"20px"}}>Crashlytics</h6>
+              <h6 style={{fontSize:"1.2rem", paddingLeft:"5px",color:"#21969d", paddingBottom:"20px"}}>Device Id: {did}</h6>
+              </Col>
+                <Col style={{marginTop:"4%"}}>
                 <h2
                 className='darkModeColor'
                 style={{
-                    fontweight:'600',
+                    fontweight:'200',
                 }}
                 >
                     {title}
                 </h2>
-                <p
-                className="darkModeColor"
-                style={{
-                  fontWeight: '600',
-                }}
-              >
-                {subTitle}
-              </p>
+                <div class="card mt-3" >
+                      <div class="card-header " >
+                        {subTitle}
+                      </div>
+                </div>
+               
                 </Col>
                 <Col className="my-4">
                     {loading ? (
                         'Loading'
                     ):(
+//                       <div class="card" style="width: 18rem;">
+//                           <div class="card-header">
+//                                 Featured
+//   </div>
+//   <ul class="list-group list-group-flush">
+//     <li class="list-group-item">Cras justo odio</li>
+//   </ul>
+// </div> 
                         <p className={`${Style.paraTextIssue} darkModeColor`}>
                             This issue has{' '}
                             <strong style={{color:'#0099a4'}}>
@@ -182,7 +194,11 @@ return(
                             <strong style={{color:'#0099a4'}}> {users} users</strong>
                         </p>
                     )}
-                    {stackArray}
+                    <div class="card mt-2" >
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">{newStack}</li>
+                          </ul>
+                    </div>
                 </Col>
             </Container>
         </Col>
