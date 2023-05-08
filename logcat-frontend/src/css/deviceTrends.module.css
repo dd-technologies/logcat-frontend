@@ -1,0 +1,54 @@
+.trendsInnerValueEven {
+  display: flex;
+  background-color: #eaeaea;
+  border-radius: 5px 0px 0px 5px;
+  justify-content: space-around;
+}
+
+.trendsInnerValueOdd {
+  display: flex;
+  font-size: 0.9rem;
+  border-radius: 5px 0px 0px 5px;
+  justify-content: space-around;
+}
+
+.trendsInnerValueTop {
+  display: flex;
+  background-color: #0099a4;
+  border-radius: 5px 0px 0px 5px;
+  color: white;
+  justify-content: space-around;
+}
+
+.trendsInnerDataTop {
+  display: flex;
+  padding-left: 3rem;
+  min-width: fit-content;
+  background-color: #0099a4;
+  border-radius: 0px 5px 5px 0px;
+  color: white;
+  justify-content: "space-around"
+}
+
+.trendsInnerDataEven {
+  display: flex;
+  padding-left: 3rem;
+  max-width: fit-content;
+  justify-content: space-around;
+  width: max-content;
+}
+
+.trendsInnerDataOdd {
+  display: flex;
+  padding-left: 3rem;
+  max-width: fit-content;
+  justify-content: space-around;
+  font-size: 0.9rem;
+  background-color: #eaeaea;
+  border-radius: 0px 5px 5px 0px;
+}
+.insideMapData{
+  margin:0.8rem;
+  width:5rem;
+  text-align:center
+}
