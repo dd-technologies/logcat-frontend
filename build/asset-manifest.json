@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ddcc75be.css",
+    "main.js": "/static/js/main.a81f4e1d.js",
+    "static/media/ddLoader.gif": "/static/media/ddLoader.7d68530f7830af0a1e38.gif",
+    "static/media/lgnewsmall.png": "/static/media/lgnewsmall.f42f4b5c179347e5c956.png",
+    "static/media/LgLargeIcon.png": "/static/media/LgLargeIcon.09ae489594389e7ac164.png",
+    "static/media/background.png": "/static/media/background.6d5be87c7dd9d13629ff.png",
+    "static/media/sidebar-vertical.png": "/static/media/sidebar-vertical.9eec60ac1e1f98773e32.png",
+    "static/media/AlarmIcon.png": "/static/media/AlarmIcon.393cbfabe032935ff150.png",
+    "static/media/sunIcon.png": "/static/media/sunIcon.0c19c889f4b6f95ee677.png",
+    "static/media/editicon.png": "/static/media/editicon.b3209dc63fed769f42b7.png",
+    "static/media/registericon.png": "/static/media/registericon.12c900169d41ece7ec97.png",
+    "index.html": "/index.html",
+    "main.ddcc75be.css.map": "/static/css/main.ddcc75be.css.map",
+    "main.a81f4e1d.js.map": "/static/js/main.a81f4e1d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ddcc75be.css",
+    "static/js/main.a81f4e1d.js"
+  ]
+}
