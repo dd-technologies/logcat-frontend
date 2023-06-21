@@ -1,0 +1,366 @@
+.sidebarOuter {
+  position: fixed;
+  z-index: 10;
+  width: 16.7%;
+  height: 100vh;
+}
+.sidebarOuter .Sidebar {
+  height: 100%;
+  background-image: url("../assets/images/background.png");
+  background-repeat: repeat;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+/* @media screen and (max-width: 1024px) {
+  .sidebarOuter .Sidebar{
+    justify-content: space-between;
+  }
+}
+@media screen and (max-width: 768px) {
+
+} */
+@media screen and (min-width: 600px) and (max-width: 959px) {
+  .sidebarOuter .Sidebar .LogcatLogo {
+    padding: 9px 0px;
+    width: 250px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo {
+    display: flex;
+    align-items: center !important;
+    justify-content: center;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo p {
+    color: #fff;
+    font-size: 0.7rem;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo img {
+    width: 30%;
+  }
+}
+@media screen and (min-width: 960px) and (max-width: 1279px) {
+  .sidebarOuter .Sidebar .LogcatLogo {
+    padding: 9px 0px;
+    width: 250px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo {
+    display: flex;
+    align-items: center !important;
+    justify-content: center;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo p {
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo img {
+    width: 30%;
+  }
+}
+@media screen and (min-width: 1280px) and (max-width: 1919px) {
+  .sidebarOuter .Sidebar .LogcatLogo {
+    padding: 11px 0px;
+    width: 250px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo {
+    display: flex;
+    align-items: center !important;
+    justify-content: center;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo p {
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo img {
+    width: 30%;
+  }
+}
+@media screen and (min-width: 1920px) and (max-width: 5000px) {
+  .sidebarOuter .Sidebar .LogcatLogo {
+    padding: 11px 0px;
+    width: 250px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo {
+    display: flex;
+    align-items: center !important;
+    justify-content: center;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo p {
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .ComponyLogo img {
+    width: 30%;
+  }
+}
+.sidebarOuter .Sidebar .LogoSection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center !important;
+}
+.sidebarOuter .Sidebar .LogoSection img {
+  width: 20% !important;
+  height: 20% !important;
+}
+@media screen and (min-width: 600px) and (max-width: 959px) {
+  .sidebarOuter .Sidebar .linkSection .linkActive {
+    padding: 0px 12px;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    background-color: #0099a4;
+    margin-bottom: 5px;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData section {
+    margin-left: 12px;
+  }
+}
+@media screen and (min-width: 960px) and (max-width: 1279px) {
+  .sidebarOuter .Sidebar .linkSection .linkActive {
+    padding: 0px 10px;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    background-color: #0099a4;
+    margin-bottom: 5px;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData section {
+    margin-left: 12px;
+  }
+}
+@media screen and (min-width: 1280px) and (max-width: 1919px) {
+  .sidebarOuter .Sidebar .linkSection .linkActive {
+    padding: 0px 14px;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    background-color: #0099a4;
+    margin-bottom: 5px;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData section {
+    margin-left: 12px;
+  }
+}
+@media screen and (min-width: 1280px) and (max-width: 1480px) {
+  .sidebarOuter .Sidebar .linkSection .linkActive {
+    padding: 0px 18px;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    background-color: #0099a4;
+    margin-bottom: 5px;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData section {
+    margin-left: 12px;
+  }
+}
+@media screen and (min-width: 1480px) and (max-width: 1919px) {
+  .sidebarOuter .Sidebar .linkSection .linkActive {
+    padding: 0px 25px;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    background-color: #0099a4;
+    margin-bottom: 5px;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData section {
+    margin-left: 12px;
+  }
+}
+@media screen and (min-width: 1920px) and (max-width: 5000px) {
+  .sidebarOuter .Sidebar .linkSection .linkActive {
+    padding: 0px 25px;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    background-color: #0099a4;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkActive .linkData section {
+    margin-left: 12px;
+  }
+}
+@media screen and (min-width: 600px) and (max-width: 959px) {
+  .sidebarOuter .Sidebar .linkSection .linkInActive {
+    padding: 0px 12px;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    margin-bottom: 5px;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData section {
+    margin-left: 12px;
+  }
+}
+@media screen and (min-width: 960px) and (max-width: 1279px) {
+  .sidebarOuter .Sidebar .linkSection .linkInActive {
+    padding: 0px 10px;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    margin-bottom: 5px;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData section {
+    margin-left: 12px;
+  }
+}
+@media screen and (min-width: 1280px) and (max-width: 1919px) {
+  .sidebarOuter .Sidebar .linkSection .linkInActive {
+    padding: 0px 14px;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    margin-bottom: 5px;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData section {
+    margin-left: 12px;
+  }
+}
+@media screen and (min-width: 1280px) and (max-width: 1480px) {
+  .sidebarOuter .Sidebar .linkSection .linkInActive {
+    padding: 0px 18px;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    margin-bottom: 5px;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData section {
+    margin-left: 12px;
+  }
+}
+@media screen and (min-width: 1480px) and (max-width: 1919px) {
+  .sidebarOuter .Sidebar .linkSection .linkInActive {
+    padding: 0px 25px;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    margin-bottom: 5px;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData section {
+    margin-left: 12px;
+  }
+}
+@media screen and (min-width: 1920px) and (max-width: 5000px) {
+  .sidebarOuter .Sidebar .linkSection .linkInActive {
+    padding: 0px 25px;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    margin-bottom: 5px;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .sidebarOuter .Sidebar .linkSection .linkInActive .linkData section {
+    margin-left: 12px;
+  }
+}
+.sidebarOuter .Sidebar .ClickSlideSection {
+  flex: 1;
+}
+
+.navMenuIcons {
+  height: 100%;
+}
