@@ -1,0 +1,146 @@
+.searchSection {
+    background-color: #efefef;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.224);
+  }
+  .searchSection input {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    border: solid rgb(226, 226, 226) 1px;
+    padding: 5px;
+    width: 60%;
+    height: 40px;
+  }
+  .Tabs{
+   margin-right: 50px;
+   font-weight: 200;
+   background-color: rgba(122, 122, 122, 0.082);
+   
+  }
+  .Tabs button{
+    margin-right: 20px;
+    font-weight: 400;
+    font-size: large;
+  }
+  .searchSection .filterGraphFirstSection {
+    cursor: pointer;
+    background-color: #CB297B;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: auto !important;
+  }
+  .searchSection .filterGraphFirstSection svg {
+    color: #fff;
+    transition-duration: 0.5s;
+  }
+  
+  .filterWithDate {
+    display: flex;
+    justify-content: flex-end;
+    height: 40px;
+    font-size: 0.9rem !important;
+    color: #646464;
+    cursor: pointer;
+  }
+  .filterWithDate .datafilter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .filterWithDate input {
+    margin-left: 10px;
+  }
+  #selectAll{
+    height: 20px;
+    width:10px;
+  }
+  
+  .noDataFound {
+    width: 100%;
+    height: 100px;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    font-size: 1.3rem;
+  }
+  
+  .productVersion {
+    padding: 5px;
+    cursor: pointer;
+  }
+  .productVersion:hover {
+    background-color: #CB297B;
+    width: 100%;
+    margin: 5px;
+    color: #fff;
+    transition-duration: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+  }
+  
+  .alertTable .tableHeader {
+    padding: 1rem 1rem 1rem 2rem;
+    display: grid;
+    grid-template-columns: 5% 15% 15% 19% 15% 15% 15% 20% 5%;
+    font-weight: 500;
+    font-size: 0.9rem !important;
+  }
+  .regbtn{
+    display: none;
+  }
+  @media screen and (min-width: 600px) and (max-width: 959px) {
+    .alertTable .tableHeader {
+      grid-template-columns: 4% 20% 16% 25% 15% 12% 14% 16% 5%;
+    }
+  }
+  @media screen and (min-width: 1920px) and (max-width: 5000px) {
+    .alertTable .tableHeader {
+      grid-template-columns: 4% 20% 16% 25% 15% 12% 14% 16% 5%;
+    }
+  }
+  .alertTable .tableHeader .innerHeader {
+    display: flex;
+    align-items: center;
+  }
+  .alertTable .tableBody {
+    border-bottom: 1px solid rgba(51, 51, 51, 0.137);
+    padding: 1rem 1rem 1rem 2rem;
+    display: grid;
+    grid-template-columns: 5% 15% 15% 19% 15% 15% 15% 20% 5%;
+    font-size: 0.9rem;
+  }
+  @media screen and (min-width: 600px) and (max-width: 959px) {
+    .alertTable .tableBody {
+      grid-template-columns:  4% 20% 13% 27% 15% 12% 14% 16% 5%;
+      font-size:0.9rem;
+    }
+    .alertTable .tableHeader{
+      grid-template-columns: 4% 20% 16% 25% 15% 12% 14% 16% 5%;
+      font-weight: 200;
+      padding: 1rem 1rem 1rem 2rem;
+  
+    }
+  }
+  @media screen and (min-width: 1920px) and (max-width: 5000px) {
+    .alertTable .tableBody {
+      /* grid-template-columns: 5% 30% 13% 25% 15% 15%; */
+      grid-template-columns: 4% 19% 17% 25% 15% 13% 14% 16% 5%;
+    }
+    .alertTable .tableHeader{
+      grid-template-columns: 4% 20% 16% 25% 15% 12% 14% 16% 5%;
+      font-weight: 200;
+      padding: 1rem 1rem 1rem 2rem;
+  
+    }
+  }/* # sourceMappingURL=device.module.css.map */
