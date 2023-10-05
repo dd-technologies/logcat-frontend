@@ -164,7 +164,7 @@ function History() {
                                             <nav aria-label="Page navigation example">
                                                 <ul class="pagination justify-content-end" style={{ display: "flex", alignItems: 'center' }}>
                                                     {incPage > 1 ?
-                                                        <button onClick={prePage} style={{ border: "0px", backgroundColor: "white" }}>
+                                                        <button onClick={prePage} style={{ border: "0px"}}>
                                                             <img src={back} style={{ width: "3rem" }} />
                                                         </button>
                                                         : " "}
@@ -172,7 +172,7 @@ function History() {
                                                         <li key={i} class={`page-item ${incPage == n ? 'active' : ""}`}><a style={{ borderRadius: "100px", margin: "5px" }} class="page-link" href="#" onClick={() => changeCPage(n)}>{n}</a></li>
                                                     ))}
                                                     {incPage !== totalPage ?
-                                                        <button onClick={nextPage} style={{ border: "0px", backgroundColor: "white" }}>
+                                                        <button onClick={nextPage} style={{ border: "0px" }}>
                                                             <img src={back} style={{ width: "3rem", transform: "rotate(180deg)" }} />
                                                         </button>
                                                         : " "}
