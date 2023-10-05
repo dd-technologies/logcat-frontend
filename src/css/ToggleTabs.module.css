@@ -15,21 +15,21 @@
   .ToggleTabs p {
     font-size: 0.7rem !important;
     font-weight: 500;
-    color: #0099a4;
+    color: #CB297B;
   }
 }
 @media screen and (min-width: 1024px) and (max-width: 1400px) {
   .ToggleTabs p {
     font-size: 0.8rem !important;
     font-weight: 500;
-    color: #0099a4;
+    color: #CB297B;
   }
 }
 @media screen and (min-width: 1400px) and (max-width: 1920px) {
   .ToggleTabs p {
     font-size: 0.9rem !important;
     font-weight: 500;
-    color: #0099a4;
+    color: #CB297B;
   }
 }
 
@@ -39,7 +39,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #0099a4;
+  background-color: #CB297B;
 }
 .ToggleTabs_active p {
   display: flex;

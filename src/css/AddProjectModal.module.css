@@ -7,7 +7,7 @@
 }
 .tagItemsOuter .tag_item {
   color: #fff;
-  background-color: #0099a4;
+  background-color: #cb297b;
   max-width: -webkit-fit-content;
   max-width: -moz-fit-content;
   max-width: fit-content;
@@ -40,4 +40,20 @@
 
 .inputFields {
   border-radius: 5px !important;
-}/* # sourceMappingURL=AddProjectModal.module.css.map */
+} /* # sourceMappingURL=AddProjectModal.module.css.map */
+.form_cntainer {
+  /* position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 25px;
+  /* border: 0px; */
+  border-radius: 25px;
+}
+.darkModeColor {
+  display: flex;
+  border: 0px;
+  flex-shrink: 0;
+  border-radius: 25px;
+  border-bottom: 0px;
+}

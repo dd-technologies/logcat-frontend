@@ -3,7 +3,7 @@
   color: #fff;
 }
 .LinkSection:hover {
-  color: #0099a4;
+  color: #CB297B;
   transition-duration: 0.3s;
   text-decoration: underline;
 }
@@ -56,7 +56,7 @@
 }
 
 .chip {
-  background-color: #0099a4;
+  background-color: #CB297B;
   border-radius: 20px;
   padding: 10px;
   height: 30px;
@@ -82,7 +82,7 @@
 }
 
 .ActiveOption {
-  background-color: #0099a4;
+  background-color: #CB297B;
   color: #fff;
   border-radius: 10px;
   padding: 5px;
@@ -107,7 +107,7 @@
   margin-top: 5px;
 }
 .perPageOuter .perPagesectionInnerActive {
-  background-color: #0099a4 !important;
+  background-color: #CB297B !important;
   color: #fff;
   margin: 5px;
   border-radius: 30px;
@@ -119,7 +119,7 @@
 }
 
 .DefaultOption {
-  color: #0099a4;
+  color: #CB297B;
   margin: 5px;
 }
 

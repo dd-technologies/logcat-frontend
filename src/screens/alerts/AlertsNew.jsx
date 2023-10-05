@@ -746,7 +746,7 @@ export default function AlertsNew() {
                           >
                             <section className={Style.filterGraphFirstSection}>
                               <FontAwesomeIcon
-                                color="#0099a4"
+                                color="#CB297B"
                                 style={{ cursor: 'pointer' }}
                                 icon={faDownload}
                               />
@@ -783,7 +783,7 @@ export default function AlertsNew() {
                                 Device Id
                               </p>
                               <FontAwesomeIcon
-                                color="#0099a4"
+                                color="#CB297B"
                                 style={{ cursor: 'pointer' }}
                                 icon={
                                   currentStateAlerts.sortIcons.DI
@@ -816,7 +816,7 @@ export default function AlertsNew() {
                               </p>
 
                               <FontAwesomeIcon
-                                color="#0099a4"
+                                color="#CB297B"
                                 style={{ cursor: 'pointer' }}
                                 icon={
                                   currentStateAlerts.sortIcons.CD
@@ -849,7 +849,7 @@ export default function AlertsNew() {
                               </p>
 
                               <FontAwesomeIcon
-                                color="#0099a4"
+                                color="#CB297B"
                                 style={{ cursor: 'pointer' }}
                                 icon={
                                   currentStateAlerts.sortIcons.LM
@@ -881,7 +881,7 @@ export default function AlertsNew() {
                                 Date
                               </p>
                               <FontAwesomeIcon
-                                color="#0099a4"
+                                color="#CB297B"
                                 style={{ cursor: 'pointer' }}
                                 icon={
                                   currentStateAlerts.sortIcons.DT
@@ -913,7 +913,7 @@ export default function AlertsNew() {
                                 Time
                               </p>
                               <FontAwesomeIcon
-                                color="#0099a4"
+                                color="#CB297B"
                                 style={{ cursor: 'pointer' }}
                                 icon={
                                   currentStateAlerts.sortIcons.TI

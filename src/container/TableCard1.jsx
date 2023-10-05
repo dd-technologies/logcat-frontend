@@ -9,10 +9,9 @@ export default function TableCard1(props) {
   )[0];
   return (
     <>
-      <div className="shadow p-3 mb-5 "
+      <div className=" mb-5 "
         style={{
           backgroundColor: darkMode? "bg-black":"bg-white",
-          // backgroundColor: themes== 'light-theme' ? '#000' : '#fff',
           width: props.width ? props.width : "100%",
           borderRadius: props.borderRadius ? props.borderRadius : "20px",
           padding: props.padding ? props.padding : "0px",
@@ -20,8 +19,8 @@ export default function TableCard1(props) {
           right: props.right ? props.right : "",
           boxShadow: props.boxShadow ? props.boxShadow : "",
           top: props.top ? props.top : "",
-          // backgroundColor: darkMode ? "#fff" : null,
-          boxShadow:"0px 5px 10px 0px rgba(0, 0, 0, 0.5)"
+          background: "#FFFFFF 0% 0% no-repeat padding-box",
+          boxShadow: "0px 0px 50px #00000029",
         }}
       >
         {props.children}

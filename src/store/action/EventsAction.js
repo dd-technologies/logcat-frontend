@@ -17,16 +17,6 @@ export const eventAction = (
   sort = null
 ) => async (dispatch) => {
   try {
-    let date = new Date();
-    let endDate = date.toLocaleDateString();
-    endDate =
-      endDate.split("/")[2] +
-      "/" +
-      endDate.split("/")[0] +
-      "/" +
-      endDate.split("/")[1];
-      // console.log('endDate',endDate)
-
     let startDate = new Date(
       new Date().setDate(new Date().getDate() - diffdate)
     )
@@ -38,9 +28,17 @@ export const eventAction = (
       startDate.split("/")[0] +
       "/" +
       startDate.split("/")[1];
-      // console.log('startDate',startDate)
-    
-
+      
+    let date = new Date();
+    let endDate = date.toLocaleDateString();
+    endDate =
+      endDate.split("/")[2] +
+      "/" +
+      endDate.split("/")[0] +
+      "/" +
+      endDate.split("/")[1];
+      // console.log('endDate',endDate)
+      
     dispatch({
       type: EVENT_REQUEST,
     });

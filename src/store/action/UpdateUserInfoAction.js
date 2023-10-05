@@ -4,7 +4,7 @@ import { UPDATE_FAIL, UPDATE_REQUEST, UPDATE_SUCCESS } from "../types/UpdateUser
 
 const cookies = new Cookies();
 
-export const updateUserInfoAction = (name) => async (dispatch) => {
+export const updateUserInfoAction = (name,userId,email) => async (dispatch) => {
     try {
         dispatch({
             type: UPDATE_FAIL,
@@ -18,11 +18,11 @@ export const updateUserInfoAction = (name) => async (dispatch) => {
                 Authorization: `Bearer ${token}`,
             },
         };
-        console.log("token", name)
+        console.log("token", name,userId,email)
 
         const { data } = await axios.put(
             `${process.env.REACT_APP_BASE_URL}/api/logger/users/update`,
-            { name },
+            { name , userId , email},
             config,
         );
         dispatch({

@@ -3,69 +3,58 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadNewProject } from "../../../store/action/ProjectAction";
 import Style from "../../../css/AddProjectModal.module.css";
+import { toast } from "react-hot-toast";
 
 const AddProjectModal = (props) => {
   const [createProject, setCreateProject] = useState({
     name: "",
     description: "",
-    
+    modeType:""
   });
-  const [chips, setChips] = useState("");
-  const [modelType, setModelType] = useState([]);
+  // const [chips, setChips] = useState("");
+  // const [modelType, setModelType] = useState("");
+  // const [modeType,setModeType]=useState("")
   const [errorName, setErrorName] = useState();
   const [errorMsg, setErrorMsg] = useState();
+  const [descErrorMsg, setDescErrorMsg]=useState()
 
   const createNewProjectReducer = useSelector(
     (state) => state.createNewProjectReducer
   );
-  console.log('createNewProjectReducer',createNewProjectReducer)
   const { data, error } = createNewProjectReducer;
-  const deleteChips = (type) => {
-    setModelType(
-      modelType.filter((item) => {
-        return item !== type;
-      })
-    );
-  };
-  
-
-  const addChips = (e) => {
-    if (["Enter", "Tab", ","].includes(e.key)) {
-      // e.preventDefault();
-
-      let inputChips = chips.trim();
-      if (inputChips) {
-        if (!modelType.includes(inputChips.toLowerCase())) {
-          setModelType([...modelType, inputChips]);
-        }
-        setChips("");
-      }
-    }
-  };
   const dispatch = useDispatch();
-
   const handleSubmit = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     setErrorName("");
     setErrorMsg("");
+    setDescErrorMsg("");
+    const project_name=createProject.name
+    const project_description=createProject.description
+    const provide_device_type=createProject.modeType
+    // setModeType(createProject.modeType)
+    console.log("hello",project_name,project_description,provide_device_type)
     if (!createProject.name.length) {
       setErrorName("Name is required Field.");
     }
-    if (!modelType.length) {
-      setErrorMsg("Device type is required");
+    if(!createProject.description.length){
+      setErrorMsg("Description is required Field.")
     }
-    if (createProject.name.length && modelType.length) {
+    if(!createProject.modeType.length){
+      setDescErrorMsg("type is required Field.")
+    }
+    if (createProject.name && createProject.modeType) {
       setErrorName("");
       setErrorMsg("");
       dispatch(
-        uploadNewProject(
-          createProject.name,
-          modelType,
-          createProject.description
-        )
+        uploadNewProject({
+          project_name,
+          project_description,
+          provide_device_type,
+        })
       );
     }
   };
+  console.log("data", createProject.name, createProject.description,createProject.modeType);
   return (
     <>
       <Modal
@@ -73,29 +62,21 @@ const AddProjectModal = (props) => {
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        className={Style.form_cntainer}
+        style={{ borderRadius: "25px" }}
       >
-        <Modal.Header className="card darkModeColor">
+        <Modal.Header
+          className={Style.darkModeColor}
+          style={{ border: "0px", justifyContent: "center" }}
+        >
           <Modal.Title
             id="contained-modal-title-vcenterv"
-            style={{ color: "#1F99A4" }}
+            style={{ color: "#CB297B" }}
           >
             Add New Project
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="card darkModeColor">
-          {error ? (
-            <div style={{ fontSize: 12, color: "red" }}>{error}</div>
-          ) : (
-            ""
-          )}
-          {data ? (
-            <h6 style={{ fontSize: 12, color: "green" }}>
-              Project Created Successfully...
-            </h6>
-          ) : (
-            ""
-          )}
-
+        <Modal.Body className="card darkModeColor" style={{ border: "0px" }}>
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label className="darkModeColor">Project Name</Form.Label>
             <Form.Control
@@ -129,6 +110,11 @@ const AddProjectModal = (props) => {
                 })
               }
             />
+            {errorMsg ? (
+              <small style={{ fontSize: 12, color: "red" }}>{errorMsg}</small>
+            ) : (
+              ""
+            )}
           </Form.Group>
           <Form.Group className="mb-3  " controlId="formBasicPassword">
             <Form.Label className="darkModeColor">
@@ -137,35 +123,37 @@ const AddProjectModal = (props) => {
             <Form.Control
               className={Style.inputFields}
               type="text"
-              placeholder="Device type"
-              value={chips}
-              onKeyDown={(e) => {
-                addChips(e);
-              }}
-              onChange={(e) => setChips(e.target.value)}
-              required
+              placeholder="Please Provide Project Type"
+              onChange={(e) =>
+                setCreateProject({
+                  ...createProject,
+                  modeType: e.target.value,
+                })
+              }
             />
-            {errorMsg ? (
-              <small style={{ fontSize: 12, color: "red" }}>{errorMsg}</small>
+            <div>
+            </div>
+            {descErrorMsg ? (
+              <small style={{ fontSize: 12, color: "red" }}>{descErrorMsg}</small>
             ) : (
               ""
             )}
           </Form.Group>
 
           <section className={Style.tagItemsOuter}>
-            {modelType.map((type) => (
+            {/* {modelType.map((type) => (
               <div className={Style.tag_item} key={type}>
                 {type}
                 <button
                   type="button"
-                  onClick={() => {
-                    deleteChips(type);
-                  }}
+                  // onClick={() => {
+                  //   deleteChips(type);
+                  // }}
                 >
                   &times;
                 </button>
               </div>
-            ))}
+            ))} */}
           </section>
         </Modal.Body>
         <Modal.Footer className="card darkModeColor">
@@ -173,23 +161,36 @@ const AddProjectModal = (props) => {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              width: "100%",
+              width: "90%",
             }}
           >
-            <Button
+            <button
               onClick={props.onHide}
-              style={{ backgroundColor: "#1a83ff", marginLeft: "10px" }}
+              style={{
+                border: "0px",
+                borderRadius: "10px",
+                background: "linear-gradient(180deg, #FFF 0%, #EDEDED 100%)",
+                boxShadow: "0px 10px 20px 0px rgba(0, 0, 0, 0.25)",
+                padding: "8px 20px",
+              }}
             >
               Cancel
-            </Button>
-            <Button
-              style={{ backgroundColor: "#1a83ff" }}
+            </button>
+            <button
+              style={{
+                border: "0px",
+                borderRadius: "10px",
+                color: "white",
+                boxShadow: "0px 10px 20px 0px rgba(0, 0, 0, 0.25)",
+                padding: "8px 20px",
+                background: "linear-gradient(180deg, #CB297B 0%, #B00059 100%)",
+              }}
               onClick={(e) => {
                 handleSubmit(e);
               }}
             >
               Save
-            </Button>
+            </button>
           </section>
         </Modal.Footer>
       </Modal>

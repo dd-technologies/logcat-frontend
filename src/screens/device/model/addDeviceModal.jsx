@@ -30,7 +30,7 @@ const AddDeviceModal = (props) => {
 
   const dispatch = useDispatch();
 
-  const  = (e) =>{
+  const  handleSubmit= (e) =>{
     e.preventDefault();
     setErrorName("");
     setErrorMsg("");
@@ -229,7 +229,7 @@ const AddDeviceModal = (props) => {
             <Button
               style={{ backgroundColor: "#1a83ff" }}
               onClick={(e) => {
-                handleSubmit(e);
+                handleSubmit(e)
               }}
             >
               Register

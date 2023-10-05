@@ -1,6 +1,6 @@
-import axios from 'axios';
-import Cookies from 'universal-cookie';
-
+import axios from "axios";
+import Cookies from "universal-cookie";
+import { Toaster, toast } from "react-hot-toast";
 import {
   ADMIN_LOGIN_REQUEST,
   ADMIN_LOGIN_SUCCESS,
@@ -17,17 +17,22 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_REQUEST_SUCCESS,
   RESET_PASSWORD_REQUEST_FAIL,
-  UPDATE_PROFILE_REQUEST,
-  UPDATE_PROFILE_REQUEST_SUCCESS,
-  UPDATE_PROFILE_REQUEST_FAIL,
-} from '../types/AdminConstants';
-import { persistor } from '../Store';
+  HOSPITAL_NAME_FAIL,
+  HOSPITAL_NAME_REQUEST,
+  HOSPITAL_NAME_SUCCESS,
+  COUNTRY_STATE_DATA_REQUEST,
+  COUNTRY_STATE_DATA_SUCCESS,
+  COUNTRY_STATE_DATA_FAIL,
+  STATE_DATA_REQUEST,
+  STATE_DATA_FAIL,
+  STATE_DATA_SUCCESS,
+} from "../types/AdminConstants";
+import { persistor } from "../Store";
 
 const cookies = new Cookies();
-
 // USER LOGIN
 export const loginWithEmail =
-  (email, password, isRemeberMe) => async (dispatch) => {
+  (email, passwordHash, isRemeberMe, ddAdminToken) => async (dispatch) => {
     try {
       Date.prototype.addDays = function (days) {
         this.setDate(this.getDate() + parseInt(days));
@@ -35,19 +40,18 @@ export const loginWithEmail =
       };
 
       dispatch({ type: ADMIN_LOGIN_REQUEST });
-      
+
       const config = {
         header: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-          'Content-type': 'application/json',
+          "Content-type": "application/json",
         },
       };
       const { data } = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}api/logger/auth/login`,
+        `${process.env.REACT_APP_BASE_URL}/api/logger/auth/login`,
         {
           email,
-          password,
+          passwordHash,
+          ddAdminToken,
         },
         config
       );
@@ -55,21 +59,17 @@ export const loginWithEmail =
         type: ADMIN_LOGIN_SUCCESS,
         payload: data,
       });
-      if (!isRemeberMe) {
-        localStorage.removeItem('adminUserName');
-        localStorage.removeItem('adminUserCredential');
-        localStorage.removeItem('userIsRemember');
-      }
-      // localStorage.setItem("ddAdminToken", data.data.token);
+      localStorage.setItem("ddAdminToken", data.data.token);
+      localStorage.setItem("name", data.data.name);
+      localStorage.setItem("email",email);
       var currentDate = new Date();
       // to add 4 days to current date
       var updatedDate = currentDate.addDays(15);
-      cookies.set('ddAdminToken', data.data.token, {
-        path: '/',
+      cookies.set("ddAdminToken", data.data.token, {
+        path: "/",
         expires: updatedDate,
       });
     } catch (error) {
-      // console.log("login error", error);
       dispatch({
         type: ADMIN_LOGIN_FAIL,
         payload:
@@ -88,30 +88,30 @@ export const adminLogout = (navigate) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${cookies.get('ddAdminToken')}`,
+        "Content-type": "application/json",
+        Authorization: `Bearer ${cookies.get("ddAdminToken")}`,
       },
     };
-
+    // console.log("token",cookies.get('ddAdminToken'))
     await axios.get(
       `${process.env.REACT_APP_BASE_URL}/api/logger/auth/logout`,
       config
     );
 
-    cookies.remove('ddAdminToken');
+    cookies.remove("ddAdminToken");
     // localStorage.removeItem('ddAdminToken');
-    localStorage.removeItem('selected_record');
-    localStorage.removeItem('forgetEmail');
-    localStorage.removeItem('mode');
-    localStorage.removeItem('selected_log');
-    localStorage.removeItem('diffDate');
-    localStorage.removeItem('project_type');
-    localStorage.removeItem('page_no');
-    localStorage.removeItem('selected_date');
+    localStorage.removeItem("selected_record");
+    localStorage.removeItem("forgetEmail");
+    localStorage.removeItem("mode");
+    localStorage.removeItem("selected_log");
+    localStorage.removeItem("diffDate");
+    localStorage.removeItem("project_type");
+    localStorage.removeItem("page_no");
+    localStorage.removeItem("selected_date");
 
     await persistor.purge();
 
-    navigate('/');
+    navigate("/");
     dispatch({
       type: ADMIN_LOGOUT,
     });
@@ -131,7 +131,18 @@ export const adminLogout = (navigate) => async (dispatch) => {
 
 //  USER REGISTER ACTIONS
 export const adminRegister =
-  (name, email, password, navigate) => async (dispatch) => {
+  (
+    firstName,
+    lastName,
+    stateName,
+    countryName,
+    hospitalName,
+    email,
+    passwordHash,
+    confirmPassword,
+    navigate
+  ) =>
+  async (dispatch) => {
     try {
       dispatch({
         type: ADMIN_REGISTER_REQUEST,
@@ -139,15 +150,20 @@ export const adminRegister =
 
       const config = {
         header: {
-          'Content-type': 'application/json',
+          "Content-type": "application/json",
         },
       };
       const { data } = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/api/logger/auth/register`,
         {
-          name,
+          firstName,
+          lastName,
+          stateName,
+          countryName,
+          hospitalName,
           email,
-          password,
+          passwordHash,
+          confirmPassword,
         },
         config
       );
@@ -159,8 +175,8 @@ export const adminRegister =
         payload: data,
       });
 
-      localStorage.setItem('adminInfo', data);
-      navigate('/');
+      localStorage.setItem("adminInfo", data);
+      navigate("/");
     } catch (error) {
       // console.log("reigster error", error);
       dispatch({
@@ -184,7 +200,7 @@ export const forgetPassword = (email) => async (dispatch) => {
     });
 
     const { data } = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/api/logger/auth/forget`,
+      `${process.env.REACT_APP_BASE_URL}/api/logger/auth/resetPassword`,
       {
         email,
       }
@@ -195,8 +211,6 @@ export const forgetPassword = (email) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    // console.log("forget password", error);
-
     dispatch({
       type: FORGET_PASSWORD_REQUEST_FAIL,
       payload:
@@ -218,25 +232,21 @@ export const resetForgetPasswordState = () => async (dispatch) => {
 };
 
 // RESET PASSWORD AFTER OTP
+
 export const resetForgetPassword =
-  ({ email, resetData }) =>
+  ({ resetData }) =>
   async (dispatch) => {
+    // const navigate = useNavigate();
     try {
       dispatch({
         type: RESET_PASSWORD_REQUEST,
       });
-
-      const otp = resetData.otp;
-      const password = resetData.newPass;
-      const passwordVerify = resetData.confirmPass;
-
+      const otp = resetData;
+      alert("opt", otp);
       const { data } = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/auth/resetPassword`,
+        `${process.env.REACT_APP_BASE_URL}/api/logger/auth/verify-otp`,
         {
           otp,
-          password,
-          email,
-          passwordVerify,
         }
       );
 
@@ -244,6 +254,10 @@ export const resetForgetPassword =
         type: RESET_PASSWORD_REQUEST_SUCCESS,
         payload: data,
       });
+      // if(data.statusCode==200){
+      //   // navigate("/changePassword")
+      //   // message("hello")
+      // }
     } catch (error) {
       // console.log("reset password", error);
       dispatch({
@@ -259,39 +273,136 @@ export const resetForgetPassword =
     }
   };
 
-// UPDATE PROFILE OF USER
-export const updateProfile = (email, name, avatar) => async (dispatch) => {
+// Password Change
+
+export const forgetPasswordChange =
+  ({ email, resetData }) =>
+  async (dispatch) => {
+    <Toaster/>
+    // const navigate = useNavigate();
+    try {
+      dispatch({
+        type: RESET_PASSWORD_REQUEST,
+      });
+      const passwordHash = resetData.newPass;
+      const { data } = await axios.put(
+        `${process.env.REACT_APP_BASE_URL}/api/logger/auth/generate-newpassword`,
+        {
+          email,
+          passwordHash,
+        }
+      );
+
+      dispatch({
+        type: RESET_PASSWORD_REQUEST_SUCCESS,
+        payload: data,
+      });
+      if(data.statusCode==200){
+        toast.success("Update Success")
+      }
+    } catch (error) {
+      dispatch({
+        type: RESET_PASSWORD_REQUEST_FAIL,
+        payload:
+          error &&
+          error.response &&
+          error.response.data &&
+          error.response.data.data &&
+          error.response.data.data.err &&
+          error.response.data.data.err.msg,
+      });
+    }
+  };
+
+export const allHospitalData = (State) => async (dispatch) => {
   try {
-    // console.log("form data: ", email, name, avatar);
-    let formData = new FormData();
-    formData.append('name', name);
-    formData.append('image', avatar);
-    console.log([...formData]);
     dispatch({
-      type: UPDATE_PROFILE_REQUEST,
+      type: HOSPITAL_NAME_REQUEST,
     });
-    const token = cookies.get('ddAdminToken');
+    const token = cookies.get("ddAdminToken");
     const config = {
       headers: {
-        Accept: 'application/JSON',
-        'Content-type': 'multipart/form-data',
-        Authorization: `${token}`,
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     };
-    const { data } = await axios.put(
-      `${process.env.REACT_APP_BASE_URL}api/logger/users/update`,
-      formData,
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/hospital/hospital-list/${State}`,
       config
     );
-
     dispatch({
-      type: UPDATE_PROFILE_REQUEST_SUCCESS,
+      type: HOSPITAL_NAME_SUCCESS,
       payload: data,
     });
   } catch (error) {
-    // console.log("update profile", error);
     dispatch({
-      type: UPDATE_PROFILE_REQUEST_FAIL,
+      type: HOSPITAL_NAME_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.err.msg,
+    });
+  }
+};
+export const allCountryStateData = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: COUNTRY_STATE_DATA_REQUEST,
+    });
+    const token = cookies.get("ddAdminToken");
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/hospital/get-country-list`,
+      config
+    );
+    dispatch({
+      type: COUNTRY_STATE_DATA_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: COUNTRY_STATE_DATA_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.err.msg,
+    });
+  }
+};
+export const allStateData = (name) => async (dispatch) => {
+  try {
+    dispatch({
+      type: STATE_DATA_REQUEST,
+    });
+    const token = cookies.get("ddAdminToken");
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/hospital/get-state-list/${name}`,
+      config
+    );
+    dispatch({
+      type: STATE_DATA_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: STATE_DATA_FAIL,
       payload:
         error &&
         error.response &&

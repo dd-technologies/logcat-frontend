@@ -129,7 +129,7 @@ export default function Alarm(props) {
       if (isSelect.length > 0) setDisableButton(false);
       if (!row) setDisableButton(true);
     },
-    style: { backgroundColor: "#0099a4" },
+    style: { backgroundColor: "#CB297B" },
   };
 
   // navigation

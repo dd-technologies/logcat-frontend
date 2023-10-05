@@ -18,7 +18,7 @@
 }
 .searchSection .filterGraphFirstSection {
   cursor: pointer;
-  background-color: #0099a4;
+  background-color: #CB297B;
   padding: 10px;
   border-radius: 5px;
   display: flex;
@@ -63,7 +63,7 @@
   cursor: pointer;
 }
 .productVersion:hover {
-  background-color: #0099a4;
+  background-color: #CB297B;
   width: 100%;
   margin: 5px;
   color: #fff;

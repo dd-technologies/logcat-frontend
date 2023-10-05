@@ -34,7 +34,7 @@ export default function EventByVersion() {
               style={{
                 fontWeight: "600",
                 letterSpacing: "0.5px",
-                color: "#0099a4",
+                color: "#CB297B",
               }}
             >
               Total events by version

@@ -14,16 +14,6 @@
 .MainContantainer {
   margin-top: 50px;
 }
-@media only screen and (min-width: 300px) and (max-width: 768px) {
-  .MainContantainer {
-    margin-left: 0px !important;
-  }
-}
-@media only screen and (min-width: 768px) and (max-width: 1600px) {
-  .MainContantainer {
-    margin-left: 6% !important;
-  }
-}
 /* Add Project */
 .MainContantainer .addProject { 
   cursor: pointer;
@@ -42,7 +32,7 @@
 .MainContantainer .addProject section svg {
   width: 100% !important;
   height: 30px !important;
-  color: #0099a4;
+  color: #CB297B;
 }
 .MainContantainer .InfoColumn {
   width: 100%;
@@ -93,7 +83,7 @@
   border: solid rgb(226, 226, 226) 1px !important;
 }
 .logoutAccount:hover {
-  background-color: #0099a4;
+  background-color: #CB297B;
   color: #fff;
 }
 

@@ -40,7 +40,7 @@ export default function EventDataWithDate() {
               style={{
                 color: JSON.parse(localStorage.getItem("darkMode"))
                   ? "#fff"
-                  : "#0099a4",
+                  : "#CB297B",
               }}
             >
               Event Summary
@@ -51,7 +51,7 @@ export default function EventDataWithDate() {
                 style={{
                   color: JSON.parse(localStorage.getItem("darkMode"))
                     ? "#fff"
-                    : "#0099a4",
+                    : "#CB297B",
                 }}
               >
                 <span>
@@ -67,7 +67,7 @@ export default function EventDataWithDate() {
                   style={{
                     color: JSON.parse(localStorage.getItem("darkMode"))
                       ? "#fff"
-                      : "#0099a4",
+                      : "#CB297B",
                   }}
                 >
                   <span>
@@ -84,7 +84,7 @@ export default function EventDataWithDate() {
                   style={{
                     color: JSON.parse(localStorage.getItem("darkMode"))
                       ? "#fff"
-                      : "#0099a4",
+                      : "#CB297B",
                   }}
                 >
                   <span>
@@ -101,7 +101,7 @@ export default function EventDataWithDate() {
                   style={{
                     color: JSON.parse(localStorage.getItem("darkMode"))
                       ? "#fff"
-                      : "#0099a4",
+                      : "#CB297B",
                   }}
                 >
                   <span>

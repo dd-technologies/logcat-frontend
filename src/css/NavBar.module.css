@@ -4,160 +4,45 @@
   z-index: 10;
 }
 .NavbarOuter .Navbar {
-  background-color: #21969d;
   display: flex;
   justify-content: space-between;
   align-items: center !important;
   padding: 0.3% 1%;
+  box-shadow: 0px 0px 6px #00000029;
+  background-color: #fff;
+  opacity: 1;
 }
-@media only screen and (min-width: 300px) and (max-width: 700px) {
-  .NavbarOuter .Navbar {
-    height: 50px;
-  }
-}
-@media only screen and (min-width: 700px) and (max-width: 1600px) {
-  .NavbarOuter .Navbar {
-    height: 55px;
-  }
-}
-@media only screen and (min-width: 1600px) and (max-width: 1920px) {
-  .NavbarOuter .Navbar {
-    height: 60px;
-  }
-}
-@media screen and (min-width: 600px) and (max-width: 959px) {
-  .NavbarOuter .Navbar .detailSection {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    margin-right: 60px !important;
-    width: 120px !important;
-  }
-  .NavbarOuter .Navbar .detailSection .AvatarSection {
-    background-color: #fff;
-    color: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 100%;
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-  }
-}
-@media screen and (min-width: 960px) and (max-width: 1279px) {
-  .NavbarOuter .Navbar .detailSection {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    margin-right: 80px !important;
-    width: 130px !important;
-  }
-  .NavbarOuter .Navbar .detailSection .AvatarSection {
-    background-color: #fff;
-    color: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 100%;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-  }
-}
-@media screen and (min-width: 1280px) and (max-width: 1919px) {
-  .NavbarOuter .Navbar .detailSection {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    margin-right: 200px !important;
-    width: 130px !important;
-  }
-  .NavbarOuter .Navbar .detailSection .AvatarSection {
-    background-color: #fff;
-    color: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 100%;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-  }
-}
-@media screen and (min-width: 1280px) and (max-width: 1480px) {
-  .NavbarOuter .Navbar .detailSection {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    margin-right: 80px !important;
-    width: 130px !important;
-  }
-  .NavbarOuter .Navbar .detailSection .AvatarSection {
-    background-color: #fff;
-    color: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 100%;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-  }
-}
-@media screen and (min-width: 1480px) and (max-width: 1919px) {
-  .NavbarOuter .Navbar .detailSection {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    margin-right: 100px !important;
-    width: 140px !important;
-  }
-  .NavbarOuter .Navbar .detailSection .AvatarSection {
-    background-color: #fff;
-    color: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 100%;
-    width: 38px;
-    height: 38px;
-    cursor: pointer;
-  }
-}
-@media screen and (min-width: 1920px) and (max-width: 5000px) {
-  .NavbarOuter .Navbar .detailSection {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    width: 150px;
-    display: flex;
-    margin-right: 100px !important;
-  }
-  .NavbarOuter .Navbar .detailSection .AvatarSection {
-    background-color: #fff;
-    color: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 100%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-  }
+.adminAvtar{
+  width: 0rem;
+  height: 3rem;
+  
 }
 .NavbarOuter .AvatarSectionDropDown {
+  background-color: #cb297b;
   width: 60px;
   height: 60px;
-  background-color: #e2e2e2;
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 100%;
+  font-size: 2rem;
+}
+.adminAvtar{
+  background-color: #cb297b;
+  width: 50px;
+  height: 50px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  font-size: 2rem;
 }
 .NavbarOuter .manageAccount {
   margin-top: 10px;
-  width: 100%;
+  width: 223px;
+  height: 44px;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -165,31 +50,114 @@
   transition-duration: 0.3s;
   padding: 6px;
   cursor: pointer;
-  border: solid rgb(226, 226, 226) 1px !important;
+  color: #cb297b;
+  box-shadow: 0px 0px 10px #00000029;
+  border: 0.10000000149011612px solid #70707080;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  opacity: 1;
 }
 .NavbarOuter .manageAccount:hover {
-  background-color: #0099a4;
+  background-color: #cb297b;
   color: #fff;
 }
 .NavbarOuter .logoutAccount {
   margin-bottom: 10px;
-  width: 100%;
+  width: 223px;
+  height: 40px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition-duration: 0.3s;
   padding: 6px;
-  cursor: pointer;
-  border: solid rgb(226, 226, 226) 1px !important;
+  cursor: pointer;color: #cb297b;
+  box-shadow: 0px 0px 10px #00000029;
+  border: 0.10000000149011612px solid #70707080;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  opacity: 1;
 }
 .NavbarOuter .logoutAccount:hover {
-  background-color: #0099a4;
+  background-color: #cb297b;
   color: #fff;
+  border: 1px solid #cb297b;
 }
 .NavbarOuter .privacyPolicy {
   display: flex;
   justify-content: space-around;
   width: 100%;
   font-size: 0.8rem;
-}/*# sourceMappingURL=NavBar.module.css.map */
+  color: #cb297b;
+} /*# sourceMappingURL=NavBar.module.css.map */
+.updateEmailText{
+  font-size: 1rem;
+  color: #707070;
+  text-align: center;
+  font-size: 0.9rem;
+  width: 15rem;
+}
+.UpdateNameText{
+  font-size: 1.3rem;
+  color: #707070;
+}
+@media (min-width: 1200px) {
+  /* Add your CSS rules for desktops here */
+  .adminAvtar{
+    background-color: #cb297b;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    font-size: 2rem;
+  }
+}
+
+/* Styles for laptops */
+@media (min-width: 992px) and (max-width: 1199px) {
+  /* Add your CSS rules for laptops here */
+  .adminAvtar{
+    background-color: #cb297b;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    font-size: 2rem;
+  }
+}
+
+/* Styles for tablets */
+@media (min-width: 768px) and (max-width: 991px) {
+  /* Add your CSS rules for tablets here */
+  .adminAvtar{
+    background-color: #cb297b;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    font-size: 2rem;
+  }
+}
+
+/* Styles for phones */
+@media (max-width: 767px) {
+  /* Add your CSS rules for phones here */
+  .adminAvtar{
+    background-color: #cb297b;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    font-size: 2rem;
+  }
+}

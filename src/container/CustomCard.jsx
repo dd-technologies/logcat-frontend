@@ -9,19 +9,19 @@ export default function CustomCard(props) {
       <Card
         className={Style.CardCustomeOuter}
         style={{
-          borderRadius: "10px",
+          display:"flex",
+          flexDirection:"row",
           overflow: "hidden",
-          height: props.height ? props.height : "100%",
-          width: props.width ? props.width : "100%",
-          padding: props.padding ? props.padding : "0px",
-          position: props.position ? props.position : "",
-          right: props.right ? props.right : "0%",
-          top: props.top ? props.top : "0%",
-          zIndex: props.zIndex ? props.zIndex : "1",
+          background: "#FFFFFF 0% 0% no-repeat padding-box",
+          boxShadow: "0px 0px 50px #00000029",
+          borderRadius: "15px",
+          opacity: 1,
+          border:"0px",
+          height:"100%",
+          justifyContent:"center"
         }}
       >
         {props.children}
-        
       </Card>
     </>
   );

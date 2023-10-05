@@ -29,7 +29,7 @@
   margin-left: 5px;
 }
 .OuterTable .BootstrapTable .chip {
-  background-color: #0099a4;
+  background-color: #CB297B;
   border-radius: 20px;
   padding: 10px;
   height: 30px;
@@ -76,11 +76,11 @@
   display: flex;
   justify-content: flex-end;
   border-radius: 50px !important;
-  color: #0099a4;
+  color: #CB297B;
 }
 
 .ActiveOption {
-  background-color: #0099a4;
+  background-color: #CB297B;
   color: #fff;
   border-radius: 10px;
   padding: 5px;
@@ -105,7 +105,7 @@
   margin-top: 5px;
 }
 .perPageOuter .perPagesectionInnerActive {
-  background-color: #0099a4 !important;
+  background-color: #CB297B !important;
   color: #fff;
   padding: 5px;
   border-radius: 30px;
@@ -117,7 +117,7 @@
 }
 
 .DefaultOption {
-  color: #0099a4;
+  color: #CB297B;
   padding: 5px;
 }
 
@@ -133,7 +133,7 @@
   cursor: pointer;
 }
 .expandedRow:hover {
-  color: #0099a4;
+  color: #CB297B;
   text-decoration: underline;
 }
 @media screen and (min-width: 600px) and (max-width: 1200px) {

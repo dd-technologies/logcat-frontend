@@ -1,16 +1,12 @@
 /* eslint-disable */
 
 import React, { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
-import CustomCard from "../../container/CustomCard";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash, faLock } from "@fortawesome/free-solid-svg-icons";
 import Style from "../../css/ResetPassword.module.css";
 import { toast, Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { resetForgetPassword } from "../../store/action/AdminAction";
-import { useNavigate } from "react-router-dom";
-import Timer from "../../screens/analytics/Components/Timer";
+import { Link, useNavigate } from "react-router-dom";
+import Timer from "../analytics/Components/Timer";
 import { forgetPassword } from "../../store/action/AdminAction";
 import OtpInput from "./OtpInput";
 import SpinnerCustom from "../../container/SpinnerCustom";
@@ -20,11 +16,6 @@ export default function ResetPassword() {
     otp: null,
     newPass: null,
     confirmPass: null,
-  });
-
-  const [showPassword, setShowPassword] = useState({
-    new: false,
-    confime: false,
   });
 
   const [stateErr, setStateErr] = useState({ err: null, inputErr: null });
@@ -44,40 +35,31 @@ export default function ResetPassword() {
     setEnableResendButton(false);
     if (enableResendButton) {
       dispatch(forgetPassword(email));
+      console.log("email", email);
     }
   };
 
   const { loading, data, error } = resetPasswordReducer;
-
-  // console.log("resetPasswordReducer", resetPasswordReducer);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
     if (
-      state.otp == null ||
-      state.newPass == null ||
-      !state.confirmPass == null
+      state.otp == null
     ) {
       toast.error("Please provide all the required field!");
-    } else if (state.otp && state.otp.length == 6) {
-      if (state.newPass == state.confirmPass) {
-        setStateErr({ err: null, inputErr: null });
-        dispatch(resetForgetPassword({ email, resetData: state }));
-      } else {
-        setStateErr({
-          inputErr: "New password and confirm password not matching",
-        });
-        toast.error(stateErr.inputErr);
-      }
-    } else if (stateErr.err) {
-      setStateErr({ err: "Check OTP field!!" });
+    }
+    if (state.otp && state.otp.length == 4) {
+      dispatch(resetForgetPassword({resetData: state }));
+      navigate("/changePassword")
+    }
+    else if (stateErr.err) {
+      setStateErr({ err: "Check OTP field!" });
       toast.error(stateErr.err);
-    } else {
-      if (error) {
-        toast.error("Please check all the credential!!");
-      }
+    }
+    else if(data.statusCode==200){
+      navigate("/changePassword")
     }
   };
 
@@ -87,7 +69,7 @@ export default function ResetPassword() {
     navigate("/login");
   }
 
-  useEffect(() => { }, [enableResendButton]);
+  useEffect(() => {}, [enableResendButton]);
   return (
     <>
       <Toaster />
@@ -96,21 +78,28 @@ export default function ResetPassword() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "100vh",
+          marginTop: "10rem",
         }}
       >
-        <CustomCard height="max-content" width="500px">
+        <div className={Style.main}>
           <section className={Style.Reset}>
-            <section className="Login-title">
-              <p className={Style.headerText}>Reset Password</p>
-            </section>
-
-            <section className="mt-4">
-              {/*OTP section*/}
+            <div className={Style.LoginTitle}>
+              <p className={Style.headerText}>Enter 4 Digits Code</p>
+            </div>
+            <div className={Style.heroSection}>
               <section>
-                <p className="darkModeColor my-3">Enter your OTP</p>
-                <section className={Style.OPTTIMR}>
-                  <OtpInput setState={setState} state={state} />
+                {/*OTP section*/}
+                <section>
+                  <p className="darkModeColor my-3" style={{ color: "gray" }}>
+                    Enter 4 Digits code that you received on your {email}
+                  </p>
+                  <section className={Style.OPTTIMR}>
+                    <OtpInput setState={setState} state={state} />
+                  </section>
+                </section>
+              </section>
+              <section className="Form-card">
+                <form>
                   {!enableResendButton ? (
                     <Timer
                       resetTimer={handleEnableButton}
@@ -118,93 +107,44 @@ export default function ResetPassword() {
                       initialSeconds={59}
                     />
                   ) : (
-                    ""
+                    <section>
+                      <p
+                        style={{
+                          cursor: enableResendButton ? "pointer" : null,
+                          color: enableResendButton
+                            ? "#257d7c"
+                            : "rgb(56, 56, 56, 0.5)",
+                        }}
+                        className={enableResendButton ? "cpactiveText" : null}
+                        onClick={handleResendButton}
+                      >
+                        Resend OTP
+                      </p>
+                    </section>
                   )}
-                </section>
+                  <section className={Style.bottomSection}>
+                    {loading ? (
+                      <SpinnerCustom height="5%" />
+                    ) : (
+                      <button className={Style.emailbtn} onClick={handleSubmit}>
+                        Continue
+                      </button>
+                    )}
+                    <p style={{ fontSize: "0.8rem", padding: "0rem 6rem" }}>
+                      Did not recive OTP? check your email or{" "}
+                      <Link
+                        to="/forgetPassword"
+                        style={{ textDecoration: "none" }}
+                      >
+                        try another email address
+                      </Link>
+                    </p>
+                  </section>
+                </form>
               </section>
-            </section>
-
-            <section className="Form-card">
-              <form>
-                <section className={`${Style.imputFields} darkBgColorSec mt-4`}>
-                  <span className="ms-2">
-                    <FontAwesomeIcon size="lg" icon={faLock} />
-                  </span>
-                  <input
-                    type={showPassword.new ? "text" : "password"}
-                    className="form-control LoginForminput "
-                    placeholder="Enter your new password"
-                    autoComplete="Enter you new password"
-                    onChange={(e) =>
-                      setState({ ...state, newPass: e.target.value })
-                    }
-                  />
-                  <span className="px-2" style={{ cursor: "pointer" }}>
-                    <FontAwesomeIcon
-                      icon={showPassword.new ? faEye : faEyeSlash}
-                      onClick={() => {
-                        setShowPassword({
-                          ...showPassword,
-                          new: !showPassword.new,
-                        });
-                      }}
-                    />
-                  </span>
-                </section>
-                <section className={`${Style.imputFields} darkBgColorSec mt-4`}>
-                  <span className="ms-2">
-                    <FontAwesomeIcon icon={faLock} size="lg" />
-                  </span>
-                  <input
-                    type={showPassword.confime ? "text" : "password"}
-                    className="form-control LoginForminput"
-                    placeholder="Confirm your new password"
-                    autoComplete="Confirm your new password"
-                    onChange={(e) =>
-                      setState({ ...state, confirmPass: e.target.value })
-                    }
-                  />
-                  <span className="px-2" style={{ cursor: "pointer" }}>
-                    <FontAwesomeIcon
-                      icon={showPassword.confime ? faEye : faEyeSlash}
-                      onClick={() => {
-                        setShowPassword({
-                          ...showPassword,
-                          confime: !showPassword.confime,
-                        });
-                      }}
-                    />
-                  </span>
-                </section>
-                <section className="mt-4">
-                  <p
-                    style={{
-                      textDecoration: "underline",
-                      cursor: enableResendButton ? "pointer" : null,
-                      color: enableResendButton
-                        ? "#257d7c"
-                        : "rgb(56, 56, 56, 0.5)",
-                    }}
-                    className={enableResendButton ? "cpactiveText" : null}
-                    onClick={handleResendButton}
-                  >
-                    Resend OTP
-                  </p>
-                </section>
-
-                <section style={{ display: "flex", justifyContent: "center" }}>
-                  {loading ? (
-                    <SpinnerCustom height="5%" />
-                  ) : (
-                    <Button className="mt-4" onClick={handleSubmit}>
-                      Reset Password
-                    </Button>
-                  )}
-                </section>
-              </form>
-            </section>
+            </div>
           </section>
-        </CustomCard>
+        </div>
       </section>
     </>
   );

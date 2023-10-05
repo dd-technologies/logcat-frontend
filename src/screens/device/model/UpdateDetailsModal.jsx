@@ -1,239 +1,240 @@
-import React,{useState} from 'react';
-import { Modal,Button,Form } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { updateDetailsById } from '../../../store/action/DeviceAction';
+import React, { useEffect, useState } from 'react';
+import { Modal, Button, Form } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateDetailsById, getSingleDeviceIdDetails } from '../../../store/action/DeviceAction';
 import Style from "../../../css/EditDetailsModal.module.css";
-
-const UpdateDetailsModal = (props)=>{
-    // const {...item1} = props;
-    // console.log('3',{...item1})
-    // console.log('12',{item1}.item1.AliasName)
-    // localStorage.setItem('item1',JSON.stringify(item1))
-    // var item11 = JSON.parse(localStorage.getItem('item1'))
-
-  var item11 = 0;
-
-const [updateDetails,setUpdateDetails] = useState({
-        DeviceID1:item11.DeviceId,
-        AliasName:item11.AliasName,
-        HospitalName:item11.Hospital_Name,
-        DocName:item11.Doctor_Name,
-        WardNo:item11.Ward_No,
-        IMEINo:item11.IMEI_NO,
-        VentiOp:item11.Ventilator_Operator
-      
-    })
-    console.log(updateDetails.DeviceID1)
-    // console.log(updateDetails.DeviceID1)
-    const dispatch = useDispatch();
-    const handleSubmit = (e) =>{
-        e.preventDefault();
-        setErrorName("");
-        alert("Details Updated SuccessFully")
-        if(item11){
-            setErrorMsg("");
-            setErrorName("");
-            dispatch(
-                  updateDetailsById(
-                    updateDetails.DeviceID1,
-                    updateDetails.AliasName,
-                    updateDetails.HospitalName,
-                    updateDetails.DocName,
-                    updateDetails.WardNo,
-                    updateDetails.IMEINo,
-                    updateDetails.VentiOp
-                )
-            );
-            window.location.reload()
-            // console.log(updateDetails.AliasName)
-            // console.log('DoctorName',updateDetails.DocName)
-            props.onHide(); 
+const UpdateDetailsModal = (props) => {
+  const getAllSectionByDeviceId = useSelector(
+    (state) => state.getAllSectionByDeviceId
+  );
+  const { data } = getAllSectionByDeviceId;
+  const getAllData = data && data.data
+  const deviceID=getAllData && getAllData.DeviceId
+  const item11=JSON.parse(localStorage.getItem('item1'))
+  const [updateDetails, setUpdateDetails] = useState({
+    DeviceID1: getAllData && getAllData.DeviceId,
+    AliasName: getAllData && getAllData.Department_Name,
+    HospitalName: getAllData && getAllData.Hospital_Name,
+    DocName: getAllData && getAllData.Doctor_Name,
+    WardNo: getAllData && getAllData.Ward_No,
+    IMEINo: getAllData && getAllData.IMEI_NO,
+    VentiOp: getAllData && getAllData.Bio_Med,
+  })
+console.log("updateDetails.Dev",updateDetails.DeviceID1)
+  const dispatch = useDispatch();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setErrorName("");
+    alert("Details Updated SuccessFully")
+    if (getAllData) {
+      setErrorMsg("");
+      setErrorName("");
+      dispatch(
+        updateDetailsById({
+          DeviceId: getAllData && getAllData.DeviceId,
+          departmentName: updateDetails.AliasName,
+          hospitalName: updateDetails.HospitalName,
+          Doctor_Name: updateDetails.DocName,
+          Ward_No: updateDetails.WardNo,
+          IMEI_NO: updateDetails.IMEINo,
+          Bio_Med: updateDetails.VentiOp
         }
-
+        )
+      );
+      setTimeout(() => {
+        window.location.reload()
+      }, 500);
+      props.onHide();
     }
-    const [errorName,setErrorName]= useState();
-    const [errorMsg,setErrorMsg] = useState();
-    return(
-        <>
-        <Modal
-            {...props}
-            // {...console.log(props,'props')}
-            size="md"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
+  }
+  const [errorName, setErrorName] = useState();
+  const [errorMsg, setErrorMsg] = useState();
+  const DeviceId = JSON.parse(localStorage.getItem('111'))
+  useEffect(() => {
+   getSingleDeviceIdDetails()
+  }, [])
+
+  return (
+    <>
+      <Modal
+        {...props}
+        size="md"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header className={'card darkModeColor'}>
+          <Modal.Title
+            id="contained-modal-title-vcenterv"
+            style={{ color: "#IF99A4" }}
+          >
+            Update Device Details
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className='card darkModeColor'>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label className="darkModeColor">Device ID</Form.Label>
+            <Form.Control
+              className={Style.inputFields}
+              type="text"
+              name="DeviceId"
+              value={getAllData && getAllData.DeviceId}
+              placeholder="Enter Your Device ID"
+              readOnly
+            />
+            {errorName ? (
+              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
+            ) : (
+              ""
+            )}
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label className="darkModeColor">Department</Form.Label>
+            <Form.Control
+              className={Style.inputFields}
+              type="text"
+              name="AliasName"
+              defaultValue={getAllData && getAllData.Department_Name}
+              placeholder="Enter Your Device Alias Name"
+              onChange={(e) =>
+                setUpdateDetails({ ...updateDetails, AliasName: e.target.value })
+              }
+              required
+            />
+            {errorName ? (
+              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
+            ) : (
+              ""
+            )}
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label className="darkModeColor">Hospital Name</Form.Label>
+            <Form.Control
+              className={Style.inputFields}
+              type="text"
+              name="HospitalName"
+              defaultValue={getAllData && getAllData.Hospital_Name}
+              placeholder="Enter the Hospital Name"
+              onChange={(e) =>
+                setUpdateDetails({ ...updateDetails, HospitalName: e.target.value })}
+              required
+            />
+            {errorName ? (
+              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
+            ) : (
+              ""
+            )}
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label className="darkModeColor">Doctor Name</Form.Label>
+            <Form.Control
+              className={Style.inputFields}
+              type="text"
+              name="DoctorName"
+              defaultValue={getAllData && getAllData.Doctor_Name}
+              placeholder="Enter Doctor's Name"
+              onChange={(e) =>
+                setUpdateDetails({ ...updateDetails, DocName: e.target.value })
+              }
+              required
+            />
+            {errorName ? (
+              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
+            ) : (
+              ""
+            )}
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label className="darkModeColor">Ward Number</Form.Label>
+            <Form.Control
+              className={Style.inputFields}
+              type="text"
+              name="WardNo"
+              defaultValue={getAllData && getAllData.Ward_No}
+              placeholder="Enter Your Ward Number"
+              onChange={(e) =>
+                setUpdateDetails({ ...updateDetails, WardNo: e.target.value })
+              }
+              required
+            />
+            {errorName ? (
+              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
+            ) : (
+              ""
+            )}
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label className="darkModeColor">IMEI Number</Form.Label>
+            <Form.Control
+              className={Style.inputFields}
+              type="text"
+              name="IMEINumber"
+              defaultValue={getAllData && getAllData.IMEI_NO}
+              placeholder="Enter Your Device IMEI Number"
+              onChange={(e) =>
+                setUpdateDetails({ ...updateDetails, IMEINo: e.target.value })
+              }
+              required
+            />
+            {errorName ? (
+              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
+            ) : (
+              ""
+            )}
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label className="darkModeColor">Bio-Med</Form.Label>
+            <Form.Control
+              className={Style.inputFields}
+              type="text"
+              name="ventiOperator"
+              defaultValue={getAllData && getAllData.Bio_Med}
+              placeholder="Enter Ventilator Operator's Name"
+              onChange={(e) =>
+                setUpdateDetails({ ...updateDetails, VentiOp: e.target.value })
+              }
+              required
+            />
+            {errorName ? (
+              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
+            ) : (
+              ""
+            )}
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer className="card darkModeColor">
+          <section
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
+            <Button
+              onClick={props.onHide}
+              style={{
+                backgroundColor: "#CB297B", color: "#CB297B", marginLeft: "10px", background: "#FFFFFF 0% 0% no-repeat padding-box", boxShadow: "0px 0px 30px #00000029",
+                borderRadius: "10px"
+              }}>
+              Cancel
+            </Button>
+            <button
+              style={{ backgroundColor: "#CB297B", color: "#ffff", padding: "revert", border: "0px", borderRadius: "10px" }}
+              onClick={(e) => {
+                handleSubmit(e);
+              }}
             >
-                <Modal.Header className={'card darkModeColor'}>
-                    <Modal.Title
-                    id="contained-modal-title-vcenterv"
-                    style={{color:"#IF99A4"}}
-                    >
-                         Update Device Details
-                </Modal.Title>
-                </Modal.Header>
-                <Modal.Body className='card darkModeColor'>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label className="darkModeColor">Device ID</Form.Label>
-                <Form.Control
-                  className={Style.inputFields}
-                  type="text"
-                  name="DeviceId"
-                  value={item11.DeviceId}
-                  placeholder="Enter Your Device ID"
-                  readOnly
-                />
-                {errorName ? (
-                  <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
-                ) : (
-                  ""
-                )}
-                </Form.Group>
-    
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label className="darkModeColor">Alias Name</Form.Label>
-                <Form.Control
-                  className={Style.inputFields}
-                  type="text"
-                  name="AliasName"
-                  value={updateDetails.AliasName}
-                  placeholder="Enter Your Device Alias Name"
-                  onChange={(e) =>
-                    setUpdateDetails({ ...updateDetails,  AliasName: e.target.value })
-                  }
-                  required
-                />
-                {errorName ? (
-                  <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
-                ) : (
-                  ""
-                )}
-              </Form.Group>
-    
-               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label className="darkModeColor">Hospital Name</Form.Label>
-                <Form.Control
-                  className={Style.inputFields}
-                  type="text"
-                  name="HospitalName"
-                  value={updateDetails.HospitalName}
-                  placeholder="Enter the Hospital Name"
-                  onChange={(e) =>
-                    setUpdateDetails({ ...updateDetails,  HospitalName: e.target.value })                  }
-                  required
-                />
-                {errorName ? (
-                  <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
-                ) : (
-                  ""
-                )}
-              </Form.Group>
-    
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label className="darkModeColor">Doctor Name</Form.Label>
-                <Form.Control
-                  className={Style.inputFields}
-                  type="text"
-                  name="DoctorName"
-                  value={updateDetails.DocName}
-                  placeholder="Enter Doctor's Name"
-                  onChange={(e) =>
-                    setUpdateDetails({ ...updateDetails,  DocName: e.target.value })
-                  }
-                  required
-                />
-                {errorName ? (
-                  <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
-                ) : (
-                  ""
-                )}
-              </Form.Group>
-    
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label className="darkModeColor">Ward Number</Form.Label>
-                <Form.Control
-                  className={Style.inputFields}
-                  type="text"
-                  name="WardNo"
-                  value={updateDetails.WardNo}
-                  placeholder="Enter Your Ward Number"
-                  onChange={(e) =>
-                    setUpdateDetails({ ...updateDetails,  WardNo: e.target.value })
-                  }
-                  required
-                />
-                {errorName ? (
-                  <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
-                ) : (
-                  ""
-                )}
-              </Form.Group>
-    
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label className="darkModeColor">IMEI Number</Form.Label>
-                <Form.Control
-                  className={Style.inputFields}
-                  type="text"
-                  name="IMEINumber"
-                  value={updateDetails.IMEINo}
-                  placeholder="Enter Your Device IMEI Number"
-                  onChange={(e) =>
-                    setUpdateDetails({ ...updateDetails,  IMEINo: e.target.value })
-                  }
-                  required
-                />
-                {errorName ? (
-                  <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
-                ) : (
-                  ""
-                )}
-              </Form.Group>
-    
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label className="darkModeColor">Ventilator Operator</Form.Label>
-                <Form.Control
-                  className={Style.inputFields}
-                  type="text"
-                  name="ventiOperator"
-                  value={updateDetails.VentiOp}
-                  placeholder="Enter Ventilator Operator's Name"
-                  onChange={(e) =>
-                    setUpdateDetails({ ...updateDetails,  VentiOp: e.target.value })
-                  }
-                  required
-                />
-                {errorName ? (
-                  <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
-                ) : (
-                  ""
-                )}
-              </Form.Group>  
-                </Modal.Body>
-                <Modal.Footer className="card darkModeColor">
-              <section
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "100%",
-                }}
-              >
-                <Button
-                  onClick={props.onHide}
-                  style={{ backgroundColor: "#1a83ff", marginLeft: "10px" }}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#1a83ff" }}
-                  onClick={(e) => {
-                    handleSubmit(e); 
-                    window.location.reload()
-                  }}
-                >
-                  Update
-                </Button>
-              </section>
-            </Modal.Footer>
-        </Modal>
-        </>
-       )
+              Update
+            </button>
+          </section>
+        </Modal.Footer>
+      </Modal>
+    </>
+  )
 }
 export default UpdateDetailsModal;

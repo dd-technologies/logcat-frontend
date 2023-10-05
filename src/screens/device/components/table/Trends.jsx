@@ -1,715 +1,255 @@
 import React, { useEffect } from 'react';
-import {useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Style from '../../../../css/deviceTrends.module.css';
 import { ThemeContext } from '../../../../utils/ThemeContext';
 import { getDeviceTrendsById } from '../../../../store/action/DeviceAction';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { CSVLink } from "react-csv";
 function Trends() {
   const { theme } = React.useContext(ThemeContext);
-    const getAllTrendsByDeviceIdReducer = useSelector((state)=>state.getAllTrendsByDeviceIdReducer);
-    const {data} = getAllTrendsByDeviceIdReducer;
-    console.log('getAllTrendsByDeviceIdReducer',getAllTrendsByDeviceIdReducer)
+  const getAllTrendsByDeviceIdReducer = useSelector((state) => state.getAllTrendsByDeviceIdReducer);
+  const { loading, data } = getAllTrendsByDeviceIdReducer;
 
-    let trendsFilter = data && data.data && data.data.findDeviceById;
-    console.log("trendsFilter",trendsFilter);
-
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const code = urlParams.get('name');
-    console.log(code)
-    const dispatch = useDispatch();
-    useEffect(()=>{
-        dispatch(
-          getDeviceTrendsById(
-                code,
-            )
-        )
-    },([]))
+  let trendsFilter = data && data.data && data.data.findDeviceById;
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const code = urlParams.get('name');
+  console.log("trendsFilter", trendsFilter)
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(
+      getDeviceTrendsById(
+        code,
+      )
+    )
+  }, ([]))
   return (
     <>
-      <section className={Style.alertTable}>
-        {/* Parameter and timmer Head Section */}
-        <section className={Style.uppertableHeader}>
-          <section style={{
-            color: theme === 'light-theme' ? '#fff' : '#000',
-          }}
-          >
-            <p
-              style={{
-                marginRight: '10px',
-                color: theme === 'light-theme' ? '#fff' : '#000',
-                fontSize: '.9rem',
-              }}
-            >
-              Parameter
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color: theme === 'light-theme' ? '#fff' : '#000',
-                fontWeight: '600',
-                fontSize: '.9rem',
-              }}
-            >
-              Unit
-            </p>
-          </section>
-            {trendsFilter && trendsFilter.map((item,_id)=>{
-          return(
-            <section>
-            <p
-              style={{
-                marginRight: '10px',
-                color: theme === 'light-theme' ? '#fff' : '#000',
-                fontWeight: '600',
-                fontSize: '.9rem',
-              }}
-            >
-              {item.time}
-            </p>
-            </section>
-          )
-            })}
-        </section>
-        {/* Mode Head Section */}
-        <section className={Style.tableHeader}>
-        <section style={{
-            color: theme === 'light-theme' ? '#000' : '#fff',
-          }}
-          >
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              Mode
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              Mode Type
-            </p>
-          </section>
-        
-        {trendsFilter && trendsFilter.map((item,_id)=>{
-          return(
-           <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              {item.mode}
-            </p>
-          </section>
-          )
-        })}
-        </section>
-         {/* Pip Head Section */}
-         <section className={Style.eventableBody}>
-        <section style={{
-            color: theme === 'light-theme' ? '#000' : '#fff',
-          }}
-          >
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              PIP
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              cmH20
-            </p>
-          </section>
-        {trendsFilter && trendsFilter.map((item,_id)=>{
-          return(
-           <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              {item.pip}
-            </p>
-          </section>
-          )
-        })}
-        </section>
-        {/* peep */}
-        <section className={Style.tableHeader}>
-              <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    PEEP
+      {/* <div className='csvImg' style={{ display: 'flex', gap: '0.5rem', justifyContent: 'end', alignItems: 'center', padding: '5px 10px 0px 0px' }}>
+        <span style={{ display: 'inline', fontSize: '0.8rem', textDecoration: 'none' }}>Download</span>
+        <CSVLink title='LogCat' data={trendsFilter}>
+          <FontAwesomeIcon icon={faFileArrowDown} style={{ color: "#cb297b", height: "23px" }} />
+        </CSVLink>
+      </div> */}
+      <div className='d-flex' style={{ fontSize: "0.9rem" }}>
+        {/* Trends Value */}
+        {trendsFilter && trendsFilter.length > 0 ?
+          <>
+            <div>
+              <div className={Style.trendsInnerValueTop}>
+                <div className={Style.insideMapData} >Parameter</div>
+                <div className={Style.insideMapData}>Unit</div>
+              </div>
+              <div className={Style.trendsInnerValueOdd}>
+                <div className={Style.insideMapData}>Mode</div>
+                <div className={Style.insideMapData}>Mode Type</div>
+              </div>
+              <div className={Style.trendsInnerValueEven}>
+                <div className={Style.insideMapData}>PIP</div>
+                <div className={Style.insideMapData}>cmH20</div>
+              </div>
+              <div className={Style.trendsInnerValueOdd}>
+                <div className={Style.insideMapData}>PEEP</div>
+                <div className={Style.insideMapData}>cmH20</div>
+              </div>
+              <div className={Style.trendsInnerValueEven}>
+                <div style={{ margin: "0.8rem", width: "6rem", textAlign: "center" }}>Mean Airway</div>
+                <div className={Style.insideMapData}>cmH20</div>
+              </div>
+              <div className={Style.trendsInnerValueOdd}>
+                <div className={Style.insideMapData}>Vti</div>
+                <div className={Style.insideMapData}>ml</div>
+              </div>
+              <div className={Style.trendsInnerValueEven}>
+                <div className={Style.insideMapData}>Vte</div>
+                <div className={Style.insideMapData}>ml</div>
+              </div>
+              <div className={Style.trendsInnerValueOdd}>
+                <div className={Style.insideMapData}>Mve</div>
+                <div className={Style.insideMapData}>Litre</div>
+              </div>
+              <div className={Style.trendsInnerValueEven}>
+                <div className={Style.insideMapData}>Mvi</div>
+                <div className={Style.insideMapData}>Litre</div>
+              </div>
+              <div className={Style.trendsInnerValueOdd}>
+                <div className={Style.insideMapData}>FiO2</div>
+                <div className={Style.insideMapData}>%</div>
+              </div>
+              <div className={Style.trendsInnerValueEven}>
+                <div style={{ margin: "0.8rem", width: "7rem", textAlign: "center" }}>RR</div>
+                <div className={Style.insideMapData}>BPM</div>
+              </div>
+              <div className={Style.trendsInnerValueOdd}>
+                <div className={Style.insideMapData}>I:E</div>
+                <div className={Style.insideMapData}>Ratio</div>
+              </div>
+              <div className={Style.trendsInnerValueEven}>
+                <div className={Style.insideMapData}>Tinsp</div>
+                <div className={Style.insideMapData}>sec</div>
+              </div>
+              <div className={Style.trendsInnerValueOdd}>
+                <div className={Style.insideMapData}>Texp</div>
+                <div className={Style.insideMapData}>sec</div>
+              </div>
+              <div className={Style.trendsInnerValueEven}>
+                <div style={{ margin: "0.8rem", width: "6rem", textAlign: "center" }}>Average Leak</div>
+                <div className={Style.insideMapData}>%</div>
+              </div>
+            </div>
+            {/* Trends Data */}
+            <div className="d-grid" style={{ maxWidth: "100%", overflowX: "auto" }}>
+              <div className={Style.trendsInnerDataTop}>
+                {trendsFilter && trendsFilter.map((item, _id) => {
+                  return (
+                    <>
+                      <div className={Style.insideMapData}>{item.time}</div>
+                    </>
+                  )
+                })}
+              </div>
+              <div className={Style.trendsInnerDataEven}>
+                {trendsFilter && trendsFilter.map((item, _id) => {
+                  return (
+                    <>
+                      <div className={Style.insideMapData}>{item.mode}</div>
+                    </>
+                  )
+                })}
+              </div>
+              <div className={Style.trendsInnerDataOdd}>
+                {trendsFilter && trendsFilter.map((item, _id) => {
+                  return (
+                    <>
+                      <div className={Style.insideMapData}>{item.pip}</div>
+                    </>
+                  )
+                })}
+              </div>
+              <div className={Style.trendsInnerDataEven}>
+                {trendsFilter && trendsFilter.map((item, _id) => {
+                  return (
+                    <>
+                      <div className={Style.insideMapData}>{item.peep}</div>
+                    </>
+                  )
+                })}
+              </div>
+              <div className={Style.trendsInnerDataOdd}>
+                {trendsFilter && trendsFilter.map((item, _id) => {
+                  return (
+                    <>
+                      <div className={Style.insideMapData}>{item.mean_Airway}</div>
+                    </>
+                  )
+                })}
+              </div>
+              <div className={Style.trendsInnerDataEven}>
+                {trendsFilter && trendsFilter.map((item, _id) => {
+                  return (
+                    <>
+                      <div className={Style.insideMapData}>{item.vti}</div>
+                    </>
+                  )
+                })}
+              </div>
+              <div className={Style.trendsInnerDataOdd}>
+                {trendsFilter && trendsFilter.map((item, _id) => {
+                  return (
+                    <>
+                      <div className={Style.insideMapData}>{item.vte}</div>
+                    </>
+                  )
+                })}
+              </div>
+              <div className={Style.trendsInnerDataEven}>
+                {trendsFilter && trendsFilter.map((item, _id) => {
+                  return (
+                    <>
+                      <div className={Style.insideMapData}>{item.mve}</div>
+                    </>
+                  )
+                })}
+              </div>
+              <div className={Style.trendsInnerDataOdd}>
+                {trendsFilter && trendsFilter.map((item, _id) => {
+                  return (
+                    <>
+                      <div className={Style.insideMapData}>{item.mvi}</div>
+                    </>
+                  )
+                })}
+              </div>
+              <div className={Style.trendsInnerDataEven}>
+                {trendsFilter && trendsFilter.map((item, _id) => {
+                  return (
+                    <>
+                      <div className={Style.insideMapData}>{item.fio2}</div>
+                    </>
+                  )
+                })}
+              </div>
+              <div className={Style.trendsInnerDataOdd}>
+                {trendsFilter && trendsFilter.map((item, _id) => {
+                  return (
+                    <>
+                      <div className={Style.insideMapData}>{item.respiratory_Rate}</div>
+                    </>
+                  )
+                })}
+              </div>
+              <div className={Style.trendsInnerDataEven}>
+                {trendsFilter && trendsFilter.map((item, _id) => {
+                  return (
+                    <>
+                      <div className={Style.insideMapData}>{item.ie}</div>
+                    </>
+                  )
+                })}
+              </div>
+              <div className={Style.trendsInnerDataOdd}>
+                {trendsFilter && trendsFilter.map((item, _id) => {
+                  return (
+                    <>
+                      <div className={Style.insideMapData}>{item.tinsp}</div>
+                    </>
+                  )
+                })}
+              </div>
+              <div className={Style.trendsInnerDataEven}>
+                {trendsFilter && trendsFilter.map((item, _id) => {
+                  return (
+                    <>
+                      <div className={Style.insideMapData}>{item.texp}</div>
+                    </>
+                  )
+                })}
+              </div>
+              <div className={Style.trendsInnerDataOdd}>
+                {trendsFilter && trendsFilter.map((item, _id) => {
+                  return (
+                    <>
+                      <div className={Style.insideMapData}>{item.averageLeak}</div>
+                    </>
+                  )
+                })}
+              </div>
+            </div>
+          </>
+          :
+          <section style={{ width: '100%', height: '100%', marginTop: '10rem', marginBottom: '10rem' }}>
+            {trendsFilter && trendsFilter.length == 0 && (
+              <section className={Style.noDataFound}>
+                <span>
+                  No Data Found
+                </span>
               </section>
-              <section
-                                    style={{
-                                      color:
-                                        theme === 'light-theme' ? '' : '#fff',
-                                        
-                                    }}
-                                  >
-                                    cmH20
-              </section>
-              {trendsFilter && trendsFilter.map((item,_id)=>{
-          return(
-           <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              {item.peep}
-            </p>
+            )}
+            {loading && <span style={{ display: 'flex', textAlign: 'center', justifyContent: 'center', fontSize: 20 }}>Loading...</span>}
           </section>
-          )
-        })}
-        </section>
-        {/* Mean Airway Head Section */}
-        <section className={Style.eventableBody}>
-        <section style={{
-            color: theme === 'light-theme' ? '#000' : '#fff',
-          }}
-          >
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              Mean Airway
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              cmH20
-            </p>
-          </section>
-          {trendsFilter && trendsFilter.map((item,_id)=>{
-          return(
-           <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              {item.mean_Airway}
-            </p>
-          </section>
-          )
-        })}
-        </section>
-        {/* Vti Airway Head Section */}
-        <section className={Style.tableHeader}>
-        <section style={{
-            color: theme === 'light-theme' ? '#000' : '#fff',
-          }}
-          >
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              Vti
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              ml
-            </p>
-          </section>
-          {trendsFilter && trendsFilter.map((item,_id)=>{
-          return(
-           <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              {item.vti}
-            </p>
-          </section>
-          )
-        })}
-        </section>
-        {/* Vte Airway Head Section */}
-        <section className={Style.eventableBody}>
-        <section style={{
-            color: theme === 'light-theme' ? '#000' : '#fff',
-          }}
-          >
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              Vte
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              ml
-            </p>
-          </section>
-          {trendsFilter && trendsFilter.map((item,_id)=>{
-          return(
-           <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              {item.vte}
-            </p>
-          </section>
-          )
-        })}
-        </section>
-        {/* Mve Airway Head Section */}
-        <section className={Style.tableHeader}>
-        <section style={{
-            color: theme === 'light-theme' ? '#000' : '#fff',
-          }}
-          >
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              Mve
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              Litre
-            </p>
-          </section>
-          {trendsFilter && trendsFilter.map((item,_id)=>{
-          return(
-           <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              {item.mve}
-            </p>
-          </section>
-          )
-        })}
-        </section>
-        {/* Mvi Airway Head Section */}
-        <section className={Style.eventableBody}>
-        <section style={{
-            color: theme === 'light-theme' ? '#000' : '#fff',
-          }}
-          >
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              Mvi
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              Litre
-            </p>
-          </section>
-          {trendsFilter && trendsFilter.map((item,_id)=>{
-          return(
-           <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              {item.mvi}
-            </p>
-          </section>
-          )
-        })}
-        </section>
-         {/* FiO2 Head Section */}
-         <section className={Style.tableHeader}>
-        <section style={{
-            color: theme === 'light-theme' ? '#000' : '#fff',
-          }}
-          >
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              FiO2
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              %
-            </p>
-          </section>
-          {trendsFilter && trendsFilter.map((item,_id)=>{
-          return(
-           <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              {item.fio2}
-            </p>
-          </section>
-          )
-        })}
-        </section>
-         {/* Resposiratory Rate Head Section */}
-         <section className={Style.eventableBody}>
-        <section style={{
-            color: theme === 'light-theme' ? '#000' : '#fff',
-          }}
-          >
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              Respiratory Rate
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              BPM
-            </p>
-          </section>
-          {trendsFilter && trendsFilter.map((item,_id)=>{
-          return(
-           <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              {item.respiratory_Rate}
-            </p>
-          </section>
-          )
-        })}
-        </section>
-        {/* i:e Head Section */}
-        <section className={Style.tableHeader}>
-        <section style={{
-            color: theme === 'light-theme' ? '#000' : '#fff',
-          }}
-          >
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              I:E
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              Ratio
-            </p>
-          </section>
-          {trendsFilter && trendsFilter.map((item,_id)=>{
-          return(
-           <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              {item.ie}
-            </p>
-          </section>
-          )
-        })}
-        </section>
-        {/* Tinsp Head Section */}
-        <section className={Style.eventableBody}>
-        <section style={{
-            color: theme === 'light-theme' ? '#000' : '#fff',
-          }}
-          >
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              Respiratory Rate
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              BPM
-            </p>
-          </section>
-          {trendsFilter && trendsFilter.map((item,_id)=>{
-          return(
-           <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              {item.respiratory_Rate}
-            </p>
-          </section>
-          )
-        })}
-        </section>
-        {/* Texp Head Section */}
-        <section className={Style.tableHeader}>
-        <section style={{
-            color: theme === 'light-theme' ? '#000' : '#fff',
-          }}
-          >
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              Texp
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              sec
-            </p>
-          </section>
-          {trendsFilter && trendsFilter.map((item,_id)=>{
-          return(
-           <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              {item.texp}
-            </p>
-          </section>
-          )
-        })}
-        </section>
-        {/* Average Leak Head Section */}
-        <section className={Style.eventableBody}>
-        <section style={{
-            color: theme === 'light-theme' ? '#000' : '#fff',
-          }}
-          >
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              Average Leak
-            </p>
-          </section>
-          <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              %
-            </p>
-          </section>
-          {trendsFilter && trendsFilter.map((item,_id)=>{
-          return(
-           <section className={Style.innerHeader}>
-            <p
-              style={{
-                marginRight: '10px',
-                color:
-                  theme === 'light-theme' ? '#000' : '#fff',
-                fontSize: '.9rem',
-              }}
-            >
-              {item.averageLeak}
-            </p>
-          </section>
-          )
-        })}
-        </section>
-      </section>
+        }
+      </div>
     </>
   )
 }

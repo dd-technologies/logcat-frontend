@@ -4,6 +4,7 @@ import { usePagination, DOTS } from "../hooks/usePagination";
 import "../css/Pagination.css";
 import { useDispatch } from "react-redux";
 import { alarmAction } from "../store/action/AlarmAction";
+import {eventAction} from "../store/action/EventsAction"
 import { getProjectByCode } from "../store/action/ProjectAction";
 
 
@@ -49,7 +50,11 @@ const Pagination = (props) => {
         alarmAction(code,date, projectType, diffdate, currentPage + 1, pageSize)
       );
     }
-
+    if (url.href.includes("events")) {
+      dispatch(
+        eventAction(code,date, projectType, diffdate, currentPage + 1, pageSize)
+      );
+    }
     // if url is logable
     if (url.href.includes("log_table")) {
       dispatch(
@@ -71,6 +76,12 @@ const Pagination = (props) => {
     if (url.href.includes("alarm")) {
       dispatch(
         alarmAction(code,date, projectType, diffdate, currentPage - 1, pageSize)
+      );
+    }
+    // If url is events
+    if (url.href.includes("event")) {
+      dispatch(
+        eventAction(code,date, projectType, diffdate, currentPage - 1, pageSize)
       );
     }
     // if url is logable

@@ -11,25 +11,23 @@ import {
   clearProjectData,
   getAllProject,
 } from "../../store/action/ProjectAction";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import AddProjectModal from "./model/AddProjectModal";
 import Spinner from "../../container/Spinner";
-import { adminLogout } from "../../store/action/AdminAction";
-import CustomeDropDown from "../../container/DropDown";
+import dispatch from "../../assets/icons/dispatch.png"
+import dispatchList from "../../assets/icons/dispatchList.png"
 
 const cookies = new Cookies();
 
 function CreateProject() {
   const [modalShow, setModalShow] = useState(false);
-  const [darkMode, setDarkMode] = React.useState(true);
-  const [userInfo, setUserInfo] = useState(false);
   const Dispatch = useDispatch();
   const getAllProjectReducer = useSelector(
     (state) => state.getAllProjectReducer
   );
   const { allProjectData: ProjectData, allProjectData } = getAllProjectReducer;
-  console.log('allProjectData',allProjectData)
+  console.log('allProjectData', allProjectData)
 
   // GETTING USER NAME
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
@@ -61,19 +59,6 @@ function CreateProject() {
     }
     Dispatch(getAllProject());
   }, []);
-// Logout function
-  const handlelogout = (e) => {
-    e.preventDefault();
-    Dispatch(adminLogout(navigate));
-  };
-
-  // useEffect(() => {
-  //   setDarkMode(!darkMode);
-  // }, []);
-
-  const showUserInfoFun = () => {
-    setUserInfo(!userInfo);
-  };
 
   // @@ REMOVING PROJECT TYPE FROM LOCALHOST ----
   useEffect(() => {
@@ -86,94 +71,12 @@ function CreateProject() {
       {/*Logout functionality */}
       {ProjectData && ProjectData.data && ProjectData.data.data ? (
         <>
-          <section className={Style.backgroundSection}></section>  
+          <section className={Style.backgroundSection}></section>
           <Container className={Style.MainContantainer}>
-            <Row>
-              <Col
-                xl={6}
-                md={6}
-                sm={12}
-                className="mt-2 d-flex align-self-center"
-              >
-                <h5
-                  style={{
-                    color: "#fff",
-                  }}
-                >
-                  Your Projects
-                </h5>
-              </Col>
-              <Col
-                xl={6}
-                md={6}
-                sm={12}
-                className="mt-2 d-flex justify-content-end"
-              >
-                <section
-                  className={`${Style.AvatarSection}`}
-                  onClick={showUserInfoFun}
-                >
-                  {adminInfo &&
-                    adminInfo.data &&
-                    adminInfo.data.name.split(" ")[0].split("")[0]}
-                </section>
-                {userInfo && (
-                  <CustomeDropDown
-                    position="fixed"
-                    right="0%"
-                    top="10%"
-                    width="400px"
-                    zIndex="10"
-                    marginRight="10px"
-                  >
-                    <section
-                      className={Style.AvatarSectionDropDown}
-                      onClick={showUserInfoFun}
-                    >
-                      {avatar ? (
-                        <img src={URL.createObjectURL(avatar)} alt="Avatar" />
-                      ) : (
-                        adminInfo &&
-                        adminInfo.data &&
-                        adminInfo.data.name.split(" ")[0].split("")[0]
-                      )}
-                    </section>
-
-                    <p
-                      style={{
-                        fontSize: "1.3rem",
-                      }}
-                    >
-                      {adminInfo && adminInfo.data && adminInfo.data.name}
-                    </p>
-                    <p
-                      style={{
-                        fontSize: "1rem",
-                      }}
-                    >
-                      {adminInfo && adminInfo.data && adminInfo.data.email}
-                    </p>
-                   {/* Logout method in navbar */}
-                    <section
-                      style={{ border: "1px solid #fff", marginTop: "5px" }}
-                      className={`${Style.logoutAccount} darkModeColor`}
-                      onClick={(e) => {
-                        handlelogout(e);
-                      }}
-                    >
-                      Logout
-                    </section>
-                  {/*Navbar section  */}
-                    <section className={Style.privacyPolicy}>
-                      <p>Privacy policy</p>
-                      <p>Terms of service</p>
-                    </section>
-                  </CustomeDropDown>
-                )}
-              </Col>
-            </Row>
+            <div className="dashboard" style={{ position: "absolute", left: "1rem" }}>
+            </div>
             <Row className="rowSection">
-              {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin ? (
+              {adminInfo && adminInfo.data && adminInfo.data.userType === "Admin" ? (
                 <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
                   <CustomCard
                     padding="10px"
@@ -187,9 +90,9 @@ function CreateProject() {
                     >
                       <section>
                         <p>
-                          <FontAwesomeIcon icon={faPlus} />
+                          <FontAwesomeIcon icon={faPlus} bounce style={{ color: "#cb297b", }} />
                         </p>
-                        <p>Add Project</p>
+                        <p style={{ color: "#707070" }}>Add Project</p>
                       </section>
                     </section>
                   </CustomCard>
@@ -200,7 +103,102 @@ function CreateProject() {
                 </Col>
               ) : null}
               {/*maps other project data in the project section  */}
-              {allProjectData &&
+              {adminInfo && adminInfo.data && adminInfo.data.userType === "Dispatch" ?
+                <>
+                  <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
+                    <CustomCard
+                      padding="15px"
+                      height="200px"
+                      boxShadow="0px 0px 3px 1px rgba(192,192,192,0.90)"
+                    >
+                      <Link
+                        to="/dispatchDevice"
+                        style={{ textDecoration: "none" }}
+                      >
+                        <div
+                          className="project-cart"
+                          style={{
+                            backgroundColor: "white",
+                            padding: "2rem",
+                            borderRadius: "5px",
+                            width: "25rem",
+                          }}
+                        >
+                          <div className="d-flex" style={{ gap: "5rem" }}>
+                            <img
+                              src={dispatch}
+                              style={{ height: "5rem" }}
+                              alt="AgvaVenti"
+                            />
+                            <div
+                              className="d-flex"
+                              style={{
+                                gap: "1rem",
+                                justifyContent: "center",
+                                flexDirection: "column",
+                                alignItems: "center",
+                              }}
+                            >
+                              <div>
+                                <h6 style={{ color: "#707070", fontSize: "1.5rem" }}>
+                                  Dispatch
+                                </h6>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    </CustomCard>
+
+                  </Col>
+                  <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
+                    <CustomCard
+                      padding="15px"
+                      height="200px"
+                      boxShadow="0px 0px 3px 1px rgba(192,192,192,0.90)"
+                    >
+                      <Link
+                        to="/allDispatchDeviceData"
+                        style={{ textDecoration: "none" }}
+                      >
+                        <div
+                          className="project-cart"
+                          style={{
+                            backgroundColor: "white",
+                            padding: "2rem",
+                            borderRadius: "5px",
+                            width: "25rem",
+                          }}
+                        >
+                          <div className="d-flex" style={{ gap: "5rem" }}>
+                            <img
+                              src={dispatchList}
+                              style={{ height: "5rem" }}
+                              alt="AgvaVenti"
+                            />
+                            <div
+                              className="d-flex"
+                              style={{
+                                gap: "1rem",
+                                justifyContent: "center",
+                                flexDirection: "column",
+                                alignItems: "center",
+                              }}
+                            >
+                              <div>
+                                <h6 style={{ color: "#707070", fontSize: "1.5rem" }}>
+                                  Dispatch Data
+                                </h6>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    </CustomCard>
+
+                  </Col>
+                </> :
+                allProjectData &&
                 allProjectData.data.data.length &&
                 allProjectData.data.data.map((data, i) => (
                   <Fragment key={i}>
@@ -213,7 +211,7 @@ function CreateProject() {
       ) : (
         <Spinner />
       )}
-      )
+
     </>
   );
 }

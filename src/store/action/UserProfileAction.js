@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from 'universal-cookie';
 import { USER_PASSWORD_CHANGE_REQUEST, USER_PASSWORD_CHANGE_SUCESS, USER_PASSWORD_CHANGE_FAIL, } from "../types/UserConstants";
-import { USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCSESS } from "../types/UserInfoConstant";
+import { USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCSESS, HISTORY_DATA_REQUEST, HISTORY_DATA_SUCCESS, HISTORY_DATA_FAIL } from "../types/UserInfoConstant";
 
 const cookies = new Cookies();
 
@@ -49,9 +49,6 @@ export const passwordChangeAction =
       });
     }
   };
-
-
-
 export const userInfoActionFn = () => async (dispatch) => {
   try {
     dispatch({
@@ -79,6 +76,39 @@ export const userInfoActionFn = () => async (dispatch) => {
 
     dispatch({
       type: USER_DETAILS_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.err.msg,
+    });
+  }
+};
+export const getHistoryLogsData = ({page,limit}) => async (dispatch) => {
+  try {
+    dispatch({
+      type: HISTORY_DATA_REQUEST,
+    });
+    const token = cookies.get('ddAdminToken');
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/logger/user-activity?page=${page}&limit=${limit}`,
+      config
+    );
+    dispatch({
+      type: HISTORY_DATA_SUCCESS,
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: HISTORY_DATA_FAIL,
       payload:
         error &&
         error.response &&

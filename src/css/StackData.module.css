@@ -15,13 +15,13 @@
   justify-content: space-between;
 }
 .outerDiv .StackInfoDive .ParaWithArrowDown {
-  color: #0099a4;
+  color: #CB297B;
   cursor: pointer;
 }
 .outerDiv .StackInfoDive p {
   font-size: 0.9rem !important;
   font-weight: 500;
-  color: #0099a4;
+  color: #CB297B;
 }
 .outerDiv .StackInfoDive h3 {
   cursor: pointer;
@@ -45,13 +45,13 @@
   justify-content: space-between;
 }
 .outerDiv .StackInfoDiveWithToggle .ParaWithArrowDown {
-  color: #0099a4;
+  color: #CB297B;
   cursor: pointer;
 }
 .outerDiv .StackInfoDiveWithToggle p {
   font-size: 0.9rem !important;
   font-weight: 500;
-  color: #0099a4;
+  color: #CB297B;
 }
 .outerDiv .StackInfoDiveWithToggle h3 {
   cursor: pointer;
@@ -80,13 +80,13 @@
 .outerDiv .detailSection .stackDetails {
   font-size: 0.9rem !important;
   font-weight: 500;
-  color: #0099a4;
+  color: #CB297B;
 }
 .outerDiv .detailSection .dynamicPara {
   color: #000 !important;
 }
 .outerDiv .detailSection .normalPara {
-  color: #0099a4 !important;
+  color: #CB297B !important;
   font-size: 0.8rem !important;
 }
 .outerDiv .detailSection p {
@@ -117,7 +117,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #0099a4;
+  background-color: #CB297B;
   border-radius: 55px;
   overflow: hidden;
 }
@@ -150,9 +150,9 @@
   height: 100%;
 }
 .filterToggle .filterGraphFirstSectionActive p {
-  color: #0099a4;
+  color: #CB297B;
   font-size: 0.8rem;
 }
 .filterToggle .filterGraphFirstSectionActive svg {
-  color: #0099a4;
+  color: #CB297B;
 }/*# sourceMappingURL=StackData.module.css.map */

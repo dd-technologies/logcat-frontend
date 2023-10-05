@@ -1,30 +1,27 @@
 import React, { useState } from "react";
-import { Button } from "react-bootstrap";
-import CustomCard from "../../container/CustomCard";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import {
   forgetPassword,
   resetForgetPasswordState,
 } from "../../store/action/AdminAction";
+import email from "../../assets/images/email.png";
 import Style from "../../css/Forgetpassword.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, Toaster } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { validateEmailHelper } from "../../helper/Emails";
 import SpinnerCustom from "../../container/SpinnerCustom";
 
 export default function ForgetPassword() {
   const [forgetEmail, setForgetEmail] = useState("");
   const [forgetEmailErr, setForgetEmailErr] = useState(null);
-
   const dispatch = useDispatch();
   const handleForgetPassword = () => {
     const isEmailValid = validateEmailHelper(forgetEmail);
-    // console.log(`forget email ${forgetEmail}`)
     if (isEmailValid.isSuccess) {
       setForgetEmail(forgetEmail);
+      localStorage.setItem("forgetEmail", JSON.stringify(forgetEmail));
       dispatch(forgetPassword(forgetEmail));
+      navigate("/resetpassword");
       return isEmailValid.isSuccess;
     }
     if (!isEmailValid.isSuccess && !isEmailValid.isEmail) {
@@ -35,6 +32,16 @@ export default function ForgetPassword() {
       setForgetEmailErr(isEmailValid.message);
       return isEmailValid.isSuccess;
     }
+    if (!forgetEmail) {
+      toast.error("Enter your email");
+    }
+    if (forgetPasswordInfo && forgetPasswordInfo.success) {
+      toast.success(forgetPasswordInfo.message);
+      localStorage.setItem("forgetEmail", forgetEmail);
+      // clear forget password reducer
+      dispatch(resetForgetPasswordState());
+      navigate("/resetpassword");
+    }
     setForgetEmailErr(null);
   };
 
@@ -42,23 +49,20 @@ export default function ForgetPassword() {
     (state) => state.forgetPasswordReducer
   );
 
-  // console.log("forgetPasswordReducer", forgetPasswordReducer);
-
-  const { loading, error, forgetPasswordInfo } = forgetPasswordReducer;
+  const { loading, forgetPasswordInfo } = forgetPasswordReducer;
   const navigate = useNavigate();
 
-  if (error) {
-    toast.error(error);
-  }
-
-  if (forgetPasswordInfo && forgetPasswordInfo.success) {
-    toast.success(forgetPasswordInfo.message);
-    localStorage.setItem("forgetEmail", JSON.stringify(forgetEmail));
-    // clear forget password reducer
-    dispatch(resetForgetPasswordState());
-    navigate("/resetpassword");
-  }
-
+  // if (forgetPasswordInfo && forgetPasswordInfo.success) {
+  //   toast.success(forgetPasswordInfo.message);
+  //   localStorage.setItem("forgetEmail", JSON.stringify(forgetEmail));
+  //   // clear forget password reducer
+  //   dispatch(resetForgetPasswordState());
+  //   navigate("/resetpassword");
+  // }
+  const forgetEmailChange = (e) => {
+    setForgetEmail(e.target.value);
+    console.log("hello", e.target.value);
+  };
   return (
     <>
       <Toaster />
@@ -67,60 +71,76 @@ export default function ForgetPassword() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "100vh",
+          height: "100%",
+          marginTop: "10rem",
         }}
       >
-        <CustomCard height="max-content" width="500px">
+        <div className={Style.main}>
           <section className={Style.forget}>
-            <div className="Login-title">
+            <div className={Style.LoginTitle}>
               <p className={Style.headerText}>Forgot Password</p>
             </div>
-            <div className="Form-card">
-              <form>
-                <div className={`${Style.imputFields} mt-4 darkBgColorSec`}>
-                  <span className="ms-2">
-                    <FontAwesomeIcon icon={faEnvelope} size="lg" />
-                  </span>
-                  <input
-                    type="email"
-                    value={forgetEmail}
-                    onChange={(e) => setForgetEmail(e.target.value)}
-                    className="form-control LoginForminput "
-                    autoComplete="Enter your email"
-                    placeholder="Enter your email"
-                  />
-                </div>
-                {forgetEmailErr != null ? (
-                  <small style={{ color: "red" }}>{forgetEmailErr}</small>
-                ) : forgetEmailErr ? (
-                  <small style={{ color: "red" }}>{forgetEmailErr}</small>
-                ) : (
-                  ""
-                )}
-                <section
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
+            <div className={Style.heroSection}>
+              <div className="paragraph-title">
+                <p
+                className={Style.innerText}
                 >
-                  {loading ? (
-                    <SpinnerCustom height="5%" />
-                  ) : (
-                    <Button
-                      style={{
-                        width: "30%",
-                      }}
-                      className="mt-4"
-                      onClick={handleForgetPassword}
+                  Enter your email for the verification process, we will send 4
+                  digits code to your email.
+                </p>
+              </div>
+              <div className="Form-card">
+                <form>
+                  <div className={Style.inputusername}>Email Id</div>
+                  <div style={{marginTop: "1rem" }}>
+                    <div
+                      className={
+                        forgetEmailErr
+                          ? `${Style.imputFieldsError}  darkModebgColor`
+                          : `${Style.imputFields}  darkModebgColor`
+                      }
                     >
-                      Send Email
-                    </Button>
+                      <span className="ms-2">
+                        <img src={email} style={{ width: "1.2rem" ,opacity:"0.59"}} />
+                      </span>
+                      <span style={{ color: "black" , opacity:"0.59"}}>|</span>
+                      <input
+                        style={{ border: "0px" }}
+                        type="email"
+                        className="form-control registerForminput "
+                        autoComplete="Enter your Email"
+                        onChange={forgetEmailChange}
+                        value={forgetEmail}
+                      />
+                    </div>
+                  </div>
+                  {forgetEmailErr != null ? (
+                    <small style={{ color: "red" }}>{forgetEmailErr}</small>
+                  ) : forgetEmailErr ? (
+                    <small style={{ color: "red" }}>{forgetEmailErr}</small>
+                  ) : (
+                    ""
                   )}
-                </section>
-              </form>
+                  <section className={Style.bottomSection}>
+                    {loading ? (
+                      <SpinnerCustom height="5%" />
+                    ) : (
+                      <button
+                        className={Style.emailbtn}
+                        onClick={handleForgetPassword}
+                      >
+                        Continue
+                      </button>
+                    )}
+                    <Link to="/" style={{ textDecoration: "none" }}>
+                      <span className={Style.backLogin}>Back to Login</span>
+                    </Link>
+                  </section>
+                </form>
+              </div>
             </div>
           </section>
-        </CustomCard>
+        </div>
       </section>
     </>
   );

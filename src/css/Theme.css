@@ -14,10 +14,10 @@
   color: #fff !important;
 }
 .light-theme .cpactiveText {
-  color: #0099a4;
+  color: #CB297B;
 }
 .light-theme .TDsec {
-  background-color: #0099a4 !important;
+  background-color: #CB297B !important;
 }
 .light-theme .TBSED {
   border-top-left-radius: 10px;
@@ -305,5 +305,5 @@
 }
 .pagination li a {
   text-decoration: none;
-  color: #0099a4;
+  color: #CB297B;
 }/*# sourceMappingURL=Theme.css.map */

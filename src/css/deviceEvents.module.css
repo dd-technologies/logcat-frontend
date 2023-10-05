@@ -29,7 +29,7 @@
   }
   .searchSection .filterGraphFirstSection {
     cursor: pointer;
-    background-color: #0099a4;
+    background-color: #CB297B;
     padding: 10px;
     border-radius: 5px;
     display: flex;
@@ -78,7 +78,7 @@
     cursor: pointer;
   }
   .productVersion:hover {
-    background-color: #0099a4;
+    background-color: #CB297B;
     width: 100%;
     margin: 5px;
     color: #fff;
@@ -90,9 +90,9 @@
   }
   
   .alertTable .tableHeader {
-    padding: 10px 10px;
-    display: grid;
-    grid-template-columns: 5% 25% 22% 16% 14% 12% 14% 15% 5%;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
     font-weight: 500;
     font-size: 0.9rem !important;
     /* background-color: rgba(122, 122, 122, 0.082); */
@@ -100,48 +100,67 @@
   .regbtn{
     display: none;
   }
-  @media screen and (min-width: 600px) and (max-width: 959px) {
-    .alertTable .tableHeader {
-      grid-template-columns: 5% 25% 22% 16% 14% 12% 14% 15% 5%;
-    }
-  }
-  @media screen and (min-width: 1920px) and (max-width: 5000px) {
-    .alertTable .tableHeader {
-      grid-template-columns: 5% 25% 22% 16% 14% 12% 14% 15% 5%;
-    }
-  }
-  .alertTable .tableHeader .innerHeader {
+  .tableBody{
     display: flex;
-    align-items: center;
-  }
-  .alertTable .tableBody {
-    border-bottom: 1px solid rgba(51, 51, 51, 0.137);
     padding: 10px;
-    display: grid;
-    grid-template-columns:   4% 27% 21% 15% 15% 12% 14% 16% 5%;
-    font-size: 0.9rem;
+    text-align: center;
+    justify-content: space-between;
   }
-  @media screen and (min-width: 600px) and (max-width: 959px) {
-    .alertTable .tableBody {
-      grid-template-columns:  4% 20% 28% 15% 15% 12% 14% 16% 5%;
-      font-size:0.9rem;
-    }
-    .alertTable .tableHeader{
-      grid-template-columns:  5% 25% 22% 16% 14% 12% 14% 15% 5%;
-      font-weight: 200;
-      padding: 10px;
-  
-    }
+  .insideTextData{
+    margin: 0.8rem;
+    width: 10rem;
+    text-align: center;
+    font-size: 0.8rem;
   }
-  @media screen and (min-width: 1920px) and (max-width: 5000px) {
-    .alertTable .tableBody {
-      /* grid-template-columns: 5% 30% 13% 25% 15% 15%; */
-      grid-template-columns:  4% 20% 28% 15% 15% 12% 14% 16% 5%;
-    }
-    .alertTable .tableHeader{
-      grid-template-columns:  5% 25% 22% 16% 14% 12% 14% 15% 5%;
-      font-weight: 200;
-      padding: 10px;
-  
-    }
-  }/* # sourceMappingURL=device.module.css.map */
+  .tableHeadingData{
+    /* margin-right: '10px'; */
+    font-weight: '600';
+    text-align: center;
+    font-size: '.9rem';
+    width: 10rem;
+  }
+/* Styles for desktops and larger screens */
+@media (min-width: 1200px) {
+  /* Add your CSS rules for desktops here */
+
+}
+
+/* Styles for laptops */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .alertTable {
+    overflow-x: auto;
+   }
+  .alertTable .tableHeader{
+    gap: 1.5rem;
+  }
+  .insideTextData{
+    font-size: 0.7rem;
+  }
+}
+
+/* Styles for tablets */
+@media (min-width: 768px) and (max-width: 991px) {
+ .alertTable {
+  overflow-x: auto;
+ }
+ .alertTable .tableHeader{
+  gap: 1.5rem;
+}
+.insideTextData{
+  font-size: 0.7rem;
+}
+}
+
+/* Styles for phones */
+@media (max-width: 767px) {
+  /* Add your CSS rules for phones here */
+  .alertTable {
+    overflow-x: auto;
+   }
+   .alertTable .tableHeader{
+    gap: 1.5rem;
+  }
+  .insideTextData{
+    font-size: 0.7rem;
+  }
+}

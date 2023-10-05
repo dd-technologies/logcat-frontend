@@ -7,7 +7,7 @@
 }
 
 body {
-  background-color: #e3e7ee3a !important;
+  background-color: white !important;
   overflow-x: hidden;
 }
 
@@ -23,11 +23,11 @@ p {
 }
 
 p {
-  color: #0099a4;
+  color: #CB297B;
 }
 
 span {
-  color: #0099a4;
+  color: #CB297B;
 }
 
 hr {
@@ -44,7 +44,7 @@ hr {
   border-top: 2px solid \9;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
-  color: #0099a4;
+  color: #CB297B;
 }
 
 .dropup .caret,
@@ -56,7 +56,7 @@ hr {
 }
 
 .btn {
-  background-color: #0099a4 !important;
+  background-color: #fff !important;
   border: none !important;
 }
 
@@ -71,12 +71,12 @@ hr {
 }
 
 .page-item.active .page-link {
-  background-color: #0099a4 !important;
-  border: #0099a4 1px solid !important;
+  background-color: #CB297B !important;
+  border: #CB297B 1px solid !important;
 }
 
 input[type="checkbox"]:checked {
-  background-color: #0099a4;
+  background-color: #CB297B;
 }
 
 input[type="checkbox"]:checked:after {
@@ -100,8 +100,80 @@ input[type="checkbox"] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  border: 1px solid #0099a4;
+  border: 1px solid #CB297B;
   -webkit-box-shadow: none;
   box-shadow: none;
   font-size: 1em;
+}
+
+.App{
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+.AppHeader{
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 20px 4px 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+.AppFooter{
+height: 50px;
+display: flex;
+justify-content: space-evenly;
+align-items: center;
+border-top: 1px solid rgba(0, 0, 0, 0.15);
+
+}
+.SideMenuAndPageContent{
+  display: flex;
+  flex: 1;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: white ;
+}
+.SideMenu{
+  height: 100%;
+}
+.SideMenuVertical{
+  height: 100%;
+}
+.PageContent{
+  padding-left: 12px;
+  display: flex;
+  flex-direction:column;
+  gap: 5rem;
+}
+.container{
+  display: flex;
+  width: 420px;
+  border-radius: 8px;
+  row-gap: 30px;
+  flex-direction: column;
+}
+.circular-progress{
+position: relative;
+height: 80px;
+width: 80px;
+border-radius: 50%;
+background: conic-gradient(#CB297B 280.6deg, #fff 0deg);
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.circular-progress::before{
+  content: "";
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.progress-value{
+  position: relative;
+  font-size: 20px;
+  font-weight: 500;
 }

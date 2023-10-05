@@ -11,8 +11,6 @@ class Otpinput extends React.Component {
       otp2: "",
       otp3: "",
       otp4: "",
-      otp5: "",
-      otp6: "",
       disable: true,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -22,7 +20,7 @@ class Otpinput extends React.Component {
   handleChange(value1, event) {
     this.setState({ [value1]: event.target.value });
     let st = this.state;
-    const otp = `${st.otp1}${st.otp2}${st.otp3}${st.otp4}${st.otp5}${event.target.value}`;
+    const otp = `${st.otp1}${st.otp2}${st.otp3}${event.target.value}`;
     this.props.setState({ ...this.props.state, otp: otp });
   }
 
@@ -40,7 +38,7 @@ class Otpinput extends React.Component {
       // console.log("next");
 
       const next = elmnt.target.tabIndex;
-      if (next < 6) {
+      if (next < 4) {
         elmnt.target.form.elements[next].focus();
       }
     }
@@ -48,7 +46,7 @@ class Otpinput extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} style={{display:"flex",flexDirection:"column"}}>
         <div className={Style.otpContainer}>
           <input
             name="otp1"
@@ -91,30 +89,6 @@ class Otpinput extends React.Component {
             value={this.state.otp4}
             onChange={(e) => this.handleChange("otp4", e)}
             tabIndex="4"
-            maxLength="1"
-            onKeyUp={(e) => this.inputfocus(e)}
-          />
-
-          <input
-            name="otp5"
-            type="text"
-            autoComplete="off"
-            className={Style.optInput}
-            value={this.state.otp5}
-            onChange={(e) => this.handleChange("otp5", e)}
-            tabIndex="5"
-            maxLength="1"
-            onKeyUp={(e) => this.inputfocus(e)}
-          />
-
-          <input
-            name="otp6"
-            type="text"
-            autoComplete="off"
-            className={Style.optInput}
-            value={this.state.otp6}
-            onChange={(e) => this.handleChange("otp6", e)}
-            tabIndex="6"
             maxLength="1"
             onKeyUp={(e) => this.inputfocus(e)}
           />

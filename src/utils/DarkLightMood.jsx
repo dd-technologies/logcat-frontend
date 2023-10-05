@@ -16,7 +16,7 @@ export default function DarkLightMood() {
           className={Style.Outer_section}
           onClick={() => {
             setDarkMode(!darkMode);
-            changeTheme(darkMode ? themes.light : themes.dark);
+            changeTheme(darkMode ? themes.dark : themes.light);
           }}
         >
           {darkMode ? <Image src={faSun} width="28px" /> : <Image src={faMoon} width="16px" />}

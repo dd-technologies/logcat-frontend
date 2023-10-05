@@ -70,7 +70,7 @@ var titleVal, subTitleVal;
       const stackLine = () =>{
         var causedError, noCausedError;
 
-        if(mapArrayKey.length === 1){
+        if(mapArrayKey.length == 1){
             setTitle(mapArrayKey[0]);
             setSubTitle('');
             subTitleVal='';
@@ -143,8 +143,6 @@ var titleVal, subTitleVal;
     dispatchmultiple();
   }, []);
 return(
-
-  
     <>
     <Row className="rowSection">
         <Col xl={2} lg={2} md={2} sm={2} className="noSidebar colSection">
@@ -187,11 +185,11 @@ return(
 // </div> 
                         <p className={`${Style.paraTextIssue} darkModeColor`}>
                             This issue has{' '}
-                            <strong style={{color:'#0099a4'}}>
+                            <strong style={{color:'#CB297B'}}>
                                 {totalCount} crashes
                             </strong> {' '}
                             events affecting
-                            <strong style={{color:'#0099a4'}}> {users} users</strong>
+                            <strong style={{color:'#CB297B'}}> {users} users</strong>
                         </p>
                     )}
                     <div class="card mt-2" >

@@ -13,24 +13,23 @@ export default function CustomeDropDown(props) {
       <Card
         style={{
           borderRadius: "10px",
-          width: props.width ? props.width : "auto",
-          height: props.height ? props.height : "auto",
+          width : "300px",
+          height : "360px",
           padding: props.padding ? props.padding : "10px",
           boxShadow: props.boxShadow
             ? props.boxShadow
-            : "0px 0px 4px -2px rgba(0,0,0,0.75)",
+            : "0px 0px 30px #00000029",
           display: "flex",
-          justifyContent: props.justifyContent
-            ? props.justifyContent
-            : "center",
           alignItems: props.alignItems ? props.alignItems : "center",
           marginTop: props.marginTop && "",
           position: props.position ? props.position : "",
-          top: props.top ? props.top : "",
-          right: props.right ? props.right : "",
+          top : "8%",
+          right: "5%",
           marginRight: props.marginRight ? props.marginRight : "",
           zIndex: props.zIndex ? props.zIndex : "",
           backgroundColor: darkMode ? "#202940" : null,
+          gap:"0.8rem",
+          border:"0px",
         }}
       >
         {props.children}

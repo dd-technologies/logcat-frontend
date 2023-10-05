@@ -621,7 +621,7 @@
 // //                         >
 // //                           <section className={Style.filterGraphFirstSection}>
 // //                             <FontAwesomeIcon
-// //                               color="#0099a4"
+// //                               color="#CB297B"
 // //                               style={{ cursor: 'pointer' }}
 // //                               icon={faDownload}
 // //                             />
@@ -658,7 +658,7 @@
 // //                               Device Id
 // //                             </p>
 // //                             <FontAwesomeIcon
-// //                               color="#0099a4"
+// //                               color="#CB297B"
 // //                               style={{ cursor: 'pointer' ,display:'none'}}
 // //                               icon={
 // //                                 currentStateDevices.sortIcons.DI
@@ -1345,7 +1345,7 @@
 //                         >
 //                           <section className={Style.filterGraphFirstSection}>
 //                             <FontAwesomeIcon
-//                               color="#0099a4"
+//                               color="#CB297B"
 //                               style={{ cursor: 'pointer' }}
 //                               icon={faDownload}
 //                             />
@@ -1382,7 +1382,7 @@
 //                               Device Id
 //                             </p>
 //                             <FontAwesomeIcon
-//                               color="#0099a4"
+//                               color="#CB297B"
 //                               style={{ cursor: 'pointer' ,display:'none'}}
 //                               icon={
 //                                 currentStateDevices.sortIcons.DI
@@ -1416,7 +1416,7 @@
 //                             </p>
 
 //                             {/* <FontAwesomeIcon
-//                               color="#0099a4"
+//                               color="#CB297B"
 //                               style={{ cursor: 'pointer' }}
 //                               icon={
 //                                 currentStateDevices.sortIcons.St
@@ -1450,7 +1450,7 @@
 //                             </p>
 
 //                             {/* <FontAwesomeIcon
-//                               color="#0099a4"
+//                               color="#CB297B"
 //                               style={{ cursor: 'pointer' }}
 //                               icon={
 //                                 currentStateDevices.sortIcons.St
@@ -1483,7 +1483,7 @@
 //                             </p>
 
 //                             {/* <FontAwesomeIcon
-//                               color="#0099a4"
+//                               color="#CB297B"
 //                               style={{ cursor: 'pointer' }}
 //                               icon={
 //                                 currentStateDevices.sortIcons.St
@@ -1516,7 +1516,7 @@
 //                             </p>
 
 //                             {/* <FontAwesomeIcon
-//                               color="#0099a4"
+//                               color="#CB297B"
 //                               style={{ cursor: 'pointer' }}
 //                               icon={
 //                                 currentStateDevices.sortIcons.St
@@ -1550,7 +1550,7 @@
 //                             </p>
 
 //                             {/* <FontAwesomeIcon
-//                               color="#0099a4"
+//                               color="#CB297B"
 //                               style={{ cursor: 'pointer' }}
 //                               icon={
 //                                 currentStateDevices.sortIcons.St
@@ -1584,7 +1584,7 @@
 //                             </p>
 
 //                             {/* <FontAwesomeIcon
-//                               color="#0099a4"
+//                               color="#CB297B"
 //                               style={{ cursor: 'pointer' }}
 //                               icon={
 //                                 currentStateDevices.sortIcons.St
@@ -2267,7 +2267,7 @@
 //                         >
 //                           <section className={Style.filterGraphFirstSection}>
 //                             <FontAwesomeIcon
-//                               color="#0099a4"
+//                               color="#CB297B"
 //                               style={{ cursor: 'pointer' }}
 //                               icon={faDownload}
 //                             />
@@ -2304,7 +2304,7 @@
 //                               Device Id
 //                             </p>
 //                             <FontAwesomeIcon
-//                               color="#0099a4"
+//                               color="#CB297B"
 //                               style={{ cursor: 'pointer' ,display:'none'}}
 //                               icon={
 //                                 currentStateDevices.sortIcons.DI
@@ -2338,7 +2338,7 @@
 //                             </p>
 
 //                             {/* <FontAwesomeIcon
-//                               color="#0099a4"
+//                               color="#CB297B"
 //                               style={{ cursor: 'pointer' }}
 //                               icon={
 //                                 currentStateDevices.sortIcons.St
@@ -2372,7 +2372,7 @@
 //                             </p>
 
 //                             {/* <FontAwesomeIcon
-//                               color="#0099a4"
+//                               color="#CB297B"
 //                               style={{ cursor: 'pointer' }}
 //                               icon={
 //                                 currentStateDevices.sortIcons.St
@@ -2405,7 +2405,7 @@
 //                             </p>
 
 //                             {/* <FontAwesomeIcon
-//                               color="#0099a4"
+//                               color="#CB297B"
 //                               style={{ cursor: 'pointer' }}
 //                               icon={
 //                                 currentStateDevices.sortIcons.St
@@ -2438,7 +2438,7 @@
 //                             </p>
 
 //                             {/* <FontAwesomeIcon
-//                               color="#0099a4"
+//                               color="#CB297B"
 //                               style={{ cursor: 'pointer' }}
 //                               icon={
 //                                 currentStateDevices.sortIcons.St
@@ -2472,7 +2472,7 @@
 //                             </p>
 
 //                             {/* <FontAwesomeIcon
-//                               color="#0099a4"
+//                               color="#CB297B"
 //                               style={{ cursor: 'pointer' }}
 //                               icon={
 //                                 currentStateDevices.sortIcons.St
@@ -2506,7 +2506,7 @@
 //                             </p>
 
 //                             {/* <FontAwesomeIcon
-//                               color="#0099a4"
+//                               color="#CB297B"
 //                               style={{ cursor: 'pointer' }}
 //                               icon={
 //                                 currentStateDevices.sortIcons.St

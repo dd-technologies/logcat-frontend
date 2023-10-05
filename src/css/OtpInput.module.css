@@ -1,5 +1,6 @@
 .otpContainer {
   display: flex !important;
+  justify-content: center;
 }
 .otpContainer .optInput {
   display: flex !important;

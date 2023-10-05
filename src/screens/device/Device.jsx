@@ -1,835 +1,563 @@
 /* eslint-disable */
-import React, { useRef, useEffect, useReducer, useMemo, useState } from 'react';
-import {
-  faCaretDown,
-  faDatabase,
-  faDownload,
-  faSortDown,
-  faSortUp,
-  faArrowRight,
-} from '@fortawesome/free-solid-svg-icons';
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {Image} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { Container, Row, Col,Button} from 'react-bootstrap';
-import Style from '../../css/DevicePage.module.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useDispatch, useSelector } from 'react-redux';
-import LogICon from '../../assets/icons/log.png';
-import AlarmIcon from '../../assets/images/AlarmIcon.png';
-import registericon from '../../assets/icons/registericon.png';
-import editicon from '../../assets/icons/editicon.png'; 
-import SpinnerCustom from '../../container/SpinnerCustom';
-import TableCard1 from '../../container/TableCard1';
-import { deviceAction,getRegisteredDetailsById } from '../../store/action/DeviceAction';
-import { Navbar } from '../../utils/NavBar';
-import SideBar from '../../utils/Sidebar';
-import { ThemeContext } from '../../utils/ThemeContext';
-import { deviceDataReducer } from './store/Reducer';
-import EditDetailsModal from './model/EditDetailsModal';
-import UpdateDetailsModal from './model/UpdateDetailsModal';
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import { Row, Col } from "react-bootstrap";
+import Style from "../../css/DevicePage.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch, useSelector } from "react-redux";
+import SpinnerCustom from "../../container/SpinnerCustom";
 import {
-  ALL_ROW_SELECTED,
-  DATE_DROPDOWN,
-  DIFF_DATE,
-  SEARCH_FIELD,
-  SORT_ICONS,
-} from './store/Types';
-import Pagination from '../../common/Pagination';
-import Dropdown from 'react-bootstrap/Dropdown';
-import { flushSync } from 'react-dom';
+  deviceAction,
+  getRegisteredDetailsById,
+  getSingleDeviceIdDetails,
+} from "../../store/action/DeviceAction";
+import { Navbar } from "../../utils/NavBar";
+import SideBar from "../../utils/Sidebar";
+import { ThemeContext } from "../../utils/ThemeContext";
+import EditDetailsModal from "./model/EditDetailsModal";
+import UpdateDetailsModal from "./model/UpdateDetailsModal"
+import back from "../../assets/images/back.png";
+import download from "../../assets/images/download.png";
 
-export default function DeviceTable(){
+export default function Device() {
+  const [query, setQuery] = useState("");
   const { theme } = React.useContext(ThemeContext);
+  const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
+  const { adminInfo } = adminLoginReducer;
 
-  const getAllDeviceLogsReducer = useSelector((state) => state.getAllDeviceLogsReducer);
-  const { data: DeviceId } = getAllDeviceLogsReducer;
-  // console.log('firstget',getAllDeviceLogsReducer)
+  const deviceReducer = useSelector((state) => state.deviceReducer);
+  const { loading, data } = deviceReducer;
 
-  const deviceReducer = useSelector((state) =>state.deviceReducer);
-  // console.log("first",deviceReducer)
-  const {loading,data} = deviceReducer;
-  // console.log(loading)
-  // console.log(data)
-
-  
-  const getRegisteredDetailsReducer = useSelector((state)=>state.getRegisteredDetailsReducer);
-  const {data12} = getRegisteredDetailsReducer;
-  // console.log('first',data12)
-
-  let regDetail = data12 && data12.data;
-  // console.log('1212',regDetail)
-
-  let deviceFilter = data && data.data && data.data.data;
-
-
-  useEffect(()=>{
-    dispatch(
-      getRegisteredDetailsById(
-        code,
-
-      )
-    )
-  },([]))
+  const getRegisteredDetailsReducer = useSelector(
+    (state) => state.getRegisteredDetailsReducer
+  );
+  const { data12 } = getRegisteredDetailsReducer;
+  let regDetail = data12;
+  const incPage = parseInt(data && data.currentPage)
+  const totalPage = parseInt(data && data.totalPages)
+  const [currentPage, setCurrentPage] = useState(1)
+  const recordsPerPage = 20;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const records = data && data.data && data.data.data.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(data && data.data && data.data.data.length / recordsPerPage)
+  const numbers = Array.from({ length: npage }, (_, i) => i + 1).slice(1)
+  console.log("length", npage, numbers)
+  useEffect(() => {
+    dispatch(getRegisteredDetailsById(code));
+  }, []);
   const dispatch = useDispatch();
-  // if(data12.data.did == data.data.data.DeviceId){
-  //   console.log(data.data.data.AliasName)
-  // }
 
-  const initialState = {
-    tableDataState :{},
-    disableButton: false,
-    dateDropDown: false,
-    showTableField: false,
-
-    record: localStorage.getItem('selected_record')
-    ? JSON.parse(localStorage.getItem('selected_record'))
-    : 25,
-
-    DeviceId: localStorage.getItem('DeviceId')
-    ? JSON.parse(localStorage.getItem('DeviceId'))
-    : DeviceId ,
-    searchField: '',
-
- /**
-     * @objectKey DI: Device Id,
-     * @objectKey LOC: Device Location-------------,
-     * @objectKey St: Error Type--------------,
-     */
-    sortIcons: {
-      DI: false,
-      LOC: false,
-      St: false,
-    },
-    singleRowSelect: false,
-    allRowSelect: false,
-  };
-  let navigate = useNavigate(); 
-  // const routeChange = () =>{ 
-  //   let path = `/deviceLogs?code=${code}&projectName=${projectName}&DeviceId=${item.did}`; 
-  //   navigate(path);
-  // }
-
-  const [currentStateDevices,dispatchDeviceData] = useReducer(
-    deviceDataReducer,
-    initialState
-  );
-
-  const [currentPage,setCurrentPage] = useState(1); //current page set to 1
-  const[isCheckAll,setIsCheckAll] = useState(false);
-  const[isCheck,setIsCheck] = useState([]);
-  const [checkedLogs,setCheckedLogs] = useState([]);
-  const [modalShow,setModalShow] = useState(false);
-  const [modalShow1,setModalShow1] = useState(false);
+  let navigate = useNavigate();
 
 
-  const handleSelectAll = (e) =>{
-    setIsCheckAll(!isCheckAll);
-    setIsCheck(data?.data?.data.map((data)=>data._id));
-    setCheckedLogs(data?.data?.data);
-    if(isCheckAll){
-      setIsCheck([]);
-      setCheckedLogs([]);
+  const [modalShow, setModalShow] = useState(false);
+  const [modalShow1, setModalShow1] = useState(false);
+
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const code = urlParams.get("code");
+  const projectName = urlParams.get("name");
+
+  useEffect(() => {
+    dispatch(deviceAction({ page: 1, limit: recordsPerPage }));
+  }, [dispatch]);
+  const handleClickSearch = () => {
+    if (query && query.length > 0) {
+      dispatch(deviceAction({ page: 1, limit: recordsPerPage, searchData: query }));
     }
-  };
-
-const handleClick = e => {
-  const { id, checked, name } = e.target;
-  setIsCheck([...isCheck, id]);
-  setCheckedLogs([...checkedLogs, JSON.parse(name)]);
-  if (!checked) {
-    setIsCheck(isCheck.filter((item) => item !== id));
-    setCheckedLogs(
-      checkedLogs.filter((item) => {
-        return item._id !== id;
-      })
-    );
   }
-};
-
-useMemo(()=>{
-  const firstPageIndex = (currentPage - 1) * currentStateDevices.record;
-  const lastPageIndex = firstPageIndex + currentStateDevices.record;
-  return(
-    data && data.data && data.data.data.slice(firstPageIndex,lastPageIndex)
-  );
-},[currentPage]);
-
-
-const ref = useRef();
-
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const code = urlParams.get('code');
-const projectName = urlParams.get('name');
-// console.log(projectName)
-
-
- //Navigation bar ==================================
-const navigation_details = {
-  name: projectName,
-  dashName: projectName,
-  link1: {
-    iconName: faDatabase,
-    linkName: 'Logs',
-    link: `/log_table?code=${code}&name=${projectName}`,
-  },
-  link2: {
-    iconName: faDatabase,
-    linkName: 'Settings',
-  },
-  link3:{
-    iconName:faDatabase,
-    linkName:"Alarms"
-  },
-  link4:{
-    iconName:faDatabase,
-    linkName:"Events"
+  const handleSearchChange = (e) => {
+    setQuery(e.target.value.toLowerCase())
   }
-};
-
-const sidebar_details = {
-  name: projectName,
-  dashName: projectName,
-  link1: {
-    iconName: LogICon,
-    linkName: 'Logs',
-    link: `/log_table?code=${code}&name=${projectName}`,
-  },
-  link2: {
-    iconName: AlarmIcon,
-    linkName: 'Settings',
-    link: `/settings?code=${code}&name=${projectName}`,
-  },
-  link3: {
-    iconName: AlarmIcon,
-    linkName: 'alarm',
-    link: `/alarm?code=${code}&name=${projectName}`,
-  },
-  link4: {
-    iconName: `/assets/images/AlarmIcon.png`,
-    linkName: "Events",
-    link: `/events?code=${code}&name=${projectName}`, //to do   
-  },
-};
-
- // @@ SEARCH MECHANISMS IMPLEMENTATION  STARTS HERE -----
- const handleSearchFunc = (event) => {
-  dispatchDeviceData({
-    type: SEARCH_FIELD,
-    data: event.target.value,
-  });
-};
-let search =
-    (currentStateDevices.searchField &&
-      currentStateDevices.searchField.trim() &&
-      currentStateDevices.searchField.trim().toLowerCase()) ||
-    '';
-
-  if (search.length > 0) {
-    deviceFilter = deviceFilter.filter((item) => {
-      return (
-        item.did.toLowerCase().includes(search) 
-        // item.ack.msg.toLowerCase().includes(search) ||
-        // item.createdAt.toLowerCase().includes(search)
-      );
-    });
-  }
-  const callbackfnDispatchGetAllData = (sortType) => {
-    dispatch(
-      deviceAction(
-        code,
-        localStorage.getItem('project_type') &&
-          JSON.parse(localStorage.getItem('project_type')).typeCode,
-        currentStateDevices.diffDate,
-        currentStateDevices.page,
-        currentStateDevices.record,
-        sortType
-      )
-    );
-  };
-
-useEffect(()=>{
-  dispatch(
-    deviceAction(
-      code,
-      currentStateDevices.projectCode
-    )
-  );
-},([dispatch,currentStateDevices.projectCode]))
-
-return (
-  <div>
-    <Row className="rowSection">
-      <Col xl={2} lg={2} md={2} sm={2} className="noSidebar colSection">
-        <SideBar
-          sidebar_details={sidebar_details}
-          className={Style.SideBarColume}
-        />
-      </Col>
-      <Col
-        xl={10}
-        lg={10}
-        md={10}
-        sm={10}
-        className={`${Style.NavbarColumn} colSection`}
-      >
-        <Navbar navigation_details={navigation_details} />
-        <div>
-        <h4 className={Style.Header}>Device Summary</h4>
-        <Container className={Style.Container}>
-           
-          {/* Events  */}
-          <Row className="mt-0">
-            <Col>
-              <TableCard1 borderRadius="20px" >
-                {data && data.data && data.data.data.length > 0 && (
-                  <>
-                    <section className={`${Style.OuterTable} `}>
-                      <section className={Style.searchSection}>
-                        <input
-                          type="text"
-                          placeholder="Search..."
-                          value={currentStateDevices.searchField}
-                          onChange={handleSearchFunc}
-                        />
-                        <section
-                          id="download_button"
-                          disabled={checkedLogs?.length ? null : 'disabled'}
-                          style={{
-                            border: 'none',
-                            opacity: checkedLogs?.length ? '100%' : '40%',
-                          }}
-                          onClick={() =>
-                            downloadCSVFun({
-                              data: checkedLogs,
-                              fileName: `${code}-${
-                                new Date().getDay() +
-                                '-' +
-                                new Date().getMonth() +
-                                '-' +
-                                new Date().getFullYear()
-                              }.csv`,
-                              fileType: 'text/csv;charset=utf-8;',
-                            })
-                          }
+  return (
+    <div>
+      <Navbar />
+      <SideBar />
+      <Row className="rowSection">
+        <Col
+          xl={10}
+          lg={10}
+          md={10}
+          sm={10}
+          className={Style.NavbarColumn}
+          style={{ width: "100%" }}
+        >
+          <div
+            className=""
+            style={{
+              position: "relative",
+              top: "3.5rem",
+              marginLeft: "7%",
+              width: "90%",
+            }}
+          >
+            {/* Heading Section */}
+            <div
+              className="topHeading"
+              style={{ display: "flex", flexDirection: "column" }}
+            >
+              <h3 className={Style.heading}>AgVa Pro</h3>
+              <div
+                className="deviceSummary"
+                style={{ display: "flex", alignItems: "center", gap: "1rem" }}
+              >
+                <Link to="/home">
+                  <img src={back} style={{ width: "3rem" }} />
+                </Link>
+                <h4 className={Style.Header}>Device Summary</h4>
+              </div>
+            </div>
+            <div className={Style.Container}>
+              {/* Events  */}
+              <Row className="mt-0">
+                <Col>
+                  <div className={Style.tableCard} borderRadius="20px">
+                    <>
+                      {/* SEARCH SECTION */}
+                      <section className={Style.OuterTable}>
+                        <div
+                          className={Style.insideOuterTable}
                         >
-                          <section className={Style.filterGraphFirstSection}>
-                            <FontAwesomeIcon
-                              color="#0099a4"
-                              style={{ cursor: 'pointer' }}
-                              icon={faDownload}
-                            />
-                          </section>
-                        </section>
-                      </section>
-
-                      {/* TABLE HERE */}
-
-                      <section className={Style.alertTable}>
-                        <section className={Style.tableHeader}>
-                          <section
-                            style={{
-                              color: theme == 'light-theme' ? '#000' : '#fff',
-                            }}
+                          <div
+                            className="search_section"
+                            style={{ display: "flex", gap: "3rem" }}
                           >
-                            <input
-                              type="checkbox"
-                              onChange={handleSelectAll}
-                              checked={isCheckAll}
-                              id="selectAll"
-                            
-                            />
-                          </section>
-                          <section className={Style.innerHeader}>
-                            <p
+                            <div
+                              className="input_section"
                               style={{
-                                marginRight: '10px',
-                                color:
-                                  theme == 'light-theme' ? '#000' : '#fff',
-                                fontWeight: '600',
-                                fontSize: '.9rem',
+                                display: "flex",
+                                backgroundColor: "white",
+                                borderRadius: "10px",
+                                width: "90%",
+                                alignItems: "center",
                               }}
                             >
-                              Device Id
-                            </p>
-                            <FontAwesomeIcon
-                              color="#0099a4"
-                              style={{ cursor: 'pointer' ,display:'none'}}
-                              icon={
-                                currentStateDevices.sortIcons.DI
-                                  ? faSortDown
-                                  : faSortUp
-                              }
-                              onClick={() => {
-                                dispatchDeviceData({
-                                  type: SORT_ICONS,
-                                  data: {
-                                    ...currentStateDevices.sortIcons,
-                                    DI: !currentStateDevices.sortIcons.DI,
-                                  },
-                                });
-                                sortTableFnDI(callbackfnDispatchGetAllData);
-                              }}
-                            />
-                          </section>
-        
-                          <section className={Style.innerHeader}>
-                            <p
-                              style={{
-                                marginRight: '10px',
-                                color:
-                                  theme == 'light-theme' ? '#000' : '#fff',
-                                fontWeight: '600',
-                                fontSize: '.9rem',
-                              }}
-                            >
-                              Alias Name
-                            </p>
-
-                            {/* <FontAwesomeIcon
-                              color="#0099a4"
-                              style={{ cursor: 'pointer' }}
-                              icon={
-                                currentStateDevices.sortIcons.St
-                                  ? faSortDown
-                                  : faSortUp
-                              }
-                              onClick={() => {
-                                dispatchDeviceData({
-                                  type: SORT_ICONS,
-                                  data: {
-                                    ...currentStateDevices.sortIcons,
-                                    St: !currentStateDevices.sortIcons.St,
-                                  },
-                                });
-                                sortTableFnSt(callbackfnDispatchGetAllData);
-                              }}
-                            /> */}
-                          </section>
-
-                          <section className={Style.innerHeader}>
-                            <p
-                              style={{
-                                marginRight: '10px',
-                                color:
-                                  theme == 'light-theme' ? '#000' : '#fff',
-                                fontWeight: '600',
-                                fontSize: '.9rem',
-                              }}
-                            >
-                              Hospital Name
-                            </p>
-
-                            {/* <FontAwesomeIcon
-                              color="#0099a4"
-                              style={{ cursor: 'pointer' }}
-                              icon={
-                                currentStateDevices.sortIcons.St
-                                  ? faSortDown
-                                  : faSortUp
-                              }
-                              onClick={() => {
-                                dispatchDeviceData({
-                                  type: SORT_ICONS,
-                                  data: {
-                                    ...currentStateDevices.sortIcons,
-                                    St: !currentStateDevices.sortIcons.St,
-                                  },
-                                });
-                                sortTableFnSt(callbackfnDispatchGetAllData);
-                              }}
-                            /> */}
-                          </section>
-                          <section className={Style.innerHeader}>
-                            <p
-                              style={{
-                                marginRight: '10px',
-                                color:
-                                  theme == 'light-theme' ? '#000' : '#fff',
-                                fontWeight: '600',
-                                fontSize: '.9rem',
-                              }}
-                            >
-                              Doctor Name
-                            </p>
-
-                            {/* <FontAwesomeIcon
-                              color="#0099a4"
-                              style={{ cursor: 'pointer' }}
-                              icon={
-                                currentStateDevices.sortIcons.St
-                                  ? faSortDown
-                                  : faSortUp
-                              }
-                              onClick={() => {
-                                dispatchDeviceData({
-                                  type: SORT_ICONS,
-                                  data: {
-                                    ...currentStateDevices.sortIcons,
-                                    St: !currentStateDevices.sortIcons.St,
-                                  },
-                                });
-                                sortTableFnSt(callbackfnDispatchGetAllData);
-                              }}
-                            /> */}
-                          </section>
-                          <section className={Style.innerHeader}>
-                            <p
-                              style={{
-                                marginRight: '10px',
-                                color:
-                                  theme == 'light-theme' ? '#000' : '#fff',
-                                fontWeight: '600',
-                                fontSize: '.9rem',
-                              }}
-                            >
-                              Ward Number
-                            </p>
-
-                            {/* <FontAwesomeIcon
-                              color="#0099a4"
-                              style={{ cursor: 'pointer' }}
-                              icon={
-                                currentStateDevices.sortIcons.St
-                                  ? faSortDown
-                                  : faSortUp
-                              }
-                              onClick={() => {
-                                dispatchDeviceData({
-                                  type: SORT_ICONS,
-                                  data: {
-                                    ...currentStateDevices.sortIcons,
-                                    St: !currentStateDevices.sortIcons.St,
-                                  },
-                                });
-                                sortTableFnSt(callbackfnDispatchGetAllData);
-                              }}
-                            /> */}
-                          </section>
-
-                          <section className={Style.innerHeader}>
-                            <p
-                              style={{
-                                marginRight: '10px',
-                                color:
-                                  theme == 'light-theme' ? '#000' : '#fff',
-                                fontWeight: '600',
-                                fontSize: '.9rem',
-                              }}
-                            >
-                              IMEI Number
-                            </p>
-
-                            {/* <FontAwesomeIcon
-                              color="#0099a4"
-                              style={{ cursor: 'pointer' }}
-                              icon={
-                                currentStateDevices.sortIcons.St
-                                  ? faSortDown
-                                  : faSortUp
-                              }
-                              onClick={() => {
-                                dispatchDeviceData({
-                                  type: SORT_ICONS,
-                                  data: {
-                                    ...currentStateDevices.sortIcons,
-                                    St: !currentStateDevices.sortIcons.St,
-                                  },
-                                });
-                                sortTableFnSt(callbackfnDispatchGetAllData);
-                              }}
-                            /> */}
-                          </section>
-                          
-                          <section className={Style.innerHeader}>
-                            <p
-                              style={{
-                                marginRight: '10px',
-                                color:
-                                  theme == 'light-theme' ? '#000' : '#fff',
-                                fontWeight: '600',
-                                fontSize: '.9rem',
-                              }}
-                            >
-                              Ventilator Operator
-                            </p>
-
-                            {/* <FontAwesomeIcon
-                              color="#0099a4"
-                              style={{ cursor: 'pointer' }}
-                              icon={
-                                currentStateDevices.sortIcons.St
-                                  ? faSortDown
-                                  : faSortUp
-                              }
-                              onClick={() => {
-                                dispatchDeviceData({
-                                  type: SORT_ICONS,
-                                  data: {
-                                    ...currentStateDevices.sortIcons,
-                                    St: !currentStateDevices.sortIcons.St,
-                                  },
-                                });
-                                sortTableFnSt(callbackfnDispatchGetAllData);
-                              }}
-                            /> */}
-                          </section>
-                          <section className={Style.innerHeader}>
-                            <p
-                              style={{
-                                marginRight: '10px',
-                                color:
-                                  theme == 'light-theme' ? '#000' : '#fff',
-                                fontWeight: '600',
-                                fontSize: '.9rem',
-                              }}
-                            >
-                              Action
-                            </p>
-                            <p
-                              style={{
-                                marginRight: '10px',
-                                color:
-                                  theme == 'light-theme' ? '#000' : '#fff',
-                                fontWeight: '600',
-                                fontSize: '.9rem',
-                              }}
-                            >
-                            </p>
-                            </section>
-                        </section>          
-                      <div>
-                      {/* {console.log('details',{details})} */}
-                        {deviceFilter && deviceFilter
-                        .filter((item,index)=>
-                        deviceFilter.findIndex(obj => obj.did === item.did)===index)
-                        .map((item,_id) => {
-                          return (
-                            <React.Fragment key={_id}>
-                              {/* {console.log(item)} */}
-                              <section className={Style.tableBody}>
-                                
-                                <section>
-                                  <input
-                                    type="checkbox"
-                                    id={item._id}
-                                    name={JSON.stringify(item)}
-                                    onChange={handleClick}
-                                    checked={isCheck.includes(item._id)}
-                                  />
-                                </section>
-                                <section
+                              <input
+                                className="search_input"
+                                type="text"
+                                placeholder="Enter Device ID"
+                                onChange={handleSearchChange}
+                                style={{
+                                  padding: "0.5rem",
+                                  border: "0px",
+                                  width: "100%",
+                                }}
+                              />
+                              <button className={Style.searchBtn} onClick={handleClickSearch}>
+                                <FontAwesomeIcon
+                                  icon={faMagnifyingGlass}
                                   style={{
-                                    color:
-                                      theme == 'light-theme' ? '' : '#fff',
-                                      
+                                    color: "#ffff",
+                                    padding: "0px 8px",
                                   }}
-                                >
-                                  {/* {console.log('key',_id)} */}
-                             <Link to={`/deviceEvents?code=${code}&projectName=${projectName}&DeviceId=${item.did}`} style={{textDecoration:"none",color:theme == 'light-theme' ? 'black' : '#fff',}}>{item.did}</Link>
-                             {/* {item.did} */}
-                             {/* {localStorage.setItem('DeviceId',JSON.stringify(item.did))} */}
-                                {/* {console.log('did',item.did)} */}
-                                </section>
-                                {regDetail && regDetail
-                                .filter((item1,index)=>
-                                regDetail.findIndex(item1 => item.did === item1.DeviceId)===index)
-                                .map((item1,_id)=>{
-                                  return(
-                                   <React.Fragment key={_id}>
-                                    <section
-                                  style={{
-                                    color:
-                                      theme == 'light-theme' ? '' : '#fff',
-                                  }}
-                                >
-                                  {item1.AliasName}
-                                </section>
-                                <section
-                                  style={{
-                                    color:
-                                      theme == 'light-theme' ? '' : '#fff',
-                                  }}
-                                >
-                                  {item1.Hospital_Name}
-                                </section>
-                                <section
-                                  style={{
-                                    color:
-                                      theme == 'light-theme' ? '' : '#fff',
-                                  }}
-                                >
-                                  {item1.Doctor_Name}
-                                </section>
-                                <section
-                                  style={{
-                                    color:
-                                      theme == 'light-theme' ? '' : '#fff',
-                                  }}
-                                >
-                                  {item1.Ward_No}
-                                </section>
-                                <section
-                                  style={{
-                                    color:
-                                      theme == 'light-theme' ? '' : '#fff',
-                                  }}
-                                >
-                                  {item1.IMEI_NO}
-                                </section>
-                                <section
-                                  style={{
-                                    color:
-                                      theme == 'light-theme' ? '' : '#fff',
-                                  }}
-                                >
-                                  {item1.Ventilator_Operator}
-                                </section>    
-                                <section className='d-flex' style={{gap:'5px'}}>
-         <Button style={{display:'none'}}
-            onClick={()=>{
-            setModalShow(true);
-           // setModalData(item);
-           {item}                            
-            // console.log(item)
-           // console.log({...item})
-           localStorage.setItem('DeviceId',JSON.stringify(item.did))
-           }
-         }
-         >
-          Register
-        </Button>
-        
-      <EditDetailsModal 
-      show={modalShow}
-      onHide={()=>setModalShow(false)} 
-      {...item}
-      item = {JSON.parse(localStorage.getItem('DeviceId'))}
-      />
-      
-      <Button title='Update'
-      onClick={()=>{
-      setModalShow1(true);
-      {item1}  
-      console.log({...item1})
-      {localStorage.setItem('item1',JSON.stringify(item1))}
-      {localStorage.setItem('AliasName',JSON.stringify(item1.AliasName))}                                             
-      }}
-    >
-    {/* Update */}
-    {<Image width="20" height="20" src={editicon} className={Style.Image}/>}
-    </Button>
-    
-    {/* <Button title='Register'
-      onClick={()=>{
-      setModalShow(true);
-      {item}                            
-      localStorage.setItem('DeviceId',JSON.stringify(item.did))
-      }
-      }
+                                />
+                              </button>
+                            </div>
+                            <div>
+                              <img
+                                src={download}
+                                style={{ width: "2.5rem" }}
+                              />
+                            </div>
+                          </div>
+                          <div
+                            className={Style.deviceDataText}
+                          >
+                            <div>
+                              <span className={Style.deviceTextData}>Device ID</span>
+                            </div>
+                            <div>
+                              <span className={Style.deviceTextData}>Status</span>
+                            </div>
+                            <div>
+                              <span className={Style.deviceTextData}>Department</span>
+                            </div>
+                            <div>
+                              <span className={Style.deviceTextData}>
+                                Hospital Name
+                              </span>
+                            </div>
+                            <div>
+                              <span className={Style.deviceTextData}>Ward No.</span>
+                            </div>
+                            <div>
+                              <span className={Style.deviceTextData}>Doctor</span>
+                            </div>
+                            <div>
+                              <span className={Style.deviceTextData}>Bio-Med</span>
+                            </div>
+                            <div>
+                              <span className={Style.deviceTextData}>Actions</span>
+                            </div>
+                          </div>
+                        </div>
+                        {/* TABLE HERE */}
+                        {records && records.length > 0 ?
+                          <section className={Style.alertTable}>
+
+                            <div>
+                              {records &&
+                                records
+                                  .filter(
+                                    (item, index) =>
+                                      records.findIndex(
+                                        (obj) => obj.deviceId === item.deviceId
+                                      ) === index
+                                  )
+                                  .map((item, _id) => {
+                                    return (
+                                      <React.Fragment key={_id}>
+                                        <section className={Style.tableBody}>
+                                          <section
+                                            className={Style.insideTextData}
+                                          >
+                                            {item.deviceId}
+                                          </section>
+                                          <section
+                                            className={Style.insideTextData}
+                                          >
+                                            {item.message == "ACTIVE" ? (
+                                              <>
+                                                <svg
+                                                  width="40px"
+                                                  height="35px"
+                                                  viewBox="0 0 24 24"
+                                                  fill="none"
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  stroke="#11ac14"
+                                                >
+                                                  <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                      d="M12 9.5C13.3807 9.5 14.5 10.6193 14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5Z"
+                                                      fill="#11ac14"
+                                                    ></path>
+                                                  </g>
+                                                </svg>
+                                              </>
+                                            ) : item.message == "INACTIVE" ? (
+                                              <>
+                                                <svg
+                                                  width="40px"
+                                                  height="40px"
+                                                  viewBox="0 0 24 24"
+                                                  fill="none"
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  stroke="#ffbf00"
+                                                >
+                                                  <g
+                                                    id="SVGRepo_bgCarrier"
+                                                    stroke-width="0"
+                                                  ></g>
+                                                  <g
+                                                    id="SVGRepo_tracerCarrier"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                  ></g>
+                                                  <g id="SVGRepo_iconCarrier">
+                                                    {" "}
+                                                    <path
+                                                      d="M12 9.5C13.3807 9.5 14.5 10.6193 14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5Z"
+                                                      fill="#ffbf00"
+                                                    ></path>{" "}
+                                                  </g>
+                                                </svg>
+                                              </>
+                                            ) : (
+                                              ""
+                                            )}
+                                          </section>
+                                          {regDetail &&
+                                            regDetail.data
+                                              .filter(
+                                                (item1, index) =>
+                                                  regDetail.data.findIndex(
+                                                    (item1) =>
+                                                      item.deviceId ===
+                                                      item1.DeviceId
+
+                                                  ) === index
+                                              )
+                                              .map((item1, _id) => {
+
+                                                return (
+                                                  <React.Fragment key={_id}>
+                                                    <section
+                                                      className={Style.insideTextData}
+                                                    >
+                                                      {item1.Department_Name}
+                                                    </section>
+                                                    <section
+                                                      className={Style.insideTextData}
+                                                    >
+                                                      {item1.Hospital_Name}
+                                                    </section>
+                                                    <section
+                                                      className={Style.insideTextData}
+                                                    >
+                                                      {item1.Ward_No}
+                                                    </section>
+                                                    <section
+                                                      className={Style.insideTextData}
+                                                    >
+                                                      {item1.Doctor_Name}
+                                                    </section>
+                                                    <section
+                                                      className={Style.insideTextData}
+                                                    >
+                                                      {item1.Bio_Med}
+                                                    </section>
+                                                    <section
+                                                    >
+                                                      {/* Update */}
+                                                      {/* {regDetail && regDetail.data && regDetail.data.length > 0? */}
+
+                                                      {adminInfo &&
+                                                        adminInfo.data &&
+                                                        adminInfo.data
+                                                          .userType === "Admin"
+                                                        ? <button
+                                                          className={Style.moreBtn}
+                                                          title='Edit'
+                                                          onClick={(e) => {
+                                                            setModalShow1(true);
+                                                            dispatch(getSingleDeviceIdDetails(item1.DeviceId))
+                                                            { localStorage.setItem('item1', JSON.stringify(item1)) }
+                                                          }}
+                                                        >
+                                                          Edit
+                                                        </button> : " "}
+                                                      {/* : " "} */}
+                                                      <UpdateDetailsModal
+                                                        show={modalShow1}
+                                                        onHide={() => setModalShow1(false)}
+                                                        {...item1}
+                                                        devicdId={item.deviceId}
+                                                      />
+                                                      <button
+                                                        title="Next"
+                                                        className={Style.moreBtn}
+                                                        onClick={() => {
+                                                          navigate(
+                                                            `/deviceOverview?code=${code}&projectName=${projectName}&DeviceId=${item.deviceId}`
+                                                          );
+                                                          {
+                                                            item1;
+                                                          }
+                                                          {
+                                                            localStorage.setItem(
+                                                              "item1",
+                                                              JSON.stringify(
+                                                                item1
+                                                              )
+                                                            );
+                                                          }
+                                                          {
+                                                            localStorage.setItem(
+                                                              "message",
+                                                              JSON.stringify(
+                                                                item.message
+                                                              )
+                                                            );
+                                                          }
+                                                          {
+                                                            localStorage.setItem(
+                                                              "health",
+                                                              JSON.stringify(
+                                                                item.health
+                                                              )
+                                                            );
+                                                          }
+                                                          {
+                                                            localStorage.setItem(
+                                                              "address",
+                                                              JSON.stringify(
+                                                                item.address
+                                                              )
+                                                            );
+                                                          }
+                                                          {
+                                                            localStorage.setItem(
+                                                              "last_hours",
+                                                              JSON.stringify(
+                                                                item.last_hours
+                                                              )
+                                                            );
+                                                          }
+                                                          {
+                                                            localStorage.setItem(
+                                                              "total_hours",
+                                                              JSON.stringify(
+                                                                item.total_hours
+                                                              )
+                                                            );
+                                                          }
+                                                          {
+                                                            localStorage.setItem(
+                                                              "Department_Name",
+                                                              JSON.stringify(
+                                                                item1.Department_Name
+                                                              )
+                                                            );
+                                                          }
+                                                          {
+                                                            localStorage.setItem(
+                                                              "Hospital_Name",
+                                                              JSON.stringify(
+                                                                item1.Hospital_Name
+                                                              )
+                                                            );
+                                                          }
+                                                          {
+                                                            localStorage.setItem(
+                                                              "Doctor_Name",
+                                                              JSON.stringify(
+                                                                item1.Doctor_Name
+                                                              )
+                                                            );
+                                                          }
+                                                          {
+                                                            localStorage.setItem(
+                                                              "Ward_No",
+                                                              JSON.stringify(
+                                                                item1.Ward_No
+                                                              )
+                                                            );
+                                                          }
+                                                          {
+                                                            localStorage.setItem(
+                                                              "IMEI_NO",
+                                                              JSON.stringify(
+                                                                item1.IMEI_NO
+                                                              )
+                                                            );
+                                                          }
+                                                          {
+                                                            localStorage.setItem(
+                                                              "Bio_Med",
+                                                              JSON.stringify(
+                                                                item1.Bio_Med
+                                                              )
+                                                            );
+                                                          }
+                                                        }}
+                                                      >
+                                                        {adminInfo &&
+                                                          adminInfo.data &&
+                                                          adminInfo.data
+                                                            .userType === "Admin"
+                                                          ? "More"
+                                                          : "View"}
+                                                      </button>
+
+                                                    </section>
+                                                  </React.Fragment>
+                                                );
+                                              })}
+                                          {/* Register Button */}
+                                          {adminInfo &&
+                                            adminInfo.data &&
+                                            adminInfo.data.userType ===
+                                            "Admin" ? (
+                                            <>
+                                              {regDetail && regDetail.data ?
+                                                <button
+                                                  className={Style.regButton}
+                                                  title="Register"
+                                                  onClick={() => {
+                                                    setModalShow(true);
+                                                    {
+                                                      item;
+                                                    }
+                                                    localStorage.setItem(
+                                                      "DeviceId",
+                                                      JSON.stringify(
+                                                        item.deviceId
+                                                      )
+                                                    );
+                                                  }}
+                                                >
+                                                  Register
+                                                </button>
+                                                : " "}
+                                              <EditDetailsModal
+                                                show={modalShow}
+                                                onHide={() =>
+                                                  setModalShow(false)
+                                                }
+                                                {...item}
+                                                item={JSON.parse(
+                                                  localStorage.getItem(
+                                                    "DeviceId"
+                                                  )
+                                                )}
+                                              />
+                                            </>
+                                          ) : (
+                                            ""
+                                          )}
+                                        </section>
+                                      </React.Fragment>
+                                    );
+                                  })}
+                            </div>
+                          </section>
+                          :
+                          <section style={{ width: '100%', height: '100%', marginTop: '10rem', marginBottom: '10rem' }}>
+                            {records && records.length == 0 && (
+                              <section className={Style.noDataFound}>
+                                <span>
+                                  No Data Found
+                                </span>
+                              </section>
+                            )}
+                          </section>
+                        }
+                        {loading && <SpinnerCustom />}
+                      </section>
+                    </>
+                  </div>
+                </Col>
+              </Row>
+            </div>
+          </div>
+        </Col>
+      </Row>
+      <div
+        className="left_arrow" style={{ display: "flex", justifyContent: "flex-end", margin: "2rem" }}
       >
-      {<Image width="20" height="22" src={registericon} className={Style.Image}/>}
-      </Button>
-
-      <EditDetailsModal 
-      show={modalShow}
-      onHide={()=>setModalShow(false)} 
-      {...item}
-      item = {JSON.parse(localStorage.getItem('DeviceId'))}
-      /> */}
-      <UpdateDetailsModal
-        show={modalShow1}
-        onHide={()=>setModalShow1(false)}
-        {...item1}
-        {...console.log(item1)}
-      />
-      
-      </section>
-      {item1 && item1.did ? <>
-      <Button title='Register'
-      onClick={()=>{
-      setModalShow(true);
-      {item}                            
-      localStorage.setItem('DeviceId',JSON.stringify(item.did))
-      }
-      }
-      >
-      {<Image width="20" height="22" src={registericon} className={Style.Image}/>}
-      </Button>
-      <Button style={{marginLeft:"13px"}}onClick={()=>{
-        navigate(`/deviceEvents?code=${code}&projectName=${projectName}&DeviceId=${item.did}`)
-      {item1}  
-      console.log({...item1})
-      {localStorage.setItem('item1',JSON.stringify(item1))}
-      {localStorage.setItem('AliasName',JSON.stringify(item1.AliasName))}                                             
-      }}><FontAwesomeIcon
-      style={{ cursor: 'pointer' }}
-      icon={faArrowRight}
-    /></Button>
-     </> :""}
-      <EditDetailsModal 
-      show={modalShow}
-      onHide={()=>setModalShow(false)} 
-      {...item}
-      item = {JSON.parse(localStorage.getItem('DeviceId'))}
-      />                      
-      </React.Fragment>
-   )
- })
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-end" style={{ display: "flex", alignItems: 'center' }}>
+            {incPage > 1 ?
+              <Link onClick={prePage} style={{ border: "0px", backgroundColor: "white" }}>
+                <img src={back} style={{ width: "3rem" }} />
+              </Link>
+              : " "}
+            {numbers.map((n, i) => (
+              <li key={i} class={`page-item ${incPage == n ? 'active' : ""}`}><a style={{ borderRadius: "100px", margin: "5px" }} class="page-link" href="#" onClick={() => changeCPage(n)}>{n}</a></li>
+            ))}
+            {incPage !== totalPage ?
+              <Link onClick={nextPage} style={{ border: "0px", backgroundColor: "white" }}>
+                {/* {recordsPerPage < 19 ?
+                  <img src={back} style={{ width: "3rem", transform: "rotate(180deg)" }} />
+                  : ''} */}
+                <img src={back} style={{ width: "3rem", transform: "rotate(180deg)" }} />
+              </Link>
+              : " "}
+          </ul>
+        </nav>
+      </div>
+    </div>
+  );
+  function prePage() {
+    dispatch(deviceAction({ page: incPage - 1, limit: recordsPerPage }))
+  }
+  function changeCPage(id) {
+    setCurrentPage(id)
+  }
+  function nextPage() {
+    dispatch(deviceAction({ page: incPage + 1, limit: recordsPerPage }))
+  }
 }
-{/* <Button title='Register'
-      onClick={()=>{
-        alert("item",item)
-      setModalShow(true);
-      {item}                            
-      localStorage.setItem('DeviceId',JSON.stringify(item.did))
-      }
-      }
-      >
-      {<Image width="20" height="22" src={registericon} className={Style.Image}/>}
-      </Button> */}
-   </section>   
-   </React.Fragment>
-    );
-  })}
-  </div>
-          </section>
-                    </section>
-                    <section className="p-2">
-                      <Pagination
-                        code={code}
-                        projectType={currentStateDevices.projectCode}
-                        currentPage={currentPage}
-                        totalCount={data?.data?.count ? data?.data?.count : 0}
-                        pageSize={currentStateDevices.record}
-                        onPageChange={(page) => setCurrentPage(page)}
-                      />
-                    </section>
-                  </>
-                )}
-                {data12 && data12.data12  == 0 && (
-                  <section className={Style.noDataFound}>
-                    <p
-                      style={{
-                        color: theme == 'light-theme' ? `#000` : `#fff`,
-                      }}                     
-                    >
-                      No Data Found
-                    </p>
-                  </section>
-                )}
-                {loading && <SpinnerCustom />}
-              </TableCard1>
-            </Col>
-          </Row>
-        </Container>
-        </div>
-      </Col>
-    </Row>
-  </div>
-);
-
-
-}
-

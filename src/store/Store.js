@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
@@ -7,30 +6,35 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { ADMIN_LOGOUT } from "./types/AdminConstants";
-
+import {liveDataReducer} from "./reducer/LiveDataReducer"
 import {
   adminLoginReducer,
   adminRegisterReducer,
   forgetPasswordReducer,
   resetPasswordReducer,
 } from "./reducer/AdminReducer";
-
+import { allhospitalNameReducer ,allCountryStateReducer, allStateReducer} from "./reducer/HospitalNameReducer";
 import {
   getAllProjectReducer, getAllLogByCodeReducer, createNewProjectReducer, getLogCountsReducer, getLogCountsByDateReducer, getErrorWRTOSReducer, getErrorWRTVersionReducer, getDeviceInfoReducer,
   getLogMsgOccurenceWRTDateReducer, getCrashFreeUsersReducer, getCrashAnalyticsDataReducer, getCrashFreeUsersDataReducer, getModelCodeReducer, addCrashEmailReducer, getProjectByCodeSettingReducer,
 } from "./reducer/ProjectReducer";
-import { passwordChangeReducer, userInfoReducer } from "./reducer/UserProfileReducer";
-import {deviceReducer,getAllEventsByDeviceIdReducer,getRegisteredDetailsReducer,getAllAlarmsByDeviceIdReducer,getAllTrendsByDeviceIdReducer,getAllLogsByDeviceIdReducer,getLogMsgOccurenceReducer,getDeviceCrashAnalyticsDataReducer,getDeviceLogMsgOccurenceWRTDateReducer} from "./reducer/deviceReducer";
+import { passwordChangeReducer, userInfoReducer,getHistoryDataReducer } from "./reducer/UserProfileReducer";
+import {deviceReducer,getAllAboutByDeviceIdReducer,getAllEventsByDeviceIdReducer,getRegisteredDetailsReducer,getAllAlarmsByDeviceIdReducer,getAllTrendsByDeviceIdReducer,getCalibrationByDeviceIdReducer,getAllLogsByDeviceIdReducer,getLogMsgOccurenceReducer,getDeviceCrashAnalyticsDataReducer,getDeviceLogMsgOccurenceWRTDateReducer,getAllServiceRecordsDetails,getAllSectionByDeviceId} from "./reducer/deviceReducer";
 import { alarmReducer } from "./reducer/AlarmReducer";
+import {dispatchAllDetailsReducer,dispatchAllDetailsByIdReducer,productionAllDetailsReducer}from "./reducer/DispatchDevices"
 import { updateUserInfoReducer } from "./reducer/UpdateUserInfoReducer"
 import { getAllDeviceLogsReducer } from "./reducer/ProjectReducer";
 import {eventReducer} from "./reducer/EventReducer";
+import {allUsersDetailsReducer,updateAllUsersDetailReducer,dashboardDataDefault,deviceActionReducer,deviceDeleteReducer} from "./reducer/AdminDashboardReducer"
 const appReducer = combineReducers({
   adminLoginReducer,
   adminRegisterReducer,
+  allhospitalNameReducer,
+  allCountryStateReducer,
+  allStateReducer,
   forgetPasswordReducer,
   resetPasswordReducer,
-
+  liveDataReducer,
   getAllProjectReducer,
   getAllLogByCodeReducer,
   createNewProjectReducer,
@@ -48,23 +52,35 @@ const appReducer = combineReducers({
   getCrashFreeUsersDataReducer,
 
   passwordChangeReducer,
-
+  updateAllUsersDetailReducer,
+  dashboardDataDefault,
+  deviceActionReducer,
+  deviceDeleteReducer,
+  getAllAboutByDeviceIdReducer,
   addCrashEmailReducer,
   getProjectByCodeSettingReducer,
   alarmReducer,
   deviceReducer,
   userInfoReducer,
+  getHistoryDataReducer,
   updateUserInfoReducer,
+  allUsersDetailsReducer,
   eventReducer,
   getAllDeviceLogsReducer,
   getAllEventsByDeviceIdReducer,
   getAllAlarmsByDeviceIdReducer,
   getAllTrendsByDeviceIdReducer,
+  getCalibrationByDeviceIdReducer,
   getAllLogsByDeviceIdReducer,
   getRegisteredDetailsReducer,
   getLogMsgOccurenceReducer,
   getDeviceCrashAnalyticsDataReducer,
-  getDeviceLogMsgOccurenceWRTDateReducer
+  getDeviceLogMsgOccurenceWRTDateReducer,
+  getAllServiceRecordsDetails,
+  getAllSectionByDeviceId,
+  dispatchAllDetailsReducer,
+  productionAllDetailsReducer,
+  dispatchAllDetailsByIdReducer
 });
 
 const persistConf = {

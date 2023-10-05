@@ -670,7 +670,7 @@ export default function Events() {
                           >
                             <section className={Style.filterGraphFirstSection}>
                               <FontAwesomeIcon
-                                color="#0099a4"
+                                color="#CB297B"
                                 style={{ cursor: 'pointer' }}
                                 icon={faDownload}
                               />
@@ -706,7 +706,7 @@ export default function Events() {
                                 Device Id
                               </p>
                               <FontAwesomeIcon
-                                color="#0099a4"
+                                color="#CB297B"
                                 style={{ cursor: 'pointer' }}
                                 icon={
                                   currentStateEvents.sortIcons.DI
@@ -739,7 +739,7 @@ export default function Events() {
                               </p>
 
                               <FontAwesomeIcon
-                                color="#0099a4"
+                                color="#CB297B"
                                 style={{ cursor: 'pointer' }}
                                 icon={
                                   currentStateEvents.sortIcons.CD
@@ -772,7 +772,7 @@ export default function Events() {
                               </p>
 
                               <FontAwesomeIcon
-                                color="#0099a4"
+                                color="#CB297B"
                                 style={{ cursor: 'pointer' }}
                                 icon={
                                   currentStateEvents.sortIcons.LM
@@ -804,7 +804,7 @@ export default function Events() {
                                 Date
                               </p>
                               <FontAwesomeIcon
-                                color="#0099a4"
+                                color="#CB297B"
                                 style={{ cursor: 'pointer' }}
                                 icon={
                                   currentStateEvents.sortIcons.DT
@@ -836,7 +836,7 @@ export default function Events() {
                                 Time
                               </p>
                               <FontAwesomeIcon
-                                color="#0099a4"
+                                color="#CB297B"
                                 style={{ cursor: 'pointer' }}
                                 icon={
                                   currentStateEvents.sortIcons.TI

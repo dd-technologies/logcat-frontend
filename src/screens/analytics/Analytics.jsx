@@ -206,11 +206,11 @@ console.log('mapArrayKey',mapArrayKey)
               ) : (
                 <p className={`${Style.paraTextIssue} darkModeColor`}>
                   This issue has{' '}
-                  <strong style={{ color: '#0099a4' }}>
+                  <strong style={{ color: '#CB297B' }}>
                     {totalCount} crash
                   </strong>{' '}
                   events affecting
-                  <strong style={{ color: '#0099a4' }}> {users} users</strong>
+                  <strong style={{ color: '#CB297B' }}> {users} users</strong>
                 </p>
               )}
             </Col>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.module.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import CreateProject from "./screens/projects/CreateProject";
+// import CreateProject from "./screens/projects/CreateProject";
 import LogTable from "./screens/logs/LogTable";
 import Analytics from "./screens/analytics/Analytics";
 import NotFound from "./screens/NotFound";
@@ -21,7 +21,27 @@ import "./css/Theme.css"
 import DeviceLogs from "./screens/device/DeviceLogs";
 import Alarms from "./screens/device/components/table/Alarms";
 import DeviceAnalytics from "./screens/deviceAnalytics/DeviceAnalytics";
-
+import AllDashComponent from "../src/screens/dashboard/AllDashComponent"
+import DeviceOverview from "./screens/device/DeviceOverview";
+import About from "./screens/device/About";
+import Services from "./screens/device/Services";
+import PrivacyPolicy from "./utils/PrivacyPolicy";
+import TermsOfServices from "./utils/TermsOfServices";
+import { Navbar } from "./utils/NavBar";
+import AdminDashboard from "./screens/AdminDashboard/AdminDashboard";
+import Live from "./screens/device/Live";
+import ManageUsers from "./screens/AdminDashboard/ManageUsers";
+import TermsAndCondition from "./screens/auth/TermsAndCondition";
+import ChangePassword from "../src/screens/auth/ChangePassword";
+import DeviceAssign from "./screens/AdminDashboard/DeviceAssign";
+import DeleteAssignDevice from "./screens/AdminDashboard/DeleteAssignDevice";
+import Dispatch from "./screens/AdminDashboard/DispatchDetails/Dispatch";
+import DispatchDataModule from "./screens/AdminDashboard/DispatchDetails/DispatchDataModule";
+import DispatchModel from "./screens/AdminDashboard/DispatchDetails/DispatchModel";
+import History from "./utils/History";
+import Production from "./screens/device/Production/Production";
+import ProductionModel from "./screens/device/Production/ProductionModel";
+import ProductionDataModule from "./screens/device/Production/ProductionDataModel";
 function App() {
   const [splash, setSplash] = useState(true);
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
@@ -53,26 +73,52 @@ function App() {
         </div>
       ) : (
         <BrowserRouter>
+          {/* <Navbar/> */}
+          {/* <Navbar/> */}
           <Routes>
             <Route exact path="/" element={<Login />} />
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/resetpassword" element={<ResetPassword />} />
             <Route exact path="/forgetPassword" element={<ForgetPassword />} />
+            <Route exact path="/changePassword" element={<ChangePassword />} />
+            <Route exact path="/tersAndCondition" element={<TermsAndCondition />} />
             {/* Protected Route */}
             <Route element={<Protected />}>
-              <Route exact path="/home" element={<CreateProject />} />
+              <Route exact path="/home" element={<AllDashComponent />} />
+              <Route exact path="/production" element={<Production />} />
+              <Route exact path="/productionDataModel" element={<ProductionDataModule />} />
               <Route exact path="/log_table" element={<LogTable />} />
               <Route exact path="/analytics" element={<Analytics />} />
               <Route exact path="/update" element={<UpdateProfile />} />
               <Route exact path="/alarm" element={<AlarmNew />} />
-              <Route exact path="/events" element={<Event/>}/>
-              <Route exact path="/device" element={<Device/>}/>
-              <Route exact path="/deviceEvents" element={<DeviceLogs/>}/>
-              <Route exact path="/deviceAlerts" element={<Alarms/>}/>
-              <Route exact path="/deviceAnalytics" element={<DeviceAnalytics/>}/>
-              {adminInfo && adminInfo.data && adminInfo.data.isSuperAdmin && (
+              <Route exact path="/events" element={<Event />} />
+              <Route exact path="/device" element={<Device />} />
+              <Route exact path="/deviceOverview" element={<DeviceOverview />} />
+              <Route exact path="/about" element={<About />} />
+              <Route exact path="/service" element={<Services />} />
+              <Route exact path="/deviceEvents" element={<DeviceLogs />} />
+              <Route exact path="/deviceAlerts" element={<Alarms />} />
+              <Route exact path="/deviceAnalytics" element={<DeviceAnalytics />} />
+              <Route exact path="/privacyPolicy" element={<PrivacyPolicy />} />
+              <Route exact path="/termsOfServices" element={<TermsOfServices />} />
+              <Route exact path="/navBar" element={<Navbar />} />
+              <Route exact path="/live" element={<Live />} />
+              <Route exact path="/deviceAssign" element={<DeviceAssign />} />
+              <Route exact path="/deleteAssignDevice" element={<DeleteAssignDevice />} />
+              <Route exact path="/dispatchDevice" element={<Dispatch />} />
+              <Route exact path="/allDispatchDeviceData" element={<DispatchDataModule />} />
+              <Route exact path="/dispatchModel" element={<DispatchModel />} />
+              <Route exact path="/history" element={<History />} />
+              <Route exact path="/productionModel" element={<ProductionModel />} />
+              {adminInfo && adminInfo.data && adminInfo.data.userType === "Admin" ? (
                 <Route exact path="/settings" element={<Settings />} />
-              )}
+              ) : ""}
+              {adminInfo && adminInfo.data && adminInfo.data.userType === "Admin" ? (
+                <>
+                  <Route exact path="/adminDashboard" element={<AdminDashboard />} />
+                  <Route exact path="/manageUsers" element={<ManageUsers />} />
+                </>
+              ) : ""}
             </Route>
             <Route exact path="*" element={<NotFound />} />
           </Routes>

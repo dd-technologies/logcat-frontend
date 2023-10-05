@@ -8,6 +8,7 @@ import {
   faSortDown,
   faSortUp,
 } from '@fortawesome/free-solid-svg-icons';
+import { CSVLink, CSVDownload } from "react-csv";
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import Style from '../../css/events.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -552,7 +553,7 @@ return (
                         >
                           <section className={Style.filterGraphFirstSection}>
                             <FontAwesomeIcon
-                              color="#0099a4"
+                              color="#CB297B"
                               style={{ cursor: 'pointer' }}
                               icon={faDownload}
                             />
@@ -588,7 +589,7 @@ return (
                               Device Id
                             </p>
                             {/* <FontAwesomeIcon
-                              color="#0099a4"
+                              color="#CB297B"
                               style={{ cursor: 'pointer' }}
                               icon={
                                 currentStateEvents.sortIcons.DI
@@ -621,7 +622,7 @@ return (
                             </p>
 
                             {/* <FontAwesomeIcon
-                              color="#0099a4"
+                              color="#CB297B"
                               style={{ cursor: 'pointer' }}
                               icon={
                                 currentStateEvents.sortIcons.CD
@@ -654,7 +655,7 @@ return (
                             </p>
 
                             {/* <FontAwesomeIcon
-                              color="#0099a4"
+                              color="#CB297B"
                               style={{ cursor: 'pointer' }}
                               icon={
                                 currentStateEvents.sortIcons.LM
@@ -686,7 +687,7 @@ return (
                               Time
                             </p>
                             {/* <FontAwesomeIcon
-                              color="#0099a4"
+                              color="#CB297B"
                               style={{ cursor: 'pointer' }}
                               icon={
                                 currentStateEvents.sortIcons.DT
@@ -718,7 +719,7 @@ return (
                               Time
                             </p>
                             <FontAwesomeIcon
-                              color="#0099a4"
+                              color="#CB297B"
                               style={{ cursor: 'pointer' }}
                               icon={
                                 currentStateEvents.sortIcons.TI

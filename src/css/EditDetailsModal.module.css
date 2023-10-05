@@ -19,7 +19,7 @@
   
   .searchSection .filterGraphFirstSection {
     cursor: pointer;
-    background-color: #0099a4;
+    background-color: #CB297B;
     padding: 10px;
     border-radius: 5px;
     display: flex;
@@ -64,7 +64,7 @@
     cursor: pointer;
   }
   .productVersion:hover {
-    background-color: #0099a4;
+    background-color: #CB297B;
     width: 100%;
     margin: 5px;
     color: #fff;
@@ -85,6 +85,21 @@
   }
   .regbtn{
     display: none;
+  }
+  .inputFields{
+    display: block;
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    background-clip: padding-box;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 15px #00000029;
+    border-radius: 10px;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    appearance: none;
   }
   @media screen and (min-width: 600px) and (max-width: 959px) {
     .alertTable .tableHeader {

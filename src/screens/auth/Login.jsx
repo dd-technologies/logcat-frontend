@@ -1,33 +1,34 @@
 import React, { useState, useEffect } from "react";
 import Cookies from 'universal-cookie';
-import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CustomCard from "../../container/CustomCard";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash, faLock } from "@fortawesome/free-solid-svg-icons";
 import Style from "../../css/Login.module.css";
 import { loginWithEmail } from "../../store/action/AdminAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { validateEmailHelper } from "../../helper/Emails";
+import User from "../../assets/images//user.png";
+import lock from "../../assets/images/lock.png";
+import ShowPassword from "../../assets/images/ShowPassword.png";
+import HidePassword from "../../assets/images/HidePassword.png";
 import SpinnerCustom from "../../container/SpinnerCustom";
-
+import { toast, Toaster } from "react-hot-toast";
 const cookies = new Cookies();
 
 export default function Login() {
   const [loginForm, setLoginForm] = useState({
-    email: localStorage.getItem("adminUserName")
-      ? JSON.parse(localStorage.getItem("adminUserName"))
-      : "",
-    password: localStorage.getItem("adminUserCredential")
-      ? JSON.parse(localStorage.getItem("adminUserCredential"))
-      : "",
+    email: localStorage.getItem("rememberemail"),
+    passwordHash: localStorage.getItem("rememberpassword"),
   });
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
   const [setErrorPassword, setSetErrorPassword] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+
+  const [isRemeberMe, setisRemeberMe] = useState();
+  const handleRememberPasswordChange = (e) => {
+    setisRemeberMe(e.target.checked);
+  };
 
   const dispatch = useDispatch();
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
@@ -59,15 +60,15 @@ export default function Login() {
   };
 
   // PASSWORD VALIDATE
-  const validatePassword = (password) => {
-    if (!password) {
-      setPasswordError("Please enter your password.");
+  const validatePassword = (passwordHash) => {
+    if (!passwordHash) {
+      setPasswordError("Please enter your passwordHash.");
       return false;
     }
-   
+
     setLoginForm({
       ...loginForm,
-      password: password,
+      passwordHash: passwordHash,
     });
     setPasswordError(null);
     return true;
@@ -77,25 +78,48 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = validateEmail(loginForm.email);
-    const password = validatePassword(loginForm.password);
+    const passwordHash = validatePassword(loginForm.passwordHash);
 
-    if (email && password) {
-      dispatch(loginWithEmail(loginForm.email, loginForm.password));
+    if (email && passwordHash) {
+      dispatch(loginWithEmail(loginForm.email, loginForm.passwordHash));
+    }
+    if (isRemeberMe) {
+      localStorage.setItem('rememberemail', loginForm.email.toLowerCase());
+      localStorage.setItem('rememberpassword', loginForm.passwordHash);
+      localStorage.setItem('rememberMe', isRemeberMe);
+    }
+    else {
+      localStorage.setItem('rememberemail', "");
+      localStorage.setItem('rememberpassword', "");
+      localStorage.setItem('rememberMe', false);
     }
   };
 
-  // console.log("error", error);
-
   useEffect(() => {
     if (cookies.get('ddAdminToken')) {
-      navigate("/home");
+      if (adminInfo.data.userType === "Admin") {
+        navigate("/adminDashboard");
+      } else if (adminInfo.data.userType === "Production") {
+        navigate('/productionModel')
+      } else {
+        navigate("/home");
+      }
     }
   }, [navigate, adminInfo]);
 
   useEffect(() => {
     setSetErrorPassword(error);
   }, [error]);
-
+  useEffect(() => {
+    const rememberEmail = localStorage.getItem("rememberEmail");
+    const rememberPassword = localStorage.getItem("rememberPassword");
+    if (isRemeberMe) {
+      setLoginForm(rememberEmail);
+      setLoginForm(rememberPassword);
+      setisRemeberMe(true);
+    }
+  }, []);
+  const userRole = localStorage.getItem('userrole')
   return (
     <>
       <section
@@ -103,16 +127,19 @@ export default function Login() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "100vh",
+          height: "100%",
+          margin: "3rem 0rem",
         }}
       >
-        <CustomCard height="max-content" width="500px">
+        <Toaster />
+        <CustomCard height="max-content" >
           <section className={Style.Login}>
-            <div className="Login-title d-flex justify-content-start">
-              <p className={Style.headerText}>Login</p>
+            <div className={Style.heading}>
+              <p className={Style.innertext}>AgVa</p>
             </div>
             <div className="Form-card">
               <form>
+                <div className={Style.inputusername}>Email</div>
                 <div
                   className={
                     emailError
@@ -121,12 +148,16 @@ export default function Login() {
                   }
                 >
                   <span className="ms-2">
-                    <FontAwesomeIcon icon={faEnvelope} size="lg" />
+                    <img
+                      src={User}
+                      style={{ width: "1.2rem", opacity: "59%" }}
+                    />
                   </span>
+                  <span style={{ color: "black" }}>|</span>
                   <input
                     type="email"
                     className="form-control LoginForminput "
-                    placeholder="Enter your email"
+                    placeholder="Enter Your email"
                     autoComplete="Enter your email"
                     onChange={(e) =>
                       setLoginForm({ ...loginForm, email: e.target.value })
@@ -135,10 +166,13 @@ export default function Login() {
                   />
                 </div>
                 {emailError != null ? (
-                  <small style={{ color: "red" }}>{emailError}</small>
+                  <div className="error" style={{ textAlign: 'center', padding: '7px' }}>
+                    <small style={{ color: "red" }}>{emailError}</small>
+                  </div>
                 ) : (
                   ""
                 )}
+                <div className={Style.inputusername}>Password</div>
                 <div
                   className={
                     passwordError
@@ -147,21 +181,26 @@ export default function Login() {
                   }
                 >
                   <span className="ms-2">
-                    <FontAwesomeIcon icon={faLock} size="lg" />
+                    <img
+                      src={lock}
+                      style={{ width: "1.2rem", opacity: "59%" }}
+                    />
                   </span>
+                  <span style={{ color: "black" }}>|</span>
                   <input
                     type={showPassword ? "text" : "password"}
                     className="form-control LoginForminput "
                     placeholder="Enter your password"
                     autoComplete="Enter your password"
                     onChange={(e) =>
-                      setLoginForm({ ...loginForm, password: e.target.value })
+                      setLoginForm({ ...loginForm, passwordHash: e.target.value })
                     }
-                    value={loginForm.password}
+                    value={loginForm.passwordHash}
                   />
                   <span className="px-2" style={{ cursor: "pointer" }}>
-                    <FontAwesomeIcon
-                      icon={showPassword ? faEye : faEyeSlash}
+                    <img
+                      style={{ width: "1.2rem", opacity: "59%" }}
+                      src={showPassword ? HidePassword : ShowPassword}
                       onClick={() => {
                         setShowPassword(!showPassword);
                       }}
@@ -169,48 +208,51 @@ export default function Login() {
                   </span>
                 </div>
                 {passwordError != null ? (
-                  <small style={{ color: "red" }}>{passwordError}</small>
+                  <div className="error" style={{ textAlign: 'center', padding: '7px' }}>
+                    <small style={{ color: "red" }}>{passwordError}</small>
+                  </div>
                 ) : setErrorPassword ? (
-                  <small style={{ color: "red" }}>{setErrorPassword}</small>
+                  <div className="error" style={{ textAlign: 'center', padding: '7px' }}>
+                    <small style={{ color: "red" }}>{setErrorPassword}</small>
+                  </div>
                 ) : (
                   ""
                 )}
-                <section
-                  style={{
-                    marginTop: "20px",
-                    display: "flex",
-                    justifyContent: "end ",
-                  }}
-                >
-                  <Link
-                    to="/forgetPassword"
+                <div className={Style.remembersection}>
+                  <div
                     style={{
-                      // textDecoration: "none",
-                      color: "#257d7c",
+                      color: "#4b4b4b",
+                      fontSize: "12px",
+                      display: "flex",
+                      gap: "0.5rem",
                     }}
-                    className="cpactiveText"
                   >
-                    Forget Password?
-                  </Link>
-                </section>
-                <section
-                  style={{
-                    marginTop: "20px",
-                    display: "flex",
-                    justifyContent: "center ",
-                  }}
-                >
-                  <Link
-                    to="/register"
+                    <input
+                      type="checkbox"
+                      checked={isRemeberMe}
+                      onChange={(e) => handleRememberPasswordChange(e)}
+                    />
+                    <span style={{ color: "black" }}>Remember me</span>
+                  </div>
+                  <section
                     style={{
-                      // textDecoration: "none",
-                      color: "#257d7c",
+                      display: "flex",
+                      justifyContent: "end",
                     }}
-                    className="cpactiveText"
                   >
-                    Register
-                  </Link>
-                </section>
+                    <Link
+                      to="/forgetPassword"
+                      style={{
+                        textDecoration: "none",
+                        color: "#4b4b4b",
+                        fontSize: "12px",
+                      }}
+                      className="cpactiveText"
+                    >
+                      Forget Password?
+                    </Link>
+                  </section>
+                </div>
                 <section
                   style={{
                     display: "flex",
@@ -220,18 +262,68 @@ export default function Login() {
                   {loading ? (
                     <SpinnerCustom height="5%" />
                   ) : (
-                    <Button
+                    <button
                       style={{
-                        width: "30%",
+                        width: "50%",
+                        height: "2.8rem",
+                        backgroundColor: "#CB297B",
+                        background:
+                          "transparent linear-gradient(181deg, #CB297B 0%, #3C3C3C 200%) 0% 0% no-repeat padding-box",
+                        boxShadow: "0px 0px 30px #00000029",
+                        borderRadius: "10px",
+                        opacity: 1,
+                        border: "0px solid",
+                        color: "white",
+                        fontSize: "16px",
+                        fontFamily: "Poppins",
                       }}
                       type="submit"
                       className="mt-4"
                       onClick={(e) => handleSubmit(e)}
                     >
-                      Login
-                    </Button>
+                      SIGN IN
+                    </button>
                   )}
                 </section>
+                {userRole === 'Admin' ?
+                  <section
+                    style={{
+                      justifyContent: "center",
+                      display: "flex",
+                      textAlign: "center",
+                      alignItems: "center",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <Link
+                      to="/register"
+                      style={{
+                        textDecoration: "none",
+                        width: "50%",
+                      }}
+                      className="cpactiveText"
+                    >
+                      <button
+                        style={{
+                          width: "100%",
+                          height: "2.8rem",
+                          background: "#FFFFFF 0% 0% no-repeat padding-box",
+                          boxShadow: "0px 0px 30px #00000029",
+                          border: "0px",
+                          borderRadius: "10px",
+                          marginBottom: "2rem",
+                          color: "#CB297B",
+                          fontSize: "16px",
+                          fontFamily: "Poppins",
+                        }}
+                        type="submit"
+                        className="mt-4"
+                      >
+                        SIGN UP
+                      </button>
+                    </Link>
+                  </section>
+                  : ""}
               </form>
             </div>
           </section>

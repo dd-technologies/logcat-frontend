@@ -1,42 +1,47 @@
 import React, { useState, useEffect } from "react";
-import Cookies from 'universal-cookie';
-import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import CustomCard from "../../container/CustomCard";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEye,
-  faEyeSlash,
-  faLock,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+// import CustomCard from "../../container/CustomCard";
 import Style from "../../css/Register.module.css";
-import { adminRegister } from "../../store/action/AdminAction";
+import { adminRegister, allHospitalData, allCountryStateData, allStateData } from "../../store/action/AdminAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { validateEmailHelper } from "../../helper/Emails";
 import SpinnerCustom from "../../container/SpinnerCustom";
-
-const cookies = new Cookies();
+import User from "../../assets/images/user.png"
+import hospital from "../../assets/images/hospital.png"
+import email from "../../assets/images/email.png"
+import lock from "../../assets/images/lock.png"
+import ShowPassword from "../../assets/images/ShowPassword.png"
+import HidePassword from "../../assets/images/HidePassword.png"
+import { toast, Toaster } from "react-hot-toast";
+import FormItem from "antd/es/form/FormItem";
+import { Country, State, City } from 'country-state-city';
 
 const Register = () => {
   const [registerForm, setRegisterForm] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
+    stateName: "",
+    countryName: "",
     email: "",
-    password: "",
-    cpassword: "",
+    hospitalName: "",
+    passwordHash: "",
+    confirmPassword: "",
   });
-  const [nameError, setNameError] = useState(null);
+  const [fnameError, setFNameError] = useState(null);
+  const [lnameError, setLNameError] = useState(null);
   const [emailError, setEmailError] = useState(null);
+  const [hospitalError, setHospitalError] = useState(null);
   const [passwordError, setPasswordError] = useState({
-    password: null,
-    cpassword: null,
+    passwordHash: null,
+    confirmPassword: null,
   });
   const [showPassword, setShowPassword] = useState({
-    password: false,
-    cpassword: false,
+    passwordHash: false,
+    confirmPassword: false,
   });
+  const [isChecked, setIsChecked] = useState(false);
+
   const setResponseError = useState(null)[1];
 
   const dispatch = useDispatch();
@@ -44,7 +49,7 @@ const Register = () => {
     (state) => state.adminRegisterReducer
   );
   const { loading, error, data } = adminRegisterReducer;
-  console.log('adminRegisterReducer',adminRegisterReducer)
+  // console.log("adminRegisterReducer", adminRegisterReducer);
   // VALIDATE EMAIL
   const validateEmail = (email) => {
     const isEmailValid = validateEmailHelper(email);
@@ -69,85 +74,116 @@ const Register = () => {
   };
 
   // PASSWORD VALIDATE
-  const validatePassword = (password, cpassword) => {
-    if (!password) {
+  const validatePassword = (passwordHash, confirmPassword) => {
+    if (!passwordHash) {
       setPasswordError({
         ...passwordError,
-        password: "Please enter your password.",
+        passwordHash: toast.error("*Please enter your Password."),
       });
       return false;
     } else {
-      setPasswordError({ ...passwordError, password: null });
+      setPasswordError({ ...passwordError, passwordHash: null });
     }
-    if (!cpassword) {
+    if (!confirmPassword) {
       setPasswordError({
         ...passwordError,
-        cpassword: "Please enter your Confirm password.",
+        confirmPassword: toast.error("Please enter your Confirm Password."),
       });
       return false;
     } else {
-      // console.log('cpassword available')
-      setPasswordError({ ...passwordError, cpassword: null });
+      setPasswordError({ ...passwordError, confirmPassword: null });
     }
-    if (password !== cpassword) {
+    if (passwordHash !== confirmPassword) {
       setPasswordError({
-        password: "Password does not match with confirm password.",
-        cpassword: "Confirm password does not match with password.",
+        passwordHash: "Password does not match with confirm passwordHash.",
+        confirmPassword: "Confirm passwordHash does not match with passwordHash.",
       });
       return false;
     } else {
-      setPasswordError({ password: null, cpassword: null });
+      setPasswordError({ passwordHash: null, confirmPassword: null });
     }
 
     setRegisterForm({
       ...registerForm,
-      password: password,
+      passwordHash: passwordHash,
     });
     setPasswordError({
-      password: null,
-      cpassword: null,
+      passwordHash: null,
+      confirmPassword: null,
     });
     return true;
   };
-
+  let StatusValid = "-- Select State Name --"
+  let CountryValid = "-- Select Country Name --"
+  let hospitalValid = "-- Select Hospital Name --"
   // HANDLE SUBMIT AND DISPATCH
   const history = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("registerForm", registerForm);
     const email = validateEmail(registerForm.email);
-    const password = validatePassword(
-      registerForm.password,
-      registerForm.cpassword
+    const passwordHash = validatePassword(
+      registerForm.passwordHash,
+      registerForm.confirmPassword
     );
-    if (!registerForm.name) {
-      setNameError("Please check user name field");
+    const firstName = registerForm.firstName
+    const lastName = registerForm.lastName
+    const hospitalName = registerForm.hospitalName
+    const stateName = registerForm.stateName
+    const countryName = registerForm.countryName
+    console.log("hospitalValid", hospitalValid)
+    if (countryName === CountryValid) {
+      toast.error("Please select Country")
       return false;
-    } else {
-      setNameError(null);
-      setNameError(null);
+    }
+    if (registerForm.hospitalName === hospitalValid) {
+      toast.error("Please Select Hospital Name")
+      return false;
+    }
+    if (!registerForm.firstName) {
+      setFNameError(toast.error("*Please fill Full name field"));
+      return false;
+    }
+    else {
+      setFNameError(null);
+    }
+    if (!registerForm.lastName) {
+      setLNameError(toast.error("Please enter last name"));
+      return false;
+    }
+    else {
+      setLNameError(null);
+    }
+    if (!registerForm.hospitalName) {
+      setHospitalError(toast.error("Please fill Hospital name field"));
+      return false;
+    }
+    else {
+      setHospitalError(null);
+    }
+    if (!isChecked) {
+      toast.error("Accept terms and conditions")
+      return false;
     }
 
-    if (email && password) {
+    if (email && passwordHash && firstName && lastName && hospitalName && stateName && countryName && isChecked) {
       dispatch(
         adminRegister(
-          registerForm.name,
+          registerForm.firstName,
+          registerForm.lastName,
+          registerForm.stateName,
+          registerForm.countryName,
+          registerForm.hospitalName,
           registerForm.email,
-          registerForm.password,
-          history
+          registerForm.passwordHash,
+          history("/")
         )
       );
     }
-  };
-
-  // console.log("registerForm", registerForm);
-
-  useEffect(() => {
-    if (cookies.get('ddAdminToken')) {
-      history("/");
-    }
-  }, [history, data]);
-
+  }
+  // console.log("adminRegister",adminRegister)
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked)
+  }
   useEffect(() => {
     setResponseError(error);
 
@@ -157,177 +193,394 @@ const Register = () => {
       setEmailError(null);
     };
   }, [error]);
-
-  // console.log("error", error);
-
+  const allhospitalNameReducer = useSelector(
+    (state) => state.allhospitalNameReducer
+  );
+  const { data: allhospitalData } = allhospitalNameReducer;
+  // country state reducer
+  const allCountryStateReducer = useSelector(
+    (state) => state.allCountryStateReducer
+  );
+  const { data: allCountryData } = allCountryStateReducer;
+  const countryData = allCountryData && allCountryData.data
+  const hospitalData = allhospitalData && allhospitalData.data
+  // state data 
+  const allStateReducer = useSelector(
+    (state) => state.allStateReducer
+  );
+  const [statesData, setStatesData] = useState("")
+  const name = registerForm.countryName
+  const countryChange = (e) => {
+    setStatesData(e.target.value)
+    setRegisterForm({
+      ...registerForm,
+      countryName: e.target.value,
+    })
+    dispatch(allCountryStateData(name))
+  }
+  console.log("statesData", statesData)
+  const { data: allStatesData } = allStateReducer;
+  const stateData = allStatesData && allStatesData.data
+  const stateChange = (e) => {
+    e.preventDefault()
+    setRegisterForm({
+      ...registerForm,
+      stateName: e.target.value,
+    })
+    dispatch(allStateData(name))
+  }
+  const State = registerForm.stateName
+  const hospitalName = registerForm.hospitalName
+  const hospitalChange = (e) => {
+    setRegisterForm({
+      ...registerForm,
+      hospitalName: e.target.value,
+    })
+    dispatch(allHospitalData(State))
+  }
+  let getAllCountryData = Country.getAllCountries()
+  console.log("000", Country.getAllCountries())
+  console.log("state", State.getAllStates)
+  console.log("city",)
   return (
     <>
+      <Toaster />
       <section
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
+        className={Style.registerDiv}
       >
-        <CustomCard height="max-content" width="500px">
-          <section className={Style.Login}>
-            <div className="Login-title d-flex justify-content-start">
-              <p className={Style.headerText}>Register</p>
+        <div
+          className={Style.inside_registerDiv}
+        >
+          <div
+            className={Style.left_content}
+          >
+            <div className={Style.leftContent}>
+              <div className={Style.heading}>
+                <h2 className={Style.innertext}>AgVa</h2>
+              </div>
+              <div style={{ width: "70%" }}>
+                <Link
+                  to="/"
+                  style={{
+                    textDecoration: "none",
+                    color: "#257d7c",
+                    textAlign: "center",
+                    width: "100%"
+                  }}
+                >
+                  <button
+                    className={Style.signinbtn}
+                  >
+                    SIGN IN
+                  </button>
+                </Link>
+              </div>
             </div>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-
+          </div>
+          <section className={Style.Login}>
             {data && data.data && data.data.message && (
               <p style={{ color: "#1F99A4" }}>{data.data.message}</p>
             )}
-
             <div className="Form-card">
               <form>
-                <div
-                  className={
-                    nameError
-                      ? `${Style.imputFieldsError} darkModebgColor`
-                      : `${Style.imputFields} mt-4 darkModebgColor`
-                  }
-                >
-                  <span className="ms-2">
-                    <FontAwesomeIcon size="lg" icon={faUser} />
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control registerForminput "
-                    placeholder="Enter your full name"
-                    autoComplete="Enter your full name"
-                    onChange={(e) =>
-                      setRegisterForm({ ...registerForm, name: e.target.value })
-                    }
-                    value={registerForm.name}
-                  />
-                </div>
-                {nameError && <p style={{ color: "red" }}>{nameError}</p>}
+                {/* First Name Section */}
+                <div className={Style.formDiv}>
+                  <div className={Style.inside_formDiv}>
+                    <div className={Style.inputusername}>First Name</div>
+                    <div
+                      className={
+                        fnameError
+                          ? `${Style.imputFieldsError} darkModebgColor`
+                          : `${Style.imputFields}  darkModebgColor`
+                      }
+                    >
+                      <span className="ms-2">
+                        <img src={User} style={{ width: "1.2rem" }} />
+                      </span>
+                      <span style={{ color: "black" }}>|</span>
+                      <input
+                        type="text"
+                        className="form-control registerForminput "
+                        // autoComplete="Enter your full name"
+                        onChange={(e) =>
+                          setRegisterForm({ ...registerForm, firstName: e.target.value })
+                        }
+                        value={registerForm.firstName}
+                      />
+                    </div>
 
-                <div
-                  className={
-                    emailError
-                      ? `${Style.imputFieldsError} mt-4 darkModebgColor`
-                      : `${Style.imputFields} mt-4 darkModebgColor`
-                  }
-                >
-                  <span className="ms-2">
-                    <FontAwesomeIcon size="lg" icon={faEnvelope} />
-                  </span>
-                  <input
-                    type="email"
-                    className="form-control registerForminput "
-                    placeholder="Enter your email"
-                    autoComplete="Enter your email"
-                    onChange={(e) =>
-                      setRegisterForm({
-                        ...registerForm,
-                        email: e.target.value,
-                      })
-                    }
-                    value={registerForm.email}
-                  />
+                  </div>
+                  {/* Second Name Section */}
+                  <div className={Style.inside_formDiv}>
+                    <div className={Style.inputusername}>Last Name</div>
+                    <div
+                      className={
+                        lnameError
+                          ? `${Style.imputFieldsError} darkModebgColor`
+                          : `${Style.imputFields}  darkModebgColor`
+                      }
+                    >
+                      <span className="ms-2">
+                        <img src={User} style={{ width: "1.2rem" }} />
+                      </span>
+                      <span style={{ color: "black" }}>|</span>
+                      <input
+                        type="text"
+                        className="form-control registerForminput "
+                        onChange={(e) =>
+                          setRegisterForm({ ...registerForm, lastName: e.target.value })
+                        }
+                        value={registerForm.lastName}
+                      />
+                    </div>
+                  </div>
                 </div>
-                {emailError && <p style={{ color: "red" }}>{emailError}</p>}
-                <div
-                  className={
-                    passwordError.password
-                      ? `${Style.imputFieldsError} mt-4 darkModebgColor`
-                      : `${Style.imputFields} mt-4 darkModebgColor`
-                  }
-                >
-                  <span className="ms-2">
-                    <FontAwesomeIcon size="lg" icon={faLock} />
-                  </span>
-                  <input
-                    type={showPassword.password ? "text" : "password"}
-                    className="form-control registerForminput "
-                    placeholder="Enter your password"
-                    autoComplete="Enter your password"
-                    onChange={(e) =>
-                      setRegisterForm({
-                        ...registerForm,
-                        password: e.target.value,
-                      })
+                {/* Country State Section */}
+                <div className={Style.formDiv}>
+                  <div className={Style.inside_formDiv}>
+                    <div className={Style.inputusername}>Country Name</div>
+                    <div
+                      className={
+                        fnameError
+                          ? `${Style.imputFieldsError} darkModebgColor`
+                          : `${Style.state_imputFields}  darkModebgColor`
+                      }
+                    >
+                      <span className="ms-2">
+                        <img src={User} style={{ width: "1.2rem" }} />
+                      </span>
+                      <span style={{ color: "black" }}>|</span>
+                      <select className="form-select" aria-label="Default select example" style={{ padding: "4px", border: "0px", width: "100%" }}
+                        onChange={(e) => countryChange(e)}
+                      >
+                        <option value="">{!name ? CountryValid : name}</option>
+                        {getAllCountryData.map((item) => {
+                          return (<>
+                            <option
+                              style={{ padding: "4px", border: "0px", width: "100%" }}
+                              value={item.name}
+                            >
+                              {item.name}
+                            </option>
+                          </>
+                          )
+                        })}
+                      </select>
+
+                    </div>
+
+                  </div>
+                  {/* State Section */}
+                  <div className={Style.inside_formDiv}>
+                    <div className={Style.inputusername}>State Name</div>
+                    <div
+                      className={
+                        lnameError
+                          ? `${Style.imputFieldsError} darkModebgColor`
+                          : `${Style.state_imputFields}  darkModebgColor`
+                      }
+                    >
+                      <span className="ms-2">
+                        <img src={User} style={{ width: "1.2rem" }} />
+                      </span>
+                      <span style={{ color: "black" }}>|</span>
+                      {!registerForm.countryName ? <>
+                        <select id="data" style={{ padding: "4px", border: "0px", width: "100%" }}
+                          disabled>
+
+                          <option>-- Select State Name --</option>
+
+                        </select>
+                      </> :
+                        <select id="data" style={{ padding: "4px", border: "0px", width: "100%" }}
+                          onClick={(e) => stateChange(e)
+                          }>
+                          <option>{!State ? StatusValid : State}</option>
+                          {stateData && stateData.map((item) => {
+                            return (
+                              <option
+                                style={{ padding: "4px", border: "0px", width: "100%" }}
+                              >
+                                {item.name}
+                              </option>
+                            )
+                          })}
+                        </select>}
+                    </div>
+                  </div>
+                </div>
+                {/* Hospital Section */}
+                <div style={{ gap: "2rem", marginTop: "1rem" }}>
+                  <div className={Style.inputusername}>Hospital Name</div>
+                  <div
+                    className={
+                      hospitalError
+                        ? `${Style.imputFieldsError}  darkModebgColor`
+                        : `${Style.imputFields}  darkModebgColor`
                     }
-                    value={registerForm.password}
-                  />
-                  <span className="px-2" style={{ cursor: "pointer" }}>
-                    <FontAwesomeIcon
-                      size="lg"
-                      icon={showPassword.password ? faEye : faEyeSlash}
-                      onClick={() => {
-                        setShowPassword({
-                          ...showPassword,
-                          password: !showPassword.password,
-                        });
-                      }}
+                  >
+                    <span className="ms-2">
+                      <img src={hospital} style={{ width: "1.2rem" }} />
+                    </span>
+                    <span style={{ color: "black" }}>|</span>
+                    {!registerForm.stateName ? <>
+                      <select id="data" style={{ padding: "4px", border: "0px", width: "100%" }}
+                        disabled>
+                        <option>-- Select Hospital Name --</option>
+                      </select>
+                    </> :
+                      <select style={{ padding: "4px", border: "0px", width: "100%" }}
+                        onClick={(e) => hospitalChange(e)}>
+                        <option>{!hospitalName ? hospitalValid : hospitalName}</option>
+                        {hospitalData && hospitalData.length > 0 ? hospitalData && hospitalData.map((item) => {
+                          return (
+                            <option
+                              style={{ padding: "4px", border: "0px", width: "100%" }}
+                              placeholder="-- Enter Hospital Name --"
+                            >
+                              {item.Hospital_Name}
+                            </option>
+                          )
+                        }) : " No Data Found"}
+                      </select>
+                    }
+                  </div>
+                </div>
+                {/* Email Section */}
+                <div style={{ gap: "2rem", marginTop: "1rem" }}>
+                  <div className={Style.inputusername}>Email Id</div>
+                  <div
+                    className={
+                      emailError
+                        ? `${Style.imputFieldsError}  darkModebgColor`
+                        : `${Style.imputFields}  darkModebgColor`
+                    }
+                  >
+                    <span className="ms-2">
+                      <img src={email} style={{ width: "1.2rem" }} />
+                    </span>
+                    <span style={{ color: "black" }}>|</span>
+                    <input
+                      type="email"
+                      className="form-control registerForminput "
+                      autoComplete="Enter your Email"
+                      onChange={(e) =>
+                        setRegisterForm({
+                          ...registerForm,
+                          email: e.target.value,
+                        })
+                      }
+                      value={registerForm.email}
                     />
-                  </span>
+                  </div>
                 </div>
-                {passwordError.password && (
-                  <p style={{ color: "red" }}>{passwordError.password}</p>
-                )}
-
-                <div
-                  className={
-                    passwordError.cpassword
-                      ? `${Style.imputFieldsError} mt-4 darkModebgColor`
-                      : `${Style.imputFields} mt-4 darkModebgColor`
-                  }
-                >
-                  <span className="ms-2">
-                    <FontAwesomeIcon size="lg" icon={faLock} />
-                  </span>
-                  <input
-                    type={showPassword.cpassword ? "text" : "password"}
-                    className="form-control registerForminput "
-                    placeholder="Confirm your password"
-                    autoComplete="Confirm your password"
-                    onChange={(e) =>
-                      setRegisterForm({
-                        ...registerForm,
-                        cpassword: e.target.value,
-                      })
-                    }
-                    value={registerForm.cpassword}
-                  />
-                  <span className="px-2" style={{ cursor: "pointer" }}>
-                    <FontAwesomeIcon
-                      size="lg"
-                      icon={showPassword.cpassword ? faEye : faEyeSlash}
-                      onClick={() => {
-                        setShowPassword({
-                          ...showPassword,
-                          cpassword: !showPassword.cpassword,
-                        });
-                      }}
-                    />
-                  </span>
+                {/* Password */}
+                <div className={Style.formDiv}>
+                  <div className={Style.inside_formDiv}>
+                    <div className={Style.inputusername}>Password</div>
+                    <div
+                      className={
+                        passwordError.passwordHash
+                          ? `${Style.imputFieldsError}  darkModebgColor`
+                          : `${Style.imputFields}  darkModebgColor`
+                      }
+                    >
+                      <span className="ms-2">
+                        <img src={lock} style={{ width: "1.2rem" }} />
+                      </span>
+                      <span style={{ color: "black" }}>|</span>
+                      <input
+                        type={showPassword.passwordHash ? "text" : "password"}
+                        className="form-control registerForminput "
+                        onChange={(e) =>
+                          setRegisterForm({
+                            ...registerForm,
+                            passwordHash: e.target.value,
+                          })
+                        }
+                        value={registerForm.passwordHash}
+                      />
+                      <span className="px-2" style={{ cursor: "pointer" }}>
+                        <img
+                          style={{ width: "1.2rem", opacity: "59%" }}
+                          size="lg"
+                          src={showPassword.passwordHash ? HidePassword : ShowPassword}
+                          onClick={() => {
+                            setShowPassword({
+                              ...showPassword,
+                              passwordHash: !showPassword.passwordHash,
+                            });
+                          }}
+                        />
+                      </span>
+                    </div>
+                  </div>
+                  {/* confirm Password */}
+                  <div className={Style.inside_formDiv}>
+                    <div className={Style.inputusername}>Confirm Password</div>
+                    <div
+                      className={
+                        passwordError.confirmPassword
+                          ? `${Style.imputFieldsError}  darkModebgColor`
+                          : `${Style.imputFields}  darkModebgColor`
+                      }
+                    >
+                      <span className="ms-2">
+                        <img src={lock} style={{ width: "1.2rem" }} />
+                      </span>
+                      <span style={{ color: "black" }}>|</span>
+                      <input
+                        type={showPassword.confirmPassword ? "text" : "password"}
+                        className="form-control registerForminput " style={{ borderRightStyle: "hidden", borderTopStyle: "hidden", borderRadius: "0px", borderBottomStyle: "hidden", borderLeft: "1px solid #959595" }}
+                        onChange={(e) =>
+                          setRegisterForm({
+                            ...registerForm,
+                            confirmPassword: e.target.value,
+                          })
+                        }
+                        value={registerForm.confirmPassword}
+                      />
+                      <span className="px-2" style={{ cursor: "pointer" }}>
+                        <img
+                          style={{ width: "1.2rem", opacity: "59%" }}
+                          size="lg"
+                          src={showPassword.confirmPassword ? HidePassword : ShowPassword}
+                          onClick={() => {
+                            setShowPassword({
+                              ...showPassword,
+                              confirmPassword: !showPassword.confirmPassword,
+                            });
+                          }}
+                        />
+                      </span>
+                    </div>
+                  </div>
                 </div>
-
-                {passwordError.cpassword && (
-                  <p style={{ color: "red" }}>{passwordError.cpassword}</p>
-                )}
                 <section
                   style={{
-                    marginTop: "20px",
+                    margin: "2rem",
                     display: "flex",
                     justifyContent: "center",
+                    gap: "0.5rem"
                   }}
                 >
-                  <Link
-                    to="/"
-                    style={{
-                      // textDecoration: "none",
-                      color: "#257d7c",
-                      // textAlign: "center",
-                    }}
-                  >
-                    Already have an account? Click here
-                  </Link>
+                  <FormItem
+                    name="agreement"
+                    wrapperCol={{ span: 24 }}
+                    valuePropName="checked"
+                    rules={[{
+                      required: true,
+                      message: "To proceed need agree"
+                    }]}>
+                    <div style={{ display: "flex", alignItems: "center", textAlign: "center", gap: "1rem" }}>
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={handleCheckboxChange}
+                      />
+                      <span>Agree to our <Link to="/tersAndCondition">Terms and Conditions</Link></span>
+                    </div>
+                  </FormItem>
                 </section>
                 <section
                   style={{
@@ -338,20 +591,19 @@ const Register = () => {
                   {loading ? (
                     <SpinnerCustom height="5%" />
                   ) : (
-                    <Button
-                      style={{ float: "right", width: "30%" }}
+                    <button
+                      className={Style.signupbtn}
                       type="submit"
-                      className="mt-4"
                       onClick={(e) => handleSubmit(e)}
                     >
-                      Register
-                    </Button>
+                      SIGN UP
+                    </button>
                   )}
                 </section>
               </form>
             </div>
           </section>
-        </CustomCard>
+        </div>
       </section>
     </>
   );

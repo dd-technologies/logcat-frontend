@@ -9,7 +9,7 @@
   color: #646464;
 }
 .issuesTable .LinkActiveText {
-  color: #0099a4;
+  color: #CB297B;
   font-weight: 500;
 }
 
@@ -50,7 +50,7 @@
   margin-right: 20px;
 }
 .filterGraphFirstSctionTop svg:hover {
-  color: #0099a4;
+  color: #CB297B;
 }
 
 .filterGraphFirstSection {
@@ -67,7 +67,7 @@
 .filterGraphFirstSection svg:hover {
   transform: rotate(180deg) !important;
   transition-duration: 0.5s;
-  color: #0099a4;
+  color: #CB297B;
 }
 
 .productVersion {
@@ -75,7 +75,7 @@
   cursor: pointer;
 }
 .productVersion:hover {
-  background-color: #0099a4;
+  background-color: #CB297B;
   width: 100%;
   padding: 5px;
   color: #fff;

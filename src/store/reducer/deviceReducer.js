@@ -25,10 +25,20 @@ import{
     GET_DEVICE_CRASH_ANALYTICS_DATA_SUCCESS,
     GET_DEVICE_LOG_MSG_OCCURRENCE_COUNT_WRT_DATE_FAIL,
     GET_DEVICE_LOG_MSG_OCCURRENCE_COUNT_WRT_DATE_REQUEST,
-    GET_DEVICE_LOG_MSG_OCCURRENCE_COUNT_WRT_DATE_SUCCESS
-
+    GET_DEVICE_LOG_MSG_OCCURRENCE_COUNT_WRT_DATE_SUCCESS,
+    GET_DEVICE_CALIBRATION_BY_ID_REQUEST,
+    GET_DEVICE_CALIBRATION_BY_ID_SUCCESS,
+    GET_DEVICE_CALIBRATION_BY_ID_FAIL,
+    GET_ABOUT_SECTION_BY_ID_REQUEST,
+    GET_ABOUT_SECTION_BY_ID_SUCCESS,
+    GET_ABOUT_SECTION_BY_ID_FAIL,
+    GET_SERVICE_RECORDS_DETAILS,
+    GET_SERVICE_RECORDS_DETAILS_SUCCESS,
+    GET_SERVICE_RECORDS_DETAILS_FAIL,
+  GET_SINGLE_DEVICEID_REQUEST,
+  GET_SINGLE_DEVICEID_SUCCESS,
+  GET_SINGLE_DEVICEID_FAIL
 }from "../types/DeviceConstant";
-
 
 export const deviceReducer = (state = {},action) =>{
     switch(action.type){
@@ -50,6 +60,27 @@ export const deviceReducer = (state = {},action) =>{
             return state;
     }
 };
+//  About Reducer
+export const getAllAboutByDeviceIdReducer = (state = {},action) =>{
+  switch(action.type){
+    case GET_ABOUT_SECTION_BY_ID_REQUEST:
+      return {loading : true};
+    
+    case GET_ABOUT_SECTION_BY_ID_SUCCESS:
+    return{
+      loading:false,
+      data : action.payload,
+    }
+    case GET_ABOUT_SECTION_BY_ID_FAIL:
+    return{
+      loading:false,
+      error:action.payload,
+    }
+    default:
+      return state;
+  }
+}
+// Event Reducer
 export const getAllEventsByDeviceIdReducer = (state = {},action) =>{
   switch(action.type){
     case GET_DEVICE_EVENTS_BY_ID_REQUEST:
@@ -69,6 +100,7 @@ export const getAllEventsByDeviceIdReducer = (state = {},action) =>{
       return state;
   }
 }
+// Alarm Reducer
 export const getAllAlarmsByDeviceIdReducer = (state = {},action) =>{
   switch(action.type){
     case GET_DEVICE_ALARMS_BY_ID_REQUEST:
@@ -88,6 +120,7 @@ export const getAllAlarmsByDeviceIdReducer = (state = {},action) =>{
       return state;
   }
 }
+// Trends Reducer
 export const getAllTrendsByDeviceIdReducer = (state = {},action) =>{
   switch(action.type){
     case GET_DEVICE_TRENDS_BY_ID_REQUEST:
@@ -99,6 +132,26 @@ export const getAllTrendsByDeviceIdReducer = (state = {},action) =>{
       data : action.payload,
     }
     case GET_DEVICE_TRENDS_BY_ID_FAIL:
+    return{
+      loading:false,
+      error:action.payload,
+    }
+    default:
+      return state;
+  }
+}
+// Calibation Reducer
+export const getCalibrationByDeviceIdReducer = (state = {},action) =>{
+  switch(action.type){
+    case GET_DEVICE_CALIBRATION_BY_ID_REQUEST:
+      return {loading : true};
+    
+    case GET_DEVICE_CALIBRATION_BY_ID_SUCCESS:
+    return{
+      loading:false,
+      data : action.payload,
+    }
+    case GET_DEVICE_CALIBRATION_BY_ID_FAIL:
     return{
       loading:false,
       error:action.payload,
@@ -127,6 +180,7 @@ export const getAllLogsByDeviceIdReducer = (state = {},action) =>{
   }
 }
 export const getRegisteredDetailsReducer = (state={},action)=>{
+  // console.log(`payload ${action.payload}`)
   switch(action.type){
     case GET_REGISTERED_DEVICE_DETAILS_REQUEST:
       return {loading:true};
@@ -144,6 +198,7 @@ export const getRegisteredDetailsReducer = (state={},action)=>{
       default:
         return state;
   }
+  
 }
 export const getLogMsgOccurenceReducer = (state={},action) =>{
   switch(action.type){
@@ -163,7 +218,7 @@ export const getLogMsgOccurenceReducer = (state={},action) =>{
         default:
           return state;
   }
-};
+}
 export const getDeviceCrashAnalyticsDataReducer = (state={},action)=>{
   switch (action.type) {
     case GET_DEVICE_CRASH_ANALYTICS_DATA_REQUEST:
@@ -201,4 +256,42 @@ export const getDeviceLogMsgOccurenceWRTDateReducer = (state = {}, action) => {
     default:
       return state;
   }
-};
+}
+export const getAllServiceRecordsDetails = (state = {},action) =>{
+  switch(action.type){
+    case GET_SERVICE_RECORDS_DETAILS:
+      return {loading : true};
+    
+    case GET_SERVICE_RECORDS_DETAILS_SUCCESS:
+    return{
+      loading:false,
+      data : action.payload,
+    }
+    case GET_SERVICE_RECORDS_DETAILS_FAIL:
+    return{
+      loading:false,
+      error:action.payload,
+    }
+    default:
+      return state;
+  }
+}
+export const getAllSectionByDeviceId = (state = {},action) =>{
+  switch(action.type){
+    case GET_SINGLE_DEVICEID_REQUEST:
+      return {loading : true};
+    
+    case GET_SINGLE_DEVICEID_SUCCESS:
+    return{
+      loading:false,
+      data : action.payload,
+    }
+    case GET_SINGLE_DEVICEID_SUCCESS:
+    return{
+      loading:false,
+      error:action.payload,
+    }
+    default:
+      return state;
+  }
+}

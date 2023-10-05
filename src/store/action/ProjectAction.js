@@ -29,6 +29,7 @@ export const getAllProject = () => async (dispatch) => {
       type: GET_PROJECT_REQUEST,
     });
     const token = cookies.get('ddAdminToken');
+    console.log("token",token)
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -159,7 +160,7 @@ export const getProjectByCode =
   };
 
 // UPLOAD PROJECT
-export const uploadNewProject = (name, modelList, desc) => async (dispatch) => {
+export const uploadNewProject = ({project_name, project_description, provide_device_type}) => async (dispatch) => {
   try {
     dispatch({
       type: UPLOAD_NEW_PROJECT_REQUEST,
@@ -173,11 +174,11 @@ export const uploadNewProject = (name, modelList, desc) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/api/logger/projects/`,
+      `${process.env.REACT_APP_BASE_URL}/projects/addNewProject`,
       {
-        name: name,
-        description: desc,
-        device_type: modelList,
+        project_name,
+        project_description,
+        provide_device_type,
       },
       config
     );

@@ -286,7 +286,7 @@ export const getCrashFreeUsersData =
         type: GET_CRASH_FREE_USERS_DATA_REQUEST_SUCCESS,
         payload: data.data,
       });
-      console.log(data)
+      // console.log(data)
     } catch (error) {
       dispatch({
         type: GET_CRASH_FREE_USERS_DATA_REQUEST_FAIL,
