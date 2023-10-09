@@ -42,6 +42,11 @@ import History from "./utils/History";
 import Production from "./screens/device/Production/Production";
 import ProductionModel from "./screens/device/Production/ProductionModel";
 import ProductionDataModule from "./screens/device/Production/ProductionDataModel";
+import Support from "./screens/device/SupportEnginner/Support";
+import SupportEngForm from "./screens/device/SupportEnginner/SupportEngForm"
+import ServiceEnginner from "./screens/device/ServiceEnginner/ServiceEnginner";
+import ServiceModuleData from "./screens/device/ServiceEnginner/ServiceModuleData";
+import SupportEngDataModule from "./screens/device/SupportEnginner/SupportEngDataModule.jsx";
 function App() {
   const [splash, setSplash] = useState(true);
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
@@ -85,8 +90,17 @@ function App() {
             {/* Protected Route */}
             <Route element={<Protected />}>
               <Route exact path="/home" element={<AllDashComponent />} />
+              {/* Production */}
               <Route exact path="/production" element={<Production />} />
               <Route exact path="/productionDataModel" element={<ProductionDataModule />} />
+              {/* Support */}
+              <Route exact path="/support" element={<Support />} />
+              <Route exact path="/supportForm" element={<SupportEngForm />} />
+              
+              <Route exact path="/Support_eng_data_module" element={<SupportEngDataModule/>} />
+              {/* service-Eng */}
+              <Route exact path="/service_eng" element={<ServiceEnginner />} />
+              <Route exact path="/service_eng_module" element={<ServiceModuleData />} />
               <Route exact path="/log_table" element={<LogTable />} />
               <Route exact path="/analytics" element={<Analytics />} />
               <Route exact path="/update" element={<UpdateProfile />} />

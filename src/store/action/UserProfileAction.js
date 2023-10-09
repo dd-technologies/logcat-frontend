@@ -86,7 +86,7 @@ export const userInfoActionFn = () => async (dispatch) => {
     });
   }
 };
-export const getHistoryLogsData = ({page,limit}) => async (dispatch) => {
+export const getHistoryLogsData = ({page,limit,searchData}) => async (dispatch) => {
   try {
     dispatch({
       type: HISTORY_DATA_REQUEST,
@@ -99,7 +99,7 @@ export const getHistoryLogsData = ({page,limit}) => async (dispatch) => {
       },
     };
     const response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/api/logger/user-activity?page=${page}&limit=${limit}`,
+      `${process.env.REACT_APP_BASE_URL}/api/logger/user-activity?search=${searchData}&page=${page}&limit=${limit}`,
       config
     );
     dispatch({

@@ -42,7 +42,10 @@ import {
   GET_SERVICE_RECORDS_DETAILS_FAIL,
   GET_SINGLE_DEVICEID_REQUEST,
   GET_SINGLE_DEVICEID_SUCCESS,
-  GET_SINGLE_DEVICEID_FAIL
+  GET_SINGLE_DEVICEID_FAIL,
+  GET_SINGLE_DEVICEIDBY_USERID_REQUEST,
+  GET_SINGLE_DEVICEIDBY_USERID_FAIL,
+  GET_SINGLE_DEVICEIDBY_USERID_SUCCESS
 } from "../types/DeviceConstant";
 const cookies = new Cookies();
 
@@ -58,11 +61,9 @@ export const deviceAction = ({ page, limit, searchData }) => async (dispatch) =>
         Authorization: `Bearer ${token}`,
       },
     };
-    const search = searchData;
-    console.log("search",search)
     let response;
     response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/api/logger/logs/AllEvents/Events?search=${search}&page=${page}&limit=${limit}`,
+      `${process.env.REACT_APP_BASE_URL}/api/logger/logs/AllEvents/Events?search=${searchData}&page=${page}&limit=${limit}`,
       config
     );
     dispatch({
@@ -177,13 +178,13 @@ export const getRegisteredDetailsById = (DeviceID, DoctorName, HospitalName, Ali
   }
 }
 
-export const getSingleDeviceIdDetails = (DeviceId) => async (dispatch) => {
+export const getSingleDeviceIdDetails = ( {DeviceId} ) => async (dispatch) => {
   try {
     dispatch({
       type: GET_SINGLE_DEVICEID_REQUEST
     });
     const token = cookies.get('ddAdminToken');
-    console.log("DeviceId",DeviceId)
+    console.log("9090", DeviceId)
     const config = {
       method: 'PUT',
       headers: {
@@ -202,6 +203,41 @@ export const getSingleDeviceIdDetails = (DeviceId) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_DEVICEID_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.msg,
+    })
+  }
+};
+export const getSingleDeviceIdByUser = (userId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_SINGLE_DEVICEIDBY_USERID_REQUEST
+    });
+    const token = cookies.get('ddAdminToken');
+    console.log("userId111", userId)
+    const config = {
+      method: 'PUT',
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    let { data } = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/logger/logs/getAssignedDeviceByUserId/${userId}`,
+      config
+    );
+    dispatch({
+      type: GET_SINGLE_DEVICEIDBY_USERID_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_SINGLE_DEVICEIDBY_USERID_FAIL,
       payload:
         error &&
         error.response &&

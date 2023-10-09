@@ -4,27 +4,36 @@ import SideBar from './Sidebar'
 import back from "../assets/images/back.png";
 import { Link } from 'react-router-dom';
 import Style from "../css/History.module.css"
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Row, Col } from "react-bootstrap";
 import { getHistoryLogsData } from "../store/action/UserProfileAction";
 import { useDispatch, useSelector } from 'react-redux';
 import ReactReadMoreReadLess from "react-read-more-read-less";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function History() {
     const getHistoryDataReducer = useSelector(
         (state) => state.getHistoryDataReducer
     );
-    const {loading, data } = getHistoryDataReducer;
+    const { loading, data } = getHistoryDataReducer;
     const historyData = data && data.data
 
     const incPage = parseInt(data && data.currentPage)
     const totalPage = parseInt(data && data.totalPages)
-
+    const [query, setQuery] = useState("");
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getHistoryLogsData({ page: 1, limit: recordsPerPage }))
-    }, [])
-
+    }, [dispatch])
+    const handleClickSearch = () => {
+        if (query && query.length > 0) {
+            dispatch(getHistoryLogsData({ page: 1, limit: recordsPerPage, searchData: query }));
+        }
+    }
+    const handleSearchChange = (e) => {
+        setQuery(e.target.value.toLowerCase())
+    }
     const [currentPage, setCurrentPage] = useState(1)
-    const recordsPerPage = 3;
+    const recordsPerPage = 6;
     const lastIndex = currentPage * recordsPerPage;
     const firstIndex = lastIndex - recordsPerPage;
     const records = historyData && historyData.slice(firstIndex, lastIndex);
@@ -72,28 +81,68 @@ function History() {
                             <Row className="mt-0">
                                 <Col>
                                     <div className={Style.tableCard} borderRadius="20px">
+
                                         <>
                                             {records && records.length > 0 ?
                                                 <section className={Style.OuterTable}>
+
                                                     <div
                                                         className={Style.insideOuterTable}
                                                     >
-                                                        <div>
-                                                            <span className={Style.deviceTextData}>User Id</span>
+                                                        <div
+                                                            className="search_section"
+                                                            style={{ display: "flex", gap: "3rem" }}
+                                                        >
+                                                            <div
+                                                                className="input_section"
+                                                                style={{
+                                                                    display: "flex",
+                                                                    backgroundColor: "white",
+                                                                    borderRadius: "10px",
+                                                                    width: "90%",
+                                                                    alignItems: "center",
+                                                                }}
+                                                            >
+                                                                <input
+                                                                    className="search_input"
+                                                                    type="text"
+                                                                    placeholder="Enter Email Id"
+                                                                    onChange={handleSearchChange}
+                                                                    style={{
+                                                                        padding: "0.5rem",
+                                                                        border: "0px",
+                                                                        width: "100%",
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                            <button style={{ backgroundColor: 'white', borderRadius: '10px', width: '3rem' }} onClick={handleClickSearch}>
+                                                                <FontAwesomeIcon
+                                                                    icon={faMagnifyingGlass}
+                                                                    style={{
+                                                                        color: "#cb297b",
+                                                                        padding: "0px 8px",
+                                                                    }}
+                                                                />
+                                                            </button>
                                                         </div>
-                                                        <div>
-                                                            <span className={Style.deviceTextData}>Action</span>
-                                                        </div>
-                                                        <div>
-                                                            <span className={Style.deviceTextData}>Email</span>
-                                                        </div>
-                                                        <div>
-                                                            <span className={Style.deviceTextData}>Message</span>
-                                                        </div>
-                                                        <div>
-                                                            <span className={Style.deviceTextData}>
-                                                                Date
-                                                            </span>
+                                                        <div className={Style.insideOuterDataTable}>
+                                                            <div>
+                                                                <span className={Style.deviceTextData}>User Id</span>
+                                                            </div>
+                                                            <div>
+                                                                <span className={Style.deviceTextData}>Action</span>
+                                                            </div>
+                                                            <div>
+                                                                <span className={Style.deviceTextData}>Email</span>
+                                                            </div>
+                                                            <div>
+                                                                <span className={Style.deviceTextData}>Message</span>
+                                                            </div>
+                                                            <div>
+                                                                <span className={Style.deviceTextData}>
+                                                                    Date
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     {/* TABLE HERE */}
@@ -164,7 +213,7 @@ function History() {
                                             <nav aria-label="Page navigation example">
                                                 <ul class="pagination justify-content-end" style={{ display: "flex", alignItems: 'center' }}>
                                                     {incPage > 1 ?
-                                                        <button onClick={prePage} style={{ border: "0px"}}>
+                                                        <button onClick={prePage} style={{ border: "0px" }}>
                                                             <img src={back} style={{ width: "3rem" }} />
                                                         </button>
                                                         : " "}

@@ -101,8 +101,14 @@ export default function Login() {
         navigate("/adminDashboard");
       } else if (adminInfo.data.userType === "Production") {
         navigate('/productionModel')
-      } else {
-        navigate("/home");
+      }  else if (adminInfo.data.userType === "Service-Engineer") {
+        navigate('/service_eng')
+      }
+      else if (adminInfo.data.userType === "Support") {
+        navigate('/support')
+      }
+      else {
+        navigate('/home')
       }
     }
   }, [navigate, adminInfo]);

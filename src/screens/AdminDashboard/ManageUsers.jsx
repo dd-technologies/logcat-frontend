@@ -4,7 +4,7 @@ import SideBar from "../../utils/Sidebar";
 import back from "../../assets/images/back.png";
 import { Link } from "react-router-dom";
 import Style from "../../css/ManagerUsers.module.css";
-import { Row, Col } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import TableCard1 from "../../container/TableCard1";
 import { getAllUsersDetalisById, updateAllUsersDetailsById } from "../../store/action/AdminDashboard";
 import { useEffect } from "react";
@@ -16,15 +16,9 @@ function ManageUsers() {
     (state) => state.allUsersDetailsReducer
   );
   const {loading, data } = allUsersDetailsReducer;
-  const rohan = data && data.data;
-  console.log("rohan", rohan)
-  console.log("data", data)
   const dispatch = useDispatch();
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
   const incPage = parseInt(data && data.currentPage)
   const totalPage = parseInt(data && data.totalPages)
-  console.log("totalPages", totalPage)
   const [currentPage, setCurrentPage] = useState(1)
   const recordsPerPage = 4;
   const lastIndex = currentPage * recordsPerPage;
@@ -32,9 +26,6 @@ function ManageUsers() {
   const records = data && data.data.slice(firstIndex, lastIndex);
   const npage = Math.ceil(data && data.data.length / recordsPerPage)
   const numbers = Array.from({ length: npage }, (_, i) => i + 1).slice(1)
-  console.log("npage", npage)
-  console.log("currentPage", currentPage)
-
   useEffect(() => {
     dispatch(getAllUsersDetalisById({ page: 1, limit: recordsPerPage }));
   }, [dispatch]);
@@ -131,6 +122,8 @@ function ManageUsers() {
                                           <option value="User">User</option>
                                           <option value="Dispatch">Dispatch</option>
                                           <option value="Production">Production</option>
+                                          <option value="Support">Support</option>
+                                          <option value="Service-Engineer">Service Engineer</option>
                                         </select>
                                       </div>
                                     </div>

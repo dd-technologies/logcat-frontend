@@ -35,7 +35,6 @@ function Services() {
   const goBack = () => {
     window.history.go(-1)
   }
-  console.log("111",data)
   const [currentPage, setCurrentPage] = useState(1)
   const recordsPerPage = 6;
   const lastIndex = currentPage * recordsPerPage;
@@ -43,7 +42,6 @@ function Services() {
   const records = calibrationFilter && calibrationFilter.slice(firstIndex, lastIndex);
   const npage = Math.ceil(data && data.length / recordsPerPage)
   const numbers = Array.from({ length: npage }, (_, i) => i + 1).slice(1)
-  console.log("records", data)
   return (
     <div>
       <Navbar />

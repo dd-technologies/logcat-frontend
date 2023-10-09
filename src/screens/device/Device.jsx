@@ -11,6 +11,7 @@ import SpinnerCustom from "../../container/SpinnerCustom";
 import {
   deviceAction,
   getRegisteredDetailsById,
+  getSingleDeviceIdByUser,
   getSingleDeviceIdDetails,
 } from "../../store/action/DeviceAction";
 import { Navbar } from "../../utils/NavBar";
@@ -26,33 +27,44 @@ export default function Device() {
   const { theme } = React.useContext(ThemeContext);
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { adminInfo } = adminLoginReducer;
-
+  const userType = adminInfo && adminInfo.data && adminInfo.data.userType
+  const userId = adminInfo && adminInfo.data && adminInfo.data._id
   const deviceReducer = useSelector((state) => state.deviceReducer);
   const { loading, data } = deviceReducer;
 
+  const deviceAssignDataByUserId = useSelector((state) => state.deviceAssignDataByUserId);
+  const { data: assignDeviceData } = deviceAssignDataByUserId
   const getRegisteredDetailsReducer = useSelector(
     (state) => state.getRegisteredDetailsReducer
   );
   const { data12 } = getRegisteredDetailsReducer;
   let regDetail = data12;
+  const [allData, setAllData] = useState()
+
+  useEffect(() => {
+    if (userType === "User") {
+      setAllData(assignDeviceData && assignDeviceData.data && assignDeviceData.data.Assigned_Devices)
+    }
+    else {
+      setAllData(data && data.data && data.data.data)
+    }
+  }, [])
   const incPage = parseInt(data && data.currentPage)
   const totalPage = parseInt(data && data.totalPages)
   const [currentPage, setCurrentPage] = useState(1)
   const recordsPerPage = 20;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = data && data.data && data.data.data.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(data && data.data && data.data.data.length / recordsPerPage)
+  const records = allData && allData.slice(firstIndex, lastIndex);
+  console.log("records", records)
+  const npage = Math.ceil(allData && allData.length / recordsPerPage)
   const numbers = Array.from({ length: npage }, (_, i) => i + 1).slice(1)
-  console.log("length", npage, numbers)
   useEffect(() => {
     dispatch(getRegisteredDetailsById(code));
   }, []);
   const dispatch = useDispatch();
 
   let navigate = useNavigate();
-
-
   const [modalShow, setModalShow] = useState(false);
   const [modalShow1, setModalShow1] = useState(false);
 
@@ -60,10 +72,15 @@ export default function Device() {
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get("code");
   const projectName = urlParams.get("name");
-
   useEffect(() => {
-    dispatch(deviceAction({ page: 1, limit: recordsPerPage }));
+    if (userType == "User") {
+      dispatch(getSingleDeviceIdByUser(userId));
+    }
+    else {
+      dispatch(deviceAction({ page: 1, limit: recordsPerPage }));
+    }
   }, [dispatch]);
+
   const handleClickSearch = () => {
     if (query && query.length > 0) {
       dispatch(deviceAction({ page: 1, limit: recordsPerPage, searchData: query }));
@@ -72,6 +89,7 @@ export default function Device() {
   const handleSearchChange = (e) => {
     setQuery(e.target.value.toLowerCase())
   }
+
   return (
     <div>
       <Navbar />
@@ -195,325 +213,547 @@ export default function Device() {
                           </div>
                         </div>
                         {/* TABLE HERE */}
-                        {records && records.length > 0 ?
-                          <section className={Style.alertTable}>
+                        {userType == 'Admin' ?
+                          (records && records.length > 0 ?
+                            <section className={Style.alertTable}>
 
-                            <div>
-                              {records &&
-                                records
-                                  .filter(
-                                    (item, index) =>
-                                      records.findIndex(
-                                        (obj) => obj.deviceId === item.deviceId
-                                      ) === index
-                                  )
-                                  .map((item, _id) => {
-                                    return (
-                                      <React.Fragment key={_id}>
-                                        <section className={Style.tableBody}>
-                                          <section
-                                            className={Style.insideTextData}
-                                          >
-                                            {item.deviceId}
-                                          </section>
-                                          <section
-                                            className={Style.insideTextData}
-                                          >
-                                            {item.message == "ACTIVE" ? (
+                              <div>
+                                {records &&
+                                  records
+                                    .filter(
+                                      (item, index) =>
+                                        records.findIndex(
+                                          (obj) => obj.deviceId === item.deviceId
+                                        ) === index
+                                    )
+                                    .map((item, _id) => {
+                                      return (
+                                        <React.Fragment key={_id}>
+                                          <section className={Style.tableBody}>
+                                            <section
+                                              className={Style.insideTextData}
+                                            >
+                                              {item.deviceId}
+                                            </section>
+                                            <section
+                                              className={Style.insideTextData}
+                                            >
+                                              {item.message == "ACTIVE" ? (
+                                                <>
+                                                  <svg
+                                                    width="40px"
+                                                    height="35px"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    stroke="#11ac14"
+                                                  >
+                                                    <g id="SVGRepo_iconCarrier">
+                                                      <path
+                                                        d="M12 9.5C13.3807 9.5 14.5 10.6193 14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5Z"
+                                                        fill="#11ac14"
+                                                      ></path>
+                                                    </g>
+                                                  </svg>
+                                                </>
+                                              ) : item.message == "INACTIVE" ? (
+                                                <>
+                                                  <svg
+                                                    width="40px"
+                                                    height="40px"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    stroke="#ffbf00"
+                                                  >
+                                                    <g
+                                                      id="SVGRepo_bgCarrier"
+                                                      stroke-width="0"
+                                                    ></g>
+                                                    <g
+                                                      id="SVGRepo_tracerCarrier"
+                                                      stroke-linecap="round"
+                                                      stroke-linejoin="round"
+                                                    ></g>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                      {" "}
+                                                      <path
+                                                        d="M12 9.5C13.3807 9.5 14.5 10.6193 14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5Z"
+                                                        fill="#ffbf00"
+                                                      ></path>{" "}
+                                                    </g>
+                                                  </svg>
+                                                </>
+                                              ) : (
+                                                ""
+                                              )}
+                                            </section>
+                                            {regDetail &&
+                                              regDetail.data
+                                                .filter(
+                                                  (item1, index) =>
+                                                    regDetail.data.findIndex(
+                                                      (item1) =>
+                                                        item.deviceId ===
+                                                        item1.DeviceId
+
+                                                    ) === index
+                                                )
+                                                .map((item1, _id) => {
+
+                                                  return (
+                                                    <React.Fragment key={_id}>
+                                                      <section
+                                                        className={Style.insideTextData}
+                                                      >
+                                                        {item1.Department_Name}
+                                                      </section>
+                                                      <section
+                                                        className={Style.insideTextData}
+                                                      >
+                                                        {item1.Hospital_Name}
+                                                      </section>
+                                                      <section
+                                                        className={Style.insideTextData}
+                                                      >
+                                                        {item1.Ward_No}
+                                                      </section>
+                                                      <section
+                                                        className={Style.insideTextData}
+                                                      >
+                                                        {item1.Doctor_Name}
+                                                      </section>
+                                                      <section
+                                                        className={Style.insideTextData}
+                                                      >
+                                                        {item1.Bio_Med}
+                                                      </section>
+                                                      <section
+                                                      >
+                                                        {/* Update */}
+                                                        {/* {regDetail && regDetail.data && regDetail.data.length > 0? */}
+
+                                                        {adminInfo &&
+                                                          adminInfo.data &&
+                                                          adminInfo.data
+                                                            .userType === "Admin"
+                                                          ? <button
+                                                            className={Style.moreBtn}
+                                                            title='Edit'
+                                                            onClick={(e) => {
+                                                              setModalShow1(true);
+                                                              dispatch(getSingleDeviceIdDetails(item1.DeviceId))
+                                                              { localStorage.setItem('item1', JSON.stringify(item1)) }
+                                                            }}
+                                                          >
+                                                            Edit
+                                                          </button> : " "}
+                                                        {/* : " "} */}
+                                                        <UpdateDetailsModal
+                                                          show={modalShow1}
+                                                          onHide={() => setModalShow1(false)}
+                                                          {...item1}
+                                                          devicdId={item.deviceId}
+                                                        />
+                                                        <button
+                                                          title="Next"
+                                                          className={Style.moreBtn}
+                                                          onClick={() => {
+                                                            navigate(
+                                                              `/deviceOverview?code=${code}&projectName=${projectName}&DeviceId=${item.deviceId}`
+                                                            );
+                                                            {
+                                                              item1;
+                                                            }
+                                                            {
+                                                              localStorage.setItem(
+                                                                "item1",
+                                                                JSON.stringify(
+                                                                  item1
+                                                                )
+                                                              );
+                                                            }
+                                                            {
+                                                              localStorage.setItem(
+                                                                "message",
+                                                                JSON.stringify(
+                                                                  item.message
+                                                                )
+                                                              );
+                                                            }
+                                                            {
+                                                              localStorage.setItem(
+                                                                "health",
+                                                                JSON.stringify(
+                                                                  item.health
+                                                                )
+                                                              );
+                                                            }
+                                                            {
+                                                              localStorage.setItem(
+                                                                "address",
+                                                                JSON.stringify(
+                                                                  item.address
+                                                                )
+                                                              );
+                                                            }
+                                                            {
+                                                              localStorage.setItem(
+                                                                "last_hours",
+                                                                JSON.stringify(
+                                                                  item.last_hours
+                                                                )
+                                                              );
+                                                            }
+                                                            {
+                                                              localStorage.setItem(
+                                                                "total_hours",
+                                                                JSON.stringify(
+                                                                  item.total_hours
+                                                                )
+                                                              );
+                                                            }
+                                                            {
+                                                              localStorage.setItem(
+                                                                "Department_Name",
+                                                                JSON.stringify(
+                                                                  item1.Department_Name
+                                                                )
+                                                              );
+                                                            }
+                                                            {
+                                                              localStorage.setItem(
+                                                                "Hospital_Name",
+                                                                JSON.stringify(
+                                                                  item1.Hospital_Name
+                                                                )
+                                                              );
+                                                            }
+                                                            {
+                                                              localStorage.setItem(
+                                                                "Doctor_Name",
+                                                                JSON.stringify(
+                                                                  item1.Doctor_Name
+                                                                )
+                                                              );
+                                                            }
+                                                            {
+                                                              localStorage.setItem(
+                                                                "Ward_No",
+                                                                JSON.stringify(
+                                                                  item1.Ward_No
+                                                                )
+                                                              );
+                                                            }
+                                                            {
+                                                              localStorage.setItem(
+                                                                "IMEI_NO",
+                                                                JSON.stringify(
+                                                                  item1.IMEI_NO
+                                                                )
+                                                              );
+                                                            }
+                                                            {
+                                                              localStorage.setItem(
+                                                                "Bio_Med",
+                                                                JSON.stringify(
+                                                                  item1.Bio_Med
+                                                                )
+                                                              );
+                                                            }
+                                                          }}
+                                                        >
+                                                          {adminInfo &&
+                                                            adminInfo.data &&
+                                                            adminInfo.data
+                                                              .userType === "Admin"
+                                                            ? "More"
+                                                            : "View"}
+                                                        </button>
+
+                                                      </section>
+                                                    </React.Fragment>
+                                                  );
+                                                })}
+                                            {/* Register Button */}
+                                            {adminInfo &&
+                                              adminInfo.data &&
+                                              adminInfo.data.userType ===
+                                              "Admin" ? (
                                               <>
-                                                <svg
-                                                  width="40px"
-                                                  height="35px"
-                                                  viewBox="0 0 24 24"
-                                                  fill="none"
-                                                  xmlns="http://www.w3.org/2000/svg"
-                                                  stroke="#11ac14"
-                                                >
-                                                  <g id="SVGRepo_iconCarrier">
-                                                    <path
-                                                      d="M12 9.5C13.3807 9.5 14.5 10.6193 14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5Z"
-                                                      fill="#11ac14"
-                                                    ></path>
-                                                  </g>
-                                                </svg>
-                                              </>
-                                            ) : item.message == "INACTIVE" ? (
-                                              <>
-                                                <svg
-                                                  width="40px"
-                                                  height="40px"
-                                                  viewBox="0 0 24 24"
-                                                  fill="none"
-                                                  xmlns="http://www.w3.org/2000/svg"
-                                                  stroke="#ffbf00"
-                                                >
-                                                  <g
-                                                    id="SVGRepo_bgCarrier"
-                                                    stroke-width="0"
-                                                  ></g>
-                                                  <g
-                                                    id="SVGRepo_tracerCarrier"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                  ></g>
-                                                  <g id="SVGRepo_iconCarrier">
-                                                    {" "}
-                                                    <path
-                                                      d="M12 9.5C13.3807 9.5 14.5 10.6193 14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5Z"
-                                                      fill="#ffbf00"
-                                                    ></path>{" "}
-                                                  </g>
-                                                </svg>
+                                                {regDetail && regDetail.data ?
+                                                  <button
+                                                    className={Style.regButton}
+                                                    title="Register"
+                                                    onClick={() => {
+                                                      setModalShow(true);
+                                                      {
+                                                        item;
+                                                      }
+                                                      localStorage.setItem(
+                                                        "DeviceId",
+                                                        JSON.stringify(
+                                                          item.deviceId
+                                                        )
+                                                      );
+                                                    }}
+                                                  >
+                                                    Register
+                                                  </button>
+                                                  : " "}
+                                                <EditDetailsModal
+                                                  show={modalShow}
+                                                  onHide={() =>
+                                                    setModalShow(false)
+                                                  }
+                                                  {...item}
+                                                  item={JSON.parse(
+                                                    localStorage.getItem(
+                                                      "DeviceId"
+                                                    )
+                                                  )}
+                                                />
                                               </>
                                             ) : (
                                               ""
                                             )}
                                           </section>
-                                          {regDetail &&
-                                            regDetail.data
-                                              .filter(
-                                                (item1, index) =>
-                                                  regDetail.data.findIndex(
-                                                    (item1) =>
-                                                      item.deviceId ===
-                                                      item1.DeviceId
+                                        </React.Fragment>
+                                      );
+                                    })}
+                              </div>
+                            </section>
+                            :
+                            <section style={{ width: '100%', height: '100%', marginTop: '10rem', marginBottom: '10rem' }}>
+                              {records && records.length == 0 && (
+                                <section className={Style.noDataFound}>
+                                  <span>
+                                    No Data Found
+                                  </span>
+                                </section>
+                              )}
+                            </section>)
 
-                                                  ) === index
-                                              )
-                                              .map((item1, _id) => {
-
-                                                return (
-                                                  <React.Fragment key={_id}>
-                                                    <section
-                                                      className={Style.insideTextData}
-                                                    >
-                                                      {item1.Department_Name}
-                                                    </section>
-                                                    <section
-                                                      className={Style.insideTextData}
-                                                    >
-                                                      {item1.Hospital_Name}
-                                                    </section>
-                                                    <section
-                                                      className={Style.insideTextData}
-                                                    >
-                                                      {item1.Ward_No}
-                                                    </section>
-                                                    <section
-                                                      className={Style.insideTextData}
-                                                    >
-                                                      {item1.Doctor_Name}
-                                                    </section>
-                                                    <section
-                                                      className={Style.insideTextData}
-                                                    >
-                                                      {item1.Bio_Med}
-                                                    </section>
-                                                    <section
-                                                    >
-                                                      {/* Update */}
-                                                      {/* {regDetail && regDetail.data && regDetail.data.length > 0? */}
-
-                                                      {adminInfo &&
-                                                        adminInfo.data &&
-                                                        adminInfo.data
-                                                          .userType === "Admin"
-                                                        ? <button
-                                                          className={Style.moreBtn}
-                                                          title='Edit'
-                                                          onClick={(e) => {
-                                                            setModalShow1(true);
-                                                            dispatch(getSingleDeviceIdDetails(item1.DeviceId))
-                                                            { localStorage.setItem('item1', JSON.stringify(item1)) }
-                                                          }}
-                                                        >
-                                                          Edit
-                                                        </button> : " "}
-                                                      {/* : " "} */}
-                                                      <UpdateDetailsModal
-                                                        show={modalShow1}
-                                                        onHide={() => setModalShow1(false)}
-                                                        {...item1}
-                                                        devicdId={item.deviceId}
-                                                      />
-                                                      <button
-                                                        title="Next"
-                                                        className={Style.moreBtn}
-                                                        onClick={() => {
-                                                          navigate(
-                                                            `/deviceOverview?code=${code}&projectName=${projectName}&DeviceId=${item.deviceId}`
-                                                          );
-                                                          {
-                                                            item1;
-                                                          }
-                                                          {
-                                                            localStorage.setItem(
-                                                              "item1",
-                                                              JSON.stringify(
-                                                                item1
-                                                              )
-                                                            );
-                                                          }
-                                                          {
-                                                            localStorage.setItem(
-                                                              "message",
-                                                              JSON.stringify(
-                                                                item.message
-                                                              )
-                                                            );
-                                                          }
-                                                          {
-                                                            localStorage.setItem(
-                                                              "health",
-                                                              JSON.stringify(
-                                                                item.health
-                                                              )
-                                                            );
-                                                          }
-                                                          {
-                                                            localStorage.setItem(
-                                                              "address",
-                                                              JSON.stringify(
-                                                                item.address
-                                                              )
-                                                            );
-                                                          }
-                                                          {
-                                                            localStorage.setItem(
-                                                              "last_hours",
-                                                              JSON.stringify(
-                                                                item.last_hours
-                                                              )
-                                                            );
-                                                          }
-                                                          {
-                                                            localStorage.setItem(
-                                                              "total_hours",
-                                                              JSON.stringify(
-                                                                item.total_hours
-                                                              )
-                                                            );
-                                                          }
-                                                          {
-                                                            localStorage.setItem(
-                                                              "Department_Name",
-                                                              JSON.stringify(
-                                                                item1.Department_Name
-                                                              )
-                                                            );
-                                                          }
-                                                          {
-                                                            localStorage.setItem(
-                                                              "Hospital_Name",
-                                                              JSON.stringify(
-                                                                item1.Hospital_Name
-                                                              )
-                                                            );
-                                                          }
-                                                          {
-                                                            localStorage.setItem(
-                                                              "Doctor_Name",
-                                                              JSON.stringify(
-                                                                item1.Doctor_Name
-                                                              )
-                                                            );
-                                                          }
-                                                          {
-                                                            localStorage.setItem(
-                                                              "Ward_No",
-                                                              JSON.stringify(
-                                                                item1.Ward_No
-                                                              )
-                                                            );
-                                                          }
-                                                          {
-                                                            localStorage.setItem(
-                                                              "IMEI_NO",
-                                                              JSON.stringify(
-                                                                item1.IMEI_NO
-                                                              )
-                                                            );
-                                                          }
-                                                          {
-                                                            localStorage.setItem(
-                                                              "Bio_Med",
-                                                              JSON.stringify(
-                                                                item1.Bio_Med
-                                                              )
-                                                            );
-                                                          }
-                                                        }}
-                                                      >
-                                                        {adminInfo &&
-                                                          adminInfo.data &&
-                                                          adminInfo.data
-                                                            .userType === "Admin"
-                                                          ? "More"
-                                                          : "View"}
-                                                      </button>
-
-                                                    </section>
-                                                  </React.Fragment>
-                                                );
-                                              })}
-                                          {/* Register Button */}
-                                          {adminInfo &&
-                                            adminInfo.data &&
-                                            adminInfo.data.userType ===
-                                            "Admin" ? (
-                                            <>
-                                              {regDetail && regDetail.data ?
-                                                <button
-                                                  className={Style.regButton}
-                                                  title="Register"
-                                                  onClick={() => {
-                                                    setModalShow(true);
-                                                    {
-                                                      item;
-                                                    }
-                                                    localStorage.setItem(
-                                                      "DeviceId",
-                                                      JSON.stringify(
-                                                        item.deviceId
-                                                      )
-                                                    );
-                                                  }}
-                                                >
-                                                  Register
-                                                </button>
-                                                : " "}
-                                              <EditDetailsModal
-                                                show={modalShow}
-                                                onHide={() =>
-                                                  setModalShow(false)
-                                                }
-                                                {...item}
-                                                item={JSON.parse(
-                                                  localStorage.getItem(
-                                                    "DeviceId"
-                                                  )
-                                                )}
-                                              />
-                                            </>
-                                          ) : (
-                                            ""
-                                          )}
-                                        </section>
-                                      </React.Fragment>
-                                    );
-                                  })}
-                            </div>
-                          </section>
                           :
-                          <section style={{ width: '100%', height: '100%', marginTop: '10rem', marginBottom: '10rem' }}>
-                            {records && records.length == 0 && (
-                              <section className={Style.noDataFound}>
-                                <span>
-                                  No Data Found
-                                </span>
-                              </section>
-                            )}
-                          </section>
+                          (records && records.length > 0 ?
+                            <section className={Style.alertTable}>
+                              <div>
+                                {records &&
+                                  records
+                                    .map((item, _id) => {
+                                      return (
+                                        <React.Fragment key={_id}>
+                                          <section className={Style.tableBody}>
+                                            <section
+                                              className={Style.insideTextData}
+                                            >
+                                              {item.DeviceId}
+                                            </section>
+                                            <section
+                                              className={Style.insideTextData}
+                                            >
+                                              {item.Status == "ACTIVE" ? (
+                                                <>
+                                                  <svg
+                                                    width="40px"
+                                                    height="35px"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    stroke="#11ac14"
+                                                  >
+                                                    <g id="SVGRepo_iconCarrier">
+                                                      <path
+                                                        d="M12 9.5C13.3807 9.5 14.5 10.6193 14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5Z"
+                                                        fill="#11ac14"
+                                                      ></path>
+                                                    </g>
+                                                  </svg>
+                                                </>
+                                              ) : item.Status == "INACTIVE" ? (
+                                                <>
+                                                  <svg
+                                                    width="40px"
+                                                    height="40px"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    stroke="#ffbf00"
+                                                  >
+                                                    <g
+                                                      id="SVGRepo_bgCarrier"
+                                                      stroke-width="0"
+                                                    ></g>
+                                                    <g
+                                                      id="SVGRepo_tracerCarrier"
+                                                      stroke-linecap="round"
+                                                      stroke-linejoin="round"
+                                                    ></g>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                      {" "}
+                                                      <path
+                                                        d="M12 9.5C13.3807 9.5 14.5 10.6193 14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5Z"
+                                                        fill="#ffbf00"
+                                                      ></path>{" "}
+                                                    </g>
+                                                  </svg>
+                                                </>
+                                              ) : (
+                                                ""
+                                              )}
+                                            </section>
+                                            <section
+                                              className={Style.insideTextData}
+                                            >
+                                              {item.Department_Name}
+                                            </section>
+                                            <section
+                                              className={Style.insideTextData}
+                                            >
+                                              {item.Hospital_Name}
+                                            </section>
+                                            <section
+                                              className={Style.insideTextData}
+                                            >
+                                              {item.Ward_No}
+                                            </section>
+                                            <section
+                                              className={Style.insideTextData}
+                                            >
+                                              {item.Doctor_Name}
+                                            </section>
+                                            <section
+                                              className={Style.insideTextData}
+                                            >
+                                              {item.Bio_Med}
+                                            </section>
+                                            {/* Next Button */}
+                                            <button
+                                              title="Details"
+                                              className={Style.moreBtn}
+                                              onClick={() => {
+                                                navigate(
+                                                  `/deviceOverview?code=${code}&projectName=${projectName}&DeviceId=${item.DeviceId}`
+                                                );
+                                                {
+                                                  item;
+                                                }
+                                                {
+                                                  localStorage.setItem(
+                                                    "item1",
+                                                    JSON.stringify(
+                                                      item
+                                                    )
+                                                  );
+                                                }
+                                                {
+                                                  localStorage.setItem(
+                                                    "message",
+                                                    JSON.stringify(
+                                                      item.Status
+                                                    )
+                                                  );
+                                                }
+                                                {
+                                                  localStorage.setItem(
+                                                    "health",
+                                                    JSON.stringify(
+                                                      item.health
+                                                    )
+                                                  );
+                                                }
+                                                {
+                                                  localStorage.setItem(
+                                                    "address",
+                                                    JSON.stringify(
+                                                      item.address
+                                                    )
+                                                  );
+                                                }
+                                                {
+                                                  localStorage.setItem(
+                                                    "last_hours",
+                                                    JSON.stringify(
+                                                      item.last_hours
+                                                    )
+                                                  );
+                                                }
+                                                {
+                                                  localStorage.setItem(
+                                                    "total_hours",
+                                                    JSON.stringify(
+                                                      item.total_hours
+                                                    )
+                                                  );
+                                                }
+                                                {
+                                                  localStorage.setItem(
+                                                    "Department_Name",
+                                                    JSON.stringify(
+                                                      item.Department_Name
+                                                    )
+                                                  );
+                                                }
+                                                {
+                                                  localStorage.setItem(
+                                                    "Hospital_Name",
+                                                    JSON.stringify(
+                                                      item.Hospital_Name
+                                                    )
+                                                  );
+                                                }
+                                                {
+                                                  localStorage.setItem(
+                                                    "Doctor_Name",
+                                                    JSON.stringify(
+                                                      item.Doctor_Name
+                                                    )
+                                                  );
+                                                }
+                                                {
+                                                  localStorage.setItem(
+                                                    "Ward_No",
+                                                    JSON.stringify(
+                                                      item.Ward_No
+                                                    )
+                                                  );
+                                                }
+                                                {
+                                                  localStorage.setItem(
+                                                    "IMEI_NO",
+                                                    JSON.stringify(
+                                                      item.IMEI_NO
+                                                    )
+                                                  );
+                                                }
+                                                {
+                                                  localStorage.setItem(
+                                                    "Bio_Med",
+                                                    JSON.stringify(
+                                                      item.Bio_Med
+                                                    )
+                                                  );
+                                                }
+                                              }}
+                                            >
+                                              View
+                                            </button>
+                                          </section>
+                                        </React.Fragment>
+                                      );
+                                    })}
+                              </div>
+                            </section>
+                            :
+                            <section style={{ width: '100%', height: '100%', marginTop: '10rem', marginBottom: '10rem' }}>
+                              {records && records.length == 0 && (
+                                <section className={Style.noDataFound}>
+                                  <span>
+                                    No Data Found
+                                  </span>
+                                </section>
+                              )}
+                            </section>)
                         }
                         {loading && <SpinnerCustom />}
                       </section>

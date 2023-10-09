@@ -1,6 +1,6 @@
 .insideOuterTable {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
     width: 100%;
     background: 0% 0% no-repeat padding-box #cb297b;
@@ -9,7 +9,15 @@
     height: fit-content;
     padding: 1rem;
 }
-
+.insideOuterDataTable{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    border-radius: 20px 20px 0px 0px;
+    height: fit-content;
+    padding: 1rem;
+}
 .deviceDataText {
     display: grid;
     padding: 10px;

@@ -350,25 +350,16 @@ const Register = () => {
                         <img src={User} style={{ width: "1.2rem" }} />
                       </span>
                       <span style={{ color: "black" }}>|</span>
-                      <select className="form-select" aria-label="Default select example" style={{ padding: "4px", border: "0px", width: "100%" }}
-                        onChange={(e) => countryChange(e)}
-                      >
-                        <option value="">{!name ? CountryValid : name}</option>
-                        {getAllCountryData.map((item) => {
-                          return (<>
-                            <option
-                              style={{ padding: "4px", border: "0px", width: "100%" }}
-                              value={item.name}
-                            >
-                              {item.name}
-                            </option>
-                          </>
+                      <input list="countryName" style={{ padding: '0.3rem' }} placeholder='Enter Name' onChange={(e) => countryChange(e)} />
+                      <datalist id='countryName' className={Style.textInputDetails} onChange={(e) => countryChange(e)} >
+                        {getAllCountryData && getAllCountryData.map((item) => {
+                          return (
+                            <option>{item.name}</option>
                           )
                         })}
-                      </select>
 
+                      </datalist>
                     </div>
-
                   </div>
                   {/* State Section */}
                   <div className={Style.inside_formDiv}>
@@ -392,10 +383,11 @@ const Register = () => {
 
                         </select>
                       </> :
-                        <select id="data" style={{ padding: "4px", border: "0px", width: "100%" }}
+                      <>
+                      <input list="stateName" style={{ padding: '0.3rem' }} placeholder='Enter State' onChange={(e) => stateChange(e)} />
+                        <datalist id='stateName' style={{ padding: "4px", border: "0px", width: "100%" }}
                           onClick={(e) => stateChange(e)
                           }>
-                          <option>{!State ? StatusValid : State}</option>
                           {stateData && stateData.map((item) => {
                             return (
                               <option
@@ -405,7 +397,9 @@ const Register = () => {
                               </option>
                             )
                           })}
-                        </select>}
+                        </datalist>
+                        </>
+                        }
                     </div>
                   </div>
                 </div>
@@ -429,20 +423,21 @@ const Register = () => {
                         <option>-- Select Hospital Name --</option>
                       </select>
                     </> :
-                      <select style={{ padding: "4px", border: "0px", width: "100%" }}
+                    <>
+                    <input list="hospitalName" style={{ padding: '0.3rem' }} placeholder='Enter State' onChange={(e) => hospitalChange(e)} />
+                      <datalist id='hospitalName' style={{ padding: "4px", border: "0px", width: "100%" }}
                         onClick={(e) => hospitalChange(e)}>
-                        <option>{!hospitalName ? hospitalValid : hospitalName}</option>
                         {hospitalData && hospitalData.length > 0 ? hospitalData && hospitalData.map((item) => {
                           return (
                             <option
                               style={{ padding: "4px", border: "0px", width: "100%" }}
-                              placeholder="-- Enter Hospital Name --"
                             >
                               {item.Hospital_Name}
                             </option>
                           )
                         }) : " No Data Found"}
-                      </select>
+                      </datalist>
+                      </>
                     }
                   </div>
                 </div>
