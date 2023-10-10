@@ -82,7 +82,7 @@ export const getAllHospitalData = () => async (dispatch) => {
   }
 };
 
-export const putallStoreDataAction = ({ deviceId, service_engineer, hospital_name, details, concerned_p_contact , issues}) => async (dispatch) => {
+export const putallStoreDataAction = ({ deviceId, service_engineer, hospital_name, details, concerned_p_contact , issues, address, priority}) => async (dispatch) => {
   try {
     dispatch({
       type: PUT_ALL_STORE_DATA_REQUEST,
@@ -102,7 +102,9 @@ export const putallStoreDataAction = ({ deviceId, service_engineer, hospital_nam
         hospital_name,
         details,
         concerned_p_contact,
-        issues
+        issues,
+        address,
+        priority
       },
       config
     );
