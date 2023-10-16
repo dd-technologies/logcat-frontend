@@ -40,7 +40,10 @@ import {
   GET_SINGLE_DEVICEID_FAIL,
   GET_SINGLE_DEVICEIDBY_USERID_SUCCESS,
   GET_SINGLE_DEVICEIDBY_USERID_REQUEST,
-  GET_SINGLE_DEVICEIDBY_USERID_FAIL
+  GET_SINGLE_DEVICEIDBY_USERID_FAIL,
+  GET_SINGLE_UPLOAD_FILE_REQUEST,
+  GET_SINGLE_UPLOAD_FILE_SUCCESS,
+  GET_SINGLE_UPLOAD_FILE_FAIL
 } from "../types/DeviceConstant";
 
 export const deviceReducer = (state = {}, action) => {
@@ -311,6 +314,26 @@ export const getAllSectionByDeviceId = (state = {}, action) => {
         data: action.payload,
       }
     case GET_SINGLE_DEVICEID_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
+    default:
+      return state;
+  }
+}
+
+export const getSingleUploadFileReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_SINGLE_UPLOAD_FILE_REQUEST:
+      return { loading: true };
+
+    case GET_SINGLE_UPLOAD_FILE_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+      }
+    case GET_SINGLE_UPLOAD_FILE_FAIL:
       return {
         loading: false,
         error: action.payload,

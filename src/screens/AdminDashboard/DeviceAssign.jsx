@@ -4,42 +4,81 @@ import SideBar from "../../utils/Sidebar";
 import back from "../../assets/images/back.png";
 import { Link, useNavigate } from "react-router-dom";
 import Style from "../../css/DeviceAssign.module.css";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import TableCard1 from "../../container/TableCard1";
-import {getAllUsersDetalisById } from "../../store/action/AdminDashboard";
+import { getAllUsersDetalisById } from "../../store/action/AdminDashboard";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import Model from "./Model";
-
+import { Button, Modal } from 'flowbite-react';
+import { Toaster, toast } from "react-hot-toast";
+import { deviceAssignAction } from "../../store/action/AdminDashboard";
+import { getRegisteredDetailsById } from "../../store/action/DeviceAction";
 // import { toast, Toaster } from "react-hot-toast";
 function DeviceAssign() {
   const [userId, setUserId] = useState("");
+  const [openModal, setOpenModal] = useState()
+  const props = { openModal, setOpenModal };
+
   const allUsersDetailsReducer = useSelector(
     (state) => state.allUsersDetailsReducer
   );
   const { data } = allUsersDetailsReducer;
   const registerUsers = data && data.data;
   const registerUsersId = registerUsers;
-  const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getAllUsersDetalisById());
-  // }, []);
+
   const [isOpen, setIsOpen] = useState(false);
-  const navigate=useNavigate()
-  console.log("registerUsers",registerUsers)
+  const navigate = useNavigate()
+  console.log("registerUsers", registerUsers)
 
 
-const incPage=parseInt(data && data.currentPage)
-const totalPage=parseInt(data && data.totalPages)
-const [currentPage, setCurrentPage] = useState(1)
-const recordsPerPage = 4;
-const lastIndex = currentPage * recordsPerPage;
-const firstIndex = lastIndex - recordsPerPage;
-const records = registerUsersId && registerUsersId.slice(firstIndex, lastIndex);
-const npage = Math.ceil(registerUsersId && registerUsersId.length / recordsPerPage)
-const numbers = Array.from({ length: npage }, (_, i) => i + 1).slice(1)
+  const incPage = parseInt(data && data.currentPage)
+  const totalPage = parseInt(data && data.totalPages)
+  const [currentPage, setCurrentPage] = useState(1)
+  const recordsPerPage = 6;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const records = registerUsersId && registerUsersId.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(registerUsersId && registerUsersId.length / recordsPerPage)
+  const numbers = Array.from({ length: npage }, (_, i) => i + 1).slice(1)
+  useEffect(() => {
+    dispatch(getAllUsersDetalisById({ page: 1, limit: recordsPerPage }));
+  }, []);
 
+  const getRegisteredDetailsReducer = useSelector(
+    (state) => state.getRegisteredDetailsReducer
+  );
+  const { data12 } = getRegisteredDetailsReducer;
+  let regDetail = data12;
+  const dispatch = useDispatch();
+  const [selectId, setSelectId] = useState([]);
+  const assignBtn = (e) => {
+    if (!selectId.length) {
+      toast.error("Select DeviceId");
+    } else {
+      dispatch(deviceAssignAction({  DeviceId: selectId }));
+      toast.success("Success");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    }
+  };
+  useEffect(() => {
+    dispatch(getRegisteredDetailsById());
+  }, []);
+  const handleChange = (e) => {
+    const { value, checked } = e.target;
+
+    if (checked) {
+      // Add the value to the array if the checkbox is checked
+      setSelectId([...selectId, value]);
+    } else {
+      // Remove the value from the array if the checkbox is unchecked
+      setSelectId(selectId.filter((item) => item !== value));
+    }
+  };
+  console.log("regDetail.data", regDetail)
   return (
     <>
       <Navbar />
@@ -107,50 +146,48 @@ const numbers = Array.from({ length: npage }, (_, i) => i + 1).slice(1)
                                 index: index,
                               };
                             })
-                            .filter((proj) => {
-                              return proj.entry.userType === "User";
-                            })
-                            .map((proj,_id) => {
-                              var firstname = proj.entry.firstName;
-                              var name = firstname + " " + proj.entry.lastName;
-                              return (
-                                <React.Fragment key={_id}>
-                                  <div className={Style.tableBody}>
-                                    <div className={Style.insideTableBody}>
-                                      {name}
-                                    </div>
-                                    <div className={Style.insideTableBody}>
-                                      {proj.entry.email}
-                                    </div>
-                                    <div className={Style.insideTableBody}>
-                                      {proj.entry.hospitalName}
-                                    </div>
-                                    <div>
-                                      <button
-                                        className={Style.adminbtn}
-                                        onClick={() =>
-                                          setIsOpen(true, setUserId(proj.entry._id))
-                                        }
-                                      >
-                                        Assign
-                                      </button>
-                                      <button
-                                        className={Style.adminbtn}
-                                        onClick={() =>
-                                          {
-                                            navigate(`/deleteAssignDevice?userId=${proj.entry._id}`)
-                                            // localStorage.setItem("userid",item1._id)
+                              .filter((proj) => {
+                                return proj.entry.userType === "User";
+                              })
+                              .map((proj, _id) => {
+                                var firstname = proj.entry.firstName;
+                                var name = firstname + " " + proj.entry.lastName;
+                                return (
+                                  <React.Fragment key={_id}>
+                                    <div className={Style.tableBody}>
+                                      <div className={Style.insideTableBody}>
+                                        {name}
+                                      </div>
+                                      <div className={Style.insideTableBody}>
+                                        {proj.entry.email}
+                                      </div>
+                                      <div className={Style.insideTableBody}>
+                                        {proj.entry.hospitalName}
+                                      </div>
+                                      <div style={{display:'flex',flexDirection:'column',gap:'2rem',alignItems:'center'}}>
+                                        <button
+                                          className={Style.adminbtn}
+                                          onClick={() =>
+                                            setIsOpen(true, setUserId(proj.entry._id))
                                           }
-                                       
-                                        }
-                                      >
-                                        View
-                                      </button>
+                                        >
+                                          Assign
+                                        </button>
+                                        <button
+                                          className={Style.viewbtn}
+                                          onClick={() => {
+                                            navigate(`/deleteAssignDevice?userId=${proj.entry._id}`)
+                                          }
+
+                                          }
+                                        >
+                                          View
+                                        </button>
+                                      </div>
                                     </div>
-                                  </div>
-                                </React.Fragment>
-                              );
-                            })}
+                                  </React.Fragment>
+                                );
+                              })}
                           <Model
                             _id={userId}
                             open={isOpen}
@@ -168,20 +205,20 @@ const numbers = Array.from({ length: npage }, (_, i) => i + 1).slice(1)
             className="left_arrow" style={{ display: "flex", justifyContent: "flex-end" }}
           >
             <nav aria-label="Page navigation example">
-              <ul class="pagination justify-content-end" style={{display:"flex",alignItems:'center'}}>
-                {incPage > 1 ? 
-                <Link onClick={prePage}>
-                  <img src={back} style={{ width: "3rem" }} />
-                </Link>
-                :" "}
+              <ul class="pagination justify-content-end" style={{ display: "flex", alignItems: 'center' }}>
+                {incPage > 1 ?
+                  <Link onClick={prePage}>
+                    <img src={back} style={{ width: "3rem" }} />
+                  </Link>
+                  : " "}
                 {numbers.map((n, i) => (
-                  <li key={i} class={`page-item ${incPage == n ? 'active' : ""}`}><a style={{borderRadius:"100px",margin:"5px"} }class="page-link" href="#" onClick={() => changeCPage(n)}>{n}</a></li>
+                  <li key={i} class={`page-item ${incPage == n ? 'active' : ""}`}><a style={{ borderRadius: "100px", margin: "5px" }} class="page-link" href="#" onClick={() => changeCPage(n)}>{n}</a></li>
                 ))}
                 {incPage !== totalPage ?
-                <Link onClick={nextPage}>
-                  <img src={back} style={{ width: "3rem", transform: "rotate(180deg)" }} />
-                </Link>
-                : " "}
+                  <Link onClick={nextPage}>
+                    <img src={back} style={{ width: "3rem", transform: "rotate(180deg)" }} />
+                  </Link>
+                  : " "}
               </ul>
             </nav>
           </div>
@@ -189,15 +226,15 @@ const numbers = Array.from({ length: npage }, (_, i) => i + 1).slice(1)
       </div>
     </>
   );
-function prePage() {
-    dispatch(getAllUsersDetalisById({page:incPage-1,limit:recordsPerPage}))
-}
-function changeCPage(id) {
-  setCurrentPage(id)
-}
-function nextPage() {
-  dispatch(getAllUsersDetalisById({page:incPage+1,limit:recordsPerPage}))
-}
+  function prePage() {
+    dispatch(getAllUsersDetalisById({ page: incPage - 1, limit: recordsPerPage }))
+  }
+  function changeCPage(id) {
+    setCurrentPage(id)
+  }
+  function nextPage() {
+    dispatch(getAllUsersDetalisById({ page: incPage + 1, limit: recordsPerPage }))
+  }
 }
 
 export default DeviceAssign;

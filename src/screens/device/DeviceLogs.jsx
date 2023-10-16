@@ -22,63 +22,15 @@ import Calibration from "../device/components/table/Calibration"
 // import download from "../../assets/images/download.png"
 
 export default function DeviceLogs() {
-  const { theme } = React.useContext(ThemeContext);
+  // const { theme } = React.useContext(ThemeContext);
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get('code');
-  // console.log('code', code)
-  const projectName = urlParams.get('projectName');
-  // console.log(projectName)
   const did = urlParams.get('DeviceId')
-  //Navigation bar ==================================
-  const navigation_details = {
-    name: projectName,
-    dashName: projectName,
-    link1: {
-      iconName: faDatabase,
-      linkName: 'Logs',
-      link: `/log_table?code=${code}&name=${projectName}`,
-    },
-    link2: {
-      iconName: faDatabase,
-      linkName: 'Settings',
-    },
-    link3: {
-      iconName: faDatabase,
-      linkName: "Alarms"
-    },
-    link4: {
-      iconName: faDatabase,
-      linkName: "Events"
-    }
-  };
-
-  const sidebar_details = {
-    name: projectName,
-    dashName: projectName,
-    link1: {
-      iconName: LogICon,
-      linkName: 'Logs',
-      link: `/log_table?code=${code}&name=${projectName}`,
-    },
-    link2: {
-      iconName: AlarmIcon,
-      linkName: 'Settings',
-      link: `/settings?code=${code}&name=${projectName}`,
-    },
-    link3: {
-      iconName: AlarmIcon,
-      linkName: 'alarm',
-      link: `/alarm?code=${code}&name=${projectName}`,
-    },
-    link4: {
-      iconName: `/assets/images/AlarmIcon.png`,
-      linkName: "Events",
-      link: `/events?code=${code}&name=${projectName}`, 
-    },
-  };
-
+  const getAllSectionByDeviceId = useSelector((state) => state.getAllSectionByDeviceId);
+  const { loading, data } = getAllSectionByDeviceId;
+  const deviceLogsData=data && data.data
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
@@ -126,10 +78,6 @@ export default function DeviceLogs() {
       setCaliberationbtn('btn-light')
     }
   };
-  const item = localStorage.getItem('Status');
-  // console.log('first', item)
-  // const alias = (JSON.parse(localStorage.getItem('AliasName')))
-  // alert("alias",JSON.parse(alias))
   const goBack=()=>{
     window.history.go(-1)
   }
@@ -139,7 +87,7 @@ export default function DeviceLogs() {
       <Row className='rowSection'>
         <Col xl={2} lg={2} md={2} sm={2} className='noSidebar colSection'>
           <SideBar
-            sidebar_details={sidebar_details}
+            // sidebar_details={sidebar_details}
             className={Style.SideBarColume}
           />
         </Col>
@@ -165,7 +113,7 @@ export default function DeviceLogs() {
                   Status
                 </div>
                 <div style={{ padding: "0.8rem 0rem 0rem 0rem" }}>
-                {JSON.parse(localStorage.getItem('message'))}
+                  {deviceLogsData && deviceLogsData.message}
                 </div>
               </div>
               <div class="shadow p-3 mb-2 " style={{ width: "12rem", borderRadius: "10px", boxShadow: "rgba(0, 0, 0, 0.5)" }}>
@@ -173,7 +121,7 @@ export default function DeviceLogs() {
                   Department
                 </div>
                 <div style={{ padding: "0.8rem 0rem 0rem 0rem" }}>
-                  {JSON.parse(localStorage.getItem('Department_Name'))}
+                {deviceLogsData && deviceLogsData.Department_Name}
                 </div>
               </div>
               <div class="shadow p-3 mb-2 " style={{ width: "12rem", borderRadius: "10px", boxShadow: "rgba(0, 0, 0, 0.5)" }}>
@@ -181,7 +129,7 @@ export default function DeviceLogs() {
                   Hospital Name
                 </div>
                 <div style={{ padding: "0.8rem 0rem 0rem 0rem" }}>
-                  {JSON.parse(localStorage.getItem('Hospital_Name'))}
+                {deviceLogsData && deviceLogsData.Hospital_Name}
                 </div>
               </div>
               <div class="shadow p-3 mb-2 " style={{ width: "12rem", borderRadius: "10px", boxShadow: "rgba(0, 0, 0, 0.5)" }}>
@@ -189,7 +137,7 @@ export default function DeviceLogs() {
                   Doctor
                 </div>
                 <div style={{ padding: "0.8rem 0rem 0rem 0rem" }}>
-                  {JSON.parse(localStorage.getItem('Doctor_Name'))}
+                {deviceLogsData && deviceLogsData.Doctor_Name}
                 </div>
               </div>
               <div class="shadow p-3 mb-2 " style={{ width: "12rem", borderRadius: "10px", boxShadow: "rgba(0, 0, 0, 0.5)" }}>
@@ -197,7 +145,7 @@ export default function DeviceLogs() {
                   Ward Number
                 </div>
                 <div style={{ padding: "0.8rem 0rem 0rem 0rem" }}>
-                  {JSON.parse(localStorage.getItem('Ward_No'))}
+                {deviceLogsData && deviceLogsData.Ward_No}
                 </div>
               </div>
               <div class="shadow p-3 mb-2 " style={{ width: "12rem", borderRadius: "10px", boxShadow: "rgba(0, 0, 0, 0.5)" }}>
@@ -206,7 +154,7 @@ export default function DeviceLogs() {
                  Bio-Med
                 </div>
                 <div style={{ padding: "0.8rem 0rem 0rem 0rem" }}>
-                  {JSON.parse(localStorage.getItem('Bio_Med'))}
+                {deviceLogsData && deviceLogsData.Bio_Med}
                 </div>
               </div>
             </div>
@@ -239,6 +187,5 @@ export default function DeviceLogs() {
         </div>
       </Row>
     </div>
-
   )
 }  

@@ -205,7 +205,8 @@
   }
 
   .alertTable .tableBody {
-    grid-template-columns: 15% 11% 15% 14% 12% 11% 10% 6% 9%;
+    grid-template-columns: 15% 11% 15% 14% 12% 10% 8% 14% 8%;
+    align-items: center;
   }
   .moreBtn {
     margin-right: 13px;

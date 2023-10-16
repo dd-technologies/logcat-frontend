@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 // import { putStatusDataAction } from '../../../store/action/ServiceEngAction'
 import { useDispatch, useSelector } from 'react-redux'
 import { getTicketsDetailsByDeviceIdAction } from '../../../store/action/ServiceEngAction'
+import UpdoladServiceEngFile from './UpdoladServiceEngFile';
 function ServiceModuleData() {
     const getAllTicketsByIdReducer = useSelector((state) => state.getAllTicketsByIdReducer);
     const { data } = getAllTicketsByIdReducer;
@@ -10,6 +11,7 @@ function ServiceModuleData() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('Id');
+    const deviceID = urlParams.get('deviceId');
     useEffect(() => {
         dispatch(getTicketsDetailsByDeviceIdAction(id))
     }, [])
@@ -18,7 +20,7 @@ function ServiceModuleData() {
         <>
             <div>
                 <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-                    <div class="px-3 py-3 lg:px-5 lg:pl-3" style={{ backgroundColor: 'rebeccapurple' }}>
+                    <div class="px-3 py-3 lg:px-5 lg:pl-3" style={{ backgroundColor: '#cb297b' }}>
                         <div class="flex items-center justify-between">
                             <div class="flex items-center justify-start">
                                 <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" style={{ color: 'white' }}>
@@ -97,10 +99,10 @@ function ServiceModuleData() {
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 13 5.7-5.326a.909.909 0 0 0 0-1.348L1 1" />
                             </svg>
                             <br />
-                            {geticketDataFromLocal && geticketDataFromLocal.details}
+                            {geticketDataFromLocal && geticketDataFromLocal.issues}
                         </li>
                     </ul>
-
+                    <UpdoladServiceEngFile/>
                 </div>
             </div>
         </>

@@ -19,7 +19,7 @@ import {
   getLogMsgOccurenceWRTDateReducer, getCrashFreeUsersReducer, getCrashAnalyticsDataReducer, getCrashFreeUsersDataReducer, getModelCodeReducer, addCrashEmailReducer, getProjectByCodeSettingReducer,
 } from "./reducer/ProjectReducer";
 import { passwordChangeReducer, userInfoReducer, getHistoryDataReducer } from "./reducer/UserProfileReducer";
-import { deviceReducer, deviceAssignDataByUserId, getAllAboutByDeviceIdReducer, getAllEventsByDeviceIdReducer, getRegisteredDetailsReducer, getAllAlarmsByDeviceIdReducer, getAllTrendsByDeviceIdReducer, getCalibrationByDeviceIdReducer, getAllLogsByDeviceIdReducer, getLogMsgOccurenceReducer, getDeviceCrashAnalyticsDataReducer, getDeviceLogMsgOccurenceWRTDateReducer, getAllServiceRecordsDetails, getAllSectionByDeviceId } from "./reducer/deviceReducer";
+import { deviceReducer, deviceAssignDataByUserId, getAllAboutByDeviceIdReducer, getAllEventsByDeviceIdReducer, getRegisteredDetailsReducer, getAllAlarmsByDeviceIdReducer, getAllTrendsByDeviceIdReducer, getCalibrationByDeviceIdReducer, getAllLogsByDeviceIdReducer, getLogMsgOccurenceReducer, getDeviceCrashAnalyticsDataReducer, getDeviceLogMsgOccurenceWRTDateReducer, getAllServiceRecordsDetails, getAllSectionByDeviceId , getSingleUploadFileReducer} from "./reducer/deviceReducer";
 import { alarmReducer } from "./reducer/AlarmReducer";
 import {storeSystemReducer,allHospitalDataReducer} from "./reducer/StoreSystemReducer"
 import { dispatchAllDetailsReducer, dispatchAllDetailsByIdReducer, productionAllDetailsReducer } from "./reducer/DispatchDevices"
@@ -83,6 +83,7 @@ const appReducer = combineReducers({
   getDeviceLogMsgOccurenceWRTDateReducer,
   getAllServiceRecordsDetails,
   getAllSectionByDeviceId,
+  getSingleUploadFileReducer,
   dispatchAllDetailsReducer,
   productionAllDetailsReducer,
   dispatchAllDetailsByIdReducer,

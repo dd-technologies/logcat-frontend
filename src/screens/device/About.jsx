@@ -11,9 +11,9 @@ import { useEffect } from 'react';
 function About() {
   const getAllAboutByDeviceIdReducer = useSelector((state) => state.getAllAboutByDeviceIdReducer);
   const { data } = getAllAboutByDeviceIdReducer;
-  console.log('getAllAboutByDeviceIdReducer', getAllAboutByDeviceIdReducer)
+  console.log('data', data)
   const aboutFilter = data && data.data
-
+  console.log('aboutFilter',aboutFilter)
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const did = urlParams.get('DeviceId')
@@ -22,11 +22,9 @@ function About() {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(
-      getAboutSectionById(
-        code,
-      )
+      getAboutSectionById(did)
     )
-  }, ([]))
+  }, ([dispatch]))
   return (
     <>
       <Navbar />

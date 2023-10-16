@@ -5,6 +5,8 @@ import { dispatchDetailsAction } from '../../../store/action/DispatchDetailsActi
 import { Navbar } from '../../../utils/NavBar'
 import SideBar from '../../../utils/Sidebar'
 import Style from "../../../css/DispatchDetails.module.css"
+import { Link } from 'react-router-dom'
+import back from "../../../assets/images/back.png";
 
 function Dispatch() {
     const [dispatchDetails, setDispatchDetails] = useState({
@@ -24,6 +26,44 @@ function Dispatch() {
         distributor_name:"",
         distributor_contact:"",
     })
+
+        // date picker functionality
+        const [disable, setDisable] = useState(true);
+        const [todate, setTodate] = useState([]);
+        const [fromdate, setFromdate] = useState([]);
+    
+        const [todateformat, setTodateformat] = useState('');
+        const [fromdateformat, setFromdateformat] = useState('');
+    
+        const handletodate = (e) => {
+            const gettodatevalue = e.target.value;
+            const setdateformat = gettodatevalue.split('-');
+            const settoyear = setdateformat[0];
+            const settomonth = setdateformat[1];
+            const settodate = setdateformat[2];
+            const settodateformat = settoyear + "" + settomonth + "" + settodate;
+            setTodate(gettodatevalue);
+            setTodateformat(settodateformat);
+            setDisable(false);
+            //console.log(settodateformat);
+           setDispatchDetails({ ...dispatchDetails, date_of_manufacuring: e.target.value })
+    
+        }
+    
+        const handlefromdate = (e) => {
+            const getfromdatevalue = e.target.value;
+            const setfromformat = getfromdatevalue.split("-");
+            const setfromyear = setfromformat[0];
+            const setfrommonth = setfromformat[1];
+            const setfromdate = setfromformat[2];
+            const setfromformatdate = setfromyear + "" + setfrommonth + "" + setfromdate;
+            setFromdate(getfromdatevalue);
+            setFromdateformat(setfromformatdate);
+            // console.log(setfromformatdate);
+            setDispatchDetails({ ...dispatchDetails, date_of_dispatch: e.target.value })
+    
+        }
+
     var phoneno = /^\d{10}$/
     var pinCode= /^\d{6}$/
     var purposeValid = "Select Purpose Type"
@@ -108,6 +148,9 @@ function Dispatch() {
             }, 500);
         }
     }
+    const goBack=()=>{
+        window.history.go(-1)
+      }
     return (
         <>
             <Toaster />
@@ -115,7 +158,10 @@ function Dispatch() {
             <SideBar />
             <div className={Style.mainContainer}>
                 <div className={Style.dispatchContainer}>
-                    <div>
+                <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginLeft:'2rem' }}>
+                    <Link onClick={goBack} style={{display:'block'}}>
+                        <img src={back} style={{ width: "4rem" ,}} />
+                    </Link>
                         <h5>Dispatch Details</h5>
                         <hr style={{ color: "#CB297B" }} />
                     </div>
@@ -170,7 +216,7 @@ function Dispatch() {
                             <div className={Style.formItem}>
                                 <span className="title">Batch No.</span>
                                 <div className={Style.textInpuDiv}>
-                                    <input className={Style.textInputDetails} placeholder="Enter batch no." onChange={(e) => setDispatchDetails({ ...dispatchDetails, batch_no: e.target.value })} value={dispatchDetails.batch_no} />
+                                    <input type='number' className={Style.textInputDetails} placeholder="Enter batch no." onChange={(e) => setDispatchDetails({ ...dispatchDetails, batch_no: e.target.value })} value={dispatchDetails.batch_no} />
                                 </div>
                             </div>
                             <div className={Style.formItem}>
@@ -188,13 +234,13 @@ function Dispatch() {
                             <div className={Style.formItem}>
                                 <span className="title">Date of Manufacturing</span>
                                 <div className={Style.textInpuDiv}>
-                                    <input type="date" onChange={(e) => setDispatchDetails({ ...dispatchDetails, date_of_manufacuring: e.target.value })} value={dispatchDetails.date_of_manufacuring} className={Style.textInputDetails} />
+                                <input type="date" name="todate" placeholder="dd-mm-yyyy" onChange={(e) => handletodate(e)}  value={dispatchDetails.date_of_manufacuring} className={Style.textInputDetails} />
                                 </div>
                             </div>
                             <div className={Style.formItem}>
                                 <span className="title">Date of Dispatch</span>
                                 <div className={Style.textInpuDiv}>
-                                    <input type="date" onChange={(e) => setDispatchDetails({ ...dispatchDetails, date_of_dispatch: e.target.value })} value={dispatchDetails.date_of_dispatch} className={Style.textInputDetails} />
+                                <input type="date" name="fromdate" placeholder="dd-mm-yyyy" disabled={disable} onChange={(e) => handlefromdate(e)} value={dispatchDetails.date_of_dispatch} className={Style.textInputDetails} />
                                 </div>
                             </div>
                         </div>

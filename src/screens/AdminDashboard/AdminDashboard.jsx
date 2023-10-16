@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import CustomCard from "../../container/CustomCard";
 import Style from "../../css/AdminDashboard.module.css"
@@ -29,8 +29,11 @@ const AdminDashboard = () => {
     e.preventDefault()
     setDsetDurationDataata(e.target.value)
     dispatch(getDefaultDataForDashboard(durationData))
-    console.log("111", durationData)
   }
+  const firstDurationData='monthly'
+  useEffect(()=>{
+    dispatch(getDefaultDataForDashboard(firstDurationData))
+  },[])
   var rohan = durationData == "weekly" ? getDataOfMonthly && getDataOfMonthly.monthlyCounts : getDataOfMonthly && getDataOfMonthly.weeklyCounts
   const values = rohan && rohan.map(item => item.count)
   console.log("rohan", rohan)

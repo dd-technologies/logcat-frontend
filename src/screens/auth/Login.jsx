@@ -246,7 +246,7 @@ export default function Login() {
                       justifyContent: "end",
                     }}
                   >
-                    <Link
+                    {/* <Link
                       to="/forgetPassword"
                       style={{
                         textDecoration: "none",
@@ -256,7 +256,7 @@ export default function Login() {
                       className="cpactiveText"
                     >
                       Forget Password?
-                    </Link>
+                    </Link> */}
                   </section>
                 </div>
                 <section
@@ -291,45 +291,6 @@ export default function Login() {
                     </button>
                   )}
                 </section>
-                {userRole === 'Admin' ?
-                  <section
-                    style={{
-                      justifyContent: "center",
-                      display: "flex",
-                      textAlign: "center",
-                      alignItems: "center",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <Link
-                      to="/register"
-                      style={{
-                        textDecoration: "none",
-                        width: "50%",
-                      }}
-                      className="cpactiveText"
-                    >
-                      <button
-                        style={{
-                          width: "100%",
-                          height: "2.8rem",
-                          background: "#FFFFFF 0% 0% no-repeat padding-box",
-                          boxShadow: "0px 0px 30px #00000029",
-                          border: "0px",
-                          borderRadius: "10px",
-                          marginBottom: "2rem",
-                          color: "#CB297B",
-                          fontSize: "16px",
-                          fontFamily: "Poppins",
-                        }}
-                        type="submit"
-                        className="mt-4"
-                      >
-                        SIGN UP
-                      </button>
-                    </Link>
-                  </section>
-                  : ""}
               </form>
             </div>
           </section>

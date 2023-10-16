@@ -106,7 +106,7 @@ export const getDefaultDataForDashboard = (durationData) => async (dispatch) => 
       type: ALL_DEFAULT_DATA_FOR_DASHBOARD_REQUEST,
     });
     const token = cookies.get("ddAdminToken");
-    console.log("durationData",durationData)
+    console.log("durationData000",durationData)
     const config = {
       headers: {
         "Content-type": "application/json",

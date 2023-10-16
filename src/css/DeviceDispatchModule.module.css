@@ -39,11 +39,16 @@
   }
   .insideHeadingData{
     color: white;
+    width: 6rem;
+    text-align: center;
   }
   .userInsideData{
     text-align: center;
     width: 6rem;
     margin: 0.8rem;
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 0.8rem;
   }
   .heading {
     margin: auto;

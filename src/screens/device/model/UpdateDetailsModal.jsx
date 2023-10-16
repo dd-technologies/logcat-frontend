@@ -20,7 +20,6 @@ const UpdateDetailsModal = (props) => {
     IMEINo: getAllData && getAllData.IMEI_NO,
     VentiOp: getAllData && getAllData.Bio_Med,
   })
-console.log("updateDetails.Dev",updateDetails.DeviceID1)
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();

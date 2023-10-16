@@ -82,7 +82,7 @@ export const getAllHospitalData = () => async (dispatch) => {
   }
 };
 
-export const putallStoreDataAction = ({ deviceId, service_engineer, hospital_name, details, concerned_p_contact , issues, address, priority}) => async (dispatch) => {
+export const putallStoreDataAction = ({ deviceId, service_engineer, details, concerned_p_contact , issues, address, priority , hospital_name}) => async (dispatch) => {
   try {
     dispatch({
       type: PUT_ALL_STORE_DATA_REQUEST,
@@ -99,12 +99,12 @@ export const putallStoreDataAction = ({ deviceId, service_engineer, hospital_nam
       {
         deviceId,
         service_engineer,
-        hospital_name,
         details,
         concerned_p_contact,
         issues,
         address,
-        priority
+        priority,
+        hospital_name
       },
       config
     );
@@ -112,7 +112,7 @@ export const putallStoreDataAction = ({ deviceId, service_engineer, hospital_nam
       type: PUT_ALL_STORE_DATA_SUCCESS,
       payload: data,
     });
-    if (data.statusCode == 200) {
+    if (data.statusCode == 201) {
       window.location.reload();
     }
   } catch (error) {

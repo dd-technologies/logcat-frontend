@@ -9,6 +9,7 @@ import TableCard1 from "../../container/TableCard1";
 import { getAllUsersDetalisById, updateAllUsersDetailsById } from "../../store/action/AdminDashboard";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import addUser from "../../assets/icons/new-user.png"
 
 // import { toast, Toaster } from "react-hot-toast";
 function ManageUsers() {
@@ -51,10 +52,17 @@ function ManageUsers() {
           <div
             className={Style.deviceSummary}
           >
+            <div className={Style.deviceSummary}>
             <Link to="/adminDashboard">
               <img src={back} style={{ width: "3rem" }} />
             </Link>
             <h4 className={Style.Header}>Manage User's</h4>
+            </div>
+            <Link to='/add_register_user' style={{textDecoration:'none'}}>
+            <span style={{backgroundColor:'#CB297B',color:'white',padding:'10px',borderRadius:'10px'}}>
+          Add user
+              </span>
+            </Link>
           </div>
         </div>
         <div className={Style.Container}>

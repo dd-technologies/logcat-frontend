@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast, Toaster } from "react-hot-toast";
 import doctor from "../../assets/images/doctor.png"
+import dispatchIcon from "../../assets/images/dispatch.png"
 import SideBar from "../../utils/Sidebar";
 import { Navbar } from "../../utils/NavBar";
 import { updateUserInfoAction } from "../../store/action/UpdateUserInfoAction";
@@ -104,7 +105,7 @@ export default function UpdateProfile() {
             </Link>
           </div>
           <div
-          className={Style.card}
+            className={Style.card}
           >
             <h4 style={{ fontSize: "2rem" }}>Profile</h4>
             {/* <section className={Style.OuterDiv}> */}
@@ -114,8 +115,15 @@ export default function UpdateProfile() {
               <section className={Style.Avtarunder}>
                 {/* {avatar ? ( */}
                 <div onClick={handleAvtarClick}>
-                  {avatar ? <img src={URL.createObjectURL(avatar)} alt="Avatar" style={{ height: "7rem" }} /> :
-                    <>{adminInfo && adminInfo.data && adminInfo.data.userType == "Admin" ? <img className="avtar" src={doctor} style={{ widt: "0rem", height: "7rem" }} /> : <img className="avtar" src={user} style={{ widt: "0rem", height: "6.7rem" }} />} </>}
+                  {avatar ?
+                   <img src={URL.createObjectURL(avatar)} alt="Avatar" style={{ height: "7rem" }} /> :
+                    <>
+                    {adminInfo && adminInfo.data && adminInfo.data.userType == "Admin" ?
+                <img className="avtar" src={doctor} style={{ widt: "0rem", height: "0rem" }} /> :
+                adminInfo && adminInfo.data && adminInfo.data.userType == "User" ?
+                  <img className="avtar" src={user} style={{ widt: "0rem", height: "7rem" }} /> :
+                  <img className="avtar" src={dispatchIcon} style={{ widt: "0rem", height: "5rem" }} />}
+                     </>}
                   <input type="file" ref={inputRef} onChange={handlAvtarChange} style={{ display: "none" }} />
                 </div>
               </section>

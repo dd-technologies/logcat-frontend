@@ -44,32 +44,41 @@ export default function ResetPassword() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmit = () => {
-    if (
-      state.otp == null
-    ) {
-      toast.error("Please provide all the required field!");
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('state', state.otp, error)
+    if (state && state.opt && state.opt.length > 0) {
+      dispatch(resetForgetPassword({ resetData: state }));
+      // toast.error('Field is Empty')
     }
-    if (state.otp && state.otp.length == 4) {
-      dispatch(resetForgetPassword({resetData: state }));
-      navigate("/changePassword")
+    else if (!state && state.otp) {
+      toast.error('Otp empty')
     }
-    else if (stateErr.err) {
-      setStateErr({ err: "Check OTP field!" });
-      toast.error(stateErr.err);
-    }
-    else if(data.statusCode==200){
-      navigate("/changePassword")
-    }
-  };
+    //   if (
+    //     state.otp == null
+    //   ) {
+    //     toast.error("Please provide all the required field!");
+    //   }
+    //   if (state.otp && state.otp.length == 4) {
+    //     dispatch(resetForgetPassword({ resetData: state }));
+    //     // navigate("/changePassword")
+    //   }
+    //   else if (stateErr.err) {
+    //     setStateErr({ err: "Check OTP field!" });
+    //     toast.error(stateErr.err);
+    //   }
+    //   else if (data.statusCode == 200) {
+    //     navigate("/changePassword")
+    //   }
+    // };
 
-  if (data && data.success) {
-    toast.success("Password reset done");
-    localStorage.removeItem("forgetEmail");
-    navigate("/login");
+    // if (data && data.success) {
+    //   toast.success("Password reset done");
+    //   localStorage.removeItem("forgetEmail");
+    //   navigate("/login");
   }
 
-  useEffect(() => {}, [enableResendButton]);
+  useEffect(() => { }, [enableResendButton]);
   return (
     <>
       <Toaster />

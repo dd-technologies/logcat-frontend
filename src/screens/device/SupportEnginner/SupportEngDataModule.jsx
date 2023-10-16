@@ -18,6 +18,9 @@ function SupportEngDatamODULE() {
     useEffect(() => {
         dispatch(getAllTicketsDataAction())
     }, [])
+    const goBack=()=>{
+        window.history.go(-1)
+      }
     return (
         <>
             <Navbar />
@@ -42,7 +45,7 @@ function SupportEngDatamODULE() {
                             <div
                                 className={Style.deviceSummary}
                             >
-                                <Link to="/">
+                                <Link onClick={goBack}>
                                     <img src={back} className={Style.backImage} />
                                 </Link>
                                 <h4 className={Style.Header}>Assign Ticket Data</h4>
@@ -64,7 +67,7 @@ function SupportEngDatamODULE() {
                                         <h6 className={Style.insideHeadingData}>Device ID</h6>
                                     </div>
                                     <div>
-                                        <h6 className={Style.insideHeadingData}>Hospital Name</h6>
+                                        <h6 className={Style.insideHeadingData}>Status</h6>
                                     </div>
                                     <div>
                                         <h6 className={Style.insideHeadingData}>Concerned Person</h6>
@@ -96,23 +99,36 @@ function SupportEngDatamODULE() {
                                             return (
                                                 <>
                                                     <div className={Style.userDataDiv}>
-                                                        <div className={Style.userInsideData}>{item1.deviceId}</div>
-                                                        <div className={Style.userInsideData}>{item1.hospital_name}</div>
-                                                        <div className={Style.userInsideData}>{item1.concerned_p_contact}</div>
-                                                        <div className={Style.userInsideData}>{item1.service_engineer}</div>
-                                                        <div className={Style.userInsideData}>{item1.issues}</div>
-                                                        <div className={Style.userInsideData}>
-                                                            <ReactReadMoreReadLess
+                                                        <div>
+                                                            <h6 className={Style.userInsideData}>{item1.deviceId}</h6>
+                                                        </div>
+                                                        <div>
+                                                            <h6 className={Style.userInsideData} style={item1.status === 'Completed' ? { backgroundColor: 'green', color: 'white' } : item1.status == 'Pending' ? { backgroundColor: 'yellow' } : { backgroundColor: 'red', color: 'white' }}>{item1.status}</h6>
+                                                        </div>
+                                                        <div>
+                                                            <h6 className={Style.userInsideData}>{item1.concerned_p_contact}</h6>
+                                                        </div>
+                                                        <div>
+                                                            <h6 className={Style.userInsideData}>{item1.service_engineer}</h6>
+                                                        </div>
+                                                        <div>
+                                                            <h6 className={Style.userInsideData}>{item1.issues}</h6>
+                                                        </div>
+                                                        <div>
+                                                            <h6 className={Style.userInsideData}><ReactReadMoreReadLess
                                                                 charLimit={20}
                                                                 readMoreText={"Read more ▼"}
                                                                 readLessText={"Read less ▲"}
                                                             >
                                                                 {item1.details}
                                                             </ReactReadMoreReadLess>
+                                                            </h6>
                                                         </div>
-                                                        <div className={Style.userInsideData}>{item1.priority}</div>
+                                                        <div>
+                                                            <h6 className={Style.userInsideData}>{item1.priority}</h6>
+                                                        </div>
                                                         <div className={Style.userInsideData}>
-                                                            <button onClick={()=>{dispatch(deleteStatusDataAction({id:item1._id}))}} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Delete</button>
+                                                            <button style={{ backgroundColor: '#cb297b' }} onClick={() => { dispatch(deleteStatusDataAction({ id: item1._id })) }} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Delete</button>
                                                         </div>
                                                     </div>
                                                 </>

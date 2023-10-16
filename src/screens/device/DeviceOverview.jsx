@@ -1,24 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SideBar from "../../utils/Sidebar";
 import back from "../../assets/images/back.png";
 import { Link } from "react-router-dom";
 import { Navbar } from "../../utils/NavBar";
 import arrowNext from "../../assets/images/NextArrow.png"
 import { toast, Toaster } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { getSingleDeviceIdDetails } from "../../store/action/DeviceAction";
 function DeviceOverview() {
+  const getAllSectionByDeviceId = useSelector((state) => state.getAllSectionByDeviceId);
+  const { loading, data } = getAllSectionByDeviceId;
+  const overviewData=data && data.data
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const projectName = urlParams.get("name");
   const code = urlParams.get('code');
   const deviceid = urlParams.get('DeviceId')
-  const status = JSON.parse(localStorage.getItem('message'))
-  const lastHours = JSON.parse(localStorage.getItem('last_hours'))
-  const totalHours = JSON.parse(localStorage.getItem('total_hours'))
-  const health = JSON.parse(localStorage.getItem('health'))
-  const address = JSON.parse(localStorage.getItem('address'))
+  const status = overviewData && overviewData.message
+  const lastHours = overviewData && overviewData.last_hours
+  const totalHours = overviewData && overviewData.total_hours
+  const health = overviewData && overviewData.health
+  const address = overviewData && overviewData.address
   const alertHandel = () => {
     toast.error("Device Inactive")
   }
+  const dispatch=useDispatch()
+  useEffect(()=>{
+    dispatch(getSingleDeviceIdDetails(deviceid))
+  },[dispatch])
+
+  console.log('overviewData',overviewData)
   return (
     <>
       <Navbar />
@@ -53,8 +64,8 @@ function DeviceOverview() {
               <h5 style={{ fontSize: "1rem" }}>Address</h5>
             </div>
             <div className="d-flex" style={{ gap: "1.5rem", flexDirection: "column", color: "#4B4B4B" }}>
-              <h5 style={{ fontSize: "1rem" }}>{deviceid}</h5>
-              <h5 style={{ fontSize: "1rem" }}>{status}{status === "ACTIVE" ? <>
+              <h5 style={{ fontSize: "1rem" }}>{overviewData && overviewData.DeviceId}</h5>
+              <h5 style={{ fontSize: "1rem" }}>{status === "ACTIVE" ? <>
                 <svg width="40px" height="35px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#11ac14">
                   <g id="SVGRepo_iconCarrier">
                     <path d="M12 9.5C13.3807 9.5 14.5 10.6193 14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5Z" fill="#11ac14"></path>

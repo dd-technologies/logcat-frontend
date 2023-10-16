@@ -106,13 +106,17 @@
     grid-template-columns: repeat(5, 1fr);
     column-gap: 4rem;
 }
+.graphData{
+    display:flex;
+    width: fit-content;
+}
 
 
 /* Styles for desktops and larger screens */
 @media (min-width: 1200px) {
     /* Add your CSS rules for desktops here */
     .container {
-        height: 100vh;
+        height: 100%;
     }
     .upperModel {
         height: 100px;

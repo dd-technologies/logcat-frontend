@@ -28,6 +28,7 @@ import {
   STATE_DATA_SUCCESS,
 } from "../types/AdminConstants";
 import { persistor } from "../Store";
+import { useNavigate } from "react-router";
 
 const cookies = new Cookies();
 // USER LOGIN
@@ -198,18 +199,25 @@ export const forgetPassword = (email) => async (dispatch) => {
     dispatch({
       type: FORGET_PASSWORD_REQUEST,
     });
-
+    const navigate=useNavigate()
     const { data } = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/api/logger/auth/resetPassword`,
       {
         email,
       }
     );
-
+    if(data && data.statusCode==200){
+      console.log('hey')
+      navigate("/changePassword")
+    };
     dispatch({
       type: FORGET_PASSWORD_REQUEST_SUCCESS,
       payload: data,
     });
+    if(data && data.statusCode=='200'){
+      console.log('hey')
+      // navigate("/changePassword")
+    };
   } catch (error) {
     dispatch({
       type: FORGET_PASSWORD_REQUEST_FAIL,
@@ -254,12 +262,15 @@ export const resetForgetPassword =
         type: RESET_PASSWORD_REQUEST_SUCCESS,
         payload: data,
       });
-      // if(data.statusCode==200){
-      //   // navigate("/changePassword")
-      //   // message("hello")
-      // }
+      console.log('data',data)
+      const navigate=useNavigate()
+      if(data && data.statusCode===200){
+        navigate("/changePassword")
+        // message("hello")
+      }
+      
     } catch (error) {
-      // console.log("reset password", error);
+      console.log("reset password", error);
       dispatch({
         type: RESET_PASSWORD_REQUEST_FAIL,
         payload:

@@ -16,7 +16,6 @@ const EditDetailsModal = (props) => {
     IMEI_No: '',
     Bio_Med: '',
   });
-
   const [errorName, setErrorName] = useState();
   const [errorMsg, setErrorMsg] = useState();
 
@@ -218,7 +217,7 @@ const EditDetailsModal = (props) => {
             <Button
               onClick={props.onHide}
               style={{
-                 color: "#CB297B", marginLeft: "10px", background: "#0000 0% 0% no-repeat padding-box", boxShadow: "0px 0px 30px #00000029",
+                color: "#CB297B", marginLeft: "10px", background: "#0000 0% 0% no-repeat padding-box", boxShadow: "0px 0px 30px #00000029",
                 borderRadius: "10px"
               }}
             >

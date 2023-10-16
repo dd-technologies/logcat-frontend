@@ -9,16 +9,17 @@ import {
     getSingleDeviceIdDetails
 } from "../../../store/action/DeviceAction";
 import { getAllHospitalData, getStoreSystem, putallStoreDataAction } from "../../../store/action/StoreSystem"
+import { Link } from 'react-router-dom';
+import back from "../../../assets/images/back.png";
 function ServiceEngForm() {
     const [dispatchDetails, setDispatchDetails] = useState({
         deviceId: "",
         service_engineer: "",
         iopr: "",
-        Hospital_Name: "",
         deviceIdDetails: "",
         concerned_p_contact: "",
-        address: "",
         priority: "",
+        hospitalName: "",
     })
     const deviceReducer = useSelector((state) => state.deviceReducer);
     const { data } = deviceReducer;
@@ -33,11 +34,12 @@ function ServiceEngForm() {
     const getAllDataFromDeviceId = dataa && dataa.data
     const dispatch = useDispatch()
     // useEffce of get all deviceId
+    const DeviceId = dispatchDetails && dispatchDetails.deviceId
     useEffect(() => {
         dispatch(deviceAction({ page: 1, limit: 99000 }))
     }, [])
     useEffect(() => {
-        dispatch(getSingleDeviceIdDetails({ DeviceId: dispatchDetails.deviceId }))
+        dispatch(getSingleDeviceIdDetails(DeviceId))
     }, [dispatch])
     useEffect(() => {
         dispatch(getStoreSystem())
@@ -74,17 +76,11 @@ function ServiceEngForm() {
         else if (!dispatchDetails.iopr) {
             toast.error("Enter Issues")
         }
-        else if (!dispatchDetails.Hospital_Name) {
-            toast.error("Enter Hospital Name")
-        }
         else if (!dispatchDetails.concerned_p_contact) {
             toast.error("Enter Sim Number")
         }
         else if (!dispatchDetails.concerned_p_contact.match(phoneno)) {
             toast.error("Enter 10 digit Number")
-        }
-        else if (!dispatchDetails.address) {
-            toast.error("Enter Address")
         }
         else if (!allDataFromDeviceId) {
             toast.error("Enter Details")
@@ -97,22 +93,23 @@ function ServiceEngForm() {
             toast.error("Select Priority")
 
         }
-        else if (dispatchDetails.deviceId && dispatchDetails.service_engineer && dispatchDetails.iopr && dispatchDetails.Hospital_Name && allDataFromDeviceId && dispatchDetails.concerned_p_contact && dispatchDetails.address && dispatchDetails.priority) {
+        else if (dispatchDetails.deviceId && dispatchDetails.service_engineer && dispatchDetails.iopr && allDataFromDeviceId && dispatchDetails.concerned_p_contact && dispatchDetails.priority) {
             toast.success("Success")
             dispatch(putallStoreDataAction({
                 deviceId: dispatchDetails.deviceId,
                 service_engineer: dispatchDetails.service_engineer,
-                hospital_name: dispatchDetails.Hospital_Name,
                 details: allDataFromDeviceId,
                 concerned_p_contact: dispatchDetails.concerned_p_contact,
                 issues: dispatchDetails.iopr,
-                address: dispatchDetails.address,
-                priority: dispatchDetails.priority
+                address: getAllDataFromDeviceId && getAllDataFromDeviceId.address,
+                priority: dispatchDetails.priority,
+                hospital_name: getAllDataFromDeviceId && getAllDataFromDeviceId.Hospital_Name
             }))
         }
     }
-    console.log("allDataFromDeviceId", allDataFromDeviceId)
-    console.log('000', dispatchDetails.deviceIdDetails)
+    const goBack = () => {
+        window.history.go(-1)
+    }
     return (
         <>
             <Navbar />
@@ -120,7 +117,10 @@ function ServiceEngForm() {
             <Toaster />
             <div className={Style.mainContainer}>
                 <div className={Style.dispatchContainer}>
-                    <div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginLeft: '2rem' }}>
+                        <Link onClick={goBack} style={{ display: 'block' }}>
+                            <img src={back} style={{ width: "4rem", }} />
+                        </Link>
                         <h5>Assign Ticket</h5>
                         <hr style={{ color: "#CB297B" }} />
                     </div>
@@ -129,10 +129,11 @@ function ServiceEngForm() {
                             <div className={Style.formItem}>
                                 <span className="title">Device ID</span>
                                 <div className={Style.textInpuDiv}>
-                                    <input list="borow" style={{ padding: '0.8rem' }} placeholder='Search Device Id'
+                                    <input list="borow" style={{ padding: '0.8rem', width: '20rem' }} placeholder='Search Device Id'
                                         onChange={(e) => {
                                             setDispatchDetails({ ...dispatchDetails, deviceId: e.target.value })
-                                            dispatch(getSingleDeviceIdDetails({ DeviceId: dispatchDetails.deviceId }))
+                                            const DeviceId=dispatchDetails.deviceId
+                                            dispatch(getSingleDeviceIdDetails(DeviceId))
                                         }}
                                     />
                                     <datalist id='borow' className={Style.textInputDetails} onChange={(e) => {
@@ -149,11 +150,11 @@ function ServiceEngForm() {
                             <div className={Style.formItem}>
                                 <span className="title">Service Enginner</span>
                                 <div className={Style.textInpuDiv}>
-                                    <input list="nameList" style={{ padding: '0.8rem' }} placeholder='Service Enter Name' onChange={(e) => setDispatchDetails({ ...dispatchDetails, service_engineer: e.target.value })} />
+                                    <input list="nameList" style={{ padding: '0.8rem', width: '20rem' }} placeholder='Service Enter Name' onChange={(e) => setDispatchDetails({ ...dispatchDetails, service_engineer: e.target.value })} />
                                     <datalist id='nameList' className={Style.textInputDetails} onChange={(e) => setDispatchDetails({ ...dispatchDetails, service_engineer: e.target.value })} value={dispatchDetails.service_engineer}>
                                         {serviceEngName && serviceEngName.map((item) => {
                                             return (
-                                                <option>{item.firstName}</option>
+                                                <option value={item.email}>{item.firstName}</option>
                                             )
                                         })}
                                     </datalist>
@@ -162,24 +163,11 @@ function ServiceEngForm() {
                             <div className={Style.formItem}>
                                 <span className="title">Issues</span>
                                 <div className={Style.textInpuDiv}>
-                                    <textarea rows="1" cols="30" className={Style.textInputAddress} placeholder="Enter Dispatch Address" onChange={(e) => setDispatchDetails({ ...dispatchDetails, iopr: e.target.value })} value={dispatchDetails.iopr} />
+                                    <textarea rows="1" cols="30" className={Style.textInputAddress} placeholder="Enter Issue to address" onChange={(e) => setDispatchDetails({ ...dispatchDetails, iopr: e.target.value })} value={dispatchDetails.iopr} />
                                 </div>
                             </div>
                         </div>
                         <div className={Style.rightForm}>
-                            <div className={Style.formItem}>
-                                <span className="title">Hospital Name</span>
-                                <div className={Style.textInpuDiv}>
-                                    <input list="hospitalName" style={{ padding: '0.8rem' }} placeholder='Enter Hospital Name' onChange={(e) => setDispatchDetails({ ...dispatchDetails, Hospital_Name: e.target.value })} />
-                                    <datalist id='hospitalName' className={Style.textInputDetails} onChange={(e) => setDispatchDetails({ ...dispatchDetails, Hospital_Name: e.target.value })} value={dispatchDetails.Hospital_Name}>
-                                        {hospitaldata && hospitaldata.data && hospitaldata.data.map((item) => {
-                                            return (
-                                                <option>{item.Hospital_Name}{console.log("hospital", item.Hospital_Name)}</option>
-                                            )
-                                        })}
-                                    </datalist>
-                                </div>
-                            </div>
                             <div className={Style.formItem}>
                                 <span className="title">Details</span>
                                 <div className={Style.textInpuDiv}>
@@ -212,12 +200,12 @@ function ServiceEngForm() {
                                     <input type='number' className={Style.textInputDetails} placeholder="Enter Concerned Person Contact " onChange={(e) => setDispatchDetails({ ...dispatchDetails, concerned_p_contact: e.target.value })} value={dispatchDetails.concerned_p_contact} />
                                 </div>
                             </div>
-                            <div className={Style.formItem}>
+                            {/* <div className={Style.formItem}>
                                 <span className="title">Address</span>
                                 <div className={Style.textInpuDiv}>
                                     <input className={Style.textInputAddress} placeholder="Enter Address" onChange={(e) => setDispatchDetails({ ...dispatchDetails, address: e.target.value })} value={dispatchDetails.address} />
                                 </div>
-                            </div>
+                            </div> */}
                             <div className={Style.formItem}>
                                 <span className="title">Priority</span>
                                 <select className={Style.textInpuDiv} style={{ border: '0px', padding: '7px' }} onChange={(e) => setDispatchDetails({ ...dispatchDetails, priority: e.target.value })} value={dispatchDetails.priority}>

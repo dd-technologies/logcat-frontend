@@ -45,7 +45,10 @@ import {
   GET_SINGLE_DEVICEID_FAIL,
   GET_SINGLE_DEVICEIDBY_USERID_REQUEST,
   GET_SINGLE_DEVICEIDBY_USERID_FAIL,
-  GET_SINGLE_DEVICEIDBY_USERID_SUCCESS
+  GET_SINGLE_DEVICEIDBY_USERID_SUCCESS,
+  GET_SINGLE_UPLOAD_FILE_REQUEST,
+  GET_SINGLE_UPLOAD_FILE_SUCCESS,
+  GET_SINGLE_UPLOAD_FILE_FAIL
 } from "../types/DeviceConstant";
 const cookies = new Cookies();
 
@@ -178,7 +181,8 @@ export const getRegisteredDetailsById = (DeviceID, DoctorName, HospitalName, Ali
   }
 }
 
-export const getSingleDeviceIdDetails = ( {DeviceId} ) => async (dispatch) => {
+// If yopu saw an error regarding deviceId,  _ref kind of so just do {deviceId} to deviceId
+export const getSingleDeviceIdDetails = ( DeviceId ) => async (dispatch) => {
   try {
     dispatch({
       type: GET_SINGLE_DEVICEID_REQUEST
@@ -302,12 +306,13 @@ export const updateDetailsById = (
       // console.log(DeviceId)
     }
   };
-export const getAboutSectionById = () => async (dispatch) => {
+export const getAboutSectionById = (did) => async (dispatch) => {
   try {
     dispatch({
       type: GET_ABOUT_SECTION_BY_ID_REQUEST,
     });
     const token = cookies.get('ddAdminToken');
+    console.log('token',token)
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -315,9 +320,8 @@ export const getAboutSectionById = () => async (dispatch) => {
       },
     };
 
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const DeviceId121 = urlParams.get('DeviceId');
+    console.log('00',did)
+    const DeviceId121 = did
     let response;
 
     response = await axios.get(
@@ -637,6 +641,41 @@ export const getServiceRecordsById = ({ did, page, limit }) => async (dispatch) 
   } catch (error) {
     dispatch({
       type: GET_SERVICE_RECORDS_DETAILS_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.err.msg,
+    });
+  }
+
+}
+
+export const getSingleUploadFile = (deviceId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_SINGLE_UPLOAD_FILE_REQUEST,
+    });
+    const token = cookies.get('ddAdminToken');
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    };
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/s3/get-uploaded-files/${deviceId}`,
+      config
+    );
+    dispatch({
+      type: GET_SINGLE_UPLOAD_FILE_SUCCESS,
+      payload: data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_SINGLE_UPLOAD_FILE_FAIL,
       payload:
         error &&
         error.response &&

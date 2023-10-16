@@ -11,11 +11,11 @@ import Betterylow from '../../assets/images/Betterylow.png';
 import Betterylowup from '../../assets/images/Betterylowup.png';
 import Betterymedium from '../../assets/images/Betterymedium.png';
 import { useNavigate } from 'react-router';
-import { liveDataUpdate } from "../../store/action/LiveAction"
-import { useDispatch, useSelector } from 'react-redux';
+import lungs from '../../assets/icons/lungs.png';
+import DynamicGraphData from "./DynamicGraphData"
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-import { Toaster, toast } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import Style from "../../css/Live.module.css"
 const serverUrl = 'http://192.168.2.1:8000/'; // Replace with your server address
 const socket = io.connect(serverUrl, () => {
@@ -29,8 +29,8 @@ function Live() {
   const [spo2List, setSpo2List] = useState([])
   const [alertData, setAlertData] = useState([])
   const [batteryAlarmData, setBatteryData] = useState([])
-
-  const [seconds, setSeconds] = useState(120);
+  const [btnChange , setBtnChange]=useState('black')
+  const [seconds, setSeconds] = useState(300);
 
   // 2 Minute timmer functionality
   useEffect(() => {
@@ -64,11 +64,12 @@ function Live() {
     navigate(`/deviceOverview?code=${code}&projectName=${projectName}&DeviceId=${deviceId}`)
   };
   // const dispatch = useDispatch()
-  const liveDataReducer = useSelector((state) => state.liveDataReducer);
-  const { loading, data } = liveDataReducer;
+  // const liveDataReducer = useSelector((state) => state.liveDataReducer);
+  // const { loading, data } = liveDataReducer;
 
-  const [rohan , setRohan]=useState("Loading...")
- 
+  const [rohan, setRohan] = useState("Loading...")
+  const [graphBtn, setGraphBtn] = useState(false)
+  const [graphSocketData, setGraphSocketData] = useState()
   useEffect(() => {
     const connectToServer = async () => {
       try {
@@ -100,11 +101,19 @@ function Live() {
         setBatteryData(batteryAlarmData)
       }
     })
-    socket.on('ReceiverVentilatorDisconnected', data=>{
-      var value=data.split(",")[0];
-      console.log("value",value,deviceId)
+
+    socket.on('DataGraphReceivingReact', data => {
+      var value = data.split("^")[0];
+      if (value == deviceId) {
+        const graphData = data.split("^")[1]
+        setGraphSocketData(graphData)
+      }
+    })
+    socket.on('ReceiverVentilatorDisconnected', data => {
+      var value = data.split(",")[0];
+      console.log("value", value, deviceId)
       setRohan("No Data Found")
-      if(value==deviceId){
+      if (value == deviceId) {
         setTimeout(() => {
           navigate(`/deviceOverview?code=${code}&projectName=${projectName}&DeviceId=${deviceId}`)
         }, 1000);
@@ -137,21 +146,30 @@ function Live() {
     // Attach the event listener when the component mounts
     window.addEventListener("popstate", detectHistory);
   }, []); // Empty dependency array means this effect runs only on mount and unmount
+
   return (
     <div className={Style.container}>
       <Toaster />
-      
+
       {dataArray.length > 0 ?
         <div className={Style.insideContainer}>
           <div className={Style.upperModel}>
             <div className={Style.liveHeading}>
               <h1 className={Style.model_heading}>{mode}</h1>
               <h5 style={{ color: 'white', width: '1rem' }}>{formatTime()}</h5>
-              <h5 style={{ width: "400px",backgroundColor: alertData.split("~")[1], color: alertData.split("~")[2], padding: '22px', fontSize: "1rem" }}>{alertData.split("~")[0]}</h5>
+              {batteryAlarmData.split(",")[3] == "true" ? <img
+                src={lungs}
+                alt="alarmMute"
+                className={Style.alarmmute_ing}
+              />
+                : ""
+              }
+              {/* </h5> */}
+              <h5 style={{ width: "400px", backgroundColor: alertData.split("~")[1], color: alertData.split("~")[2], padding: '22px', fontSize: "1rem" }}>{alertData.split("~")[0]}</h5>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <div style={{ display: 'flex', gap: '5rem', width: '30%', alignItems: 'center' }}>
                   {batteryAlarmData.split(",")[2] == "true" ?
-                    <div style={{ backgroundColor: '#f4c430',display:'flex',alignItems:'center',flexDirection:'column' }}>
+                    <div style={{ backgroundColor: '#f4c430', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                       <img
                         src={alarmMute}
                         alt="alarmMute"
@@ -209,7 +227,6 @@ function Live() {
                     alt="chargingConnect"
                     className={Style.discharging_ing}
                   />}
-                {/* <h5 style={{ color: 'white',width:'1rem' }}>{formatTime()}</h5> */}
                 <div
                   style={{
                     cursor: 'pointer',
@@ -239,22 +256,32 @@ function Live() {
             <div className={Style.leftDataForm}>
               <h5 className={Style.dataHeading}>DATA</h5>
               <h5>ALARMS</h5>
-              <h5>LOPPS</h5>
-              <h5>LAYOUTS</h5>
+              <h5>LOOPS</h5>
+              <h5>
+                <button onClick={() => { graphBtn == false ? setGraphBtn(true) : setGraphBtn(false) }}>
+                LAYOUTS
+                </button>
+                </h5>
               <h5>MANEUVERS</h5>
               <h5>LOGS</h5>
               <h5>MODES</h5>
-              <h5>CONTROLES</h5>
+              <h5>CONTROLS</h5>
               <h5>SYSTEM</h5>
             </div>
-            <div className={Style.mainData}>
-              {dataArray.map((label, index) => (
-                <div key={index} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'white', gap: "1rem" }}>
-                  <span style={{ color: "white", fontSize: 20 }}>{label.split("~")[0]}</span>
-                  <span style={{ color: "white", fontSize: 15 }}>{label.split("~")[1] === "null" ? "-" : label.split("~")[1]}</span>
-                </div>
-              ))}
-            </div>
+            {graphBtn == false ?
+              <div className={Style.mainData}>
+                {dataArray.map((label, index) => (
+                  <div key={index} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'white', gap: "1rem" }}>
+                    <span style={{ color: "white", fontSize: 20 }}>{label.split("~")[0]}</span>
+                    <span style={{ color: "white", fontSize: 15 }}>{label.split("~")[1] === "null" ? "-" : label.split("~")[1]}</span>
+                  </div>
+                ))}
+              </div>
+              :
+              <div className={Style.graphData} style={{ marginTop: "1rem", width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <DynamicGraphData style={{ position: 'fixed' }} data={graphSocketData} />
+              </div>
+            }
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               {observer.map((item, index) => {
                 return (
@@ -282,7 +309,7 @@ function Live() {
           </div>
         </div>
         :
-        <div style={{ backgroundColor: "black", height: "100vh", textAlign: 'center', marginTop: "25%" }}>
+        <div style={{ display: 'flex', position: 'fixed', top: '50%', justifyContent: 'center', backgroundColor: "black", textAlign: 'center' }}>
           <h5 style={{ color: "white" }}>{rohan}</h5></div>}
     </div>
   );
