@@ -8,7 +8,7 @@ var dpsFlow = []; //dataPoints.
 var fifoLimit = new Array(10);
 // var yVal = 15;
 var xVal = 0;
-var width = 1000;
+var width = 900;
 var updateInterval = 30;
 var isFirstTime = false;
 var color = "#FFFFFF"
@@ -101,7 +101,7 @@ class DynamicLineChart extends Component {
                 fontColor: "#FFFFFF"
             },
             width: width,
-            height: 120,
+            height: 150,
             axisY: {
                 viewportMaximum: 30,
                 lineThickness: 0,
@@ -140,7 +140,7 @@ class DynamicLineChart extends Component {
             },
 
             width: width,
-            height: 200,
+            height: 150,
             axisY: {
                 viewportMaximum: 500,
                 lineThickness: 0,
@@ -157,9 +157,7 @@ class DynamicLineChart extends Component {
         }
 
         const optionsFlow = {
-
             backgroundColor: "#000000",
-
             axisX: {
                 viewportMaximum: 350,
                 viewportMinimum: 0,
@@ -175,7 +173,7 @@ class DynamicLineChart extends Component {
             },
 
             width: width,
-            height: 200,
+            height: 150,
             axisY: {
                 viewportMaximum: 50,
                 lineThickness: 0,
@@ -191,7 +189,7 @@ class DynamicLineChart extends Component {
             }]
         }
         return (
-            <div style={{display:'flex',flexDirection:'column'}}>
+            <div style={{display:'flex',flexDirection:'column',width:'100%'}}>
                 {/*  */}
                 <div className='topDiv'>
                 <div style={{ textAlign: 'end' }}><p style={{color:'white'}}>Pressure(cmH20)</p></div>
@@ -204,7 +202,7 @@ class DynamicLineChart extends Component {
                         onRef={ref => this.chart = ref}
                     />
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'end', width: '65rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'end', width: '100%' }}>
                     <p style={{color:'white'}}>12</p>
                 </div>
                 </div>
@@ -220,13 +218,13 @@ class DynamicLineChart extends Component {
                         onRef={ref => this.chart = ref}
                     />
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'end', width: '65rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'end', width: '100%' }}>
                     <p style={{color:'white'}}>12</p>
                 </div>
                 </div>
                 {/*  */}
                 <div className='bottomDiv'>
-                <div style={{ textAlign: 'end' }}><p style={{color:'white'}}>Flow(1/min)</p></div>
+                <div style={{ textAlign: 'end' }}><p style={{color:'white'}}>Flow(L/min)</p></div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div className='outerGraphDiv' style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
                         <p style={{color:'white'}}>50</p>
@@ -236,7 +234,7 @@ class DynamicLineChart extends Component {
                         onRef={ref => this.chart = ref}
                     />
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'end', width: '65rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'end', width: '100%' }}>
                     <p style={{color:'white'}}>12</p>
                 </div>
                 </div>

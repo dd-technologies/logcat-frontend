@@ -26,7 +26,7 @@ export default function Device() {
 
   const deviceReducer = useSelector((state) => state.deviceReducer);
   const { loading, data } = deviceReducer;
-
+console.log('ahhah',data)
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { adminInfo } = adminLoginReducer;
   const adminProfile = adminInfo && adminInfo.data && adminInfo.data.userType

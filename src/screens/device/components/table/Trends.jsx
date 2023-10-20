@@ -6,6 +6,7 @@ import { getDeviceTrendsById } from '../../../../store/action/DeviceAction';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { CSVLink } from "react-csv";
+
 function Trends() {
   const { theme } = React.useContext(ThemeContext);
   const getAllTrendsByDeviceIdReducer = useSelector((state) => state.getAllTrendsByDeviceIdReducer);
@@ -15,7 +16,6 @@ function Trends() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get('name');
-  console.log("trendsFilter", trendsFilter)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
@@ -26,12 +26,12 @@ function Trends() {
   }, ([]))
   return (
     <>
-      {/* <div className='csvImg' style={{ display: 'flex', gap: '0.5rem', justifyContent: 'end', alignItems: 'center', padding: '5px 10px 0px 0px' }}>
+      <div className='csvImg' style={{ display: 'flex', gap: '0.5rem', justifyContent: 'end', alignItems: 'center', padding: '5px 10px 0px 0px' }}>
         <span style={{ display: 'inline', fontSize: '0.8rem', textDecoration: 'none' }}>Download</span>
-        <CSVLink title='LogCat' data={trendsFilter}>
+        {/* <CSVLink title='LogCat' data={trendsFilter}>
           <FontAwesomeIcon icon={faFileArrowDown} style={{ color: "#cb297b", height: "23px" }} />
-        </CSVLink>
-      </div> */}
+        </CSVLink> */}
+      </div>
       <div className='d-flex' style={{ fontSize: "0.9rem" }}>
         {/* Trends Value */}
         {trendsFilter && trendsFilter.length > 0 ?

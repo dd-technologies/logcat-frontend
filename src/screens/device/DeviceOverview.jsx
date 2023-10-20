@@ -11,6 +11,11 @@ function DeviceOverview() {
   const getAllSectionByDeviceId = useSelector((state) => state.getAllSectionByDeviceId);
   const { loading, data } = getAllSectionByDeviceId;
   const overviewData=data && data.data
+
+  const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
+  const { adminInfo } = adminLoginReducer;
+  const adminProfile = adminInfo && adminInfo.data && adminInfo.data.userType
+
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const projectName = urlParams.get("name");
@@ -59,7 +64,7 @@ function DeviceOverview() {
               <h5 style={{ fontSize: "1rem" }}>Device ID</h5>
               <h5 style={{ fontSize: "1rem" }}>Running Status</h5>
               <h5 style={{ fontSize: "1rem" }}>Last Hours</h5>
-              <h5 style={{ fontSize: "1rem" }}>Total Hours</h5>
+              <h5 style={{ fontSize: "1rem" }}>Total Ventilatin Hours</h5>
               <h5 style={{ fontSize: "1rem" }}>Health</h5>
               <h5 style={{ fontSize: "1rem" }}>Address</h5>
             </div>
@@ -71,7 +76,7 @@ function DeviceOverview() {
                     <path d="M12 9.5C13.3807 9.5 14.5 10.6193 14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5Z" fill="#11ac14"></path>
                   </g>
                 </svg></> : <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ff0000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 9.5C13.3807 9.5 14.5 10.6193 14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5Z" fill="#ff0000"></path> </g></svg>}</h5>
-              <h5 style={{ fontSize: "1rem" }}>{status == "ACTIVE" ? "- - -" : lastHours}</h5>
+              <h5 style={{ fontSize: "1rem" }}>{status == "ACTIVE" ? "In Vantilation" : lastHours}</h5>
               <h5 style={{ fontSize: "1rem" }}>{!totalHours ? "- - -" : totalHours}</h5>
               <h5 style={{ fontSize: "1rem" }}>{!health ? "- - -" : health}</h5>
               <h5 style={{ fontSize: "1rem" }}>{!address ? "- - -" : address}</h5>
@@ -104,12 +109,14 @@ function DeviceOverview() {
                   <h6>Live</h6>
                 </button>
               }
+              {adminProfile=='Admin'?
               <Link to={`/service?code=${code}&projectName=${projectName}&DeviceId=${deviceid}`} style={{ textDecoration: "none" }}>
                 <div style={{ justifyContent: "space-around", background: "#FFFFFF 0% 0% no-repeat padding-box", boxShadow: "0px 0px 50px #00000029", display: "flex", alignItems: 'center', padding: "15px", width: "13rem", borderRadius: "10px", color: "#707070", textAlign: 'center' }}>
                   <h6>Service Records</h6>
                   <span style={{ backgroundColor: 'red', borderRadius: '10px', height: '0.8rem', width: '0.8rem' }}></span>
                 </div>
               </Link>
+              :''}
             </div>
           </div>
         </div>

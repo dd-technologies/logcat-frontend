@@ -6,17 +6,15 @@ import { Link } from "react-router-dom";
 import Style from "../../css/ManagerUsers.module.css";
 import { Row } from "react-bootstrap";
 import TableCard1 from "../../container/TableCard1";
-import { getAllUsersDetalisById, updateAllUsersDetailsById } from "../../store/action/AdminDashboard";
+import { getAllUsersDetalisById, updateAllUsersDetailsById , userDeleteAction} from "../../store/action/AdminDashboard";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import addUser from "../../assets/icons/new-user.png"
-
-// import { toast, Toaster } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 function ManageUsers() {
   const allUsersDetailsReducer = useSelector(
     (state) => state.allUsersDetailsReducer
   );
-  const {loading, data } = allUsersDetailsReducer;
+  const { loading, data } = allUsersDetailsReducer;
   const dispatch = useDispatch();
   const incPage = parseInt(data && data.currentPage)
   const totalPage = parseInt(data && data.totalPages)
@@ -30,11 +28,11 @@ function ManageUsers() {
   useEffect(() => {
     dispatch(getAllUsersDetalisById({ page: 1, limit: recordsPerPage }));
   }, [dispatch]);
-
   return (
     <>
       <Navbar />
       <SideBar />
+      <Toaster/>
       <div
         className=""
         style={{
@@ -53,14 +51,14 @@ function ManageUsers() {
             className={Style.deviceSummary}
           >
             <div className={Style.deviceSummary}>
-            <Link to="/adminDashboard">
-              <img src={back} style={{ width: "3rem" }} />
-            </Link>
-            <h4 className={Style.Header}>Manage User's</h4>
+              <Link to="/adminDashboard">
+                <img src={back} style={{ width: "3rem" }} />
+              </Link>
+              <h4 className={Style.Header}>Manage User's</h4>
             </div>
-            <Link to='/add_register_user' style={{textDecoration:'none'}}>
-            <span style={{backgroundColor:'#CB297B',color:'white',padding:'10px',borderRadius:'10px'}}>
-          Add user
+            <Link to='/add_register_user' style={{ textDecoration: 'none' }}>
+              <span style={{ backgroundColor: '#CB297B', color: 'white', padding: '10px', borderRadius: '10px' }}>
+                Add user
               </span>
             </Link>
           </div>
@@ -68,7 +66,7 @@ function ManageUsers() {
         <div className={Style.Container}>
           {/* Events  */}
           <Row className="mt-0">
-            <div className={Style.column}> 
+            <div className={Style.column}>
               <TableCard1 borderRadius="20px">
                 <>
                   <section className={`${Style.OuterTable} `}>
@@ -78,8 +76,10 @@ function ManageUsers() {
                       <div
                         className="d-flex"
                         style={{
-                          gap: "10rem",
-                          padding: "1rem 1rem 1rem 2rem",
+                          justifyContent:'space-between',
+                          alignItems:'center',
+                          textAlign:'center',
+                          padding: "1rem 3rem 1rem 2rem",
                         }}
                       >
                         <div>
@@ -99,6 +99,9 @@ function ManageUsers() {
                         </div>
                         <div>
                           <h6 className={Style.UpperTextData}>Actions</h6>
+                        </div>
+                        <div>
+                          <h6 className={Style.UpperTextData}>Delete</h6>
                         </div>
                       </div>
                     </div>
@@ -134,6 +137,10 @@ function ManageUsers() {
                                           <option value="Service-Engineer">Service Engineer</option>
                                         </select>
                                       </div>
+                                        <button className={Style.viewbtn} onClick={()=>
+                                          {dispatch(userDeleteAction({userId:item1._id}))
+                                         toast.success('User Delete Sucessfully')}
+                                          }>Delete</button>
                                     </div>
                                   </React.Fragment>
                                 );

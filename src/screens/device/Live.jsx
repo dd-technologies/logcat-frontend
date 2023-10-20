@@ -17,7 +17,8 @@ import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import { Toaster } from 'react-hot-toast';
 import Style from "../../css/Live.module.css"
-const serverUrl = 'http://192.168.2.1:8000/'; // Replace with your server address
+const serverUrl = 'http://192.168.2.1:8000/'; 
+// const serverUrl = 'http://52.63.221.128:8000/';// Replace with your server address 52.63
 const socket = io.connect(serverUrl, () => {
   console.log("hello world")
 })
@@ -29,7 +30,7 @@ function Live() {
   const [spo2List, setSpo2List] = useState([])
   const [alertData, setAlertData] = useState([])
   const [batteryAlarmData, setBatteryData] = useState([])
-  const [btnChange , setBtnChange]=useState('black')
+  const [btnChange, setBtnChange] = useState('black')
   const [seconds, setSeconds] = useState(300);
 
   // 2 Minute timmer functionality
@@ -63,9 +64,6 @@ function Live() {
     socket.emit('ReactNodeStop', deviceId)
     navigate(`/deviceOverview?code=${code}&projectName=${projectName}&DeviceId=${deviceId}`)
   };
-  // const dispatch = useDispatch()
-  // const liveDataReducer = useSelector((state) => state.liveDataReducer);
-  // const { loading, data } = liveDataReducer;
 
   const [rohan, setRohan] = useState("Loading...")
   const [graphBtn, setGraphBtn] = useState(false)
@@ -147,10 +145,25 @@ function Live() {
     window.addEventListener("popstate", detectHistory);
   }, []); // Empty dependency array means this effect runs only on mount and unmount
 
+  const [dataBtn, setDataBtn] = useState("btn text-black")
+  const [graphDataBtn, setGraphDataBtn] = useState('')
+  const handleDataBtn = () => {
+    if (graphBtn == true) {
+      setGraphBtn(false)
+      setDataBtn('btn text-black')
+      setGraphDataBtn('')
+    }
+  }
+  const handleGraphBtn = () => {
+    if (graphBtn == false) {
+      setGraphBtn(true)
+      setDataBtn('')
+      setGraphDataBtn('btn text-black')
+    }
+  }
   return (
     <div className={Style.container}>
       <Toaster />
-
       {dataArray.length > 0 ?
         <div className={Style.insideContainer}>
           <div className={Style.upperModel}>
@@ -254,14 +267,18 @@ function Live() {
           </div>
           <div className={Style.formData}>
             <div className={Style.leftDataForm}>
-              <h5 className={Style.dataHeading}>DATA</h5>
+              <h5>
+                <button className={dataBtn} onClick={handleDataBtn} defaultChecked style={{width:'12rem',height:'3.5rem',borderRadius:'0px',textAlign:'left'}}>
+                  DATA
+                </button>
+              </h5>
               <h5>ALARMS</h5>
               <h5>LOOPS</h5>
               <h5>
-                <button onClick={() => { graphBtn == false ? setGraphBtn(true) : setGraphBtn(false) }}>
-                LAYOUTS
+                <button className={graphDataBtn} onClick={handleGraphBtn} style={{width:'12rem',height:'3.5rem',borderRadius:'0px',textAlign:'left'}}>
+                  LAYOUTS
                 </button>
-                </h5>
+              </h5>
               <h5>MANEUVERS</h5>
               <h5>LOGS</h5>
               <h5>MODES</h5>
@@ -269,6 +286,7 @@ function Live() {
               <h5>SYSTEM</h5>
             </div>
             {graphBtn == false ?
+             
               <div className={Style.mainData}>
                 {dataArray.map((label, index) => (
                   <div key={index} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'white', gap: "1rem" }}>
@@ -278,8 +296,8 @@ function Live() {
                 ))}
               </div>
               :
-              <div className={Style.graphData} style={{ marginTop: "1rem", width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <DynamicGraphData style={{ position: 'fixed' }} data={graphSocketData} />
+              <div className={Style.graphData} style={{ marginTop: "1rem", width: "70%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                 <DynamicGraphData style={{ position: 'fixed' }} data={graphSocketData} />
               </div>
             }
             <div style={{ display: 'flex', flexDirection: 'column' }}>

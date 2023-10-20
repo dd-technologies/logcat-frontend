@@ -102,8 +102,8 @@ function ServiceModuleData() {
                             {geticketDataFromLocal && geticketDataFromLocal.issues}
                         </li>
                     </ul>
-                    <UpdoladServiceEngFile/>
                 </div>
+                <UpdoladServiceEngFile />
             </div>
         </>
     )

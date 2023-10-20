@@ -48,6 +48,7 @@ import ServiceEnginner from "./screens/device/ServiceEnginner/ServiceEnginner";
 import ServiceModuleData from "./screens/device/ServiceEnginner/ServiceModuleData";
 import SupportEngDataModule from "./screens/device/SupportEnginner/SupportEngDataModule.jsx";
 import AddRegisterUser from "./screens/AdminDashboard/AddRegisterUser";
+import InstallationRecords from "./screens/device/ServiceEnginner/InstallationRecords";
 function App() {
   const [splash, setSplash] = useState(true);
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
@@ -102,6 +103,7 @@ function App() {
               {/* service-Eng */}
               <Route exact path="/service_eng" element={<ServiceEnginner />} />
               <Route exact path="/service_eng_module" element={<ServiceModuleData />} />
+              <Route exact path="/service_eng_installation" element={<InstallationRecords />} />
               {/* Register User */}
               <Route exact path="/add_register_user" element={<AddRegisterUser />} />
               <Route exact path="/log_table" element={<LogTable />} />

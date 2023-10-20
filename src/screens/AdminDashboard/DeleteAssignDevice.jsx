@@ -18,6 +18,7 @@ function DeleteAssignDevice() {
   const deviceDeleteReducer = useSelector((state) => state.deviceDeleteReducer);
   const { data } = deviceDeleteReducer;
   const deleteData=data && data.data && data.data.Assigned_Devices
+  console.log('data',data && data.data && data.data.Assigned_Devices)
   const goBack=()=>{
     window.history.go(-1)
   }

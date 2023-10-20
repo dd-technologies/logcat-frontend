@@ -20,6 +20,9 @@ import {
   DEVICE_DELETE_DATA_ACTION_REQUEST,
   DEVICE_DELETE_DATA_ACTION_SUCCESS,
   DEVICE_DELETE_DATA_ACTION_FAIL,
+  USER_DELETE_REQUEST,
+  USER_DELETE_REQUEST_FAIL,
+  USER_DELETE_REQUEST_SUCCESS
 } from "../types/AdminDashboard";
 const cookies = new Cookies();
 
@@ -244,6 +247,48 @@ export const deviceDataDeleteAction =
     } catch (error) {
       dispatch({
         type: DEVICE_DELETE_DATA_ACTION_FAIL,
+        payload:
+          error &&
+          error.response &&
+          error.response.data &&
+          error.response.data.data &&
+          error.response.data.data.err &&
+          error.response.data.data.err.msg,
+      });
+    }
+  };
+
+  export const userDeleteAction =
+  ({userId}) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: USER_DELETE_REQUEST,
+      });
+      const token = cookies.get("ddAdminToken");
+      console.log("userId",userId)
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.delete(
+        `${process.env.REACT_APP_BASE_URL}/api/logger/users/delete-byid/${userId}`,
+        config
+      );
+      dispatch({
+        type: USER_DELETE_REQUEST_SUCCESS,
+        payload: data,
+      });
+      if(data.statusCode==200){
+        setTimeout(()=>{
+          window.location.reload()
+        },500)
+      }
+    } catch (error) {
+      dispatch({
+        type: USER_DELETE_REQUEST_FAIL,
         payload:
           error &&
           error.response &&

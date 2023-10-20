@@ -17,8 +17,7 @@ function DispatchModel() {
   const { loading, data } = dispatchAllDetailsByIdReducer
   const deviceAssignData = data && data.data
   const deviceServiceData = data && data.servicesData
-  console.log("deviceServiceData", deviceServiceData)
-  console.log("data", data)
+  console.log("deviceAssignData", deviceAssignData)
   const batchNo = deviceAssignData && deviceAssignData.batch_no
   const deviceid = deviceAssignData && deviceAssignData.deviceId
   const dod = deviceAssignData && deviceAssignData.date_of_dispatch
@@ -89,7 +88,7 @@ function DispatchModel() {
                 <h5 style={{ fontSize: "0.9rem" }}>Distributer Name</h5>
                 <h5 style={{ fontSize: "0.9rem" }}>Distributer Contact</h5>
               </div>
-              <div className="d-flex" style={{ gap: "1.5rem", flexDirection: "column", textAlign: "START", color: "#4B4B4B" }}>
+              <div className="d-flex" style={{ gap: "2rem", flexDirection: "column", textAlign: "START", color: "#4B4B4B" }}>
                 <h5 style={{ fontSize: "0.9rem" }}>{deviceid?deviceid:"- - -"}</h5>
                 <h5 style={{ fontSize: "0.9rem" }}>{batchNo?batchNo:"- - -"}</h5>
                 <h5 style={{ fontSize: "0.9rem" }}>{dod?dod:"- - -"}</h5>
@@ -99,10 +98,10 @@ function DispatchModel() {
                 <h5 style={{ fontSize: "0.9rem" }}>{seiralNo?seiralNo:"- - -"}</h5>
                 <h5 style={{ fontSize: "0.9rem" }}>{concernedPerson?concernedPerson:"- - -"}</h5>
                 <h5 style={{ fontSize: "0.9rem" }}>{PhoneNumber?PhoneNumber:"- - -"}</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>{productType?productType:"- - -"}</h5>
+                <h5 style={{ fontSize: "0.9rem" }}>{productType && productType.length > 0?productType:"- - -"}</h5>
                 <h5 style={{ fontSize: "0.9rem" }}>{Address?Address:"- - -"}</h5>
                 <h5 style={{ fontSize: "0.9rem" }}>{simNo?simNo:"- - -"}</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>{pincode?pincode:"- - -"}</h5>
+                <h5 style={{ fontSize: "0.9rem" }}>{pincode && pincode.length>0?pincode:"- - -"}</h5>
                 <h5 style={{ fontSize: "0.9rem" }}>{distributorName?distributorName:"- - -"}</h5>
                 <h5 style={{ fontSize: "0.9rem" }}>{distributorNumber?distributorNumber:"- - -"}</h5>
               </div>

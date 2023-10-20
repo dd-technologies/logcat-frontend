@@ -7,22 +7,16 @@ import Style from "../../css/ServiceRecords.module.css";
 import { Row, Col } from "react-bootstrap";
 import TableCard1 from "../../container/TableCard1";
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Modal } from 'flowbite-react';
+import { Button } from 'flowbite-react';
 import { getServiceRecordsById, getSingleUploadFile } from "../../store/action/DeviceAction"
-import { ThemeContext } from '../../../src/utils/ThemeContext';
 import ReactReadMoreReadLess from "react-read-more-read-less";
 function Services() {
-  const { theme } = React.useContext(ThemeContext);
   const getAllServiceRecordsDetails = useSelector((state) => state.getAllServiceRecordsDetails);
   const { loading, data } = getAllServiceRecordsDetails;
-  const getSingleUploadFileReducer = useSelector((state) => state.getSingleUploadFileReducer);
-  const { data: filData } = getSingleUploadFileReducer;
-  const SingleFilData = filData && filData[0] && filData[0].location
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const did = urlParams.get('DeviceId')
   const code = urlParams.get('code');
-
   let calibrationFilter = data;
   const incPage = parseInt(data && data.currentPage)
   const totalPage = parseInt(data && data.totalPages)
@@ -46,7 +40,6 @@ function Services() {
   const npage = Math.ceil(data && data.length / recordsPerPage)
   const numbers = Array.from({ length: npage }, (_, i) => i + 1).slice(1)
   const deviceId = did
-  console.log('deviceId', deviceId)
   useEffect(() => {
     dispatch(getSingleUploadFile(deviceId))
   }, [dispatch])
@@ -54,29 +47,29 @@ function Services() {
     <div>
       <Navbar />
       <SideBar />
-<div
-  className=""
-  style={{
-    position: "relative",
-    top: "6rem",
-    marginLeft: "7%",
-    width: "90%",
-  }}
->
-  {/* Heading Section */}
-  <div
-    className="topHeading"
-    style={{ display: "flex", flexDirection: "column" }}
-  >
-    <div
-      className={Style.deviceSummary}
-    >
-      <Link onClick={goBack}>
-        <img src={back} style={{ width: "3rem" }} />
-      </Link>
-      <h4 className={Style.Header}>Service Records</h4>
-    </div>
-  </div>
+      <div
+        className=""
+        style={{
+          position: "relative",
+          top: "6rem",
+          marginLeft: "7%",
+          width: "90%",
+        }}
+      >
+        {/* Heading Section */}
+        <div
+          className="topHeading"
+          style={{ display: "flex", flexDirection: "column" }}
+        >
+          <div
+            className={Style.deviceSummary}
+          >
+            <Link onClick={goBack}>
+              <img src={back} style={{ width: "3rem" }} />
+            </Link>
+            <h4 className={Style.Header}>Service Records</h4>
+          </div>
+        </div>
         <div className={Style.Container}>
           {/* Events  */}
           <Row className="mt-0">
@@ -120,12 +113,10 @@ function Services() {
                           <React.Fragment key={_id}>
                             <div className={Style.userDataDiv}>
                               <div
-
                               >
                                 <h6 className={Style.userInsideData}>{item.deviceId}</h6>
                               </div>
                               <div
-
                               >
                                 <h6 className={Style.userInsideData}>
                                   <ReactReadMoreReadLess
@@ -138,7 +129,6 @@ function Services() {
                                 </h6>
                               </div>
                               <div>
-
                                 <h6 className={Style.userInsideData}>{item.serialNo}</h6>
                               </div>
                               <div>
@@ -146,47 +136,48 @@ function Services() {
                               </div>
                               <div>
                                 <h6 className={Style.userInsideData}>
-                                  <Link to={SingleFilData} style={{ textDecoration: 'none' }}>
-                                    <Button >Download</Button>
-                                  </Link>
+                                  {!item.location ? '' :
+                                    <Link to={item.location} style={{ textDecoration: 'none' }}>
+                                      <Button>Service Reports</Button>
+                                    </Link>
+                                  }
                                 </h6>
                               </div>
                             </div>
                           </React.Fragment>
                         )
                       })}
-                      <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-end" style={{ display: "flex", alignItems: 'center' }}>
-                          {incPage > 1 ?
-                            <button onClick={prePage} style={{ border: "0px", backgroundColor: "white" }}>
-                              <img src={back} style={{ width: "3rem" }} />
-                            </button>
-                            : " "}
-                          {numbers.map((n, i) => (
-                            <li key={i} class={`page-item ${incPage == n ? 'active' : ""}`}><a style={{ borderRadius: "100px", margin: "5px" }} class="page-link" href="#" onClick={() => changeCPage(n)}>{n}</a></li>
-                          ))}
-                          {incPage !== totalPage ?
-                            <button onClick={nextPage} style={{ border: "0px", backgroundColor: "white" }}>
-                              {recordsPerPage > 6 ?
-                                <img src={back} style={{ width: "3rem", transform: "rotate(180deg)" }} />
-                                : ''}
-                            </button>
-                            : " "}
-                        </ul>
-                      </nav>
+
                     </div>
                     :
-                    <div style={{ width: '100%', height: '100%', marginTop: '10rem', marginBottom: '10rem' }}>
-                      {records && records.length == 0 && (
-                        <div className={Style.noDataFound}>
+                    <section style={{ width: '100%', height: '100%', marginTop: '10rem', marginBottom: '10rem' }}>
+                      {records && records.length === 0 && (
+                        <section className={Style.noDataFound}>
                           <span>
                             No Data Found
                           </span>
-                        </div>
-                      )}
+                        </section>)
+                      }
                       {loading && <span style={{ display: 'flex', textAlign: 'center', justifyContent: 'center', fontSize: 20 }}>Loading...</span>}
-                    </div>
+                    </section>
                   }
+                  <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end" style={{ display: "flex", alignItems: 'center' }}>
+                      {incPage > 1 ?
+                        <button onClick={prePage} style={{ border: "0px", backgroundColor: "white" }}>
+                          <img src={back} style={{ width: "3rem" }} />
+                        </button>
+                        : " "}
+                      {numbers.map((n, i) => (
+                        <li key={i} class={`page-item ${incPage == n ? 'active' : ""}`}><a style={{ borderRadius: "100px", margin: "5px" }} class="page-link" href="#" onClick={() => changeCPage(n)}>{n}</a></li>
+                      ))}
+                      {incPage !== totalPage ?
+                        <button onClick={nextPage} style={{ border: "0px", backgroundColor: "white" }}>
+                          <img src={back} style={{ width: "3rem", transform: "rotate(180deg)" }} />
+                        </button>
+                        : " "}
+                    </ul>
+                  </nav>
                 </div>
               </TableCard1>
             </Col>

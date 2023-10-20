@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { getAllHospitalData } from "../../store/action/StoreSystem"
 import { adminRegister, allStateData } from "../../store/action/AdminAction"
 import { Country, State, City } from 'country-state-city';
+import back from "../../assets/images/back.png";
 function AddRegisterUser() {
     const [newUserData, setNewUserData] = useState({
         firstName: '',
@@ -58,10 +59,14 @@ function AddRegisterUser() {
             newUserData.passwordHash,
         ))
     }
+    const goBack=()=>{
+        window.history.go(-1)
+      }
     return (
         <div>
             <div class=" px-6 py-8 ">
-                <Link style={{ textDecoration: 'none' , color:'rgb(203, 41, 123)'}} href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                <Link style={{ textDecoration: 'none' , color:'rgb(203, 41, 123)'}} onClick={goBack} class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                <img src={back} style={{ width: "3rem" }} />
                     Register New User
                 </Link>
 

@@ -29,16 +29,22 @@ function ServiceEnginner() {
     return (
         <>
             <div>
-
                 <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                     <div class="px-3 py-3 lg:px-5 lg:pl-3" style={{ backgroundColor: '#cb297b' }}>
                         <div class="flex items-center justify-between">
                             <div class="flex items-center justify-start">
-                                <Link href="#" class="flex ml-2 md:mr-24" style={{ textDecoration: 'none' }}>
+                                <Link to="/service_eng" class="flex ml-2 md:mr-24" style={{ textDecoration: 'none' }}>
                                     <span style={{ color: 'white' }} class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">AgVa Healthcare</span>
                                 </Link>
                             </div>
                             <div class="flex items-center">
+                                <div class="flex items-center ml-3">
+                                    <Link to='/service_eng_installation'>
+                                        {/* <Button> */}
+                                            Inst.
+                                            {/* </Button> */}
+                                    </Link>
+                                </div>
                                 <div class="flex items-center ml-3">
                                     <ServiceModuleNavBar />
                                 </div>
@@ -132,7 +138,7 @@ function ServiceEnginner() {
                                     )
                                 })
                             :
-                            <div class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" style={{width:'350%',textAlign:'center'}}>
+                            <div class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" style={{ width: '350%', textAlign: 'center' }}>
                                 <div class="px-8 py-8">
                                     No Ticket Assigned
                                 </div>

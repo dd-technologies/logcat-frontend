@@ -131,7 +131,7 @@ function ServiceEngForm() {
                                 <div className={Style.textInpuDiv}>
                                     <input list="borow" style={{ padding: '0.8rem', width: '20rem' }} placeholder='Search Device Id'
                                         onChange={(e) => {
-                                            setDispatchDetails({ ...dispatchDetails, deviceId: e.target.value })
+                                            setDispatchDetails({...dispatchDetails, deviceId: e.target.value })
                                             const DeviceId=dispatchDetails.deviceId
                                             dispatch(getSingleDeviceIdDetails(DeviceId))
                                         }}

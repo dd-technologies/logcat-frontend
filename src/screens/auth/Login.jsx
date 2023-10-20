@@ -246,7 +246,7 @@ export default function Login() {
                       justifyContent: "end",
                     }}
                   >
-                    {/* <Link
+                    <Link
                       to="/forgetPassword"
                       style={{
                         textDecoration: "none",
@@ -256,7 +256,7 @@ export default function Login() {
                       className="cpactiveText"
                     >
                       Forget Password?
-                    </Link> */}
+                    </Link>
                   </section>
                 </div>
                 <section

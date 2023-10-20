@@ -42,8 +42,8 @@ export default function Alarms() {
     <>
       {records && records.length > 0 ?
         <section className={Style.alertTable}>
-          <div className='csvImg' style={{display:'flex',gap:'0.5rem',justifyContent:'end',alignItems:'center',padding:'5px 10px 0px 0px'}}>
-            <span style={{display:'inline',fontSize:'0.8rem',textDecoration:'none'}}>Download</span>
+          <div className='csvImg' style={{ display: 'flex', gap: '0.5rem', justifyContent: 'end', alignItems: 'center', padding: '5px 10px 0px 0px' }}>
+            <span style={{ display: 'inline', fontSize: '0.8rem', textDecoration: 'none' }}>Download</span>
             <CSVLink title='LogCat' data={records}>
               <FontAwesomeIcon icon={faFileArrowDown} style={{ color: "#cb297b", height: "23px" }} />
             </CSVLink>

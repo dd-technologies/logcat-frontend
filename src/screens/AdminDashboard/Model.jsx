@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import closeImg from "../../assets/icons/cancel.png";
 import { getRegisteredDetailsById } from "../../store/action/DeviceAction";
 function Model({ _id, open, onClose }) {
+  const [query, setQuery] = useState("");
   const getRegisteredDetailsReducer = useSelector(
     (state) => state.getRegisteredDetailsReducer
   );
@@ -42,16 +43,23 @@ function Model({ _id, open, onClose }) {
   };
   console.log("regDetail.data",regDetail )
   if (!open) return null;
+
+
+console.log('regDetail',regDetail)
   return (
     <div id={Style.popup}>
       <Toaster />
       <div className={Style.closebtn}>
+        <input onChange={(e) => setQuery(e.target.value.toLowerCase())}  placeholder="Search..." style={{border:'1px solid #aeaeae',padding:'10px',width:'20rem'}}/>
         <img src={closeImg} className={Style.closeBtn} onClick={onClose} />
       </div>
       <div className={Style.popupData}>
         {regDetail?
           <div className={Style.deviceIds}>
-            {regDetail.data
+            {regDetail && regDetail.data
+            .filter((item) =>
+            item.DeviceId.toLowerCase().includes(query)
+          )
               .map((entry, index) => {
                 return {
                   entry: entry,

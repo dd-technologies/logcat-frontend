@@ -109,12 +109,12 @@ function DispatchDataModule() {
                         return (
                           <>
                             <div className={Style.userDataDiv}>
-                              <div className={Style.userInsideData}>{item1.deviceId}</div>
-                              <div className={Style.userInsideData}>{item1.product_type}</div>
-                              <div className={Style.userInsideData}>{item1.serial_no}</div>
-                              <div className={Style.userInsideData}>{item1.hospital_name}</div>
-                              <div className={Style.userInsideData}>{item1.batch_no}</div>
-                              <div className={Style.userInsideData}>{item1.purpose}</div>
+                              <div className={Style.userInsideData}>{item1.deviceId?item1.deviceId:'---'}</div>
+                              <div className={Style.userInsideData}>{item1.product_type?item1.product_type:'---'}</div>
+                              <div className={Style.userInsideData}>{item1.serial_no?item1.serial_no:'---'}</div>
+                              <div className={Style.userInsideData}>{item1.hospital_name?item1.hospital_name:'---'}</div>
+                              <div className={Style.userInsideData}>{item1.batch_no?item1.batch_no:'---'}</div>
+                              <div className={Style.userInsideData}>{item1.purpose?item1.purpose:'---'}</div>
                               <div className={Style.viewBtnDiv}>
                                 <button className={Style.viewBtn}
                                   onClick={

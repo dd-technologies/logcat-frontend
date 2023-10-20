@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { dispatchDetailsAction } from '../../../store/action/DispatchDetailsAction'
 import { Navbar } from '../../../utils/NavBar'
 import SideBar from '../../../utils/Sidebar'
 import Style from "../../../css/DispatchDetails.module.css"
 import { Link } from 'react-router-dom'
 import back from "../../../assets/images/back.png";
+import { deviceAction } from '../../../store/action/DeviceAction'
 
 function Dispatch() {
     const [dispatchDetails, setDispatchDetails] = useState({
@@ -18,54 +19,21 @@ function Dispatch() {
         purpose: "",
         concerned_person: "",
         phone_number: "",
-        date_of_manufacuring: "",
         date_of_dispatch: "",
-        batch_no: "",
-        sim_no: "",
         pincode: "",
-        distributor_name:"",
-        distributor_contact:"",
+        distributor_name: "",
+        distributor_contact: "",
     })
 
-        // date picker functionality
-        const [disable, setDisable] = useState(true);
-        const [todate, setTodate] = useState([]);
-        const [fromdate, setFromdate] = useState([]);
-    
-        const [todateformat, setTodateformat] = useState('');
-        const [fromdateformat, setFromdateformat] = useState('');
-    
-        const handletodate = (e) => {
-            const gettodatevalue = e.target.value;
-            const setdateformat = gettodatevalue.split('-');
-            const settoyear = setdateformat[0];
-            const settomonth = setdateformat[1];
-            const settodate = setdateformat[2];
-            const settodateformat = settoyear + "" + settomonth + "" + settodate;
-            setTodate(gettodatevalue);
-            setTodateformat(settodateformat);
-            setDisable(false);
-            //console.log(settodateformat);
-           setDispatchDetails({ ...dispatchDetails, date_of_manufacuring: e.target.value })
-    
-        }
-    
-        const handlefromdate = (e) => {
-            const getfromdatevalue = e.target.value;
-            const setfromformat = getfromdatevalue.split("-");
-            const setfromyear = setfromformat[0];
-            const setfrommonth = setfromformat[1];
-            const setfromdate = setfromformat[2];
-            const setfromformatdate = setfromyear + "" + setfrommonth + "" + setfromdate;
-            setFromdate(getfromdatevalue);
-            setFromdateformat(setfromformatdate);
-            // console.log(setfromformatdate);
-            setDispatchDetails({ ...dispatchDetails, date_of_dispatch: e.target.value })
-    
-        }
+    const deviceReducer = useSelector((state) => state.deviceReducer);
+    const { data } = deviceReducer;
+    const deviceIdData = data && data.data && data.data.data
 
+    useEffect(() => {
+        dispatch(deviceAction({ page: 1, limit: 99000 }))
+    }, [])
     var phoneno = /^\d{10}$/
-    var pinCode= /^\d{6}$/
+    var pinCode = /^\d{6}$/
     var purposeValid = "Select Purpose Type"
     var productValid = "Select Product Type"
     const dispatch = useDispatch()
@@ -88,9 +56,6 @@ function Dispatch() {
         else if (!dispatchDetails.purpose || dispatchDetails.purpose === purposeValid) {
             toast.error("Enter Purpose")
         }
-        else if (!dispatchDetails.batch_no) {
-            toast.error("Enter Batch No.")
-        }
         else if (!dispatchDetails.concerned_person) {
             toast.error("Enter Concerned Person")
         }
@@ -100,31 +65,19 @@ function Dispatch() {
         else if (!dispatchDetails.phone_number.match(phoneno)) {
             toast.error("Enter 10 digit Concerned Contact")
         }
-        else if (!dispatchDetails.date_of_manufacuring) {
-            toast.error("Enter Date Of Manufacturing")
-        }
         else if (!dispatchDetails.date_of_dispatch) {
             toast.error("Enter Date Of Dispatch")
-        }
-        else if (!dispatchDetails.sim_no) {
-            toast.error("Enter Sim Number")
         }
         else if (!dispatchDetails.pincode) {
             toast.error("Enter PIN Code")
         }
-        else if(!dispatchDetails.pincode.match(pinCode)){
+        else if (!dispatchDetails.pincode.match(pinCode)) {
             toast.error("Enter 6 digit PIN Code")
         }
-        else if(!dispatchDetails.distributor_name){
-            toast.error("Enter Distributor Name")
-        }
-        else if(!dispatchDetails.distributor_contact){
-            toast.error("Enter Distrbutor Contact")
-        }
-        else if(!dispatchDetails.distributor_contact.match(phoneno)){
-            toast.error("Enter 10 digit Distrbutor Contact")
-        }
-        else if (dispatchDetails.deviceId && dispatchDetails.product_type && dispatchDetails.serial_no && dispatchDetails.address && dispatchDetails.purpose && dispatchDetails.batch_no && dispatchDetails.concerned_person && dispatchDetails.phone_number && dispatchDetails.date_of_manufacuring && dispatchDetails.date_of_dispatch && dispatchDetails.sim_no && dispatchDetails.pincode && dispatchDetails.distributor_name && dispatchDetails.distributor_contact) {
+        // else if (!dispatchDetails.distributor_contact.match(phoneno)) {
+        //     toast.error("Enter 10 digit Distrbutor Contact")
+        // }
+        else if (dispatchDetails.deviceId && dispatchDetails.product_type && dispatchDetails.serial_no && dispatchDetails.address && dispatchDetails.purpose && dispatchDetails.concerned_person && dispatchDetails.phone_number && dispatchDetails.date_of_dispatch && dispatchDetails.pincode  ) {
             toast.success("Success")
             dispatch(dispatchDetailsAction({
                 deviceId: dispatchDetails.deviceId,
@@ -133,24 +86,21 @@ function Dispatch() {
                 purpose: dispatchDetails.purpose,
                 concerned_person: dispatchDetails.concerned_person,
                 phone_number: dispatchDetails.phone_number,
-                batch_no: dispatchDetails.batch_no,
-                date_of_manufacturing: dispatchDetails.date_of_manufacuring,
                 address: dispatchDetails.address,
                 date_of_dispatch: dispatchDetails.date_of_dispatch,
                 hospital_name: dispatchDetails.hospitalName,
-                sim_no: dispatchDetails.sim_no,
                 pincode: dispatchDetails.pincode,
-                distributor_name:dispatchDetails.distributor_name,
-                distributor_contact:dispatchDetails.distributor_contact,
+                distributor_name: dispatchDetails.distributor_name,
+                distributor_contact: dispatchDetails.distributor_contact,
             }))
-            setTimeout(() => {
-                window.location.reload()
-            }, 500);
+            // setTimeout(() => {
+            //     window.location.reload()
+            // }, 500);
         }
     }
-    const goBack=()=>{
+    const goBack = () => {
         window.history.go(-1)
-      }
+    }
     return (
         <>
             <Toaster />
@@ -158,10 +108,10 @@ function Dispatch() {
             <SideBar />
             <div className={Style.mainContainer}>
                 <div className={Style.dispatchContainer}>
-                <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginLeft:'2rem' }}>
-                    <Link onClick={goBack} style={{display:'block'}}>
-                        <img src={back} style={{ width: "4rem" ,}} />
-                    </Link>
+                    <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginLeft: '2rem' }}>
+                        <Link onClick={goBack} style={{ display: 'block' }}>
+                            <img src={back} style={{ width: "4rem", }} />
+                        </Link>
                         <h5>Dispatch Details</h5>
                         <hr style={{ color: "#CB297B" }} />
                     </div>
@@ -170,7 +120,14 @@ function Dispatch() {
                             <div className={Style.formItem}>
                                 <span className="title">Device ID</span>
                                 <div className={Style.textInpuDiv}>
-                                    <input className={Style.textInputDetails} onChange={(e) => setDispatchDetails({ ...dispatchDetails, deviceId: e.target.value })} value={dispatchDetails.deviceId} placeholder="Enter Device Id" />
+                                    <input list='borow' className={Style.textInputDetails} onChange={(e) => setDispatchDetails({ ...dispatchDetails, deviceId: e.target.value })} value={dispatchDetails.deviceId} placeholder="Enter Device Id" />
+                                    <datalist id='borow'>
+                                        {deviceIdData && deviceIdData.map((item) => {
+                                            return (
+                                                <option value={item.deviceId}>{item.deviceId}</option>
+                                            )
+                                        })}
+                                    </datalist>
                                 </div>
                             </div>
                             <div className={Style.formItem}>
@@ -196,14 +153,6 @@ function Dispatch() {
                                 </div>
                             </div>
                             <div className={Style.formItem}>
-                                <span className="title">Address</span>
-                                <div className={Style.textInpuDiv}>
-                                    <input className={Style.textInputAddress} placeholder="Enter Dispatch Address" onChange={(e) => setDispatchDetails({ ...dispatchDetails, address: e.target.value })} value={dispatchDetails.address} />
-                                </div>
-                            </div>
-                        </div>
-                        <div className={Style.rightForm}>
-                            <div className={Style.formItem}>
                                 <span className="title">Purpose</span>
                                 <div className={Style.textInpuDiv}>
                                     <select className={Style.textInputDetails} onChange={(e) => setDispatchDetails({ ...dispatchDetails, purpose: e.target.value })} value={dispatchDetails.purpose}>
@@ -213,12 +162,9 @@ function Dispatch() {
                                     </select>
                                 </div>
                             </div>
-                            <div className={Style.formItem}>
-                                <span className="title">Batch No.</span>
-                                <div className={Style.textInpuDiv}>
-                                    <input type='number' className={Style.textInputDetails} placeholder="Enter batch no." onChange={(e) => setDispatchDetails({ ...dispatchDetails, batch_no: e.target.value })} value={dispatchDetails.batch_no} />
-                                </div>
-                            </div>
+                        </div>
+                        <div className={Style.rightForm}>
+
                             <div className={Style.formItem}>
                                 <span className="title">Concerned Person</span>
                                 <div className={Style.textInpuDiv}>
@@ -232,31 +178,12 @@ function Dispatch() {
                                 </div>
                             </div>
                             <div className={Style.formItem}>
-                                <span className="title">Date of Manufacturing</span>
-                                <div className={Style.textInpuDiv}>
-                                <input type="date" name="todate" placeholder="dd-mm-yyyy" onChange={(e) => handletodate(e)}  value={dispatchDetails.date_of_manufacuring} className={Style.textInputDetails} />
-                                </div>
-                            </div>
-                            <div className={Style.formItem}>
                                 <span className="title">Date of Dispatch</span>
                                 <div className={Style.textInpuDiv}>
-                                <input type="date" name="fromdate" placeholder="dd-mm-yyyy" disabled={disable} onChange={(e) => handlefromdate(e)} value={dispatchDetails.date_of_dispatch} className={Style.textInputDetails} />
+                                    <input type="date" name="fromdate" placeholder="dd-mm-yyyy" onChange={(e) => setDispatchDetails({ ...dispatchDetails, date_of_dispatch: e.target.value })} value={dispatchDetails.date_of_dispatch} className={Style.textInputDetails} />
                                 </div>
                             </div>
-                        </div>
-                        <div className={Style.rightForm}>
-                            <div className={Style.formItem}>
-                                <span className="title">SIM Number</span>
-                                <div className={Style.textInpuDiv}>
-                                    <input className={Style.textInputDetails} placeholder="Enter Sim no." onChange={(e) => setDispatchDetails({ ...dispatchDetails, sim_no: e.target.value })} value={dispatchDetails.sim_no} />
-                                </div>
-                            </div>
-                            <div className={Style.formItem}>
-                                <span className="title">PIN Code</span>
-                                <div className={Style.textInpuDiv}>
-                                    <input type='number' className={Style.textInputDetails} placeholder="Enter PIN Code" onChange={(e) => setDispatchDetails({ ...dispatchDetails, pincode: e.target.value })} value={dispatchDetails.pincode} />
-                                </div>
-                            </div>
+
                             <div className={Style.formItem}>
                                 <span className="title">Distrbuter Name</span>
                                 <div className={Style.textInpuDiv}>
@@ -266,7 +193,21 @@ function Dispatch() {
                             <div className={Style.formItem}>
                                 <span className="title">Distrbuter Contact</span>
                                 <div className={Style.textInpuDiv}>
-                                <input type="number" placeholder="Enter Distrbuter Contact " onChange={(e) => setDispatchDetails({ ...dispatchDetails, distributor_contact: e.target.value })} value={dispatchDetails.distributor_contact} className={Style.textInputDetails} />
+                                    <input type="number" placeholder="Enter Distrbuter Contact " onChange={(e) => setDispatchDetails({ ...dispatchDetails, distributor_contact: e.target.value })} value={dispatchDetails.distributor_contact} className={Style.textInputDetails} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className={Style.rightForm}>
+                            <div className={Style.formItem}>
+                                <span className="title">PIN Code</span>
+                                <div className={Style.textInpuDiv}>
+                                    <input type='number' className={Style.textInputDetails} placeholder="Enter PIN Code" onChange={(e) => setDispatchDetails({ ...dispatchDetails, pincode: e.target.value })} value={dispatchDetails.pincode} />
+                                </div>
+                            </div>
+                            <div className={Style.formItem}>
+                                <span className="title">Address</span>
+                                <div className={Style.textInpuDiv}>
+                                    <input className={Style.textInputAddress} placeholder="Enter Dispatch Address" onChange={(e) => setDispatchDetails({ ...dispatchDetails, address: e.target.value })} value={dispatchDetails.address} />
                                 </div>
                             </div>
                         </div>

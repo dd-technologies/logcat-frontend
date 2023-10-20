@@ -22,7 +22,7 @@ import { passwordChangeReducer, userInfoReducer, getHistoryDataReducer } from ".
 import { deviceReducer, deviceAssignDataByUserId, getAllAboutByDeviceIdReducer, getAllEventsByDeviceIdReducer, getRegisteredDetailsReducer, getAllAlarmsByDeviceIdReducer, getAllTrendsByDeviceIdReducer, getCalibrationByDeviceIdReducer, getAllLogsByDeviceIdReducer, getLogMsgOccurenceReducer, getDeviceCrashAnalyticsDataReducer, getDeviceLogMsgOccurenceWRTDateReducer, getAllServiceRecordsDetails, getAllSectionByDeviceId , getSingleUploadFileReducer} from "./reducer/deviceReducer";
 import { alarmReducer } from "./reducer/AlarmReducer";
 import {storeSystemReducer,allHospitalDataReducer} from "./reducer/StoreSystemReducer"
-import { dispatchAllDetailsReducer, dispatchAllDetailsByIdReducer, productionAllDetailsReducer } from "./reducer/DispatchDevices"
+import { dispatchAllDetailsReducer, dispatchAllDetailsByIdReducer, productionAllDetailsReducer , productionAllDetailsByUserIdReducer ,getdhrqualityFileReducer} from "./reducer/DispatchDevices"
 import { updateUserInfoReducer } from "./reducer/UpdateUserInfoReducer"
 import { getAllDeviceLogsReducer } from "./reducer/ProjectReducer";
 import { eventReducer } from "./reducer/EventReducer";
@@ -86,6 +86,8 @@ const appReducer = combineReducers({
   getSingleUploadFileReducer,
   dispatchAllDetailsReducer,
   productionAllDetailsReducer,
+  productionAllDetailsByUserIdReducer,
+  getdhrqualityFileReducer,
   dispatchAllDetailsByIdReducer,
   getAllTicketsDataReducer,
   getAllTicketsByIdReducer

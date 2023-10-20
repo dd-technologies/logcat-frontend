@@ -16,6 +16,10 @@ import {
   POST_DOC_BY_SERVICE_REQUEST,
   POST_DOC_BY_SERVICE_SUCCESS,
   POST_DOC_BY_SERVICE_FAIL,
+  INSTALLATION_REPORT_REQUEST,
+  INSTALLATION_REPORT_REQUEST_SUCCESS,
+  INSTALLATION_REPORT_REQUEST_FAIL,
+
 } from "../types/ServiceEngType";
 const cookies = new Cookies();
 export const getAllTicketsDataAction = (searchData, page, limit) => async (dispatch) => {
@@ -171,7 +175,7 @@ export const getTicketsDetailsByDeviceIdAction = (id) => async (dispatch) => {
     })
   }
 };
-export const uploadDocByServiceAction = (deviceId,file) => async (dispatch) => {
+export const uploadDocByServiceAction = (deviceId, file) => async (dispatch) => {
   try {
     dispatch({
       type: POST_DOC_BY_SERVICE_REQUEST
@@ -184,7 +188,7 @@ export const uploadDocByServiceAction = (deviceId,file) => async (dispatch) => {
         Authorization: `Bearer ${token}`,
       },
     };
-    console.log('11',deviceId)
+    console.log('11', deviceId)
     let { data } = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/api/s3/upload-single`,
       {
@@ -200,6 +204,47 @@ export const uploadDocByServiceAction = (deviceId,file) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: POST_DOC_BY_SERVICE_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.msg,
+    })
+  }
+};
+export const instalationReportAction = ({deviceId,concernedPName,dateOfWarranty,hospitalName,address}) => async (dispatch) => {
+  try {
+    dispatch({
+      type: INSTALLATION_REPORT_REQUEST
+    });
+    const token = cookies.get('ddAdminToken');
+    const config = {
+      method: 'PUT',
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    let { data } = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/support/add-installation-record`,
+      {
+        deviceId,
+        concernedPName,
+        dateOfWarranty,
+        hospitalName,
+        address,
+      },
+      config
+    );
+    dispatch({
+      type: INSTALLATION_REPORT_REQUEST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: INSTALLATION_REPORT_REQUEST_FAIL,
       payload:
         error &&
         error.response &&

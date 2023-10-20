@@ -630,6 +630,7 @@ export const getServiceRecordsById = ({ did, page, limit }) => async (dispatch) 
         Authorization: `Bearer ${token}`,
       }
     };
+    console.log('page, limit',page, limit)
     const { data } = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/api/logger/logs/services/${did}/SBXMH?${page}&${limit}`,
       config
