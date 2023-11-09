@@ -1,0 +1,211 @@
+.registerDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding: 4rem;
+}
+.inside_registerDiv {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 50px #00000029;
+  border-radius: 15px;
+  opacity: 1;
+  width: 100%;
+}
+.left_content {
+  width: 40%;
+  margin: auto 0;
+}
+.formDiv {
+  display: flex;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+.inside_formDiv{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.Login {
+  padding:30px;
+}
+.Login .headerText {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #CB297B;
+}
+.Login .imputFields {
+  display: flex;
+  align-items: center;
+  background-color: #fff !important;
+  border: 1px solid rgba(141, 141, 141, 0.72);
+  border-radius: 5px;
+  padding: 12px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 20px #00000029;
+  border-radius: 15px;
+  opacity: 1;
+  border: 0px;
+}
+.state_imputFields{
+  display: flex;
+  align-items: center;
+  background-color: #fff !important;
+  border: 1px solid rgba(141, 141, 141, 0.72);
+  border-radius: 5px;
+  padding: 12px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 20px #00000029;
+  border-radius: 15px;
+  opacity: 1;
+  border: 0px;
+  width: 300px;
+}
+.Login .imputFields span {
+  margin-left: 5px;
+}
+.Login .imputFields input {
+  border: none !important;
+  background-color: none !important;
+}
+.Login .imputFields svg {
+  color: #CB297B;
+}
+.Login .imputFieldsError {
+  display: flex;
+  align-items: center;
+  border: 1px solid red;
+  border-radius: 15px;
+  padding: 12px;
+}
+.Login .imputFieldsError input {
+  border: none !important;
+  background: none !important;
+}
+.Login .imputFieldsError svg {
+  color: #CB297B;
+} /*# sourceMappingURL=Register.module.css.map */
+.left-content {
+  width: 40%;
+}
+.leftContent {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 5rem;
+  align-items: center;
+}
+.innertext {
+  text-align: left;
+  font: normal normal normal 69px/97px Avenir Next LT Pro;
+  letter-spacing: 0px;
+  color: #cb297b;
+  opacity: 1;
+  font-size: 100px;
+  font-weight:lighter;
+}
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.btnn {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border-radius: 15px;
+  opacity: 1;
+  padding: 5px;
+}
+.inputusername {
+  margin-left: 3rem;
+  font-size: small;
+}
+.signinbtn {
+  width: 80%;
+  height: 2.8rem;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 30px #00000029;
+  border: 0px;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  color: #cb297b;
+  font-size: 19px;
+  font-family: poppins;
+}
+.signupbtn {
+  width: 50%;
+  height: 2.8rem;
+  background: #cb297b 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 30px #00000029;
+  border: 0px;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  color: #fff;
+  font-size: 19px;
+  font-family: poppins;
+}
+@media screen and (max-width: 1024px) {
+  .state_imputFields{
+    width: 100%;
+  }
+  .registerDiv {
+    width: 100%;
+    padding: 2rem;
+  }
+  .Login{
+    padding: 0px 30px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .state_imputFields{
+    width: 100%;
+  }
+  .registerDiv {
+    width: 100%;
+    padding: 0px;
+  }
+  .inside_registerDiv {
+    display: inline;
+  }
+  .left_content {
+    width: 100%;
+  }
+  .leftContent {
+    gap: 0px;
+  }
+  .formDiv{
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .inside_formDiv{
+    flex-direction: column;
+    width: 100%;
+  }
+  .Login{
+    padding: 0px 30px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .state_imputFields{
+    width: 100%;
+  }
+  .registerDiv {
+    width: 100%;
+    padding: 0px;
+  }
+  .inside_registerDiv {
+    display: inline;
+  }
+  .left_content {
+    width: 100%;
+  }
+  .leftContent {
+    gap: 0px;
+  }
+  .Login{
+    padding: 0px 30px;
+  }
+}

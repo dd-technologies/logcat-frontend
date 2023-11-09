@@ -1,0 +1,125 @@
+.Login {
+  padding: 30px;
+  width: 500px;
+}
+.Login .headerText {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #CB297B;
+}
+.Login .imputFields {
+  display: flex;
+  align-items: center;
+  border: solid rgb(226, 226, 226) 1px;
+  padding: 12px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 30px #00000029;
+  border-radius: 15px;
+  opacity: 1;
+  margin: 0 0 1rem 1rem;
+  width: 25rem;
+}
+.Login .imputFields span {
+  margin-left: 5px;
+}
+.Login .imputFields input {
+  border: none !important;
+  background-color: none !important;
+}
+.Login .imputFields svg {
+  color: #CB297B;
+}
+.Login .imputFieldsError {
+  display: flex;
+  align-items: center;
+  border: 1px solid red;
+  border-radius: 15px;
+  padding: 12px;
+  margin: 1rem;
+}
+.Login .imputFieldsError input {
+  border: none !important;
+  background: none !important;
+}
+.Login .imputFieldsError svg {
+  color: #CB297B;
+} /*# sourceMappingURL=Login.module.css.map */
+.main {
+  width: 590px;
+  margin: auto;
+  height: 745px;
+  top: 5rem;
+  position: relative;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 50px #00000029;
+  border-radius: 15px;
+  opacity: 1;
+}
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.innertext {
+  text-align: left;
+  font: normal normal normal 69px/97px Avenir Next LT Pro;
+  letter-spacing: 0px;
+  color: #cb297b;
+  opacity: 1;
+  font-size: 100px;
+  font-weight: lighter;
+}
+.healthcare {
+  text-align: left;
+  font-family: normal normal bold 44px/56px Rajdhani;
+  letter-spacing: 0px;
+  color: #00000077;
+  opacity: 1;
+  font-size: 24px;
+  font-weight: bold;
+}
+.inputfiled {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 30px #00000029;
+  border-radius: 15px;
+  opacity: 1;
+}
+.inputusername {
+  margin: 0 0 -1rem 4rem;
+  font-size: small;
+}
+.remembersection {
+  display: flex;
+  justify-content: center;
+  gap: 12rem;
+  align-items: center;
+  text-align: center;
+}
+@media only screen and (min-width:375px) and (max-width:426px){
+  .Login{
+    width: 24rem;
+  }
+  .remembersection{
+    gap: 4rem;
+  }
+  .Login .imputFields{
+    width: 19rem;
+  }
+  .innertext{
+    font-size: 80px;
+    font-weight: 100;
+  }
+}
+@media only screen and (min-width:300px) and (max-width:374px){
+  .remembersection{
+    gap: 3rem;
+  }
+  .Login .imputFields{
+    width: 16rem;
+  }
+  .innertext{
+    font-size: 80px;
+    font-weight: 100;
+  }
+}

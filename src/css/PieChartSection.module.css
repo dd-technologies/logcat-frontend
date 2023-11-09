@@ -1,0 +1,16 @@
+.PieChartData {
+  display: flex;
+  justify-content: space-between;
+}
+.PieChartData h5 {
+  font-size: 1rem !important;
+  color: #CB297B;
+  font-weight: 500;
+}
+.PieChartData p {
+  color: #CB297B;
+  font-size: 0.8rem;
+}
+.PieChartData section {
+  display: flex;
+}/*# sourceMappingURL=PieChartSection.module.css.map */
