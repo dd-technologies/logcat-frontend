@@ -71,6 +71,7 @@
   justify-content: center !important;
   align-items: center !important;
   font-size: 1.3rem;
+  box-shadow: 0px 0px 50px #00000029;
 }
 
 .productVersion {

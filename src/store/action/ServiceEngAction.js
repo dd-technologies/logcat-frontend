@@ -19,10 +19,19 @@ import {
   INSTALLATION_REPORT_REQUEST,
   INSTALLATION_REPORT_REQUEST_SUCCESS,
   INSTALLATION_REPORT_REQUEST_FAIL,
+  GET_TICKET_DETAILS_BY_TICKET_NO_FAIL,
+  GET_TICKET_DETAILS_BY_TICKET_NO_SUCCESS,
+  GET_TICKET_DETAILS_BY_TICKET_NO_REQUEST,
+  GET_SERVICE_ENGINNER_STATUS_REQUEST,
+  GET_SERVICE_ENGINNER_STATUS_SUCCESS,
+  GET_SERVICE_ENGINNER_STATUS_FAIL,
+  GET_SERVICE_ENGINNER_DATA_FAIL,
+  GET_SERVICE_ENGINNER_DATA_SUCCESS,
+  GET_SERVICE_ENGINNER_DATA_REQUEST,
 
 } from "../types/ServiceEngType";
 const cookies = new Cookies();
-export const getAllTicketsDataAction = (searchData, page, limit) => async (dispatch) => {
+export const getAllTicketsDataAction = ({ searchData, page, limit }) => async (dispatch) => {
   try {
     dispatch({
       type: GET_ALL_TICKETS_DATA_REQUEST
@@ -101,7 +110,7 @@ export const putStatusDataAction = ({ id, status, priority }) =>
     }
   };
 
-export const deleteStatusDataAction = ({ id }) =>
+export const deleteStatusDataAction = ({ id, ticket_status, priority, service_engineer, isFeedback }) =>
   async (dispatch) => {
     try {
       dispatch({
@@ -115,8 +124,15 @@ export const deleteStatusDataAction = ({ id }) =>
           Authorization: `Bearer ${token}`,
         },
       };
-      let { data } = await axios.delete(
-        `${process.env.REACT_APP_BASE_URL}/support/delete-ticket/${id}`,
+      let { data } = await axios.put(
+        `${process.env.REACT_APP_BASE_URL}/support/update-ticket`,
+        {
+          id,
+          ticket_status,
+          priority,
+          service_engineer,
+          isFeedback,
+        },
         config
       );
       dispatch({
@@ -175,6 +191,7 @@ export const getTicketsDetailsByDeviceIdAction = (id) => async (dispatch) => {
     })
   }
 };
+
 export const uploadDocByServiceAction = (deviceId, file) => async (dispatch) => {
   try {
     dispatch({
@@ -214,7 +231,7 @@ export const uploadDocByServiceAction = (deviceId, file) => async (dispatch) => 
     })
   }
 };
-export const instalationReportAction = ({deviceId,concernedPName,dateOfWarranty,hospitalName,address}) => async (dispatch) => {
+export const instalationReportAction = ({ deviceId, concernedPName, dateOfWarranty, hospitalName, address }) => async (dispatch) => {
   try {
     dispatch({
       type: INSTALLATION_REPORT_REQUEST
@@ -245,6 +262,121 @@ export const instalationReportAction = ({deviceId,concernedPName,dateOfWarranty,
   } catch (error) {
     dispatch({
       type: INSTALLATION_REPORT_REQUEST_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.msg,
+    })
+  }
+};
+
+export const getTicketDetailsInSupport = (ticket) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_TICKET_DETAILS_BY_TICKET_NO_REQUEST
+    });
+    const token = cookies.get('ddAdminToken');
+    const config = {
+      method: 'PUT',
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    let { data } = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/support/get-ticket-details/${ticket}`,
+      config
+    );
+    dispatch({
+      type: GET_TICKET_DETAILS_BY_TICKET_NO_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_TICKET_DETAILS_BY_TICKET_NO_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.msg,
+    })
+  }
+};
+
+export const getServiceEngStatus = (userStatus, email) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_SERVICE_ENGINNER_STATUS_REQUEST
+    });
+    const token = cookies.get('ddAdminToken');
+    const config = {
+      method: 'PUT',
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    let { data } = await axios.put(
+      `${process.env.REACT_APP_BASE_URL}/api/logger/change-user-status`,
+      {
+        userStatus,
+        email,
+      },
+      config
+    );
+    dispatch({
+      type: GET_SERVICE_ENGINNER_STATUS_SUCCESS,
+      payload: data,
+    });
+    if (data && data.statusCode === 200) {
+      window.location.reload()
+    }
+  } catch (error) {
+    dispatch({
+      type: GET_SERVICE_ENGINNER_STATUS_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.msg,
+    })
+  }
+};
+
+export const getServiceEngData = (email) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_SERVICE_ENGINNER_DATA_REQUEST
+    });
+    const token = cookies.get('ddAdminToken');
+    const config = {
+      method: 'PUT',
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    let { data } = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/logger/user-status/${email}`,
+      config
+    );
+    dispatch({
+      type: GET_SERVICE_ENGINNER_DATA_SUCCESS,
+      payload: data,
+    });
+    // if(data && data.statusCode===200){
+    //   window.location.reload()
+    // }
+  } catch (error) {
+    dispatch({
+      type: GET_SERVICE_ENGINNER_DATA_FAIL,
       payload:
         error &&
         error.response &&

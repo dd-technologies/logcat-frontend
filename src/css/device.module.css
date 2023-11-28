@@ -111,6 +111,14 @@
   top: 2%;
   position: absolute;
 }
+.overflowdiv{
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 50%;
+  padding-right: calc(var(--bs-gutter-x) * .5);
+  padding-left: calc(var(--bs-gutter-x) * .5);
+  margin-top: var(--bs-gutter-y);
+}
 /* Styles for desktops and larger screens */
 @media (min-width: 1200px) {
   /* Add your CSS rules for desktops here */
@@ -131,6 +139,6 @@
 @media (max-width: 767px) {
   /* Add your CSS rules for phones here */
   .container{
-    width: 140%;
+    width: 80%;
   }
 }

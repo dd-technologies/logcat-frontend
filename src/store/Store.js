@@ -13,27 +13,29 @@ import {
   forgetPasswordReducer,
   resetPasswordReducer,
 } from "./reducer/AdminReducer";
-import { allhospitalNameReducer, allCountryStateReducer, allStateReducer } from "./reducer/HospitalNameReducer";
+import { allhospitalNameReducer, allCountryStateReducer,getallHospitalNameReducer, allStateReducer } from "./reducer/HospitalNameReducer";
 import {
   getAllProjectReducer, getAllLogByCodeReducer, createNewProjectReducer, getLogCountsReducer, getLogCountsByDateReducer, getErrorWRTOSReducer, getErrorWRTVersionReducer, getDeviceInfoReducer,
   getLogMsgOccurenceWRTDateReducer, getCrashFreeUsersReducer, getCrashAnalyticsDataReducer, getCrashFreeUsersDataReducer, getModelCodeReducer, addCrashEmailReducer, getProjectByCodeSettingReducer,
 } from "./reducer/ProjectReducer";
 import { passwordChangeReducer, userInfoReducer, getHistoryDataReducer } from "./reducer/UserProfileReducer";
-import { deviceReducer, deviceAssignDataByUserId, getAllAboutByDeviceIdReducer, getAllEventsByDeviceIdReducer, getRegisteredDetailsReducer, getAllAlarmsByDeviceIdReducer, getAllTrendsByDeviceIdReducer, getCalibrationByDeviceIdReducer, getAllLogsByDeviceIdReducer, getLogMsgOccurenceReducer, getDeviceCrashAnalyticsDataReducer, getDeviceLogMsgOccurenceWRTDateReducer, getAllServiceRecordsDetails, getAllSectionByDeviceId , getSingleUploadFileReducer} from "./reducer/deviceReducer";
+import { deviceReducer, deviceAssignDataByUserId, getAllAboutByDeviceIdReducer, getAllEventsByDeviceIdReducer, getRegisteredDetailsReducer, getAllAlarmsByDeviceIdReducer, getAllTrendsByDeviceIdReducer, getCalibrationByDeviceIdReducer, getAllLogsByDeviceIdReducer, getLogMsgOccurenceReducer, getDeviceCrashAnalyticsDataReducer, getDeviceLogMsgOccurenceWRTDateReducer, getAllServiceRecordsDetails, getAllSectionByDeviceId , getSingleUploadFileReducer, getDeviceIdBySerialNumberReducer,getPatientDetailsReducer,getPatientDetailsByUhidReducer , getPatientDiagnose,getUhidsListReducer} from "./reducer/deviceReducer";
 import { alarmReducer } from "./reducer/AlarmReducer";
-import {storeSystemReducer,allHospitalDataReducer} from "./reducer/StoreSystemReducer"
-import { dispatchAllDetailsReducer, dispatchAllDetailsByIdReducer, productionAllDetailsReducer , productionAllDetailsByUserIdReducer ,getdhrqualityFileReducer} from "./reducer/DispatchDevices"
+import {storeSystemReducer,allTicketDataReducer,allHospitalDataReducer,getHospitalFromAdding, getHospitalListByPincodeReducer} from "./reducer/StoreSystemReducer"
+import { dispatchAllDetailsReducer, dispatchAllDetailsByIdReducer, productionAllDetailsReducer , productionAllDetailsByUserIdReducer ,getdhrqualityFileReducer,getPiincodeDatReducer,getDeviceIdProductionReducer} from "./reducer/DispatchDevices"
 import { updateUserInfoReducer } from "./reducer/UpdateUserInfoReducer"
 import { getAllDeviceLogsReducer } from "./reducer/ProjectReducer";
 import { eventReducer } from "./reducer/EventReducer";
-import { getAllTicketsDataReducer , getAllTicketsByIdReducer} from "./reducer/ServiceEngReducer"
+import { getAllTicketsDataReducer , getAllTicketsByIdReducer,getTicketDetailsByNumberReducer,getServiceEngDataReducer} from "./reducer/ServiceEngReducer"
 import { allUsersDetailsReducer, updateAllUsersDetailReducer, dashboardDataDefault, deviceActionReducer, deviceDeleteReducer } from "./reducer/AdminDashboardReducer"
+import { verifyOtpReducer,verifyEmailReducer , deviceIdByHospitalNameReducer} from "./reducer/VerifyEmailsReducer"
 const appReducer = combineReducers({
   adminLoginReducer,
   adminRegisterReducer,
   allhospitalNameReducer,
   allCountryStateReducer,
   allStateReducer,
+  getallHospitalNameReducer,
   forgetPasswordReducer,
   resetPasswordReducer,
   liveDataReducer,
@@ -43,7 +45,11 @@ const appReducer = combineReducers({
   getLogCountsReducer,
   getLogCountsByDateReducer,
   getModelCodeReducer,
-
+  getDeviceIdBySerialNumberReducer,
+  getPatientDetailsReducer,
+  getPatientDetailsByUhidReducer,
+  getPatientDiagnose,
+  getUhidsListReducer,
   getErrorWRTOSReducer,
   getErrorWRTVersionReducer,
   getDeviceInfoReducer,
@@ -52,7 +58,9 @@ const appReducer = combineReducers({
   getCrashFreeUsersReducer,
   getCrashAnalyticsDataReducer,
   getCrashFreeUsersDataReducer,
-
+  verifyOtpReducer,
+  verifyEmailReducer,
+  deviceIdByHospitalNameReducer,
   passwordChangeReducer,
   updateAllUsersDetailReducer,
   dashboardDataDefault,
@@ -65,6 +73,9 @@ const appReducer = combineReducers({
   deviceReducer,
   storeSystemReducer,
   allHospitalDataReducer,
+  allTicketDataReducer,
+  getHospitalFromAdding,
+  getHospitalListByPincodeReducer,
   deviceAssignDataByUserId,
   userInfoReducer,
   getHistoryDataReducer,
@@ -88,9 +99,13 @@ const appReducer = combineReducers({
   productionAllDetailsReducer,
   productionAllDetailsByUserIdReducer,
   getdhrqualityFileReducer,
+  getPiincodeDatReducer,
+  getDeviceIdProductionReducer,
   dispatchAllDetailsByIdReducer,
   getAllTicketsDataReducer,
-  getAllTicketsByIdReducer
+  getAllTicketsByIdReducer,
+  getTicketDetailsByNumberReducer,
+  getServiceEngDataReducer
 });
 const persistConf = {
   key: "root",

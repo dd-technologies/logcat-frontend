@@ -21,12 +21,12 @@ function ServiceModuleNavBar() {
             label={<Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />}
         >
             <div class="px-4 py-3">
-                <span class="block text-sm text-gray-900 dark:text-white">{userProfileData.name}</span>
-                <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">{userProfileData.email}</span>
+                <span class="block text-sm text-gray-900 ">{userProfileData.name}</span>
+                <span class="block text-sm  text-gray-500 truncate ">{userProfileData.email}</span>
             </div>
             <ul class="py-2 px-2" aria-labelledby="user-menu-button">
                 <li>
-                <button onClick={(e)=>handlelogout(e)} style={{backgroundColor:'#cb297b'}} class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Logout</button></li>
+                <button onClick={(e)=>handlelogout(e)} style={{backgroundColor:'#cb297b'}} class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 ">Logout</button></li>
             </ul>
         </Dropdown>
     )

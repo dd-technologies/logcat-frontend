@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerNewDevice } from '../../../store/action/DeviceAction';
 import Style from "../../../css/EditDetailsModal.module.css";
 import { Toaster, toast } from 'react-hot-toast';
+import { getHospitalDataFromAdding, getNewHospitalData } from '../../../store/action/StoreSystem';
 
 const EditDetailsModal = (props) => {
   const { item } = props;
@@ -15,40 +16,69 @@ const EditDetailsModal = (props) => {
     Ward_No: '',
     IMEI_No: '',
     Bio_Med: '',
+    Alias_Name: ''
   });
   const [errorName, setErrorName] = useState();
   const [errorMsg, setErrorMsg] = useState();
 
   const dispatch = useDispatch();
 
-  const handleSubmit = () => {
-    // e.preventDefault();
+
+  // Hpospital Data
+  const getHospitalFromAdding = useSelector((state) => state.getHospitalFromAdding);
+  const { data: dataHospital } = getHospitalFromAdding;
+
+  useEffect(() => {
+    dispatch(getHospitalDataFromAdding())
+  }, [])
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
     setErrorName("");
     setErrorMsg("");
-    if (item && EditDetails.Department_Name && EditDetails.Ward_No && EditDetails.Hospital_Name && EditDetails.Doctor_Name && EditDetails.IMEI_No && EditDetails.Bio_Med) {
+    if (!EditDetails && EditDetails.Department_Name) {
+      toast.error('Please Fill Department Name')
+    }
+    else if (!EditDetails && EditDetails.Alias_Name) {
+      toast.error("Enter Alias Name")
+    }
+    else if (!EditDetails && EditDetails.Hospital_Name) {
+      toast.error('Please Fill Hospital Name')
+    }
+    else if (!EditDetails && EditDetails.Doctor_Name) {
+      toast.error('Please Fill Doctor Name')
+    }
+    else if (!EditDetails && EditDetails.Ward_No) {
+      toast.error('Please Fill Ward Number')
+    }
+    else if (!EditDetails && EditDetails.IMEI_No) {
+      toast.error('Please Fill IMEI Number')
+    }
+    else if (!EditDetails && EditDetails.Bio_Med) {
+      toast.error('Please Fill Bio Med Number')
+    }
+    else if (item && EditDetails.Department_Name && EditDetails.Alias_Name && EditDetails.Ward_No && EditDetails.Hospital_Name && EditDetails.Doctor_Name && EditDetails.IMEI_No && EditDetails.Bio_Med) {
       setErrorName("");
       setErrorMsg("");
       dispatch(
         registerNewDevice(
           {
             DeviceId: item,
-            Alias: EditDetails.Department_Name,
+            DepartmentName: EditDetails.Department_Name,
             HospitalName: EditDetails.Hospital_Name,
             DoctorName: EditDetails.Doctor_Name,
             Wardno: EditDetails.Ward_No,
             IMEINumber: EditDetails.IMEI_No,
-            VentiOperator: EditDetails.Bio_Med
+            VentiOperator: EditDetails.Bio_Med,
+            AliasName: EditDetails.Alias_Name,
           }
         ),
       );
-      props.onHide();
       setTimeout(() => {
         window.location.reload()
+        props.onHide();
       }, 500);
-      // window.location.reload()  
-    }
-    else {
-      toast.error("Fill All Details")
     }
   }
   return (
@@ -87,6 +117,25 @@ const EditDetailsModal = (props) => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label className="darkModeColor">Alias Name</Form.Label>
+            <input
+              className={Style.inputFields}
+              type="text"
+              name="Alias_Name"
+              value={EditDetails.Alias_Name}
+              placeholder="Enter Alias Name"
+              onChange={(e) =>
+                setEditDetails({ ...EditDetails, Alias_Name: e.target.value })
+              }
+              required
+            />
+            {errorName ? (
+              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
+            ) : (
+              ""
+            )}
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label className="darkModeColor">Department</Form.Label>
             <input
               className={Style.inputFields}
@@ -111,6 +160,7 @@ const EditDetailsModal = (props) => {
             <input
               className={Style.inputFields}
               type="text"
+              list='data'
               name="HospitalName"
               value={EditDetails.Hospital_Name}
               placeholder="Enter the Hospital Name"
@@ -119,6 +169,15 @@ const EditDetailsModal = (props) => {
               }
               required
             />
+            {/* <input list='data' type="text"  id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" placeholder="Enter Hospital Name" required /> */}
+            <datalist id='data'>
+              {dataHospital && dataHospital.map((item) => {
+                return (
+                  <option value={item.Hospital_Name}>{item.Hospital_Name}</option>
+                )
+              })}
+            </datalist>
+
             {errorName ? (
               <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
             ) : (
@@ -153,7 +212,7 @@ const EditDetailsModal = (props) => {
               type="text"
               name="WardNo"
               value={EditDetails.Ward_No}
-              placeholder="Enter Your Ward Number"
+              placeholder="Enter Ward Number"
               onChange={(e) =>
                 setEditDetails({ ...EditDetails, Ward_No: e.target.value })
               }
@@ -173,7 +232,7 @@ const EditDetailsModal = (props) => {
               type="text"
               name="IMEINumber"
               value={EditDetails.IMEI_No}
-              placeholder="Enter Your Device IMEI Number"
+              placeholder="Enter Device IMEI Number"
               onChange={(e) =>
                 setEditDetails({ ...EditDetails, IMEI_No: e.target.value })
               }

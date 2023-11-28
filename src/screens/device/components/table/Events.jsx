@@ -27,104 +27,85 @@ export default function Events() {
   useEffect(() => {
     dispatch(getDeviceEventsById({ page: 1, limit: recordsPerPage }));
   }, [dispatch])
-  console.log("eventsFilter",eventsFilter)
+  console.log("eventsFilter", eventsFilter)
   return (
     <>
       {records && records.length > 0 ?
-        <section className={Style.alertTable}>
-          <div className='csvImg' style={{display:'flex',gap:'0.5rem',justifyContent:'end',alignItems:'center',padding:'5px 10px 0px 0px'}}>
-            <span style={{display:'inline',fontSize:'0.8rem',textDecoration:'none'}}>Download</span>
-            <CSVLink title='LogCat' data={records}>
-              <FontAwesomeIcon icon={faFileArrowDown} style={{ color: "#cb297b", height: "23px" }} />
-            </CSVLink>
+        <>
+          <div class="relative overflow-x-auto shadow-md sm:rounded-lg" style={{ borderRadius: '0px 0px 2rem 2rem' }}>
+            <div className='csvImg' style={{ display: 'flex', gap: '0.5rem', justifyContent: 'end', alignItems: 'center', padding: '5px 10px 5px 0px', backgroundColor: '#cb297b' }}>
+              <CSVLink title='LogCat' data={records} style={{ display: 'flex', fontSize: '0.8rem', textDecoration: 'none', color: 'white', textAlign: 'center', gap: '0.5rem' }}>
+                <span style={{ display: 'inline', fontSize: '0.8rem', textDecoration: 'none', color: 'white' }}>Download</span>
+                <FontAwesomeIcon icon={faFileArrowDown} style={{ color: "white", height: "23px" }} />
+              </CSVLink>
+            </div>
+            <div class="relative overflow-x-auto">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <td scope="col" class="px-6 py-3 text-center text-black text-4xl font-semibold">
+                    Device ID
+                  </td>
+                  <td scope="col" class="px-6 py-3 text-center text-black text-4xl font-semibold">
+                    Message
+                  </td>
+                  <td scope="col" class="px-6 py-3 text-center text-black text-4xl font-semibold">
+                    Type
+                  </td>
+                  <td scope="col" class="px-6 py-3 text-center text-black text-4xl font-semibold">
+                    Date
+                  </td>
+                  <td scope="col" class="px-6 py-3 text-center text-black text-4xl font-semibold">
+                    Time
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                {records && records.map((item, index) => {
+                  return (
+                    <tr class="bg-white border-b hover:bg-gray-50">
+                      <td class="px-6 py-4 text-center font-semibold text-gray-900">
+                        {item.did ? item.did : '---'}
+                      </td>
+                      <td class="px-6 py-4 text-center ">
+                        {item.message ? item.message : '---'}
+                      </td>
+                      <td class="px-6 py-4 text-center ">
+                        {item.type ? item.type : '---'}
+                      </td>
+                      <td class="px-6 py-4 text-center ">
+                        {item.date ? item.date : '---'}
+                      </td>
+                      <td class="px-6 py-4 text-center ">
+                        {item.time ? item.time : '---'}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+            </div>
           </div>
-          <section className={Style.tableHeader}>
-            <section className={Style.innerHeader}>
-              <p
-                className={Style.tableHeadingData}
-              >
-                Device Id
-              </p>
-            </section>
-            <section className={Style.innerHeader}>
-              <p
-                className={Style.tableHeadingData}
-              >
-                Message
-              </p>
-            </section>
-            <section className={Style.innerHeader}>
-              <p
-                className={Style.tableHeadingData}
-              >
-                Type
-              </p>
-            </section>
-            <section className={Style.innerHeader}>
-              <p
-                className={Style.tableHeadingData}
-              >
-                Date
-              </p>
-            </section>
-            <section className={Style.innerHeader}>
-              <p
-                className={Style.tableHeadingData}
-              >
-                Time
-              </p>
-            </section>
-          </section>
-          <section>
-            {records && records
-              .map((item1, _id) => {
-                return (
-                  <React.Fragment key={_id}>
-                    <section className={Style.tableBody}>
-                      <section
-                      >
-                        <h6 className={Style.insideTextData}>
-                          {item1.did}
-                        </h6>
-                      </section>
-                      <section
-
-                      >
-                        <h6 className={Style.insideTextData}>
-                          {item1.message}
-                        </h6>
-                      </section>
-                      <section
-
-                      >
-                        <h6 className={Style.insideTextData}>
-                          {item1.type}
-                        </h6>
-                      </section>
-                      <section
-
-                      >
-                        <h6 className={Style.insideTextData}>
-                          {item1.date}
-                        </h6>
-                      </section>
-                      <section
-
-                      >
-                        <h6 className={Style.insideTextData}>
-                          {item1.time}
-                        </h6>
-                      </section>
-                    </section>
-                  </React.Fragment>
-                )
-              }
-              )
-            }
-          </section>
-        </section>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end" style={{ display: "flex", alignItems: 'center' }}>
+              {incPage > 1 ?
+                <button onClick={prePage} style={{ border: "0px", backgroundColor: "white" }}>
+                  <img src={back} style={{ width: "3rem" }} />
+                </button>
+                : " "}
+              {numbers.map((n, i) => (
+                <li key={i} class={`page-item ${incPage == n ? 'active' : ""}`}><a style={{ borderRadius: "100px", margin: "5px" }} class="page-link" href="#" onClick={() => changeCPage(n)}>{n}</a></li>
+              ))}
+              {incPage !== totalPage ?
+                <button onClick={nextPage} style={{ border: "0px", backgroundColor: "white" }}>
+                  <img src={back} style={{ width: "3rem", transform: "rotate(180deg)" }} />
+                </button>
+                : " "}
+            </ul>
+          </nav>
+        </>
         :
-        <section style={{ width: '100%', height: '100%', marginTop: '10rem', marginBottom: '10rem' }}>
+        <div style={{ height: '500px', backgroundColor: 'white', width: '100%', borderRadius: '20px', boxShadow: '0px 0px 50px #00000029', background: '#FFFFFF 0% 0% no-repeat padding-box' }}>
           {records && records.length == 0 && (
             <section className={Style.noDataFound}>
               <span>
@@ -132,26 +113,9 @@ export default function Events() {
               </span>
             </section>
           )}
-          {loading && <span style={{ display: 'flex', textAlign: 'center', justifyContent: 'center', fontSize: 20 }}>Loading...</span>}
-        </section>
+          {loading && <span style={{ position: 'absolute', top: '50%', right: '50%' }}>Loading...</span>}
+        </div>
       }
-      <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-end" style={{ display: "flex", alignItems: 'center' }}>
-          {incPage > 1 ?
-            <button onClick={prePage} style={{ border: "0px", backgroundColor: "white" }}>
-              <img src={back} style={{ width: "3rem" }} />
-            </button>
-            : " "}
-          {numbers.map((n, i) => (
-            <li key={i} class={`page-item ${incPage == n ? 'active' : ""}`}><a style={{ borderRadius: "100px", margin: "5px" }} class="page-link" href="#" onClick={() => changeCPage(n)}>{n}</a></li>
-          ))}
-          {incPage !== totalPage ?
-            <button onClick={nextPage} style={{ border: "0px", backgroundColor: "white" }}>
-              <img src={back} style={{ width: "3rem", transform: "rotate(180deg)" }} />
-            </button>
-            : " "}
-        </ul>
-      </nav>
     </>
   )
   function prePage() {

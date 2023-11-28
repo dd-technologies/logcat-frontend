@@ -80,13 +80,17 @@ function About() {
               <h5 style={{ fontSize: "1rem" }}>Batch No.</h5>
               <h5 style={{ fontSize: "1rem" }}>Date of Warranty</h5>
               <h5 style={{ fontSize: "1rem" }}>Last Service</h5>
+              <h5 style={{ fontSize: "1rem" }}>Hardware Version</h5>
+              <h5 style={{ fontSize: "1rem" }}>Software Version</h5>
             </div>
             <div className="d-flex" style={{ gap: "1.5rem", flexDirection: "column", textAlign: "center", color: "#4B4B4B" }}>
               <h5 style={{ fontSize: "1rem" }}>{deviceAssignData && deviceAssignData.product_type && deviceAssignData.product_type.length > 0 ?deviceAssignData.product_type:'- - -'}</h5>
               <h5 style={{ fontSize: "1rem" }}>{deviceAssignData && deviceAssignData.date_of_dispatch && deviceAssignData.date_of_dispatch.length > 0 ?deviceAssignData.date_of_dispatch:'- - -'}</h5>
-              <h5 style={{ fontSize: "1rem" }}>{getDispatchData && getDispatchData.batchNumber && getDispatchData.batchNumber.length > 0 ?getDispatchData.batchNumber.length:'- - -'}</h5>
-              <h5 style={{ fontSize: "1rem" }}>{getDispatchData && getDispatchData.dispatchDate && getDispatchData.dispatchDate.length > 0 ?getDispatchData.dispatchDate.length:'- - -'}</h5>
-              <h5 style={{ fontSize: "1rem" }}>{getDispatchData && getDispatchData.batchNumber && getDispatchData.batchNumber.length > 0 ?getDispatchData.batchNumber.length:'- - -'}</h5>
+              <h5 style={{ fontSize: "1rem" }}>{getDispatchData && getDispatchData.batchNumber && getDispatchData.batchNumber.length > 0 ?getDispatchData.batchNumber:'- - -'}</h5>
+              <h5 style={{ fontSize: "1rem" }}>{getDispatchData && getDispatchData.dispatchDate && getDispatchData.dispatchDate.length > 0 ?getDispatchData.dispatchDate:'- - -'}</h5>
+              <h5 style={{ fontSize: "1rem" }}>{getDispatchData && getDispatchData.batchNumber && getDispatchData.batchNumber.length > 0 ?getDispatchData.batchNumber:'- - -'}</h5>
+              <h5 style={{ fontSize: "1rem" }}>{getDispatchData && getDispatchData.hw_version && getDispatchData.hw_version.length > 0 ?getDispatchData.hw_version:'- - -'}</h5>
+              <h5 style={{ fontSize: "1rem" }}>{getDispatchData && getDispatchData.sw_version && getDispatchData.sw_version.length > 0 ?getDispatchData.sw_version:'- - -'}</h5>
             </div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", alignItems: 'start', gap: '1rem', background: "#FFFFFF 0% 0% no-repeat padding-box", boxShadow: "0px 0px 50px #00000029", borderRadius: "15px", padding: "2rem", marginLeft: "0px" }}>

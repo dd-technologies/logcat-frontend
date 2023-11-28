@@ -172,6 +172,9 @@ console.log('ahhah',data)
                               <span className={Style.deviceTextData}>Status</span>
                             </div>
                             <div>
+                              <span className={Style.deviceTextData}>Alias Name</span>
+                            </div>
+                            <div>
                               <span className={Style.deviceTextData}>Department</span>
                             </div>
                             <div>
@@ -267,6 +270,11 @@ console.log('ahhah',data)
                                             ) : (
                                               ""
                                             )}
+                                          </section>
+                                          <section
+                                            className={Style.insideTextData}
+                                          >
+                                            {item && item.deviceInfo && item.deviceInfo[0] && item.deviceInfo[0].Alias_Name.length> 0 ? item && item.deviceInfo[0] && item.deviceInfo[0].Alias_Name : "--"}
                                           </section>
                                           <section
                                             className={Style.insideTextData}
@@ -397,7 +405,7 @@ console.log('ahhah',data)
         </Col>
       </Row>
       <div
-        className="left_arrow" style={{ display: "flex", justifyContent: "flex-end", margin: "2rem" }}
+        className="left_arrow" style={{ display: "flex", justifyContent: "flex-end", margin: "4rem 4rem 0rem 0rem" }}
       >
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-end" style={{ display: "flex", alignItems: 'center' }}>

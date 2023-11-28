@@ -12,7 +12,7 @@ function ServiceEng() {
             <Navbar />
             <SideBar />
             <Container>
-                <div style={{ display: 'flex', gap: '2rem', marginTop: '5%' }} className="rowSection">
+                <div style={{ display: 'flex', gap: '2rem', marginTop: '5%', flexWrap:'wrap' }} className="rowSection">
                     <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
                         <CustomCard
                             padding="15px"
@@ -29,10 +29,10 @@ function ServiceEng() {
                                         backgroundColor: "white",
                                         padding: "2rem",
                                         borderRadius: "5px",
-                                        width: "25rem",
+                                        width: "100%",
                                     }}
                                 >
-                                    <div className="d-flex" style={{ gap: "5rem" }}>
+                                    <div className="d-flex" style={{ justifyContent:'space-between' }}>
                                         <img
                                             src={production}
                                             style={{ height: "6rem" }}
@@ -75,10 +75,10 @@ function ServiceEng() {
                                         backgroundColor: "white",
                                         padding: "2rem",
                                         borderRadius: "5px",
-                                        width: "25rem",
+                                        width: "100%",
                                     }}
                                 >
-                                    <div className="d-flex" style={{ gap: "5rem" }}>
+                                    <div className="d-flex" style={{ justifyContent:'space-between' }}>
                                         <img
                                             src={productionList}
                                             style={{ height: "5rem" }}
@@ -95,7 +95,7 @@ function ServiceEng() {
                                         >
                                             <div>
                                                 <h6 style={{ color: "#707070", fontSize: "1.5rem" }}>
-                                                    Assign Ticket Data
+                                                    Assigned Ticket Data
                                                 </h6>
                                             </div>
                                         </div>

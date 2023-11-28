@@ -35,7 +35,7 @@ export default function Login() {
   const { loading, error, adminInfo } = adminLoginReducer;
   console.log(adminLoginReducer)
   const navigate = useNavigate();
-
+console.log('error',error)
   // VALIDATE EMAIL
   const validateEmail = (email) => {
     const isEmailValid = validateEmailHelper(email);
@@ -101,11 +101,14 @@ export default function Login() {
         navigate("/adminDashboard");
       } else if (adminInfo.data.userType === "Production") {
         navigate('/productionModel')
-      }  else if (adminInfo.data.userType === "Service-Engineer") {
+      } else if (adminInfo.data.userType === "Service-Engineer") {
         navigate('/service_eng')
       }
       else if (adminInfo.data.userType === "Support") {
         navigate('/support')
+      }
+      else if (adminInfo.data.userType === "Nurse") {
+        navigate('/nurse_module')
       }
       else {
         navigate('/home')

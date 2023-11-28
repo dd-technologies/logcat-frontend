@@ -40,8 +40,8 @@ function DispatchModel() {
     dispatch(getdispatchDetailsByDeviceIdAction(deviceId))
   }, [])
   const csvData = [
-    ["Device Id", "Batch No", "Date Of Delivery", "Date Of Manuf.", "Hospital Name", "Purpose", "Serial No", "Concerned Person", "Phone Number", "Product Type", "Address", "SIM No", "PIN Code","Distributer Name","Distributer Contact"],
-    [deviceid, batchNo, dod, dom, hospitalName, purpose, seiralNo, concernedPerson, PhoneNumber, productType, Address, simNo, pincode,distributorName,distributorNumber],
+    ["Device Id", "Batch No", "Date Of Delivery", "Date Of Manuf.", "Hospital Name", "Purpose", "Serial No", "Concerned Person", "Phone Number", "Product Type", "Address", "SIM No", "PIN Code", "Distributor Name", "Distributor Contact"],
+    [deviceid, batchNo, dod, dom, hospitalName, purpose, seiralNo, concernedPerson, PhoneNumber, productType, Address, simNo, pincode, distributorName, distributorNumber],
   ];
   return (
     <>
@@ -49,7 +49,7 @@ function DispatchModel() {
       <SideBar />
       <div
         className="main-overview"
-        style={{ position: "absolute", top: "6rem", left: "8rem", width: "40%" }}
+        style={{ position: "absolute", top: "6rem", left: "8rem", width: "100%" }}
       >
         <div
           className="inside-overview"
@@ -61,53 +61,146 @@ function DispatchModel() {
             style={{ display: "flex", alignItems: "center", gap: "1rem", color: "#707070" }}
           >
             <Link onClick={goBack}>
-              <img src={back} style={{ width: "4rem" }} />
+              <img src={back} style={{ width: "3rem" }} />
             </Link>
-            <h4>Dispatch Data</h4>
+            <h1 class="text-2xl font-extrabold">Dispatch<small class="ml-2 font-semibold text-gray-500 dark:text-gray-400">Data</small></h1>
             <CSVLink data={csvData}>
               <FontAwesomeIcon icon={faFileArrowDown} style={{ color: "#cb297b", height: "23px" }} />
             </CSVLink>
           </div>
           {/* Details */}
-          <div className='mainContainer' style={{ display: 'flex', gap: '7rem', width: '200%' }}>
-            <div className="container" style={{ width: "70%", display: "flex", flexDirection: "row", gap: "8rem", background: "#FFFFFF", boxShadow: "0px 0px 50px #00000029", borderRadius: "15px", padding: "2rem", marginLeft: "0px" }}>
-              <div className="d-flex" style={{ gap: "1.5rem", flexDirection: "column", color: "#4B4B4B" }}>
-                <h5 style={{ fontSize: "0.9rem" }}>Device Id</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>Batch No</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>Date Of Delivery</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>Date Of Manuf.</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>Hospital Name</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>Purpose</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>Serial No</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>Concerned Person</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>Concerned Person Number</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>Product Type</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>Address</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>SIM number</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>PIN Code</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>Distributer Name</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>Distributer Contact</h5>
-              </div>
-              <div className="d-flex" style={{ gap: "2rem", flexDirection: "column", textAlign: "START", color: "#4B4B4B" }}>
-                <h5 style={{ fontSize: "0.9rem" }}>{deviceid?deviceid:"- - -"}</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>{batchNo?batchNo:"- - -"}</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>{dod?dod:"- - -"}</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>{dom?dom:"- - -"}</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>{hospitalName?hospitalName:"- - -"}</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>{purpose?purpose:"- - -"}</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>{seiralNo?seiralNo:"- - -"}</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>{concernedPerson?concernedPerson:"- - -"}</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>{PhoneNumber?PhoneNumber:"- - -"}</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>{productType && productType.length > 0?productType:"- - -"}</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>{Address?Address:"- - -"}</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>{simNo?simNo:"- - -"}</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>{pincode && pincode.length>0?pincode:"- - -"}</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>{distributorName?distributorName:"- - -"}</h5>
-                <h5 style={{ fontSize: "0.9rem" }}>{distributorNumber?distributorNumber:"- - -"}</h5>
-              </div>
+          <div className='mainContainer' style={{ display: 'flex', gap: '7rem', width: '100%' }}>
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg" style={{width:'40%'}}>
+              <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                  <tr>
+                    <th scope="row" class="px-6 py-3">
+                      Device Id
+                    </th>
+                    <td scope="col" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      {deviceid ? deviceid : "- - -"}
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="col" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      Batch Number
+                    </th>
+                    <td class="px-6">
+                      {batchNo ? batchNo : '- - -'}
+                    </td>
+                  </tr>
+                  <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      Date Of Delivery
+                    </th>
+                    <td class="px-6">
+                    {dod?dod:"- - -"}
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      Date Of Manufacturing
+                    </th>
+                    <td class="px-6">
+                    {dom?dom:"- - -"}
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      Hospital Name
+                    </th>
+                    <td class="px-6">
+                    {hospitalName?hospitalName:"- - -"}
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      Purpose
+                    </th>
+                    <td class="px-6">
+                    {purpose?purpose:"- - -"}
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      Serial No
+                    </th>
+                    <td class="px-6">
+                    {seiralNo?seiralNo:"- - -"}
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      Concerned Person Name
+                    </th>
+                    <td class="px-6">
+                    {concernedPerson?concernedPerson:"- - -"}
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      Concerned Person Number
+                    </th>
+                    <td class="px-6">
+                    {PhoneNumber?PhoneNumber:"- - -"}
+                    </td>
+                  </tr>
+
+                  <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      Product Type
+                    </th>
+                    <td class="px-6">
+                    {productType && productType.length > 0?productType:"- - -"}
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      Address
+                    </th>
+                    <td class="px-6">
+                    {Address?Address:"- - -"}
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      Sim Number
+                    </th>
+                    <td class="px-6">
+                    {simNo?simNo:"- - -"}
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      PIN Code
+                    </th>
+                    <td class="px-6">
+                    {pincode && pincode.length>0?pincode:"- - -"}
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      Distributor Name
+                    </th>
+                    <td class="px-6">
+                    {distributorName?distributorName:"- - -"}
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      Distributor Contact
+                    </th>
+                    <td class="px-6">
+                    {distributorNumber?distributorNumber:"- - -"}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
-            <div className="container" style={{ width: "60%", display: "flex", flexDirection: "column", gap: "3rem", background: "#FFFFFF 0% 0% no-repeat padding-box", boxShadow: "0px 0px 50px #00000029", borderRadius: "15px", padding: "2rem", marginLeft: "0px" }}>
+            <div className="container" style={{marginLeft:'0%', width: "40%", display: "flex", flexDirection: "column", gap: "3rem", background: "#FFFFFF 0% 0% no-repeat padding-box", boxShadow: "0px 0px 50px #00000029", borderRadius: "15px", padding: "2rem" }}>
               <div className="d-flex" style={{ gap: "2rem", flexDirection: "row", color: "#4B4B4B" }}>
                 <h5 style={{ fontSize: "0.9rem", width: "100%", fontWeight: "bold" }}>Service Date</h5>
                 <h5 style={{ fontSize: "0.9rem", width: "100%", fontWeight: 'bold' }}>Message</h5>

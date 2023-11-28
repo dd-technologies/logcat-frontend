@@ -75,7 +75,7 @@ function CreateProject() {
           <Container className={Style.MainContantainer}>
             <div className="dashboard" style={{ position: "absolute", left: "1rem" }}>
             </div>
-            <Row className="rowSection">
+            <div className="rowSection" style={{display:'flex',width:'100%',flexWrap:'wrap',gap:'2rem'}}>
               {adminInfo && adminInfo.data && adminInfo.data.userType === "Admin" ? (
                 <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
                   <CustomCard
@@ -121,7 +121,6 @@ function CreateProject() {
                             backgroundColor: "white",
                             padding: "2rem",
                             borderRadius: "5px",
-                            width: "25rem",
                           }}
                         >
                           <div className="d-flex" style={{ gap: "5rem" }}>
@@ -151,7 +150,7 @@ function CreateProject() {
                     </CustomCard>
 
                   </Col>
-                  <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
+                  <Col xl={4} lg={4} md={6} sm={6} className="mt-4" >
                     <CustomCard
                       padding="15px"
                       height="200px"
@@ -167,7 +166,6 @@ function CreateProject() {
                             backgroundColor: "white",
                             padding: "2rem",
                             borderRadius: "5px",
-                            width: "25rem",
                           }}
                         >
                           <div className="d-flex" style={{ gap: "5rem" }}>
@@ -186,8 +184,8 @@ function CreateProject() {
                               }}
                             >
                               <div>
-                                <h6 style={{ color: "#707070", fontSize: "1.5rem" }}>
-                                  Dispatch Data
+                                <h6 style={{ color: "#707070", fontSize: "1.3rem" }}>
+                                  Dispatched Device Data
                                 </h6>
                               </div>
                             </div>
@@ -205,7 +203,7 @@ function CreateProject() {
                     <ProjectCard data={data} />
                   </Fragment>
                 ))}
-            </Row>
+            </div>
           </Container>
         </>
       ) : (

@@ -14,51 +14,18 @@ function Production() {
     const [dispatchDetails, setDispatchDetails] = useState({
         deviceId: "",
         productType: "",
-        iopr: "",
-        purpose: "",
+        serialNumber: "",
         manufacturingDate: "",
-        dispatchDate: "",
         batchNumber: "",
         simNumber: "",
+        hardwareV: '',
+        softwareV: ''
     })
 
-    // date picker functionality
-    const [disable, setDisable] = useState(true);
-    const [todate, setTodate] = useState([]);
-    const [fromdate, setFromdate] = useState([]);
     const [selectedImage, setSelectedImage] = useState(null);
     const [todateformat, setTodateformat] = useState('');
     const [fromdateformat, setFromdateformat] = useState('');
     const [dhrSelect, setdhrSelect] = useState(false)
-    const [qualitySelect, setqualitySelect] = useState(false)
-    const handletodate = (e) => {
-        const gettodatevalue = e.target.value;
-        const setdateformat = gettodatevalue.split('-');
-        const settoyear = setdateformat[0];
-        const settomonth = setdateformat[1];
-        const settodate = setdateformat[2];
-        const settodateformat = settoyear + "" + settomonth + "" + settodate;
-        setTodate(gettodatevalue);
-        setTodateformat(settodateformat);
-        setDisable(false);
-        //console.log(settodateformat);
-        setDispatchDetails({ ...dispatchDetails, manufacturingDate: e.target.value })
-
-    }
-
-    const handlefromdate = (e) => {
-        const getfromdatevalue = e.target.value;
-        const setfromformat = getfromdatevalue.split("-");
-        const setfromyear = setfromformat[0];
-        const setfrommonth = setfromformat[1];
-        const setfromdate = setfromformat[2];
-        const setfromformatdate = setfromyear + "" + setfrommonth + "" + setfromdate;
-        setFromdate(getfromdatevalue);
-        setFromdateformat(setfromformatdate);
-        // console.log(setfromformatdate);
-        setDispatchDetails({ ...dispatchDetails, dispatchDate: e.target.value })
-
-    }
     const deviceReducer = useSelector((state) => state.deviceReducer);
     const { data } = deviceReducer;
     const deviceIdData = data && data.data && data.data.data
@@ -67,7 +34,6 @@ function Production() {
         dispatch(deviceAction({ page: 1, limit: 99000 }))
     }, [])
     const dispatch = useDispatch();
-    var purposeValid = "Select Purpose Type"
     var productValid = "Select Product Type"
     var phoneno = /^\d{10}$/
     const dispatchHandler = (e) => {
@@ -75,14 +41,8 @@ function Production() {
         if (!dispatchDetails.deviceId) {
             toast.error("Enter Device Id")
         }
-        else if (!dispatchDetails.productType || dispatchDetails.purpose === productValid) {
-            toast.error("Enter Product Type")
-        }
-        else if (!dispatchDetails.iopr) {
+        else if (!dispatchDetails.serialNumber) {
             toast.error("Enter Address")
-        }
-        else if (!dispatchDetails.purpose || dispatchDetails.purpose === purposeValid) {
-            toast.error("Enter Purpose")
         }
         else if (!dispatchDetails.batchNumber) {
             toast.error("Enter Batch No.")
@@ -90,14 +50,11 @@ function Production() {
         else if (!dispatchDetails.manufacturingDate) {
             toast.error("Enter Date Of Manufacturing")
         }
-        else if (!dispatchDetails.dispatchDate) {
-            toast.error("Enter Date Of Dispatch")
-        }
         else if (!dispatchDetails.simNumber) {
             toast.error("Enter Phone Number")
         }
         else if (!dispatchDetails.simNumber.match(phoneno)) {
-            toast.error("Enter 10 digit Concerned Contact")
+            toast.error("Enter 10 digit Sim Number")
         }
         else if (todateformat > fromdateformat) {
             toast.error("Please select valid date");
@@ -105,17 +62,23 @@ function Production() {
         else if (dhrSelect === false) {
             toast.error("Please click on DHR File select");
         }
-        else if (dispatchDetails.deviceId && dispatchDetails.productType && dispatchDetails.iopr && dispatchDetails.purpose && dispatchDetails.batchNumber && dispatchDetails.manufacturingDate && dispatchDetails.dispatchDate && dispatchDetails.simNumber) {
+        else if (!dispatchDetails.hardwareV) {
+            toast.error("Enter Hardware Version")
+        }
+        else if (!dispatchDetails.softwareV) {
+            toast.error("Enter Software Veresion")
+        }
+        else if (dispatchDetails.deviceId && dispatchDetails.productType && dispatchDetails.serialNumber && dispatchDetails.batchNumber && dispatchDetails.manufacturingDate && dispatchDetails.simNumber) {
             toast.success("Success")
             dispatch(productionDetailsAction({
                 deviceId: dispatchDetails.deviceId,
                 productType: dispatchDetails.productType,
-                purpose: dispatchDetails.purpose,
                 batchNumber: dispatchDetails.batchNumber,
                 manufacturingDate: dispatchDetails.manufacturingDate,
-                iopr: dispatchDetails.iopr,
-                dispatchDate: dispatchDetails.dispatchDate,
+                serialNumber: dispatchDetails.serialNumber,
                 simNumber: dispatchDetails.simNumber,
+                hw_version: dispatchDetails.hardwareV,
+                sw_version: dispatchDetails.softwareV
             }))
             setTimeout(() => {
                 window.location.reload()
@@ -151,6 +114,7 @@ function Production() {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
             setPdfUrl(response.data.pdfUrl);
+            toast.success('Uploaded DHR File')
         } catch (error) {
             console.error('Error generating PDF:', error);
             console.error('Error Serial Number:', error);
@@ -163,20 +127,20 @@ function Production() {
             <Toaster />
             <div className={Style.mainContainer}>
                 <div className={Style.dispatchContainer}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginLeft: '2rem' }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "1rem", }}>
                         <Link onClick={goBack} style={{ display: 'block' }}>
-                            <img src={back} style={{ width: "4rem", }} />
+                            <img src={back} style={{ width: "3rem", }} />
                         </Link>
-                        <h5>Production Details</h5>
+                        <h1 class="text-2xl font-extrabold">Production<small class="ml-2 font-semibold text-gray-500 dark:text-gray-400">Details</small></h1>
                         <hr style={{ color: "#CB297B" }} />
                     </div>
                     <form>
                         <div class="grid gap-6 mb-6 md:grid-cols-2" style={{ textAlign: 'start' }}>
                             <div>
-                                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Device Id</label>
+                                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Device Id</label>
                                 <input list='borow' type="text" onChange={(e) =>
                                     setDispatchDetails({ ...dispatchDetails, deviceId: e.target.value })}
-                                    value={dispatchDetails.deviceId} id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Device Id" required />
+                                    value={dispatchDetails.deviceId} id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" placeholder="Enter Device Id" required />
                                 <datalist id='borow'>
                                     {deviceIdData && deviceIdData.map((item) => {
                                         return (
@@ -186,60 +150,74 @@ function Production() {
                                 </datalist>
                             </div>
                             <div>
-                                <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Type</label>
+                                <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Product Type</label>
                                 <select id="countries" onChange={(e) => setDispatchDetails({ ...dispatchDetails, productType: e.target.value })}
-                                    value={dispatchDetails.productType} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    value={dispatchDetails.productType} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500">
                                     <option defaultChecked>{productValid}</option>
                                     <option>Agva Pro</option>
                                     <option>Insulin</option>
                                 </select>
                             </div>
                             <div>
-                                <label for="company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">IOPR</label>
-                                <input type="text" onChange={(e) => setDispatchDetails({ ...dispatchDetails, iopr: e.target.value })}
-                                    value={dispatchDetails.iopr} id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter IOPR" required />
+                                <label for="company" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Serial Number</label>
+                                <input type="text" onChange={(e) => setDispatchDetails({ ...dispatchDetails, serialNumber: e.target.value })}
+                                    value={dispatchDetails.serialNumber} id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" placeholder="Enter Serial Number" required />
                             </div>
                             <div>
-                                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Purpose</label>
-                                <select id="countries" onChange={(e) => setDispatchDetails({ ...dispatchDetails, purpose: e.target.value })}
-                                    value={dispatchDetails.purpose} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option defaultChecked>{purposeValid}</option>
-                                    <option>Sold</option>
-                                    <option>Demo</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="website" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Batch Number</label>
+                                <label for="website" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Batch Number</label>
                                 <input type="text" onChange={(e) => setDispatchDetails({ ...dispatchDetails, batchNumber: e.target.value })}
-                                    value={dispatchDetails.batchNumber} id="website" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter batch Number" required />
+                                    value={dispatchDetails.batchNumber} id="website" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" placeholder="Enter Batch Number" required />
                             </div>
                             <div>
-                                <label for="visitors" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Manefacturing Date</label>
-                                <input type="date" onChange={(e) => handletodate(e)}
-                                    value={dispatchDetails.manufacturingDate} id="visitors" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                                <label for="visitors" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Manufacturing Date</label>
+                                <input type="date" onChange={(e) => setDispatchDetails({ ...dispatchDetails, manufacturingDate: e.target.value })}
+                                    value={dispatchDetails.manufacturingDate} id="visitors" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" required />
+                            </div>
+                            <div>
+                                <label for="number" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Sim Number</label>
+                                <input type="number" id="number" onChange={(e) => setDispatchDetails({ ...dispatchDetails, simNumber: e.target.value })}
+                                    value={dispatchDetails.simNumber} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" placeholder="Enter Sim Number" required />
                             </div>
                         </div>
+                        {/* software hardware */}
                         <div class="grid gap-6 mb-6 md:grid-cols-2" style={{ textAlign: 'start' }}>
-                            <div class="mb-6">
-                                <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dispatch Date</label>
-                                <input type="date" id="date" disabled={disable}
-                                    onChange={(e) => handlefromdate(e)}
-                                    value={dispatchDetails.dispatchDate} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@company.com" required />
+                            <div>
+                                <label for="softwareV" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Software Version</label>
+                                <form class="flex items-center">
+                                    <div class="relative w-full">
+                                        <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none">
+                                            <h6 style={{ paddingLeft: '13px', fontSize: '0.9rem' }}>
+                                                Version-
+                                            </h6>
+                                        </div>
+                                        <input style={{ paddingLeft: '4.7rem' }} onChange={(e) => setDispatchDetails({ ...dispatchDetails, softwareV: e.target.value })}
+                                            value={dispatchDetails.softwareV} type="number" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Enter Software Version' required />
+                                    </div>
+                                </form>
                             </div>
-                            <div class="mb-6">
-                                <label for="number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Concer Phone Number</label>
-                                <input type="number" id="number" onChange={(e) => setDispatchDetails({ ...dispatchDetails, simNumber: e.target.value })}
-                                    value={dispatchDetails.simNumber} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Sim Number" required />
+                            <div>
+                                <label for="hardwareV" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Hardware Version</label>
+                                <form class="flex items-center">
+                                    <div class="relative w-full">
+                                        <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none">
+                                            <h6 style={{ paddingLeft: '13px', fontSize: '0.9rem' }}>
+                                                Version-
+                                            </h6>
+                                        </div>
+                                        <input style={{ paddingLeft: '4.7rem' }} onChange={(e) => setDispatchDetails({ ...dispatchDetails, hardwareV: e.target.value })}
+                                            value={dispatchDetails.hardwareV} type="number" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Enter Hardware Version' required />
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         <div class="mb-6" style={{ textAlign: 'start' }}>
-                            <label for="confirm_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DHR File</label>
+                            <label for="confirm_password" class="block mb-2 text-sm font-medium text-gray-900 :text-white">DHR File</label>
                             <div class="flex gap-2 mb-6 md:grid-cols-2" style={{ alignItems: 'center' }}>
-                                <input type="file" onChange={handleImageSelect} id="confirm_password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-                                <button style={{ width: '20%', height: '3rem' }} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={generateDhrFile} >Upload</button>
+                                <input type="file" onChange={handleImageSelect} id="confirm_password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" required />
+                                <button style={{ width: '20%', height: '3rem' }} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center :bg-blue-600 :hover:bg-blue-700 :focus:ring-blue-800" onClick={generateDhrFile} >Upload</button>
                             </div>
                         </div>
-                        <button type="submit" style={{ backgroundColor: 'rgb(203, 41, 123)' }} onClick={dispatchHandler} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                        <button type="submit" style={{ backgroundColor: 'rgb(203, 41, 123)' }} onClick={dispatchHandler} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center :bg-blue-600 :hover:bg-blue-700 :focus:ring-blue-800">Submit</button>
                     </form>
                 </div>
             </div>

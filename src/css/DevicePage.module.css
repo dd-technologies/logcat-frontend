@@ -201,11 +201,11 @@
   .deviceDataText {
     display: grid;
     padding: 10px;
-    grid-template-columns: 15% 12% 15% 14% 12% 11% 10% 6% 9%;
+    grid-template-columns: 14% 8% 12% 12% 12% 11% 9% 13% 7%;
   }
 
   .alertTable .tableBody {
-    grid-template-columns: 15% 11% 15% 14% 12% 10% 8% 14% 8%;
+    grid-template-columns: 14% 7% 12% 12% 11% 10% 9% 11% 7%;
     align-items: center;
   }
   .moreBtn {

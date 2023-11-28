@@ -5,6 +5,8 @@ import { getAllHospitalData } from "../../store/action/StoreSystem"
 import { adminRegister, allStateData } from "../../store/action/AdminAction"
 import { Country, State, City } from 'country-state-city';
 import back from "../../assets/images/back.png";
+import ShowPassword from "../../assets/images/ShowPassword.png";
+import HidePassword from "../../assets/images/HidePassword.png";
 function AddRegisterUser() {
     const [newUserData, setNewUserData] = useState({
         firstName: '',
@@ -17,6 +19,8 @@ function AddRegisterUser() {
         confirmPassword: ''
     })
     const dispatch = useDispatch()
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPwd, setshowConfirmPwd] =useState(false)
     // hospital reducer
     const allHospitalDataReducer = useSelector((state) => state.allHospitalDataReducer);
     const { data } = allHospitalDataReducer;
@@ -59,14 +63,14 @@ function AddRegisterUser() {
             newUserData.passwordHash,
         ))
     }
-    const goBack=()=>{
+    const goBack = () => {
         window.history.go(-1)
-      }
+    }
     return (
         <div>
             <div class=" px-6 py-8 ">
-                <Link style={{ textDecoration: 'none' , color:'rgb(203, 41, 123)'}} onClick={goBack} class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                <img src={back} style={{ width: "3rem" }} />
+                <Link style={{ textDecoration: 'none', color: 'rgb(203, 41, 123)' }} onClick={goBack} class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                    <img src={back} style={{ width: "3rem" }} />
                     Register New User
                 </Link>
 
@@ -82,7 +86,7 @@ function AddRegisterUser() {
                         </div>
                         <div>
                             <label for="country" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
-                            <input list="countryName" onChange={(e) => countryChange(e)} type="text" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Couuntry Name" required />
+                            <input list="countryName" onChange={(e) => countryChange(e)} type="text" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Country Name" required />
                             {/* <input list="countryName" onChange={(e) => countryChange(e)} placeholder='Enter Name' /> */}
                             <datalist id='countryName' onChange={(e) => countryChange(e)} >
                                 {getAllCountryData && getAllCountryData.map((item) => {
@@ -128,19 +132,43 @@ function AddRegisterUser() {
 
                     <div class="mb-6">
                         <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                        <input onChange={(e) => setNewUserData({ ...newUserData, passwordHash: e.target.value })} value={newUserData.passwordHash} type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
+                        {/* <input onChange={(e) => setNewUserData({ ...newUserData, passwordHash: e.target.value })} value={newUserData.passwordHash} type='password' id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required /> */}
+                        <div class="relative w-full">
+                            <input onChange={(e) => setNewUserData({ ...newUserData, passwordHash: e.target.value })} value={newUserData.passwordHash} type={showPassword ? "text" : "password"} id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
+                            <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                <img
+                                    style={{ width: "1.2rem", opacity: "59%" }}
+                                    src={showPassword ? HidePassword : ShowPassword}
+                                    onClick={() => {
+                                        setShowPassword(!showPassword);
+                                    }}
+                                />
+                            </button>
+                        </div>
                     </div>
                     <div class="mb-6">
-                        <label for="confirm_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-                        <input onChange={(e) => setNewUserData({ ...newUserData, confirmPassword: e.target.value })} value={newUserData.confirmPassword} type="password" id="confirm_password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
+                    <label for="confirm_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
+                       {/* <input onChange={(e) => setNewUserData({ ...newUserData, passwordHash: e.target.value })} value={newUserData.passwordHash} type='password' id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required /> */}
+                        <div class="relative w-full">
+                        <input onChange={(e) => setNewUserData({ ...newUserData, confirmPassword: e.target.value })} value={newUserData.confirmPassword} type={showConfirmPwd ? "text" : "password"} id="confirm_password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
+                        <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                <img
+                                    style={{ width: "1.2rem", opacity: "59%" }}
+                                    src={showConfirmPwd ? HidePassword : ShowPassword}
+                                    onClick={() => {
+                                        setshowConfirmPwd(!showConfirmPwd);
+                                    }}
+                                />
+                            </button>
+                        </div>
                     </div>
                     <div class="flex items-start mb-6">
                         <div class="flex items-center h-5">
                             <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required />
                         </div>
                         <label for="remember" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree with the
-                            <Link class="text-blue-600 hover:underline dark:text-blue-500" data-modal-target="defaultModal" data-modal-toggle="popup-modal"> 
-                            terms and conditions
+                            <Link class="text-blue-600 hover:underline dark:text-blue-500" data-modal-target="defaultModal" data-modal-toggle="popup-modal">
+                                terms and conditions
                             </Link>.
                         </label>
                         {/* <!-- Main modal --> */}

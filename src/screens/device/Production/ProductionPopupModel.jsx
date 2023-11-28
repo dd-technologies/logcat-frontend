@@ -32,11 +32,6 @@ if(!open) return null
               placeholder="Enter Your Device ID"
               readOnly
             />
-            {/* {errorName ? (
-              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
-            ) : (
-              ""
-            )} */}
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -51,11 +46,6 @@ if(!open) return null
             //   }
               required
             />
-            {/* {errorName ? (
-              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
-            ) : (
-              ""
-            )} */}
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -69,11 +59,6 @@ if(!open) return null
             //     setUpdateDetails({ ...updateDetails, HospitalName: e.target.value })}
               required
             />
-            {/* {errorName ? (
-              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
-            ) : (
-              ""
-            )} */}
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -83,16 +68,8 @@ if(!open) return null
               type="text"
               name="DoctorName"
               placeholder="Enter Doctor's Name"
-            //   onChange={(e) =>
-            //     setUpdateDetails({ ...updateDetails, DocName: e.target.value })
-            //   }
               required
             />
-            {/* {errorName ? (
-              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
-            ) : (
-              ""
-            )} */}
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -102,16 +79,8 @@ if(!open) return null
               type="text"
               name="WardNo"
               placeholder="Enter Your Ward Number"
-            //   onChange={(e) =>
-            //     setUpdateDetails({ ...updateDetails, WardNo: e.target.value })
-            //   }
               required
             />
-            {/* {errorName ? (
-              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
-            ) : (
-              ""
-            )} */}
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -121,16 +90,8 @@ if(!open) return null
               type="text"
               name="IMEINumber"
               placeholder="Enter Your Device IMEI Number"
-            //   onChange={(e) =>
-            //     setUpdateDetails({ ...updateDetails, IMEINo: e.target.value })
-            //   }
               required
             />
-            {/* {errorName ? (
-              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
-            ) : (
-              ""
-            )} */}
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -140,16 +101,8 @@ if(!open) return null
               type="text"
               name="ventiOperator"
               placeholder="Enter Ventilator Operator's Name"
-            //   onChange={(e) =>
-            //     setUpdateDetails({ ...updateDetails, VentiOp: e.target.value })
-            //   }
               required
             />
-            {/* {errorName ? (
-              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
-            ) : (
-              ""
-            )} */}
           </Form.Group>
         </Modal.Body>
         <Modal.Footer className="card darkModeColor">

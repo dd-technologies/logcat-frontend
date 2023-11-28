@@ -5,7 +5,13 @@ import {
   GET_PRODUCTION_DETAILS_DATA_BY_ID_FAIL,
   GET_DHR_UPLOAD_FILE_REQUEST,
   GET_DHR_UPLOAD_FILE_SUCCESS,
-  GET_DHR_UPLOAD_FILE_FAIL
+  GET_DHR_UPLOAD_FILE_FAIL,
+  GET_PINCODE_DATA_SUCCESS,
+  GET_PINCODE_DATA_REQUEST,
+  GET_PINCODE_DATA_FAIL,
+  GET_DEVICEID_FROM_PRODUCTION_REQUEST,
+  GET_DEVICEID_FROM_PRODUCTION_SUCCESS,
+  GET_DEVICEID_FROM_PRODUCTION_FAIL
 } from "../types/DispatchDeviceType";
 import axios from "axios";
 import Cookies from "universal-cookie";
@@ -25,6 +31,9 @@ export const dispatchDetailsAction =
     pincode,
     distributor_name,
     distributor_contact,
+    district,
+    state,
+    city
   }) =>
     async (dispatch) => {
       try {
@@ -51,7 +60,10 @@ export const dispatchDetailsAction =
             hospital_name,
             pincode,
             distributor_contact,
-            distributor_name
+            distributor_name,
+            district,
+            state,
+            city
           },
           config
         );
@@ -59,6 +71,9 @@ export const dispatchDetailsAction =
           type: DISPATCH_DETAILS_SUCCESS,
           payload: data,
         });
+        if (data.statusCode == 201) {
+          window.location.reload()
+        }
       } catch (error) {
         dispatch({
           type: DISPATCH_DETAILS_FAIL,
@@ -154,9 +169,11 @@ export const productionDetailsAction = ({
   purpose,
   batchNumber,
   manufacturingDate,
-  iopr,
+  serialNumber,
   dispatchDate,
   simNumber,
+  hw_version,
+  sw_version
 }) => async (dispatch) => {
   try {
     dispatch({
@@ -177,9 +194,11 @@ export const productionDetailsAction = ({
         purpose,
         batchNumber,
         manufacturingDate,
-        iopr,
+        serialNumber,
         dispatchDate,
         simNumber,
+        hw_version,
+        sw_version
       },
       config
     );
@@ -270,7 +289,7 @@ export const getproductionDetailsByIdAction = (deviceId) => async (dispatch) => 
     });
   }
 };
-export const getDHRUploadFile = (deviceId,key) => async (dispatch) => {
+export const getDHRUploadFile = (deviceId, key) => async (dispatch) => {
   try {
     dispatch({
       type: GET_DHR_UPLOAD_FILE_REQUEST,
@@ -304,3 +323,71 @@ export const getDHRUploadFile = (deviceId,key) => async (dispatch) => {
   }
 
 }
+
+export const getPincodeData = (pincode) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_PINCODE_DATA_REQUEST,
+    });
+    const token = cookies.get('ddAdminToken');
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    console.log('pincode', pincode)
+    let response = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/common/search-by-pincode/${pincode}`,
+      config
+    );
+    dispatch({
+      type: GET_PINCODE_DATA_SUCCESS,
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_PINCODE_DATA_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.err.msg,
+    });
+  }
+};
+export const getDeviceIdFromProduction = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_DEVICEID_FROM_PRODUCTION_REQUEST,
+    });
+    const token = cookies.get('ddAdminToken');
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    let response = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/production/get-production-devices`,
+      config
+    );
+    dispatch({
+      type: GET_DEVICEID_FROM_PRODUCTION_SUCCESS,
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_DEVICEID_FROM_PRODUCTION_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.err.msg,
+    });
+  }
+};

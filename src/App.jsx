@@ -49,6 +49,16 @@ import ServiceModuleData from "./screens/device/ServiceEnginner/ServiceModuleDat
 import SupportEngDataModule from "./screens/device/SupportEnginner/SupportEngDataModule.jsx";
 import AddRegisterUser from "./screens/AdminDashboard/AddRegisterUser";
 import InstallationRecords from "./screens/device/ServiceEnginner/InstallationRecords";
+import AddHospital from "./screens/device/SupportEnginner/AddHospital";
+import FeedbackForm from "./screens/device/ServiceEnginner/FeedbackForm";
+import TicketDetails from "./screens/device/SupportEnginner/TicketDetails";
+import PatientDetails from "./screens/device/components/table/PatientDetails";
+import AddDiagnose from "./screens/device/components/table/AddDiagnose";
+import NurseModule from "./screens/device/NurseModule";
+import NurseModuleData from "./screens/device/NurseModuleData";
+import NurseAddDiagnose from "./screens/device/NurseAddDiagnose";
+import NurseAddDiagnoseData from "./screens/device/NurseAddDiagnoseData";
+import AddNewPatientDetails from "./screens/device/AddNewPatientDetails";
 function App() {
   const [splash, setSplash] = useState(true);
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
@@ -97,13 +107,21 @@ function App() {
               <Route exact path="/productionDataModel" element={<ProductionDataModule />} />
               {/* Support */}
               <Route exact path="/support" element={<Support />} />
-              <Route exact path="/supportForm" element={<SupportEngForm />} />
-              
+              <Route exact path="/supportForm" element={<SupportEngForm />}/>
+              <Route exact path="/add_hospital" element={<AddHospital />}/>
               <Route exact path="/Support_eng_data_module" element={<SupportEngDataModule/>} />
+              <Route exact path="/Ticket_details" element={<TicketDetails/>} />
               {/* service-Eng */}
               <Route exact path="/service_eng" element={<ServiceEnginner />} />
+              <Route exact path="/service_feedback" element={<FeedbackForm />} />
               <Route exact path="/service_eng_module" element={<ServiceModuleData />} />
               <Route exact path="/service_eng_installation" element={<InstallationRecords />} />
+              {/* Nurse */}
+              <Route exact path="/nurse_module" element={<NurseModule />} />
+              <Route exact path="/nurse_module_data" element={<NurseModuleData />} />
+              <Route exact path="/nurse_add_diagnose" element={<NurseAddDiagnose />} />
+              <Route exact path="/add_diagnose_data" element={<NurseAddDiagnoseData />} />
+              <Route exact path="/add_new_patient_details" element={<AddNewPatientDetails />} />
               {/* Register User */}
               <Route exact path="/add_register_user" element={<AddRegisterUser />} />
               <Route exact path="/log_table" element={<LogTable />} />
@@ -128,6 +146,8 @@ function App() {
               <Route exact path="/allDispatchDeviceData" element={<DispatchDataModule />} />
               <Route exact path="/dispatchModel" element={<DispatchModel />} />
               <Route exact path="/history" element={<History />} />
+              <Route exact path="/patientDetails" element={<PatientDetails />} />
+              <Route exact path="/add_diagnose" element={<AddDiagnose />} />
               <Route exact path="/productionModel" element={<ProductionModel />} />
               {adminInfo && adminInfo.data && adminInfo.data.userType === "Admin" ? (
                 <Route exact path="/settings" element={<Settings />} />

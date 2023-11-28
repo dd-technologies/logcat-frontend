@@ -43,7 +43,22 @@ import {
   GET_SINGLE_DEVICEIDBY_USERID_FAIL,
   GET_SINGLE_UPLOAD_FILE_REQUEST,
   GET_SINGLE_UPLOAD_FILE_SUCCESS,
-  GET_SINGLE_UPLOAD_FILE_FAIL
+  GET_SINGLE_UPLOAD_FILE_FAIL,
+  GET_SERIAL_NO_BY_DEVICE_ID_REQUEST,
+  GET_SERIAL_NO_BY_DEVICE_ID_REQUEST_SUCCESS,
+  GET_SERIAL_NO_BY_DEVICE_ID_REQUEST_FAIL,
+  GET_PATIENT_DETAILS_SUCCESS,
+  GET_PATIENT_DETAILS_FAIL,
+  GET_PATIENT_DETAILS_REQUEST,
+  GET_PATIENT_DETAILS_BY_UHID_SUCCESS,
+  GET_PATIENT_DETAILS_BY_UHID_FAIL,
+  GET_PATIENT_DETAILS_BY_UHID_REQUEST,
+  GET_PATIENT_DIAGNOSE_REQUEST,
+  GET_PATIENT_DIAGNOSE_SUCCESS,
+  GET_PATIENT_DIAGNOSE_FAIL,
+  GET_UHIDS_LIST_SUCCESS,
+  GET_UHIDS_LIST_REQUEST,
+  GET_UHIDS_LIST_FAIL
 } from "../types/DeviceConstant";
 
 export const deviceReducer = (state = {}, action) => {
@@ -334,6 +349,104 @@ export const getSingleUploadFileReducer = (state = {}, action) => {
         data: action.payload,
       }
     case GET_SINGLE_UPLOAD_FILE_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
+    default:
+      return state;
+  }
+}
+
+export const getDeviceIdBySerialNumberReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_SERIAL_NO_BY_DEVICE_ID_REQUEST:
+      return { loading: true };
+
+    case GET_SERIAL_NO_BY_DEVICE_ID_REQUEST_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+      }
+    case GET_SERIAL_NO_BY_DEVICE_ID_REQUEST_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
+    default:
+      return state;
+  }
+}
+
+export const getPatientDetailsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_PATIENT_DETAILS_REQUEST:
+      return { loading: true };
+
+    case GET_PATIENT_DETAILS_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+      }
+    case GET_PATIENT_DETAILS_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
+    default:
+      return state;
+  }
+}
+
+export const getPatientDetailsByUhidReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_PATIENT_DETAILS_BY_UHID_REQUEST:
+      return { loading: true };
+
+    case GET_PATIENT_DETAILS_BY_UHID_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+      }
+    case GET_PATIENT_DETAILS_BY_UHID_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
+    default:
+      return state;
+  }
+}
+export const getPatientDiagnose = (state = {}, action) => {
+  switch (action.type) {
+    case GET_PATIENT_DIAGNOSE_REQUEST:
+      return { loading: true };
+
+    case GET_PATIENT_DIAGNOSE_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+      }
+    case GET_PATIENT_DIAGNOSE_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
+    default:
+      return state;
+  }
+}
+export const getUhidsListReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_UHIDS_LIST_REQUEST:
+      return { loading: true };
+
+    case GET_UHIDS_LIST_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+      }
+    case GET_UHIDS_LIST_FAIL:
       return {
         loading: false,
         error: action.payload,

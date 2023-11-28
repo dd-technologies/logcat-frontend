@@ -79,18 +79,17 @@ export const forgetPasswordReducer = (state = {}, action) => {
         loading: true,
       };
     case FORGET_PASSWORD_REQUEST_SUCCESS:
-      return {
+      return ({
         loading: false,
-        forgetPasswordInfo: action.payload,
-      };
+        data: action.payload,
+      });
 
     case FORGET_PASSWORD_REQUEST_FAIL:
       return {
         loading: false,
         error: action.payload,
       };
-    case FORGET_PASSWORD_RESET_STATE:
-      return {};
+
     default:
       return state;
   }
@@ -103,10 +102,10 @@ export const resetPasswordReducer = (state = {}, action) => {
         loading: true,
       };
     case RESET_PASSWORD_REQUEST_SUCCESS:
-      return {
+      return ({
         loading: false,
         data: action.payload,
-      };
+      });
 
     case RESET_PASSWORD_REQUEST_FAIL:
       return {
@@ -118,28 +117,6 @@ export const resetPasswordReducer = (state = {}, action) => {
       return state;
   }
 };
-// export const forgetPasswordReducer = (state = {}, action) => {
-//   switch (action.type) {
-//     case RESET_PASSWORD_REQUEST:
-//       return {
-//         loading: true,
-//       };
-//     case RESET_PASSWORD_REQUEST_SUCCESS:
-//       return {
-//         loading: false,
-//         data: action.payload,
-//       };
-
-//     case RESET_PASSWORD_REQUEST_FAIL:
-//       return {
-//         loading: false,
-//         error: action.payload,
-//       };
-
-//     default:
-//       return state;
-//   }
-// };
 
 export const updateProfileReducer = (state = {}, action) => {
   switch (action.type) {

@@ -48,7 +48,28 @@ import {
   GET_SINGLE_DEVICEIDBY_USERID_SUCCESS,
   GET_SINGLE_UPLOAD_FILE_REQUEST,
   GET_SINGLE_UPLOAD_FILE_SUCCESS,
-  GET_SINGLE_UPLOAD_FILE_FAIL
+  GET_SINGLE_UPLOAD_FILE_FAIL,
+  GET_SERIAL_NO_BY_DEVICE_ID_REQUEST,
+  GET_SERIAL_NO_BY_DEVICE_ID_REQUEST_SUCCESS,
+  GET_SERIAL_NO_BY_DEVICE_ID_REQUEST_FAIL,
+  GET_PATIENT_DETAILS_REQUEST,
+  GET_PATIENT_DETAILS_SUCCESS,
+  GET_PATIENT_DETAILS_FAIL,
+  GET_PATIENT_DETAILS_BY_UHID_REQUEST,
+  GET_PATIENT_DETAILS_BY_UHID_SUCCESS,
+  GET_PATIENT_DETAILS_BY_UHID_FAIL,
+  PUT_PATIENT_DATA_REQUEST,
+  PUT_PATIENT_DATA_SUCCESS,
+  PUT_PATIENT_DATA_FAIL,
+  ADD_PATIENT_DIAGNOSE_REQUEST,
+  ADD_PATIENT_DIAGNOSE_SUCCESS,
+  ADD_PATIENT_DIAGNOSE_FAIL,
+  GET_PATIENT_DIAGNOSE_REQUEST,
+  GET_PATIENT_DIAGNOSE_SUCCESS,
+  GET_PATIENT_DIAGNOSE_FAIL,
+  GET_UHIDS_LIST_REQUEST,
+  GET_UHIDS_LIST_SUCCESS,
+  GET_UHIDS_LIST_FAIL
 } from "../types/DeviceConstant";
 const cookies = new Cookies();
 
@@ -87,7 +108,7 @@ export const deviceAction = ({ page, limit, searchData }) => async (dispatch) =>
   }
 };
 //Register API Used in EditDetailsModal
-export const registerNewDevice = ({ DeviceId, Alias, HospitalName, DoctorName, Wardno, IMEINumber, VentiOperator }) => async (dispatch) => {
+export const registerNewDevice = ({ DeviceId, DepartmentName, HospitalName, DoctorName, Wardno, IMEINumber, VentiOperator, AliasName }) => async (dispatch) => {
   try {
     dispatch({
       type: REGISTER_NEW_DEVICE_REQUEST,
@@ -104,13 +125,13 @@ export const registerNewDevice = ({ DeviceId, Alias, HospitalName, DoctorName, W
       `${process.env.REACT_APP_BASE_URL}/devices/register/`,
       {
         DeviceId,
-        Department_Name: Alias,
+        Department_Name: DepartmentName,
         Hospital_Name: HospitalName,
         Doctor_Name: DoctorName,
         Ward_No: Wardno,
         IMEI_NO: IMEINumber,
         Bio_Med: VentiOperator,
-
+        Alias_Name: AliasName,
       },
       config
     );
@@ -118,10 +139,12 @@ export const registerNewDevice = ({ DeviceId, Alias, HospitalName, DoctorName, W
       type: REGISTER_NEW_DEVICE_SUCCESS,
       payload: data,
     });
-    // setTimeout(() => {
-    //   window.location.reload()
-    // }, 1000);
-    //  window.location.reload()
+    if (data.statusCode == 200) {
+      alert('Register Success')
+      setTimeout(() => {
+        window.location.reload()
+      }, 500);
+    }
   } catch (error) {
     dispatch({
       type: REGISTER_NEW_DEVICE_FAIL,
@@ -182,7 +205,7 @@ export const getRegisteredDetailsById = (DeviceID, DoctorName, HospitalName, Ali
 }
 
 // If yopu saw an error regarding deviceId,  _ref kind of so just do {deviceId} to deviceId
-export const getSingleDeviceIdDetails = ( DeviceId ) => async (dispatch) => {
+export const getSingleDeviceIdDetails = (DeviceId) => async (dispatch) => {
   try {
     dispatch({
       type: GET_SINGLE_DEVICEID_REQUEST
@@ -259,7 +282,8 @@ export const updateDetailsById = (
     Doctor_Name,
     Ward_No,
     IMEI_NO,
-    Bio_Med, }
+    Bio_Med,
+    Alias_Name }
 ) =>
   async (dispatch) => {
     try {
@@ -274,7 +298,7 @@ export const updateDetailsById = (
           Authorization: `Bearer ${token}`,
         },
       };
-      console.log("9090", DeviceId)
+      // console.log("9090", DeviceId)
       let { data } = await axios.put(
         `${process.env.REACT_APP_BASE_URL}/devices/update/${DeviceId}`,
         {
@@ -284,6 +308,7 @@ export const updateDetailsById = (
           Ward_No,
           IMEI_NO,
           Bio_Med,
+          Alias_Name
         },
         config
       );
@@ -312,7 +337,7 @@ export const getAboutSectionById = (did) => async (dispatch) => {
       type: GET_ABOUT_SECTION_BY_ID_REQUEST,
     });
     const token = cookies.get('ddAdminToken');
-    console.log('token',token)
+    console.log('token', token)
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -320,7 +345,7 @@ export const getAboutSectionById = (did) => async (dispatch) => {
       },
     };
 
-    console.log('00',did)
+    console.log('00', did)
     const DeviceId121 = did
     let response;
 
@@ -570,7 +595,6 @@ export const getLogMsgOccurence = (did, logMsg) => async (dispatch) => {
       type: GET_LOG_MSG_OCCURENCE_SUCCESS,
       payload: data.data
     });
-    // console.log(data)
   } catch (error) {
     dispatch({
       type: GET_LOG_MSG_OCCURENCE_FAIL,
@@ -630,7 +654,7 @@ export const getServiceRecordsById = ({ did, page, limit }) => async (dispatch) 
         Authorization: `Bearer ${token}`,
       }
     };
-    console.log('page, limit',page, limit)
+    console.log('page, limit', page, limit)
     const { data } = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/api/logger/logs/services/${did}/SBXMH?${page}&${limit}`,
       config
@@ -677,6 +701,275 @@ export const getSingleUploadFile = (deviceId) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_UPLOAD_FILE_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.err.msg,
+    });
+  }
+
+}
+export const getDeviceIdBySerialNumber = (seerialNumber) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_SERIAL_NO_BY_DEVICE_ID_REQUEST,
+    });
+    const token = cookies.get('ddAdminToken');
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    };
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/production/get-by-serialNumber/${seerialNumber}`,
+      config
+    );
+    dispatch({
+      type: GET_SERIAL_NO_BY_DEVICE_ID_REQUEST_SUCCESS,
+      payload: data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_SERIAL_NO_BY_DEVICE_ID_REQUEST_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.err.msg,
+    });
+  }
+
+}
+
+export const getPatientDetails = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_PATIENT_DETAILS_REQUEST,
+    });
+    const token = cookies.get('ddAdminToken');
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    };
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/patient/get-allUhid`,
+      config
+    );
+    dispatch({
+      type: GET_PATIENT_DETAILS_SUCCESS,
+      payload: data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_PATIENT_DETAILS_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.err.msg,
+    });
+  }
+
+}
+
+export const getPatientDetailsByUhid = (uhid) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_PATIENT_DETAILS_BY_UHID_REQUEST,
+    });
+    const token = cookies.get('ddAdminToken');
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    };
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/patient/get-patient-details/${uhid}`,
+      config
+    );
+    dispatch({
+      type: GET_PATIENT_DETAILS_BY_UHID_SUCCESS,
+      payload: data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_PATIENT_DETAILS_BY_UHID_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.err.msg,
+    });
+  }
+
+}
+
+export const postPatientDataAction = ({ UHID, age, weight, height, deviceId, hospitalName, dosageProvided, patientName, ward_no, doctor_name }) => async (dispatch) => {
+  try {
+    dispatch({
+      type: PUT_PATIENT_DATA_REQUEST,
+    });
+    const token = cookies.get('ddAdminToken');
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    };
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/patient/save-uhid-details`,
+      {
+        UHID,
+        age,
+        weight,
+        height,
+        deviceId,
+        hospitalName,
+        dosageProvided,
+        patientName,
+        ward_no,
+        doctor_name
+      },
+      config,
+    );
+    dispatch({
+      type: PUT_PATIENT_DATA_SUCCESS,
+      payload: data.data,
+    });
+    if (data.statusCode == 200) {
+      window.location.reload()
+    }
+  } catch (error) {
+    dispatch({
+      type: PUT_PATIENT_DATA_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.err.msg,
+    });
+  }
+
+}
+
+export const postPatientDiagnose = ({ uhid, medicine, procedure, others }) => async (dispatch) => {
+  try {
+    dispatch({
+      type: ADD_PATIENT_DIAGNOSE_REQUEST,
+    });
+    const token = cookies.get('ddAdminToken');
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    };
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/patient/add-medical-diagnose/${uhid}`,
+      {
+        medicine,
+        procedure,
+        others
+      },
+      config,
+    );
+    dispatch({
+      type: ADD_PATIENT_DIAGNOSE_SUCCESS,
+      payload: data.data,
+    });
+    if (data.statusCode == 201) {
+      window.location.reload()
+    }
+  } catch (error) {
+    dispatch({
+      type: ADD_PATIENT_DIAGNOSE_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.err.msg,
+    });
+  }
+
+}
+
+export const getPatientDiagnoseData = (uhid) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_PATIENT_DIAGNOSE_REQUEST,
+    });
+    const token = cookies.get('ddAdminToken');
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    };
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/patient/get-diagnose/${uhid}`,
+      config,
+    );
+    dispatch({
+      type: GET_PATIENT_DIAGNOSE_SUCCESS,
+      payload: data.data,
+    });
+    if (data.statusCode == 201) {
+      window.location.reload()
+    }
+  } catch (error) {
+    dispatch({
+      type: GET_PATIENT_DIAGNOSE_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.err.msg,
+    });
+  }
+
+}
+export const getUhidListData = (uhid) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_UHIDS_LIST_REQUEST,
+    });
+    const token = cookies.get('ddAdminToken');
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    };
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/patient/get-uhids`,
+      config,
+    );
+    dispatch({
+      type: GET_UHIDS_LIST_SUCCESS,
+      payload: data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_UHIDS_LIST_FAIL,
       payload:
         error &&
         error.response &&

@@ -13,7 +13,7 @@ function ProductionModel() {
             <Navbar />
             <SideBar />
             <Container>
-                <div style={{display:'flex',gap:'2rem',marginTop:'5%'}} className="rowSection">
+                <div style={{display:'flex',gap:'2rem',marginTop:'5%',flexWrap:'wrap'}} className="rowSection">
                     <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
                         <CustomCard
                             padding="15px"
@@ -30,10 +30,9 @@ function ProductionModel() {
                                         backgroundColor: "white",
                                         padding: "2rem",
                                         borderRadius: "5px",
-                                        width: "25rem",
                                     }}
                                 >
-                                    <div className="d-flex" style={{ gap: "5rem" }}>
+                                    <div className="d-flex" >
                                         <img
                                             src={production}
                                             style={{ height: "6rem" }}
@@ -58,7 +57,6 @@ function ProductionModel() {
                                 </div>
                             </Link>
                         </CustomCard>
-
                     </Col>
                     <Col xl={4} lg={4} md={6} sm={6} className="mt-4">
                         <CustomCard
@@ -76,10 +74,9 @@ function ProductionModel() {
                                         backgroundColor: "white",
                                         padding: "2rem",
                                         borderRadius: "5px",
-                                        width: "25rem",
                                     }}
                                 >
-                                    <div className="d-flex" style={{ gap: "5rem" }}>
+                                    <div className="d-flex" >
                                         <img
                                             src={productionList}
                                             style={{ height: "5rem" }}

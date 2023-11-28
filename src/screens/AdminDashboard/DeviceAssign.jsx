@@ -78,7 +78,6 @@ function DeviceAssign() {
       setSelectId(selectId.filter((item) => item !== value));
     }
   };
-  console.log("regDetail.data", regDetail)
   return (
     <>
       <Navbar />

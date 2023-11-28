@@ -25,12 +25,14 @@ export default function ResetPassword() {
     (state) => state.resetPasswordReducer
   );
 
+  const { loading, data, error } = resetPasswordReducer;
+  console.log('data error', data, error)
   const handleEnableButton = () => {
     if (enableResendButton) setEnableResendButton(true);
     else setEnableResendButton(true);
   };
-  const email = JSON.parse(localStorage.getItem("forgetEmail"));
-
+  // const email = JSON.parse(localStorage.getItem("forgetEmail"));
+const email=localStorage.getItem('forgetEmail')
   const handleResendButton = () => {
     setEnableResendButton(false);
     if (enableResendButton) {
@@ -39,44 +41,33 @@ export default function ResetPassword() {
     }
   };
 
-  const { loading, data, error } = resetPasswordReducer;
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const resetData = state && state.otp
+
+  useEffect(() => {
+    dispatch(resetForgetPassword(resetData))
+  }, [dispatch])
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('state', state.otp, error)
-    if (state && state.opt && state.opt.length > 0) {
-      dispatch(resetForgetPassword({ resetData: state }));
-      // toast.error('Field is Empty')
+    if (state && state.otp && state.otp.length <= 3) {
+      toast.error('Please Fille OTP')
     }
-    else if (!state && state.otp) {
-      toast.error('Otp empty')
+    else {
+      dispatch(resetForgetPassword(resetData));
+      if (data && data.statusCode === 200) {
+        navigate("/changePassword")
+      }
     }
-    //   if (
-    //     state.otp == null
-    //   ) {
-    //     toast.error("Please provide all the required field!");
-    //   }
-    //   if (state.otp && state.otp.length == 4) {
-    //     dispatch(resetForgetPassword({ resetData: state }));
-    //     // navigate("/changePassword")
-    //   }
-    //   else if (stateErr.err) {
-    //     setStateErr({ err: "Check OTP field!" });
-    //     toast.error(stateErr.err);
-    //   }
-    //   else if (data.statusCode == 200) {
-    //     navigate("/changePassword")
-    //   }
-    // };
-
-    // if (data && data.success) {
-    //   toast.success("Password reset done");
-    //   localStorage.removeItem("forgetEmail");
-    //   navigate("/login");
   }
+
+  useEffect(() => {
+    if (data && data.statusCode === 200) {
+      // navigate("/changePassword")
+    }
+  }, [navigate,handleSubmit])
 
   useEffect(() => { }, [enableResendButton]);
   return (
@@ -131,6 +122,7 @@ export default function ResetPassword() {
                       </p>
                     </section>
                   )}
+                  <span>{error?error:''}</span>
                   <section className={Style.bottomSection}>
                     {loading ? (
                       <SpinnerCustom height="5%" />

@@ -3,6 +3,7 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateDetailsById, getSingleDeviceIdDetails } from '../../../store/action/DeviceAction';
 import Style from "../../../css/EditDetailsModal.module.css";
+import { getHospitalDataFromAdding } from '../../../store/action/StoreSystem';
 const UpdateDetailsModal = (props) => {
   const getAllSectionByDeviceId = useSelector(
     (state) => state.getAllSectionByDeviceId
@@ -13,14 +14,25 @@ const UpdateDetailsModal = (props) => {
   const item11=JSON.parse(localStorage.getItem('item1'))
   const [updateDetails, setUpdateDetails] = useState({
     DeviceID1: getAllData && getAllData.DeviceId,
-    AliasName: getAllData && getAllData.Department_Name,
+    DepartmentName: getAllData && getAllData.Department_Name,
     HospitalName: getAllData && getAllData.Hospital_Name,
     DocName: getAllData && getAllData.Doctor_Name,
     WardNo: getAllData && getAllData.Ward_No,
     IMEINo: getAllData && getAllData.IMEI_NO,
     VentiOp: getAllData && getAllData.Bio_Med,
+    AliasName:getAllData && getAllData.Alias_Name,
   })
+  console.log('AliasName0',updateDetails.AliasName)
   const dispatch = useDispatch();
+
+    // Hpospital Data
+    const getHospitalFromAdding = useSelector((state) => state.getHospitalFromAdding);
+    const { data: dataHospital } = getHospitalFromAdding;
+  
+    useEffect(() => {
+      dispatch(getHospitalDataFromAdding())
+    }, [])
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrorName("");
@@ -31,12 +43,13 @@ const UpdateDetailsModal = (props) => {
       dispatch(
         updateDetailsById({
           DeviceId: getAllData && getAllData.DeviceId,
-          departmentName: updateDetails.AliasName,
+          departmentName: updateDetails.DepartmentName,
           hospitalName: updateDetails.HospitalName,
           Doctor_Name: updateDetails.DocName,
           Ward_No: updateDetails.WardNo,
           IMEI_NO: updateDetails.IMEINo,
-          Bio_Med: updateDetails.VentiOp
+          Bio_Med: updateDetails.VentiOp,
+          Alias_Name:updateDetails.AliasName,
         }
         )
       );
@@ -77,8 +90,27 @@ const UpdateDetailsModal = (props) => {
               type="text"
               name="DeviceId"
               value={getAllData && getAllData.DeviceId}
-              placeholder="Enter Your Device ID"
+              placeholder="Enter  Device ID"
               readOnly
+            />
+            {errorName ? (
+              <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
+            ) : (
+              ""
+            )}
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label className="darkModeColor">Alias Name</Form.Label>
+            <Form.Control
+              className={Style.inputFields}
+              type="text"
+              name="AliasName"
+              defaultValue={getAllData && getAllData.Alias_Name}
+              placeholder="Enter  Alias Name"
+              onChange={(e) =>
+                setUpdateDetails({ ...updateDetails, AliasName: e.target.value })
+              }
+              required
             />
             {errorName ? (
               <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
@@ -92,11 +124,11 @@ const UpdateDetailsModal = (props) => {
             <Form.Control
               className={Style.inputFields}
               type="text"
-              name="AliasName"
+              name="DepartmentName"
               defaultValue={getAllData && getAllData.Department_Name}
-              placeholder="Enter Your Device Alias Name"
+              placeholder="Enter  Department Name"
               onChange={(e) =>
-                setUpdateDetails({ ...updateDetails, AliasName: e.target.value })
+                setUpdateDetails({ ...updateDetails, DepartmentName: e.target.value })
               }
               required
             />
@@ -112,6 +144,7 @@ const UpdateDetailsModal = (props) => {
             <Form.Control
               className={Style.inputFields}
               type="text"
+              list='data'
               name="HospitalName"
               defaultValue={getAllData && getAllData.Hospital_Name}
               placeholder="Enter the Hospital Name"
@@ -119,6 +152,13 @@ const UpdateDetailsModal = (props) => {
                 setUpdateDetails({ ...updateDetails, HospitalName: e.target.value })}
               required
             />
+            <datalist id='data'>
+              {dataHospital && dataHospital.map((item) => {
+                return (
+                  <option value={item.Hospital_Name}>{item.Hospital_Name}</option>
+                )
+              })}
+            </datalist>
             {errorName ? (
               <div style={{ fontSize: 12, color: "red" }}>{errorName}</div>
             ) : (
@@ -153,7 +193,7 @@ const UpdateDetailsModal = (props) => {
               type="text"
               name="WardNo"
               defaultValue={getAllData && getAllData.Ward_No}
-              placeholder="Enter Your Ward Number"
+              placeholder="Enter  Ward Number"
               onChange={(e) =>
                 setUpdateDetails({ ...updateDetails, WardNo: e.target.value })
               }
@@ -173,7 +213,7 @@ const UpdateDetailsModal = (props) => {
               type="text"
               name="IMEINumber"
               defaultValue={getAllData && getAllData.IMEI_NO}
-              placeholder="Enter Your Device IMEI Number"
+              placeholder="Enter  Device IMEI Number"
               onChange={(e) =>
                 setUpdateDetails({ ...updateDetails, IMEINo: e.target.value })
               }

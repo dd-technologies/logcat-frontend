@@ -62,7 +62,7 @@ export const loginWithEmail =
       });
       localStorage.setItem("ddAdminToken", data.data.token);
       localStorage.setItem("name", data.data.name);
-      localStorage.setItem("email",email);
+      localStorage.setItem("email", email);
       var currentDate = new Date();
       // to add 4 days to current date
       var updatedDate = currentDate.addDays(15);
@@ -143,55 +143,55 @@ export const adminRegister =
     confirmPassword,
     navigate
   ) =>
-  async (dispatch) => {
-    try {
-      dispatch({
-        type: ADMIN_REGISTER_REQUEST,
-      });
+    async (dispatch) => {
+      try {
+        dispatch({
+          type: ADMIN_REGISTER_REQUEST,
+        });
 
-      const config = {
-        header: {
-          "Content-type": "application/json",
-        },
-      };
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/auth/register`,
-        {
-          firstName,
-          lastName,
-          stateName,
-          countryName,
-          hospitalName,
-          email,
-          passwordHash,
-          confirmPassword,
-        },
-        config
-      );
+        const config = {
+          header: {
+            "Content-type": "application/json",
+          },
+        };
+        const { data } = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}/api/logger/auth/register`,
+          {
+            firstName,
+            lastName,
+            stateName,
+            countryName,
+            hospitalName,
+            email,
+            passwordHash,
+            confirmPassword,
+          },
+          config
+        );
 
-      // console.log("Data", data);
+        // console.log("Data", data);
 
-      dispatch({
-        type: ADMIN_REGISTER_SUCCESS,
-        payload: data,
-      });
+        dispatch({
+          type: ADMIN_REGISTER_SUCCESS,
+          payload: data,
+        });
 
-      localStorage.setItem("adminInfo", data);
-      navigate("/");
-    } catch (error) {
-      // console.log("reigster error", error);
-      dispatch({
-        type: ADMIN_REGISTER_FAIL,
-        payload:
-          error &&
-          error.response &&
-          error.response.data &&
-          error.response.data.data &&
-          error.response.data.data.err &&
-          error.response.data.data.err.msg,
-      });
-    }
-  };
+        localStorage.setItem("adminInfo", data);
+        navigate("/");
+      } catch (error) {
+        // console.log("reigster error", error);
+        dispatch({
+          type: ADMIN_REGISTER_FAIL,
+          payload:
+            error &&
+            error.response &&
+            error.response.data &&
+            error.response.data.data &&
+            error.response.data.data.err &&
+            error.response.data.data.err.msg,
+        });
+      }
+    };
 
 // FORGET PASSWORD
 export const forgetPassword = (email) => async (dispatch) => {
@@ -199,25 +199,16 @@ export const forgetPassword = (email) => async (dispatch) => {
     dispatch({
       type: FORGET_PASSWORD_REQUEST,
     });
-    const navigate=useNavigate()
     const { data } = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/api/logger/auth/resetPassword`,
       {
         email,
       }
     );
-    if(data && data.statusCode==200){
-      console.log('hey')
-      navigate("/changePassword")
-    };
     dispatch({
       type: FORGET_PASSWORD_REQUEST_SUCCESS,
       payload: data,
     });
-    if(data && data.statusCode=='200'){
-      console.log('hey')
-      // navigate("/changePassword")
-    };
   } catch (error) {
     dispatch({
       type: FORGET_PASSWORD_REQUEST_FAIL,
@@ -242,88 +233,77 @@ export const resetForgetPasswordState = () => async (dispatch) => {
 // RESET PASSWORD AFTER OTP
 
 export const resetForgetPassword =
-  ({ resetData }) =>
-  async (dispatch) => {
-    // const navigate = useNavigate();
-    try {
-      dispatch({
-        type: RESET_PASSWORD_REQUEST,
-      });
-      const otp = resetData;
-      alert("opt", otp);
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/auth/verify-otp`,
-        {
-          otp,
-        }
-      );
+  (otp) =>
+    async (dispatch) => {
+      try {
+        dispatch({
+          type: RESET_PASSWORD_REQUEST,
+        });
+        const { data } = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}/api/logger/auth/verify-otp`,
+          {
+            otp,
+          }
+        );
 
-      dispatch({
-        type: RESET_PASSWORD_REQUEST_SUCCESS,
-        payload: data,
-      });
-      console.log('data',data)
-      const navigate=useNavigate()
-      if(data && data.statusCode===200){
-        navigate("/changePassword")
-        // message("hello")
+        dispatch({
+          type: RESET_PASSWORD_REQUEST_SUCCESS,
+          payload: data,
+        });
+      } catch (error) {
+        dispatch({
+          type: RESET_PASSWORD_REQUEST_FAIL,
+          payload:
+            error &&
+            error.response &&
+            error.response.data &&
+            error.response.data.data &&
+            error.response.data.data.err &&
+            error.response.data.data.err.msg,
+        });
       }
-      
-    } catch (error) {
-      console.log("reset password", error);
-      dispatch({
-        type: RESET_PASSWORD_REQUEST_FAIL,
-        payload:
-          error &&
-          error.response &&
-          error.response.data &&
-          error.response.data.data &&
-          error.response.data.data.err &&
-          error.response.data.data.err.msg,
-      });
-    }
-  };
+    };
 
 // Password Change
 
 export const forgetPasswordChange =
   ({ email, resetData }) =>
-  async (dispatch) => {
-    <Toaster/>
-    // const navigate = useNavigate();
-    try {
-      dispatch({
-        type: RESET_PASSWORD_REQUEST,
-      });
-      const passwordHash = resetData.newPass;
-      const { data } = await axios.put(
-        `${process.env.REACT_APP_BASE_URL}/api/logger/auth/generate-newpassword`,
-        {
-          email,
-          passwordHash,
-        }
-      );
+    async (dispatch) => {
+      <Toaster />
+      // const navigate = useNavigate();
+      try {
+        dispatch({
+          type: RESET_PASSWORD_REQUEST,
+        });
+        const passwordHash = resetData.newPass;
+        const { data } = await axios.put(
+          `${process.env.REACT_APP_BASE_URL}/api/logger/auth/generate-newpassword`,
+          {
+            email,
+            passwordHash,
+          }
+        );
 
-      dispatch({
-        type: RESET_PASSWORD_REQUEST_SUCCESS,
-        payload: data,
-      });
-      if(data.statusCode==200){
-        toast.success("Update Success")
+        dispatch({
+          type: RESET_PASSWORD_REQUEST_SUCCESS,
+          payload: data,
+        });
+        if (data.statusCode == 200) {
+          toast.success("Update Success")
+        }
+      } catch (error) {
+        dispatch({
+          type: RESET_PASSWORD_REQUEST_FAIL,
+          payload:
+            error &&
+            error.response &&
+            error.response.data &&
+            error.response.data.data &&
+            error.response.data.data.err &&
+            error.response.data.data.err.msg,
+        });
       }
-    } catch (error) {
-      dispatch({
-        type: RESET_PASSWORD_REQUEST_FAIL,
-        payload:
-          error &&
-          error.response &&
-          error.response.data &&
-          error.response.data.data &&
-          error.response.data.data.err &&
-          error.response.data.data.err.msg,
-      });
-    }
-  };
+    };
 
 export const allHospitalData = (State) => async (dispatch) => {
   try {
@@ -397,6 +377,7 @@ export const allStateData = (name) => async (dispatch) => {
       type: STATE_DATA_REQUEST,
     });
     const token = cookies.get("ddAdminToken");
+    console.log('00', name)
     const config = {
       headers: {
         "Content-type": "application/json",

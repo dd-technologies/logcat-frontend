@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Style from "../../css/ManagerUsers.module.css";
 import { Row } from "react-bootstrap";
 import TableCard1 from "../../container/TableCard1";
-import { getAllUsersDetalisById, updateAllUsersDetailsById , userDeleteAction} from "../../store/action/AdminDashboard";
+import { getAllUsersDetalisById, updateAllUsersDetailsById, userDeleteAction } from "../../store/action/AdminDashboard";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, Toaster } from "react-hot-toast";
@@ -32,7 +32,7 @@ function ManageUsers() {
     <>
       <Navbar />
       <SideBar />
-      <Toaster/>
+      <Toaster />
       <div
         className=""
         style={{
@@ -65,127 +65,202 @@ function ManageUsers() {
         </div>
         <div className={Style.Container}>
           {/* Events  */}
-          <Row className="mt-0">
-            <div className={Style.column}>
-              <TableCard1 borderRadius="20px">
-                <>
-                  <section className={`${Style.OuterTable} `}>
-                    <div
-                      className={Style.upperData}
-                    >
-                      <div
-                        className="d-flex"
-                        style={{
-                          justifyContent:'space-between',
-                          alignItems:'center',
-                          textAlign:'center',
-                          padding: "1rem 3rem 1rem 2rem",
-                        }}
-                      >
-                        <div>
-                          <h6 className={Style.UpperTextData}>User Name</h6>
-                        </div>
-                        <div>
-                          <h6 className={Style.UpperTextData}>Email</h6>
-                        </div>
-                        <div>
-                          <h6 className={Style.UpperTextData}>Department</h6>
-                        </div>
-                        <div>
-                          <h6 className={Style.UpperTextData}>Resources</h6>
-                        </div>
-                        <div>
-                          <h6 className={Style.UpperTextData}>Hospital Name</h6>
-                        </div>
-                        <div>
-                          <h6 className={Style.UpperTextData}>Actions</h6>
-                        </div>
-                        <div>
-                          <h6 className={Style.UpperTextData}>Delete</h6>
-                        </div>
-                      </div>
-                    </div>
-                    {/* TABLE HERE */}
-                    {records && records.length > 0 ?
-                      <div
-                        className={Style.lowerData}
-                      >
-                        <div
-                          className="d-flex"
-                        >
-                          <div style={{ width: "100%" }}>
-                            {records &&
-                              records.map((item1, _id) => {
-                                var firstname = item1.firstName
-                                var name = firstname + " " + item1.lastName
-                                return (
-                                  <React.Fragment key={_id}>
-                                    <div className={Style.tableBody}>
-                                      <div className={Style.insideTableBody}>{name}</div>
-                                      <div className={Style.insideTableBody}>{item1.email}</div>
-                                      <div className={Style.insideTableBody}>{!item1.department ? "--" : item1.department}</div>
-                                      <div className={Style.insideTableBody}>{!item1.resourse ? "--" : item1.department}</div>
-                                      <div className={Style.insideTableBody}>{item1.hospitalName}</div>
-                                      <div style={{ display: "flex" }}>
-                                        <select style={{ padding: "5px", padding: "9px", borderRadius: "8px", border: "0px", backgroundColor: "#cb297b", color: "white" }} onChange={(e) => { dispatch(updateAllUsersDetailsById({ userType: e.target.value, _id: item1._id })) }}>
-                                          <option >{item1.userType}</option>
-                                          <option value="Admin">Admin</option>
+          {records && records.length > 0 ?
+            <>
+              <div class="relative overflow-x-auto shadow-md sm:rounded-lg" style={{ borderRadius: '1.5rem' }}>
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                  <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                      <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                        User Name
+                      </td>
+                      <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                        Email
+                      </td>
+                      <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                        Department
+                      </td>
+                      <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                        Resources
+                      </td>
+                      <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                        Hospital Name
+                      </td>
+                      <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                        Actions
+                      </td>
+                      <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                        Delete
+                      </td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {records && records.map((item1, index) => {
+                      var firstname = item1.firstName
+                      var name = firstname + " " + item1.lastName
+                      return (
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                          <td class="px-6 py-4 text-center font-semibold text-gray-900">
+                            {name}
+                          </td>
+                          <td class="px-6 py-4 text-center ">
+                            {item1.email}
+                          </td>
+                          <td class="px-6 py-4 text-center ">
+                            {!item1.department ? "--" : item1.department}
+                          </td>
+                          <td class="px-6 py-4 text-center ">
+                            {!item1.resourse ? "--" : item1.resourse}
+                          </td>
+                          <td class="px-6 py-4 text-center ">
+                            {item1.hospitalName}
+                          </td>
+                          <td class="px-6 py-4 text-center ">
+                            <select style={{ padding: "5px", padding: "9px", borderRadius: "8px", border: "0px", backgroundColor: "#cb297b", color: "white" }} onChange={(e) => { dispatch(updateAllUsersDetailsById({ userType: e.target.value, _id: item1._id })) }}>
+                              <option >{item1.userType}</option>
+                              {item1.userType == 'User' ?
+                                <>
+                                  <option value="Admin">Admin</option>
+                                  <option value="Super-Admin">Super Admin</option>
+                                  <option value="Nurse">Nurse</option>
+                                  <option value="Dispatch">Dispatch</option>
+                                  <option value="Production">Production</option>
+                                  <option value="Support">Support</option>
+                                  <option value="Service-Engineer">Service Engineer</option>
+                                </>
+                                :
+                                item1.userType == 'Admin' ?
+                                  <>
+                                    <option value="User">User</option>
+                                    <option value="Super-Admin">Super Admin</option>
+                                    <option value="Nurse">Nurse</option>
+                                    <option value="Dispatch">Dispatch</option>
+                                    <option value="Production">Production</option>
+                                    <option value="Support">Support</option>
+                                    <option value="Service-Engineer">Service Engineer</option>
+                                  </>
+                                  :
+                                  item1.userType == 'Nurse' ?
+                                    <>
+                                      <option value="User">User</option>
+                                      <option value="Admin">Admin</option>
+                                      <option value="Super-Admin">Super Admin</option>
+                                      <option value="Dispatch">Dispatch</option>
+                                      <option value="Production">Production</option>
+                                      <option value="Support">Support</option>
+                                      <option value="Service-Engineer">Service Engineer</option>
+                                    </>
+                                    :
+                                    item1.userType == 'Dispatch' ?
+                                      <>
+                                        <option value="User">User</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="Super-Admin">Super Admin</option>
+                                        <option value="Nurse">Nurse</option>
+                                        <option value="Production">Production</option>
+                                        <option value="Support">Support</option>
+                                        <option value="Service-Engineer">Service Engineer</option>
+                                      </>
+                                      :
+                                      item1.userType == 'Dispatch' ?
+                                        <>
                                           <option value="User">User</option>
-                                          <option value="Dispatch">Dispatch</option>
+                                          <option value="Admin">Admin</option>
+                                          <option value="Super-Admin">Super Admin</option>
+                                          <option value="Nurse">Nurse</option>
                                           <option value="Production">Production</option>
                                           <option value="Support">Support</option>
                                           <option value="Service-Engineer">Service Engineer</option>
-                                        </select>
-                                      </div>
-                                        <button className={Style.viewbtn} onClick={()=>
-                                          {dispatch(userDeleteAction({userId:item1._id}))
-                                         toast.success('User Delete Sucessfully')}
-                                          }>Delete</button>
-                                    </div>
-                                  </React.Fragment>
-                                );
-                              })}
-                          </div>
-                        </div>
-                      </div>
-                      :
-                      <section style={{ width: '100%', height: '100%', marginTop: '10rem', marginBottom: '10rem' }}>
-                        {records && records.length == 0 && (
-                          <section className={Style.noDataFound}>
-                            <span>
-                              No Data Found
-                            </span>
-                          </section>
-                        )}
-                        {loading && <span style={{ display: 'flex', textAlign: 'center', justifyContent: 'center', fontSize: 20 }}>Loading...</span>}
-                      </section>
-                    }
-                  </section>
-                </>
-              </TableCard1>
+                                        </>
+                                        :
+                                        item1.userType == 'Production' ?
+                                          <>
+                                            <option value="User">User</option>
+                                            <option value="Admin">Admin</option>
+                                            <option value="Super-Admin">Super Admin</option>
+                                            <option value="Nurse">Nurse</option>
+                                            <option value="Dispatch">Dispatch</option>
+                                            <option value="Support">Support</option>
+                                            <option value="Service-Engineer">Service Engineer</option>
+                                          </>
+                                          :
+                                          item1.userType == 'Support' ?
+                                            <>
+                                              <option value="User">User</option>
+                                              <option value="Admin">Admin</option>
+                                              <option value="Super-Admin">Super Admin</option>
+                                              <option value="Nurse">Nurse</option>
+                                              <option value="Dispatch">Dispatch</option>
+                                              <option value="Production">Production</option>
+                                              <option value="Service-Engineer">Service Engineer</option>
+                                            </>
+                                            :
+                                            item1.userType == 'Service-Engineer' ?
+                                              <>
+                                                <option value="User">User</option>
+                                                <option value="Admin">Admin</option>
+                                                <option value="Super-Admin">Super Admin</option>
+                                                <option value="Nurse">Nurse</option>
+                                                <option value="Dispatch">Dispatch</option>
+                                                <option value="Production">Production</option>
+                                                <option value="Support">Support</option>
+                                              </>
+                                              :
+                                              <>
+                                                <option value="User">User</option>
+                                                <option value="Admin">Admin</option>
+                                                <option value="Nurse">Nurse</option>
+                                                <option value="Dispatch">Dispatch</option>
+                                                <option value="Production">Production</option>
+                                                <option value="Support">Support</option>
+                                                <option value="Service-Engineer">Service Engineer</option>
+                                              </>
+                              }
+                            </select>
+                          </td>
+                          <td class="px-6 py-4 text-center ">
+                            <button className={Style.viewbtn} onClick={() => {
+                              dispatch(userDeleteAction({ userId: item1._id }))
+                              toast.success('User Delete Sucessfully')
+                            }
+                            }>Delete</button>
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end" style={{ display: "flex", alignItems: 'center' }}>
+                  {incPage > 1 ?
+                    <button onClick={prePage} style={{ border: "0px", backgroundColor: "white" }}>
+                      <img src={back} style={{ width: "3rem" }} />
+                    </button>
+                    : " "}
+                  {numbers.map((n, i) => (
+                    <li key={i} class={`page-item ${incPage == n ? 'active' : ""}`}><a style={{ borderRadius: "100px", margin: "5px" }} class="page-link" href="#" onClick={() => changeCPage(n)}>{n}</a></li>
+                  ))}
+                  {incPage !== totalPage ?
+                    <button onClick={nextPage} style={{ border: "0px", backgroundColor: "white" }}>
+                      <img src={back} style={{ width: "3rem", transform: "rotate(180deg)" }} />
+                    </button>
+                    : " "}
+                </ul>
+              </nav>
+            </>
+            :
+            <div style={{ height: '500px', backgroundColor: 'white', width: '100%', borderRadius: '20px', boxShadow: '0px 0px 50px #00000029', background: '#FFFFFF 0% 0% no-repeat padding-box' }}>
+              {records && records.length == 0 && (
+                <section className={Style.noDataFound}>
+                  <span>
+                    No Data Found
+                  </span>
+                </section>
+              )}
+              {loading && <span style={{ position: 'absolute', top: '50%', right: '50%' }}>Loading...</span>}
             </div>
-          </Row>
-          <div
-            className="left_arrow" style={{ display: "flex", justifyContent: "flex-end" }}
-          >
-            <nav aria-label="Page navigation example">
-              <ul class="pagination justify-content-end" style={{ display: "flex", alignItems: 'center' }}>
-                {incPage > 1 ?
-                  <Link onClick={prePage}>
-                    <img src={back} style={{ width: "3rem" }} />
-                  </Link>
-                  : " "}
-                {numbers.map((n, i) => (
-                  <li key={i} class={`page-item ${incPage == n ? 'active' : ""}`}><a style={{ borderRadius: "100px", margin: "5px" }} class="page-link" href="#" onClick={() => changeCPage(n)}>{n}</a></li>
-                ))}
-                {incPage !== totalPage ?
-                  <Link onClick={nextPage}>
-                    <img src={back} style={{ width: "3rem", transform: "rotate(180deg)" }} />
-                  </Link>
-                  : " "}
-              </ul>
-            </nav>
-          </div>
+          }
         </div>
       </div>
     </>
