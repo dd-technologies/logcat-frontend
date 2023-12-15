@@ -11,13 +11,11 @@ function ServiceEnginner() {
     const getAllTicketsDataReducer = useSelector((state) => state.getAllTicketsDataReducer);
     const { loading, data } = getAllTicketsDataReducer;
     const getAllTicket = data && data.data
-    console.log('data', getAllTicket)
 
     // userProfileData
     const getServiceEngDataReducer = useSelector((state) => state.getServiceEngDataReducer);
     const { data: dataa } = getServiceEngDataReducer;
-    console.log('dataq121', dataa)
-    const statusData=dataa && dataa.data && dataa.data.userStatus;
+    const statusData = dataa && dataa.data && dataa.data.userStatus;
 
     const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
     const { adminInfo } = adminLoginReducer;
@@ -77,28 +75,39 @@ function ServiceEnginner() {
                 </nav>
                 <div class="p-4" style={{ marginTop: '2rem' }}>
                     <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'space-between' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            <h6 style={{ backgroundColor: 'green', borderRadius: '20rem', width: '1rem', height: '0.4rem', padding: '0.5rem' }}></h6>
-                            <span style={{ color: 'black' }}>Online</span>
+                        <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', gap: '1rem' }}>
+                            <p style={{ color: 'black' }}>Status is</p>
+                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
+                                <h6 style={statusData == 'Active' ? { backgroundColor: 'green', borderRadius: '20rem', width: '1rem', height: '0.4rem', padding: '0.5rem' } : { backgroundColor: 'red', borderRadius: '20rem', width: '1rem', height: '0.4rem', padding: '0.5rem' }}></h6>
+                                <span style={{ color: 'black' }}>{statusData == 'Active' ? 'Online' : 'Offline'}</span>
+                            </div>
                         </div>
-                        <div>
+                        <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', gap: '1rem' }}>
+                            <p style={{ color: 'black' }}>Service Engineer is</p>
                             <button onClick={handleBtnChange} style={statusData == 'Active' ? { backgroundColor: 'green' } : { backgroundColor: 'red' }} type='button' class="text-white  hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 :bg-blue-600 :hover:bg-blue-700 :focus:ring-blue-800">
                                 {statusData == 'Active' ? 'On Work' : 'On Leave'}</button>
                         </div>
-                        <div>
-                            <span style={{ color: 'black' }}>Emp Id - AgVa326</span>
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: '1rem' }}>
+                            <p style={{ color: 'black' }}>Your Employee Id</p>
+                            <span style={{ color: 'black' }}>AgVa326</span>
                         </div>
                     </div>
                 </div>
                 <div>
                     <form>
-                        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only ">Search</label>
-                        <div class="relative" style={{ padding: '1rem' }}>
+                        <div class="relative" style={{ padding: '1rem', display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
                             <input onChange={handleSearchChange} type="search" id="default-search" class="block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" placeholder='Search...' required />
+                            <select onChange={(e) => {
+                                const filter = e.target.value
+                                dispatch(getAllTicketsDataAction({ filter }))
+                            }} style={{ border: '0.1px solid black', borderRadius: '10px', margin: '1px', padding: '5px' }}>
+                                <option value=''>Select All</option>
+                                <option value='Pending'>Pending</option>
+                                <option value='Completed'>Completed</option>
+                            </select>
                         </div>
                     </form>
                 </div>
-
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 :text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 :bg-gray-700 :text-gray-400">
@@ -186,7 +195,6 @@ function ServiceEnginner() {
                                                 <td class="px-6 py-4" style={{ color: '#cb297b' }}>
                                                     <button type="button" onClick={() => {
                                                         navigate(`/service_eng_module?Id=${item._id}&deviceId=${item.deviceId}`);
-                                                        console.log("111", item._id)
                                                     }} style={{ backgroundColor: '#cb297b' }} class="text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 :bg-blue-600 :hover:bg-blue-700 :focus:ring-blue-800">
                                                         View
                                                     </button>

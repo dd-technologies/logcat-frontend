@@ -26,6 +26,12 @@ import {
   STATE_DATA_REQUEST,
   STATE_DATA_FAIL,
   STATE_DATA_SUCCESS,
+  GET_OTP_ON_NUMBER_REQUEST,
+  GET_OTP_ON_NUMBER_SUCCESS,
+  GET_OTP_ON_NUMBER_FAIL,
+  VERIFY_SMS_OTP_NUMBER_REQUEST,
+  VERIFY_SMS_OTP_NUMBER_SUCCESS,
+  VERIFY_SMS_OTP_NUMBER_FAIL,
 } from "../types/AdminConstants";
 import { persistor } from "../Store";
 import { useNavigate } from "react-router";
@@ -371,6 +377,7 @@ export const allCountryStateData = () => async (dispatch) => {
     });
   }
 };
+
 export const allStateData = (name) => async (dispatch) => {
   try {
     dispatch({
@@ -395,6 +402,77 @@ export const allStateData = (name) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: STATE_DATA_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.err.msg,
+    });
+  }
+};
+
+export const getOtpOnPhoneNumber = (number) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_OTP_ON_NUMBER_REQUEST,
+    });
+    const token = cookies.get("ddAdminToken");
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/logger/send-otp-sms/${number}`,
+      config
+    );
+    dispatch({
+      type: GET_OTP_ON_NUMBER_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_OTP_ON_NUMBER_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.err.msg,
+    });
+  }
+};
+
+export const VerifySMSOtpNumber = (otp) => async (dispatch) => {
+  try {
+    dispatch({
+      type: VERIFY_SMS_OTP_NUMBER_REQUEST,
+    });
+    const token = cookies.get("ddAdminToken");
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const { data } = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/logger/verify-sms-otp`,
+      {otp},
+      config
+    );
+    dispatch({
+      type: VERIFY_SMS_OTP_NUMBER_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    if(error && error.response && error.responce && error.response.data && error.response.data.statusCode ===400){
+      toast.error(error && error.response && error.response.data && error.response.data.statusValue)
+    }
+    dispatch({
+      type: VERIFY_SMS_OTP_NUMBER_FAIL,
       payload:
         error &&
         error.response &&

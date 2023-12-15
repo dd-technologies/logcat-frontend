@@ -10,6 +10,7 @@ import { allStateData } from '../../../store/action/AdminAction'
 import { getNewHospitalData } from '../../../store/action/StoreSystem'
 import { Toaster, toast } from 'react-hot-toast'
 import { getPincodeData } from "../../../store/action/DispatchDetailsAction"
+import GeoLocation from './GeoLocation'
 function AddHospital() {
     const [hospitalData, setHospitalData] = useState({
         countryName: '',
@@ -38,6 +39,7 @@ function AddHospital() {
     const goBack = () => {
         window.history.go(-1)
     }
+    const history=useNavigate();
     const name = hospitalData.countryName
     const stateChange = (e) => {
         e.preventDefault()
@@ -72,8 +74,14 @@ function AddHospital() {
                 City: getPincodeAllData.city,
             }))
             toast.success('Hospital Add Success')
+            setTimeout(() => {
+                history('/dispatchDevice')
+            }, 1000);
         }
     }
+
+
+
     return (
         <div>
             <Navbar />
@@ -154,8 +162,9 @@ function AddHospital() {
                             <button onClick={handleSubmit} className={Style.continuebtn} >Submit</button>
                         </div>
                     </div>
+                    {/* <GeoLocation /> */}
                 </div>
-
+                
             </div>
 
         </div>

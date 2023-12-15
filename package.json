@@ -34,6 +34,7 @@
     "html2canvas": "^1.4.1",
     "http-proxy-middleware": "^2.0.6",
     "jspdf": "^2.5.1",
+    "leaflet": "^1.9.4",
     "moment": "^2.29.3",
     "moment-timezone": "^0.5.41",
     "postcss": "^8.4.31",
@@ -50,6 +51,7 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.2.0",
     "react-icons": "^4.11.0",
+    "react-leaflet": "^4.2.1",
     "react-multi-carousel": "^2.8.3",
     "react-read-more-read-less": "^1.0.7",
     "react-redux": "^8.0.1",
@@ -81,8 +83,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -108,6 +110,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.17.12",
     "customize-cra": "^1.0.0",
     "react-app-rewired": "^2.2.1",
-    "react-test-renderer": "^18.2.0"
+    "react-test-renderer": "^18.2.0",
+    "webpack": "^5.89.0"
   }
 }

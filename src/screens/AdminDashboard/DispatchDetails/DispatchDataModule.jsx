@@ -71,13 +71,13 @@ function DispatchDataModule() {
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                       <tr>
                         <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                          Serial No.
+                        </td>
+                        <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
                           Device ID
                         </td>
                         <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
                           Product Type
-                        </td>
-                        <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
-                          Serial No.
                         </td>
                         <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
                           Hospital Name
@@ -86,10 +86,16 @@ function DispatchDataModule() {
                           Batch No.
                         </td>
                         <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                          Document Number
+                        </td>
+                        <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
                           Purpose
                         </td>
                         <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
                           Action
+                        </td>
+                        <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                          More
                         </td>
                       </tr>
                     </thead>
@@ -97,20 +103,24 @@ function DispatchDataModule() {
                       {records && records.map((item1, index) => {
                         return (
                           <tr class="bg-white border-b hover:bg-gray-50">
-                            <td class="px-6 py-4 text-center font-semibold text-gray-900">
+                            <td class="px-6 py-4 text-center  font-semibold text-gray-900">
+                              {item1.serial_no ? item1.serial_no : '---'}
+                            </td>
+                            <td class="px-6 py-4 text-center">
                               {item1.deviceId ? item1.deviceId : '---'}
                             </td>
                             <td class="px-6 py-4 text-center ">
                               {item1.product_type ? item1.product_type : '---'}
                             </td>
-                            <td class="px-6 py-4 text-center ">
-                              {item1.serial_no ? item1.serial_no : '---'}
-                            </td>
+
                             <td class="px-6 py-4 text-center ">
                               {item1.hospital_name ? item1.hospital_name : '---'}
                             </td>
                             <td class="px-6 py-4 text-center ">
                               {item1.batch_no ? item1.batch_no : '---'}
+                            </td>
+                            <td class="px-6 py-4 text-center ">
+                              {item1.document_no ? item1.document_no : '---'}
                             </td>
                             <td class="px-6 py-4 text-center ">
                               {item1.purpose ? item1.purpose : '---'}
@@ -123,6 +133,15 @@ function DispatchDataModule() {
                                     localStorage.setItem("dispatchDeviceId", item1.deviceId)
                                   }
                                 }>View</button>
+                            </td>
+                            <td class="px-6 py-4 text-center ">
+                              <button className={Style.viewBtn}
+                                onClick={
+                                  () => {
+                                    navigate(`/singleDispatchDataModule?deviceId=${item1.deviceId }`)
+                                    localStorage.setItem("dispatchDeviceId", item1.deviceId)
+                                  }
+                                }>More</button>
                             </td>
                           </tr>
                         )

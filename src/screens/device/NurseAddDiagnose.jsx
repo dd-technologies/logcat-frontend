@@ -127,9 +127,7 @@ console.log('patientData',patientData)
                 doctor_name: patientData.doctorName
             }))
             toast.success('Success')
-            setTimeout(() => {
-                window.history.go(-1)
-            }, 1000);
+           
         }
     }
     const navigate = useNavigate()

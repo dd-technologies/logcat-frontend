@@ -29,7 +29,9 @@ import {
   GET_HOSPITAL_LIST_BY_PINCODE_SUCCESS,
   GET_HOSPITAL_LIST_BY_PINCODE_FAIL
 } from "../types/StoreConstant";
+import { useNavigate } from "react-router";
 const cookies = new Cookies();
+
 export const getStoreSystem = () => async (dispatch) => {
   try {
     dispatch({
@@ -136,11 +138,11 @@ export const putallStoreDataAction = ({ serialNumber, deviceId, service_engineer
       type: PUT_ALL_STORE_DATA_SUCCESS,
       payload: data,
     });
-    if (data.statusCode == 201) {
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-    }
+    // if (data.statusCode == 201) {
+    //   setTimeout(() => {
+    //     window.location.reload();
+    //   }, 500);
+    // }
   } catch (error) {
     dispatch({
       type: PUT_ALL_STORE_DATA_FAIL,
@@ -160,6 +162,7 @@ export const getNewHospitalData = ({ Hospital_Name, Hospital_Address, Country, S
       type: GET_NEW_HOSPITAL_DATA_REQUEST,
     });
     const token = cookies.get('ddAdminToken');
+    const history=useNavigate();
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -185,8 +188,9 @@ export const getNewHospitalData = ({ Hospital_Name, Hospital_Address, Country, S
     });
     if (data.statusCode == 201) {
       setTimeout(() => {
-        window.location.reload();
-      }, 500);
+        // window.location.reload();
+        history('/dispatchDevice')
+      }, 1000);
     }
   } catch (error) {
     dispatch({

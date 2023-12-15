@@ -26,11 +26,9 @@ export default function Device() {
 
   const deviceReducer = useSelector((state) => state.deviceReducer);
   const { loading, data } = deviceReducer;
-console.log('ahhah',data)
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
   const { adminInfo } = adminLoginReducer;
   const adminProfile = adminInfo && adminInfo.data && adminInfo.data.userType
-  console.log('adminInfo', adminProfile)
   const incPage = parseInt(data && data.currentPage)
   const totalPage = parseInt(data && data.totalPages)
   const [currentPage, setCurrentPage] = useState(1)
@@ -40,7 +38,6 @@ console.log('ahhah',data)
   const records = data && data.data && data.data.data.slice(firstIndex, lastIndex);
   const npage = Math.ceil(data && data.data && data.data.data.length / recordsPerPage)
   const numbers = Array.from({ length: npage }, (_, i) => i + 1).slice(1)
-  console.log("records", records)
   useEffect(() => {
     dispatch(getRegisteredDetailsById(code));
   }, []);

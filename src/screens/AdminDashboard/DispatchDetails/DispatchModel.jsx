@@ -4,7 +4,7 @@ import SideBar from '../../../utils/Sidebar'
 import back from "../../../assets/images/back.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileArrowDown } from "@fortawesome/free-solid-svg-icons";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getdispatchDetailsByDeviceIdAction } from '../../../store/action/DispatchDetailsAction';
 import { CSVLink } from "react-csv";
@@ -19,6 +19,7 @@ function DispatchModel() {
   const deviceServiceData = data && data.servicesData
   console.log("deviceAssignData", deviceAssignData)
   const batchNo = deviceAssignData && deviceAssignData.batch_no
+  const documentNo = deviceAssignData && deviceAssignData.document_no
   const deviceid = deviceAssignData && deviceAssignData.deviceId
   const dod = deviceAssignData && deviceAssignData.date_of_dispatch
   const dom = deviceAssignData && deviceAssignData.date_of_manufacturing
@@ -40,9 +41,15 @@ function DispatchModel() {
     dispatch(getdispatchDetailsByDeviceIdAction(deviceId))
   }, [])
   const csvData = [
-    ["Device Id", "Batch No", "Date Of Delivery", "Date Of Manuf.", "Hospital Name", "Purpose", "Serial No", "Concerned Person", "Phone Number", "Product Type", "Address", "SIM No", "PIN Code", "Distributor Name", "Distributor Contact"],
-    [deviceid, batchNo, dod, dom, hospitalName, purpose, seiralNo, concernedPerson, PhoneNumber, productType, Address, simNo, pincode, distributorName, distributorNumber],
+    ["Device Id", 'Document No', "Batch No", "Date Of Delivery", "Date Of Manuf.", "Hospital Name", "Purpose", "Serial No", "Concerned Person", "Phone Number", "Product Type", "Address", "SIM No", "PIN Code", "Distributor Name", "Distributor Contact"],
+    [deviceid, documentNo, batchNo, dod, dom, hospitalName, purpose, seiralNo, concernedPerson, PhoneNumber, productType, Address, simNo, pincode, distributorName, distributorNumber],
   ];
+  const history = useNavigate();
+
+  const handleEdit = (e) => {
+    e.preventDefault()
+    history(`/dispatchEditDetailsForm?deviceId=${deviceid}&serialNO=${seiralNo}`)
+  }
   return (
     <>
       <Navbar />
@@ -64,26 +71,29 @@ function DispatchModel() {
               <img src={back} style={{ width: "3rem" }} />
             </Link>
             <h1 class="text-2xl font-extrabold">Dispatch<small class="ml-2 font-semibold text-gray-500 dark:text-gray-400">Data</small></h1>
-            <CSVLink data={csvData}>
-              <FontAwesomeIcon icon={faFileArrowDown} style={{ color: "#cb297b", height: "23px" }} />
-            </CSVLink>
+            <div style={{ display: 'flex', gap: '16rem', alignItems: 'center' }}>
+              <CSVLink data={csvData}>
+                <FontAwesomeIcon icon={faFileArrowDown} style={{ color: "#cb297b", height: "23px" }} />
+              </CSVLink>
+              <button style={{ width: '5vw', padding: '0.5rem', backgroundColor: 'black', color: 'white', borderRadius: '5px' }} onClick={handleEdit}>Edit</button>
+            </div>
           </div>
           {/* Details */}
           <div className='mainContainer' style={{ display: 'flex', gap: '7rem', width: '100%' }}>
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg" style={{width:'40%'}}>
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg" style={{ width: '40%' }}>
               <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                   <tr>
                     <th scope="row" class="px-6 py-3">
                       Device Id
                     </th>
-                    <td scope="col" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <td scope="col" class="px-6 font-medium text-gray-900 whitespace-nowrap ">
                       {deviceid ? deviceid : "- - -"}
                     </td>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                  <tr class="bg-white border-b dark:bg-gray-900 ">
                     <th scope="col" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                       Batch Number
                     </th>
@@ -91,20 +101,28 @@ function DispatchModel() {
                       {batchNo ? batchNo : '- - -'}
                     </td>
                   </tr>
-                  <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+                  <tr class="bg-white border-b dark:bg-gray-900 ">
+                    <th scope="col" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      Document Number
+                    </th>
+                    <td class="px-6">
+                      {documentNo ? documentNo : '- - -'}
+                    </td>
+                  </tr>
+                  <tr class="border-b bg-gray-50 ">
                     <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                       Date Of Delivery
                     </th>
                     <td class="px-6">
-                    {dod?dod:"- - -"}
+                      {dod ? dod : "- - -"}
                     </td>
                   </tr>
-                  <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                  <tr class="bg-white border-b ">
                     <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                       Date Of Manufacturing
                     </th>
                     <td class="px-6">
-                    {dom?dom:"- - -"}
+                      {dom ? dom : "- - -"}
                     </td>
                   </tr>
                   <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -112,7 +130,7 @@ function DispatchModel() {
                       Hospital Name
                     </th>
                     <td class="px-6">
-                    {hospitalName?hospitalName:"- - -"}
+                      {hospitalName ? hospitalName : "- - -"}
                     </td>
                   </tr>
                   <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -120,7 +138,7 @@ function DispatchModel() {
                       Purpose
                     </th>
                     <td class="px-6">
-                    {purpose?purpose:"- - -"}
+                      {purpose ? purpose : "- - -"}
                     </td>
                   </tr>
                   <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -128,7 +146,7 @@ function DispatchModel() {
                       Serial No
                     </th>
                     <td class="px-6">
-                    {seiralNo?seiralNo:"- - -"}
+                      {seiralNo ? seiralNo : "- - -"}
                     </td>
                   </tr>
                   <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -136,7 +154,7 @@ function DispatchModel() {
                       Concerned Person Name
                     </th>
                     <td class="px-6">
-                    {concernedPerson?concernedPerson:"- - -"}
+                      {concernedPerson ? concernedPerson : "- - -"}
                     </td>
                   </tr>
                   <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -144,7 +162,7 @@ function DispatchModel() {
                       Concerned Person Number
                     </th>
                     <td class="px-6">
-                    {PhoneNumber?PhoneNumber:"- - -"}
+                      {PhoneNumber ? PhoneNumber : "- - -"}
                     </td>
                   </tr>
 
@@ -153,7 +171,7 @@ function DispatchModel() {
                       Product Type
                     </th>
                     <td class="px-6">
-                    {productType && productType.length > 0?productType:"- - -"}
+                      {productType && productType.length > 0 ? productType : "- - -"}
                     </td>
                   </tr>
                   <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -161,7 +179,7 @@ function DispatchModel() {
                       Address
                     </th>
                     <td class="px-6">
-                    {Address?Address:"- - -"}
+                      {Address ? Address : "- - -"}
                     </td>
                   </tr>
                   <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -169,7 +187,7 @@ function DispatchModel() {
                       Sim Number
                     </th>
                     <td class="px-6">
-                    {simNo?simNo:"- - -"}
+                      {simNo ? simNo : "- - -"}
                     </td>
                   </tr>
                   <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -177,7 +195,7 @@ function DispatchModel() {
                       PIN Code
                     </th>
                     <td class="px-6">
-                    {pincode && pincode.length>0?pincode:"- - -"}
+                      {pincode && pincode.length > 0 ? pincode : "- - -"}
                     </td>
                   </tr>
                   <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -185,7 +203,7 @@ function DispatchModel() {
                       Distributor Name
                     </th>
                     <td class="px-6">
-                    {distributorName?distributorName:"- - -"}
+                      {distributorName ? distributorName : "- - -"}
                     </td>
                   </tr>
                   <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -193,14 +211,14 @@ function DispatchModel() {
                       Distributor Contact
                     </th>
                     <td class="px-6">
-                    {distributorNumber?distributorNumber:"- - -"}
+                      {distributorNumber ? distributorNumber : "- - -"}
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
-            <div className="container" style={{marginLeft:'0%', width: "40%", display: "flex", flexDirection: "column", gap: "3rem", background: "#FFFFFF 0% 0% no-repeat padding-box", boxShadow: "0px 0px 50px #00000029", borderRadius: "15px", padding: "2rem" }}>
+            <div className="container" style={{ marginLeft: '0%', width: "40%", display: "flex", flexDirection: "column", gap: "3rem", background: "#FFFFFF 0% 0% no-repeat padding-box", boxShadow: "0px 0px 50px #00000029", borderRadius: "15px", padding: "2rem" }}>
               <div className="d-flex" style={{ gap: "2rem", flexDirection: "row", color: "#4B4B4B" }}>
                 <h5 style={{ fontSize: "0.9rem", width: "100%", fontWeight: "bold" }}>Service Date</h5>
                 <h5 style={{ fontSize: "0.9rem", width: "100%", fontWeight: 'bold' }}>Message</h5>

@@ -12,14 +12,11 @@ export default function Logs() {
   const { theme } = React.useContext(ThemeContext);
   const getAllLogsByDeviceIdReducer = useSelector((state) => state.getAllLogsByDeviceIdReducer)
   const { loading, data } = getAllLogsByDeviceIdReducer;
-  console.log('getAllLogsByDeviceIdReducer', getAllLogsByDeviceIdReducer);
   let logsFilter = data && data.data && data.data.findDeviceById;
-  console.log('logsFilter', logsFilter);
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const code = urlParams.get('name');
-  console.log(code)
 
   const dispatch = useDispatch();
   useEffect(() => {

@@ -1,48 +1,69 @@
 import React, { useEffect, useState } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
-import { dispatchDetailsAction, getDeviceIdFromProduction, getPincodeData, getproductionDetailsByIdAction } from '../../../store/action/DispatchDetailsAction'
+import { dispatchDetailsAction, getDeviceIdFromProduction, getPincodeData, getSerialNumberList, getSingleHospitalDetails, getproductionDetailsByIdAction } from '../../../store/action/DispatchDetailsAction'
 import { Navbar } from '../../../utils/NavBar'
 import SideBar from '../../../utils/Sidebar'
 import Style from "../../../css/DispatchDetails.module.css"
 import { Link, useNavigate } from 'react-router-dom'
 import back from "../../../assets/images/back.png";
 import { getHospitalDataFromAdding } from '../../../store/action/StoreSystem'
+import { getDeviceIdBySerialNumber } from '../../../store/action/DeviceAction'
 
 function Dispatch() {
     const [dispatchDetails, setDispatchDetails] = useState({
-        deviceId: "",
         product_type: "",
         serial_no: "",
         hospitalName: "",
-        address: "",
         purpose: "",
         concerned_person: "",
         phone_number: "",
         date_of_dispatch: "",
-        pincode: "",
         distributor_name: "",
         distributor_contact: "",
+        document_no: "",
     })
-
+    const dispatch = useDispatch()
     const getDeviceIdProductionReducer = useSelector((state) => state.getDeviceIdProductionReducer);
     const { data } = getDeviceIdProductionReducer;
     const deviceIdData = data && data.data
-    console.log('1', deviceIdData)
+
     const productionAllDetailsByUserIdReducer = useSelector((state) => state.productionAllDetailsByUserIdReducer);
     const { data: dataa } = productionAllDetailsByUserIdReducer;
     const productionDataByDeviceId = dataa && dataa.data
 
+    // Serial Number Data
+    const getSerialNumberListReducer = useSelector((state) => state.getSerialNumberListReducer);
+    const { data: dataSerialNumbers } = getSerialNumberListReducer;
+
+
+    // useEffect(() => {
+    //     dispatch(getSerialNumberList())
+    // }, [])
     // Hpospital Data
     const getHospitalFromAdding = useSelector((state) => state.getHospitalFromAdding);
     const { data: dataHospital } = getHospitalFromAdding;
 
 
+    // Single Hpospital Data
+    const getHospitalDetailsReducer = useSelector((state) => state.getHospitalDetailsReducer);
+    const { data: singleHospitalData } = getHospitalDetailsReducer;
+    const singleDataOfHospital = singleHospitalData && singleHospitalData.data
+
+    const hospitalPinCode = singleDataOfHospital && singleDataOfHospital[0] && singleDataOfHospital[0].Pincode;
+    const hospitalDistrict = singleDataOfHospital && singleDataOfHospital[0] && singleDataOfHospital[0].District;
+    const hospitalCity = singleDataOfHospital && singleDataOfHospital[0] && singleDataOfHospital[0].City;
+    const hospitalAddress = singleDataOfHospital && singleDataOfHospital[0] && singleDataOfHospital[0].Hospital_Address;
+    const hospitalState = singleDataOfHospital && singleDataOfHospital[0] && singleDataOfHospital[0].State
+    // Serial No
+    const getDeviceIdBySerialNumberReducer = useSelector((state) => state.getDeviceIdBySerialNumberReducer);
+    const { data: dataSerialNo, error } = getDeviceIdBySerialNumberReducer;
+    useEffect(() => {
+        dispatch(getDeviceIdBySerialNumber())
+    }, [])
     const getPiincodeDatReducer = useSelector((state) => state.getPiincodeDatReducer);
     const { data: pincodeData } = getPiincodeDatReducer;
     const getPincodeAllData = pincodeData && pincodeData.data && pincodeData.data[0]
-    console.log('productionDataByDeviceId', productionDataByDeviceId)
-    console.log('pincodeData', getPincodeData[0])
     useEffect(() => {
         dispatch(getPincodeData())
     }, [])
@@ -60,19 +81,16 @@ function Dispatch() {
     var phoneno = /^\d{10}$/
     var pinCode = /^\d{6}$/
     var purposeValid = "Select Purpose Type"
-    // var productValid = "Select Product Type"
-    const dispatch = useDispatch()
+    var productValid = "Select Product Type"
+  
     const dispatchHandler = (e) => {
         e.preventDefault()
-        if (!dispatchDetails.deviceId) {
-            toast.error("Enter Device Id")
+        if (!dispatchDetails.product_type || dispatchDetails.purpose === productValid) {
+            toast.error("Enter Product Type")
         }
-        // else if (!dispatchDetails.product_type || dispatchDetails.purpose === productValid) {
-        //     toast.error("Enter Product Type")
-        // }
-        // else if (!dispatchDetails.serial_no) {
-        //     toast.error("Enter Serial No.")
-        // }
+        else if (!dispatchDetails.serial_no) {
+            toast.error("Enter Serial No.")
+        }
         else if (!dispatchDetails.hospitalName) {
             toast.error("Enter Hospital Name")
         }
@@ -86,44 +104,48 @@ function Dispatch() {
             toast.error("Enter Concerned Contact")
         }
         else if (!dispatchDetails.phone_number.match(phoneno)) {
-            toast.error("Enter 10 digit Concerned Contact")
+            toast.error(`Enter 10 digit not ${dispatchDetails.phone_number.toString().length} digit Concerned Number`)
         }
         else if (!dispatchDetails.date_of_dispatch) {
             toast.error("Enter Date Of Dispatch")
         }
-        else if (!dispatchDetails.pincode) {
-            toast.error("Enter PIN Code")
+        else if (!dispatchDetails.document_no) {
+            toast.error("Enter Document Number")
         }
-        else if (!dispatchDetails.pincode.match(pinCode)) {
-            toast.error("Enter 6 digit PIN Code")
-        }
-        else if (!dispatchDetails.address) {
-            toast.error("Enter Address")
-        }
-        // else if (!dispatchDetails.distributor_contact.match(phoneno)) {
-        //     toast.error("Enter 10 digit Distrbutor Contact")
-        // }
-        else if (dispatchDetails.deviceId && dispatchDetails.hospitalName && dispatchDetails.address && dispatchDetails.purpose && dispatchDetails.concerned_person && dispatchDetails.phone_number && dispatchDetails.date_of_dispatch && dispatchDetails.pincode) {
-            toast.success("Success")
+        else if (dispatchDetails.product_type && dispatchDetails.hospitalName && dispatchDetails.purpose && dispatchDetails.document_no && dispatchDetails.concerned_person && dispatchDetails.phone_number && dispatchDetails.date_of_dispatch) {
             dispatch(dispatchDetailsAction({
-                deviceId: dispatchDetails.deviceId,
-                product_type: productionDataByDeviceId.productType,
-                serial_no: productionDataByDeviceId.serialNumber,
+                deviceId: dataSerialNo && dataSerialNo.deviceId,
+                product_type: dispatchDetails.product_type,
+                serial_no: dispatchDetails.serial_no,
                 purpose: dispatchDetails.purpose,
                 concerned_person: dispatchDetails.concerned_person,
                 phone_number: dispatchDetails.phone_number,
-                address: dispatchDetails.address,
+                address: hospitalAddress,
                 date_of_dispatch: dispatchDetails.date_of_dispatch,
                 hospital_name: dispatchDetails.hospitalName,
-                pincode: dispatchDetails.pincode,
+                pincode: hospitalPinCode,
                 distributor_name: dispatchDetails.distributor_name,
                 distributor_contact: dispatchDetails.distributor_contact,
-                district: getPincodeAllData && getPincodeAllData.district,
-                state: getPincodeAllData && getPincodeAllData.state,
-                city: getPincodeAllData && getPincodeAllData.city,
+                district: hospitalDistrict,
+                state: hospitalState,
+                city: hospitalCity,
+                document_no: dispatchDetails.document_no
             }))
+            toast.success("Success")
         }
     }
+// useEffect(()=>{
+//     if (dataSerialNo) {
+//        return dataSerialNo 
+//     }else if(dispatchDetails.serial_no.length<0){
+//          console.log('')
+//     }
+//     else if (error){
+//         toast.error(error)
+//     }
+// },[])
+console.log('0',dataSerialNo)
+   
     const navigate = useNavigate()
     const handleAddHospital = () => {
         navigate('/add_hospital')
@@ -150,18 +172,21 @@ function Dispatch() {
                     </div>
                     <form>
                         <div class="grid gap-6 mb-6 md:grid-cols-2" style={{ textAlign: 'start' }}>
-                            {/* device Id */}
+                            {/* serial Number */}
                             <div>
-                                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Device Id</label>
-                                <input list='borow' type="text" onChange={(e) => {
-                                    setDispatchDetails({ ...dispatchDetails, deviceId: e.target.value })
-                                    const deviceId = e.target.value
-                                    dispatch(getproductionDetailsByIdAction(deviceId))
-                                }} value={dispatchDetails.deviceId} id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" placeholder="Enter Device Id" required />
-                                <datalist id='borow'>
-                                    {deviceIdData && deviceIdData.map((item) => {
+                                <label for="last_name" style={{ textAlign: 'start' }} class="block mb-2 text-sm font-medium text-gray-900 :text-white">Serial Number</label>
+                                <input list='serialno' type="text"
+                                     onChange={(e) => {
+                                    setDispatchDetails({ ...dispatchDetails, serial_no: e.target.value })
+                                    const serial_no = e.target.value;
+                                    dispatch(getDeviceIdBySerialNumber(serial_no))
+                                    }} 
+                                    // onChange={handleSerialNo}
+                                    value={dispatchDetails.serial_no} id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" placeholder="Enter Serial Number" required />
+                                <datalist id='serialno'>
+                                    {dataSerialNumbers && dataSerialNumbers.data && dataSerialNumbers.data.map((item) => {
                                         return (
-                                            <option value={item.deviceId}>{item.deviceId}</option>
+                                            <option value={item.serialNumber}>{item.serialNumber}</option>
                                         )
                                     })}
                                 </datalist>
@@ -169,24 +194,36 @@ function Dispatch() {
                             {/* Product Type */}
                             <div>
                                 <label for="last_name" style={{ textAlign: 'start' }} class="block mb-2 text-sm font-medium text-gray-900 :text-white">Product Type</label>
-                                <div style={(productionDataByDeviceId && productionDataByDeviceId.productType && productionDataByDeviceId.productType.length > 0) ? { padding: '0.6rem' } : { padding: '1.2rem' }} id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500">
-                                    {productionDataByDeviceId && productionDataByDeviceId.productType}
-                                </div>
+                                <select id="countries" onChange={(e) => setDispatchDetails({ ...dispatchDetails, product_type: e.target.value })}
+                                    value={dispatchDetails.product_type} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500">
+                                    <option defaultChecked>{productValid}</option>
+                                    <option>AgVa Pro</option>
+                                    <option>Insulin</option>
+                                    <option>AgVa Oxy+</option>
+                                    <option>AgVa Emer.</option>
+                                    <option>AgVa Inteli</option>
+                                    <option>Patient Moniter</option>
+                                    <option>Sedation System</option>
+                                </select>
                             </div>
 
-                            {/* Product Serial Number */}
+                            {/* Device Id */}
                             <div>
-                                <label for="last_name" style={{ textAlign: 'start' }} class="block mb-2 text-sm font-medium text-gray-900 :text-white">Serial Number</label>
-                                <div style={(productionDataByDeviceId && productionDataByDeviceId.serialNumber && productionDataByDeviceId.serialNumber.length > 0) ? { padding: '0.6rem' } : { padding: '1.2rem' }} id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500">
-                                    {productionDataByDeviceId && productionDataByDeviceId.serialNumber}
+                                <div>
+                                    <label for="last_name" style={{ textAlign: 'start' }} class="block mb-2 text-sm font-medium text-gray-900 :text-white">Device Id</label>
+                                    <div style={(dataSerialNo && dataSerialNo.deviceId && dataSerialNo.deviceId.length > 0) ? { padding: '0.6rem' } : { padding: '1.2rem' }} id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500">
+                                        {dataSerialNo && dataSerialNo.deviceId}
+                                    </div>
                                 </div>
                             </div>
                             {/* hospital Name */}
                             <div>
                                 <label for="visitors" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Hospital Name</label>
-                                <input list='data' type="text" onChange={(e) =>
+                                <input list='data' type="text" onChange={(e) => {
                                     setDispatchDetails({ ...dispatchDetails, hospitalName: e.target.value })
-                                } value={dispatchDetails.hospitalName} id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" placeholder="Enter Hospital Name" required />
+                                    const hospital_name = e.target.value;
+                                    dispatch(getSingleHospitalDetails(hospital_name))
+                                }} value={dispatchDetails.hospitalName} id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" placeholder="Enter Hospital Name" required />
                                 <datalist id='data'>
                                     {dataHospital && dataHospital.map((item) => {
                                         return (
@@ -206,6 +243,12 @@ function Dispatch() {
                                     <option>Demo</option>
                                 </select>
                             </div>
+                            <div>
+                                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Document Number</label>
+                                <input type="text" onChange={(e) => setDispatchDetails({ ...dispatchDetails, document_no: e.target.value })}
+                                    value={dispatchDetails.document_no} id="visitors" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" placeholder='Enter Document No.' required />
+
+                            </div>
                             {/* concerned Person */}
                             <div>
                                 <label for="visitors" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Concerned Person Name</label>
@@ -220,8 +263,13 @@ function Dispatch() {
                             </div>
                             {/* distrbuter name  */}
                             <div>
-                                <label for="visitors" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Distributor Name<span>*</span></label>
+                                <label for="visitors" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Distributor Name<span>(optional)</span></label>
                                 <input type="text" onChange={(e) => setDispatchDetails({ ...dispatchDetails, distributor_name: e.target.value })} value={dispatchDetails.distributor_name} id="visitors" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" placeholder='Enter Distributor Name' required />
+                            </div>
+                            <div>
+                                <label for="visitors" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Distributor Contact<span>(optional)</span></label>
+                                <input type="number" onChange={(e) => setDispatchDetails({ ...dispatchDetails, distributor_contact: e.target.value })}
+                                    value={dispatchDetails.distributor_contact} id="visitors" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" placeholder='Enter Distributor Contact' required />
                             </div>
                         </div>
                         <div class="grid gap-6 mb-6 md:grid-cols-2" style={{ textAlign: 'start' }}>
@@ -232,44 +280,40 @@ function Dispatch() {
                                     value={dispatchDetails.date_of_dispatch} id="visitors" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" required />
                             </div>
                             {/* Distributer Contact */}
-                            <div>
-                                <label for="visitors" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Distributor Contact<span>*</span></label>
-                                <input type="number" onChange={(e) => setDispatchDetails({ ...dispatchDetails, distributor_contact: e.target.value })}
-                                    value={dispatchDetails.distributor_contact} id="visitors" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" placeholder='Enter Distributor Contact' required />
-                            </div>
+
                             {/* PIN Code */}
                             <div>
-                                <label for="visitors" class="block mb-2 text-sm font-medium text-gray-900 :text-white">PIN Code</label>
-                                <input type="number" onChange={(e) => {
-                                    setDispatchDetails({ ...dispatchDetails, pincode: e.target.value })
-                                    const pincode = e.target.value
-                                    dispatch(getPincodeData(pincode))
-                                }
-                                } value={dispatchDetails.pincode} id="visitors" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" placeholder='Enter Pin Code' required />
-                            </div>
+                                {/* <label for="visitors" class="block mb-2 text-sm font-medium text-gray-900 :text-white">PIN Code</label> */}
+                                <div>
+                                    <label for="last_name" style={{ textAlign: 'start' }} class="block mb-2 text-sm font-medium text-gray-900 :text-white">PIN Code</label>
+                                    <div style={(singleDataOfHospital && singleDataOfHospital[0] && singleDataOfHospital[0].Pincode && singleDataOfHospital[0].Pincode.length > 0) ? { padding: '0.6rem' } : { padding: '1.2rem' }} id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500">
+                                        {hospitalPinCode}
+                                    </div>
+                                </div></div>
                             <div>
                                 <label for="district" style={{ textAlign: 'start' }} class="block mb-2 text-sm font-medium text-gray-900 :text-white">District</label>
-                                <div style={(getPincodeAllData && getPincodeAllData.district && getPincodeAllData.district.length > 0) ? { padding: '0.6rem' } : { padding: '1.2rem' }} id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500">
-                                    {getPincodeAllData && getPincodeAllData.district}
+                                <div style={(singleDataOfHospital && singleDataOfHospital[0] && singleDataOfHospital[0].Pincode && singleDataOfHospital[0].District.length > 0) ? { padding: '0.6rem' } : { padding: '1.2rem' }} id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500">
+                                    {hospitalDistrict}
                                 </div>
                             </div>
                             <div>
                                 <label for="city" style={{ textAlign: 'start' }} class="block mb-2 text-sm font-medium text-gray-900 :text-white">City</label>
-                                <div style={(getPincodeAllData && getPincodeAllData.city && getPincodeAllData.city.length > 0) ? { padding: '0.6rem' } : { padding: '1.2rem' }} id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500">
-                                    {getPincodeAllData && getPincodeAllData.city}
+                                <div style={(singleDataOfHospital && singleDataOfHospital[0] && singleDataOfHospital[0].Pincode && singleDataOfHospital[0].City.length > 0) ? { padding: '0.6rem' } : { padding: '1.2rem' }} id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500">
+                                    {hospitalCity}
                                 </div>
                             </div>
                             <div>
                                 <label for="state" style={{ textAlign: 'start' }} class="block mb-2 text-sm font-medium text-gray-900 :text-white">State</label>
-                                <div style={(getPincodeAllData && getPincodeAllData.state && getPincodeAllData.state.length > 0) ? { padding: '0.6rem' } : { padding: '1.2rem' }} id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500">
-                                    {getPincodeAllData && getPincodeAllData.state}
+                                <div style={(singleDataOfHospital && singleDataOfHospital[0] && singleDataOfHospital[0].Pincode && singleDataOfHospital[0].Hospital_Address.length > 0) ? { padding: '0.6rem' } : { padding: '1.2rem' }} id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500">
+                                    {hospitalState}
                                 </div>
                             </div>
                             {/* Address */}
                             <div>
                                 <label for="visitors" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Address</label>
-                                <textarea id="message" onChange={(e) => setDispatchDetails({ ...dispatchDetails, address: e.target.value })}
-                                    value={dispatchDetails.address} rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter Address"></textarea>
+                                <div style={(singleDataOfHospital && singleDataOfHospital[0] && singleDataOfHospital[0].Pincode && singleDataOfHospital[0].Pincode.length > 0) ? { padding: '0.6rem' } : { padding: '1.2rem' }} id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500">
+                                    {hospitalAddress}
+                                </div>
                             </div>
                         </div>
                         <button type="submit" style={{ backgroundColor: 'rgb(203, 41, 123)' }} onClick={dispatchHandler} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center :bg-blue-600 :hover:bg-blue-700 :focus:ring-blue-800">Submit</button>

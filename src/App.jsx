@@ -59,6 +59,8 @@ import NurseModuleData from "./screens/device/NurseModuleData";
 import NurseAddDiagnose from "./screens/device/NurseAddDiagnose";
 import NurseAddDiagnoseData from "./screens/device/NurseAddDiagnoseData";
 import AddNewPatientDetails from "./screens/device/AddNewPatientDetails";
+import DispatchEditDetailsForm from "./screens/AdminDashboard/DispatchDetails/DispatchEditDetailsForm";
+import SingleDispatchDataModule from "./screens/AdminDashboard/DispatchDetails/SingleDispatchDataModule";
 function App() {
   const [splash, setSplash] = useState(true);
   const adminLoginReducer = useSelector((state) => state.adminLoginReducer);
@@ -94,11 +96,12 @@ function App() {
           {/* <Navbar/> */}
           <Routes>
             <Route exact path="/" element={<Login />} />
-            <Route exact path="/register" element={<Register />} />
+            {/* <Route exact path="/register" element={<Register />} /> */}
             <Route exact path="/resetpassword" element={<ResetPassword />} />
             <Route exact path="/forgetPassword" element={<ForgetPassword />} />
             <Route exact path="/changePassword" element={<ChangePassword />} />
             <Route exact path="/tersAndCondition" element={<TermsAndCondition />} />
+            <Route exact path="/register" element={<Register />} />
             {/* Protected Route */}
             <Route element={<Protected />}>
               <Route exact path="/home" element={<AllDashComponent />} />
@@ -107,10 +110,10 @@ function App() {
               <Route exact path="/productionDataModel" element={<ProductionDataModule />} />
               {/* Support */}
               <Route exact path="/support" element={<Support />} />
-              <Route exact path="/supportForm" element={<SupportEngForm />}/>
-              <Route exact path="/add_hospital" element={<AddHospital />}/>
-              <Route exact path="/Support_eng_data_module" element={<SupportEngDataModule/>} />
-              <Route exact path="/Ticket_details" element={<TicketDetails/>} />
+              <Route exact path="/supportForm" element={<SupportEngForm />} />
+              <Route exact path="/add_hospital" element={<AddHospital />} />
+              <Route exact path="/Support_eng_data_module" element={<SupportEngDataModule />} />
+              <Route exact path="/Ticket_details" element={<TicketDetails />} />
               {/* service-Eng */}
               <Route exact path="/service_eng" element={<ServiceEnginner />} />
               <Route exact path="/service_feedback" element={<FeedbackForm />} />
@@ -123,7 +126,6 @@ function App() {
               <Route exact path="/add_diagnose_data" element={<NurseAddDiagnoseData />} />
               <Route exact path="/add_new_patient_details" element={<AddNewPatientDetails />} />
               {/* Register User */}
-              <Route exact path="/add_register_user" element={<AddRegisterUser />} />
               <Route exact path="/log_table" element={<LogTable />} />
               <Route exact path="/analytics" element={<Analytics />} />
               <Route exact path="/update" element={<UpdateProfile />} />
@@ -142,6 +144,8 @@ function App() {
               <Route exact path="/live" element={<Live />} />
               <Route exact path="/deviceAssign" element={<DeviceAssign />} />
               <Route exact path="/deleteAssignDevice" element={<DeleteAssignDevice />} />
+              <Route exact path="/dispatchEditDetailsForm" element={<DispatchEditDetailsForm />} />
+              <Route exact path="/singleDispatchDataModule" element={<SingleDispatchDataModule />} />
               <Route exact path="/dispatchDevice" element={<Dispatch />} />
               <Route exact path="/allDispatchDeviceData" element={<DispatchDataModule />} />
               <Route exact path="/dispatchModel" element={<DispatchModel />} />

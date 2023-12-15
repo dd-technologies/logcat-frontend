@@ -9,8 +9,6 @@ import productionList from "../../../assets/icons/production-2.png"
 function ServiceEng() {
     return (
         <>
-            <Navbar />
-            <SideBar />
             <Container>
                 <div style={{ display: 'flex', gap: '2rem', marginTop: '5%', flexWrap:'wrap' }} className="rowSection">
                     <Col xl={4} lg={4} md={6} sm={6} className="mt-4">

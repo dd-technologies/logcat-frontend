@@ -71,6 +71,7 @@ import {
   GET_UHIDS_LIST_SUCCESS,
   GET_UHIDS_LIST_FAIL
 } from "../types/DeviceConstant";
+import { toast } from "react-hot-toast";
 const cookies = new Cookies();
 
 export const deviceAction = ({ page, limit, searchData }) => async (dispatch) => {
@@ -732,7 +733,27 @@ export const getDeviceIdBySerialNumber = (seerialNumber) => async (dispatch) => 
       type: GET_SERIAL_NO_BY_DEVICE_ID_REQUEST_SUCCESS,
       payload: data.data,
     });
+    console.log('90876',data)
+    if (data.statusCode === 400) {
+      alert('Already Use')
+    }
   } catch (error) {
+    console.log(error)
+    if (error.response &&
+      error.response.data &&
+      error.response.data.message==='Internal server error') {
+      return null
+    }
+    else if(error.response &&
+      error.response.data &&
+      error.response.data.message===undefined){
+        return null
+    }
+    else{
+      toast.error(error.response &&
+        error.response.data &&
+        error.response.data.message)
+    }
     dispatch({
       type: GET_SERIAL_NO_BY_DEVICE_ID_REQUEST_FAIL,
       payload:
@@ -892,9 +913,6 @@ export const postPatientDiagnose = ({ uhid, medicine, procedure, others }) => as
       type: ADD_PATIENT_DIAGNOSE_SUCCESS,
       payload: data.data,
     });
-    if (data.statusCode == 201) {
-      window.location.reload()
-    }
   } catch (error) {
     dispatch({
       type: ADD_PATIENT_DIAGNOSE_FAIL,

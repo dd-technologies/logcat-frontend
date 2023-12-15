@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Style from "../../../../css/Production.module.css"
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import back from "../../../../assets/images/back.png";
 import { useDispatch } from 'react-redux'
 import { Toaster, toast } from 'react-hot-toast'

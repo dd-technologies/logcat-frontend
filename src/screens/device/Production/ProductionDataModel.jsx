@@ -68,28 +68,34 @@ function ProductionDataModule() {
                                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                             <tr>
-                                                <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                                                <td scope="col" class="px-6 py-3 text-center text-white text-base font-semibold" style={{ backgroundColor: '#cb297b' }}>
                                                     Device ID
                                                 </td>
-                                                <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                                                <td scope="col" class="px-6 py-3 text-center text-white text-base font-semibold" style={{ backgroundColor: '#cb297b' }}>
                                                     Serial Number
                                                 </td>
-                                                <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                                                <td scope="col" class="px-6 py-3 text-center text-white text-base font-semibold" style={{ backgroundColor: '#cb297b' }}>
                                                     Product Type
                                                 </td>
-                                                <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
-                                                    Phone No.
+                                                <td scope="col" class="px-6 py-3 text-center text-white text-base font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                                                    Sim No.
                                                 </td>
-                                                <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                                                <td scope="col" class="px-6 py-3 text-center text-white text-base font-semibold" style={{ backgroundColor: '#cb297b' }}>
                                                     Batch No.
                                                 </td>
-                                                <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                                                <td scope="col" class="px-6 py-3 text-center text-white text-base font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                                                    Display Number
+                                                </td>
+                                                <td scope="col" class="px-6 py-3 text-center text-white text-base font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                                                    Turbine Number
+                                                </td>
+                                                <td scope="col" class="px-6 py-3 text-center text-white text-base font-semibold" style={{ backgroundColor: '#cb297b' }}>
                                                     Hardware Version
                                                 </td>
-                                                <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                                                <td scope="col" class="px-6 py-3 text-center text-white text-base font-semibold" style={{ backgroundColor: '#cb297b' }}>
                                                     Software Version
                                                 </td>
-                                                <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                                                <td scope="col" class="px-6 py-3 text-center text-white text-base font-semibold" style={{ backgroundColor: '#cb297b' }}>
                                                     Manufacturing Date
                                                 </td>
                                             </tr>
@@ -112,6 +118,12 @@ function ProductionDataModule() {
                                                         </td>
                                                         <td class="px-6 py-4 text-center">
                                                             {item1.batchNumber}
+                                                        </td>
+                                                        <td class="px-6 py-4 text-center">
+                                                            {item1.displayNumber.length>0?item1.displayNumber:'NA'}
+                                                        </td>
+                                                        <td class="px-6 py-4 text-center">
+                                                            {item1.turbineNumber.length>0?item1.turbineNumber:'NA'}
                                                         </td>
                                                         <td class="px-6 py-4 text-center">
                                                             {item1.hw_version}

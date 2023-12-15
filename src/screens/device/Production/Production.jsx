@@ -19,7 +19,9 @@ function Production() {
         batchNumber: "",
         simNumber: "",
         hardwareV: '',
-        softwareV: ''
+        softwareV: '',
+        displayNumber:'',
+        turbineNumber:''
     })
 
     const [selectedImage, setSelectedImage] = useState(null);
@@ -53,9 +55,15 @@ function Production() {
         else if (!dispatchDetails.simNumber) {
             toast.error("Enter Phone Number")
         }
-        else if (!dispatchDetails.simNumber.match(phoneno)) {
-            toast.error("Enter 10 digit Sim Number")
+        else if(!dispatchDetails.displayNumber){
+            toast.error('Enter Display Number')
         }
+        else if(!dispatchDetails.turbineNumber){
+            toast.error('Enter Turbine Number')
+        }
+        // else if (!dispatchDetails.simNumber.match(phoneno)) {
+        //     toast.error("Enter 10 digit Sim Number")
+        // }
         else if (todateformat > fromdateformat) {
             toast.error("Please select valid date");
         }
@@ -78,7 +86,9 @@ function Production() {
                 serialNumber: dispatchDetails.serialNumber,
                 simNumber: dispatchDetails.simNumber,
                 hw_version: dispatchDetails.hardwareV,
-                sw_version: dispatchDetails.softwareV
+                sw_version: dispatchDetails.softwareV,
+                turbineNumber:dispatchDetails.turbineNumber,
+                displayNumber:dispatchDetails.displayNumber,
             }))
             setTimeout(() => {
                 window.location.reload()
@@ -175,8 +185,29 @@ function Production() {
                             </div>
                             <div>
                                 <label for="number" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Sim Number</label>
-                                <input type="number" id="number" onChange={(e) => setDispatchDetails({ ...dispatchDetails, simNumber: e.target.value })}
+                                <input type="text" id="number" onChange={(e) => setDispatchDetails({ ...dispatchDetails, simNumber: e.target.value })}
                                     value={dispatchDetails.simNumber} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" placeholder="Enter Sim Number" required />
+                            </div>
+                        </div>
+                        {/* Turbine abd Display Number  */}
+                        <div class="grid gap-6 mb-6 md:grid-cols-2" style={{ textAlign: 'start' }}>
+                            <div>
+                                <label for="softwareV" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Display Number</label>
+                                <form class="flex items-center">
+                                    <div class="relative w-full">
+                                    <input type="text" id="number" onChange={(e) => setDispatchDetails({ ...dispatchDetails, displayNumber: e.target.value })}
+                                    value={dispatchDetails.displayNumber} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" placeholder="Enter Display Number" required />
+                            </div>
+                                </form>
+                            </div>
+                            <div>
+                                <label for="hardwareV" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Turbine Number</label>
+                                <form class="flex items-center">
+                                    <div class="relative w-full">
+                                        <input onChange={(e) => setDispatchDetails({ ...dispatchDetails, turbineNumber: e.target.value })}
+                                            value={dispatchDetails.turbineNumber} type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Enter Turbine Number' required />
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         {/* software hardware */}
@@ -191,7 +222,7 @@ function Production() {
                                             </h6>
                                         </div>
                                         <input style={{ paddingLeft: '4.7rem' }} onChange={(e) => setDispatchDetails({ ...dispatchDetails, softwareV: e.target.value })}
-                                            value={dispatchDetails.softwareV} type="number" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Enter Software Version' required />
+                                            value={dispatchDetails.softwareV} type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Enter Software Version' required />
                                     </div>
                                 </form>
                             </div>
@@ -205,7 +236,7 @@ function Production() {
                                             </h6>
                                         </div>
                                         <input style={{ paddingLeft: '4.7rem' }} onChange={(e) => setDispatchDetails({ ...dispatchDetails, hardwareV: e.target.value })}
-                                            value={dispatchDetails.hardwareV} type="number" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Enter Hardware Version' required />
+                                            value={dispatchDetails.hardwareV} type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Enter Hardware Version' required />
                                     </div>
                                 </form>
                             </div>

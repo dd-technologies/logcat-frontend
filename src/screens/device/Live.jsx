@@ -12,13 +12,13 @@ import Betterylowup from '../../assets/images/Betterylowup.png';
 import Betterymedium from '../../assets/images/Betterymedium.png';
 import { useNavigate } from 'react-router';
 import lungs from '../../assets/icons/lungs.png';
+import { IoExitOutline } from "react-icons/io5";
 import DynamicGraphData from "./DynamicGraphData"
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import { Toaster } from 'react-hot-toast';
 import Style from "../../css/Live.module.css"
 const serverUrl = 'http://192.168.2.1:8000/'; 
-// const serverUrl = 'http://52.63.221.128:8000/';// Replace with your server address 52.63
 const socket = io.connect(serverUrl, () => {
   console.log("hello world")
 })
@@ -246,11 +246,12 @@ function Live() {
                   }}
                   onClick={handleClose}
                 >
-                  <img
+                  {/* <img
                     src={image}
                     alt="Close"
                     className={Style.cross_ing}
-                  />
+                  /> */}
+                  <IoExitOutline className={Style.cross_ing} value={{ color: 'white'}}/>
                 </div>
                 <div style={{ border: '1px solid #606060', display: 'flex', marginBottom: '-16px', height: '5.5rem' }}>
                   {spo2List.map((item, index) => {
@@ -276,11 +277,11 @@ function Live() {
               <h5>LOOPS</h5>
               <h5>
                 <button className={graphDataBtn} onClick={handleGraphBtn} style={{width:'12rem',height:'3.5rem',borderRadius:'0px',textAlign:'left'}}>
-                  LAYOUTS
+                  GRAPHS
                 </button>
               </h5>
-              <h5>MANEUVERS</h5>
-              <h5>LOGS</h5>
+              {/* <h5>MANEUVERS</h5> */}
+              {/* <h5>LOGS</h5> */}
               <h5>MODES</h5>
               <h5>CONTROLS</h5>
               <h5>SYSTEM</h5>

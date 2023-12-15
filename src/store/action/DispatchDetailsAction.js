@@ -11,9 +11,22 @@ import {
   GET_PINCODE_DATA_FAIL,
   GET_DEVICEID_FROM_PRODUCTION_REQUEST,
   GET_DEVICEID_FROM_PRODUCTION_SUCCESS,
-  GET_DEVICEID_FROM_PRODUCTION_FAIL
+  GET_DEVICEID_FROM_PRODUCTION_FAIL,
+  GET_EDIT_DISPATCH_DATA_REQUEST,
+  GET_EDIT_DISPATCH_DATA_FAIL,
+  GET_EDIT_DISPATCH_DATA_SUCCESS,
+  GET_SINGLE_HOSPITAL_DETAILS_REQUEST,
+  GET_SINGLE_HOSPITAL_DETAILS_SUCCESS,
+  GET_SINGLE_HOSPITAL_DETAILS_FAIL,
+  GET_SERIAL_NUMBER_LIST_REQUEST,
+  GET_SERIAL_NUMBER_LIST_SUCCESS,
+  GET_SERIAL_NUMBER_LIST_FAIL,
+  GET_SINGLE_SERIAL_NO_TRACK_DATA_REQUEST,
+  GET_SINGLE_SERIAL_NO_TRACK_DATA_SUCCESS,
+  GET_SINGLE_SERIAL_NO_TRACK_DATA_FAIL,
 } from "../types/DispatchDeviceType";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 //  USER REGISTER ACTIONS
@@ -33,7 +46,8 @@ export const dispatchDetailsAction =
     distributor_contact,
     district,
     state,
-    city
+    city,
+    document_no
   }) =>
     async (dispatch) => {
       try {
@@ -63,7 +77,8 @@ export const dispatchDetailsAction =
             distributor_name,
             district,
             state,
-            city
+            city,
+            document_no
           },
           config
         );
@@ -173,7 +188,10 @@ export const productionDetailsAction = ({
   dispatchDate,
   simNumber,
   hw_version,
-  sw_version
+  sw_version,
+  turbineNumber,
+  displayNumber
+  
 }) => async (dispatch) => {
   try {
     dispatch({
@@ -198,7 +216,9 @@ export const productionDetailsAction = ({
         dispatchDate,
         simNumber,
         hw_version,
-        sw_version
+        sw_version,
+        turbineNumber,
+        displayNumber
       },
       config
     );
@@ -358,6 +378,7 @@ export const getPincodeData = (pincode) => async (dispatch) => {
     });
   }
 };
+
 export const getDeviceIdFromProduction = () => async (dispatch) => {
   try {
     dispatch({
@@ -391,3 +412,158 @@ export const getDeviceIdFromProduction = () => async (dispatch) => {
     });
   }
 };
+
+export const editDispatchDataModel = ({ deviceId,
+  hospital_name,
+  address,
+  document_no,
+  phone_number,
+  concerned_person , serial_no, date_of_dispatch}) => async (dispatch) => {
+    try {
+      dispatch({
+        type: GET_EDIT_DISPATCH_DATA_REQUEST,
+      });
+      const token = cookies.get('ddAdminToken');
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      let response = await axios.put(
+        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/update-dispatch-data/SBXMH`,
+        {
+          deviceId,
+          hospital_name,
+          address,
+          document_no,
+          phone_number,
+          concerned_person,
+          serial_no,
+          date_of_dispatch
+        },
+        config
+      );
+      dispatch({
+        type: GET_EDIT_DISPATCH_DATA_SUCCESS,
+        payload: response.data,
+      });
+      console.log('data',response.data)
+      if(response.data.statusCode===200){
+        toast.success('New Data Added')
+      }
+    } catch (error) {
+      dispatch({
+        type: GET_EDIT_DISPATCH_DATA_FAIL,
+        payload:
+          error &&
+          error.response &&
+          error.response.data &&
+          error.response.data.data &&
+          error.response.data.data.err &&
+          error.response.data.data.err.msg,
+      });
+    }
+  };
+
+  export const getSingleHospitalDetails = (hospital_name) => async (dispatch) => {
+    try {
+      dispatch({
+        type: GET_SINGLE_HOSPITAL_DETAILS_REQUEST,
+      });
+      const token = cookies.get('ddAdminToken');
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      let response = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/hospital/get-byhospital/${hospital_name}`,
+        config
+      );
+      dispatch({
+        type: GET_SINGLE_HOSPITAL_DETAILS_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_SINGLE_HOSPITAL_DETAILS_FAIL,
+        payload:
+          error &&
+          error.response &&
+          error.response.data &&
+          error.response.data.data &&
+          error.response.data.data.err &&
+          error.response.data.data.err.msg,
+      });
+    }
+  };
+
+  export const getSerialNumberList = () => async (dispatch) => {
+    try {
+      dispatch({
+        type: GET_SERIAL_NUMBER_LIST_REQUEST,
+      });
+      const token = cookies.get('ddAdminToken');
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      let response = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/api/common/get-serial-number-list`,
+        config
+      );
+      dispatch({
+        type: GET_SERIAL_NUMBER_LIST_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_SERIAL_NUMBER_LIST_FAIL,
+        payload:
+          error &&
+          error.response &&
+          error.response.data &&
+          error.response.data.data &&
+          error.response.data.data.err &&
+          error.response.data.data.err.msg,
+      });
+    }
+  };
+
+  export const getSingleSerialNumberData = (deviceId) => async (dispatch) => {
+    try {
+      dispatch({
+        type: GET_SINGLE_SERIAL_NO_TRACK_DATA_REQUEST,
+      });
+      const token = cookies.get('ddAdminToken');
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      let response = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/api/logger/logs/track-dispatched-device-location/${deviceId}`,
+        config
+      );
+      dispatch({
+        type: GET_SINGLE_SERIAL_NO_TRACK_DATA_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_SINGLE_SERIAL_NO_TRACK_DATA_FAIL,
+        payload:
+          error &&
+          error.response &&
+          error.response.data &&
+          error.response.data.data &&
+          error.response.data.data.err &&
+          error.response.data.data.err.msg,
+      });
+    }
+  };

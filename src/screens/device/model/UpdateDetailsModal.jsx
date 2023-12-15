@@ -22,7 +22,6 @@ const UpdateDetailsModal = (props) => {
     VentiOp: getAllData && getAllData.Bio_Med,
     AliasName:getAllData && getAllData.Alias_Name,
   })
-  console.log('AliasName0',updateDetails.AliasName)
   const dispatch = useDispatch();
 
     // Hpospital Data

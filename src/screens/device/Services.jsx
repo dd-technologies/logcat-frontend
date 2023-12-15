@@ -150,16 +150,17 @@ function Services() {
 
                     </div>
                     :
-                    <section style={{ width: '100%', height: '100%', marginTop: '10rem', marginBottom: '10rem' }}>
-                      {records && records.length === 0 && (
-                        <section className={Style.noDataFound}>
-                          <span>
-                            No Data Found
-                          </span>
-                        </section>)
-                      }
-                      {loading && <span style={{ display: 'flex', textAlign: 'center', justifyContent: 'center', fontSize: 20 }}>Loading...</span>}
-                    </section>
+                    // <section style={{ width: '100%', height: '100%', marginTop: '10rem', marginBottom: '10rem' }}>
+                    //   {records && records.length === 0 && (
+                    //     <section className={Style.noDataFound}>
+                    //       <span>
+                    //         No Data Found
+                    //       </span>
+                    //     </section>)
+                    //   }
+                    //   {/* {loading && <span style={{ display: 'flex', textAlign: 'center', justifyContent: 'center', fontSize: 20 }}>Loading...</span>} */}
+                    // </section>
+                    <h1>No Data Found</h1>
                   }
                   <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-end" style={{ display: "flex", alignItems: 'center' }}>

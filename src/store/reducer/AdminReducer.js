@@ -17,6 +17,12 @@ import {
   UPDATE_PROFILE_REQUEST,
   UPDATE_PROFILE_REQUEST_SUCCESS,
   UPDATE_PROFILE_REQUEST_FAIL,
+  GET_OTP_ON_NUMBER_REQUEST,
+  GET_OTP_ON_NUMBER_SUCCESS,
+  GET_OTP_ON_NUMBER_FAIL,
+  VERIFY_SMS_OTP_NUMBER_SUCCESS,
+  VERIFY_SMS_OTP_NUMBER_REQUEST,
+  VERIFY_SMS_OTP_NUMBER_FAIL,
 } from "../types/AdminConstants";
 
 export const adminLoginReducer = (state = {}, action) => {
@@ -129,6 +135,46 @@ export const updateProfileReducer = (state = {}, action) => {
         data: action.payload,
       };
     case UPDATE_PROFILE_REQUEST_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const getOtpOnNumberReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_OTP_ON_NUMBER_REQUEST:
+      return { loading: true };
+
+    case GET_OTP_ON_NUMBER_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+      };
+    case GET_OTP_ON_NUMBER_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const VerifySMSOtpNumberReducer = (state = {}, action) => {
+  switch (action.type) {
+    case VERIFY_SMS_OTP_NUMBER_REQUEST:
+      return { loading: true };
+
+    case VERIFY_SMS_OTP_NUMBER_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+      };
+    case VERIFY_SMS_OTP_NUMBER_FAIL:
       return {
         loading: false,
         error: action.payload,

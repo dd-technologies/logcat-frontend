@@ -12,6 +12,8 @@ import {
   adminRegisterReducer,
   forgetPasswordReducer,
   resetPasswordReducer,
+  getOtpOnNumberReducer,
+  VerifySMSOtpNumberReducer,
 } from "./reducer/AdminReducer";
 import { allhospitalNameReducer, allCountryStateReducer,getallHospitalNameReducer, allStateReducer } from "./reducer/HospitalNameReducer";
 import {
@@ -22,7 +24,7 @@ import { passwordChangeReducer, userInfoReducer, getHistoryDataReducer } from ".
 import { deviceReducer, deviceAssignDataByUserId, getAllAboutByDeviceIdReducer, getAllEventsByDeviceIdReducer, getRegisteredDetailsReducer, getAllAlarmsByDeviceIdReducer, getAllTrendsByDeviceIdReducer, getCalibrationByDeviceIdReducer, getAllLogsByDeviceIdReducer, getLogMsgOccurenceReducer, getDeviceCrashAnalyticsDataReducer, getDeviceLogMsgOccurenceWRTDateReducer, getAllServiceRecordsDetails, getAllSectionByDeviceId , getSingleUploadFileReducer, getDeviceIdBySerialNumberReducer,getPatientDetailsReducer,getPatientDetailsByUhidReducer , getPatientDiagnose,getUhidsListReducer} from "./reducer/deviceReducer";
 import { alarmReducer } from "./reducer/AlarmReducer";
 import {storeSystemReducer,allTicketDataReducer,allHospitalDataReducer,getHospitalFromAdding, getHospitalListByPincodeReducer} from "./reducer/StoreSystemReducer"
-import { dispatchAllDetailsReducer, dispatchAllDetailsByIdReducer, productionAllDetailsReducer , productionAllDetailsByUserIdReducer ,getdhrqualityFileReducer,getPiincodeDatReducer,getDeviceIdProductionReducer} from "./reducer/DispatchDevices"
+import { dispatchAllDetailsReducer, dispatchAllDetailsByIdReducer, productionAllDetailsReducer , productionAllDetailsByUserIdReducer ,getdhrqualityFileReducer,getPiincodeDatReducer,getDeviceIdProductionReducer,getHospitalDetailsReducer,getSingleSerialNoTrackReducer,getSerialNumberListReducer} from "./reducer/DispatchDevices"
 import { updateUserInfoReducer } from "./reducer/UpdateUserInfoReducer"
 import { getAllDeviceLogsReducer } from "./reducer/ProjectReducer";
 import { eventReducer } from "./reducer/EventReducer";
@@ -38,6 +40,8 @@ const appReducer = combineReducers({
   getallHospitalNameReducer,
   forgetPasswordReducer,
   resetPasswordReducer,
+  getOtpOnNumberReducer,
+  VerifySMSOtpNumberReducer,
   liveDataReducer,
   getAllProjectReducer,
   getAllLogByCodeReducer,
@@ -101,6 +105,9 @@ const appReducer = combineReducers({
   getdhrqualityFileReducer,
   getPiincodeDatReducer,
   getDeviceIdProductionReducer,
+  getSerialNumberListReducer,
+  getHospitalDetailsReducer,
+  getSingleSerialNoTrackReducer,
   dispatchAllDetailsByIdReducer,
   getAllTicketsDataReducer,
   getAllTicketsByIdReducer,

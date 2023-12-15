@@ -28,15 +28,19 @@ import {
   GET_SERVICE_ENGINNER_DATA_FAIL,
   GET_SERVICE_ENGINNER_DATA_SUCCESS,
   GET_SERVICE_ENGINNER_DATA_REQUEST,
+  GET_RE_ASSIGN_TICKETS_REQUEST,
+  GET_RE_ASSIGN_TICKETS_SUCCESS,
+  GET_RE_ASSIGN_TICKETS_FAIL,
 
 } from "../types/ServiceEngType";
 const cookies = new Cookies();
-export const getAllTicketsDataAction = ({ searchData, page, limit }) => async (dispatch) => {
+export const getAllTicketsDataAction = ({ searchData, page, limit, filter }) => async (dispatch) => {
   try {
     dispatch({
       type: GET_ALL_TICKETS_DATA_REQUEST
     });
     const token = cookies.get('ddAdminToken');
+    console.log('00990', filter)
     const config = {
       method: 'PUT',
       headers: {
@@ -45,7 +49,7 @@ export const getAllTicketsDataAction = ({ searchData, page, limit }) => async (d
       },
     };
     let { data } = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/support/get-tickets?page=${page}&limit=${limit}&search=${searchData}`,
+      `${process.env.REACT_APP_BASE_URL}/support/get-tickets?page=${page}&limit=${limit}&search=${searchData}&filter=${filter}`,
       config
     );
     dispatch({
@@ -139,9 +143,9 @@ export const deleteStatusDataAction = ({ id, ticket_status, priority, service_en
         type: DELETE_STATUS_DATA_SUCCESS,
         payload: data,
       });
-      if (data.statusCode == 200) {
-        window.location.reload();
-      }
+      // if (data.statusCode == 200) {
+      //   window.location.reload();
+      // }
     } catch (error) {
       dispatch({
         type: DELETE_STATUS_DATA_FAIL,
@@ -357,7 +361,7 @@ export const getServiceEngData = (email) => async (dispatch) => {
     });
     const token = cookies.get('ddAdminToken');
     const config = {
-      method: 'PUT',
+      method: 'GET',
       headers: {
         "Content-type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -377,6 +381,49 @@ export const getServiceEngData = (email) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SERVICE_ENGINNER_DATA_FAIL,
+      payload:
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.data &&
+        error.response.data.data.err &&
+        error.response.data.data.msg,
+    })
+  }
+};
+
+export const postReAssignList = (service_engineer,id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_RE_ASSIGN_TICKETS_REQUEST
+    });
+    const token = cookies.get('ddAdminToken');
+    const config = {
+      method: 'PUT',
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    let { data } = await axios.put(
+      `${process.env.REACT_APP_BASE_URL}/support/re-assign-ticket`,
+      {
+
+        service_engineer,
+        id,
+      },
+      config
+    );
+    dispatch({
+      type: GET_RE_ASSIGN_TICKETS_SUCCESS,
+      payload: data,
+    });
+    // if(data && data.statusCode===200){
+    //   window.location.reload()
+    // }
+  } catch (error) {
+    dispatch({
+      type: GET_RE_ASSIGN_TICKETS_FAIL,
       payload:
         error &&
         error.response &&

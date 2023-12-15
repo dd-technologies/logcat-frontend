@@ -87,9 +87,6 @@ export const updateAllUsersDetailsById =
         type: UPDATE_ALL_USERS_SUCCESS,
         payload: data,
       });
-      if (data.statusCode == 200) {
-        window.location.reload();
-      }
     } catch (error) {
       dispatch({
         type: UPDATE_ALL_USERS_FAIL,

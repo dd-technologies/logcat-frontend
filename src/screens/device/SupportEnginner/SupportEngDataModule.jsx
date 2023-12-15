@@ -7,16 +7,23 @@ import React, { useEffect, useState } from 'react'
 import { Button, Modal } from 'flowbite-react';
 import back from "../../../assets/images/back.png";
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteStatusDataAction, getAllTicketsDataAction } from '../../../store/action/ServiceEngAction';
+import production from "../../../assets/icons/Production.png"
+import { deleteStatusDataAction, getAllTicketsDataAction, postReAssignList } from '../../../store/action/ServiceEngAction';
+import { getStoreSystem } from '../../../store/action/StoreSystem';
+import { Toaster, toast } from 'react-hot-toast';
+import CustomCard from '../../../container/CustomCard';
+import ServiceModuleNavBar from '../ServiceEnginner/ServiceModuleNavBar';
 function SupportEngDatamODULE() {
     const [openModal, setOpenModal] = useState();
     const [detailsData, setDetailsData] = useState()
+    const [assignDetails, setAssignDetails] = useState()
+    const [checkboxEmail, setCheckBoxEmail] = useState({ service_engineer: '', id: '' })
     const props = { openModal, setOpenModal };
     const getAllTicketsDataReducer = useSelector((state) => state.getAllTicketsDataReducer);
     const { loading, data, error } = getAllTicketsDataReducer;
     const getAllTicket = data && data.data
-
     const dispatch = useDispatch()
+    const history = useNavigate()
     useEffect(() => {
         dispatch(getAllTicketsDataAction({ page: 1, limit: recordsPerPage }))
     }, [])
@@ -26,7 +33,6 @@ function SupportEngDatamODULE() {
 
     const getTicketDetailsByNumberReducer = useSelector((state) => state.getTicketDetailsByNumberReducer);
     const { data: ticketData } = getTicketDetailsByNumberReducer;
-    console.log('ticketData', ticketData)
 
     const [updateEmail, setUpdateEmail] = useState('')
     const incPage = parseInt(data && data.currentPage)
@@ -38,11 +44,38 @@ function SupportEngDatamODULE() {
     const records = getAllTicket && getAllTicket.slice(firstIndex, lastIndex);
     const npage = Math.ceil(data && data.data.length / recordsPerPage)
     const numbers = Array.from({ length: npage }, (_, i) => i + 1).slice(1)
-    console.log('detailsData', detailsData)
+
+    useEffect(() => {
+        dispatch(getStoreSystem())
+    }, [dispatch])
+
+    const storeSystemReducer = useSelector((state) => state.storeSystemReducer);
+    const { data: serviceEngData } = storeSystemReducer;
+    const serviceEngDataa = serviceEngData && serviceEngData.data;
+
+
+    console.log('checkboxEmail', checkboxEmail)
+    const assignBtn = (e) => {
+        if (checkboxEmail && checkboxEmail.service_engineer === '') {
+            toast.error("Select Email");
+        } else {
+            const service_engineer = checkboxEmail.service_engineer;
+            const id = checkboxEmail.id;
+            dispatch(postReAssignList(service_engineer, id));
+            toast.success("Success");
+            props.setOpenModal(undefined)
+            history('/Support_eng_data_module')
+            console.log('checkboxEmail', checkboxEmail)
+        }
+    };
+    useEffect(() => {
+        postReAssignList()
+    }, [])
     return (
         <>
             <Navbar />
             <SideBar />
+            <Toaster />
             <Row className="rowSection">
                 <Col
                     xl={10}
@@ -59,14 +92,53 @@ function SupportEngDatamODULE() {
                         <div
                             className={Style.topHeading}
                         >
-                            <h3 className={Style.heading}>AgVa Pro</h3>
-                            <div
-                                className={Style.deviceSummary}
-                            >
-                                <Link onClick={goBack}>
-                                    <img src={back} className={Style.backImage} />
-                                </Link>
-                                <h4 className={Style.Header}>Assigned Ticket Data</h4>
+                            <div style={{ display: 'flex', gap: '2rem', marginBottom: '2%', flexWrap: 'wrap' }} className="rowSection">
+                                <Col xl={4} lg={4} md={6} sm={6}>
+                                    <CustomCard
+                                        padding="15px"
+                                        height="200px"
+                                        boxShadow="0px 0px 3px 1px rgba(192,192,192,0.90)"
+                                    >
+                                        <Link
+                                            to="/supportForm"
+                                            style={{ textDecoration: "none" }}
+                                        >
+                                            <div
+                                                className="project-cart"
+                                                style={{
+                                                    backgroundColor: "white",
+                                                    padding: "2rem",
+                                                    borderRadius: "5px",
+                                                    width: "100%",
+                                                }}
+                                            >
+                                                <div className="d-flex" style={{ justifyContent: 'space-between' }}>
+                                                    <img
+                                                        src={production}
+                                                        style={{ height: "6rem" }}
+                                                        alt="AgvaVenti"
+                                                    />
+                                                    <div
+                                                        className="d-flex"
+                                                        style={{
+                                                            gap: "1rem",
+                                                            justifyContent: "center",
+                                                            flexDirection: "column",
+                                                            alignItems: "center",
+                                                        }}
+                                                    >
+                                                        <div>
+                                                            <h6 style={{ color: "#707070", fontSize: "1.5rem" }}>
+                                                                Assign Ticket
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    </CustomCard>
+
+                                </Col>
                             </div>
                         </div>
                         {/* Events  */}
@@ -108,6 +180,9 @@ function SupportEngDatamODULE() {
                                                 </td>
                                                 <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
                                                     Feedback
+                                                </td>
+                                                <td scope="col" class="px-6 py-3 text-center text-white text-4xl font-semibold" style={{ backgroundColor: '#cb297b' }}>
+                                                    Re-Assign
                                                 </td>
                                             </tr>
                                         </thead>
@@ -193,7 +268,11 @@ function SupportEngDatamODULE() {
                                                             </Modal>
                                                         </td>
                                                         <td class="px-6 py-4 text-center ">
-                                                            <select style={{ width: '7rem' }} onChange={(e) => { dispatch(deleteStatusDataAction({ id: item1._id, priority: e.target.value })) }}
+                                                            <select style={{ width: '7rem' }} onChange={(e) => {
+                                                                dispatch(deleteStatusDataAction({ id: item1._id, priority: e.target.value }))
+                                                                toast.success('Priority Changed')
+                                                                history('/Support_eng_data_module')
+                                                            }}
                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" >
                                                                 <option>{item1.priority}</option>
                                                                 {item1.priority == 'Medium' ?
@@ -204,7 +283,12 @@ function SupportEngDatamODULE() {
                                                             </select>
                                                         </td>
                                                         <td class="px-6 py-4 text-center ">
-                                                            <select style={{ width: '7rem' }} onChange={(e) => { dispatch(deleteStatusDataAction({ id: item1._id, ticket_status: e.target.value })) }}
+                                                            <select style={{ width: '7rem' }} onChange={(e) => {
+                                                                dispatch(deleteStatusDataAction({ id: item1._id, ticket_status: e.target.value }))
+                                                                toast.success('Action Changed')
+                                                                history('/Support_eng_data_module')
+                                                            }
+                                                            }
                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" >
                                                                 <option>{item1.ticket_status ? item1.ticket_status : 'Open'}</option>
                                                                 {item1.ticket_status == 'Open' ?
@@ -228,6 +312,32 @@ function SupportEngDatamODULE() {
                                                                 <option value='Submitted-Without-Feedback'>Submited with feedback</option>
                                                             </select>
                                                         </td>
+                                                        <td class="px-6 py-4 text-center ">
+                                                            <Button onClick={() => {
+                                                                (props.setOpenModal('defaultData'))
+                                                                setAssignDetails(serviceEngDataa)
+                                                                setCheckBoxEmail({ ...checkboxEmail, id: item1._id })
+
+                                                            }
+                                                            }>Re-Assign</Button>
+                                                            <Modal show={props.openModal === 'defaultData'} onClose={() => props.setOpenModal(undefined)}>
+                                                                <Modal.Header style={{ padding: '1rem' }}>Device Details</Modal.Header>
+                                                                <Modal.Body>
+                                                                    <div className="space-y-6" style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+                                                                        <input list="nameList" onChange={(e) => setCheckBoxEmail({ ...checkboxEmail, service_engineer: e.target.value })} id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-blue-500 :focus:border-blue-500" placeholder="Enter Service Enginner Name" required />
+                                                                        <datalist id='nameList' onChange={(e) => setCheckBoxEmail({ ...checkboxEmail, service_engineer: e.target.value })} value={checkboxEmail.service_engineer}>
+                                                                            {assignDetails && assignDetails.map((item) => {
+                                                                                return (
+                                                                                    <option value={item.email}>{item.firstName}</option>
+                                                                                )
+                                                                            })}
+                                                                        </datalist>
+                                                                        <Button type='Button'
+                                                                            onClick={assignBtn}>Re-Assign</Button>
+                                                                    </div>
+                                                                </Modal.Body>
+                                                            </Modal>
+                                                        </td>
                                                     </tr>
                                                 )
                                             })}
@@ -242,9 +352,6 @@ function SupportEngDatamODULE() {
                                                 <img src={back} style={{ width: "3rem" }} />
                                             </button>
                                             : " "}
-                                        {/* {numbers.map((n, i) => (
-                                            <li key={i} class={`page-item ${incPage == n ? 'active' : ""}`}><a style={{ borderRadius: "100px", margin: "5px" }} class="page-link" href="#" onClick={() => changeCPage(n)}>{n}</a></li>
-                                        ))} */}
                                         {incPage !== totalPage ?
                                             <button onClick={nextPage} style={{ border: "0px", backgroundColor: "white" }}>
                                                 <img src={back} style={{ width: "3rem", transform: "rotate(180deg)" }} />

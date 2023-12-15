@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Navbar } from "../../utils/NavBar";
 import SideBar from "../../utils/Sidebar";
 import back from "../../assets/images/back.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Style from "../../css/ManagerUsers.module.css";
 import { Row } from "react-bootstrap";
 import TableCard1 from "../../container/TableCard1";
@@ -28,6 +28,8 @@ function ManageUsers() {
   useEffect(() => {
     dispatch(getAllUsersDetalisById({ page: 1, limit: recordsPerPage }));
   }, [dispatch]);
+
+  const history=useNavigate()
   return (
     <>
       <Navbar />
@@ -116,7 +118,12 @@ function ManageUsers() {
                             {item1.hospitalName}
                           </td>
                           <td class="px-6 py-4 text-center ">
-                            <select style={{ padding: "5px", padding: "9px", borderRadius: "8px", border: "0px", backgroundColor: "#cb297b", color: "white" }} onChange={(e) => { dispatch(updateAllUsersDetailsById({ userType: e.target.value, _id: item1._id })) }}>
+                            <select style={{ padding: "5px", padding: "9px", borderRadius: "8px", border: "0px", backgroundColor: "#cb297b", color: "white" }}
+                             onChange={(e) => { 
+                              dispatch(updateAllUsersDetailsById({ userType: e.target.value, _id: item1._id })) 
+                              toast.success('Role Module Changed')
+                              history('/manageUsers')
+                              }}>
                               <option >{item1.userType}</option>
                               {item1.userType == 'User' ?
                                 <>

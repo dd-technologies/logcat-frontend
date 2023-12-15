@@ -74,6 +74,10 @@ console.log('error',error)
     return true;
   };
 
+  const handleRegister=async(e)=>{
+    e.preventDefault()
+    navigate('/register')
+  }
   // HANDLE SUBMIT AND DISPATCH
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -105,7 +109,7 @@ console.log('error',error)
         navigate('/service_eng')
       }
       else if (adminInfo.data.userType === "Support") {
-        navigate('/support')
+        navigate('/Support_eng_data_module')
       }
       else if (adminInfo.data.userType === "Nurse") {
         navigate('/nurse_module')
@@ -266,6 +270,8 @@ console.log('error',error)
                   style={{
                     display: "flex",
                     justifyContent: "center",
+                    flexDirection:'column',
+                    alignItems:'center'
                   }}
                 >
                   {loading ? (
@@ -293,6 +299,22 @@ console.log('error',error)
                       SIGN IN
                     </button>
                   )}
+                  <button style={{
+                        width: "50%",
+                        height: "2.8rem",
+                        backgroundColor: "#fff",
+                        // background:
+                        //   "transparent linear-gradient(181deg, #fff 0%, #3C3C3C 200%) 0% 0% no-repeat padding-box",
+                        boxShadow: "0px 0px 30px #00000029",
+                        borderRadius: "10px",
+                        opacity: 1,
+                        border: "0px solid",
+                        color: "#CB297B",
+                        fontSize: "16px",
+                        fontFamily: "Poppins",
+                      }}
+                      type="submit"
+                      className="mt-4" onClick={(e) => handleRegister(e)}>Register</button>
                 </section>
               </form>
             </div>
